@@ -8,6 +8,30 @@
 html{
     box-sizing: border-box;
     font-size: 62.5%;
+    margin: 0;
     scroll-behavior: smooth;
     scroll-behavior: cubic-bezier(0.2, 0, 0.38, 1);
+}
+body{
+    position: relative;
+}
+.header{
+    min-height: 30vh;
+    background: blue;
+}
+.section1{
+    min-height: 90vh;
+    background: red;
+}
+.section2{
+    min-height: 70vh;
+    background: grey;
+}
+.section3{
+    min-height: 80vh;
+    background: pink;
+}
+.footer{
+    min-height: 20vh;
+    background: yellow;
 }

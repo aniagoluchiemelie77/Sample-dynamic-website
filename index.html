@@ -24,7 +24,7 @@
                         <path d="M6 8.5H18" stroke="#FAFAFA" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </a>
-                <a class="mainheader__header-nav-2">
+                <a class="mainheader__header-nav-2" id="searchicon">
                     <svg width="2.9rem" height="2.9rem" viewBox="0 0 24 24" fill="#222222" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_15_152)">
                             <rect width="24" height="24" fill="#222222"/>
@@ -38,6 +38,11 @@
                         </defs>
                     </svg>
                 </a>
+                <div class="mainheader__searchbox-container hidden">
+                    <input class="mainheader__searchbox" type="text" name="search">
+                    <label>Search...</label>
+                    <a class="mainheader__searchbox-btn">Go</a>
+                </div>
             </div>
             <div class="mainheader__logobox">
                 <img src="#" alt="companylogo">
@@ -66,6 +71,13 @@
                     <rect width="24" height="24" fill="#F94A04"/>
                     <path d="M17 9.5L12 14.5L7 9.5" stroke="#FAFAFA" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
+                <!--<div class="header__dropdownlinks__onhover">
+                    <a class="header__dropdownlinks-link1" href="#">Link1</a>
+                    <a class="header__dropdownlinks-link1" href="#">Link2</a>
+                    <a class="header__dropdownlinks-link1" href="#">Link3</a>
+                    <a class="header__dropdownlinks-link1" href="#">Link4</a>
+                    <a class="header__dropdownlinks-link1" href="#">Link5</a>
+                </div>-->
             </a>
         </div></center>
         <div class="header__menu-sidebar hidden" id="sidebar">
@@ -764,7 +776,6 @@
             <div class="footer__div1__logobox"></div>
             <div class="footer__subscribebox">
                 <div class="sec2__susbribe-box-darker">
-                    <h1 class="sec2__susbribe-box-header-light">Subscribe to Updates</h1>
                     <input class="sec2__susbribe-box-input-light" type="email" placeholder="Your email address..."/>
                     <button class="sec2__susbribe-box-btn-light" type="submit">Subscribe</button>
                 </div>

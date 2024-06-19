@@ -34,7 +34,7 @@ a, p, li{
     text-decoration: none;
 }
 .header{
-    min-height: fit-content;
+    height: 30vh;
     background: #222222;
     padding: 2rem;
     align-self: center;
@@ -170,16 +170,75 @@ a, p, li{
     padding: 1rem;
     display: flex;
     justify-content: space-between;
-    width: 70%;
+    width: 75%;
 }
-.header__dropdownlinks a{
+.header__dropdownlinks .headerlinks{
     display: flex;
     cursor: pointer;
     flex-wrap: nowrap;
     width: fit-content;
+    height: fit-content;
+    align-items: flex-start;
     padding: 1rem 1rem;
+    flex-direction: column;
 }
-.header__dropdownlinks a:hover{
+.header__dropdownlinks-6{
+    position: relative;
+    font-size: var(--plia-font-size);
+    width: fit-content;
+    padding-top: 1.3rem;
+    cursor: pointer;
+}
+.header__dropdownlinks-6:hover{
+    background-color: var(--color10);
+    border-radius: 1rem;
+    padding-bottom: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+.header__dropdownlinks-6 .header__dropdownlinks__onhover{
+    padding: 1rem;
+    transition: all .3s ease-in-out;
+    display: none;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+.header__dropdownlinks-6:hover .header__dropdownlinks__onhover{
+    cursor: pointer;
+    background-color: var(--color30);
+    padding: 1rem 1rem;
+    display: block;
+    margin-top: .7rem;
+}
+.header__dropdownlinks-6 ul li{
+    list-style-type: none;
+    width: 100%;
+    padding: 1rem 0 1rem 0;
+    background-color: var(--color30);
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+.header__dropdownlinks-6 ul li:hover{
+    background-color: var(--color10);
+    width: 100%;
+    border-radius: .6rem;
+    -webkit-border-radius: .6rem;
+    -moz-border-radius: .6rem;
+    -ms-border-radius: .6rem;
+    -o-border-radius: .6rem;
+}
+.header__dropdownlinks-6 ul li a{
+    width: 100%;
+    padding: .2rem 1rem;
+}
+.header__dropdownlinks .headerlinks:hover{
     color: var(--color60);
     border-radius: 1rem;
     background-color: var(--color10);

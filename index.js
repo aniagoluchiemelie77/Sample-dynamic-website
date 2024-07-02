@@ -1,5 +1,6 @@
 'use strict';
 const section2 = document.querySelector('.section2');
+const section1 = document.querySelector('.section1');
 const menubtn = document.querySelector('.mainheader__header-nav-1');
 const menubtn2 = document.getElementById('searchicon');
 const headerSearchBar = document.querySelector('.mainheader__searchbox-container');
@@ -14,7 +15,7 @@ console.log(initCoords);
 
 //implementing sticky nav bar
 
-/*const stickyNavFunc = function () {
+const stickyNavFunc = function () {
     const navHeight = header.getBoundingClientRect().height;
     const stickyNav = function (entries) {
         const [entry] = entries;
@@ -30,16 +31,9 @@ console.log(initCoords);
         threshold: 0,
         rootMargin: `-${navHeight}px`,
     });
-    headerObs.observe(header);
+    headerObs.observe(section1);
 };
-stickyNavFunc();*/
-window.addEventListener('scroll', function (e) {
-    if(this.window.scrollY > initCoords.top){
-        header.classList.add('sticky');
-    }else{
-        header.classList.remove('sticky');
-    }
-});
+stickyNavFunc();
 const screenOnlyFuncs = function () {
     const onClickOutside = (element) => {
         document.addEventListener('click', e => {

@@ -262,7 +262,7 @@ a, p, li{
     position: fixed;
     z-index: 30;
     background-color: rgba(34, 34, 34, .95);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
 }
 .header__menu-sidebar{
     padding: 2rem;

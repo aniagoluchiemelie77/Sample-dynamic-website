@@ -1317,7 +1317,7 @@ a, p, li{
     }
     .header__dropdownlinks-6{
         position: relative;
-        width: fit-content;
+        width: 50%;
         display: inline-block;
         margin-top: .8rem;
     }

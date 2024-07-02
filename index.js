@@ -10,7 +10,25 @@ const sidebar = document.getElementById('sidebar');
 let surroundingDivs = !sidebar;
 console.log(initCoords);
 
-
+//implementing sticky nav bar
+/*const stickyNavFunc = function () {
+    const navHeight = header.getBoundingClientRect().height;
+    const stickyNav = function (entries) {
+        const [entry] = entries;
+        if (!entry.isIntersecting) {
+            header.classList.add('sticky');
+        }else{
+            header.classList.remove('sticky');
+        }
+    }
+    const headerObs = new IntersectionObserver(stickyNav, {
+        root: null,
+        threshold: 0,
+        rootMargin: `-${navHeight}px`,
+    });
+    headerObs.observe(header);
+};
+stickyNavFunc();*/
 window.addEventListener('scroll', function (e) {
     if(this.window.scrollY > initCoords.top){
         header.classList.add('sticky');

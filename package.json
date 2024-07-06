@@ -1,0 +1,16 @@
+{
+  "name": "sample-dynamic-website",
+  "version": "1.0.0",
+  "description": "This website is a multipaged dynamic website developed for Diamaka Aniagolu.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Aniagolu Chiemelie",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss-cli": "^11.0.0"
+  }
+}

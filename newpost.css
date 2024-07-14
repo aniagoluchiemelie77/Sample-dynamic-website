@@ -1,0 +1,110 @@
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit; 
+}
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+    margin: 0;
+    scroll-behavior: smooth;
+    scroll-behavior: cubic-bezier(0.2, 0, 0.38, 1);
+}
+.container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #222222;
+    color: #FAFAFA;
+}
+.container label, li{
+    font-size: 1.6rem;
+    font-weight: normal;
+    line-height: 1.5;
+    text-decoration: none;
+}
+.form__container{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: black;
+    min-height: fit-content;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    box-shadow: 0px 10px 16px 10px rgba(0,0,0,0.6);
+}
+.mainheader{
+    padding: 1.5rem;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    background-image: linear-gradient(to right, #F94A04, #F93404);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.form__container__div{
+    padding: 1.5rem 0;
+}
+.form__container__div div{
+    padding: 1rem 0;
+}
+.form__container__div label{
+   margin-right: 1.2rem;
+}
+.form__container__div label:hover{
+    color: #F94A04;
+ }
+.form__container__div__div1{
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+.form__container__div__div1 div input{
+    border: none;
+    outline: none;
+    font-size: 1.4rem;
+    color: white;
+    border-bottom: 1.5px solid #F94A04;
+    background: transparent;
+}
+.form__container__div__div2{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+.form__container__div__div2 textarea{
+    margin: 1rem 0;
+    padding: .5rem;
+    min-height: 40vh;
+    border: none;
+}
+.form__container__div__div2 textarea:active{
+    border:  1.5px solid #F94A04;
+}
+.form__container__div__div2 input{
+    margin: 1rem 0;
+}
+.form__container__div__div3{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: space-between;
+}
+.form__container__div__div3 div input{
+    border: none;
+    outline: none;
+    font-size: 1.4rem;
+    color: white;
+    border-bottom: 1.5px solid #F94A04;
+    background: transparent;
+}

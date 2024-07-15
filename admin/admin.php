@@ -17,6 +17,7 @@
 	<title>Dynamic Website</title>
 </head>
 <body>
+    <h1>Hullo</h1>
     <script src="../index.js"></script>
 </body>
 </html>

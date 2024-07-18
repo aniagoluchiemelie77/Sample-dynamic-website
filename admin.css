@@ -36,11 +36,17 @@ html{
     scroll-behavior: smooth;
     scroll-behavior: cubic-bezier(0.2, 0, 0.38, 1);
 }
- p, label{
+a, td,span, p, label{
     font-size: 1.5rem;
     font-weight: normal;
     line-height: 1.5;
     text-decoration: none;
+}
+.lightp{
+    color: #FAFAFA;
+}
+.darkp{
+    color: black;
 }
 .section1{
     background: linear-gradient(to left, #eee, white);
@@ -81,7 +87,7 @@ html{
 .container .form{
     padding: .5rem 1.5rem;
 }
-.container form input{
+.container .form input{
     color: inherit;
     width: 100%;
     outline: none;
@@ -92,11 +98,11 @@ html{
     padding-bottom: .3rem;
     border-bottom: 1px solid #FAFAFA;
 }
-form .input_group{
+.form .input_group{
     position: relative;
     padding: 1rem 0;
 }
-form .input_group i{
+.form .input_group i{
     position: absolute;
     font-size: 1.6rem;
     color: #eee;
@@ -107,14 +113,14 @@ form .input_group i{
     -o-transform: translateY(-.5rem);
 }
 
-input:focus{
+.form input:focus{
     border-bottom: 2px solid #F94A04;
     padding-left: 1rem;
 }
-input::placeholder{
+.form input::placeholder{
     color: transparent;
 }
-form .input_group label{
+.form .input_group label{
     position: relative;
     left: 2.5rem;
     top: -2.2rem;
@@ -125,7 +131,7 @@ form .input_group label{
     -ms-transition: .5s ease-in-out all;
     -o-transition: .5s ease-in-out all;
 }
-input:focus ~ label, input:not(:placeholder-shown) ~ label{
+.form input:focus ~ label, input:not(:placeholder-shown) ~ label{
     top: -3.3rem;
     font-size: .8rem;
     color: #F94A04;
@@ -180,3 +186,36 @@ input:focus ~ label, input:not(:placeholder-shown) ~ label{
     border-right: 0;
     border-bottom: 0;
   }
+/*For admin homepage*/
+.header{
+    display: flex;
+    background-color: #222222;
+    align-items: center;
+    padding: 1.5rem;
+    min-height: fit-content;
+    justify-content: space-between;
+}
+.header_searchbar{
+    border-radius: 2rem;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    -o-border-radius: 2rem;
+    display: flex;
+    width: fit-content;
+}
+.header_searchbar a{
+    background-color: #F94A04;
+    height: fit-content;
+    padding: 0 1rem;
+}
+.header_img img{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    align-items: center;
+}

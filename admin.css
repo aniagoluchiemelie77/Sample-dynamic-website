@@ -1,3 +1,27 @@
+:root{
+    --plia-font-size: 1.5rem;
+    --plia-font-size-small: 1rem;
+    --color60: #FAFAFA;
+    --color30: #222222;
+    --color10: #F94A04;
+    --color60-shade: #eee;
+    --sectionpadding-big: 2rem;
+    --sectionpadding-small: 1.5rem;
+    --sectionpadding-medium: 1rem;
+    --color10-shade: #F93404;
+    --border-radius-small: .6rem;
+    --border-radius-big: 1rem;
+    --border-radius-circle: 50%;
+    --div-padding-full: 1rem;
+    --column-gap-main: 1.5rem;
+    --article-header: 2.4rem;
+    --article-header-medium: 2rem;
+    --article-header-small: 1.6rem;
+    --transform-size-small: scale(1.05);
+    --transform-size-medium: scale(1.15);
+    --transform-size-big: scale(1.4);
+    --height: 70vh;
+ }
 *,
 *::after,
 *::before{
@@ -18,24 +42,31 @@ html{
     line-height: 1.5;
     text-decoration: none;
 }
-body{
+.section1{
     background: linear-gradient(to left, #eee, white);
     display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    justify-content: center;
+    min-height: var(--height);
     align-items: center;
+    justify-content: center;
 }
 .container{
     min-width: 500px;
     background-color: #222222;
     box-shadow: 0 25px 35px rgba(0,0,1,.5);
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: 2rem;
     -webkit-border-radius: 2rem;
     -moz-border-radius: 2rem;
     -ms-border-radius: 2rem;
     -o-border-radius: 2rem;
+}
+.footer{
+    height: calc(100vh - var(--height));
+    background: var(--color30);
+    color: var(--color60);
+    display: flex;
+    padding: var(--sectionpadding-big);
+    align-items: center;
 }
 .container h1{
     font-size: 3.3rem;
@@ -46,6 +77,9 @@ body{
     background-clip: text;
     color: transparent;
     text-decoration: underline;
+}
+.container .form{
+    padding: .5rem 1.5rem;
 }
 .container form input{
     color: inherit;
@@ -120,3 +154,29 @@ input:focus ~ label, input:not(:placeholder-shown) ~ label{
 .container .btn:hover{
     background-color: #F93404;
 }
+.footer__div3{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: var(--div-padding-full);
+}
+.footer__div3__subdiv h1{
+    margin: 1.2rem 0;
+}
+.footer__div3__subdiv div {
+    height: fit-content;
+}
+.footer__div3__subdiv div a{
+    margin: 0 .5rem;
+    padding: 0 .5rem;
+    height: fit-content;
+}
+.border-gradient-side{
+    border:  white 10px solid;
+    border-image-slice: 1;
+    border-width: 1px;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }

@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width" initial-scale="1.0"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="Article website" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,41 +13,43 @@
 	<title>Add new post</title>
 </head>
 <body class="container">
-    <form action="insert_post.php" method="post" name="form" enctype="multipart/form-data" class="form__container">
-        <center><h1 class="mainheader">Add New Post</h1></center>
-        <div class="form__container__div">
-            <div class="form__container__div__div1">
-                <div>
-                    <label class="input__label" for="Post_Niche">Post Niche:</label>
-                    <input class="form__input" name="Post_Niche" type="text"/>
+    <div class="form_body">
+        <form action="insert_post.php" method="post" enctype="multipart/form-data" class="form__container">
+            <h1 class="mainheader">Add New Post</h1>
+            <div class="form__container__div">
+                <div class="form__container__div__div1">
+                    <div>
+                        <label class="input__label" for="Post_Niche">Post Niche:</label>
+                        <input class="form__input" name="Post_Niche" type="text"/>
+                    </div>
+                    <div>
+                        <label class="input__label" for="Post_Title">Post Title:</label>
+                        <input class="form__input" name="Post_Title" type="text"/>
+                    </div>
                 </div>
-                <div>
-                    <label class="input__label" for="Post_Title">Post Title:</label>
-                    <input class="form__input" name="Post_Title" type="text"/>
+                <div class="form__container__div__div2">
+                    <label class="input__label" for="Post_Content">Post Content:</label>
+                    <textarea class="form__input" name="Post_Content" type="text"></textarea>
+                    <label class="input__label" for="Post_Niche">Post image:</label>
+                    <input class="form__input" name="Post_Image" type="file"/>
                 </div>
-            </div>
-            <div class="form__container__div__div2">
-                <label class="input__label" for="Post_Content">Post Content:</label>
-                <textarea class="form__input" name="Post_Content" type="text"></textarea>
-                <label class="input__label" for="Post_Niche">Post image:</label>
-                <input class="form__input" name="Post_Image" type="file"/>
-            </div>
-            <div class="form__container__div__div3">
-                <div>
-                    <label class="input__label" for="Post_Authors_Firstname">Post Author's Firstname:</label>
-                    <input class="form__input" name="Post_Authors_Firstname" type="text"/>
+                <div class="form__container__div__div3">
+                    <div>
+                        <label class="input__label" for="Post_Authors_Firstname">Post Author's Firstname:</label>
+                        <input class="form__input" name="Post_Authors_Firstname" type="text"/>
+                    </div>
+                    <div>
+                        <label class="input__label" for="Post_Author_Lastname">Post Author's Lastname:</label>
+                        <input class="form__input" name="Post_Author_Lastname" type="text"/></div>
                 </div>
-                <div>
-                    <label class="input__label" for="Post_Author_Lastname">Post Author's Lastname:</label>
-                    <input class="form__input" name="Post_Author_Lastname" type="text"/></div>
+                <div class="form__container__div__div4">
+                    <label class="input__label" for="Post_Author_Title">Post Author's Title</label>
+                    <input class="form__input" name="Post_Author_Title" type="text"/>
+                </div>
+                <input class="submit" type="submit" value="Add post" name="submit"/>
             </div>
-            <div class="form__container__div__div4">
-                <label class="input__label" for="Post_Author_Title">Post Author's Title</label>
-                <input class="form__input" name="Post_Author_Title" type="text"/>
-            </div>
-            <input class="submit" type="submit" value="Add post" name="submit"/>
-        </div>
-    </form>
+        </form>
+    </div>
     <script src="index.js"></script>
 </body>
-</html>
+</html>-->

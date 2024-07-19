@@ -19,17 +19,26 @@ include("connect.php")
 	<title>Admin Homepage</title>
 </head>
 <body>
+    <div class="logout_alert hidden">
+        <h1 class="logout_alert_header">Are You Sure You Want To Logout?</h1>
+        <div>
+            <a class="btn">Yes</a>
+            <a class="btn cancellogout">No</a>
+        </div>
+    </div>
     <header class="header">
         <div class="header_logobox">
             <img src="#" alt="Website Logo">
         </div>
         <form class="header_searchbar" action="" method="get">
             <input type="text" name="search" placeholder="Search.." />
-            <a class="header_searchbar_submit">
+            <a class="fa fa-search" aria-hidden="true">
             </a>
         </form>
         <div class="header_img">
             <a class="notification" href="#">
+                <span></span>
+                <i class="fa fa-bell" aria-hidden="true"></i>
             </a>
             <img src="images\image1.jpeg" alt="Author's Image"/>
         </div>
@@ -61,7 +70,7 @@ include("connect.php")
                         Contact Developer
                     </p>
                 </div>
-                <div class="Log Out border-gradient-side sidebarbtn">
+                <div class="logout border-gradient-side">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                     <p class="paragraph">
                         Logout
@@ -86,35 +95,41 @@ include("connect.php")
                 <div class="webinfo_container">
                     <div class="website_info">
                         <div class="website_info_subdiv">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
                             <p class="website_info_p1">10.5K</p>
                         </div>
                         <p class="website_info_p2">Article Views</p>
                     </div>
                     <div class="website_info">
                         <div class="website_info_subdiv">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
                             <p class="website_info_p1">10.5K</p>
                         </div>
                         <p class="website_info_p2">Comments</p>
                     </div>
                     <div class="website_info">
                         <div class="website_info_subdiv">
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                             <p class="website_info_p1">10.5K</p>
                         </div>
                         <p class="website_info_p2">Likes</p>
                     </div>
                     <div class="website_info">
                         <div class="website_info_subdiv">
+                            <i class="fa fa-check-square" aria-hidden="true"></i>
                             <p class="website_info_p1">10.5k</p>
                         </div>
                         <p class="website_info_p2">Published</p>
                     </div>
                     <a class="website_info" href="#" target="_blank">
                         <div class="website_info_subdiv">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
                         <p class="website_info_p2">Create New Post</p>
                     </a>
                     <a class="website_info" href="#" target="_blank">
                         <div class="website_info_subdiv">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
                         </div>
                         <p class="website_info_p2">View Website</p>
                     </a>
@@ -197,7 +212,7 @@ include("connect.php")
                     </div>
                 </div>
             </div>
-            <div class="profile tabcontent">
+            <div class="profile tabcontent hidden">
                 <figure class="profile_imgbox">
                     <img src="images\image1.jpeg" alt="Authors Profile Picture" class="profile_imgbox_img"/>
                     <a class="profile_imgbox_edit">Edit
@@ -237,10 +252,10 @@ include("connect.php")
                     </form>
                 </div>
             </div>
-            <div class="settings tabcontent">
+            <div class="settings tabcontent hidden">
                 <h1>Settings</h1>
             </div>
-            <div class="developer_contact tabcontent">
+            <div class="developer_contact tabcontent hidden">
                 <h1>Contact Website Developer</h1>
                 <p class="developer_contact_p">Developed and Managed by: <span>Leventis Tech Services</span> </p>
                 <p class="developer_contact_p">Address: <span>Leventis Tech Services</span> </p>

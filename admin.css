@@ -272,22 +272,46 @@ a, td,span, p, label{
     background-color: #222222;
     align-items: center;
     padding: 1.5rem;
-    height: fit-content;
+    height: var(--header-height);
     justify-content: space-between;
 }
 .header_searchbar{
     border-radius: 2rem;
+    height: fit-content;
     -webkit-border-radius: 2rem;
     -moz-border-radius: 2rem;
     -ms-border-radius: 2rem;
     -o-border-radius: 2rem;
     display: flex;
     width: fit-content;
+    background-color: #F94A04;
+}
+.header_searchbar input{
+    border: none;
+    padding: 1rem;
+}
+.header_searchbar input:focus{
+    border: none;
+    outline: none;
 }
 .header_searchbar a{
-    background-color: #F94A04;
     height: fit-content;
-    padding: 0 1rem;
+    padding: 1rem;
+    color: #eee;
+    cursor: pointer;
+}
+.header_searchbar a i{
+    color: #eee;
+}
+.header_img{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.header_img a{
+    margin-right: 1rem;
+    color: #eee;
+    font-size: 2.3rem;
 }
 .header_img img{
     width: 4rem;
@@ -300,7 +324,7 @@ a, td,span, p, label{
     align-items: center;
 }
 .body{
-    height: fit-content;
+    height: calc(100vh - var(--header-height));
     overflow: hidden;
     width: 100vw;
 }
@@ -312,10 +336,11 @@ a, td,span, p, label{
 }
 .body .sidebar{
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     padding: 1rem 1rem;
+    height: 100%;
 }
+
 .border-gradient-side{
     border:  #eeeeee48 10px solid;
     border-image-slice: 1;
@@ -354,16 +379,18 @@ a, td,span, p, label{
 .body .sidebar div i{
     margin-right: 1rem;
     color: #FAFAFA;
+    font-size: 1.7rem;
 }
 .active2{
     display: flex;
 }
 .aside_sidebar{
     margin-left: var(--sidebar-width);
-    padding: 1.5rem;
     position: relative;
     align-items: center;
     background-color: #eee;
+    height: 100%;
+    overflow: scroll;
 }
 .aside_sidebar .aside_sidebar_header{
     background-image: linear-gradient(to right, #F94A04, #F93404);
@@ -380,7 +407,6 @@ a, td,span, p, label{
     padding: 1rem;
     background-color: #eee;
     min-height: fit-content;
-    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -414,6 +440,20 @@ a, td,span, p, label{
     align-items: center;
     justify-content: center;
     box-shadow: 0px 5px 8px rgba(0, 0, 3, .8);
+}
+.webinfo_container .website_info div{
+    display: flex;
+    flex-wrap: nowrap;
+    padding: .5rem 1rem;
+    align-items: center;
+}
+.webinfo_container .website_info div i{
+    margin-right: .6rem;
+    color: #eee;
+    font-size: 2.3rem;
+}
+.webinfo_container .website_info:hover div i{
+    color: #F94A04;
 }
 .website_info_div .webinfo_container .website_info:hover{
     transform: scale(1.1);
@@ -500,11 +540,12 @@ a, td,span, p, label{
 }
 .profile{
     min-width: 100%;
-    display: flex;
+    padding: 1rem 0;
     height: fit-content;
     align-items: center;
     flex-direction: column;
     background-color: #FAFAFA;
+    height: 100%;
 }
 .profile figure{
     text-align: center;
@@ -622,12 +663,10 @@ a, td,span, p, label{
     -o-border-radius: .5rem;
 }
 .settings{
-    display: none;
     flex-direction: column;
     padding: 1.5rem;
 }
 .developer_contact{
-    display: flex;
     flex-direction: column;
     padding: 1.5rem;
     background-color: #FAFAFA;
@@ -655,4 +694,33 @@ a, td,span, p, label{
     align-items: center;
     justify-content: space-evenly;
     margin: 1rem 0;
+}
+.logout_alert{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 100;
+    background: rgba(0, 0, 0, .8);
+    backdrop-filter: blur(10px);
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+}
+.logout_alert h1{
+    color: #eee;
+    font-size: 3rem;
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+}
+.logout_alert div{
+    width: 40vw;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.logout_alert div a{
+    width: 8rem;
+    text-align: center;
 }

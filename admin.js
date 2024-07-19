@@ -2,7 +2,10 @@ const editBtn = document.querySelector('.profile_edit_btn');
 const sideBtns = document.querySelectorAll('.sidebarbtn');
 const tabContent = document.querySelectorAll('.tabcontent');
 const form = document.querySelector('.Edit_profile');
-const formInput = document.getElementById('form_input')
+const logout = document.querySelector('.logout');
+const logoutDiv = document.querySelector('.logout_alert');
+const cancelLogout = document.querySelector('.cancellogout');
+const formInput = document.getElementById('form_input');
 
 sideBtns.forEach((tab, index) => {
     tab.addEventListener('click', (e) => {
@@ -11,13 +14,26 @@ sideBtns.forEach((tab, index) => {
       });
       tab.classList.add('active');
       tabContent.forEach((content) =>{
-        content.classList.add('hidden');
+        content.style.display = 'none';
       })
-      tabContent[index].classList.remove('hidden');
+      tabContent[index].style.display = 'flex';
     })
   })
 
+const cancelExit = function (){
+    const removeExitAlert = function(){
+      logoutDiv.classList.add('hidden');
+    }
+    cancelLogout.addEventListener('click', removeExitAlert);
+};
 const displayForm = function(){
     form.classList.remove('hidden');
 }
 editBtn.addEventListener('click', displayForm);
+let displayExit;
+const displayExitAlert = function(){
+  logoutDiv.classList.remove('hidden');
+  logoutDiv.style.display = 'flex';
+  cancelExit();
+}
+logout.addEventListener('click', displayExitAlert);

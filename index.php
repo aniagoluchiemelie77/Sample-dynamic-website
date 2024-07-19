@@ -20,22 +20,22 @@
             <form action="forms.php" method="post" class="form">
                 <div class="input_group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" name="Email" id="Email" placeholder="Email" required/>
+                    <input type="email" name="Email" id="form_input" placeholder="Email" required/>
                     <label for="Email">Email</label>
                 </div>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" name="Password" id="Password" placeholder="Password" required/>
+                    <input type="password" name="Password" id="form_input" placeholder="Password" required/>
                     <label for="Password">Password</label>
                 </div>
                 <p class="recover"><a href="#">Recover password?</a></p>
-                <input type="submit" value="Sign In" class="btn" name="Sign_In"/>
+                <input type="submit" value="Sign In" class="btn_main" name="Sign_In"/>
             </form>
         </div>
     </section>
     <footer class="footer">
         <div class="footer__div3">
-            <p class="footer__div3-p lightp"> 	&copy; Chiboy Aniagolu 2024. All rights reserved.</p>
+            <p class="footer__div3-p lightp"> 	&copy; uniquetechcontentwriter 2024.</p>
             <div class="footer__div3__subdiv">
                 <h1 class="footer__header lightp">Follow Us</h1>
                 <div class="footer__div3__smedialinks">
@@ -51,6 +51,7 @@
                     </a>
                 </div>
             </div>
+            <p class="footer__div3-p lightp">Powered By: <span>Leventis Tech Services.</span></p>
         </div>
     </footer>
     <script src="index.js"></script>

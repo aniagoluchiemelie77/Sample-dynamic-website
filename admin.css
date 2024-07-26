@@ -272,7 +272,7 @@ a, td,span, p, label{
     background-color: #222222;
     align-items: center;
     padding: 1.5rem;
-    height: var(--header-height);
+    min-height: var(--header-height);
     justify-content: space-between;
 }
 .header_searchbar{
@@ -317,14 +317,14 @@ a, td,span, p, label{
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+    -webkit-border-radius:;
+    -moz-border-radius:;
+    -ms-border-radius:;
+    -o-border-radius:;
     align-items: center;
 }
 .body{
-    height: calc(100vh - var(--header-height));
+    min-height: calc(100vh - var(--header-height));
     overflow: hidden;
     width: 100vw;
 }
@@ -332,15 +332,11 @@ a, td,span, p, label{
     position: fixed;
     width: var(--sidebar-width);
     background-color: #222222;
-    height: 100%;
-}
-.body .sidebar{
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     padding: 1rem 1rem;
-    height: 100%;
 }
-
 .border-gradient-side{
     border:  #eeeeee48 10px solid;
     border-image-slice: 1;
@@ -389,8 +385,8 @@ a, td,span, p, label{
     position: relative;
     align-items: center;
     background-color: #eee;
-    height: 100%;
-    overflow: scroll;
+    min-height: 100%;
+    overflow-y: scroll;
 }
 .aside_sidebar .aside_sidebar_header{
     background-image: linear-gradient(to right, #F94A04, #F93404);

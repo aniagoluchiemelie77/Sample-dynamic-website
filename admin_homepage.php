@@ -82,7 +82,7 @@ include("connect.php")
             </p>
         </div>
         <div class="aside_sidebar">
-            <!--<h1 class="aside_sidebar_header">Welcome, <?php
+            <h1 class="aside_sidebar_header">Welcome, <?php
             if(isset($_SESSION['email'])){
                 $email = $_SESSION['email'];
                 $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
@@ -90,7 +90,7 @@ include("connect.php")
                     echo $row['username'];
                 }
             }
-            ?></h1>-->
+            ?></h1>
             <div class="website_info_div tabcontent active2">
                 <div class="webinfo_container">
                     <div class="website_info">
@@ -215,7 +215,8 @@ include("connect.php")
             <div class="profile tabcontent hidden">
                 <figure class="profile_imgbox">
                     <img src="images\image1.jpeg" alt="Authors Profile Picture" class="profile_imgbox_img"/>
-                    <a class="profile_imgbox_edit">Edit
+                    <a class="profile_imgbox_edit">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
                     </a>
                 </figure>
                 <div class="profile_body">

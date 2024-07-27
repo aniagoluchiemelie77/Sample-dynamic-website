@@ -317,10 +317,10 @@ a, td,span, p, label{
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
-    -webkit-border-radius:;
-    -moz-border-radius:;
-    -ms-border-radius:;
-    -o-border-radius:;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
     align-items: center;
 }
 .body{
@@ -537,7 +537,7 @@ a, td,span, p, label{
 .profile{
     min-width: 100%;
     padding: 1rem 0;
-    height: fit-content;
+    min-height: 100%;
     align-items: center;
     flex-direction: column;
     background-color: #FAFAFA;
@@ -658,6 +658,236 @@ a, td,span, p, label{
     -ms-border-radius: .5rem;
     -o-border-radius: .5rem;
 }
+.aside_sidebar .users{
+    padding: 1.5rem 1rem;
+    background-color: #FAFAFA;
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    overflow: scroll;
+    height: 100%;
+}
+.users .user_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+.aside_sidebar .users .userdiv{
+    margin: 1rem;
+    padding: 1.5rem;
+    min-width: 100%;
+}
+.aside_sidebar .users div h2{
+    font-size: 2.9rem;
+    font-weight: 750;
+}
+.aside_sidebar .users span{
+    font-weight: 800;
+    color: #F94A04;
+}
+.aside_sidebar .users .users_div_subdiv{
+    display: flex; 
+    padding: 1rem;
+}
+.aside_sidebar .users .users_div_subdiv .users_div_subdiv_subdiv{
+    background-color: #222222;
+    min-height: fit-content;
+    color: #FAFAFA;
+    margin: 1rem;
+    box-shadow: 8px 8px 8px rgba(0, 0, 3, .6);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+ .users .users_div_subdiv_subdiv .user_imgbox{
+    margin-bottom: .7rem;
+ }
+ .users_div_subdiv_subdiv .users_delete_edit{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+ }
+ .users_div_subdiv_subdiv .users_delete_edit a{
+    cursor: pointer;
+    padding: .5rem 1rem;
+    border-radius: 1rem;
+    background-color: #F94A04;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+ .users_div_subdiv_subdiv .users_delete_edit a:hover{
+    background-color: #F93404;
+ }
+ .users_div_subdiv_subdiv .users_delete_edit i{
+    color: #222;
+ }
+ .users .users_div_subdiv_subdiv:nth-child(2){
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+ }
+ .users .users_div_subdiv_subdiv:nth-child(2) i{
+    font-size: 2rem;
+    color: #F94A04;
+    align-items: center;
+ }
+ .posts{
+    flex-direction: column;
+    align-items: center;
+ }
+ .posts .postsdiv{
+    padding: 1rem 1.5rem;
+    background-color: #FAFAFA;
+    margin: 1rem 0;
+    width: 80%;
+ }
+ .postsdiv .posts_header h1{
+    font-size: 2.5rem;
+    font-weight: 750;
+ }
+ .postsdiv .posts_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .8rem 0;
+ }
+ .postsdiv .posts_divcontainer{
+    padding: .5rem;
+ }
+ .posts_divcontainer .posts_divcontainer_subdiv{
+    padding: .5rem 1rem;
+ }
+ .posts_divcontainer .posts_divcontainer_subdiv:nth-child(2){
+    background-color: #eee;
+ }
+ .posts_divcontainer .posts_divcontainer_subdiv:nth-child(4){
+    background-color: #eee;
+ }
+ .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+ }
+ .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body h3{
+    font-size: 2rem;
+    font-weight: 750;
+ }
+ .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body a{
+    cursor: pointer;
+ }
+ .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body a:hover i{
+    color: #F94A04;
+ }
+ .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body a:nth-child(2){
+    margin-left: .6rem;
+ }
+ .posts_divcontainer_subdiv .posts_divcontainer_subdiv2{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: .6rem 0;
+    flex-wrap: nowrap;
+ }
+ .posts_divcontainer_subdiv .posts_divcontainer_subdiv2 span{
+    font-weight: 780;
+ }
+ .posts_divcontainer_subdiv .posts_divcontainer_subdiv3{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: .6rem 0;
+    flex-wrap: nowrap;
+ }
+ .posts_divcontainer_subdiv .posts_divcontainer_subdiv3 span{
+    font-weight: 780;
+ }
+ .posts_divcontainer_subdiv4{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: .6rem 0;
+    flex-wrap: nowrap;
+ }
+ .posts_divcontainer_subdiv4 a{
+    color: #222222;
+ }
+ .posts_divcontainer_subdiv4 span{
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+ .posts_divcontainer_subdiv4 span:hover{
+    color: #F94A04;
+}
+.reviews{
+    flex-direction: column;
+    align-items: center;
+}
+.reviews .reviewdiv{
+    background-color: #FAFAFA;
+    padding: 1rem;
+}
+.reviewdiv .review_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+ .revheader{
+    font-size: 2.5rem;
+    font-weight: 750;
+ }
+ .review_divcontainer{
+    padding: 1rem .8rem;
+ }
+ .review_divcontainer_subdiv{
+    padding: 1rem;
+ }
+ .review_divcontainer_subdiv1{
+    display: flex;
+    flex-direction: column;
+ }
+ .review_divcontainer .review_divcontainer_subdiv2{
+    display: flex;
+    align-items: center;
+    padding: .5rem 1rem;
+ }
+ .review_divcontainer_subdiv:nth-child(2){
+    background-color: #eee;
+ }
+ .review_divcontainer_subdiv:nth-child(4){
+    background-color: #eee;
+ }
+ .review_divcontainer .review_divcontainer_subdiv2 i{
+    font-size: 3.5rem;
+    margin-right: 1rem;
+ }
+ .review_divcontainer_subdiv3-pre{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem 0;
+ }
+ .review_divcontainer_subdiv3-pre span{
+    font-weight: 780;
+ }
+ .review_divcontainer_subdiv3{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ }
 .settings{
     flex-direction: column;
     padding: 1.5rem;

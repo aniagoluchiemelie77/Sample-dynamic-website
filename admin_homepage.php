@@ -58,7 +58,31 @@ include("connect.php")
                         Profile
                     </p>
                 </div>
-                <div class="settings border-gradient-side sidebarbtn">
+                <div class="sidebar_users border-gradient-side sidebarbtn">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <p class="paragraph">
+                        Users
+                    </p>
+                </div>
+                <div class="sidebar_posts border-gradient-side sidebarbtn">
+                    <i class="fa fa-newspaper" aria-hidden="true"></i>
+                    <p class="paragraph">
+                        Posts
+                    </p>
+                </div>
+                <div class="sidebar_pages border-gradient-side sidebarbtn">
+                    <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                    <p class="paragraph">
+                        Pages
+                    </p>
+                </div>
+                <div class="sidebar_reviews border-gradient-side sidebarbtn">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    <p class="paragraph">
+                        Reviews
+                    </p>
+                </div>
+                <div class="sidebar_settings border-gradient-side sidebarbtn">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     <p class="paragraph">
                         Settings
@@ -221,6 +245,13 @@ include("connect.php")
                 </figure>
                 <div class="profile_body">
                     <p class="Firstname"><span>Firstname:</span> Chiemelie</p>
+                    <i class="fa fa-area-chart" aria-hidden="true"></i>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                    <i class="fa fa-linkedin" aria-hidden="true"></i>
                     <p class="Lastname"><span>Lastname:</span> Aniagolu</p>
                     <p class="Username"><span>Username:</span> Chibs01</p>
                     <p class="Email"><span>Email:</span> chiboyaniagolu3@gmail.com</p>
@@ -251,6 +282,697 @@ include("connect.php")
                         </div>
                         <center><input type="submit" value="Update" class="profile_edit"/></center>
                     </form>
+                </div>
+            </div>
+            <div class="users tabcontent hidden">
+                <div class="users_admin_div userdiv">
+                    <div class="user_header">
+                        <h2>Administrators</h2>
+                        <a class="btn" href="#" target="_blank">View All</a>
+                    </div>
+                    <div class="users_div_subdiv border-gradient-side-dark">
+                        <div class="users_div_subdiv_subdiv">
+                            <div class="user_imgbox">
+                                <img src="#" alt="admin's image"/>
+                            </div>
+                            <p class="users_div_subdiv_p">
+                            <span>Username:</span>
+                            <?php
+                               if(isset($_SESSION['email'])){
+                                  $email = $_SESSION['email'];
+                                  $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                  while($row = mysqli_fetch_array($query)){
+                                    echo $row['username'];
+                                   }
+                                }
+                            ?>
+                            </p>
+                            <p class="users_div_subdiv_p">
+                            <span>Firstname:</span>
+                            <?php
+                               if(isset($_SESSION['email'])){
+                                  $email = $_SESSION['email'];
+                                  $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                  while($row = mysqli_fetch_array($query)){
+                                    echo $row['firstName'];
+                                   }
+                                }
+                            ?>
+                            </p> 
+                            <p class="users_div_subdiv_p">
+                                <span>Role:</span>
+                                Admin
+                            </p>
+                            <p class="users_div_subdiv_p">
+                                <span>Email:</span>
+                                <?php
+                                    if(isset($_SESSION['email'])){
+                                        $email = $_SESSION['email'];
+                                        $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                        while($row = mysqli_fetch_array($query)){
+                                            echo $row['email'];
+                                        }
+                                    }
+                                ?>
+                            </p>
+                        </div>
+                        <div class="users_div_subdiv_subdiv">
+                            <a class="users_create" target="_blank">
+                                <center><i class="fa fa-plus" aria-hidden="true"></i></center>
+                                <h3>Create New Admin</h3>
+                            </a>    
+                        </div>
+                    </div>
+                </div>
+                <div class="users_editor_div userdiv">
+                    <div class="user_header">
+                        <h2>Editors</h2>
+                        <a class="btn" href="#" target="_blank">View All</a>
+                    </div>
+                    <div class="users_div_subdiv border-gradient-side-dark">
+                        <div class="users_div_subdiv_subdiv">
+                            <div class="user_imgbox">
+                                <img src="#" alt="editor's image"/>
+                            </div>
+                            <p class="users_div_subdiv_p">
+                            <span>Username:</span>
+                            <?php
+                               if(isset($_SESSION['email'])){
+                                  $email = $_SESSION['email'];
+                                  $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                  while($row = mysqli_fetch_array($query)){
+                                    echo $row['username'];
+                                   }
+                                }
+                            ?>
+                            </p>
+                            <p class="users_div_subdiv_p">
+                            <span>Firstname:</span>
+                            <?php
+                               if(isset($_SESSION['email'])){
+                                  $email = $_SESSION['email'];
+                                  $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                  while($row = mysqli_fetch_array($query)){
+                                    echo $row['firstName'];
+                                   }
+                                }
+                            ?>
+                            </p> 
+                            <p class="users_div_subdiv_p">
+                                <span>Role:</span>
+                                Editor
+                            </p>
+                            <p class="users_div_subdiv_p">
+                                <span>Email:</span>
+                                <?php
+                                    if(isset($_SESSION['email'])){
+                                        $email = $_SESSION['email'];
+                                        $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                        while($row = mysqli_fetch_array($query)){
+                                            echo $row['email'];
+                                        }
+                                    }
+                                ?>
+                            </p>
+                            <center><div class="users_delete_edit">
+                                <a class="users_edit">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a class="users_delete">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div></center>
+                        </div>
+                        <div class="users_div_subdiv_subdiv">
+                            <a class="users_create" target="_blank">
+                                <center><i class="fa fa-plus" aria-hidden="true"></i></center>
+                                <h3>Create New Editor</h3>
+                            </a>    
+                        </div>
+                    </div>
+                </div>
+                <div class="users_writer_div userdiv">
+                    <div class="user_header">
+                        <h2>Writers</h2>
+                        <a class="btn" href="#" target="_blank">View All</a>
+                    </div>
+                    <div class="users_div_subdiv border-gradient-side-dark">
+                        <div class="users_div_subdiv_subdiv">
+                            <div class="user_imgbox">
+                                <img src="#" alt="writer's image"/>
+                            </div>
+                            <p class="users_div_subdiv_p">
+                            <span>Username:</span>
+                            <?php
+                               if(isset($_SESSION['email'])){
+                                  $email = $_SESSION['email'];
+                                  $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                  while($row = mysqli_fetch_array($query)){
+                                    echo $row['username'];
+                                   }
+                                }
+                            ?>
+                            </p>
+                            <p class="users_div_subdiv_p">
+                            <span>Firstname:</span>
+                            <?php
+                               if(isset($_SESSION['email'])){
+                                  $email = $_SESSION['email'];
+                                  $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                  while($row = mysqli_fetch_array($query)){
+                                    echo $row['firstName'];
+                                   }
+                                }
+                            ?>
+                            </p> 
+                            <p class="users_div_subdiv_p">
+                                <span>Role:</span>
+                                Writer
+                            </p>
+                            <p class="users_div_subdiv_p">
+                                <span>Email:</span>
+                                <?php
+                                    if(isset($_SESSION['email'])){
+                                        $email = $_SESSION['email'];
+                                        $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                        while($row = mysqli_fetch_array($query)){
+                                            echo $row['email'];
+                                        }
+                                    }
+                                ?>
+                            </p>
+                            <center><div class="users_delete_edit">
+                                <a class="users_edit">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a class="users_delete">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div></center>
+                        </div>
+                        <div class="users_div_subdiv_subdiv">
+                            <a class="users_create" target="_blank">
+                                <center><i class="fa fa-plus" aria-hidden="true"></i></center>
+                                <h3>Create New Writer</h3>
+                            </a>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="posts tabcontent hidden">
+                <div class="posts_div1 postsdiv">
+                    <div class="posts_header">
+                        <h1> Recently Published Posts</h1>
+                        <a class="btn" href="#">View All</a>
+                    </div>
+                    <div class="posts_divcontainer border-gradient-side-dark">
+                        <div class="posts_divcontainer_subdiv">
+                            <div class="posts_divcontainer_subdiv_body">
+                                <h3 class="posts_divcontainer_header">
+                                    Post Title
+                                </h3>
+                                <div class="posts_delete_edit">
+                                    <a class="users_edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="posts_divcontainer_subdiv2">
+                                    <p class="posts_divcontainer_p">
+                                        <span> Written By:</span> Aniagolu
+                                    </p>
+                                    <p class="posts_divcontainer_p">
+                                        <span> Edited By:</span> Chiemelie
+                                    </p>
+                            </div>
+                            <div class="posts_divcontainer_subdiv3">
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Publish Date:</span> 10th July 2024.
+                                </p> 
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Publish Time:</span> 10:00 pm.
+                                </p> 
+                            </div>
+                            <div class="posts_divcontainer_subdiv4">
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-thumbs-up" aria-hidden="true"></span> 10k.
+                                </a> 
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-thumbs-down" aria-hidden="true"></span> 10.
+                                </a> 
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-comment" aria-hidden="true"></span> 200
+                                </a> 
+                            </div>
+                        </div>
+                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="posts_divcontainer_subdiv_body">
+                                <h3 class="posts_divcontainer_header">
+                                    Post Title
+                                </h3>
+                                <div class="posts_delete_edit">
+                                    <a class="users_edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="posts_divcontainer_subdiv2">
+                                    <p class="posts_divcontainer_p">
+                                        <span> Written By:</span> Aniagolu
+                                    </p>
+                                    <p class="posts_divcontainer_p">
+                                        <span> Edited By:</span> Chiemelie
+                                    </p>
+                            </div>
+                            <div class="posts_divcontainer_subdiv3">
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Publish Date:</span> 10th July 2024.
+                                </p> 
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Publish Time:</span> 10:00 pm.
+                                </p> 
+                            </div>
+                            <div class="posts_divcontainer_subdiv4">
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-thumbs-up" aria-hidden="true"></span> 10k.
+                                </a> 
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-thumbs-down" aria-hidden="true"></span> 10.
+                                </a> 
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-comment" aria-hidden="true"></span> 200
+                                </a> 
+                            </div>
+                        </div>
+                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="posts_divcontainer_subdiv_body">
+                                <h3 class="posts_divcontainer_header">
+                                    Post Title
+                                </h3>
+                                <div class="posts_delete_edit">
+                                    <a class="users_edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="posts_divcontainer_subdiv2">
+                                    <p class="posts_divcontainer_p">
+                                        <span> Written By:</span> Aniagolu
+                                    </p>
+                                    <p class="posts_divcontainer_p">
+                                        <span> Edited By:</span> Chiemelie
+                                    </p>
+                            </div>
+                            <div class="posts_divcontainer_subdiv3">
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Publish Date:</span> 10th July 2024.
+                                </p> 
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Publish Time:</span> 10:00 pm.
+                                </p> 
+                            </div>
+                            <div class="posts_divcontainer_subdiv4">
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-thumbs-up" aria-hidden="true"></span> 10k.
+                                </a> 
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-thumbs-down" aria-hidden="true"></span> 10.
+                                </a> 
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-comment" aria-hidden="true"></span> 200
+                                </a> 
+                            </div>
+                        </div>
+                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="posts_divcontainer_subdiv_body">
+                                <h3 class="posts_divcontainer_header">
+                                    Post Title
+                                </h3>
+                                <div class="posts_delete_edit">
+                                    <a class="users_edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="posts_divcontainer_subdiv2">
+                                    <p class="posts_divcontainer_p">
+                                        <span> Written By:</span> Aniagolu
+                                    </p>
+                                    <p class="posts_divcontainer_p">
+                                        <span> Edited By:</span> Chiemelie
+                                    </p>
+                            </div>
+                            <div class="posts_divcontainer_subdiv3">
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Publish Date:</span> 10th July 2024.
+                                </p> 
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Publish Time:</span> 10:00 pm.
+                                </p> 
+                            </div>
+                            <div class="posts_divcontainer_subdiv4">
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-thumbs-up" aria-hidden="true"></span> 10k.
+                                </a> 
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-thumbs-down" aria-hidden="true"></span> 10.
+                                </a> 
+                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
+                                    <span class="fa fa-comment" aria-hidden="true"></span> 200
+                                </a> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="posts_div2 postsdiv">
+                    <div class="posts_header">
+                        <h1> Unpublished Articles</h1>
+                        <a class="btn" href="#">View All</a>
+                    </div>
+                    <div class="posts_divcontainer border-gradient-side-dark">
+                        <div class="posts_divcontainer_subdiv">
+                            <div class="posts_divcontainer_subdiv_body">
+                                <h3 class="posts_divcontainer_header">
+                                    Post Title
+                                </h3>
+                                <div class="posts_delete_edit">
+                                    <a class="users_edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="posts_divcontainer_subdiv2">
+                                    <p class="posts_divcontainer_p">
+                                        <span> Written By:</span> Aniagolu
+                                    </p>
+                            </div>
+                            <div class="posts_divcontainer_subdiv3">
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Written On:</span> 10th July 2024.
+                                </p> 
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Time:</span> 10:00 pm.
+                                </p> 
+                            </div>
+                        </div>
+                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="posts_divcontainer_subdiv_body">
+                                <h3 class="posts_divcontainer_header">
+                                    Post Title
+                                </h3>
+                                <div class="posts_delete_edit">
+                                    <a class="users_edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="posts_divcontainer_subdiv2">
+                                    <p class="posts_divcontainer_p">
+                                        <span> Written By:</span> Aniagolu
+                                    </p>
+                            </div>
+                            <div class="posts_divcontainer_subdiv3">
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Written On:</span> 10th July 2024.
+                                </p> 
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Time:</span> 10:00 pm.
+                                </p> 
+                            </div>
+                        </div>
+                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="posts_divcontainer_subdiv_body">
+                                <h3 class="posts_divcontainer_header">
+                                    Post Title
+                                </h3>
+                                <div class="posts_delete_edit">
+                                    <a class="users_edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="posts_divcontainer_subdiv2">
+                                    <p class="posts_divcontainer_p">
+                                        <span> Written By:</span> Aniagolu
+                                    </p>
+                            </div>
+                            <div class="posts_divcontainer_subdiv3">
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Written On:</span> 10th July 2024.
+                                </p> 
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span>Time:</span> 10:00 pm.
+                                </p> 
+                            </div>
+                        </div>
+                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="posts_divcontainer_subdiv_body">
+                                    <h3 class="posts_divcontainer_header">
+                                        Post Title
+                                    </h3>
+                                <div class="posts_delete_edit">
+                                    <a class="users_edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="posts_divcontainer_subdiv2">
+                                    <p class="posts_divcontainer_p">
+                                        <span> Written By:</span> Aniagolu
+                                    </p>
+                            </div>
+                            <div class="posts_divcontainer_subdiv3">
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Written On:</span> 10th July 2024.
+                                </p> 
+                                <p class="posts_divcontainer_subdiv_p">
+                                    <span> Time:</span> 10:00 pm.
+                                </p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pages tabcontent hidden">
+                <h1>Settings</h1>
+            </div>
+            <div class="reviews tabcontent hidden">
+                <div class="reviews_div1 reviewdiv">
+                    <div class="review_header">
+                        <h1 class="revheader"> Recent Reviews</h1>
+                        <a class="btn" href="#">View All</a>
+                    </div>
+                    <div class="review_divcontainer border-gradient-side-dark">
+                        <div class="review_divcontainer_subdiv">
+                            <div class="review_divcontainer_subdiv2">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="review_divcontainer_subdiv1">
+                                    <p class="user_review_p">
+                                        chibs01
+                                    </p>
+                                    <p class="user_review_p">
+                                        chiemelieaniagolu3@gmail.com
+                                    </p>
+                                    <p class="user_review_p">
+                                        105.113.64.213
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="review_divcontainer_subdiv2">
+                                    <p class="comment_section">
+                                        I really like this post and i would look foward to reading more from this website.
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3-pre">
+                                    <p class="review_date">
+                                        <span>Posted On:</span> 10th July 2024
+                                    </p>
+                                    <p class="review_time">
+                                        <span>Time:</span> 10:00 PM
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3">
+                                <a class="btn" href="#" target="_blank">
+                                    Reply
+                                </a> 
+                                <a class="btn" href="#" target="_blank">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a> 
+                            </div>
+                        </div>
+                        <div class="review_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="review_divcontainer_subdiv2">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="review_divcontainer_subdiv1">
+                                    <p class="user_review_p">
+                                        chibs01
+                                    </p>
+                                    <p class="user_review_p">
+                                        chiemelieaniagolu3@gmail.com
+                                    </p>
+                                    <p class="user_review_p">
+                                        105.113.64.213
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="review_divcontainer_subdiv2">
+                                    <p class="comment_section">
+                                        I really like this post and i would look foward to reading more from this website.
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3-pre">
+                                    <p class="review_date">
+                                        <span>Posted On:</span> 10th July 2024
+                                    </p>
+                                    <p class="review_time">
+                                        <span>Time:</span> 10:00 PM
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3">
+                                <a class="btn" href="#" target="_blank">
+                                    Reply
+                                </a> 
+                                <a class="btn" href="#" target="_blank">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a> 
+                            </div>
+                        </div>
+                        <div class="review_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="review_divcontainer_subdiv2">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="review_divcontainer_subdiv1">
+                                    <p class="user_review_p">
+                                        chibs01
+                                    </p>
+                                    <p class="user_review_p">
+                                        chiemelieaniagolu3@gmail.com
+                                    </p>
+                                    <p class="user_review_p">
+                                        105.113.64.213
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="review_divcontainer_subdiv2">
+                                    <p class="comment_section">
+                                        I really like this post and i would look foward to reading more from this website.
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3-pre">
+                                    <p class="review_date">
+                                        <span>Posted On:</span> 10th July 2024
+                                    </p>
+                                    <p class="review_time">
+                                        <span>Time:</span> 10:00 PM
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3">
+                                <a class="btn" href="#" target="_blank">
+                                    Reply
+                                </a> 
+                                <a class="btn" href="#" target="_blank">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a> 
+                            </div>
+                        </div>
+                        <div class="review_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="review_divcontainer_subdiv2">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="review_divcontainer_subdiv1">
+                                    <p class="user_review_p">
+                                        chibs01
+                                    </p>
+                                    <p class="user_review_p">
+                                        chiemelieaniagolu3@gmail.com
+                                    </p>
+                                    <p class="user_review_p">
+                                        105.113.64.213
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="review_divcontainer_subdiv2">
+                                    <p class="comment_section">
+                                        I really like this post and i would look foward to reading more from this website.
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3-pre">
+                                    <p class="review_date">
+                                        <span>Posted On:</span> 10th July 2024
+                                    </p>
+                                    <p class="review_time">
+                                        <span>Time:</span> 10:00 PM
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3">
+                                <a class="btn" href="#" target="_blank">
+                                    Reply
+                                </a> 
+                                <a class="btn" href="#" target="_blank">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a> 
+                            </div>
+                        </div>
+                        <div class="review_divcontainer_subdiv border-gradient-side-dark">
+                            <div class="review_divcontainer_subdiv2">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="review_divcontainer_subdiv1">
+                                    <p class="user_review_p">
+                                        chibs01
+                                    </p>
+                                    <p class="user_review_p">
+                                        chiemelieaniagolu3@gmail.com
+                                    </p>
+                                    <p class="user_review_p">
+                                        105.113.64.213
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="review_divcontainer_subdiv2">
+                                    <p class="comment_section">
+                                        I really like this post and i would look foward to reading more from this website.
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3-pre">
+                                    <p class="review_date">
+                                        <span>Posted On:</span> 10th July 2024
+                                    </p>
+                                    <p class="review_time">
+                                        <span>Time:</span> 10:00 PM
+                                    </p>
+                            </div>
+                            <div class="review_divcontainer_subdiv3">
+                                <a class="btn" href="#" target="_blank">
+                                    Reply
+                                </a> 
+                                <a class="btn" href="#" target="_blank">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="settings tabcontent hidden">

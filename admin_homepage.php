@@ -145,7 +145,7 @@ include("connect.php")
                         </div>
                         <p class="website_info_p2">Published</p>
                     </div>
-                    <a class="website_info" href="#" target="_blank">
+                    <a class="website_info" href="create_new/posts.php" target="_blank">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
@@ -161,7 +161,7 @@ include("connect.php")
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
                         <h1>Recent Articles</h1>
-                        <a class="btn" href="#">View All</a>
+                        <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <table>
@@ -178,7 +178,7 @@ include("connect.php")
                               <td>Germany</td>
                               <td>July 10th 2024</td>
                               <td>
-                                <a class="edit" href="#">Edit</a> /
+                                <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
                                 <a class="delete" href="#">Delete</a>
                             </td>
                             </tr>
@@ -188,7 +188,7 @@ include("connect.php")
                               <td>Mexico</td>
                               <td>July 10th 2024</td>
                               <td>
-                                <a class="edit" href="#">Edit</a> /
+                                <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
                                 <a class="delete" href="#">Delete</a>
                             </td>
                             </tr>
@@ -198,7 +198,7 @@ include("connect.php")
                                 <td>Mexico</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="#">Edit</a> /
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
                                   <a class="delete" href="#">Delete</a>
                               </td>
                               </tr>
@@ -208,7 +208,7 @@ include("connect.php")
                                 <td>Mexico</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="#">Edit</a> /
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
                                   <a class="delete" href="#">Delete</a>
                               </td>
                               </tr>
@@ -218,7 +218,7 @@ include("connect.php")
                                 <td>Mexico</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="#">Edit</a> /
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
                                   <a class="delete" href="#">Delete</a>
                               </td>
                               </tr>
@@ -228,7 +228,7 @@ include("connect.php")
                                 <td>Mexico</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="#">Edit</a> /
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
                                   <a class="delete" href="#">Delete</a>
                               </td>
                               </tr>
@@ -256,10 +256,10 @@ include("connect.php")
                     <p class="Username"><span>Username:</span> Chibs01</p>
                     <p class="Email"><span>Email:</span> chiboyaniagolu3@gmail.com</p>
                     <p class="Mobile"><span>Mobile:</span> 09122312493</p>
-                    <center><a class="profile_edit_btn">
+                    <center><a class="profile_edit_btn" href="edit/profile.php" target="_blank">
                         Edit Profile
                     </a></center>
-                    <form class="Edit_profile hidden" action="" method="post">
+                    <!--<form class="Edit_profile hidden" action="" method="post">
                         <div class="input_group">
                             <label for="firstname">Firstname:</label>
                             <input type="text" placeholder="Firstname" name="firstname" required/>
@@ -281,14 +281,13 @@ include("connect.php")
                             <input type="text" placeholder="Phone Number" name="mobile" required/>
                         </div>
                         <center><input type="submit" value="Update" class="profile_edit"/></center>
-                    </form>
+                    </form>-->
                 </div>
             </div>
             <div class="users tabcontent hidden">
                 <div class="users_admin_div userdiv">
                     <div class="user_header">
-                        <h2>Administrators</h2>
-                        <a class="btn" href="#" target="_blank">View All</a>
+                        <h2>Admin</h2>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <div class="users_div_subdiv_subdiv">
@@ -336,18 +335,12 @@ include("connect.php")
                                 ?>
                             </p>
                         </div>
-                        <div class="users_div_subdiv_subdiv">
-                            <a class="users_create" target="_blank">
-                                <center><i class="fa fa-plus" aria-hidden="true"></i></center>
-                                <h3>Create New Admin</h3>
-                            </a>    
-                        </div>
                     </div>
                 </div>
                 <div class="users_editor_div userdiv">
                     <div class="user_header">
                         <h2>Editors</h2>
-                        <a class="btn" href="#" target="_blank">View All</a>
+                        <a class="btn" href="view_all/editors.php" target="_blank">View All</a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <div class="users_div_subdiv_subdiv">
@@ -395,7 +388,7 @@ include("connect.php")
                                 ?>
                             </p>
                             <center><div class="users_delete_edit">
-                                <a class="users_edit">
+                                <a class="users_edit" href="edit/editor.php" target="_blank">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
                                 <a class="users_delete">
@@ -404,7 +397,7 @@ include("connect.php")
                             </div></center>
                         </div>
                         <div class="users_div_subdiv_subdiv">
-                            <a class="users_create" target="_blank">
+                            <a class="users_create" href="create_new/editor.php"target="_blank">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
                                 <h3>Create New Editor</h3>
                             </a>    
@@ -414,7 +407,7 @@ include("connect.php")
                 <div class="users_writer_div userdiv">
                     <div class="user_header">
                         <h2>Writers</h2>
-                        <a class="btn" href="#" target="_blank">View All</a>
+                        <a class="btn" href="view_all/writers.php" target="_blank">View All</a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <div class="users_div_subdiv_subdiv">
@@ -462,7 +455,7 @@ include("connect.php")
                                 ?>
                             </p>
                             <center><div class="users_delete_edit">
-                                <a class="users_edit">
+                                <a class="users_edit" href="edit/writer.php" target="_blank">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
                                 <a class="users_delete">
@@ -471,7 +464,7 @@ include("connect.php")
                             </div></center>
                         </div>
                         <div class="users_div_subdiv_subdiv">
-                            <a class="users_create" target="_blank">
+                            <a class="users_create" href="create_new/writer.php"target="_blank">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
                                 <h3>Create New Writer</h3>
                             </a>    
@@ -480,10 +473,17 @@ include("connect.php")
                 </div>
             </div>
             <div class="posts tabcontent hidden">
+                <div class="posts_delete_edit2 hidden">
+                    <h1>Delete Selected Post?</h1>
+                    <div class="posts_delete_edit2_subdiv">
+                        <a class="delete_post btn">Yes</a>
+                        <a class="no_action btn">No</a>
+                    </div>
+                </div>
                 <div class="posts_div1 postsdiv">
                     <div class="posts_header">
                         <h1> Recently Published Posts</h1>
-                        <a class="btn" href="#">View All</a>
+                        <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <div class="posts_divcontainer_subdiv">
@@ -492,7 +492,7 @@ include("connect.php")
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit">
+                                    <a class="users_edit" href="edit/post.php" target="_blank">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -534,7 +534,7 @@ include("connect.php")
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit">
+                                    <a class="users_edit" href="edit/post.php" target="_blank">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -576,7 +576,7 @@ include("connect.php")
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit">
+                                    <a class="users_edit" href="edit/post.php" target="_blank">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -618,7 +618,7 @@ include("connect.php")
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit">
+                                    <a class="users_edit" href="edit/post.php" target="_blank">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -659,7 +659,7 @@ include("connect.php")
                 <div class="posts_div2 postsdiv">
                     <div class="posts_header">
                         <h1> Unpublished Articles</h1>
-                        <a class="btn" href="#">View All</a>
+                        <a class="btn" href="view_all/unpublished_articles.php" target="_blank">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <div class="posts_divcontainer_subdiv">
@@ -668,7 +668,7 @@ include("connect.php")
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit">
+                                    <a class="users_edit" href="edit/post.php" target="_blank">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -696,7 +696,7 @@ include("connect.php")
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit">
+                                    <a class="users_edit" href="edit/post.php" target="_blank">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -724,7 +724,7 @@ include("connect.php")
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit">
+                                    <a class="users_edit" href="edit/post.php" target="_blank">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -752,7 +752,7 @@ include("connect.php")
                                         Post Title
                                     </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit">
+                                    <a class="users_edit" href="edit/post.php" target="_blank">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -784,7 +784,7 @@ include("connect.php")
                 <div class="reviews_div1 reviewdiv">
                     <div class="review_header">
                         <h1 class="revheader"> Recent Reviews</h1>
-                        <a class="btn" href="#">View All</a>
+                        <a class="btn" href="view_all/reviews.php">View All</a>
                     </div>
                     <div class="review_divcontainer border-gradient-side-dark">
                         <div class="review_divcontainer_subdiv">

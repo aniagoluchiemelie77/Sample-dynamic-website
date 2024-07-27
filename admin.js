@@ -1,6 +1,8 @@
 const editBtn = document.querySelector('.profile_edit_btn');
 const sideBtns = document.querySelectorAll('.sidebarbtn');
 const tabContent = document.querySelectorAll('.tabcontent');
+const deletePostIcon = document.querySelectorAll('.users_delete');
+const deletePostDiv = document.querySelector('.posts_delete_edit2');
 const form = document.querySelector('.Edit_profile');
 const logout = document.querySelector('.logout');
 const logoutDiv = document.querySelector('.logout_alert');
@@ -37,3 +39,9 @@ const displayExitAlert = function(){
   cancelExit();
 }
 logout.addEventListener('click', displayExitAlert);
+
+const displayDeleteAlert = function () {
+  deletePostDiv.classList.toggle('hidden');
+  deletePostDiv.style.display = "flex";
+}
+deletePostIcon.addEventListener('click', displayDeleteAlert);

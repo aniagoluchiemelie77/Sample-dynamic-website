@@ -1,4 +1,7 @@
 const editBtn = document.querySelector('.profile_edit_btn');
+const header = document.querySelector('.body');
+const body = document.querySelector('.header');
+const sidebar = document.querySelector('.sidebar');
 const sideBtns = document.querySelectorAll('.sidebarbtn');
 const tabContent = document.querySelectorAll('.tabcontent');
 const deletePostIcon = document.querySelectorAll('.users_delete');
@@ -31,7 +34,7 @@ const cancelExit = function (){
 const displayForm = function(){
     form.classList.remove('hidden');
 }
-editBtn.addEventListener('click', displayForm);
+//editBtn.addEventListener('click', displayForm);
 let displayExit;
 const displayExitAlert = function(){
   logoutDiv.classList.remove('hidden');
@@ -45,3 +48,24 @@ const displayDeleteAlert = function () {
   deletePostDiv.style.display = "flex";
 }
 deletePostIcon.addEventListener('click', displayDeleteAlert);
+
+const stickyNavFunc = function () {
+  const navHeight = header.getBoundingClientRect().height;
+  const stickyNav = function (entries) {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        console.log('yeah')
+          //sidebar.classList.add('sticky');
+      }else{
+         // sidebar.classList.remove('sticky');
+          //headerObs.unobserve(header);
+      }
+  }
+  const headerObs = new IntersectionObserver(stickyNav, {
+      root: null,
+      threshold: 0,
+      rootMargin: `-${navHeight}px`,
+  });
+  headerObs.observe(header);
+};
+stickyNavFunc();

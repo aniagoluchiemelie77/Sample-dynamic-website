@@ -157,6 +157,12 @@ include("connect.php")
                         </div>
                         <p class="website_info_p2">View Website</p>
                     </a>
+                    <a class="website_info" href="create_new/workspace.php" target="_blank">
+                        <div class="website_info_subdiv">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                        <p class="website_info_p2">Add Workspace</p>
+                    </a>
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">

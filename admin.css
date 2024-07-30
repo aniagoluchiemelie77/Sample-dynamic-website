@@ -50,6 +50,10 @@ a, td,span, p, label{
 .darkp{
     color: black;
 }
+.sticky{
+    top: 0;
+    left: 0;
+}
 .section1{
     background: linear-gradient(to left, #eee, white);
     display: flex;
@@ -332,7 +336,7 @@ a, td,span, p, label{
     position: fixed;
     width: var(--sidebar-width);
     background-color: #222222;
-    min-height: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding: 1rem 1rem;
@@ -1122,4 +1126,72 @@ a, td,span, p, label{
 }
 .newpost_container_div9 input:hover{
     background-color: #F93404;
+}
+/*Workspace Styles*/
+.sidebar_workspace_container{
+    display: flex;
+    flex-direction: column;
+    max-height: 70%;
+}
+.active3::before{
+    position: absolute;
+    content: " ";
+    background: linear-gradient(to left, #F94A04, #F93404);
+    width: 105%;
+    border-radius: .5rem;
+    height: 110%;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+}
+.active3::after{
+    position: absolute;
+    border-radius: .5rem;
+    content: " ";
+    inset: .5px;
+    background: inherit;
+}
+.sidebar_workspace_container div{
+    height: 15vh;
+    width: 100%;
+    position: relative;
+    background-color: #FAFAFA;
+    margin-bottom: 2.2rem;
+    display: flex;
+    z-index: 10;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.sidebar_workspace_container div .darkp{
+    color: #222222;
+}
+.workspace_container{
+    min-width: 100%;
+    min-height: 100%;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.workspace_container textarea{
+    width: 80%;
+    height: 80vh;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: none;
+}
+.workspace_container .workspace_input1{
+    width: 80%;
+    padding: 1rem;
+    border: none;
+}
+.workspace_container .workspace_input2{
+    width: 80%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: none;
+    color: #FAFAFA;
+    background-color: #F94A04;
 }

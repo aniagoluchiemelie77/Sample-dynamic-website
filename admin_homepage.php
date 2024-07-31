@@ -246,19 +246,12 @@ include("connect.php")
                 <figure class="profile_imgbox">
                     <img src="images\image1.jpeg" alt="Authors Profile Picture" class="profile_imgbox_img"/>
                     <a class="profile_imgbox_edit">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </figure>
                 <div class="profile_body">
-                    <p class="Firstname"><span>Firstname:</span> Chiemelie</p>
-                    <i class="fa fa-area-chart" aria-hidden="true"></i>
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                    <p class="Lastname"><span>Lastname:</span> Aniagolu</p>
+                    <p class="Firstname"><span>Chiemelie</span><span>Aniagolu</span></p>
+                    <p class="Bio"> Web Front-end developer | member SPE Warri section 104 | Tech-in-oil and gas sector advocate</p>
                     <p class="Username"><span>Username:</span> Chibs01</p>
                     <p class="Email"><span>Email:</span> chiboyaniagolu3@gmail.com</p>
                     <p class="Mobile"><span>Mobile:</span> 09122312493</p>

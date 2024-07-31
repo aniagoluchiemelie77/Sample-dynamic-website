@@ -37,7 +37,7 @@ include("../connect.php");
         </div>
     </header>
     <section class="newpost_body">
-        <form class="newpost_container" method="post" action="create_post.php" enctype="multipart/form-data">
+        <form class="newpost_container" method="post" action="forms.php" enctype="multipart/form-data">
             <div class="newpost_container_div1 newpost_subdiv">
                 <h1>Create New Post</h1>
             </div>
@@ -56,10 +56,10 @@ include("../connect.php");
             </div>
             <div class="newpost_container_div4 newpost_subdiv">
                 <label class="form__select" for="Post_Status">Status</label>
-                <select class="newpost_subdiv2" name="Post_Status">
-                <option class="newpost_subdiv4-option">-- Select --</option>
-                    <option class="newpost_subdiv4-option">None</option>
-                    <option class="newpost_subdiv4-option">Paid Post</option>
+                <select class="newpost_subdiv2" name="Post_Status">      
+                    <option class="newpost_subdiv4-option" value="">-- Please Select --</option>      
+                    <option class="newpost_subdiv4-option" value="none">None</option>
+                    <option class="newpost_subdiv4-option" value="paid_post">Paid Post</option>
                 </select>
             </div>
             <div class="newpost_container_div5 newpost_subdiv">
@@ -78,7 +78,7 @@ include("../connect.php");
             </div>
             <div class="newpost_container_div7 newpost_subdiv">
                 <label class="form__label" for="Post_Content">Post Content</label>
-                <textarea class="newpost_container_div7_subdiv2">
+                <textarea class="newpost_container_div7_subdiv2" name="Post_content">
                 </textarea>
             </div>
             <div class="newpost_container_div8 newpost_subdiv">
@@ -87,7 +87,7 @@ include("../connect.php");
                 </div>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="Publish" />
+                <input class="form__submit_input" type="submit" value="Publish" name="create_post" />
             </div>
         </form>
     </section>

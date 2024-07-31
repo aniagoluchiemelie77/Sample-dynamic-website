@@ -797,7 +797,7 @@ a, td,span, p, label{
  .posts_divcontainer .posts_divcontainer_subdiv{
     padding: .5rem 1rem;
  }
- .posts_divcontainer .posts_divcontainer_subdiv:nth-child(2){
+ .posts_divcontainer .posts_divcontainer_subdiv:nth-child(even){
     background-color: #eee;
  }
  .posts_divcontainer .posts_divcontainer_subdiv:nth-child(4){
@@ -815,6 +815,7 @@ a, td,span, p, label{
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body a{
     cursor: pointer;
+    color: black;
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body a:hover i{
     color: #F94A04;
@@ -1194,4 +1195,19 @@ a, td,span, p, label{
     border: none;
     color: #FAFAFA;
     background-color: #F94A04;
+}
+/*For View Posts*/
+.sectioneer{
+    display: flex;
+    padding: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #eee;
+    min-height: fit-content;
+}
+.sectioneer_divcontainer{
+    width: 80%;
+    background-color: #FAFAFA;
+    padding: 1.5rem;
 }

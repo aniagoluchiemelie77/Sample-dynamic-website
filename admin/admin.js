@@ -11,6 +11,12 @@ const logout = document.querySelector('.logout');
 const logoutDiv = document.querySelector('.logout_alert');
 const cancelLogout = document.querySelector('.cancellogout');
 const formInput = document.getElementById('form_input');
+const createEditorOrigin = document.getElementById('create_user-origin');
+const createEditorDiv = document.getElementById('create_editor');
+const createWriterOrigin = document.getElementById('create_writer_origin');
+const createWriterDiv = document.getElementById('create_writer');
+
+
 
 sideBtns.forEach((tab, index) => {
     tab.addEventListener('click', (e) => {
@@ -43,11 +49,16 @@ const displayExitAlert = function(){
 }
 logout.addEventListener('click', displayExitAlert);
 
-const displayDeleteAlert = function () {
-  deletePostDiv.classList.toggle('hidden');
-  deletePostDiv.style.display = "flex";
+const displayCreateEditor = function(){
+  createEditorDiv.classList.remove('hidden');
+  createEditorDiv.style.display = 'flex';
 }
-deletePostIcon.addEventListener('click', displayDeleteAlert);
+createEditorOrigin.addEventListener('click', displayCreateEditor);
+const displayCreateWriter = function(){
+  createWriterDiv.classList.remove('hidden');
+  createWriterDiv.style.display = 'flex';
+}
+createWriterOrigin.addEventListener('click', displayCreateWriter);
 
 const stickyNavFunc = function () {
   const navHeight = header.getBoundingClientRect().height;

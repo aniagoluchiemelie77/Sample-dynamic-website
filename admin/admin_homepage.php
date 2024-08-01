@@ -26,6 +26,123 @@ include("connect.php")
             <a class="btn cancellogout">No</a>
         </div>
     </div>
+    <div class="logout_alert container_center hidden" id="create_editor">
+        <form class="create_editor_container" action="forms.php" method="post">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        <div class="createeditor_inputgroup">
+            <h1>Create New Editor</h1>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="editor_firstname">Firstname:</label>
+            <input class="createeditor_input" type="text" name="editor_firstname" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="editor_lastname">Lastname:</label>
+            <input class="createeditor_input" type="text" name="editor_lastname" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="editor_email">Email:</label>
+            <input class="createeditor_input" type="email" name="editor_email" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="editor_password">Suggest Password:</label>
+            <input class="createeditor_input" type="password" name="editor_password" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="editor_password-confirm">Confirm Password:</label>
+            <input class="createeditor_input" type="text" name="editor_password-confirm" required/>
+        </div>
+        <input class="createeditor_input-submit btn" value="Submit" name="createeditor_Submit" type="submit"/>
+        </form>
+    </div>
+    <div class="logout_alert container_center hidden" id="create_writer">
+        <form class="create_editor_container" action="forms.php" method="post">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        <div class="createeditor_inputgroup">
+            <h1>Create New Writer</h1>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_firstname">Firstname:</label>
+            <input class="createeditor_input" type="text" name="writer_firstname" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_lastname">Lastname:</label>
+            <input class="createeditor_input" type="text" name="writer_lastname" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_email">Email:</label>
+            <input class="createeditor_input" type="email" name="writer_email" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_password">Suggest Password:</label>
+            <input class="createeditor_input" type="password" name="writer_password" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_password-confirm">Confirm Password:</label>
+            <input class="createeditor_input" type="text" name="writer_password-confirm" required/>
+        </div>
+        <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
+        </form>
+    </div>
+    <div class="logout_alert container_center hidden" id="create_writer">
+        <form class="create_editor_container" action="forms.php" method="post">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        <div class="createeditor_inputgroup">
+            <h1>Edit Profile</h1>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile_firstname">Firstname:</label>
+            <input class="createeditor_input" type="text" name="profile_firstname" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile_lastname">Lastname:</label>
+            <input class="createeditor_input" type="text" name="profile_lastname" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile_username">Username:</label>
+            <input class="createeditor_input" type="text" name="profile_username" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile_email">Email:</label>
+            <input class="createeditor_input" type="email" name="profile_email" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile_bio">Bio:</label>
+            <textarea name="profile_bio"></textarea>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile-address1">Address 1:</label>
+            <input class="createeditor_input" type="text" name="profile-address1" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile-address2">Address 2:</label>
+            <input class="createeditor_input" type="text" name="profile-address2" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile-city">City:</label>
+            <input class="createeditor_input" type="text" name="profile-city" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile-state">State:</label>
+            <input class="createeditor_input" type="text" name="profile-state" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="profile-country">Country:</label>
+            <input class="createeditor_input" type="text" name="profile-country" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="profile-countrycode">Country Code:</label>
+                <input class="createeditor_input" type="text" name="profile-countrycode" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="profile-mobile">Phone Number:</label>
+                <input class="createeditor_input" type="number" name="profile-mobile" required/>
+            </div>
+        </div>
+        <input class="createeditor_input-submit btn" value="Submit" name="profileedit_Submit" type="submit"/>
+        </form>
+    </div>
     <header class="header">
         <div class="header_logobox">
             <img src="#" alt="Website Logo">
@@ -250,37 +367,53 @@ include("connect.php")
                     </a>
                 </figure>
                 <div class="profile_body">
-                    <p class="Firstname"><span>Chiemelie</span><span>Aniagolu</span></p>
-                    <p class="Bio"> Web Front-end developer | member SPE Warri section 104 | Tech-in-oil and gas sector advocate</p>
-                    <p class="Username"><span>Username:</span> Chibs01</p>
-                    <p class="Email"><span>Email:</span> chiboyaniagolu3@gmail.com</p>
-                    <p class="Mobile"><span>Mobile:</span> 09122312493</p>
-                    <center><a class="profile_edit_btn" href="edit/profile.php" target="_blank">
-                        Edit Profile
-                    </a></center>
-                    <!--<form class="Edit_profile hidden" action="" method="post">
-                        <div class="input_group">
-                            <label for="firstname">Firstname:</label>
-                            <input type="text" placeholder="Firstname" name="firstname" required/>
+                    <i class="fa fa-pencil firsti" aria-hidden="true"></i>
+                    <p class="profile_firstp"><span>Chiemelie </span><span>Aniagolu</span> (<span>Chibs01</span>) </p>
+                    <p>Chiemelie Aniagolu is a Senior Student at the Federal University of Petroleum Resources, Delta State. He is also a Web Front-End Developer who manages and creates multiple websites today.</p>
+                    <div class="profile_body_subdiv_subdiv">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <p><span>CSS Umueze Awkunanaw,</span><span> Nkanu West LGA,</span><span> Enugu State,</span><span> Nigeria</span></p>
+                    </div>
+                    <div class="profile_body_subdiv_subdiv">
+                        <div>
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <p><span>chiboyaniagolu3@gmail.com</span></p>
                         </div>
-                        <div class="input_group">
-                            <label for="firstname">Lastname:</label>
-                            <input type="text" placeholder="Lastname" name="lastname" required/>
+                        <div>
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <p><span>09122312493</span></p>
                         </div>
-                        <div class="input_group">
-                            <label for="username">Username:</label>
-                            <input type="text" placeholder="Username" name="username" required/>
-                        </div>
-                        <div class="input_group">
-                            <label for="email">Email:</label>
-                            <input type="email" placeholder="Email" name="email" required/>
-                        </div>
-                        <div class="input_group">
-                            <label for="mobile">Phone Number:</label>
-                            <input type="text" placeholder="Phone Number" name="mobile" required/>
-                        </div>
-                        <center><input type="submit" value="Update" class="profile_edit"/></center>
-                    </form>-->
+                    </div>
+                    <div class="profile_body_subdiv_subdiv profilesubdiv">
+                        <p>Date Joined: <span>10th June 2021</span>
+                        <p>Posts Published: <span>25</span></p>
+                    </div>
+                </div>
+                <div class="profile_body-activities">
+                    <div class="profile_body-activities_subdiv">
+                        <h1>Activities</h1>
+                        <a class="btn">View All</a>
+                    </div>
+                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
+                        <p>Created new admin</p>
+                        <p>10th July 2024</p>
+                    </div>
+                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
+                        <p>Created new admin</p>
+                        <p>10th July 2024</p>
+                    </div>
+                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
+                        <p>Created new admin</p>
+                        <p>10th July 2024</p>
+                    </div>
+                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
+                        <p>Created new admin</p>
+                        <p>10th July 2024</p>
+                    </div>
+                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
+                        <p>Created new admin</p>
+                        <p>10th July 2024</p>
+                    </div>
                 </div>
             </div>
             <div class="users tabcontent hidden">
@@ -396,7 +529,7 @@ include("connect.php")
                             </div></center>
                         </div>
                         <div class="users_div_subdiv_subdiv">
-                            <a class="users_create" href="create_new/editor.php"target="_blank">
+                            <a class="users_create" id="create_user-origin">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
                                 <h3>Create New Editor</h3>
                             </a>    
@@ -463,7 +596,7 @@ include("connect.php")
                             </div></center>
                         </div>
                         <div class="users_div_subdiv_subdiv">
-                            <a class="users_create" href="create_new/writer.php"target="_blank">
+                            <a class="users_create" id="create_writer_origin">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
                                 <h3>Create New Writer</h3>
                             </a>    

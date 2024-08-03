@@ -54,10 +54,22 @@ a, td,span, p, label{
     top: 0;
     left: 0;
 }
+.flex_direction-column-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.flex_direction-row-center{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 .section1{
     background: linear-gradient(to left, #eee, white);
-    display: flex;
     min-height: var(--height);
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -617,7 +629,7 @@ a, td,span, p, label{
     color: #222;
 }
 .profilesubdiv p:nth-child(2){
-    margin-left: 2.5rem;
+    margin-left: 1rem;
 }
 .profile_body-activities{
     width: 80%;
@@ -928,7 +940,7 @@ a, td,span, p, label{
     padding: 1.5rem;
     background-color: #FAFAFA;
     width: 100%;
-    align-items: center;
+    align-items: flex-start;
     height: fit-content;
 }
 .developer_contact h1{
@@ -940,17 +952,26 @@ a, td,span, p, label{
     width: 100%;
     padding: 1rem 1rem;
 }
-.developer_contact p span{
-    font-weight: 700;
-    margin-left: 1.5rem;
-}
 .developer_contact div{
-    width: 80%;
+    width: fit-content;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-evenly;
-    margin: 1rem 0;
+}
+.developer_contact i{
+    font-size: 1.5rem;
+    color: #222;
+}
+.developer_contact b{
+    margin-right: 1rem;
+}
+.developer_contact div a{
+    margin-right: 2rem;
+}
+.developer_contact div a i{
+    color: #FAFAFA; 
+    margin-right: .5rem;
 }
 .display{
     display: flex;
@@ -1221,6 +1242,9 @@ a, td,span, p, label{
 }
 .create_editor_container{
     display: flex;
+    border: 1.5px solid #222;
+    padding: 1rem;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, .5);
     padding: 1rem 0;
     flex-direction: column;
     background-color: #FAFAFA;
@@ -1230,11 +1254,6 @@ a, td,span, p, label{
     align-items: center;
     position: relative;
     justify-content: center;
-    border-radius: 2rem;
-    -webkit-border-radius: 2rem;
-    -moz-border-radius: 2rem;
-    -ms-border-radius: 2rem;
-    -o-border-radius: 2rem;
 }
 .create_editor_container div{
     padding: 1rem;
@@ -1244,21 +1263,21 @@ a, td,span, p, label{
 }
 .create_editor_container div h1{
     color: black;
+    text-align: center;
 }
 .container_center{
     align-items: center;
     justify-content: center;
 }
 .create_editor_container div label{
-    width: 17%;
+    width: fit-content;
     font-weight: 700;
 }
 .create_editor_container div input{
-    width: 83%;
+    width: 80%;
     padding: 1rem;
     border: none;
     border-bottom: 1px solid black;
-    background-color: #eee;
 }
 .create_editor_container div input:focus{
     border-bottom: 2px solid #F94A04;
@@ -1281,4 +1300,770 @@ a, td,span, p, label{
 }
 .create_editor_container i:hover{
     color: red;
+}
+/*For Edit profile page*/
+.editprofile_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background-color: #eee;
+}
+.bigheader{
+    font-size: 2.7rem;
+    margin-bottom: 1rem;
+}
+.rightmargin{
+    margin-right: .5rem;
+}
+.createeditor_input-submit{
+    padding: 1rem;
+    width: 90%;
+    border: none;
+    color: #FAFAFA;
+    background-color: #F94A04;
+}
+.flexcolumn{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.textarea{
+    height: 30vh;
+    padding: 1rem;
+}
+.textarea:focus{
+    border: none;
+    outline: .5px solid #F93404;
+}
+@media only screen and (min-width: 41rem) and (max-width: 64rem){
+    .header{
+        padding: 1rem;
+    }
+    .header_searchbar{
+        height: fit-content;
+        width: fit-content;
+    }
+    .header_img a{
+        font-size: 2rem;
+    }
+    .body .sidebar{
+        position: fixed;
+        width: 100%;
+        top: 0;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+    }
+    .body .sidebar div{
+        display: flex;
+        padding: 1.2rem;
+        flex-direction: column;
+    }
+    .body .sidebar div div{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+    }
+    .body .sidebar div i{
+        margin-right: 1rem;
+        font-size: 1.7rem;
+    }
+    .aside_sidebar{
+        margin-left: var(--sidebar-width);
+        position: relative;
+        align-items: center;
+        min-height: 100%;
+        overflow-y: scroll;
+    }
+    .aside_sidebar .aside_sidebar_header{
+        font-size: 3rem;
+        padding: 1rem 0;
+        width: 100%;
+        text-align: center;
+    }
+     .website_info_div{
+        width: 100%;
+        padding: 1rem;
+        min-height: fit-content;
+        flex-direction: column;
+        align-items: center;
+    }
+    .website_info_div .webinfo_container{
+        min-width: 100%;
+        display: flex;
+        padding: 1.2rem;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+    .website_info_div .webinfo_container .website_info{
+        width: 13rem;
+        height: 10rem;
+        padding: 1rem;
+        margin: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .webinfo_container .website_info div{
+        display: flex;
+        flex-wrap: nowrap;
+        padding: .5rem 1rem;
+        align-items: center;
+    }
+    .webinfo_container .website_info div i{
+        margin-right: .6rem;
+        font-size: 2.3rem;
+    }
+    .addtionalinfo{
+        width: 90%;
+        padding: 1.5rem;
+    }
+    .addtionalinfo .addtionalinfo_header{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+    }
+    .addtionalinfo .addtionalinfo_header h1{
+        font-size: 2.5rem;
+        padding: .5rem .5rem;
+    }
+     .btn{
+        padding: .8rem 1rem;
+    }
+     .addtionalinfo_body{
+        width: 100%;
+    }
+    .addtionalinfo_body table{
+        width: 100%;
+        padding: 1rem;
+    }
+    .addtionalinfo_body table th{
+        font-size: 2rem;
+        text-align: center;
+        padding: .2rem 1rem ;
+    }
+    .hidden{
+        display: none;
+    }
+    .profile{
+        padding: 1rem 0;
+        min-height: 100%;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .profile figure{
+        text-align: left;
+        position: relative;
+        width: fit-content;
+    }
+    .profile figure img{
+        height: 15rem;
+        width: 15rem;
+    }
+    .profile_imgbox a{
+        position: absolute;
+        cursor: pointer;
+        bottom: 0;
+        right: .5rem;
+        width: 50px;
+        height: 50px;
+        padding: 1rem;
+    }
+    .profile_body{
+        margin: 1.2rem 0;
+        min-width: 100%;
+        padding: 1rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .profile_body .firsti{
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: 2rem;
+        margin-top: 1rem;
+        font-size: 2rem;
+    }
+    .profile_firstp{
+        margin-bottom: 1rem;
+    }
+    .profile_firstp span{
+        font-weight: 700;
+    }
+    .profile_body .profile_body_subdiv_subdiv{
+        width: 90%;
+        padding: 1rem;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+    .profile_body .profile_body_subdiv_subdiv div{
+        display: flex;
+        min-width: fit-content;
+        align-items: center;
+    }
+    .profile_body .profile_body_subdiv_subdiv div:nth-child(2){
+        margin-left: 2.5rem;
+    }
+    .profile_body_subdiv_subdiv i{
+        margin-right: 1rem;
+        font-size: 1.5rem;
+    }
+    .profilesubdiv p:nth-child(2){
+        margin-left: 1rem;
+    }
+    .profile_body-activities{
+        width: 80%;
+        margin: 1rem 0;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+}
+    .profile_body-activities div{
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        padding: .8rem 1rem;
+    }
+    .profile_body-activities div h1{
+        font-size: 2.5rem;
+    }
+    .profile_body .profile_edit_btn{
+        min-width: 90%;
+        text-align: center;
+        padding: .9rem 1rem;
+    }
+    .aside_sidebar .users{
+        padding: 1.5rem 1rem;
+        width: 100%;
+        height: 100%;
+        align-items: flex-start;
+        flex-direction: column;
+        height: 100%;
+    }
+    .users .user_header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+    }
+    .aside_sidebar .users .userdiv{
+        margin: 1rem;
+        padding: 1.5rem;
+        min-width: 100%;
+    }
+    .aside_sidebar .users div h2{
+        font-size: 2.9rem;
+        font-weight: 750;
+    }
+    .aside_sidebar .users span{
+        font-weight: 800;
+    }
+    .aside_sidebar .users .users_div_subdiv{
+        display: flex; 
+        padding: 1rem;
+    }
+    .aside_sidebar .users .users_div_subdiv .users_div_subdiv_subdiv{
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+     .users .users_div_subdiv_subdiv .user_imgbox{
+        margin-bottom: .7rem;
+     }
+     .users_div_subdiv_subdiv .users_delete_edit{
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 1rem;
+     }
+     .users_div_subdiv_subdiv .users_delete_edit a{
+        padding: .5rem 1rem;
+    }
+     .users .users_div_subdiv_subdiv:nth-child(2){
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+     }
+     .users .users_div_subdiv_subdiv:nth-child(2) i{
+        font-size: 2rem;
+        align-items: center;
+     }
+     .posts{
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+     }
+     .posts .posts_delete_edit2{
+        position: fixed;
+        height: fit-content;
+        min-width: 100%;
+        margin-left: var(--sidebar-width);
+        bottom: 0;
+        padding: 1rem;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+     .posts .posts_delete_edit2 h1{
+        font-size: 2.5rem;
+     }
+     .posts_delete_edit2_subdiv a:nth-child(2){
+        margin-left: 1rem;
+     }
+     .posts .postsdiv{
+        padding: 1rem 1.5rem;
+        margin: 1rem 0;
+        width: 80%;
+     }
+     .postsdiv .posts_header h1{
+        font-size: 2.5rem;
+        font-weight: 750;
+     }
+     .postsdiv .posts_header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .8rem 0;
+     }
+     .postsdiv .posts_divcontainer{
+        padding: .5rem;
+     }
+     .posts_divcontainer .posts_divcontainer_subdiv{
+        padding: .5rem 1rem;
+     }
+     .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+     }
+     .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body h3{
+        font-size: 2rem;
+        font-weight: 750;
+     }
+     .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body a:nth-child(2){
+        margin-left: .6rem;
+     }
+     .posts_divcontainer_subdiv .posts_divcontainer_subdiv2{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: .6rem 0;
+        flex-wrap: nowrap;
+     }
+     .posts_divcontainer_subdiv .posts_divcontainer_subdiv2 span{
+        font-weight: 780;
+     }
+     .posts_divcontainer_subdiv .posts_divcontainer_subdiv3{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: .6rem 0;
+        flex-wrap: nowrap;
+     }
+     .posts_divcontainer_subdiv .posts_divcontainer_subdiv3 span{
+        font-weight: 780;
+     }
+     .posts_divcontainer_subdiv4{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: .6rem 0;
+        flex-wrap: nowrap;
+     }
+    .reviews{
+        flex-direction: column;
+        align-items: center;
+    }
+    .reviews .reviewdiv{
+        padding: 1rem;
+    }
+    .reviewdiv .review_header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+    }
+     .revheader{
+        font-size: 2.5rem;
+        font-weight: 750;
+     }
+     .review_divcontainer{
+        padding: 1rem .8rem;
+     }
+     .review_divcontainer_subdiv{
+        padding: 1rem;
+     }
+     .review_divcontainer_subdiv1{
+        display: flex;
+        flex-direction: column;
+     }
+     .review_divcontainer .review_divcontainer_subdiv2{
+        display: flex;
+        align-items: center;
+        padding: .5rem 1rem;
+     }
+     .review_divcontainer .review_divcontainer_subdiv2 i{
+        font-size: 3.5rem;
+        margin-right: 1rem;
+     }
+     .review_divcontainer_subdiv3-pre{
+        display: flex;
+        justify-content: space-evenly;
+        padding: 1rem 0;
+     }
+     .review_divcontainer_subdiv3-pre span{
+        font-weight: 780;
+     }
+     .review_divcontainer_subdiv3{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+     }
+    .settings{
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+    .developer_contact{
+        flex-direction: column;
+        padding: 1.5rem;
+        width: 100%;
+        align-items: flex-start;
+        height: fit-content;
+    }
+    .developer_contact h1{
+        font-size: 2.5rem;
+        padding: 2rem 0;
+    }
+    .developer_contact p{
+        display: flex; 
+        width: 100%;
+        padding: 1rem 1rem;
+    }
+    .developer_contact div{
+        width: fit-content;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .developer_contact i{
+        font-size: 1.5rem;
+    }
+    .developer_contact b{
+        margin-right: 1rem;
+    }
+    .developer_contact div a{
+        margin-right: 2rem;
+    }
+    .developer_contact div a i{
+        margin-right: .5rem;
+    }
+    .display{
+        display: flex;
+    }
+    .logout_alert{
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100vw;
+        position: fixed;
+        padding: 1.5rem 0;
+    }
+    .logout_alert h1{
+        font-size: 3rem;
+        padding: 1.5rem 0;
+        margin-bottom: 1rem;
+    }
+    .logout_alert div{
+        width: 40vw;
+        padding: 0 1rem;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .logout_alert div a{
+        width: 8rem;
+        text-align: center;
+    }
+    /*For Create New Post page*/
+    .newpost_body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+    }
+    .newpost_body .newpost_container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+    }
+    .newpost_container .newpost_subdiv{
+        width: 80%;
+        text-align: center;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    .newpost_container .newpost_subdiv p{
+        font-size: 1.2rem;
+        margin-top: .5rem;
+        text-align: left;
+    }
+    .newpost_container .newpost_subdiv span{
+        margin-right: .2rem;
+    }
+    .newpost_container .newpost_subdiv h1{
+        font-size: 2.5rem;
+        font-weight: 750;
+        padding: 1rem 0;
+    }
+    .newpost_container_div2{
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    .newpost_container_div2 input{
+        padding: 1rem;
+        outline: none;
+    }
+    .input1{
+        width: 70%;
+        margin-right: 1rem;
+    }
+    .newpost_container_div2_subdiv2{
+        width: calc(100% - (70% + 1rem));
+    }
+    .newpost_container_div2_subdiv2 input{
+        width:100%;
+    }
+    .newpost_container_div3{
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    .newpost_container_div3 input{
+        padding: 1rem;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid black;
+        width: 100%;
+    }
+    .newpost_container_div3 label{
+        width: 10%;
+        margin-top: .5rem;
+    }
+    .newpost_container_div3_subdiv2{
+        width: 90%;
+    }
+    .form__label{
+        margin-right: 1rem;
+    }
+    .newpost_container_div4{
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+    .newpost_container_div4 label{
+        width: 10%;
+    }
+    .newpost_container_div4 select{
+        width: 90%;
+        padding: 1rem;
+    }
+    .newpost_container_div5{
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    .newpost_container_div5 label{
+        width: 19%;
+        margin-top: .5rem;
+    }
+    .newpost_container_div5_subdiv2{
+        width: calc(100% - 19%);
+    }
+    .newpost_container_div5_subdiv2 input{
+        padding: 1rem;
+        outline: none;
+        width: 100%;
+    }
+    .newpost_container_div6 {
+        display: flex;
+    }
+    .newpost_container_div6 label{
+        width: 10%;
+    }
+    .newpost_container_div7{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .newpost_container_div7 label{
+        padding-bottom: .8rem;
+    }
+    .newpost_container_div7 .newpost_container_div7_subdiv2{
+        min-width: 100%;
+        min-height: 50vh;
+        padding: .8rem;
+    }
+    .newpost_container_div9 input{
+        width: 100%;
+        padding: 1rem;
+        border: none;
+    }
+    /*Workspace Styles*/
+    .sidebar_workspace_container{
+        display: flex;
+        flex-direction: column;
+        max-height: 70%;
+    }
+    .active3::before{
+        position: absolute;
+        width: 105%;
+        height: 110%;
+}
+    .active3::after{
+        position: absolute;
+    }
+    .sidebar_workspace_container div{
+        height: 15vh;
+        width: 100%;
+        position: relative;
+        margin-bottom: 2.2rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .workspace_container{
+        min-width: 100%;
+        min-height: 100%;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .workspace_container textarea{
+        width: 80%;
+        height: 80vh;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: none;
+    }
+    .workspace_container .workspace_input1{
+        width: 80%;
+        padding: 1rem;
+        border: none;
+    }
+    .workspace_container .workspace_input2{
+        width: 80%;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+    /*For View Posts*/
+    .sectioneer{
+        display: flex;
+        padding: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: fit-content;
+    }
+    .sectioneer_divcontainer{
+        width: 80%;
+        padding: 1.5rem;
+    }
+    .create_editor_container{
+        display: flex;
+        padding: 1rem;
+        box-shadow: 5px 10px 10px rgba(0, 0, 0, .5);
+        padding: 1rem 0;
+        flex-direction: column;
+        min-height: fit-content;
+        width: 80%;
+        height: fit-content;
+        align-items: center;
+        position: relative;
+        justify-content: center;
+    }
+    .create_editor_container div{
+        padding: 1rem;
+        margin: .4rem 0;
+        width: 90%;
+        min-height: fit-content;
+    }
+    .create_editor_container div h1{
+        text-align: center;
+    }
+    .container_center{
+        align-items: center;
+        justify-content: center;
+    }
+    .create_editor_container div label{
+        width: fit-content;
+        font-weight: 700;
+    }
+    .create_editor_container div input{
+        width: 80%;
+        padding: 1rem;
+        border: none;
+    }
+    .create_editor_container div input:focus{
+        outline: none;
+    }
+    .createeditor_input-submit{
+        width: 80%;
+        border: none;
+        outline: none;
+        margin: 1rem 0;
+    }
+    .create_editor_container i{
+        font-size: 3rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: 2rem;
+        margin-top: 2rem;
+        cursor: pointer;
+    }
+    /*For Edit profile page*/
+    .editprofile_container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+    }
+    .bigheader{
+        font-size: 2.7rem;
+        margin-bottom: 1rem;
+    }
+    .rightmargin{
+        margin-right: .5rem;
+    }
+    .createeditor_input-submit{
+        padding: 1rem;
+        width: 90%;
+        border: none;
+    }
+    .flexcolumn{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    .textarea{
+        height: 30vh;
+        padding: 1rem;
+    }
 }

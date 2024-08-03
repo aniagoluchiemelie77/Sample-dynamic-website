@@ -85,63 +85,6 @@ include("connect.php")
         </form>
     </div>
     <div class="logout_alert container_center hidden" id="create_writer">
-        <form class="create_editor_container" action="forms.php" method="post">
-        <i class="fa fa-times" aria-hidden="true"></i>
-        <div class="createeditor_inputgroup">
-            <h1>Edit Profile</h1>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile_firstname">Firstname:</label>
-            <input class="createeditor_input" type="text" name="profile_firstname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile_lastname">Lastname:</label>
-            <input class="createeditor_input" type="text" name="profile_lastname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile_username">Username:</label>
-            <input class="createeditor_input" type="text" name="profile_username" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile_email">Email:</label>
-            <input class="createeditor_input" type="email" name="profile_email" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile_bio">Bio:</label>
-            <textarea name="profile_bio"></textarea>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile-address1">Address 1:</label>
-            <input class="createeditor_input" type="text" name="profile-address1" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile-address2">Address 2:</label>
-            <input class="createeditor_input" type="text" name="profile-address2" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile-city">City:</label>
-            <input class="createeditor_input" type="text" name="profile-city" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile-state">State:</label>
-            <input class="createeditor_input" type="text" name="profile-state" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="profile-country">Country:</label>
-            <input class="createeditor_input" type="text" name="profile-country" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="profile-countrycode">Country Code:</label>
-                <input class="createeditor_input" type="text" name="profile-countrycode" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="profile-mobile">Phone Number:</label>
-                <input class="createeditor_input" type="number" name="profile-mobile" required/>
-            </div>
-        </div>
-        <input class="createeditor_input-submit btn" value="Submit" name="profileedit_Submit" type="submit"/>
-        </form>
     </div>
     <header class="header">
         <div class="header_logobox">
@@ -280,6 +223,12 @@ include("connect.php")
                         </div>
                         <p class="website_info_p2">Add Workspace</p>
                     </a>
+                    <a class="website_info" href="create_new/message.php" target="_blank">
+                        <div class="website_info_subdiv">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                        <p class="website_info_p2">Write Message</p>
+                    </a>
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
@@ -367,7 +316,6 @@ include("connect.php")
                     </a>
                 </figure>
                 <div class="profile_body">
-                    <i class="fa fa-pencil firsti" aria-hidden="true"></i>
                     <p class="profile_firstp"><span>Chiemelie </span><span>Aniagolu</span> (<span>Chibs01</span>) </p>
                     <p>Chiemelie Aniagolu is a Senior Student at the Federal University of Petroleum Resources, Delta State. He is also a Web Front-End Developer who manages and creates multiple websites today.</p>
                     <div class="profile_body_subdiv_subdiv">
@@ -385,8 +333,19 @@ include("connect.php")
                         </div>
                     </div>
                     <div class="profile_body_subdiv_subdiv profilesubdiv">
-                        <p>Date Joined: <span>10th June 2021</span>
-                        <p>Posts Published: <span>25</span></p>
+                        <div>
+                            <i class="fa fa-newspaper" aria-hidden="true"></i>
+                            <p>Posts Published: <span>25</span></p>
+                        </div>
+                    </div>
+                    <div class="profile_body_subdiv_subdiv profilesubdiv">
+                        <div>
+                            <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                            <p>Date Joined: <span>25th July 2024</span></p>
+                        </div>
+                    </div>
+                    <div class="profile_body_subdiv_subdiv profilesubdiv">
+                        <a class="btn" target="_blank" href="edit/profile.php">Edit Profile</a>
                     </div>
                 </div>
                 <div class="profile_body-activities">
@@ -1111,13 +1070,32 @@ include("connect.php")
                 <h1>Settings</h1>
             </div>
             <div class="developer_contact tabcontent hidden">
-                <h1>Contact Website Developer</h1>
-                <p class="developer_contact_p">Developed and Managed by: <span>Leventis Tech Services</span> </p>
-                <p class="developer_contact_p">Address: <span>Leventis Tech Services</span> </p>
+                <p class="developer_contact_p"><b>Developed and Managed by:</b> Leventis Tech Services</p>
+                <div class="developer_contact_subdiv">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <p>River Rd Ugbomoro, Uvwie LGA, Delta State, Nigeria.</p>
+                </div>
+                <div class="developer_contact_subdiv">
+                    <div>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <p>chiboyaniagolu3@gmail.com</p>
+                    </div>
+                    <div>
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <p>09122312493</p>
+                    </div>
+                </div>
+                <div class="developer_contact_subdiv">
+                        <h2>Follow Us</h2>
+                        <div>
+                            Instagram, Facebook, Twitter
+                        </div>
+                </div>
                 <div>
-                    <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">Report an Issue
+                    <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">
+                       <i class="fa fa-info-circle" aria-hidden="true"></i>Report an Issue
                     </a> 
-                    <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">Contact Us:</a>
+                    <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">Contact Us</a>
                 </div>       
             </div>
         </div>        

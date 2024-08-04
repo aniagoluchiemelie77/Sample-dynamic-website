@@ -1347,7 +1347,7 @@ a, td,span, p, label{
     .header_img a{
         font-size: 2rem;
     }
-    .body .sidebar{
+    .sidebar{
         position: fixed;
         width: 100%;
         top: 0;

@@ -1337,12 +1337,25 @@ a, td,span, p, label{
     outline: .5px solid #F93404;
 }
 @media only screen and (min-width: 39rem) and (max-width: 65rem){
+    a, td,span, p, label{
+        font-size: 2.2rem;
+    }
     .header{
-        padding: 1rem;
+        padding: 1rem 1.5rem;
+        min-height: 15vh;
     }
     .header_searchbar{
         height: fit-content;
         width: fit-content;
+    }
+    .header_img img{
+        width: 5rem;
+        height: 5rem;
+    }
+    .body{
+        height: calc(100vh - 15vh);
+        background-color: #eee;
+        overflow-y: scroll;
     }
     .header_img a{
         font-size: 2rem;
@@ -1350,10 +1363,11 @@ a, td,span, p, label{
     .body .sidebar{
         width: 100%;
         position: relative;
-        height: fit-content;
+        height: 12vh;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
+        overflow-x: scroll;
     }
     .body .sidebar .sidebar_footer{
         display: none;
@@ -1370,11 +1384,14 @@ a, td,span, p, label{
         display: flex;
         align-items: center;
         flex-direction: column;
-        min-height: 100%;
+        min-height: calc(100% - 12vh);
     }
     .aside_sidebar .aside_sidebar_header{
         font-size: 3rem;
         width: 100%;
+    }
+    .addtionalinfo .addtionalinfo_header{
+        padding: 1.3rem 1rem;
     }
     .website_info_div{
         height: 100%;
@@ -1391,7 +1408,11 @@ a, td,span, p, label{
        margin-top: 1rem;
     }
     .addtionalinfo .addtionalinfo_header h1{
-        font-size: 2.5rem;
+        font-size: 2.8rem;
+    }
+    .addtionalinfo_body table tr{
+        margin-bottom: 1rem;
+        font-size: 2rem;
     }
     .profile{
         width: 90%;
@@ -1412,59 +1433,17 @@ a, td,span, p, label{
         padding: 1.5rem;
         width: 90%;
         margin-bottom: 1rem;
+        overflow: hidden;
     }
-    .users .user_header{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem;
+    .aside_sidebar .users .users_div_subdiv .users_div_subdiv_subdiv p{
+        padding-bottom: 1rem;
     }
-    .aside_sidebar .users .userdiv{
-        margin: 1rem;
-        padding: 1.5rem;
-        min-width: 100%;
+    .aside_sidebar .users .users_div_subdiv .users_div_subdiv_subdiv div{
+        padding-bottom: 1rem;
     }
-    .aside_sidebar .users div h2{
-        font-size: 2.9rem;
-        font-weight: 750;
-    }
-    .aside_sidebar .users span{
-        font-weight: 800;
-    }
-    .aside_sidebar .users .users_div_subdiv{
-        display: flex; 
-        padding: 1rem;
-    }
-    .aside_sidebar .users .users_div_subdiv .users_div_subdiv_subdiv{
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-     .users .users_div_subdiv_subdiv .user_imgbox{
-        margin-bottom: .7rem;
-     }
-     .users_div_subdiv_subdiv .users_delete_edit{
-        width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-        margin-top: 1rem;
-     }
-     .users_div_subdiv_subdiv .users_delete_edit a{
-        padding: .5rem 1rem;
-    }
-     .users .users_div_subdiv_subdiv:nth-child(2){
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-     }
-     .users .users_div_subdiv_subdiv:nth-child(2) i{
-        font-size: 2rem;
-        align-items: center;
-     }
-     .posts{
-        flex-direction: column;
-        align-items: center;
-        position: relative;
+    .posts{
+        width: 90%;
+        margin: 1rem 0;
      }
      .posts .posts_delete_edit2{
         position: fixed;
@@ -1476,132 +1455,39 @@ a, td,span, p, label{
         align-items: center;
         justify-content: space-evenly;
     }
-     .posts .posts_delete_edit2 h1{
-        font-size: 2.5rem;
-     }
-     .posts_delete_edit2_subdiv a:nth-child(2){
-        margin-left: 1rem;
-     }
      .posts .postsdiv{
-        padding: 1rem 1.5rem;
-        margin: 1rem 0;
-        width: 80%;
-     }
-     .postsdiv .posts_header h1{
-        font-size: 2.5rem;
-        font-weight: 750;
-     }
-     .postsdiv .posts_header{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: .8rem 0;
-     }
-     .postsdiv .posts_divcontainer{
-        padding: .5rem;
-     }
-     .posts_divcontainer .posts_divcontainer_subdiv{
-        padding: .5rem 1rem;
-     }
-     .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body{
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-     }
-     .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body h3{
-        font-size: 2rem;
-        font-weight: 750;
-     }
-     .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body a:nth-child(2){
-        margin-left: .6rem;
-     }
-     .posts_divcontainer_subdiv .posts_divcontainer_subdiv2{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        padding: .6rem 0;
-        flex-wrap: nowrap;
-     }
-     .posts_divcontainer_subdiv .posts_divcontainer_subdiv2 span{
-        font-weight: 780;
-     }
-     .posts_divcontainer_subdiv .posts_divcontainer_subdiv3{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        padding: .6rem 0;
-        flex-wrap: nowrap;
-     }
-     .posts_divcontainer_subdiv .posts_divcontainer_subdiv3 span{
-        font-weight: 780;
-     }
-     .posts_divcontainer_subdiv4{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        padding: .6rem 0;
-        flex-wrap: nowrap;
+        padding: 1.5rem;
+        width: 100%;
      }
     .reviews{
-        flex-direction: column;
-        align-items: center;
+        width: 90%;
+        padding: 1.5rem;
+        background-color: #FAFAFA;
     }
     .reviews .reviewdiv{
-        padding: 1rem;
+        padding: 1.5rem;
+        width: 100%;
     }
     .reviewdiv .review_header{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem;
+        padding: 1.5rem;
     }
      .revheader{
-        font-size: 2.5rem;
-        font-weight: 750;
+        font-size: 2.8rem;
      }
      .review_divcontainer{
         padding: 1rem .8rem;
      }
-     .review_divcontainer_subdiv{
-        padding: 1rem;
-     }
      .review_divcontainer_subdiv1{
-        display: flex;
-        flex-direction: column;
-     }
-     .review_divcontainer .review_divcontainer_subdiv2{
-        display: flex;
-        align-items: center;
-        padding: .5rem 1rem;
-     }
-     .review_divcontainer .review_divcontainer_subdiv2 i{
-        font-size: 3.5rem;
-        margin-right: 1rem;
-     }
-     .review_divcontainer_subdiv3-pre{
-        display: flex;
-        justify-content: space-evenly;
-        padding: 1rem 0;
-     }
-     .review_divcontainer_subdiv3-pre span{
-        font-weight: 780;
-     }
-     .review_divcontainer_subdiv3{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-     }
+        padding: 1.5rem 0;    
+    }
     .settings{
         flex-direction: column;
         padding: 1.5rem;
+        width: 90%;
     }
     .developer_contact{
-        flex-direction: column;
         padding: 1.5rem;
-        width: 100%;
-        align-items: flex-start;
-        height: fit-content;
+        width: 90%;
     }
     .developer_contact h1{
         font-size: 2.5rem;
@@ -1634,272 +1520,137 @@ a, td,span, p, label{
     .display{
         display: flex;
     }
-    .logout_alert{
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100%;
-        width: 100vw;
-        position: fixed;
-        padding: 1.5rem 0;
-    }
     .logout_alert h1{
-        font-size: 3rem;
-        padding: 1.5rem 0;
-        margin-bottom: 1rem;
-    }
-    .logout_alert div{
-        width: 40vw;
-        padding: 0 1rem;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-    .logout_alert div a{
-        width: 8rem;
-        text-align: center;
+        font-size: 3.3rem;
     }
     /*For Create New Post page*/
-    .newpost_body{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem 0;
-    }
     .newpost_body .newpost_container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 80%;
+        width: 90%;
     }
     .newpost_container .newpost_subdiv{
-        width: 80%;
-        text-align: center;
-        padding: 1rem;
-        margin-bottom: 1rem;
+        width: 92%;
     }
     .newpost_container .newpost_subdiv p{
-        font-size: 1.2rem;
-        margin-top: .5rem;
-        text-align: left;
+        font-size: 1.5rem;
+        margin-top: 0;
     }
     .newpost_container .newpost_subdiv span{
-        margin-right: .2rem;
+        margin-right: .3rem;
     }
     .newpost_container .newpost_subdiv h1{
-        font-size: 2.5rem;
-        font-weight: 750;
-        padding: 1rem 0;
-    }
-    .newpost_container_div2{
-        display: flex;
-        align-items: center;
-        flex-wrap: nowrap;
-    }
-    .newpost_container_div2 input{
-        padding: 1rem;
-        outline: none;
-    }
-    .input1{
-        width: 70%;
-        margin-right: 1rem;
-    }
-    .newpost_container_div2_subdiv2{
-        width: calc(100% - (70% + 1rem));
-    }
-    .newpost_container_div2_subdiv2 input{
-        width:100%;
-    }
-    .newpost_container_div3{
-        display: flex;
-        flex-wrap: nowrap;
-    }
-    .newpost_container_div3 input{
-        padding: 1rem;
-        outline: none;
-        border: none;
-        border-bottom: 1px solid black;
-        width: 100%;
+        font-size: 2.8rem;
     }
     .newpost_container_div3 label{
-        width: 10%;
-        margin-top: .5rem;
+        width: 13%;
+        margin-top: 0;
+        font-weight: 750;
     }
     .newpost_container_div3_subdiv2{
-        width: 90%;
+        width: 86%;
     }
     .form__label{
-        margin-right: 1rem;
-    }
-    .newpost_container_div4{
-        width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
+        font-weight: 750;
     }
     .newpost_container_div4 label{
-        width: 10%;
+        width: 13%;
+        font-weight: 750;
     }
     .newpost_container_div4 select{
-        width: 90%;
-        padding: 1rem;
-    }
-    .newpost_container_div5{
-        width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
+        width: 87%;
     }
     .newpost_container_div5 label{
         width: 19%;
-        margin-top: .5rem;
-    }
-    .newpost_container_div5_subdiv2{
-        width: calc(100% - 19%);
-    }
-    .newpost_container_div5_subdiv2 input{
-        padding: 1rem;
-        outline: none;
-        width: 100%;
-    }
-    .newpost_container_div6 {
-        display: flex;
+        margin-top: 0;
+        font-weight: 750;
     }
     .newpost_container_div6 label{
-        width: 10%;
-    }
-    .newpost_container_div7{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        width: fit-content;
+        font-weight: 750;
+        margin-right: 1.5rem;
     }
     .newpost_container_div7 label{
-        padding-bottom: .8rem;
+        padding-bottom: 1rem;
+        font-weight: 750;
     }
     .newpost_container_div7 .newpost_container_div7_subdiv2{
         min-width: 100%;
         min-height: 50vh;
-        padding: .8rem;
-    }
-    .newpost_container_div9 input{
-        width: 100%;
         padding: 1rem;
-        border: none;
+    }
+    .newpost_container_div7 .newpost_container_div7_subdiv2:focus{
+        outline: 1px solid #F94A04;
     }
     /*Workspace Styles*/
     .sidebar_workspace_container{
-        display: flex;
-        flex-direction: column;
-        max-height: 70%;
-    }
-    .active3::before{
-        position: absolute;
-        width: 105%;
-        height: 110%;
-}
-    .active3::after{
-        position: absolute;
+        flex-direction: row;
+        max-height: fit-content;
     }
     .sidebar_workspace_container div{
-        height: 15vh;
-        width: 100%;
-        position: relative;
-        margin-bottom: 2.2rem;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
+        height: 8vh;
+        width: 10vw;
+        margin-right: 2rem;
     }
-    .workspace_container{
-        min-width: 100%;
-        min-height: 100%;
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .sidebar_workspace_container div i{
+        color: #222222;
+        font-size: 2rem;
+    }
+    .sidebar_workspace_container div p{
+        display: none;
     }
     .workspace_container textarea{
-        width: 80%;
-        height: 80vh;
-        padding: 1rem;
-        margin-bottom: 1rem;
+        width: 90%;
+        outline: none;
+        font-size: 2.2rem;
+    }
+    .workspace_container textarea:focus{
         border: none;
+        outline: none;
     }
     .workspace_container .workspace_input1{
-        width: 80%;
-        padding: 1rem;
+        width: 90%;
+        margin-top: 1rem;
         border: none;
+        font-size: 2.2rem;
     }
     .workspace_container .workspace_input2{
-        width: 80%;
-        padding: 1rem;
+        width: 90%;
         margin-top: 1rem;
     }
     /*For View Posts*/
-    .sectioneer{
-        display: flex;
-        padding: 1.5rem;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        min-height: fit-content;
-    }
     .sectioneer_divcontainer{
-        width: 80%;
-        padding: 1.5rem;
+        width: 90%;
+    }
+    .postsdiv .posts_header{
+        padding: 1.3rem .5rem;
+    }
+    .postsdiv .posts_header h1{
+        font-size: 2.8rem;
+    }
+    .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body h3 {
+        font-size: 2.2rem;
     }
     .create_editor_container{
-        display: flex;
-        padding: 1rem;
-        box-shadow: 5px 10px 10px rgba(0, 0, 0, .5);
-        padding: 1rem 0;
-        flex-direction: column;
-        min-height: fit-content;
-        width: 80%;
-        height: fit-content;
-        align-items: center;
-        position: relative;
-        justify-content: center;
-    }
-    .create_editor_container div{
-        padding: 1rem;
-        margin: .4rem 0;
+        padding: 1.5rem;
         width: 90%;
-        min-height: fit-content;
     }
     .create_editor_container div h1{
-        text-align: center;
+        font-size: 2.8rem;
     }
     .container_center{
         align-items: center;
         justify-content: center;
     }
     .create_editor_container div label{
-        width: fit-content;
-        font-weight: 700;
+        font-weight: 750;
     }
     .create_editor_container div input{
-        width: 80%;
-        padding: 1rem;
-        border: none;
+        border-bottom: 1px solid #222222;
     }
     .create_editor_container div input:focus{
         outline: none;
     }
     .createeditor_input-submit{
-        width: 80%;
-        border: none;
-        outline: none;
-        margin: 1rem 0;
-    }
-    .create_editor_container i{
-        font-size: 3rem;
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin-right: 2rem;
-        margin-top: 2rem;
-        cursor: pointer;
+        width: 90%;
     }
     /*For Edit profile page*/
     .editprofile_container{

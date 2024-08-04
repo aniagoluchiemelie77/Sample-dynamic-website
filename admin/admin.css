@@ -1336,7 +1336,7 @@ a, td,span, p, label{
     border: none;
     outline: .5px solid #F93404;
 }
-@media only screen and (min-width: 41rem) and (max-width: 64rem){
+@media only screen and (min-width: 39rem) and (max-width: 65rem){
     .header{
         padding: 1rem;
     }
@@ -1347,208 +1347,71 @@ a, td,span, p, label{
     .header_img a{
         font-size: 2rem;
     }
-    .sidebar{
-        position: fixed;
+    .body .sidebar{
         width: 100%;
-        top: 0;
+        position: relative;
         height: fit-content;
         display: flex;
         flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .body .sidebar .sidebar_footer{
+        display: none;
     }
     .body .sidebar div{
-        display: flex;
-        padding: 1.2rem;
-        flex-direction: column;
-    }
-    .body .sidebar div div{
-        display: flex;
         flex-direction: row;
-        align-items: center;
-        cursor: pointer;
     }
     .body .sidebar div i{
-        margin-right: 1rem;
-        font-size: 1.7rem;
+        margin-right: 1.5rem;
+        font-size: 1.8rem;
     }
     .aside_sidebar{
-        margin-left: var(--sidebar-width);
-        position: relative;
+        margin-left: 0;
+        display: flex;
         align-items: center;
+        flex-direction: column;
         min-height: 100%;
-        overflow-y: scroll;
     }
     .aside_sidebar .aside_sidebar_header{
         font-size: 3rem;
-        padding: 1rem 0;
         width: 100%;
-        text-align: center;
     }
-     .website_info_div{
-        width: 100%;
-        padding: 1rem;
-        min-height: fit-content;
-        flex-direction: column;
-        align-items: center;
-    }
-    .website_info_div .webinfo_container{
-        min-width: 100%;
-        display: flex;
-        padding: 1.2rem;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
+    .website_info_div{
+        height: 100%;
     }
     .website_info_div .webinfo_container .website_info{
-        width: 13rem;
-        height: 10rem;
-        padding: 1rem;
-        margin: 1rem 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .webinfo_container .website_info div{
-        display: flex;
-        flex-wrap: nowrap;
-        padding: .5rem 1rem;
-        align-items: center;
+        width: 15rem;
+        height: 15rem;
     }
     .webinfo_container .website_info div i{
         margin-right: .6rem;
         font-size: 2.3rem;
     }
     .addtionalinfo{
-        width: 90%;
-        padding: 1.5rem;
-    }
-    .addtionalinfo .addtionalinfo_header{
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 0;
+       margin-top: 1rem;
     }
     .addtionalinfo .addtionalinfo_header h1{
         font-size: 2.5rem;
-        padding: .5rem .5rem;
-    }
-     .btn{
-        padding: .8rem 1rem;
-    }
-     .addtionalinfo_body{
-        width: 100%;
-    }
-    .addtionalinfo_body table{
-        width: 100%;
-        padding: 1rem;
-    }
-    .addtionalinfo_body table th{
-        font-size: 2rem;
-        text-align: center;
-        padding: .2rem 1rem ;
-    }
-    .hidden{
-        display: none;
     }
     .profile{
-        padding: 1rem 0;
-        min-height: 100%;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-    .profile figure{
-        text-align: left;
-        position: relative;
-        width: fit-content;
+        width: 90%;
+        margin-bottom: 1rem;
+        padding: 1.5rem;
     }
     .profile figure img{
         height: 15rem;
         width: 15rem;
     }
-    .profile_imgbox a{
-        position: absolute;
-        cursor: pointer;
-        bottom: 0;
-        right: .5rem;
-        width: 50px;
-        height: 50px;
-        padding: 1rem;
-    }
-    .profile_body{
-        margin: 1.2rem 0;
-        min-width: 100%;
-        padding: 1rem;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .profile_body .firsti{
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin-right: 2rem;
-        margin-top: 1rem;
+    .profile_imgbox a i{
         font-size: 2rem;
     }
-    .profile_firstp{
-        margin-bottom: 1rem;
-    }
-    .profile_firstp span{
-        font-weight: 700;
-    }
-    .profile_body .profile_body_subdiv_subdiv{
+    .profile_body{
         width: 90%;
-        padding: 1rem;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-    }
-    .profile_body .profile_body_subdiv_subdiv div{
-        display: flex;
-        min-width: fit-content;
-        align-items: center;
-    }
-    .profile_body .profile_body_subdiv_subdiv div:nth-child(2){
-        margin-left: 2.5rem;
-    }
-    .profile_body_subdiv_subdiv i{
-        margin-right: 1rem;
-        font-size: 1.5rem;
-    }
-    .profilesubdiv p:nth-child(2){
-        margin-left: 1rem;
-    }
-    .profile_body-activities{
-        width: 80%;
-        margin: 1rem 0;
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-}
-    .profile_body-activities div{
-        display: flex;
-        align-items: center;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        padding: .8rem 1rem;
-    }
-    .profile_body-activities div h1{
-        font-size: 2.5rem;
-    }
-    .profile_body .profile_edit_btn{
-        min-width: 90%;
-        text-align: center;
-        padding: .9rem 1rem;
     }
     .aside_sidebar .users{
-        padding: 1.5rem 1rem;
-        width: 100%;
-        height: 100%;
-        align-items: flex-start;
-        flex-direction: column;
-        height: 100%;
+        padding: 1.5rem;
+        width: 90%;
+        margin-bottom: 1rem;
     }
     .users .user_header{
         display: flex;

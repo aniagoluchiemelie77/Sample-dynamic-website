@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("connect.php")
+require ("connect.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -209,7 +209,7 @@ include("connect.php")
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
-                        <p class="website_info_p2">Create New Post</p>
+                        <p class="website_info_p2">New Post</p>
                     </a>
                     <a class="website_info" href="#" target="_blank">
                         <div class="website_info_subdiv">
@@ -227,7 +227,13 @@ include("connect.php")
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
-                        <p class="website_info_p2">Write Message</p>
+                        <p class="website_info_p2">Add Message</p>
+                    </a>
+                    <a class="website_info" href="create_new/message.php" target="_blank">
+                        <div class="website_info_subdiv">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                        <p class="website_info_p2">New Ad</p>
                     </a>
                 </div>
                 <div class="addtionalinfo">
@@ -316,20 +322,99 @@ include("connect.php")
                     </a>
                 </figure>
                 <div class="profile_body">
-                    <p class="profile_firstp"><span>Chiemelie </span><span>Aniagolu</span> (<span>Chibs01</span>) </p>
-                    <p>Chiemelie Aniagolu is a Senior Student at the Federal University of Petroleum Resources, Delta State. He is also a Web Front-End Developer who manages and creates multiple websites today.</p>
+                    <p class="profile_firstp"><span><?php
+                        if(isset($_SESSION['email'])){
+                            $email = $_SESSION['email'];
+                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                            while($row = mysqli_fetch_array($query)){
+                            echo $row['firstName'];
+                            }
+                        }?> </span><span><?php
+                        if(isset($_SESSION['email'])){
+                            $email = $_SESSION['email'];
+                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                            while($row = mysqli_fetch_array($query)){
+                                echo $row['lastName'];
+                            }
+                        }
+                        ?></span> (<span><?php
+                        if(isset($_SESSION['email'])){
+                            $email = $_SESSION['email'];
+                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                            while($row = mysqli_fetch_array($query)){
+                                echo $row['username'];
+                            }
+                        }
+                        ?></span>) </p>
+                    <p><?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_bio'];
+                }
+            }
+            ?></p>
                     <div class="profile_body_subdiv_subdiv">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <p><span>CSS Umueze Awkunanaw,</span><span> Nkanu West LGA,</span><span> Enugu State,</span><span> Nigeria</span></p>
+                        <p><span><?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['address1'];
+                }
+            }
+            ?>, </span><span><?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_city'];
+                }
+            }
+            ?>, </span><span><?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_state'];
+                }
+            }
+            ?>, </span><span> <?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_country'];
+                }
+            }
+            ?>.</span></p>
                     </div>
                     <div class="profile_body_subdiv_subdiv">
                         <div>
                             <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <p><span>chiboyaniagolu3@gmail.com</span></p>
+                            <p><span><?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['email'];
+                }
+            }
+            ?></span></p>
                         </div>
                         <div>
                             <i class="fa fa-phone" aria-hidden="true"></i>
-                            <p><span>09122312493</span></p>
+                            <p><span><?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_moblie'];
+                }
+            }
+            ?></span></p>
                         </div>
                     </div>
                     <div class="profile_body_subdiv_subdiv profilesubdiv">

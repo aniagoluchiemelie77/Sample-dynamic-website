@@ -50,11 +50,11 @@ include("../connect.php")
             </p>
         </div>
         <div class="aside_sidebar">
-            <div class="workspace_container">
-                <textarea></textarea>
+            <form class="workspace_container" action="../forms.php" method="post">
+                <textarea name="workspace_content"></textarea>
                 <input type="text" name="workspace_name" placeholder="Save As.." class="workspace_input1"/>
-                <input type="submit" name="submit" value="Save" class="workspace_input2"/>
-            </div>
+                <input type="submit" name="workspace_submit" value="Save" class="workspace_input2"/>
+            </form>
         </div>        
     </section>
     <script src="../admin.js"></script>

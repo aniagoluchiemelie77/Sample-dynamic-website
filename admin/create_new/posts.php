@@ -37,7 +37,7 @@ include("../connect.php");
         </div>
     </header>
     <section class="newpost_body">
-        <form class="newpost_container" method="post" action="forms.php" enctype="multipart/form-data">
+        <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data">
             <div class="newpost_container_div1 newpost_subdiv">
                 <h1>Create New Post</h1>
             </div>

@@ -37,61 +37,157 @@ include("../connect.php")
         </div>
     </header>
     <div class="editprofile_container">
-    <form class="create_editor_container" action="forms.php" method="post">
+    <form class="create_editor_container" action="../forms.php" method="post">
         <div class="createeditor_inputgroup">
             <h1 class="bigheader">Edit Profile</h1>
         </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile_firstname">Firstname:</label>
-            <input class="createeditor_input" type="text" name="profile_firstname" required/>
+            <input class="createeditor_input" type="text" name="profile_firstname" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['firstName'];
+                }
+            }
+            ?>'required/>
         </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile_lastname">Lastname:</label>
-            <input class="createeditor_input" type="text" name="profile_lastname" required/>
+            <input class="createeditor_input" type="text" name="profile_lastname" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['lastName'];
+                }
+            }
+            ?>'required/>
         </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile_username">Username:</label>
-            <input class="createeditor_input" type="text" name="profile_username" required/>
+            <input class="createeditor_input" type="text" name="profile_username" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['username'];
+                }
+            }
+            ?>' required/>
         </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile_email">Email:</label>
-            <input class="createeditor_input" type="email" name="profile_email" required/>
+            <input class="createeditor_input" type="email" name="profile_email" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['email'];
+                }
+            }
+            ?>'required/>
         </div>
         <div class="createeditor_inputgroup flexcolumn">
             <label class="createeditor_label rightmargin nooutline" for="profile_bio">Bio:</label>
-            <textarea name="profile_bio" class="textarea"></textarea>
+            <textarea name="profile_bio" class="textarea"><?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_bio'];
+                }
+            }
+            ?></textarea>
         </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile-address1">Address 1:</label>
-            <input class="createeditor_input" type="text" name="profile-address1" required/>
+            <input class="createeditor_input" type="text" name="profile-address1" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['address1'];
+                }
+            }
+            ?>' required/>
         </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile-address2">Address 2:</label>
-            <input class="createeditor_input" type="text" name="profile-address2" required/>
+            <input class="createeditor_input" type="text" name="profile-address2" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['address2'];
+                }
+            }
+            ?>'required/>
         </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile-city">City:</label>
-            <input class="createeditor_input" type="text" name="profile-city" required/>
+            <input class="createeditor_input" type="text" name="profile-city" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_city'];
+                }
+            }
+            ?>' required/>
         </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile-state">State:</label>
-            <input class="createeditor_input" type="text" name="profile-state" required/>
+            <input class="createeditor_input" type="text" name="profile-state" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_state'];
+                }
+            }
+            ?>'required/>
         </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile-country">Country:</label>
-            <input class="createeditor_input" type="text" name="profile-country" required/>
+            <input class="createeditor_input" type="text" name="profile-country" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_country'];
+                }
+            }
+            ?>'required/>
         </div>
         <div class="createeditor_inputgroup">
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label rightmargin" for="profile-countrycode">Country Code:</label>
-                <input class="createeditor_input" type="text" name="profile-countrycode" required/>
+                <input class="createeditor_input" type="text" name="profile-countrycode" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['country_code'];
+                }
+            }
+            ?>'required/>
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label rightmargin" for="profile-mobile">Phone Number:</label>
-                <input class="createeditor_input" type="number" name="profile-mobile" required/>
+                <input class="createeditor_input" type="number" name="profile-mobile" value='<?php
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                while($row = mysqli_fetch_array($query)){
+                    echo $row['admin_moblie'];
+                }
+            }
+            ?>'required/>
             </div>
         </div>
-        <input class="createeditor_input-submit" value="Submit" name="profileedit_Submit" type="submit"/>
+        <input class="createeditor_input-submit" value="Update" name="profileedit_Submit" type="submit"/>
     </form>
     </div>
 </body>

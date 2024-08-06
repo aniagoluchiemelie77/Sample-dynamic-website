@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="admin.css"/>
-	<title>Admin Register/Login</title>
+	<title>Admin Login</title>
 </head>
 <body>
     <section class="section1">

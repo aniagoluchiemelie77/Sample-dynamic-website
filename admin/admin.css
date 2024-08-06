@@ -332,6 +332,7 @@ a, td,span, p, label{
 .header_img img{
     width: 4rem;
     height: 4rem;
+    border: 2px solid #FAFAFA;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -475,6 +476,7 @@ a, td,span, p, label{
 }
 .addtionalinfo{
     width: 90%;
+    margin: 1rem 0;
     background-color: #FAFAFA;
     padding: 1.5rem;
     border-radius: .5rem;

@@ -15,6 +15,7 @@ const createEditorOrigin = document.getElementById('create_user-origin');
 const createEditorDiv = document.getElementById('create_editor');
 const createWriterOrigin = document.getElementById('create_writer_origin');
 const createWriterDiv = document.getElementById('create_writer');
+const deletedAlert = document.getElementById('delete');
 
 
 
@@ -80,3 +81,13 @@ const stickyNavFunc = function () {
   headerObs.observe(header);
 };
 stickyNavFunc();
+
+const deletePopUp = function (id) {
+  id.classList.remove('hidden');
+  id.style.display = 'flex';
+  setTimeout(() => {
+    id.classList.add('hidden');
+    id.style.display = 'unset';
+  }, 3000)
+};
+deletePopUp(deletedAlert);

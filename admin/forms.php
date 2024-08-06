@@ -12,7 +12,8 @@ if (isset($_POST['Sign_In'])) {
         header("location: admin_homepage.php");
         exit();
     }else{
-            echo "Not Found, Incorrect Email";
+        echo ` Incorrect Username or Password.`;
+        header("location: index.php");
     }
 }
 
@@ -43,7 +44,9 @@ if (isset($_POST['create_post'])) {
                                 VALUES ('$title', '$niche', '$content', '$sub_title', '$featured', '$image_name', '$date')";
                                 $result = $conn->query($insertQuery);
                                 if($result === TRUE){
-                                    echo "Successful";
+                                    echo `<div class="logout_alert container_center" id="delete">
+                                            <h1 class="logout_alert_header">Post Uploaded Successfully.</h1>
+                                          </div>`;
                                     header('Location: admin_homepage.php');
                                 }else{
                                     echo "Unsuccessful, Please Retry";
@@ -84,7 +87,9 @@ if (isset($_POST['profileedit_Submit'])) {
     $insertQuery2 = "UPDATE admin_login_info SET firstName ='$firstname', lastName='$lastname', username='$username', email='$email', admin_bio='$bio', admin_moblie='$mobile', admin_country='$country', admin_city='$city', admin_state='$state', address1='$address1', address2='$address2', country_code='$countrycode' WHERE id='2'";
     $result = $conn->query($insertQuery2);
         if($result === TRUE){
-            echo "Successful";
+            echo `<div class="logout_alert container_center" id="delete">
+                    <h1 class="logout_alert_header">Profile Edit Successful.</h1>
+                 </div>`;
             header('Location: admin_homepage.php');
         }else{
             echo "Unsuccessful, Please Retry";
@@ -100,7 +105,7 @@ if (isset($_POST['workspace_submit'])) {
     $result = $conn->query($insertQuery3);
         if($result === TRUE){
             echo "Successful";
-            header('Location: admin_homepage.php');
+            header('Location: workspace.php');
             }else{
             echo "Unsuccessful, Please Retry";
         };

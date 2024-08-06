@@ -84,8 +84,9 @@ require ("connect.php");
         <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
         </form>
     </div>
-    <div class="logout_alert container_center hidden" id="create_writer">
-    </div>
+    <!--<div class="logout_alert container_center hidden" id="delete">
+        <h1 class="logout_alert_header">Post Successfully Deleted.</h1>
+    </div>-->
     <header class="header">
         <div class="header_logobox">
             <img src="#" alt="Website Logo">
@@ -310,6 +311,51 @@ require ("connect.php");
                                   <a class="delete" href="#">Delete</a>
                               </td>
                               </tr>
+                          </table>
+                    </div>
+                </div>
+                <div class="addtionalinfo">
+                    <div class="addtionalinfo_header">
+                        <h1>Top Visits</h1>
+                        <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
+                    </div>
+                    <div class="addtionalinfo_body border-gradient-side-dark">
+                        <table>
+                            <tr>
+                              <th>S/n</th>
+                              <th>Country Name</th>
+                              <th>Total Visits</th>
+                            </tr>
+                            <tr class="border-gradient-side-dark">
+                              <td>1</td>
+                              <td>Germany</td>
+                              <td>3000</td>
+                            </tr>
+                            <tr>
+                              <td>2</td>
+                              <td>USA</td>
+                              <td>2500</td>
+                            </tr>
+                            <tr>
+                              <td>3</td>
+                              <td>Canada</td>
+                              <td>2000</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>UK</td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Spain</td>
+                                <td>600</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Honduras</td>
+                                <td>300</td>
+                            </tr>
                           </table>
                     </div>
                 </div>
@@ -1173,7 +1219,9 @@ require ("connect.php");
                 <div class="developer_contact_subdiv">
                         <h2>Follow Us</h2>
                         <div>
-                            Instagram, Facebook, Twitter
+                            <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
                         </div>
                 </div>
                 <div>

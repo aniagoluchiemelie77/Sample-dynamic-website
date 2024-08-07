@@ -87,11 +87,11 @@ require ("connect.php");
     <div class="logout_alert2 container_center hidden" id="write_message">
         <form class="create_editor_container2" action="forms.php" method="post">
             <i class="fa fa-times" aria-hidden="true"></i>
-            <div class="message_popup_btns">
+            <div class="message_popup_btns" id='messagebtns'>
                 <a class="message_popup_btns-a active">To Editors</a>
                 <a class="message_popup_btns-a notactive_btn">To Writers</a>
             </div>
-            <div class="message_popup_contents">
+            <div class="message_popup_contents" id="messagebody">
                 <div class="message_popup_contents_div1">
                     <div>
                         <label for="message_textarea">Compose Message</label>
@@ -99,7 +99,7 @@ require ("connect.php");
                     </div>
                     <input class="addmessage" value="Submit" name="addmessage_Submit" type="submit"/>
                 </div>
-                <div class="message_popup_contents_div2">
+                <div class="message_popup_contents_div2 hidden">
                     <div>
                         <label for="message_textarea">Compose Message</label>
                         <textarea name="message_textarea"></textarea>

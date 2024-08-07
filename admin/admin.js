@@ -18,8 +18,8 @@ const createWriterDiv = document.getElementById('create_writer');
 const deletedAlert = document.getElementById('delete');
 const writeMessageDiv = document.getElementById('write_message');
 const writeMessageOrigin = document.getElementById('messagediv');
-const messagePopupBtns = document.querySelector('.message_popup_btns');
-const messagePopupContents = document.querySelector('.message_popup_contents');
+let messagePopupBtns = document.getElementById('messagebtns');
+let messagePopupContents = document.getElementById('messagebody');
 
 
 
@@ -91,16 +91,3 @@ const displayWriteMessage = function(){
   writeMessageDiv.style.display = 'flex';
 }
 writeMessageOrigin.addEventListener('click', displayWriteMessage);
-
-messagePopupBtns.forEach((tab, index) => {
-  tab.addEventListener('click', (e) => {
-    messagePopupBtns.forEach((tab) => {
-      tab.classList.remove('active');
-    });
-    tab.classList.add('active');
-    messagePopupContents.forEach((content) =>{
-      content.style.display = 'none';
-    })
-    messagePopupContents[index].style.display = 'flex';
-  })
-})

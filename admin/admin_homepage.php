@@ -84,6 +84,60 @@ require ("connect.php");
         <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
         </form>
     </div>
+    <div class="logout_alert2 container_center hidden" id="write_message">
+        <form class="create_editor_container2" action="forms.php" method="post">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            <div class="message_popup_btns">
+                <a class="message_popup_btns-a active">To Editors</a>
+                <a class="message_popup_btns-a notactive_btn">To Writers</a>
+            </div>
+            <div class="message_popup_contents">
+                <div class="message_popup_contents_div1">
+                    <div>
+                        <label for="message_textarea">Compose Message</label>
+                        <textarea name="message_textarea"></textarea>
+                    </div>
+                    <input class="addmessage" value="Submit" name="addmessage_Submit" type="submit"/>
+                </div>
+                <div class="message_popup_contents_div2">
+                    <div>
+                        <label for="message_textarea">Compose Message</label>
+                        <textarea name="message_textarea"></textarea>
+                    </div>
+                    <input class="addmessage" value="Submit" name="addmessage_Submit" type="submit"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="logout_alert container_center hidden" id="create_writer">
+        <form class="create_editor_container" action="forms.php" method="post">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        <div class="createeditor_inputgroup">
+            <h1>Create New Writer</h1>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_firstname">Firstname:</label>
+            <input class="createeditor_input" type="text" name="writer_firstname" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_lastname">Lastname:</label>
+            <input class="createeditor_input" type="text" name="writer_lastname" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_email">Email:</label>
+            <input class="createeditor_input" type="email" name="writer_email" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_password">Suggest Password:</label>
+            <input class="createeditor_input" type="password" name="writer_password" required/>
+        </div>
+        <div class="createeditor_inputgroup">
+            <label class="createeditor_label" for="writer_password-confirm">Confirm Password:</label>
+            <input class="createeditor_input" type="text" name="writer_password-confirm" required/>
+        </div>
+        <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
+        </form>
+    </div>
     <!--<div class="logout_alert container_center hidden" id="delete">
         <h1 class="logout_alert_header">Post Successfully Deleted.</h1>
     </div>-->
@@ -226,13 +280,13 @@ require ("connect.php");
                         </div>
                         <p class="website_info_p2">Add Workspace</p>
                     </a>
-                    <a class="website_info" href="create_new/message.php" target="_blank">
+                    <a class="website_info" id="messagediv">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
                         <p class="website_info_p2">Add Message</p>
                     </a>
-                    <a class="website_info" href="create_new/message.php" target="_blank">
+                    <a class="website_info" id="advertdiv">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>

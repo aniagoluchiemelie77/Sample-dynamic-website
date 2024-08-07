@@ -16,7 +16,10 @@ const createEditorDiv = document.getElementById('create_editor');
 const createWriterOrigin = document.getElementById('create_writer_origin');
 const createWriterDiv = document.getElementById('create_writer');
 const deletedAlert = document.getElementById('delete');
-const piechart_container = document.getElementById('piechart_container');
+const writeMessageDiv = document.getElementById('write_message');
+const writeMessageOrigin = document.getElementById('messagediv');
+const messagePopupBtns = document.querySelector('.message_popup_btns');
+const messagePopupContents = document.querySelector('.message_popup_contents');
 
 
 
@@ -83,3 +86,21 @@ const stickyNavFunc = function () {
 };
 stickyNavFunc();
 
+const displayWriteMessage = function(){
+  writeMessageDiv.classList.remove('hidden');
+  writeMessageDiv.style.display = 'flex';
+}
+writeMessageOrigin.addEventListener('click', displayWriteMessage);
+
+messagePopupBtns.forEach((tab, index) => {
+  tab.addEventListener('click', (e) => {
+    messagePopupBtns.forEach((tab) => {
+      tab.classList.remove('active');
+    });
+    tab.classList.add('active');
+    messagePopupContents.forEach((content) =>{
+      content.style.display = 'none';
+    })
+    messagePopupContents[index].style.display = 'flex';
+  })
+})

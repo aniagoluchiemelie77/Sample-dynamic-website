@@ -110,4 +110,37 @@ if (isset($_POST['workspace_submit'])) {
             echo "Unsuccessful, Please Retry";
         };
 } 
+
+require "connect.php";
+require "edit/post.php";
+if (isset($_POST['edit_post'])) {
+    $title = $_POST['Post_Title'];
+    $niche = $_POST['Post_Niche'];
+    $content = $_POST['Post_content'];
+    $featured = $_POST['Post_featured'];
+    $sub_title = $_POST['Post_Sub_Title'];
+    $image_type = $_FILES['Post_Image']['type'];
+    $image_size = $_FILES['Post_Image']['size'];
+    $image_dir = '/uploads';
+    $date = date('Y-m-d H:i:s');
+    if($image_type == "image/jpeg" OR $image_type == "image/jpg" OR $image_type = "image/png" OR $image_type = "image/webp"){
+        if($image_size <= 300000){
+            $tmp_name = $_FILES["Post_Image"]["tmp_name"][$key];
+            $image_name = basename($_FILES["Post_Image"]["name"][$key]);
+            move_uploaded_file($tmp_name, "$image_dir/$image_name");
+            $insertQuery2 = "UPDATE posts SET Posts_Niche ='$niche', subtitle='$sub_title', link='$featured', Posts_Image='$image_name', Posts_Content='$content', Posts_Date='$date', Posts_Title ='$title' WHERE Post_Id ='$edit_id'";
+            $result = $conn->query($insertQuery2);
+            if($result === TRUE){
+                echo"<script>alert('Post Updated Successfully.')</script>";
+                header('Location: admin_homepage.php');
+            }else{
+                echo "Unsuccessful, Please Retry";
+            }
+        }else{
+            echo "Image File too large";
+        }
+    }else{
+        echo "Invalid Image File Type";
+    } 
+} 
 ?>

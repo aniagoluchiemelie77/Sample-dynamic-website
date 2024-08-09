@@ -299,21 +299,29 @@ a, td,span, p, label{
     -ms-border-radius: 2rem;
     -o-border-radius: 2rem;
     display: flex;
-    width: fit-content;
+    width: 50vw;
     background-color: #F94A04;
 }
 .header_searchbar input{
     border: none;
     padding: 1rem;
+    background-color: #222222;
+    border-bottom: 1px solid #eee;
+    outline: none;
+    color: #eee;
+    width: 90%;
+}
+.header_searchbar input::placeholder{
+   color: #F94A04;
 }
 .header_searchbar input:focus{
-    border: none;
-    outline: none;
+    border-bottom: 2px solid #F93404;
 }
 .header_searchbar a{
     height: fit-content;
     padding: 1rem;
     color: #eee;
+    width: 10%;
     cursor: pointer;
 }
 .header_searchbar a i{
@@ -346,10 +354,11 @@ a, td,span, p, label{
     width: 100vw;
 }
 .body .sidebar{
-    position: fixed;
+    float: left;
     width: var(--sidebar-width);
     background-color: #222222;
-    height: 100%;
+    height: 100vh;
+    margin: 0;
     display: flex;
     flex-direction: column;
     padding: 1rem 1rem;

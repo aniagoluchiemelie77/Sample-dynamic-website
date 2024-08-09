@@ -19,7 +19,7 @@ include("../connect.php");
 	<title>Create New Post</title>
 </head>
 <body>
-<header class="header">
+    <header class="header">
         <div class="header_logobox">
             <img src="#" alt="Website Logo">
         </div>

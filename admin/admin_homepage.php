@@ -1,6 +1,46 @@
 <?php
 session_start();
 require ("connect.php");
+if(isset($_GET['search_submit'])){
+    $search_id = $_GET['search'];
+    $query1 = mysqli_query("SELECT * FROM paid_posts WHERE Title LIKE '%$search_id%' OR Content LIKE '%$search_id%' OR 	Subtitle LIKE '%$search_id%' OR Niche LIKE '%$search_id%'");
+    $query2 = mysqli_query("SELECT * FROM posts WHERE Posts_Title LIKE '%$search_id%' OR Posts_Content LIKE '%$search_id%' OR subtitle LIKE '%$search_id%' OR Posts_Niche LIKE '%$search_id%'");
+    $query3 = mysqli_query("SELECT * FROM unpublished_articles WHERE article_title LIKE '%$search_id%' OR article_content LIKE '%$search_id%' OR article_subtitle LIKE '%$search_id%' OR article_niche LIKE '%$search_id%'");
+    if($query1 == TRUE OR $query2 == TRUE OR $query3 == TRUE){
+        while($row = mysqli_fetch_array($query1)){
+            $id = $row['ID'];
+            $title = $row['Title'];
+            $image = $row['image'];
+            $niche = $row['Niche'];
+            $subtitle = $row['Subtitle'];
+            $date = $row['Post_date'];
+            $content = substr($row['Content'], 0, 3000);
+        }
+        while($row2 = mysqli_fetch_array($query2)){
+            $id2 = $row['Post_Id'];
+            $title2 = $row['Posts_Title'];
+            $image2 = $row['Posts_Image'];
+            $niche2 = $row['Posts_Niche'];
+            $subtitle2 = $row['subtitle'];
+            $date2 = $row['Posts_Date'];
+            $content2 = substr($row['Posts_Content'], 0, 3000);
+            //$editorId = $row['editor_id '];
+        }
+        while($row3 = mysqli_fetch_array($query3)){
+            $id3 = $row['article_id '];
+            $title3 = $row['article_title'];
+            $image3 = $row['article_image'];
+            $niche3 = $row['article_niche'];
+            $subtitle3 = $row['article_subtitle'];
+            $date3 = $row['article_date'];
+            $content = substr($row['article_content'], 0, 3000);
+            //$editorId = $row['editor_id '];
+            //$writerId = $row['writer_id'];
+        }
+    }else{
+        echo'<script> alert("Search Input Not Found");</sript>';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +62,7 @@ require ("connect.php");
     <div class="logout_alert hidden">
         <h1 class="logout_alert_header">Are You Sure You Want To Logout?</h1>
         <div>
-            <a class="btn">Yes</a>
+            <a class="btn" href="extras/logout.php">Yes</a>
             <a class="btn cancellogout">No</a>
         </div>
     </div>
@@ -145,9 +185,9 @@ require ("connect.php");
         <div class="header_logobox">
             <img src="#" alt="Website Logo">
         </div>
-        <form class="header_searchbar" action="" method="get">
+        <form class="header_searchbar" action="admin_homepage.php" method="get">
             <input type="text" name="search" placeholder="Search.." />
-            <a class="fa fa-search" aria-hidden="true">
+            <a class="fa fa-search" aria-hidden="true" name="search_submit">
             </a>
         </form>
         <div class="header_img">
@@ -313,7 +353,7 @@ require ("connect.php");
                               <td>Germany</td>
                               <td>July 10th 2024</td>
                               <td>
-                                <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
                                 <a class="delete" href="#">Delete</a>
                             </td>
                             </tr>

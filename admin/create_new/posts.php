@@ -50,8 +50,8 @@ include("../connect.php");
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="Post_Sub_Title">Sub Title:</label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="Post_Sub_Title" type="text" required/>
-                    <p class="newpost_subdiv2-p"><span>*</span>Text displayed under title</p>
+                    <input class="form__input" name="Post_Sub_Title" type="text"/>
+                    <p class="newpost_subdiv2-p"><span>*</span>Text displayed under title (OPTIONAL)</p>
                 </div>
             </div>
             <div class="newpost_container_div4 newpost_subdiv">
@@ -65,7 +65,7 @@ include("../connect.php");
             <div class="newpost_container_div5 newpost_subdiv">
                 <label class="form__label" for="Post_featured">Featured Video/Audio</label>
                 <div class="newpost_container_div5_subdiv2">
-                    <input class="form__input" name="Post_featured" type="text" required/>
+                    <input class="form__input" name="Post_featured" type="text"/>
                     <p class="newpost_subdiv2-p">Enter url to video/audio (optional)</p>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 <?php
-require "connect.php";
+require ("connect.php");
 if (isset($_POST['Sign_In'])) {
     $email = $_POST['Email'];
     $password = $_POST['Password'];
@@ -17,17 +17,18 @@ if (isset($_POST['Sign_In'])) {
     }
 }
 
-require "connect.php";
+require ("connect.php");
 if (isset($_POST['create_post'])) {
     $title = $_POST['Post_Title'];
     $niche = $_POST['Post_Niche'];
     $content = $_POST['Post_content'];
     $selects = $_POST['Post_Status'];
+    $uid = uniqid();
     $featured = $_POST['Post_featured'];
     $sub_title = $_POST['Post_Sub_Title'];
-    $image_type = $_FILES['Post_Image']['type'];
-    $image_size = $_FILES['Post_Image']['size'];
-    $image_dir = '/uploads';
+    $image = $uid . $_FILES['Post_Image']['name'];
+    $image_size = $uid . $_FILES['Post_Image']['size'];
+    $image_type = $uid . $_FILES['Post_Image']['type'];
     $date = date('Y-m-d H:i:s');
     $error = " ";
     if($title == " " OR  $niche == " " OR $content == " "){
@@ -35,13 +36,11 @@ if (isset($_POST['create_post'])) {
         echo "$error";
     }else{
         if($image_type == "image/jpeg" OR $image_type == "image/jpg" OR $image_type = "image/png" OR $image_type = "image/webp"){
-                    if($image_size <= 300000){
-                        $tmp_name = $_FILES["Post_Image"]["tmp_name"][$key];
-                        $image_name = basename($_FILES["Post_Image"]["name"][$key]);
-                        move_uploaded_file($tmp_name, "$image_dir/$image_name");
+                    if($image_size <= 900000){
+                        move_uploaded_file($_FILES['Post_Image']['tmp_name'],'images/' . $uid . $_FILES['Post_Image']['name']);
                             if($selects == "paid_post"){
                                 $insertQuery = "INSERT INTO paid_posts (Title, Niche, Content, Subtitle, link, image, Post_date)
-                                VALUES ('$title', '$niche', '$content', '$sub_title', '$featured', '$image_name', '$date')";
+                                VALUES ('$title', '$niche', '$content', '$sub_title', '$featured', '$image', '$date')";
                                 $result = $conn->query($insertQuery);
                                 if($result === TRUE){
                                     echo `<div class="logout_alert container_center" id="delete">
@@ -51,10 +50,10 @@ if (isset($_POST['create_post'])) {
                                 }else{
                                     echo "Unsuccessful, Please Retry";
                                 }
-                            }else{
+                            }else if($selects == "none"){
                                 $insertQuery2 = "INSERT INTO posts (Posts_Niche, subtitle, link, Posts_Image, Posts_Content, Posts_Date, Posts_Title)
-                                VALUES ('$niche', '$sub_title', '$featured', '$image_name', '$content', '$date', '$title')";
-                                $result = $conn->query($insertQuery);
+                                VALUES (\'$niche\', \'$sub_title\', \'$featured\', \'$image\', \'$content\', \'$date\', \'$title\')";
+                               $result = $conn->query($insertQuery2);
                                 if($result === TRUE){
                                     echo "Successful";
                                 }else{
@@ -70,7 +69,7 @@ if (isset($_POST['create_post'])) {
     }
 }
 
-require "connect.php";
+require ("connect.php");
 if (isset($_POST['profileedit_Submit'])) {
     $firstname = $_POST['profile_firstname'];
     $lastname = $_POST['profile_lastname'];
@@ -96,7 +95,7 @@ if (isset($_POST['profileedit_Submit'])) {
         }
 } 
 
-require "connect.php";
+require ("connect.php");
 if (isset($_POST['workspace_submit'])) {
     $content = $_POST['workspace_content'];
     $workspace_name = $_POST['workspace_name'];
@@ -105,14 +104,14 @@ if (isset($_POST['workspace_submit'])) {
     $result = $conn->query($insertQuery3);
         if($result === TRUE){
             echo "Successful";
-            header('Location: workspace.php');
+            header('location: create_new/workspace.php');
             }else{
             echo "Unsuccessful, Please Retry";
         };
 } 
 
-require "connect.php";
-require "edit/post.php";
+require ("connect.php");
+require ("edit/post.php");
 if (isset($_POST['edit_post'])) {
     $title = $_POST['Post_Title'];
     $niche = $_POST['Post_Niche'];

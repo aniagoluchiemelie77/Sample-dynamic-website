@@ -1,6 +1,6 @@
 <?php 
-session_start();
-require "../connect.php";
+/*session_start();
+require ("connect.php");
 $edit_id = $_GET['edit'];
 $query4 = mysqli_query("SELECT * FROM posts WHERE Post_Id = '$edit_id'");
 while($row = mysqli_fetch_array($query4)){
@@ -93,4 +93,4 @@ while($row = mysqli_fetch_array($query4)){
         </form>
     </section>
 </body>
-</html>
+</html>*/

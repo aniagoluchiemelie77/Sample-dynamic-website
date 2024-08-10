@@ -20,7 +20,10 @@ const writeMessageDiv = document.getElementById('write_message');
 const writeMessageOrigin = document.getElementById('messagediv');
 let messagePopupBtns = document.getElementById('messagebtns');
 let messagePopupContents = document.getElementById('messagebody');
-
+let workspaceCreator = document.getElementById('workspace_creator');
+let otherWorkspaces = document.getElementById('workspaces');
+let workspaceContainer = document.querySelector('.sidebar_workspace_container');
+let workspace = document.querySelector('.sidebar_workspace');
 
 
 sideBtns.forEach((tab, index) => {
@@ -35,22 +38,15 @@ sideBtns.forEach((tab, index) => {
       tabContent[index].style.display = 'flex';
     })
   })
-
-const cancelExit = function (){
-    const removeExitAlert = function(){
-      logoutDiv.classList.add('hidden');
-    }
-    cancelLogout.addEventListener('click', removeExitAlert);
-};
 const displayForm = function(){
     form.classList.remove('hidden');
 }
 //editBtn.addEventListener('click', displayForm);
 let displayExit;
-const displayExitAlert = function(){
+const displayExitAlert = function(event){
   logoutDiv.classList.remove('hidden');
   logoutDiv.style.display = 'flex';
-  cancelExit();
+  event.stopPropagation();
 }
 logout.addEventListener('click', displayExitAlert);
 
@@ -91,3 +87,22 @@ const displayWriteMessage = function(){
   writeMessageDiv.style.display = 'flex';
 }
 writeMessageOrigin.addEventListener('click', displayWriteMessage);
+
+//For create new workspace
+const createNewWorkspace = function(){
+  workspace.classList.remove('active3');
+  otherWorkspaces.classList.add('border-gradient-top-light');
+  let createWorkspaceHtml = `
+      <div id="workspaces" class="sidebar_workspace_container_subdiv">
+        <div class="sidebar_workspace active3" name="stored_workspaces"></div>
+        <label for="stored_workspaces">Lungu</label>
+      </div>`;
+  workspaceContainer.insertAdjacentHTML('beforebegin', createWorkspaceHtml);
+}
+workspaceCreator.addEventListener('click', createNewWorkspace);
+
+const removeExitAlert = function(){
+  logoutDiv.classList.toggle('hidden');
+  logoutDiv.style.display = 'unset';
+}
+cancelLogout.addEventListener('click', removeExitAlert);

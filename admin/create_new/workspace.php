@@ -38,11 +38,22 @@ include("../connect.php")
     </header>
     <section class="body">
         <div class="sidebar">
-            <div class="sidebar_workspace_container">
-                <div class="sidebar_workspace active3"></div>
-                <div class="sidebar_workspace">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    <p class="darkp">New Workspace</p>
+            <div class="sidebar_workspace_container workspacediv">
+                <?php 
+                $query5 = mysqli_query($conn, "SELECT * FROM workspaces ORDER BY 'id' DESC LIMIT 3");
+                while($row = mysqli_fetch_array($query5)){
+                    $workspacename = $row['workspace_name'];
+                    $content = Substr($row['content'],0, 10);
+                }?>
+                <div id="workspaces" class="sidebar_workspace_container_subdiv">
+                    <div class="sidebar_workspace1 active3" name="stored_workspaces">
+                    </div>
+                    <label for="stored_workspaces"></label>
+                </div>
+                <div class="border-gradient-top-light sidebar_workspace_container_subdiv2">
+                    <div class="sidebar_workspace" id="workspace_creator">
+                        <p class="darkp">New Workspace</p>
+                    </div>
                 </div>
             </div>
             <p class="sidebar_footer">
@@ -51,7 +62,7 @@ include("../connect.php")
         </div>
         <div class="aside_sidebar">
             <form class="workspace_container" action="../forms.php" method="post">
-                <textarea name="workspace_content"></textarea>
+                <textarea name="workspace_content" id="workspace_area"></textarea>
                 <input type="text" name="workspace_name" placeholder="Save As.." class="workspace_input1"/>
                 <input type="submit" name="workspace_submit" value="Save" class="workspace_input2"/>
             </form>

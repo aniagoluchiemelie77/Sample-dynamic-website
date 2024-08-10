@@ -335,8 +335,8 @@ if(isset($_GET['search_submit'])){
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
-                        <h1>Recent Articles</h1>
-                        <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
+                        <h1>Recent Posts</h1>
+                        <a class="btn" href="view_all/posts.php">View All</a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <table>
@@ -407,6 +407,76 @@ if(isset($_GET['search_submit'])){
                                   <a class="delete" href="#">Delete</a>
                               </td>
                               </tr>
+                          </table>
+                    </div>
+                </div>
+                <div class="addtionalinfo">
+                    <div class="addtionalinfo_header">
+                        <h1>Recent Articles</h1>
+                        <a class="btn" href="view_all/unpublished_articles.php">View All</a>
+                    </div>
+                    <div class="addtionalinfo_body border-gradient-side-dark">
+                        <table>
+                            <tr>
+                              <th>Article</th>
+                              <th>Author</th>
+                              <th>Date</th>
+                              <th>Actions</th>
+                            </tr>
+                            <tr class="border-gradient-side-dark">
+                              <td>Futterkiste</td>
+                              <td>Maria Anders</td>
+                              <td>July 10th 2024</td>
+                              <td>
+                                <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
+                                <a class="delete" href="#">Delete</a>
+                            </td>
+                            </tr>
+                            <tr>
+                              <td>Futterkiste</td>
+                              <td>Francisco Chang</td>
+                              <td>July 10th 2024</td>
+                              <td>
+                                <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                <a class="delete" href="#">Delete</a>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>Futterkiste</td>
+                                <td>Francisco Chang</td>
+                                <td>July 10th 2024</td>
+                                <td>
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                  <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Futterkiste</td>
+                                <td>Francisco Chang</td>
+                                <td>July 10th 2024</td>
+                                <td>
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                  <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Futterkiste</td>
+                                <td>Francisco Chang</td>
+                                <td>July 10th 2024</td>
+                                <td>
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                  <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Futterkiste</td>
+                                <td>Francisco Chang</td>
+                                <td>July 10th 2024</td>
+                                <td>
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                  <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
                           </table>
                     </div>
                 </div>

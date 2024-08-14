@@ -23,11 +23,6 @@ include("../connect.php")
         <div class="header_logobox">
             <img src="#" alt="Website Logo">
         </div>
-        <form class="header_searchbar" action="" method="get">
-            <input type="text" name="search" placeholder="Search.." />
-            <a class="fa fa-search" aria-hidden="true">
-            </a>
-        </form>
         <div class="header_img">
             <a class="notification" href="../view_all/notification.php">
                 <span></span>

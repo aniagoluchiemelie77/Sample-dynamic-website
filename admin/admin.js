@@ -20,8 +20,9 @@ const writeMessageDiv = document.getElementById('write_message');
 const writeMessageOrigin = document.getElementById('messagediv');
 let messagePopupBtns = document.getElementById('messagebtns');
 let messagePopupContents = document.getElementById('messagebody');
-let workspaceCreator = document.getElementById('workspace_creator');
+const workspaceCreator = document.getElementById('workspace_creator');
 let otherWorkspaces = document.getElementById('workspaces');
+let profilePicUploadBtn = document.getElementById('profileuploads');
 let workspaceContainer = document.querySelector('.sidebar_workspace_container');
 let workspace = document.querySelector('.sidebar_workspace');
 
@@ -99,10 +100,15 @@ const createNewWorkspace = function(){
       </div>`;
   workspaceContainer.insertAdjacentHTML('beforebegin', createWorkspaceHtml);
 }
-workspaceCreator.addEventListener('click', createNewWorkspace);
+//workspaceCreator.addEventListener('click', createNewWorkspace);
 
 const removeExitAlert = function(){
   logoutDiv.classList.toggle('hidden');
   logoutDiv.style.display = 'unset';
 }
 cancelLogout.addEventListener('click', removeExitAlert);
+
+const upload = function(){
+  document.getElementById('file_upload_id').click();
+}
+profilePicUploadBtn.addEventListener('click', upload);

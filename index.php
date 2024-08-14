@@ -167,7 +167,7 @@
         </div>
     </header>
     <?php 
-    include(includes/section1.php);
+    include("includes/section1.php");
     include(includes/section2.php);
     include(includes/section3.php);
     ?>

@@ -806,11 +806,15 @@ a, td,span, p, label{
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+    border: 3px solid #F94A04;
 }
 .profile_imgbox a{
     position: absolute;
     cursor: pointer;
     color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     bottom: 0;
     right: .5rem;
     width: 50px;
@@ -823,6 +827,9 @@ a, td,span, p, label{
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+}
+.profile_imgbox a:hover i{
+    color: #F94A04;
 }
 .profile_body{
     margin: 1.2rem 0;

@@ -16,6 +16,7 @@ require ("connect.php");
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="admin.css"/>
+    <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<title>Admin Homepage</title>
 </head>
 <body>
@@ -563,9 +564,12 @@ require ("connect.php");
             <div class="profile tabcontent hidden">
                 <figure class="profile_imgbox">
                     <img src="images\image1.jpeg" alt="Authors Profile Picture" class="profile_imgbox_img"/>
-                    <a class="profile_imgbox_edit">
+                    <a class="profile_imgbox_edit" id="profileuploads">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
+                    <form id="edit_profile_container" action="forms.php" method="post">
+                        <input type="file" id="file_upload_id" style="display:none" capture="camera" accept="images/*" multiple>
+                    </form>
                 </figure>
                 <div class="profile_body">
                     <p class="profile_firstp">
@@ -1468,7 +1472,6 @@ require ("connect.php");
             </div>
         </div>  
         <script src="admin.js"></script>   
-        <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script type="text/javascript" src="otherJSFiles/custom.js"></script>   

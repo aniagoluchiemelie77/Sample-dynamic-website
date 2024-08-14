@@ -13,6 +13,7 @@ const container = document.getElementById("container");
 let touchStartTime, clientX, clientY;
 console.log(initCoords);
 
+
 //implementing sticky nav bar
 
 const stickyNavFunc = function () {
@@ -92,3 +93,22 @@ function swipe(e, duration) {
 swipefunction();
 };
 screenOnlyFuncs();
+
+//when a user visits the webpage
+var timestamp = localStorage.getItem('timestamp');
+if (timestamp !== null){
+  //taking visiting gaps to be 15 minutes
+  const epochGap = 900;
+  //converting timestamp to seconds
+  const jsTimestamp = (new date(timestamp).getTime())/1000;
+  const currentTimestamp = (new date(timestamp).getTime())/1000;
+  //marking visitor as returning after visiting gap greater than 15 minutes
+  if(jsTimestamp > (currentTimestamp + epochGap)){
+    $('body').addClass('returning');
+  }
+}
+//saving timestamp
+if(localStorage.getItem('timestamp' == null)){
+  var timestamp = new date().getTime();
+  localStorage.setItem('timestamp', timestamp);
+};

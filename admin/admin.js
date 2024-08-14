@@ -1,3 +1,4 @@
+
 const editBtn = document.querySelector('.profile_edit_btn');
 const header = document.querySelector('.body');
 const body = document.querySelector('.header');
@@ -112,3 +113,33 @@ const upload = function(){
   document.getElementById('file_upload_id').click();
 }
 profilePicUploadBtn.addEventListener('click', upload);
+
+anychart.onDocumentReady(function(){
+  var data = [
+    {x: "Dextop", value: 2500, exploded: true},
+    {x: "Tablet", value: 500},
+    {x: "Mobile", value: 80}
+  ];
+  var chart = anychart.pie();
+  chart.title("Visitors Devices Statistics");
+  chart.data(data);
+  chart.container("pie_container")
+  chart.draw();
+  chart.legend().itemsLayout("vertical");
+  chart.legend().position("right");
+  chart.sort("desc");  
+});
+anychart.onDocumentReady(function(){
+  var data2 = [
+    {x: "New visitors", value: 2900, exploded: true},
+    {x: "Returning visitors", value: 1000},
+  ];
+  var chart2 = anychart.pie();
+  chart2.title("Visitors Statistics");
+  chart2.data(data2);
+  chart2.container("pie_chartcontainer2")
+  chart2.draw();
+  chart2.legend().itemsLayout("vertical");
+  chart2.legend().position("right");
+  chart2.sort("desc");  
+});

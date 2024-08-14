@@ -17,6 +17,8 @@ require ("connect.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="admin.css"/>
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
 	<title>Admin Homepage</title>
 </head>
 <body>
@@ -491,7 +493,8 @@ require ("connect.php");
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark stats">
                         <div class="visits_subdiv visitsubdivs border-gradient-side2-dark">
-                            <h1 class="visits_subdiv_header padding_b">Visitors Devices Statistics</h1>
+                            <div id="pie_container" style="width:90%; height:80%"></div>
+                            <!--<h1 class="visits_subdiv_header padding_b">Visitors Devices Statistics</h1>
                             <div class="wrapper">
                                 <div class="pie-wrap">
                                     <div class="orange entry">
@@ -521,7 +524,7 @@ require ("connect.php");
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>   
                         <div class="visits_subdiv2 visitsubdivs">
                             <h1 class="visits_subdiv2_header padding_b">Page Views</h1>
@@ -534,7 +537,8 @@ require ("connect.php");
                             </p>
                         </div>
                         <div class="visits_subdiv3 visitsubdivs border-gradient-side-dark">
-                            <h1 class="visits_subdiv_header padding_b">Users Statistics</h1>
+                            <div id="pie_chartcontainer2" style="width: 100%; height: 100%"></div>
+                            <!--<h1 class="visits_subdiv_header padding_b">Users Statistics</h1>
                             <div class="wrapper">
                                 <div class="pie-wrap2">
                                     <div class="darkblue entry">
@@ -556,7 +560,7 @@ require ("connect.php");
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>

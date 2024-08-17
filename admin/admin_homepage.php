@@ -1,6 +1,7 @@
 <?php
 session_start();
 require ("connect.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,60 +32,68 @@ require ("connect.php");
     </div>
     <div class="logout_alert container_center hidden" id="create_editor">
         <form class="create_editor_container" action="forms.php" method="post">
-        <i class="fa fa-times" aria-hidden="true"></i>
-        <div class="createeditor_inputgroup">
-            <h1>Create New Editor</h1>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="editor_firstname">Firstname:</label>
-            <input class="createeditor_input" type="text" name="editor_firstname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="editor_lastname">Lastname:</label>
-            <input class="createeditor_input" type="text" name="editor_lastname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="editor_email">Email:</label>
-            <input class="createeditor_input" type="email" name="editor_email" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="editor_password">Suggest Password:</label>
-            <input class="createeditor_input" type="password" name="editor_password" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="editor_password-confirm">Confirm Password:</label>
-            <input class="createeditor_input" type="text" name="editor_password-confirm" required/>
-        </div>
-        <input class="createeditor_input-submit btn" value="Submit" name="createeditor_Submit" type="submit"/>
+            <i class="fa fa-times" aria-hidden="true"></i>
+            <div class="createeditor_inputgroup">
+                <h1>Create New Editor</h1>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_username">Username:</label>
+                <input class="createeditor_input" type="text" name="editor_username" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_firstname">Firstname:</label>
+                <input class="createeditor_input" type="text" name="editor_firstname" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_lastname">Lastname:</label>
+                <input class="createeditor_input" type="text" name="editor_lastname" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_email">Email:</label>
+                <input class="createeditor_input" type="email" name="editor_email" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_password">Suggest Password:</label>
+                <input class="createeditor_input" type="password" name="editor_password" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_password-confirm">Confirm Password:</label>
+                <input class="createeditor_input" type="password" name="editor_password-confirm" required/>
+            </div>
+            <input class="createeditor_input-submit btn" value="Submit" name="createeditor_Submit" type="submit"/>
         </form>
     </div>
     <div class="logout_alert container_center hidden" id="create_writer">
         <form class="create_editor_container" action="forms.php" method="post">
-        <i class="fa fa-times" aria-hidden="true"></i>
-        <div class="createeditor_inputgroup">
-            <h1>Create New Writer</h1>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_firstname">Firstname:</label>
-            <input class="createeditor_input" type="text" name="writer_firstname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_lastname">Lastname:</label>
-            <input class="createeditor_input" type="text" name="writer_lastname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_email">Email:</label>
-            <input class="createeditor_input" type="email" name="writer_email" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_password">Suggest Password:</label>
-            <input class="createeditor_input" type="password" name="writer_password" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_password-confirm">Confirm Password:</label>
-            <input class="createeditor_input" type="text" name="writer_password-confirm" required/>
-        </div>
-        <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
+            <i class="fa fa-times" aria-hidden="true"></i>
+            <div class="createeditor_inputgroup">
+                <h1>Create New Writer</h1>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_username">Username:</label>
+                <input class="createeditor_input" type="text" name="writer_username" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_firstname">Firstname:</label>
+                <input class="createeditor_input" type="text" name="writer_firstname" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_lastname">Lastname:</label>
+                <input class="createeditor_input" type="text" name="writer_lastname" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_email">Email:</label>
+                <input class="createeditor_input" type="email" name="writer_email" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_password">Suggest Password:</label>
+                <input class="createeditor_input" type="password" name="writer_password" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_password-confirm">Confirm Password:</label>
+                <input class="createeditor_input" type="password" name="writer_password-confirm" required/>
+            </div>
+            <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
         </form>
     </div>
     <div class="logout_alert2 container_center hidden" id="write_message">
@@ -236,7 +245,7 @@ require ("connect.php");
                     ?> 
                 </h1>
                 <div class="webinfo_container">
-                    <div class="website_info">
+                    <!--<div class="website_info">
                         <div class="website_info_subdiv">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                             <p class="website_info_p1">10.5K</p>
@@ -256,7 +265,7 @@ require ("connect.php");
                             <p class="website_info_p1">10.5K</p>
                         </div>
                         <p class="website_info_p2">Likes</p>
-                    </div>
+                    </div>-->
                     <div class="website_info">
                         <div class="website_info_subdiv">
                             <i class="fa fa-check-square" aria-hidden="true"></i>
@@ -276,11 +285,11 @@ require ("connect.php");
                         </div>
                         <p class="website_info_p2">View Website</p>
                     </a>
-                    <a class="website_info" href="create_new/workspace.php" target="_blank">
+                    <a class="website_info" href="create_new/workspace.php">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
-                        <p class="website_info_p2">Add Workspace</p>
+                        <p class="website_info_p2">Add Draft</p>
                     </a>
                     <a class="website_info" id="messagediv">
                         <div class="website_info_subdiv">
@@ -292,7 +301,7 @@ require ("connect.php");
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
-                        <p class="website_info_p2">New Ad</p>
+                        <p class="website_info_p2">Adverts</p>
                     </a>
                 </div>
                 <div class="addtionalinfo">
@@ -1124,7 +1133,7 @@ require ("connect.php");
                 <div class="posts_div2 postsdiv">
                     <div class="posts_header">
                         <h1> Unpublished Articles</h1>
-                        <a class="btn" href="view_all/unpublished_articles.php" target="_blank">View All</a>
+                        <a class="btn" href="view_all/unpublished_articles.php">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <div class="posts_divcontainer_subdiv">
@@ -1161,7 +1170,7 @@ require ("connect.php");
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php" target="_blank">
+                                    <a class="users_edit" href="edit/post.php">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -1243,7 +1252,107 @@ require ("connect.php");
                 </div>
             </div>
             <div class="pages tabcontent hidden">
-                <h1>Settings</h1>
+                <div class='pages_container'>
+                    <div class="pages_container_subdiv">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            About Us
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Share News Tip
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Advertise
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Contact Us
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Privacy Policy
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Terms of Services
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Work with Us
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Cloud Computing
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Artificial Intelligence
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Data Analytics
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv border-gradient-side-dark">
+                        <div class='icons'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                        <a class='pages_container_subdiv-links'>
+                            Cybersecurity
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="reviews tabcontent hidden">
                 <div class="reviews_div1 reviewdiv">

@@ -141,5 +141,49 @@ if (isset($_POST['edit_post'])) {
     }else{
         echo "Invalid Image File Type";
     } 
+}
+
+require ("connect.php");
+if (isset($_POST['createeditor_Submit'])) {
+    $firstname = $_POST['editor_firstname'];
+    $username = $_POST['editor_username'];
+    $lastname = $_POST['editor_lastname'];
+    $email = $_POST['editor_email'];
+    $password = $_POST['editor_password'];
+    $confirm_pasword = $_POST['editor_password-confirm'];
+    $date = date("Y-m-d");
+    $time = date("H:i:s");
+    if($password === $confirm_pasword){
+        $insertQuery4 = "INSERT INTO editor (editor_username,editor_email, editor_password, editor_firstname, editor_lastname, date_joined, time_joined) VALUES ('$username', '$email', '$password', '$firstname', '$lastname', '$date', '$time')";
+        $result = $conn->query($insertQuery4);
+            if($result === TRUE){
+                header('Location: admin_homepage.php');
+                echo"<script>alert('New Editor Successfully.')</script>";
+            }else{
+                echo "Unsuccessful, Please Retry";
+            }
+    }
+} 
+ 
+require ("connect.php");
+if (isset($_POST['Createwriter_Submit'])) {
+    $firstname = $_POST['writer_firstname'];
+    $username = $_POST['writer_username'];
+    $lastname = $_POST['writer_lastname'];
+    $email = $_POST['writer_email'];
+    $password = $_POST['writer_password'];
+    $confirm_pasword = $_POST['writer_password-confirm'];
+    $date = date("Y-m-d");
+    $time = date("H:i:s");
+    if($password === $confirm_pasword){
+        $insertQuery5 = "INSERT INTO editor (writer_username,writer_password, writer_email, writer_firstname, writer_lastname, date_joined, time_joined) VALUES ('$username', '$password', '$email', '$firstname', '$lastname', '$date', '$time')";
+        $result = $conn->query($insertQuery5);
+            if($result === TRUE){
+                header('Location: admin_homepage.php');
+                echo"<script>alert('New Editor Successfully.')</script>";
+            }else{
+                echo "Unsuccessful, Please Retry";
+            }
+    }
 } 
 ?>

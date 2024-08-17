@@ -943,6 +943,39 @@ a, td,span, p, label{
  .posts_divcontainer_subdiv4 span:hover{
     color: #F94A04;
 }
+.pages{
+    flex-direction: column;
+    margin: 1rem;
+    align-items: center;
+}
+.pages .pages_container{
+    width: 80%;
+    background-color: #FAFAFA;
+    padding: 1.5rem;
+}
+.pages i{
+    font-size: 1.8rem;
+    margin-left: 1rem;
+}
+.pages i:hover{
+    color: #F94A04;
+}
+.pages .pages_container_subdiv{
+    display: flex;
+    flex-direction: column; 
+    padding: 1.5rem;
+}
+.pages_container_subdiv .pages_container_subdiv-links{
+    text-align: center;
+    font-size: 2.2rem;
+    cursor: pointer;
+    width: 80%;
+}
+.pages_container_subdiv .pages_container_subdiv-links:hover{
+    text-decoration: underline;
+    font-weight: 700;
+    color: #F94A04;
+}
 .reviews{
     flex-direction: column;
     align-items: center;

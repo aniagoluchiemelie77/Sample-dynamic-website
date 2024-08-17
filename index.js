@@ -2,7 +2,8 @@
 const section2 = document.querySelector('.section2');
 const section1 = document.querySelector('.section1');
 const menubtn = document.querySelector('.mainheader__header-nav-1');
-const menubtn2 = document.getElementById('searchicon');
+const searchIcon = document.getElementById('searchicon');
+const searchForm = document.getElementById("search_form");
 const headerSearchBar = document.querySelector('.mainheader__searchbox-container');
 const closeMenuBtn = document.querySelector('.sidebarbtn');
 const header = document.querySelector('.header');
@@ -39,7 +40,7 @@ const screenOnlyFuncs = function () {
     const onClickOutside = (element) => {
         document.addEventListener('click', e => {
           if (!element.contains(e.target)) {
-            sidebar.classList.toggle('hidden');
+            sidebar.classList.add('hidden');
           } else return;
         });
       };
@@ -56,13 +57,15 @@ const addHiddenClass = function (e) {
     sidebar.classList.toggle('hidden');
 }
 closeMenuBtn.addEventListener('click', addHiddenClass);
+
 //displaying search bar
-const removeHiddenClass2 = function (e) {
+const displaySearchBar = function (e) {
     e.stopPropagation();
-    headerSearchBar.classList.toggle('hidden');
-    menubtn2.classList.toggle('hidden');
+    searchForm.classList.remove('hidden');
+    searchForm.style.display = 'flex';
+    searchIcon.classList.add('hidden')
 }
-menubtn2.addEventListener('click', removeHiddenClass2);
+searchIcon.addEventListener('click', displaySearchBar);
 
 // Adding event listeners for touchstart and touchend events
 const swipefunction = function () {

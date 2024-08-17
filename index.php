@@ -1,4 +1,5 @@
 <?php
+session_start();
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $ip = $_SERVER['REMOTE_ADDR'];
 $page_name = $_SERVER['SCRIPT_NAME'];
@@ -10,7 +11,6 @@ $current_page = $page_name."?".$query_string;
 date_default_timezone_set('UTC');
 $date = date('Y-m-d');
 $time = date("H:i:s");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,15 +21,16 @@ $time = date("H:i:s");
     <meta name="description" content="Article website" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie"/>
     <link rel="stylesheet" href="index.css"/>
-	<title>Dynamic Website</title>
+	<title>Home</title>
 </head>
 <body id="container">
     <header class="header">
         <center>
-        <div class="mainheader">
+            <div class="mainheader">
             <div class="mainheader__header-nav">
                 <a class="mainheader__header-nav-1">
                     <svg width="2.9rem" height="2.9rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,17 +54,19 @@ $time = date("H:i:s");
                         </defs>
                     </svg>
                 </a>
-                <div class="mainheader__searchbox-container hidden">
-                    <input class="mainheader__searchbox" type="text" name="search">
-                    <label>Search...</label>
-                    <a class="mainheader__searchbox-btn">Go</a>
-                </div>
             </div>
             <div class="mainheader__logobox">
                 <img src="#" alt="companylogo">
             </div>
             <a class="mainheader__signupbtn">Newsletter Signup</a>
-        </div></center>
+            </div>
+        </center>
+        <center>
+            <form class="header_searchbar hidden" action="forms.php" method="get" id="search_form">
+                <input type="text" name="search" placeholder="Search.." />
+                <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
+            </form>
+        </center>
         <center>
         <div class="header__dropdownlinks">
             <a class="header__dropdownlinks-1 headerlinks lightp" href="OtherHtmlPages\cybersecurity.html">
@@ -269,41 +272,51 @@ $time = date("H:i:s");
         </div>
     </section>
     <section class="section1">
+        <?php 
+            require ('connect.php');
+            $query = mysqli_query($conn, "SELECT * FROM paid_posts ORDER BY 'ID' DESC LIMIT 4");
+            while($row = mysqli_fetch_array($query)){
+                $niche = $row['Niche'];
+                $title = $row['Title'];
+                $image = $row['image'];
+                $date = $row['Post_date'];
+            };
+        ?>
         <div class="section1__div1 larger__div">
-            <article>
+            <a href="pages/view_post.php">
                 <img src="images\image1.jpeg" alt="article image">
                 <div class="larger__div__subdiv">
                     <h1>Sample Niche</h1>
                     <h2>Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                     <p>June 13, 2024</p>
                 </div>
-            </article>
+            </a>
         </div>
         <div class="section1__div2 smallerdivs">
-            <article class="section1__articlearticle2 smaller__div">
+            <a class="section1__articlearticle2 smaller__div" href="pages/view_post.php">
                 <img src="images\image1.jpeg" alt="article image">
                 <div class="smaller__div__subdiv">
                     <h1>Sample Niche</h1>
                     <h2>Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                     <p>June 13, 2024</p>
                 </div>
-            </article>
-            <article class="section1__article__div3 smaller__div border-gradient-top">
+            </a>
+            <a class="section1__article__div3 smaller__div border-gradient-top" href="pages/view_post.php">
                 <img src="images\image1.jpeg" alt="article image">
                 <div class="smaller__div__subdiv">
                     <h1>Sample Niche</h1>
                     <h2>Microsoft, late to the game on dangerous DNSSEC Zero-day flaw.</h2>
                     <p>June 13, 2024</p>
                 </div>
-            </article>
-            <article class="section1__articlearticle3 smaller__div border-gradient-top">
+            </a>
+            <a class="section1__articlearticle3 smaller__div border-gradient-top" href="pages/view_post.php">
                 <img src="images\image1.jpeg" alt="article image">
                 <div class="smaller__div__subdiv">
                     <h1>Sample Niche</h1>
                     <h2>Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                     <p>June 13, 2024</p>
                 </div>
-            </article>
+            </a>
         </div>
     </section>
     <section class="section2">

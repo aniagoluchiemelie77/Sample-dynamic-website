@@ -503,6 +503,10 @@ a, p, li{
     cursor: pointer;
     grid-area: 1 / 1 / -1 / 2;
   }
+  .larger__div img {
+    height: 90vh;
+    width: 100%;
+  }
   .smallerdivs{
     grid-area: 1 / 2 / -1 / -1;
     display: flex;
@@ -541,7 +545,8 @@ a, p, li{
     color: black;
 }
 .section1__div2 a img{
-    height: 32vh;
+    height: 35vh;
+    width: 35%;
     margin-right: 1rem;
     border-radius: var(--border-radius-big);
     -webkit-border-radius: var(--border-radius-big);

@@ -274,47 +274,49 @@ $time = date("H:i:s");
     <section class="section1">
         <?php 
             require ('connect.php');
-            $query = mysqli_query($conn, "SELECT * FROM paid_posts ORDER BY 'ID' DESC LIMIT 4");
+            $query = mysqli_query($conn, "SELECT * FROM paid_posts LIMIT 0, 4");
+            $i = 1;
             while($row = mysqli_fetch_array($query)){
+                $i++;
                 $niche = $row['Niche'];
                 $title = $row['Title'];
                 $image = $row['image'];
-                $date = $row['Post_date'];
+                $date = $row['Posts_Date'];
             };
         ?>
         <div class="section1__div1 larger__div">
             <a href="pages/view_post.php">
-                <img src="images\image1.jpeg" alt="article image">
+                <img src="images/<?php echo $image;?>" alt="article image">
                 <div class="larger__div__subdiv">
-                    <h1>Sample Niche</h1>
-                    <h2>Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                    <p>June 13, 2024</p>
+                    <h1><?php echo $niche;?></h1>
+                    <h2><?php echo $title;?></h2>
+                    <p><?php echo $date;?></p>
                 </div>
             </a>
         </div>
         <div class="section1__div2 smallerdivs">
             <a class="section1__articlearticle2 smaller__div" href="pages/view_post.php">
-                <img src="images\image1.jpeg" alt="article image">
+                <img src="images/<?php echo $image;?>" alt="article image">
                 <div class="smaller__div__subdiv">
-                    <h1>Sample Niche</h1>
-                    <h2>Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                    <p>June 13, 2024</p>
+                    <h1><?php echo $niche;?></h1>
+                    <h2><?php echo $title;?></h2>
+                    <p><?php echo $date;?></p>
                 </div>
             </a>
             <a class="section1__article__div3 smaller__div border-gradient-top" href="pages/view_post.php">
-                <img src="images\image1.jpeg" alt="article image">
+                <img src="images/<?php echo $image;?>" alt="article image">
                 <div class="smaller__div__subdiv">
-                    <h1>Sample Niche</h1>
-                    <h2>Microsoft, late to the game on dangerous DNSSEC Zero-day flaw.</h2>
-                    <p>June 13, 2024</p>
+                    <h1><?php echo $niche;?></h1>
+                    <h2><?php echo $title;?></h2>
+                    <p><?php echo $date;?></p>
                 </div>
             </a>
             <a class="section1__articlearticle3 smaller__div border-gradient-top" href="pages/view_post.php">
-                <img src="images\image1.jpeg" alt="article image">
+                <img src="images/<?php echo $image;?>" alt="article image">
                 <div class="smaller__div__subdiv">
-                    <h1>Sample Niche</h1>
-                    <h2>Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                    <p>June 13, 2024</p>
+                    <h1><?php echo $niche;?></h1>
+                    <h2><?php echo $title;?></h2>
+                    <p><?php echo $date;?></p>
                 </div>
             </a>
         </div>

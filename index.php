@@ -1,16 +1,19 @@
 <?php
 session_start();
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
-$ip = $_SERVER['REMOTE_ADDR'];
+if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+}else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}else{
+    $ip = $_SERVER['REMOTE_ADDR'];
+}
 $page_name = $_SERVER['SCRIPT_NAME'];
 $query_string = $_SERVER['QUERY_STRING'];
 $current_page = $page_name."?".$query_string;
-//$url = json_decode(file_get_contents('https://api.ipinfodb.com/v3/ip-city/?key=/*userapikey*/$ip=".$_SERVER['REMOTE_ADDR']."$format=json'));
-//$country = $url -> countryName;
-//$region = $url -> regionName; 
 date_default_timezone_set('UTC');
 $date = date('Y-m-d');
-$time = date("H:i:s");
+$time = date("H:iA");
 ?>
 <!DOCTYPE html>
 <html lang="en">

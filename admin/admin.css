@@ -775,22 +775,43 @@ a, td,span, p, label{
     display: flex; 
     padding: 1rem;
 }
+.divimages{
+    perspective: 200rem;
+    -moz-perspective: 200rem;
+    background-image: url('images/newDiamakaimg1.png');
+    background-position: center;
+    background-size: cover;
+    width: 20vw;
+    transition: all .99s;
+    -webkit-transition: all .99s;
+    -moz-transition: all .99s;
+    -ms-transition: all .99s;
+    -o-transition: all .99s;
+    cursor: pointer;
+}
+.divimages_side--back {
+    display: none;
+}
+.divimages:hover .divimages_side--back {
+    display: block;
+}
 .aside_sidebar .users .users_div_subdiv .users_div_subdiv_subdiv{
     background-color: #222222;
-    min-height: fit-content;
+    min-height: 35vh;
     color: #FAFAFA;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
     margin: 1rem;
     box-shadow: 8px 8px 8px rgba(0, 0, 3, .6);
-    padding: 1.5rem;
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
+    padding: 1.5rem;
 }
- .users .users_div_subdiv_subdiv .user_imgbox{
-    margin-bottom: .7rem;
- }
  .users_div_subdiv_subdiv .users_delete_edit{
     width: 100%;
     display: flex;
@@ -983,6 +1004,8 @@ a, td,span, p, label{
 .reviews .reviewdiv{
     background-color: #FAFAFA;
     padding: 1rem;
+    margin: 1rem 0;
+    width: 80%;
 }
 .reviewdiv .review_header{
     display: flex;

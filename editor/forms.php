@@ -1,5 +1,6 @@
 <?php
-require ("connect.php");
+require "connect.php";
+require "includes.php";
 if (isset($_POST['Sign_In'])) {
     $email = $_POST['Email'];
     $password = $_POST['Password'];
@@ -12,6 +13,8 @@ if (isset($_POST['Sign_In'])) {
         header("location: editor_homepage.php");
         exit();
     }else{
+        $logs = "Unsuccessful Login Attempt by User";
+        logger($logs);
         header("location: index.php");
     }
 }

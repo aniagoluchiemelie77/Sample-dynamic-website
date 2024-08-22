@@ -782,12 +782,11 @@ a, td,span, p, label{
     background-position: center;
     background-size: cover;
     width: 20vw;
-    transition: all .99s;
-    -webkit-transition: all .99s;
-    -moz-transition: all .99s;
-    -ms-transition: all .99s;
-    -o-transition: all .99s;
-    cursor: pointer;
+    transition: all .9s ease-in;
+    -webkit-transition: all .9s ease-in;
+    -moz-transition: all .9s ease-in;
+    -ms-transition: all .9s ease-in;
+    -o-transition: all .9s ease-in;
 }
 .divimages_side--back {
     display: none;

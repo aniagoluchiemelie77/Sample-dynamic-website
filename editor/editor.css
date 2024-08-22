@@ -1,1 +1,17 @@
 @import "../admin/admin.css";
+
+.website_info_div .message_box{
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: orangered;
+    width: 100%;
+    padding: 1rem;
+    align-items: center;
+}
+.website_info_div .message_box i, p{
+    color: #fafafa;
+}
+.website_info_div .message_box i{
+    margin-right: 1.5rem;
+    font-size: 2rem;
+}

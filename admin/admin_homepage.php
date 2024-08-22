@@ -843,7 +843,7 @@ require ("connect.php");
                                 <center>
                                     <div class="users_delete_edit">
                                         <a class="users_edit" href="edit/editor.php" target="_blank">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
                                         <a class="users_delete">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -911,7 +911,7 @@ require ("connect.php");
                             <center>
                                 <div class="users_delete_edit">
                                     <a class="users_edit" href="edit/writer.php" target="_blank">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
                                         <i class="fa fa-trash" aria-hidden="true"></i>

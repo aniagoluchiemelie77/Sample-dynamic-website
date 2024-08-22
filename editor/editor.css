@@ -6,12 +6,56 @@
     background-color: orangered;
     width: 100%;
     padding: 1rem;
+    position: relative;
     align-items: center;
+}
+.website_info_div .message_box::before{
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 5%;
+    left: 0;
+    z-index: 50;
+    background-color: #F94A04;
 }
 .website_info_div .message_box i, p{
     color: #fafafa;
 }
+@keyframes slide{
+    0%{
+        transform:translateX(0);
+        -webkit-transform:translateX(0);
+        -moz-transform:translateX(0);
+        -ms-transform:translateX(0);
+        -o-transform:translateX(0);
+}
+    100%{ 
+        transform:translateX(-100%); 
+        -webkit-transform:translateX(-100%); 
+        -moz-transform:translateX(-100%); 
+        -ms-transform:translateX(-100%); 
+        -o-transform:translateX(-100%); }}
 .website_info_div .message_box i{
-    margin-right: 1.5rem;
     font-size: 2rem;
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 100;
+}
+.website_info_div .message_box p{
+    display: inline-block; 
+    margin-right: 1rem;
+    animation:20s linear infinite slide; 
+    -webkit-animation:20s linear infinite slide; width:fit-content; 
+}
+.website_info_div .message_box:hover p{
+    animation-play-state:paused;
+}
+/*from view_all/posts.php */
+.sectioneer p{
+    color: black;
+}
+.sectioneer span{
+    color: black;
+    font-weight: 750;
 }

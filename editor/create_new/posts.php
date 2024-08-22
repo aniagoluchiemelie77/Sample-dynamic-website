@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../connect.php");
+include "../connect.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,8 +15,8 @@ include("../connect.php");
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../admin.css"/>
-	<title>Create New Post</title>
+    <link rel="stylesheet" href="../editor.css"/>
+	<title>New Post</title>
 </head>
 <body>
     <header class="header">
@@ -25,8 +25,7 @@ include("../connect.php");
         </div>
         <form class="header_searchbar" action="" method="get">
             <input type="text" name="search" placeholder="Search.." />
-            <a class="fa fa-search" aria-hidden="true">
-            </a>
+            <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
         </form>
         <div class="header_img">
             <a class="notification" href="#">
@@ -53,14 +52,6 @@ include("../connect.php");
                     <input class="form__input" name="Post_Sub_Title" type="text"/>
                     <p class="newpost_subdiv2-p"><span>*</span>Text displayed under title (OPTIONAL)</p>
                 </div>
-            </div>
-            <div class="newpost_container_div4 newpost_subdiv">
-                <label class="form__select" for="Post_Status">Status</label>
-                <select class="newpost_subdiv2" name="Post_Status">      
-                    <option class="newpost_subdiv4-option" value="">-- Please Select --</option>      
-                    <option class="newpost_subdiv4-option" value="none">None</option>
-                    <option class="newpost_subdiv4-option" value="paid_post">Paid Post</option>
-                </select>
             </div>
             <div class="newpost_container_div5 newpost_subdiv">
                 <label class="form__label" for="Post_featured">Featured Video/Audio</label>

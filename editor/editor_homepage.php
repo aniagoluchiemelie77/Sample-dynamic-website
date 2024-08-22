@@ -187,8 +187,9 @@ require ("connect.php");
         </div>
         <div class="aside_sidebar">
             <div class="website_info_div tabcontent active2">
-                <div class = "message_box">
+                <div class = "message_box" id="imagebox">
                     <i class="fa fa-bullhorn" aria-hidden="true"></i>
+                    <p>Please all editors should ensure to update profile before end of this Month.</p>
                     <p>Please all editors should ensure to update profile before end of this Month.</p>
                 </div>
                 <h1 class="aside_sidebar_header">Welcome, 
@@ -243,7 +244,7 @@ require ("connect.php");
                               <td>3</td>
                               <td>July 10th 2024</td>
                               <td>
-                                <a class="edit" href="#" target="_blank">View</a>
+                                <a class="edit" href="viewpost.php">View</a>
                               </td>
                             </tr>
                             <tr>
@@ -252,7 +253,7 @@ require ("connect.php");
                                 <td>6</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                    <a class="edit" href="#" target="_blank">View</a>
+                                    <a class="edit" href="viewpost.php">View</a>
                                 </td>
                             </tr>
                             <tr>
@@ -261,7 +262,7 @@ require ("connect.php");
                                 <td>10</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                    <a class="edit" href="#" target="_blank">View</a>
+                                    <a class="edit" href="viewpost.php">View</a>
                                 </td>
                               </tr>
                               <tr>
@@ -607,7 +608,7 @@ require ("connect.php");
                 <div class="users_editor_div userdiv">
                     <div class="user_header">
                         <h2>Editors</h2>
-                        <a class="btn" href="view_all/editors.php" target="_blank">View All</a>
+                        <a class="btn" href="view_all/editors.php">View All</a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <div class="users_div_subdiv_subdiv divimages">
@@ -672,7 +673,7 @@ require ("connect.php");
                 <div class="users_writer_div userdiv">
                     <div class="user_header">
                         <h2>Writers</h2>
-                        <a class="btn" href="view_all/writers.php" target="_blank">View All</a>
+                        <a class="btn" href="view_all/writers.php">View All</a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <div class="users_div_subdiv_subdiv divimages">
@@ -742,7 +743,7 @@ require ("connect.php");
                 <div class="posts_div1 postsdiv">
                     <div class="posts_header">
                         <h1> Recently Published Posts</h1>
-                        <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
+                        <a class="btn" href="view_all/posts.php">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <div class="posts_divcontainer_subdiv">

@@ -1,5 +1,9 @@
 <?php
 session_start();
+session_regenerate_id();
+if(!isset($_SESSION['email'])) {
+    header("Location: index.php");
+};
 require ("connect.php");
 
 ?>
@@ -31,8 +35,8 @@ require ("connect.php");
         </div>
     </div>
     <div class="logout_alert container_center hidden" id="create_editor">
-        <form class="create_editor_container" action="forms.php" method="post">
-            <i class="fa fa-times" aria-hidden="true"></i>
+        <form class="create_editor_container popupform1" action="forms.php" method="post">
+            <i class="fa fa-times popup_close1" aria-hidden="true"></i>
             <div class="createeditor_inputgroup">
                 <h1>Create New Editor</h1>
             </div>
@@ -64,8 +68,8 @@ require ("connect.php");
         </form>
     </div>
     <div class="logout_alert container_center hidden" id="create_writer">
-        <form class="create_editor_container" action="forms.php" method="post">
-            <i class="fa fa-times" aria-hidden="true"></i>
+        <form class="create_editor_container popupform2" action="forms.php" method="post">
+            <i class="fa fa-times popup_close2" aria-hidden="true"></i>
             <div class="createeditor_inputgroup">
                 <h1>Create New Writer</h1>
             </div>
@@ -97,8 +101,8 @@ require ("connect.php");
         </form>
     </div>
     <div class="logout_alert2 container_center hidden" id="write_message">
-        <form class="create_editor_container2" action="forms.php" method="post">
-            <i class="fa fa-times" aria-hidden="true"></i>
+        <form class="create_editor_container2 popupform3" action="forms.php" method="post">
+            <i class="fa fa-times popup_close3" aria-hidden="true"></i>
             <div class="message_popup_btns" id='messagebtns'>
                 <a class="message_popup_btns-a active">To Editors</a>
                 <a class="message_popup_btns-a notactive_btn">To Writers</a>
@@ -122,8 +126,8 @@ require ("connect.php");
         </form>
     </div>
     <div class="logout_alert container_center hidden" id="create_writer">
-        <form class="create_editor_container" action="forms.php" method="post">
-        <i class="fa fa-times" aria-hidden="true"></i>
+        <form class="create_editor_container popupform4" action="forms.php" method="post">
+        <i class="fa fa-times popup_close4" aria-hidden="true"></i>
         <div class="createeditor_inputgroup">
             <h1>Create New Writer</h1>
         </div>
@@ -166,7 +170,7 @@ require ("connect.php");
                 <span></span>
                 <i class="fa fa-bell" aria-hidden="true"></i>
             </a>
-            <img src="images\image1.jpeg" alt="Author's Image"/>
+            <img src="images\Diamakaimg1.png" alt="Author's Image"/>
         </div>
     </header>
     <section class="body">
@@ -555,7 +559,7 @@ require ("connect.php");
             </div>
             <div class="profile tabcontent hidden">
                 <figure class="profile_imgbox">
-                    <img src="images\image1.jpeg" alt="Authors Profile Picture" class="profile_imgbox_img"/>
+                    <img src="images/Diamakaimg1.png" alt="Authors Profile Picture" class="profile_imgbox_img"/>
                     <a class="profile_imgbox_edit" id="profileuploads">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
@@ -707,7 +711,7 @@ require ("connect.php");
                         </div>
                     </div>
                     <div class="profile_body_subdiv_subdiv profilesubdiv">
-                        <a class="btn" target="_blank" href="edit/profile.php">Edit Profile</a>
+                        <a class="btn" href="edit/profile.php">Edit Profile</a>
                     </div>
                 </div>
                 <div class="profile_body-activities">
@@ -795,7 +799,7 @@ require ("connect.php");
                 <div class="users_editor_div userdiv">
                     <div class="user_header">
                         <h2>Editors</h2>
-                        <a class="btn" href="view_all/editors.php" target="_blank">View All</a>
+                        <a class="btn" href="view_all/editors.php">View All</a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <div class="users_div_subdiv_subdiv divimages">
@@ -842,7 +846,7 @@ require ("connect.php");
                                 </p>
                                 <center>
                                     <div class="users_delete_edit">
-                                        <a class="users_edit" href="edit/editor.php" target="_blank">
+                                        <a class="users_edit">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
                                         <a class="users_delete">
@@ -863,7 +867,7 @@ require ("connect.php");
                 <div class="users_writer_div userdiv">
                     <div class="user_header">
                         <h2>Writers</h2>
-                        <a class="btn" href="view_all/writers.php" target="_blank">View All</a>
+                        <a class="btn" href="view_all/writers.php">View All</a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <div class="users_div_subdiv_subdiv divimages">
@@ -910,7 +914,7 @@ require ("connect.php");
                             </p>
                             <center>
                                 <div class="users_delete_edit">
-                                    <a class="users_edit" href="edit/writer.php" target="_blank">
+                                    <a class="users_edit">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">

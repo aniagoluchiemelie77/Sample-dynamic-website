@@ -128,7 +128,7 @@ require ("connect.php");
             <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
         </form>
         <div class="header_img">
-            <a class="notification" href="#">
+            <a class="notification" href="notifications.php">
                 <span></span>
                 <i class="fa fa-bell" aria-hidden="true"></i>
             </a>
@@ -204,6 +204,12 @@ require ("connect.php");
                     ?> 
                 </h1>
                 <div class="webinfo_container">
+                    <a class="website_info" href="../index.php" target="_blank">
+                        <div class="website_info_subdiv">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        </div>
+                        <p class="website_info_p2">View Website</p>
+                    </a>
                     <div class="website_info">
                         <div class="website_info_subdiv">
                             <i class="fa fa-check-square" aria-hidden="true"></i>

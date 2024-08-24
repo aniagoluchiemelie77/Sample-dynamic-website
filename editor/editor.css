@@ -51,6 +51,12 @@
 .website_info_div .message_box:hover p{
     animation-play-state:paused;
 }
+.profile_body-activities p{
+    color: black;
+}
+.posts_divcontainer .posts_divcontainer_subdiv p{
+    color: black;
+}
 /*from view_all/posts.php */
 .sectioneer p{
     color: black;

@@ -5,11 +5,20 @@ const body = document.querySelector('.header');
 const sidebar = document.querySelector('.sidebar');
 const sideBtns = document.querySelectorAll('.sidebarbtn');
 const tabContent = document.querySelectorAll('.tabcontent');
+const popupForm1 = document.querySelector('.popupform1');
+const popupForm2 = document.querySelector('.popupform2');
+const popupForm3 = document.querySelector('.popupform3');
+const popupForm4 = document.querySelector('.popupform4');
+const popupCloseIcon1 = document.querySelectorAll('.popup_close1');
+const popupCloseIcon2 = document.querySelectorAll('.popup_close2');
+const popupCloseIcon3 = document.querySelectorAll('.popup_close3');
+const popupCloseIcon4 = document.querySelectorAll('.popup_close4');
 const deletePostIcon = document.querySelectorAll('.users_delete');
 const deletePostDiv = document.querySelector('.posts_delete_edit2');
 const form = document.querySelector('.Edit_profile');
 const logout = document.querySelector('.logout');
 const logoutDiv = document.querySelector('.logout_alert');
+const logoutDiv2 = document.querySelector('.logout_alert2');
 const cancelLogout = document.querySelector('.cancellogout');
 const formInput = document.getElementById('form_input');
 const createEditorOrigin = document.getElementById('create_user-origin');
@@ -143,3 +152,25 @@ anychart.onDocumentReady(function(){
   chart2.legend().position("right");
   chart2.sort("desc");  
 });
+//removing popups
+const onClickOutside = (element) => {
+  document.addEventListener('click', e => {
+    if (!element.contains(e.target)) {
+      logoutDiv.classList.add('hidden');
+      logoutDiv2.classList.add('hidden');
+    } else return;
+  });
+};
+onClickOutside(popupForm1);
+onClickOutside(popupForm2);
+onClickOutside(popupForm3);
+onClickOutside(popupForm4);
+//displaying sidebar
+const removeHiddenClass = function (e) {
+e.stopPropagation();
+logoutDiv.classList.add('hidden');
+}
+popupCloseIcon1.addEventListener('click', removeHiddenClass);
+popupCloseIcon2.addEventListener('click', removeHiddenClass);
+popupCloseIcon3.addEventListener('click', removeHiddenClass);
+popupCloseIcon4.addEventListener('click', removeHiddenClass);

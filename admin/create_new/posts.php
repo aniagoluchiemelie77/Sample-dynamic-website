@@ -25,15 +25,14 @@ include("../connect.php");
         </div>
         <form class="header_searchbar" action="" method="get">
             <input type="text" name="search" placeholder="Search.." />
-            <a class="fa fa-search" aria-hidden="true">
-            </a>
+            <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
         </form>
         <div class="header_img">
             <a class="notification" href="#">
                 <span></span>
                 <i class="fa fa-bell" aria-hidden="true"></i>
             </a>
-            <img src="../images/image1.jpeg" alt="Author's Image"/>
+            <img src="../images/Diamakaimg1.png" alt="Author's Image"/>
         </div>
     </header>
     <section class="newpost_body">
@@ -47,6 +46,40 @@ include("../connect.php");
                     <input class="form__input" name="Post_Niche" type="text" placeholder="Niche.." required/>
                 </div>
             </div>
+            <div class="newpost_body_addition">
+                <input class="form__input1" name="Post_Block" type="text" placeholder="Type / to choose a block.."/> 
+                <div class="newpost_body_addition_subdiv">
+                    <div class="div1">
+                        <input class="form__input" name="search" type="text" placeholder="Search.."/> 
+                        <button class="fa fa-search" type="submit"></button>
+                    </div>
+                    <div class="div2">
+                        <i class="fa fa-paragraph" aria-hidden="true"></i>
+                        <span>Paragraph</span>
+                    </div>
+                    <div class="div3">
+                        <i class="fa fa-file" aria-hidden="true"></i>
+                        <span>Images</span>
+                    </div>
+                    <div class="div4">
+                        <i class="fa fa-bookmark" aria-hidden="true"></i>
+                        <span>Heading</span>
+                    </div>
+                    <div class="div5">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <span>Lists</span>
+                    </div>
+                    <div class="div6">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                        <span>Quotes</span>
+                    </div>
+                    <div class="div7">
+                        <i class="fa fa-table" aria-hidden="true"></i>
+                        <span>Tables</span>
+                    </div>
+                    <a class="div8">View All</a>
+                </div>
+            </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="Post_Sub_Title">Sub Title:</label>
                 <div class="newpost_container_div3_subdiv2">
@@ -55,7 +88,7 @@ include("../connect.php");
                 </div>
             </div>
             <div class="newpost_container_div4 newpost_subdiv">
-                <label class="form__select" for="Post_Status">Status</label>
+                <label class="form__select" for="Post_Status">Status:</label>
                 <select class="newpost_subdiv2" name="Post_Status">      
                     <option class="newpost_subdiv4-option" value="">-- Please Select --</option>      
                     <option class="newpost_subdiv4-option" value="none">None</option>
@@ -63,10 +96,10 @@ include("../connect.php");
                 </select>
             </div>
             <div class="newpost_container_div5 newpost_subdiv">
-                <label class="form__label" for="Post_featured">Featured Video/Audio</label>
+                <label class="form__label" for="Post_featured">Featured Video/Audio:</label>
                 <div class="newpost_container_div5_subdiv2">
                     <input class="form__input" name="Post_featured" type="text"/>
-                    <p class="newpost_subdiv2-p">Enter url to video/audio (optional)</p>
+                    <p class="newpost_subdiv2-p"><span>*</span>Enter url to video/audio (optional)</p>
                 </div>
             </div>
             <div class="newpost_container_div6 newpost_subdiv">
@@ -77,7 +110,7 @@ include("../connect.php");
                 </div>
             </div>
             <div class="newpost_container_div7 newpost_subdiv">
-                <label class="form__label" for="Post_Content">Post Content</label>
+                <label class="form__label" for="Post_Content">Post Content:</label>
                 <textarea class="newpost_container_div7_subdiv2" name="Post_content">
                 </textarea>
             </div>

@@ -262,7 +262,7 @@ require ("connect.php");
                         </div>
                         <p class="website_info_p2">New Post</p>
                     </a>
-                    <a class="website_info" href="#" target="_blank">
+                    <a class="website_info" href="../index.php" target="_blank">
                         <div class="website_info_subdiv">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                         </div>

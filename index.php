@@ -344,7 +344,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -358,7 +358,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -372,7 +372,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -386,7 +386,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -400,7 +400,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php" >
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -414,7 +414,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -428,7 +428,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -442,7 +442,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -456,7 +456,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -470,7 +470,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -484,7 +484,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -498,7 +498,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -512,7 +512,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -526,7 +526,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -540,7 +540,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -554,7 +554,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -568,7 +568,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -582,7 +582,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -596,7 +596,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -610,7 +610,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -624,7 +624,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -638,7 +638,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -652,7 +652,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -666,7 +666,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -680,7 +680,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div2 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -694,7 +694,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div3 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -708,7 +708,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div4 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -722,7 +722,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div1__div5 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -748,7 +748,7 @@ $time = date("H:iA");
                 <h1>Latest News</h1>
             </div>
             <div class="section2__div2__div1 normal-divs">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -762,7 +762,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div2__div2 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -776,7 +776,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div2__div3 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -790,7 +790,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div2__div4 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -804,7 +804,7 @@ $time = date("H:iA");
                 </div>
             </div>
             <div class="section2__div2__div5 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv">
+                <article class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
@@ -834,10 +834,6 @@ $time = date("H:iA");
                 </label>
             </section>
             <section class="sec2__adsbox">
-                <fieldset>
-                    <legend class="sec2__adsbox-title">Advertisment</legend>
-                    <div class="sec2__adsbox-div"></div>
-                </fieldset>
             </section>
         </div>
     </section>

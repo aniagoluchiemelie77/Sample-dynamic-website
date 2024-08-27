@@ -437,7 +437,7 @@ a, p, li{
     border-bottom: 0;
   }
   .border-gradient-top-dark{
-    border:  black 10px solid;
+    border:  #22222231 10px solid;
     border-image-slice: 1;
     border-width: 1px;
     border-left: 0;
@@ -587,8 +587,10 @@ a, p, li{
     color: black;
 }
 .section2 div .headers{
-    font-size: var(--article-header-small);
+    font-size: 2.1rem;
     padding: 2rem;
+    text-transform: capitalize;
+    font-weight: 750;
 }
 .section2 div{
     padding: 0 1.5rem 1.5rem 1.5rem;
@@ -596,22 +598,25 @@ a, p, li{
 .section2 div .normal-divs{
     padding: var(--div-padding-full);
 }
-.section2 div .normal-divs article{
+.section2 div .normal-divs:hover{
+    background-color: #eee;
+}
+.section2 div .normal-divs a{
     display: flex;
     flex-wrap: nowrap;
     padding: var(--div-padding-full);
     width: fit-content;
     cursor: pointer;
 }
-.section2 div .normal-divs article img{
-    height: 13rem;
+.section2 div .normal-divs a img{
+    height: 15rem;
     border-radius: var(--border-radius-big);
     -webkit-border-radius: var(--border-radius-big);
     -moz-border-radius: var(--border-radius-big);
     -ms-border-radius: var(--border-radius-big);
     -o-border-radius: var(--border-radius-big);
 }
-.section2 div .normal-divs article div{
+.section2 div .normal-divs a div{
     display: flex;
     flex-direction: column;
     width: fit-content;
@@ -647,13 +652,22 @@ a, p, li{
     display: flex;
     flex-wrap: nowrap;
 }
-.section2 div div article div h1{
+.section2 div div a div h1{
     text-transform: uppercase;
-    padding-bottom: 1rem;
+    padding: 1rem;
+    width: 70%;
+    background-color: #F94A04;
+    color: #eee;
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
     font-size: var(--plia-font-size);
 }
-.section2 div div article div h2{
-    padding-bottom: 1.6rem;
+.normal-divs__releasedate{
+    font-size: 1.2rem;
+    color: black;
+}
+.section2 div div a div h2{
+    padding: 1.6rem 0;
+    color: black;
 }
 .sec2__susbribe-box{
     padding: var(--div-padding-full);
@@ -836,82 +850,67 @@ a, p, li{
 .sec2__adsbox fieldset .sec2__adsbox-title{
     font-size: var(--article-header-small);
 }
-.section3 div{
+.section3 .section3__div1{
+    padding: var(--div-padding-full);
+    width: 90%;
     display: flex;
     min-height: fit-content;
     align-items: center;
     justify-content: space-between;
-}
-.section3 .section3__div1{
-    padding: var(--div-padding-full);
 }
 .section3 div h1{
     font-size: var(--article-header);
     padding: var(--div-padding-full);
 }
 .section3 div a{
-    color: black;
+    color: #eee;
+}
+.section3__div2{
+    width: 90%;
+    padding: 1.5rem 1rem;
     display: flex;
-}
-.section3 div a:active{
-    text-decoration: underline;
-}
-.section3 div a:hover{
-    transform: var(--transform-size-small);
-    -webkit-transform: var(--transform-size-small);
-    -moz-transform: var(--transform-size-small);
-    -ms-transform: var(--transform-size-small);
-    -o-transform: var(--transform-size-small);
-}
-.section3 div a svg{
-    margin-left: .1rem;
-}
-.section3 div:nth-child(2){
+    flex-wrap: nowrap;
     justify-content: space-evenly;
-    padding: 0 0 1.2rem 0;
 }
-.section3 div article{
-    max-width: 22rem;
+.section3__div2 a{
+    width: calc(100% / 5);
+    margin: 0 1rem;
+    height: 60vh;
     position: relative;
-    display: flex;
-    padding: 1.5rem 1.5rem 0 1.5rem;
-    flex-direction: column;
+    border: #2222222a 1px solid;
+    cursor: pointer;
 }
-.section3 div article img{
+.section3 .section3__div2 a img{
     width: 100%;
     height: 60%;
-    margin-bottom: 1.2rem;
-    border-radius: var(--border-radius-big);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
-    -o-border-radius: var(--border-radius-big);
 }
-.section3 div article div{
-    display: flex;
-    flex-direction: column;
-}
-.section3 div article div h1{
+.section3 a div h1{
     position: absolute;
-    top: 1.2rem;
+    top: 1rem;
+    left: 1rem;
     text-transform: uppercase;
     font-size: var(--plia-font-size);
-    margin-top: 1rem;
-    background-color: rgba(255, 254, 235, .3);
-    backdrop-filter: blur(50px);
+    background-color: rgba(0, 0, 5, .6);
+    backdrop-filter: blur(10px);
 }
-.section3 div article div h2{
-    font-size: 1.8rem;
-    padding-bottom: .5rem;
+.section3 a div h2{
+    font-size: 1.5rem;
+    padding: 1rem;
     width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    text-transform: capitalize;
+    color: black;
 }
-.section3 div article div p{
-    padding-top: .8rem;
+.section3 a div p{
     width: 100%;
     font-size: var(--plia-font-size-small);
+    color: #222222ce;
+}
+.section3__subdiv_subdiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
 }
 .lightp{
     color: var(--color60);
@@ -1166,7 +1165,8 @@ a, p, li{
     flex-wrap: wrap;
 }
 .more_posts a{
-    height: 33vh;
+    position: relative;
+    height: 60vh;
     width: 20vw;
     color: black;
     border: 1px solid #2222224a;
@@ -1182,10 +1182,7 @@ a, p, li{
 }
 .more_posts a div h1{
     font-size: 1.5rem;
-    white-space: nowrap;
     width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-weight: 600;
 }
 .more_posts a div span{
@@ -1194,7 +1191,7 @@ a, p, li{
 }
 .body_right .ads_sidebar{
     width: 100%;
-    height: 40vh;
+    height: 70vh;
     background-color: palegreen;
 }
 .body_right .bodyleft_header3{
@@ -1212,7 +1209,7 @@ a, p, li{
     width: 100%;
     height: 60%;
 }
-.posts_div .posts_div_niche{
+ .posts_div_niche{
     position: absolute;
     top: 1rem;
     left: 1rem;
@@ -1249,6 +1246,40 @@ a, p, li{
     font-size: 1.3rem;
     text-align: center;
     color: #22222286;
+}
+/*For Authors.php*/
+.authordiv_container{
+    width: 90%;
+    margin: 1.2rem 0;
+    display: flex;
+    flex-wrap: nowrap;
+    min-height: 40vh;
+    padding: 1.5rem;
+    align-items: center;
+}
+.authordiv_container img{
+    height: 25rem;
+    width: 25rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+.authordiv_container_subdiv{
+    width: calc(100% - 28rem);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.authordiv_container_subdiv h1{
+    font-size: 2.9rem;
+    font-weight: 750;
+    padding: 1.2rem 0;
+}
+.authorsdiv{
+    display: flex;
+    flex-direction: column;
 }
 @media only screen and (min-width: 41rem) and (max-width: 64rem) {
     body{

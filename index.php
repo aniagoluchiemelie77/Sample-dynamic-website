@@ -330,406 +330,406 @@ $time = date("H:iA");
                 <h1>Latest Articles</h1>
             </div>
             <div class="section2__div1__div1 normal-divs">
-                <article class="normal-divs__subdiv">
+                <a class="normal-divs__subdiv">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php" >
+                <a class="normal-divs__subdiv" href="pages/view_post.php" >
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div2 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div3 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div4 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div1__div5 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
@@ -748,70 +748,70 @@ $time = date("H:iA");
                 <h1>Latest News</h1>
             </div>
             <div class="section2__div2__div1 normal-divs">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div2__div2 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div2__div3 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div2__div4 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                 </div>
             </div>
             <div class="section2__div2__div5 normal-divs border-gradient-top-dark">
-                <article class="normal-divs__subdiv" href="pages/view_post.php">
+                <a class="normal-divs__subdiv" href="pages/view_post.php">
                     <img src="images\image1.jpeg" alt="article image">
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
                         <p class="normal-divs__releasedate">June 13, 2024</p>
                     </div>
-                </article>
+                </a>
                 <div class="normal-divs__subdiv2">
                     <img src="images\image1.jpeg" alt="article image">
                     <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
@@ -838,57 +838,69 @@ $time = date("H:iA");
         </div>
     </section>
     <section class="section3">
-        <div class="section3__div1">
-            <h1>Press Releases</h1>
-            <a href="pressrelease.html" class="section2__div2__link">See more
-                <svg width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="24" height="24" fill="#eee"/>
-                    <path d="M9.5 7L14.5 12L9.5 17" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
-        </div>
-        <div class="section3__div2">
-            <article class="section3__div2__article1">
+        <center>
+            <div class="section3__div1 border-gradient-bottom--lightdark">
+                <h1>Press Releases</h1>
+                <a href="pages/pressreleases.php" class="section2__div2__link mainheader__signupbtn">View All</a>
+            </div>
+            <div class="section3__div2">
+                <a class="section3__div2__article1">
+                    <img src="images\image1.jpeg" alt="article image">
+                    <div class="section3__subdiv">
+                        <h1 class="section3__subdiv-h1">Sample Niche</h1>
+                        <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
+                        <div class="section3__subdiv_subdiv">
+                            <p>June 13, 2024</p>
+                            <p>10 mins read.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="section3__div2__article2">
                 <img src="images\image1.jpeg" alt="article image">
                 <div class="section3__subdiv">
                     <h1 class="section3__subdiv-h1">Sample Niche</h1>
                     <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                    <p class="section3__subdiv-p">June 13, 2024</p>
+                    <div class="section3__subdiv_subdiv">
+                        <p>June 13, 2024</p>
+                        <p>10 mins read.</p>
+                    </div>
                 </div>
-            </article>
-            <article class="section3__div2__article2 border-gradient-side-dark">
+                </a>
+                <a class="section3__div2__article3">
                 <img src="images\image1.jpeg" alt="article image">
                 <div class="section3__subdiv">
                     <h1 class="section3__subdiv-h1">Sample Niche</h1>
                     <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                    <p class="section3__subdiv-p">June 13, 2024</p>
+                    <div class="section3__subdiv_subdiv">
+                        <p>June 13, 2024</p>
+                        <p>10 mins read.</p>
+                    </div>
                 </div>
-            </article>
-            <article class="section3__div2__article3 border-gradient-side-dark">
+                </a>
+                <a class="section3__div2__article4">
                 <img src="images\image1.jpeg" alt="article image">
                 <div class="section3__subdiv">
                     <h1 class="section3__subdiv-h1">Sample Niche</h1>
                     <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                    <p class="section3__subdiv-p">June 13, 2024</p>
+                    <div class="section3__subdiv_subdiv">
+                        <p>June 13, 2024</p>
+                        <p>10 mins read.</p>
+                    </div>
                 </div>
-            </article>
-            <article class="section3__div2__article4 border-gradient-side-dark">
+                </a>
+                <a class="section3__div2__article5">
                 <img src="images\image1.jpeg" alt="article image">
                 <div class="section3__subdiv">
                     <h1 class="section3__subdiv-h1">Sample Niche</h1>
                     <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                    <p class="section3__subdiv-p">June 13, 2024</p>
+                    <div class="section3__subdiv_subdiv">
+                        <p>June 13, 2024</p>
+                        <p>10 mins read.</p>
+                    </div>
                 </div>
-            </article>
-            <article class="section3__div2__article5 border-gradient-side-dark">
-                <img src="images\image1.jpeg" alt="article image">
-                <div class="section3__subdiv">
-                    <h1 class="section3__subdiv-h1">Sample Niche</h1>
-                    <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                    <p class="section3__subdiv-p">June 13, 2024</p>
-                </div>
-            </article>
-        </div>
+                </a>
+            </div>
+        </center>
     </section>
     <section class="footer">
         <div class="footer__div1">

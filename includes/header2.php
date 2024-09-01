@@ -2,22 +2,17 @@
     <center>
         <div class="mainheader">
             <div class="mainheader__header-nav">
-                <a class="mainheader__header-nav-1">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
+                <a class="mainheader__header-nav-1" href="../">
+                    <i class="fa fa-home" aria-hidden="true"></i>
                 </a>
                 <a class="mainheader__header-nav-2" id="searchicon">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <i class="fa fa-bars" aria-hidden="true"></i>
                 </a>
             </div>
             <div class="mainheader__logobox">
                 <img src="#" alt="companylogo">
             </div>
-            <a class="mainheader__signupbtn" href="../pages/newslettersubscribe.php">Newsletter Signup</a>
         </div>
-        <form class="header_searchbar hidden" action="forms.php" method="get" id="search_form">
-            <input type="text" name="search" placeholder="Search.." />
-            <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
-        </form>
         <div class="header__dropdownlinks">
             <a class="header__dropdownlinks-1 headerlinks lightp" href="OtherHtmlPages\cybersecurity.html">
                 Cybersecurity

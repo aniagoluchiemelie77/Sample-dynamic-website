@@ -266,6 +266,7 @@ a, p, li{
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    align-items: center;
     min-height: fit-content;
 }
 .body_right{
@@ -1246,6 +1247,65 @@ a, p, li{
     font-size: 1.3rem;
     text-align: center;
     color: #22222286;
+}
+/*For newslettersubscribe.php*/
+.formcontainer{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    background-color: #f6f6f6;
+}
+.head_paragraph h3{
+    font-size: 2rem;
+    padding: 1.5rem 0;
+}
+.formcontainer .formcontainer_subdiv{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 1rem 0;
+    padding: 1.5rem;
+    border: 1px solid #22222267;
+    height: fit-content;
+}
+.input_group{
+    padding-bottom: 1rem;
+}
+.formcontainer_subdiv input{
+    width: 100%;
+    border: 1px solid #222222;
+    outline: none;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+.formcontainer label{
+    font-size: 1.5rem;
+    font-weight: 550;
+    padding: 1rem 0;
+}
+.formcontainer_subdiv input:focus{
+    border: 1px solid #F94A04;
+}
+.formcontainer p a{
+    cursor: pointer;
+    color: #F94A04;
+}
+.formcontainer p a:hover{
+    text-decoration: underline;
+}
+.formcontainer_submit{
+    color: #eee;
+    background-color: #F94A04;
+    padding: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.formcontainer_submit:hover{
+    background-color: #F93404;
 }
 /*For Authors.php*/
 .authordiv_container{

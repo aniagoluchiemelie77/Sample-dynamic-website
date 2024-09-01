@@ -15,10 +15,10 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie"/>
     <link rel="stylesheet" href="../index.css"/>
-	<title>Press Releases</title>
+	<title>Subscribe</title>
 </head>
 <body>
-    <?php require("../includes/header.php");?>
+    <?php require("../includes/header2.php");?>
     <div class="ads_bar"></div>
     <div class="body_container">
         <div class="body_left">
@@ -92,7 +92,7 @@ session_start();
             </a>
         </div>
     </div>
-    <?php include("../includes/footer.php");?>
+    <?php include("../includes/footer2.php");?>
     <script src="../index.js"></script>
 </body>
 </html>

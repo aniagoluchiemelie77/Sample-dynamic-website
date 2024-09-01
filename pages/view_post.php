@@ -18,7 +18,7 @@ session_start();
 	<title>View post</title>
 </head>
 <body>
-    <?php require("../includes/header.php");?>
+    <?php require("../includes/header2.php");?>
     <div class="ads_bar"></div>
     <div class="body_container">
         <div class="body_left">

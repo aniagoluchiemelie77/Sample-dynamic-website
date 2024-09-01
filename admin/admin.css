@@ -105,6 +105,32 @@ a, td,span, p, label{
 .container .form{
     padding: .5rem 1.5rem;
 }
+.error_div{
+    width: 100%;
+    background-color: #F94A04;
+    color: #eee;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 1rem 0;
+}
+.error_div i{
+    font-size: 1.7rem;
+    margin-right: 1rem;
+}
+.checkbox_group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: .5rem 0;
+}
+.checkbox_group p{
+    color: #eee;
+    margin-left: 1rem;
+}
+.checkbox_group input:checked{
+    background-color: #F94A04;
+}
 .container .form .input_group input{
     color: inherit;
     width: 100%;
@@ -611,6 +637,9 @@ a, td,span, p, label{
     justify-content: center;
     flex-direction: column;
     background-color: #FAFAFA;
+}
+.profile p, span{
+    color: black;
 }
 .profile figure{
     text-align: left;

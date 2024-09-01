@@ -5,7 +5,6 @@ if(!isset($_SESSION['email'])) {
     header("Location: index.php");
 };
 require ("connect.php");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -157,22 +156,7 @@ require ("connect.php");
     <!--<div class="logout_alert container_center hidden" id="delete">
         <h1 class="logout_alert_header">Post Successfully Deleted.</h1>
     </div>-->
-    <header class="header">
-        <div class="header_logobox">
-            <img src="#" alt="Website Logo">
-        </div>
-        <form class="header_searchbar" action="script.php" method="get">
-            <input type="text" name="search" placeholder="Search.." />
-            <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
-        </form>
-        <div class="header_img">
-            <a class="notification" href="#">
-                <span></span>
-                <i class="fa fa-bell" aria-hidden="true"></i>
-            </a>
-            <img src="images\Diamakaimg1.png" alt="Author's Image"/>
-        </div>
-    </header>
+    <?php require("extras/header.php");?>
     <section class="body">
         <div class="sidebar">
             <div class="links_group">
@@ -237,17 +221,7 @@ require ("connect.php");
         </div>
         <div class="aside_sidebar">
             <div class="website_info_div tabcontent active2">
-                <h1 class="aside_sidebar_header">Welcome, 
-                    <?php
-                        if(isset($_SESSION['email'])){
-                            $email = $_SESSION['email'];
-                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                            while($row = mysqli_fetch_array($query)){
-                                echo $row['username'];
-                            }
-                        }
-                    ?> 
-                </h1>
+                <h1 class="aside_sidebar_header">Welcome, <?php echo $_SESSION['username']?> </h1>
                 <div class="webinfo_container">
                     <div class="website_info">
                         <div class="website_info_subdiv">
@@ -570,97 +544,33 @@ require ("connect.php");
                 <div class="profile_body">
                     <p class="profile_firstp">
                         <span>
-                            <?php
-                                if(isset($_SESSION['email'])){
-                                    $email = $_SESSION['email'];
-                                    $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                    while($row = mysqli_fetch_array($query)){
-                                        echo $row['firstName'];
-                                    }
-                                }
-                            ?> 
+                            <?php echo $_SESSION['firstname'];?> 
                         </span>
                         <span>
-                            <?php
-                                if(isset($_SESSION['email'])){
-                                    $email = $_SESSION['email'];
-                                    $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                    while($row = mysqli_fetch_array($query)){
-                                        echo $row['lastName'];
-                                    }
-                                }
-                            ?>
+                            <?php echo $_SESSION['lastname']; ?>
                         </span> 
                       ( <span>
-                            <?php
-                                if(isset($_SESSION['email'])){
-                                    $email = $_SESSION['email'];
-                                    $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                    while($row = mysqli_fetch_array($query)){
-                                        echo $row['username'];
-                                    }
-                                }
-                            ?>
+                            <?php echo $_SESSION['username']; ?>
                         </span>
                         ) 
                     </p>
                     <p>
-                        <?php
-                            if(isset($_SESSION['email'])){
-                                $email = $_SESSION['email'];
-                                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                while($row = mysqli_fetch_array($query)){
-                                    echo $row['admin_bio'];
-                                }
-                            }
-                        ?>
+                        <?php echo $_SESSION['bio']; ?>
                     </p>
                     <div class="profile_body_subdiv_subdiv">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                         <p>
                             <span>
-                                <?php
-                                    if(isset($_SESSION['email'])){
-                                        $email = $_SESSION['email'];
-                                        $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                        while($row = mysqli_fetch_array($query)){
-                                            echo $row['address1'];
-                                        }
-                                    }
-                                ?>,
+                                <?php echo $_SESSION['address']; ?>,
                             </span>
                             <span>
-                                <?php
-                                    if(isset($_SESSION['email'])){
-                                        $email = $_SESSION['email'];
-                                        $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                        while($row = mysqli_fetch_array($query)){
-                                            echo $row['admin_city'];
-                                        }
-                                    }
-                               ?>, 
+                                <?php echo $_SESSION['city']; ?>, 
                             </span>
                             <span>
-                                <?php
-                                    if(isset($_SESSION['email'])){
-                                        $email = $_SESSION['email'];
-                                        $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                        while($row = mysqli_fetch_array($query)){
-                                            echo $row['admin_state'];
-                                        }
-                                    }
-                                ?>, 
+                                <?php echo $_SESSION['state']; ?>, 
                             </span>
                             <span> 
-                                <?php
-                                    if(isset($_SESSION['email'])){
-                                        $email = $_SESSION['email'];
-                                        $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                        while($row = mysqli_fetch_array($query)){
-                                            echo $row['admin_country'];
-                                        }
-                                    }
-                                ?>.
+                                <?php echo $_SESSION['country']; ?>.
                             </span>
                         </p>
                     </div>
@@ -669,15 +579,7 @@ require ("connect.php");
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                             <p>
                                 <span>
-                                    <?php
-                                        if(isset($_SESSION['email'])){
-                                            $email = $_SESSION['email'];
-                                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                            while($row = mysqli_fetch_array($query)){
-                                                echo $row['email'];
-                                            }
-                                        }
-                                    ?>
+                                    <?php echo $_SESSION['email']; ?>
                                 </span>
                             </p>
                         </div>
@@ -685,15 +587,7 @@ require ("connect.php");
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <p>
                                 <span>
-                                    <?php
-                                        if(isset($_SESSION['email'])){
-                                            $email = $_SESSION['email'];
-                                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                            while($row = mysqli_fetch_array($query)){
-                                                echo $row['admin_moblie'];
-                                            }
-                                        }
-                                    ?>
+                                    <?php echo $_SESSION['mobile'];?>
                                 </span>
                             </p>
                         </div>
@@ -751,27 +645,11 @@ require ("connect.php");
                             <div class="divimages_side--back">
                                 <p class="users_div_subdiv_p">
                                     <span>Username:</span>
-                                    <?php
-                                        if(isset($_SESSION['email'])){
-                                            $email = $_SESSION['email'];
-                                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                            while($row = mysqli_fetch_array($query)){
-                                                echo $row['username'];
-                                            }
-                                        }
-                                    ?>
+                                    <?php echo $_SESSION['username']; ?>
                                 </p>
                                 <p class="users_div_subdiv_p">
                                     <span>Firstname:</span>
-                                        <?php
-                                            if(isset($_SESSION['email'])){
-                                                $email = $_SESSION['email'];
-                                                $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                                while($row = mysqli_fetch_array($query)){
-                                                    echo $row['firstName'];
-                                                }
-                                            }
-                                        ?>
+                                        <?php echo $_SESSION['firstname']; ?>
                                 </p> 
                                 <p class="users_div_subdiv_p">
                                     <span>Role:</span>

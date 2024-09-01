@@ -19,23 +19,7 @@ include("../connect.php");
 	<title>View Published Posts</title>
 </head>
 <body>
-    <header class="header">
-        <div class="header_logobox">
-            <img src="#" alt="Website Logo">
-        </div>
-        <form class="header_searchbar" action="" method="get">
-            <input type="text" name="search" placeholder="Search.." />
-            <a class="fa fa-search" aria-hidden="true">
-            </a>
-        </form>
-        <div class="header_img">
-            <a class="notification" href="#">
-                <span></span>
-                <i class="fa fa-bell" aria-hidden="true"></i>
-            </a>
-            <img src="../images/image1.jpeg" alt="Author's Image"/>
-        </div>
-    </header>
+    <?php require("../extras/header.php");?>
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="posts_header">

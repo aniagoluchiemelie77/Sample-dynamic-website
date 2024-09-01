@@ -1,23 +1,5 @@
 <?php
 require ("connect.php");
-if (isset($_POST['Sign_In'])) {
-    $email = $_POST['Email'];
-    $password = $_POST['Password'];
-    $sql = "SELECT * FROM admin_login_info WHERE email='$email'";
-    $result = $conn->query($sql);
-    if($result->num_rows>0){
-        session_start();
-        $row = $result->fetch_assoc();
-        $_SESSION['email'] = $row['email'];
-        header("location: admin_homepage.php");
-        exit();
-    }else{
-        echo ` Incorrect Username or Password.`;
-        header("location: index.php");
-    }
-}
-
-require ("connect.php");
 if (isset($_POST['create_post'])) {
     $title = $_POST['Post_Title'];
     $niche = $_POST['Post_Niche'];

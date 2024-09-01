@@ -19,18 +19,7 @@ include("../connect.php")
 	<title>Edit Profile</title>
 </head>
 <body>
-<header class="header">
-        <div class="header_logobox">
-            <img src="#" alt="Website Logo">
-        </div>
-        <div class="header_img">
-            <a class="notification" href="../view_all/notification.php">
-                <span></span>
-                <i class="fa fa-bell" aria-hidden="true"></i>
-            </a>
-            <img src="images\image1.jpeg" alt="Author's Image"/>
-        </div>
-    </header>
+    <?php require("../extras/header.php");?>
     <div class="editprofile_container">
     <form class="create_editor_container" action="../forms.php" method="post">
         <div class="createeditor_inputgroup">

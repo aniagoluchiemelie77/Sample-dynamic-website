@@ -19,22 +19,7 @@ include "../connect.php";
 	<title>Draft</title>
 </head>
 <body>
-    <header class="header">
-        <div class="header_logobox">
-            <img src="#" alt="Website Logo">
-        </div>
-        <form class="header_searchbar" action="" method="get">
-            <input type="text" name="search" placeholder="Search.." />
-            <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
-        </form>
-        <div class="header_img">
-            <a class="notification" href="#">
-                <span></span>
-                <i class="fa fa-bell" aria-hidden="true"></i>
-            </a>
-            <img src="images\image1.jpeg" alt="Author's Image"/>
-        </div>
-    </header>
+    <?php require("../extras/header.php");?>
     <section class="body">
         <div class="sidebar">
             <div class="sidebar_workspace_container workspacediv">

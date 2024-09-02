@@ -170,6 +170,35 @@ session_start();
                     <p>10mins Read.</p>
                 </div>
             </a>
+            <?php
+                $userEmail = " ";
+                if(isset($_POST['submit_btn'])){
+                $userEmail = $_POST['email'];
+                if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
+                    $subject = "Thank You For Subscribing With Us";
+                    $message = "Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information";
+                    $sender = "from:bahdmannatural@gmail.com";
+                    if(mail($userEmail, $subject, $message, $sender)){ 
+                        $msg = "Thanks For Subscribing With Us";
+                        ?><?php
+                        $userEmail = " ";
+                    }else{
+                        $msg = "Oops, Email Subscription Failed";
+                        ?><?php
+                    }
+                }else{
+                    $msg = "Invalid Email";
+                }
+                }
+            ?>
+            <form class="sec2__susbribe-box other_width" method="post" action="view_post.php">
+                <div class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
+                <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
+                <p class="error_div"><?php if(!empty($msg)){ echo $msg;}?></p>
+                <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required/>
+                <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn"/>
+            </form>
         </div>
     </div>
     <?php include("../includes/footer.php");?>

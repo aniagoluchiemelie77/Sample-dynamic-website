@@ -197,42 +197,71 @@ session_start();
                                 <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
                             </div>
                         </div>
-        </div>
-    </section>
+                    </div>
+                </section>
             </div>
             <div class="body_right border-gradient-leftside--lightdark">
-            <div class="ads_sidebar"></div>
-            <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
-            <a class="posts_div" href="#">
-                <img src="../images/chibs.jpg" alt="Post's Image"/>
-                <p class="posts_div_niche">Cybersecurity</p>
-                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
-                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                <div class="posts_div_subdiv">
-                    <p>Aug 15th, 2024</p>
-                    <p>10mins Read.</p>
-                </div>
-            </a>
-            <a class="posts_div" href="#">
-                <img src="../images/chibs.jpg" alt="Post's Image"/>
-                <p class="posts_div_niche">Cybersecurity</p>
-                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
-                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                <div class="posts_div_subdiv">
-                    <p>Aug 15th, 2024</p>
-                    <p>10mins Read.</p>
-                </div>
-            </a>
-            <a class="posts_div" href="#">
-                <img src="../images/chibs.jpg" alt="Post's Image"/>
-                <p class="posts_div_niche">Cybersecurity</p>
-                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
-                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                <div class="posts_div_subdiv">
-                    <p>Aug 15th, 2024</p>
-                    <p>10mins Read.</p>
-                </div>
-            </a>
+                <div class="ads_sidebar"></div>
+                <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
+                <a class="posts_div" href="#">
+                    <img src="../images/chibs.jpg" alt="Post's Image"/>
+                    <p class="posts_div_niche">Cybersecurity</p>
+                    <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                    <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                    <div class="posts_div_subdiv">
+                        <p>Aug 15th, 2024</p>
+                        <p>10mins Read.</p>
+                    </div>
+                </a>
+                <a class="posts_div" href="#">
+                    <img src="../images/chibs.jpg" alt="Post's Image"/>
+                    <p class="posts_div_niche">Cybersecurity</p>
+                    <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                    <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                    <div class="posts_div_subdiv">
+                        <p>Aug 15th, 2024</p>
+                        <p>10mins Read.</p>
+                    </div>
+                </a>
+                <a class="posts_div" href="#">
+                    <img src="../images/chibs.jpg" alt="Post's Image"/>
+                    <p class="posts_div_niche">Cybersecurity</p>
+                    <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                    <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                    <div class="posts_div_subdiv">
+                        <p>Aug 15th, 2024</p>
+                        <p>10mins Read.</p>
+                    </div>
+                </a>
+                <?php
+                    $userEmail = " ";
+                    if(isset($_POST['submit_btn'])){
+                    $userEmail = $_POST['email'];
+                    if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
+                    $subject = "Thank You For Subscribing With Us";
+                    $message = "Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information";
+                    $sender = "from:bahdmannatural@gmail.com";
+                    if(mail($userEmail, $subject, $message, $sender)){ 
+                        $msg = "Thanks For Subscribing With Us";
+                        ?><?php
+                        $userEmail = " ";
+                    }else{
+                        $msg = "Oops, Email Subscription Failed";
+                        ?><?php
+                    }
+                    }else{
+                    $msg = "Invalid Email";
+                    }
+                    }
+                ?>
+                <form class="sec2__susbribe-box other_width" method="post" action="author.php">
+                <div class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
+                <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
+                <p class="error_div"><?php if(!empty($msg)){ echo $msg;}?></p>
+                <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required/>
+                <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn"/>
+                </form>
             </div>
         </div>
     </center>

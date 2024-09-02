@@ -17,7 +17,7 @@ $time = date("H:iA");
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -29,8 +29,8 @@ $time = date("H:iA");
     <meta name="author" content="Aniagolu chiemelie"/>
     <link rel="stylesheet" href="index.css"/>
 	<title>Home</title>
-</head>
-<body id="container">
+    </head>
+    <body id="container">
     <?php include("includes/header.php");?>
     <div class="header__menu-sidebar hidden" id="sidebar">
             <div class="header__menu-sidebar-div1 sidebar-input">
@@ -127,10 +127,10 @@ $time = date("H:iA");
             $i = 1;
             while($row = mysqli_fetch_array($query)){
                 $i++;
-                $niche = $row['Niche'];
-                $title = $row['Title'];
+                $niche = $row['niche'];
+                $title = $row['title'];
                 $image = $row['image'];
-                $date = $row['Posts_Date'];
+                $date = $row['Date'];
             };
         ?>
         <div class="section1__div1 larger__div">
@@ -669,16 +669,35 @@ $time = date("H:iA");
                     <path d="M9.5 7L14.5 12L9.5 17" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </a>
-            <section class="sec2__susbribe-box">
+            <?php
+                $userEmail = " ";
+                if(isset($_POST['submit_btn'])){
+                $userEmail = $_POST['email'];
+                if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
+                    $subject = "Thank You For Subscribing With Us";
+                    $message = "Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information";
+                    $sender = "from:bahdmannatural@gmail.com";
+                    if(mail($userEmail, $subject, $message, $sender)){ 
+                        $msg = "Thanks For Subscribing With Us";
+                        ?><?php
+                        $userEmail = " ";
+                    }else{
+                        $msg = "Oops, Email Subscription Failed";
+                        ?><?php
+                    }
+                }else{
+                    $msg = "Invalid Email";
+                }
+                }
+            ?>
+            <form class="sec2__susbribe-box specified_width" method="post" action="index.php">
+                <div class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
                 <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
-                <p class="sec2__susbribe-box-p1">Get the latest sports news from SportsSite about soccer, football and tennis.</p>
-                <input class="sec2__susbribe-box-input" type="email" placeholder="Your email address..."/>
-                <button class="sec2__susbribe-box-btn" type="submit">Subscribe</button>
-                <label class="container"> By signing up, you agree to the our terms and our Privacy Policy agreement.
-                    <input type="checkbox">
-                    <span class="checkbox-container"></span>
-                </label>
-            </section>
+                <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
+                <p class="error_div"><?php if(!empty($msg)){ echo $msg;}?></p>
+                <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required/>
+                <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn"/>
+            </form>
             <section class="sec2__adsbox">
             </section>
         </div>
@@ -750,5 +769,5 @@ $time = date("H:iA");
     </section>
     <?php include("includes/footer.php");?>
     <script src="index.js"></script>
-</body>
+    </body>
 </html>

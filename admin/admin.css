@@ -107,16 +107,8 @@ a, td,span, p, label{
 }
 .error_div{
     width: 100%;
-    background-color: #F94A04;
-    color: #eee;
+    color: #F94A04;
     padding: 1rem;
-    display: flex;
-    flex-wrap: nowrap;
-    margin: 1rem 0;
-}
-.error_div i{
-    font-size: 1.7rem;
-    margin-right: 1rem;
 }
 .checkbox_group{
     display: flex;

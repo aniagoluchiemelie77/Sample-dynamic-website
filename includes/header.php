@@ -19,19 +19,19 @@
             <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
         </form>
         <div class="header__dropdownlinks">
-            <a class="header__dropdownlinks-1 headerlinks lightp" href="OtherHtmlPages\cybersecurity.html">
+            <a class="header__dropdownlinks-1 headerlinks lightp" href="pages/cybersecurity.php">
                 Cybersecurity
             </a>
-            <a class="header__dropdownlinks-2 headerlinks lightp" href="OtherHtmlPages\AI.html">
+            <a class="header__dropdownlinks-2 headerlinks lightp" href="pages\artificialintelligence.php">
                 Artificial Intelligence
             </a>
-            <a class="header__dropdownlinks-3 headerlinks lightp" href="OtherHtmlPages\Dataanalytics.html">
+            <a class="header__dropdownlinks-3 headerlinks lightp" href="pages\dataanalytics.php">
                 Data Analytics
             </a>
-            <a class="header__dropdownlinks-4 headerlinks lightp" href="OtherHtmlPages\cloudcumputing.html">
+            <a class="header__dropdownlinks-4 headerlinks lightp" href="pages\cloudcomputing.php">
                 Cloud Computing
             </a>
-            <a class="header__dropdownlinks-5 headerlinks lightp" href="OtherHtmlPages\news.html">
+            <a class="header__dropdownlinks-5 headerlinks lightp" href="pages\news.php">
                 News
             </a>
             <div class="header__dropdownlinks-6  lightp">

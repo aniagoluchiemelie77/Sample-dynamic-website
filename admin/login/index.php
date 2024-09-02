@@ -1,5 +1,5 @@
 <?php
-require ("connect.php");
+require ("../connect.php");
 if (isset($_REQUEST['Sign_In'])) {
     $email = $_REQUEST['Email'];
     $password = $_REQUEST['Password'];
@@ -37,7 +37,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $_SESSION['state'] = $state;
         $_SESSION['address'] = $address;
         $_SESSION['country_code'] = $country_code;
-        header("location: admin_homepage.php");
+        header("location: ../admin_homepage.php");
         exit();
     }else{
         $msg = "Invalid Email or Password";
@@ -64,7 +64,7 @@ if(isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])){
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka"/>
-    <link rel="stylesheet" href="admin.css"/>
+    <link rel="stylesheet" href="../admin.css"/>
 	<title>Admin Login</title>
 </head>
 <body>
@@ -72,10 +72,8 @@ if(isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])){
         <div class="container" id="signIn">
             <h1 class="form__title">Sign In</h1>
             <form method="post" class="form">
-                <div class="error_div">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                    <p><?php if(!empty($msg)){ echo $msg;}?></p>
-                </div>
+                <p class="error_div"><?php if(!empty($msg)){ echo $msg;}?>
+                </p>
                 <div class="input_group">
                     <i class="fas fa-envelope"></i>
                     <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid;?>" required/>
@@ -90,7 +88,7 @@ if(isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])){
                     <input type="checkbox" name="remember" id="remember_me" />
                     <p>Remember me</p>
                 </div>
-                <p class="recover"><a href="#">Forgot password?</a></p>
+                <p class="recover"><a href="forgotpassword.php">Forgot password?</a></p>
                 <input type="submit" value="Sign In" class="btn_main" name="Sign_In"/>
             </form>
         </div>

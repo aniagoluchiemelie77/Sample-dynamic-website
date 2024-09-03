@@ -589,86 +589,7 @@ $time = date("H:iA");
                 </svg>
             </a>
         </div>
-        <div class="section2__div2">
-            <div class="section2__div2__header headers">
-                <h1>Latest News</h1>
-            </div>
-            <div class="section2__div2__div1 normal-divs">
-                <a class="normal-divs__subdiv" href="pages/view_post.php">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <div class="normal-divs__subdiv__div">
-                        <h1 class="normal-divs__header">Sample Niche</h1>
-                        <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
-                    </div>
-                </a>
-                <div class="normal-divs__subdiv2">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                </div>
-            </div>
-            <div class="section2__div2__div2 normal-divs border-gradient-top-dark">
-                <a class="normal-divs__subdiv" href="pages/view_post.php">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <div class="normal-divs__subdiv__div">
-                        <h1 class="normal-divs__header">Sample Niche</h1>
-                        <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
-                    </div>
-                </a>
-                <div class="normal-divs__subdiv2">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                </div>
-            </div>
-            <div class="section2__div2__div3 normal-divs border-gradient-top-dark">
-                <a class="normal-divs__subdiv" href="pages/view_post.php">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <div class="normal-divs__subdiv__div">
-                        <h1 class="normal-divs__header">Sample Niche</h1>
-                        <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
-                    </div>
-                </a>
-                <div class="normal-divs__subdiv2">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                </div>
-            </div>
-            <div class="section2__div2__div4 normal-divs border-gradient-top-dark">
-                <a class="normal-divs__subdiv" href="pages/view_post.php">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <div class="normal-divs__subdiv__div">
-                        <h1 class="normal-divs__header">Sample Niche</h1>
-                        <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
-                    </div>
-                </a>
-                <div class="normal-divs__subdiv2">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                </div>
-            </div>
-            <div class="section2__div2__div5 normal-divs border-gradient-top-dark">
-                <a class="normal-divs__subdiv" href="pages/view_post.php">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <div class="normal-divs__subdiv__div">
-                        <h1 class="normal-divs__header">Sample Niche</h1>
-                        <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
-                    </div>
-                </a>
-                <div class="normal-divs__subdiv2">
-                    <img src="images\image1.jpeg" alt="article image">
-                    <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                </div>
-            </div>
-            <a href="indexsub1.html" class="section2__div2__link">See more
-                <svg width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="24" height="24" fill="#FAFAFA"/>
-                    <path d="M9.5 7L14.5 12L9.5 17" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
+        <div class="body_right border-gradient-leftside--lightdark">
             <?php
                 $userEmail = " ";
                 if(isset($_POST['submit_btn'])){
@@ -690,7 +611,7 @@ $time = date("H:iA");
                 }
                 }
             ?>
-            <form class="sec2__susbribe-box specified_width" method="post" action="index.php">
+            <form class="sec2__susbribe-box other_width" method="post" action="index.php">
                 <div class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
                 <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
                 <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
@@ -698,6 +619,77 @@ $time = date("H:iA");
                 <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required/>
                 <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn"/>
             </form>
+            <div class="section2__div1__header headers">
+                <h1>Latest News</h1>
+            </div>
+            <a class="posts_div" href="#">
+                <img src="images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <a class="posts_div" href="#">
+                <img src="images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <a class="posts_div" href="#">
+                <img src="images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <div class="ads_sidebar"></div>
+            <a class="posts_div" href="#">
+                <img src="images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <a class="posts_div" href="#">
+                <img src="images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <a class="posts_div" href="#">
+                <img src="images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <a href="pages/news.php" class="mainheader__signupbtn">See More News</a>
+            <div class="section2__div1__header headers">
+                <h1>White Papers</h1>
+            </div>
+            <div class="section2__div1__header headers">
+                <h1>White Papers</h1>
+            </div>
             <section class="sec2__adsbox">
             </section>
         </div>

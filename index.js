@@ -1,5 +1,7 @@
 'use strict';
 const section2 = document.querySelector('.section2');
+const cookieContainer = document.getElementById("cookie_container");
+const cookieBtn = document.querySelector('.cookie_container_subdiv-btns');
 const section1 = document.querySelector('.section1');
 const menubtn = document.querySelector('.mainheader__header-nav-1');
 const searchIcon = document.getElementById('searchicon');
@@ -14,9 +16,21 @@ const container = document.getElementById("container");
 let touchStartTime, clientX, clientY;
 console.log(initCoords);
 
-
+setTimeout(() => {
+  cookieContainer.style.bottom = "0";
+}, 3000);
+function responding(evt) {
+  if (evt.target.nodeName === 'a'){
+    evt.target.addEventListener('click', () => {
+      cookieContainer.style.bottom = "-100%";
+      localStorage.setItem("cookie_Banner", "true");
+    });
+  }else{
+    return;
+  }
+}
+cookieContainer.addEventListener('click', responding);
 //implementing sticky nav bar
-
 const stickyNavFunc = function () {
     const navHeight = header.getBoundingClientRect().height;
     const stickyNav = function (entries) {

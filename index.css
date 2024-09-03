@@ -44,6 +44,51 @@ a, p, li{
     line-height: 1.5;
     text-decoration: none;
 }
+/*For Cookie consent popup*/
+.cookie_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #222222f0;
+    position: fixed;
+    bottom: -100%;
+    height: fit-content;
+    left: 0;
+    z-index: 200;
+    right: 0;
+    transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -ms-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+}
+.cookie_container p{
+    color: #eee;
+    padding: 1rem 0;
+}
+.cookie_container p a{
+    color: #F94A04;
+    cursor: pointer;
+}
+.cookie_container p a:hover{
+    text-decoration: underline;
+}
+.cookie_container .cookie_container_subdiv{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    width: 100%;
+}
+.cookie_container .cookie_container_subdiv a{
+    padding: 1rem;
+    background-color: #F94A04;
+    color: #eee;
+    cursor: pointer;
+}
+.cookie_container .cookie_container_subdiv a:hover{
+    background-color: #F93404;
+}
 .header{
     min-height: fit-content;
     background: var(--color30);

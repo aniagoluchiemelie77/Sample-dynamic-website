@@ -1443,7 +1443,7 @@ a, td,span, p, label{
 }
 .newpost_container_div7 .newpost_container_div7_subdiv2{
     min-width: 100%;
-    min-height: 90vh;
+    height: 90vh;
     padding: .8rem;
 }
 .newpost_container_div7 .newpost_container_div7_subdiv2:focus{

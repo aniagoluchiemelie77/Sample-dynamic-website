@@ -31,40 +31,6 @@ include("../connect.php");
                     <input class="form__input" name="Post_Niche" type="text" placeholder="Niche.." required/>
                 </div>
             </div>
-            <div class="newpost_body_addition">
-                <input class="form__input1" name="Post_Block" type="text" placeholder="Type / to choose a block.."/> 
-                <div class="newpost_body_addition_subdiv">
-                    <div class="div1">
-                        <input class="form__input" name="search" type="text" placeholder="Search.."/> 
-                        <button class="fa fa-search" type="submit"></button>
-                    </div>
-                    <div class="div2">
-                        <i class="fa fa-paragraph" aria-hidden="true"></i>
-                        <span>Paragraph</span>
-                    </div>
-                    <div class="div3">
-                        <i class="fa fa-file" aria-hidden="true"></i>
-                        <span>Images</span>
-                    </div>
-                    <div class="div4">
-                        <i class="fa fa-bookmark" aria-hidden="true"></i>
-                        <span>Heading</span>
-                    </div>
-                    <div class="div5">
-                        <i class="fa fa-list" aria-hidden="true"></i>
-                        <span>Lists</span>
-                    </div>
-                    <div class="div6">
-                        <i class="fa fa-quote-right" aria-hidden="true"></i>
-                        <span>Quotes</span>
-                    </div>
-                    <div class="div7">
-                        <i class="fa fa-table" aria-hidden="true"></i>
-                        <span>Tables</span>
-                    </div>
-                    <a class="div8">View All</a>
-                </div>
-            </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="Post_Sub_Title">Sub Title:</label>
                 <div class="newpost_container_div3_subdiv2">
@@ -96,7 +62,7 @@ include("../connect.php");
             </div>
             <div class="newpost_container_div7 newpost_subdiv">
                 <label class="form__label" for="Post_Content">Post Content:</label>
-                <textarea class="newpost_container_div7_subdiv2" name="Post_content">
+                <textarea class="newpost_container_div7_subdiv2" name="Post_content" id="myTextarea">
                 </textarea>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">
@@ -104,5 +70,26 @@ include("../connect.php");
             </div>
         </form>
     </section>
+    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
+    <script src="../admin.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#myTextarea',
+            width: 810,
+            height: 900,
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                'media', 'table', 'emoticons', 'help'
+            ],toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                'forecolor backcolor emoticons | help',
+            menu: {
+            favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+            },
+            menubar: 'favs file edit view insert format tools table help',
+            content_css: 'css/content.css'
+        });
+    </script>
 </body>
 </html>

@@ -36,28 +36,6 @@ let profilePicUploadBtn = document.getElementById('profileuploads');
 let workspaceContainer = document.querySelector('.sidebar_workspace_container');
 let workspace = document.querySelector('.sidebar_workspace');
 
-tinymce.init({
-  selector: '#workspace_area',
-  width: 810,
-    height: 900,
-    plugins: [
-      'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-      'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-      'media', 'table', 'emoticons', 'help'
-    ],toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
-    'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-    'forecolor backcolor emoticons | help',
-    menu: {
-      favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
-    },
-    menubar: 'favs file edit view insert format tools table help',
-    content_css: 'css/content.css'
-});
-ClassicEditor
-    .create(document.querySelector("#myTextarea"))
-    .catch(error => {
-        console.error( error );
-    } );
 sideBtns.forEach((tab, index) => {
     tab.addEventListener('click', (e) => {
       sideBtns.forEach((tab) => {

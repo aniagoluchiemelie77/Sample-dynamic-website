@@ -851,6 +851,82 @@ a, p, li{
     align-items: center;
     justify-content: space-between;
 }
+.setion2_bodyright_subdiv{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 1.2rem 0;
+    align-items: center;
+    border: 1.2px solid #F94A04;
+}
+.setion2_bodyright_subdiv h1{
+    font-size: 2.5rem;
+    padding: 1.5rem;
+}
+.setion2_bodyright_subdiv_subdiv{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.setion2_bodyright_subdiv_subdiv a{
+    padding: .5rem;
+    cursor: pointer;
+    border-bottom: 1px solid #2222223b;
+}
+.setion2_bodyright_subdiv_subdiv a:hover{
+    background-color: #F94A04;
+    color: #eee;
+}
+.setion2_bodyright_topicsdiv{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0;
+    border: 1.2px solid #F94A04;
+}
+.setion2_bodyright_topicsdiv form{
+    width: 100%;
+    background-color: #F94A04;
+    margin: 1rem 0;
+}
+.setion2_bodyright_topicsdiv form input{
+    width: 80.5%;
+    padding: 1rem;
+    background-color: #f4f4f4;
+    border: 1px solid #2222222a;
+}
+.setion2_bodyright_topicsdiv form input:focus{
+    border: none;
+    outline: 1px solid #F94A04;
+}
+.setion2_bodyright_topicsdiv form button{
+    width: 18%;
+    padding: 1rem;
+    border: none;
+    color: #eee;
+    cursor: pointer;
+    background-color: #F94A04;
+}
+.setion2_bodyright_topicsdiv form button:hover{
+    background-color: #F93404;
+}
+.setion2_bodyright_topicsdiv h1{
+    width: 100%;
+    padding: 1rem;
+    font-size: 2.4rem;
+}
+.setion2_bodyright_topicsdiv div{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.setion2_bodyright_topicsdiv div a{
+    border-bottom: 1px solid #2222222a;
+    padding: .5rem;
+    width: 100%;
+    cursor: pointer;
+}
 .section3 div h1{
     font-size: var(--article-header);
     padding: var(--div-padding-full);

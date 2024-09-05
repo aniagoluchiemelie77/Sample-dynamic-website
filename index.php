@@ -130,7 +130,7 @@ $time = date("H:iA");
         <section class="section1">
         <?php 
             require ('connect.php');
-            $query = mysqli_query($conn, "SELECT * FROM paid_posts LIMIT 0, 4");
+            $query = mysqli_query($conn, "SELECT * FROM paid_posts LIMIT 4");
             $i = 1;
             while($row = mysqli_fetch_array($query)){
                 $i++;
@@ -138,10 +138,11 @@ $time = date("H:iA");
                 $title = $row['title'];
                 $image = $row['image'];
                 $date = $row['Date'];
+                $id = $row['id'];
             };
         ?>
         <div class="section1__div1 larger__div">
-            <a href="pages/view_post.php">
+            <a href="pages/view_post.php?view=<?php echo $title;?>">
                 <img src="images/<?php echo $image;?>" alt="article image">
                 <div class="larger__div__subdiv">
                     <h1><?php echo $niche;?></h1>
@@ -691,13 +692,56 @@ $time = date("H:iA");
                 </div>
                 </a>
                 <a href="pages/news.php" class="mainheader__signupbtn">See More News</a>
-                <div class="section2__div1__header headers">
+                <div class="setion2_bodyright_subdiv">
                     <h1>White Papers</h1>
+                    <div class="setion2_bodyright_subdiv_subdiv">
+                        <a>Paper 1</a>
+                        <a>Paper 2</a>
+                        <a>Paper 3</a>
+                        <a>Paper 4</a>
+                        <a>Paper 5</a>
+                        <a>Paper 6</a>
+                    </div>
+                    <a class="mainheader__signupbtn">See more</a>
                 </div>
-                <div class="section2__div1__header headers">
-                    <h1>White Papers</h1>
+                <div class="setion2_bodyright_subdiv">
+                    <h1>Ebooks</h1>
+                    <div class="setion2_bodyright_subdiv_subdiv">
+                        <a>Ebook 1</a>
+                        <a>Ebook 2</a>
+                        <a>Ebook 3</a>
+                        <a>Ebook 4</a>
+                        <a>Ebook 5</a>
+                        <a>Ebook 6</a>
+                    </div>
+                    <a class="mainheader__signupbtn">See More</a>
                 </div>
-                <section class="sec2__adsbox"></section>
+                <div class="setion2_bodyright_subdiv">
+                    <h1>Webinars</h1>
+                    <div class="setion2_bodyright_subdiv_subdiv">
+                        <a>Webinar 1</a>
+                        <a>Webinar 2</a>
+                        <a>Webinar 3</a>
+                        <a>Webinar 4</a>
+                        <a>Webinar 5</a>
+                        <a>Webinar 6</a>
+                    </div>
+                    <a class ="mainheader__signupbtn">See More</a>
+                </div>
+                <div class="setion2_bodyright_topicsdiv">
+                    <form action="index.php" method="post">
+                        <input class="topics_search" name='topics_search' type='text' placeholder="Search Topics.." required/>
+                        <button type="submit" class="fa fa-search" name='topics_search_submit'></button>
+                    </form>
+                    <h1>Topics</h1>
+                    <div class="setion2_bodyright_topicsdiv_subdiv">
+                        <a>Cybersecurity</a>
+                        <a>Artificial Intelligence</a>
+                        <a>Cloud Computing</a>
+                        <a>Data Analytics</a>
+                    </div>
+                </div>
+                <div class="ads_sidebar"></div>
             </div>
         </section>
         <section class="section3">

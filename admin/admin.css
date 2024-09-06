@@ -1679,6 +1679,14 @@ a, td,span, p, label{
     position: relative;
     justify-content: center;
 }
+.create_editor_container2 i{
+    position: absolute;
+    right: 1rem;
+    font-size: 2.5rem;
+    color: #F94A04;
+    top: 1rem;
+    cursor: pointer;
+}
 .create_editor_container2 .message_popup_btns{
     display: flex;
     padding: 1rem;
@@ -1694,9 +1702,7 @@ a, td,span, p, label{
     font-size: 2rem;
     text-align: center;
     cursor: pointer;
-}
-.notactive_btn{
-    background-color: #eee;
+    border: 1px solid #F94A04;
 }
 .create_editor_container2 .message_popup_contents{
     display: flex;

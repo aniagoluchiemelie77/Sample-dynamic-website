@@ -26,7 +26,7 @@ require ("connect.php");
 	<title>Admin Homepage</title>
 </head>
 <body>
-    <div class="logout_alert hidden">
+    <div class="logout_alert hidden popupform5">
         <h1 class="logout_alert_header">Are You Sure You Want To Logout?</h1>
         <div>
             <a class="btn" href="extras/logout.php">Yes</a>
@@ -101,20 +101,20 @@ require ("connect.php");
     </div>
     <div class="logout_alert2 container_center hidden" id="write_message">
         <form class="create_editor_container2 popupform3" action="forms.php" method="post">
-            <i class="fa fa-times popup_close3" aria-hidden="true"></i>
+            <i class="fa fa-times popup_close3" id="cancelbtn"aria-hidden="true"></i>
             <div class="message_popup_btns" id='messagebtns'>
                 <a class="message_popup_btns-a active">To Editors</a>
-                <a class="message_popup_btns-a notactive_btn">To Writers</a>
+                <a class="message_popup_btns-a">To Writers</a>
             </div>
             <div class="message_popup_contents" id="messagebody">
-                <div class="message_popup_contents_div1">
+                <div class="message_popup_contents_div1 messagetabcontent">
                     <div>
                         <label for="message_textarea">Compose Message</label>
                         <textarea name="message_textarea"></textarea>
                     </div>
                     <input class="addmessage" value="Submit" name="addmessage_Submit" type="submit"/>
                 </div>
-                <div class="message_popup_contents_div2 hidden">
+                <div class="message_popup_contents_div2 hidden messagetabcontent">
                     <div>
                         <label for="message_textarea">Compose Message</label>
                         <textarea name="message_textarea"></textarea>
@@ -254,7 +254,7 @@ require ("connect.php");
                         </div>
                         <p class="website_info_p2">Add Message</p>
                     </a>
-                    <a class="website_info" id="advertdiv">
+                    <a class="website_info" id="advertdiv" href="adverts.php">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
@@ -1450,6 +1450,7 @@ require ("connect.php");
             </div>
         </div>  
         <script src="admin.js"></script>   
+       <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script type="text/javascript" src="otherJSFiles/custom.js"></script>   

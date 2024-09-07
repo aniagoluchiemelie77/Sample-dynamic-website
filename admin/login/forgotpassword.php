@@ -1,32 +1,40 @@
 <?php
 require("../connect.php");
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require '../../PHPMailer/src/Exception.php';
+require '../../PHPMailer/src/PHPMailer.php';
+require '../../PHPMailer/src/SMTP.php';
 if (isset($_REQUEST['fgtpswd'])){
     $email = $_REQUEST['email'];
     $check_email = mysqli_query($conn, "SELECT email FROM admin_login_info WHERE email = '$email'");
     $res = mysqli_num_rows($check_email);
     if ($res > 0){
-        $message = `<div>
-                        <p><br>Hello</br></p>
-                        <p>You recieved this mail because we got a password reset request for your account.</p>
-                        <br><p><button class="btn"><a href="http://localhost/Sample-dynamic-website/admin/login/resetpassword.php?secret='.base64_encode($email)'">Reset Password</a></button></p></br>
-                        <p>If you did not request a password reset, no further action is required.</p>
-                    </div>`;
-        include_once("smtpmail/class.phpmailer.php");
+        $message = "<div><p><br>Hello</br></p>
+                    <p>You recieved this mail because we got a password reset request for your account.</p>
+                    <br><p><button class='btn'><a href='http://localhost/Sample-dynamic-website/admin/login/resetpassword.php?secret='.base64_encode($email).''>Reset Password</a></button></p></br>
+                    <p>If you did not request a password reset, no further action is required.</p>
+                    </div>";
         $email = $email;
-        $mail = new PHPMailer;
+        $mail = new PHPMailer(true);
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
         $mail -> IsSMTP();
         $mail -> SMTPAuth = true;
         $mail -> SMTPSecure = "tls";
         $mail -> Host = "stmp.gmail.com";
-        $mail -> port = 587;
-        $mail -> Username = " ";
-        $mail -> Password = " ";
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port = 587;
+        $mail -> Username = "aniagoluchiemelie77@gmail.com";
+        $mail -> Password = "otxteulzfnelidgd";
         $mail -> FromName = "Uniquetechcontentwriter";
         $mail -> AddAddress ($email);
+        $mail->addReplyTo('bahdmannatural@gmail.com', 'Information');
         $mail -> Subject = "Reset Password";
         $mail -> isHTML(TRUE);
         $mail -> Body = $message;
-        if($mail -> send()){
+        if($mail->preSend()){
             $msg = "We have e-mailed your password reset link";
         }
     }else{

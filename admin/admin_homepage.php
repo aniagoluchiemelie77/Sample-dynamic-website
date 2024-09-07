@@ -610,7 +610,7 @@ require ("connect.php");
                 </div>
                 <div class="profile_body-activities">
                     <div class="profile_body-activities_subdiv">
-                        <h1>Activities</h1>
+                        <h1>Recent Activities</h1>
                         <a class="btn">View All</a>
                     </div>
                     <div class="profile_body-activities_subdiv border-gradient-side-dark">
@@ -1118,103 +1118,40 @@ require ("connect.php");
             </div>
             <div class="pages tabcontent hidden">
                 <div class='pages_container'>
+                    <h1>Pages</h1>
                     <div class="pages_container_subdiv">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
-                            About Us
+                        <a class='pages_container_subdiv-links' href="pages/topics.php">
+                            Topics
                         </a>
                     </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
-                            Share News Tip
+                    <div class="pages_container_subdiv ">
+                        <a class='pages_container_subdiv-links' href="pages/aboutwebsite.php">
+                            About Website
                         </a>
                     </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
-                            Advertise
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/advertisewithus.php">
+                            Advertise With Us
                         </a>
                     </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/contactus.php">
                             Contact Us
                         </a>
                     </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/privacypolicy.php">
                             Privacy Policy
                         </a>
                     </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/termsofservice.php">
                             Terms of Services
                         </a>
                     </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/workwithus.php">
                             Work with Us
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
-                            Cloud Computing
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
-                            Artificial Intelligence
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
-                            Data Analytics
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv border-gradient-side-dark">
-                        <div class='icons'>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </div>
-                        <a class='pages_container_subdiv-links'>
-                            Cybersecurity
                         </a>
                     </div>
                 </div>

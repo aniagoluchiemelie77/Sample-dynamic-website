@@ -634,13 +634,12 @@ a, td,span, p, label{
     color: black;
 }
 .profile figure{
-    text-align: left;
     position: relative;
     width: fit-content;
 }
 .profile figure img{
-    height: 20rem;
-    width: 20rem;
+    height: 250px;
+    width: 200px;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -994,28 +993,32 @@ a, td,span, p, label{
     background-color: #FAFAFA;
     padding: 1.5rem;
 }
-.pages i{
-    font-size: 1.8rem;
-    margin-left: 1rem;
-}
-.pages i:hover{
-    color: #F94A04;
-}
-.pages .pages_container_subdiv{
-    display: flex;
-    flex-direction: column; 
-    padding: 1.5rem;
-}
-.pages_container_subdiv .pages_container_subdiv-links{
+.pages .pages_container h1{
+    padding: 1.5rem 0;
+    font-size: 2.5rem;
     text-align: center;
-    font-size: 2.2rem;
-    cursor: pointer;
-    width: 80%;
-}
-.pages_container_subdiv .pages_container_subdiv-links:hover{
-    text-decoration: underline;
     font-weight: 700;
-    color: #F94A04;
+    width: 100%;
+    border-bottom: 1.5px solid #222222b5;
+}
+.pages_container_subdiv{
+    padding: 1.5rem;
+    cursor: pointer;
+   border-bottom: 1px solid #2222223c;
+}
+.pages_container_subdiv a{
+    color: black;
+    font-size: 1.9rem;
+    font-weight: 500;
+    width: 100%;
+    height: 100%;
+}
+.pages .pages_container_subdiv:hover{
+    background-color: #F94A04;
+}
+.pages .pages_container_subdiv:hover a{
+    color: #eee;
+    text-decoration: underline;
 }
 .reviews{
     flex-direction: column;
@@ -1743,6 +1746,60 @@ a, td,span, p, label{
 }
 .create_editor_container2 input:hover{
     background-color: #F93404;
+}
+/*For pages/aboutwebsite.php*/
+.about_section{
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.about_header {
+    padding: 1.5rem 0;
+    width: 80%;
+    text-align: center;
+    border-bottom: 1px solid #2222223c;
+}
+.about_header h1{
+    font-size: 2.6rem;
+    font-weight: 750;
+}
+.about_section .about_contents{
+    min-height: fit-content;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+.about_section .about_section_btn{
+    margin: 1rem 0;
+    background-color: #F94A04;
+    padding: 1rem;
+    color: #eee;
+    cursor: pointer;
+    border: none;
+    width: 30%;
+}
+.about_section .about_section_btn:hover{
+    background-color: #F93404;
+}
+.about_section .about_editdiv{
+    width: 80%;
+    display: none;
+    flex-direction: column;
+    margin: 1rem 0;
+    padding: 1.5rem;
+    background-color: #f5f5f5;
+    border: 1px solid #F94A04;
+    height: fit-content;
+    align-items: center
+}
+.about_section .about_editdiv input{
+    width: 85%;
+    color: #eee;
+    cursor: pointer;
+    border: none;
+    background-color: #F94A04;
+    padding: 1rem;
+    margin: 1rem 0;
 }
 @media only screen and (min-width: 39rem) and (max-width: 65rem){
     a, td,span, p, label{

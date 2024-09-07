@@ -23,6 +23,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $city = $data['city'];
         $state = $data['state'];
         $address = $data['address1'];
+        $addresstwo = $data['address2'];
         $country_code = $data['country_code'];
         //declaring session variables
         $_SESSION['email'] = $email;
@@ -36,6 +37,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $_SESSION['city'] = $city;
         $_SESSION['state'] = $state;
         $_SESSION['address'] = $address;
+        $_SESSION['addresstwo'] = $addresstwo;
         $_SESSION['country_code'] = $country_code;
         header("location: ../admin_homepage.php");
         exit();

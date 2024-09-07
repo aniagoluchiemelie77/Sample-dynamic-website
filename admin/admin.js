@@ -32,8 +32,13 @@ let otherWorkspaces = document.getElementById('workspaces');
 let profilePicUploadBtn = document.getElementById('profileuploads');
 let workspaceContainer = document.querySelector('.sidebar_workspace_container');
 let workspace = document.querySelector('.sidebar_workspace');
+const editAboutPageBtn = document.getElementById('Edit_about');
+const editAboutDiv = document.getElementById('hidden_aboutdiv');
 
 
+editAboutPageBtn.addEventListener('click', () => {
+  editAboutDiv.style.display = 'flex';
+})
 const removeHiddenClass = function (e) {
   e.stopPropagation();
   logoutDiv.classList.add('hidden');

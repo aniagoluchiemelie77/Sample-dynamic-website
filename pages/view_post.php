@@ -201,7 +201,7 @@ session_start();
             </form>
         </div>
     </div>
-    <?php include("../includes/footer.php");?>
+    <?php include("../includes/footer2.php");?>
     <script src="../index.js"></script>
 </body>
 </html>

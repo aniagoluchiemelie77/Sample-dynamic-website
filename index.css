@@ -233,6 +233,8 @@ a, p, li{
     position: relative;
     width: fit-content;
     display: inline-block;
+    margin-top: .5rem;
+    font-weight: 300;
 }
 .dropbtn {
     background-color: inherit;
@@ -323,7 +325,7 @@ a, p, li{
 }
 .header__menu-sidebar{
     padding: 2rem;
-    width: 50vw;
+    width: 60vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -643,9 +645,6 @@ a, p, li{
 }
 .section2 div .normal-divs{
     padding: var(--div-padding-full);
-}
-.section2 div .normal-divs:hover{
-    background-color: #eee;
 }
 .section2 div .normal-divs a{
     display: flex;
@@ -1040,12 +1039,23 @@ a, p, li{
     justify-content: center;
 }
 .footer .footer__div3__subdiv div a{
-    margin: 0 .5rem;
-    padding: 0 1rem;
+    padding: 1rem;
+    margin-right: 1rem;
+    border: 1px solid #eeeeee3c;
+    border-radius: .9rem;
+    -webkit-border-radius: .9rem;
+    -moz-border-radius: .9rem;
+    -ms-border-radius: .9rem;
+    -o-border-radius: .9rem;
 }
-.footer .footer__div3__subdiv div a:active{
-    color: var(--color10-shade);
-    text-decoration: underline;
+.footer .footer__div3__subdiv div a i{
+    font-size: 2rem;
+    color: #eee;
+}
+.footer .footer__div3__subdiv div a:hover{
+    background-color: #F94A04;
+    color: #eee;
+    border: 1px solid #F94A04;
 }
 /*For view_post.php*/
 .body_left_relatedniches{

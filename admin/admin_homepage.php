@@ -1154,6 +1154,11 @@ require ("connect.php");
                             Work with Us
                         </a>
                     </div>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/hireourwriters.php">
+                            Hire Our Writers
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="reviews tabcontent hidden">
@@ -1355,35 +1360,44 @@ require ("connect.php");
                 <h1>Settings</h1>
             </div>
             <div class="developer_contact tabcontent hidden">
-                <p class="developer_contact_p"><b>Developed and Managed by:</b> Leventis Tech Services</p>
-                <div class="developer_contact_subdiv">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <p>River Rd Ugbomoro, Uvwie LGA, Delta State, Nigeria.</p>
-                </div>
-                <div class="developer_contact_subdiv">
-                    <div>
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <p>chiboyaniagolu3@gmail.com</p>
+                <div class="developer_contact_container">
+                    <div class="developer_contact_header">
+                        <h1>Contact Website Developer</h1>
                     </div>
-                    <div>
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                        <p>09122312493</p>
-                    </div>
-                </div>
-                <div class="developer_contact_subdiv">
-                        <h2>Follow Us</h2>
-                        <div>
-                            <i class="fa fa-whatsapp" aria-hidden="true"></i>
-                            <i class="fa fa-linkedin" aria-hidden="true"></i>
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                    <div class="developer_contact_container_body">
+                        <div class="developer_contact_subdiv">
+                            <h3>Developed And Managed By:</h3>
+                            <span>Leventis Tech Services</span>
                         </div>
-                </div>
-                <div>
-                    <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">
-                       <i class="fa fa-info-circle" aria-hidden="true"></i>Report an Issue
-                    </a> 
-                    <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">Contact Us</a>
-                </div>       
+                        <div class="developer_contact_subdiv">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <p>River Rd Ugbomoro, Uvwie LGA, Delta State, Nigeria.</p>
+                        </div>
+                        <div class="developer_contact_subdiv">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <p>chiboyaniagolu3@gmail.com</p>
+                        </div>
+                        <div class="developer_contact_subdiv">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <p>+234 9122312493</p>
+                        </div>
+                        <div class="developer_contact_followlinks">
+                            <h2>Connect With Us On Social Media</h2>
+                            <div>
+                                <a><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                                <a><i class="fab fa-linkedin" aria-hidden="true"></i></i></a>
+                                <a><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                                <a><i class="fa-brands fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                        <div class="developer_contact_subdiv">
+                            <a class="btn">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>Report an Issue
+                            </a> 
+                            <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">Contact Us</a>
+                        </div> 
+                    </div>  
+                </div>    
             </div>
         </div>  
         <script src="admin.js"></script>   

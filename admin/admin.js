@@ -36,9 +36,9 @@ const editAboutPageBtn = document.getElementById('Edit_about');
 const editAboutDiv = document.getElementById('hidden_aboutdiv');
 
 
-editAboutPageBtn.addEventListener('click', () => {
-  editAboutDiv.style.display = 'flex';
-})
+//editAboutPageBtn.addEventListener('click', () => {
+ // editAboutDiv.style.display = 'flex';
+//})
 const removeHiddenClass = function (e) {
   e.stopPropagation();
   logoutDiv.classList.add('hidden');

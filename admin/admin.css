@@ -447,6 +447,13 @@ a, td,span, p, label{
     min-height: 100%;
     overflow-y: scroll;
 }
+.aside_sidebar2{
+    position: relative;
+    align-items: center;
+    background-color: #eee;
+    min-height: 100%;
+    overflow-y: scroll;
+}
 .aside_sidebar .aside_sidebar_header{
     background-image: linear-gradient(to right, #F94A04, #F93404);
     -webkit-background-clip: text;
@@ -1781,6 +1788,9 @@ a, td,span, p, label{
 .about_section .about_section_btn:hover{
     background-color: #F93404;
 }
+.about_section .about_section_btn i{
+    margin-left: .5rem;
+}
 .about_section .about_editdiv{
     width: 80%;
     display: none;
@@ -1800,6 +1810,79 @@ a, td,span, p, label{
     background-color: #F94A04;
     padding: 1rem;
     margin: 1rem 0;
+}
+/*For Pages/topics.php*/
+.about_section_topicsdiv{
+    display: flex;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+.about_section_topicsdiv .about_section_topicsdiv_subdiv{
+    height: 60vh;
+    width: 25vw;
+    margin: 1rem;
+    border: 1px solid #22222289;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.about_section_topicsdiv .about_section_topicsdiv_subdiv:hover{
+    border: 1.5px solid #F94A04;
+}
+.about_section_topicsdiv .about_section_topicsdiv_subdiv img{
+    height: 65%;
+    width: 100%;
+}
+.about_section_topicsdiv_subdiv div{
+    width: 100%;
+    padding: 1rem;
+}
+.about_section_topicsdiv_subdiv div h1 span{
+    font-weight: 750;
+    text-align: center;
+    font-size: 2.1rem;
+}
+.about_section_topicsdiv_subdiv div p{
+    font-size: 1.3rem;
+    color: #222222c6;
+}
+.about_section_topicsdiv_subdiv div p span{
+    font-size: 1.3rem;
+    color: #222222c6;
+}
+.about_section_topicsdiv_subdiv div a{
+    cursor: pointer;
+    margin-top: 1rem;
+    padding: 1rem 0;
+}
+.about_section_topicsdiv_subdiv div a i:hover{
+    color: #F94A04;
+}
+.about_section_topicsdiv_subdiv div a i{
+    color: #222222be;
+}
+.about_section_topicsdiv_subdiv-action{
+    height: fit-content;
+    border: 1px solid #22222289;
+    width: auto;
+    padding: 1.5rem;
+    cursor: pointer;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.about_section_topicsdiv_subdiv-action:hover{
+    background-color: #F94A04;
+    color: #eee;
+}
+.about_section_topicsdiv_subdiv-action:hover div i{
+    color: #eee;
+}
+.about_section_topicsdiv_subdiv-action div i{
+    font-size: 2.5rem;
+    color: #222222;
 }
 @media only screen and (min-width: 39rem) and (max-width: 65rem){
     a, td,span, p, label{

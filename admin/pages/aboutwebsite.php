@@ -49,7 +49,9 @@ require ("../connect.php");
             Associate Editor - Kristina Beek
             </span>
         </div>
-        <button class="about_section_btn" id="Edit_about">Edit About Us</button>
+        <button class="about_section_btn" id="Edit_about">Edit
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
         <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv">
             <textarea class="about_editdiv-input" name="About_content" id="myTextarea"></textarea>
             <input type="submit" value="Update" name="about_editdiv-editbtn" />

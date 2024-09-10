@@ -19,13 +19,13 @@ require ("../connect.php");
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
-	<title>Topics</title>
+	<title>Categories</title>
 </head>
 <body>
     <?php require("../extras/header.php");?>
     <section class="about_section">
         <div class="about_header">
-            <h1>Topics</h1>
+            <h1>Categories</h1>
         </div>
         <div class="about_section_topicsdiv">
             <div class="about_section_topicsdiv_subdiv">
@@ -76,7 +76,7 @@ require ("../connect.php");
                 <div class="actions_subdiv">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </div>
-                <p class="actions_p2">Add Topic</p>
+                <p class="actions_p2">Add Category</p>
             </a>
         </div>
     </section>

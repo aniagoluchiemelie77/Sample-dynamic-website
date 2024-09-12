@@ -76,15 +76,20 @@ a, p, li{
 }
 .cookie_container .cookie_container_subdiv{
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
 }
 .cookie_container .cookie_container_subdiv a{
     padding: 1rem;
     background-color: #F94A04;
     color: #eee;
+    border-radius: .5rem;
     cursor: pointer;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
 }
 .cookie_container .cookie_container_subdiv a:hover{
     background-color: #F93404;
@@ -1058,8 +1063,30 @@ a, p, li{
     border: 1px solid #F94A04;
 }
 /*For view_post.php*/
-.body_left_relatedniches{
+.page_links{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
     width: 90%;
+    padding: 1rem 0;
+}
+.page_links a{
+    margin: 0 1rem;
+    color: #222222;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.page_links p{
+    margin: 0 1rem;
+    color: #222222;
+    font-size: 1.5rem;
+}
+.page_links a:hover{
+    color: #F94A04;
+    text-decoration: underline;
+}
+.body_left_relatedniches{
+    width: 100%;
     padding: 1rem;
     display: flex;
     flex-wrap: wrap;
@@ -1070,16 +1097,23 @@ a, p, li{
     padding: 1rem;
     font-weight: 500;
     cursor: pointer;
-    background-color: #F94A04;
-    color: #eee;
+    color: black;
+    border: 1px solid #2222229b;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
 }
 .body_left_relatedniches a:hover{
-    background-color: #F93404;
+    background-color: #F94A04;
+    color: #eee;
 }
 .body_left .Post_header{
     font-size: 3.4rem;
     font-weight: 800;
     padding: 2rem 0;
+    width: 90%;
 }
 .body_left h2{
     width: 90%;
@@ -1088,6 +1122,7 @@ a, p, li{
 }
 .body_left .authors_div{
     display: flex;
+    width: 90%;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
@@ -1123,7 +1158,7 @@ a, p, li{
 }
 .authors_div_otherdiv i{
     margin-right: 1rem;
-    color: #222222;
+    color: #2222227a;
     font-size: 1.5rem;
 }
 .post_image_div{
@@ -1148,19 +1183,29 @@ a, p, li{
     width: 100%;
     padding: 2rem 0;
 }
-.socialmedia_links button{
+.socialmedia_links a{
     width: calc(100% / 5);
     padding: 1rem;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     outline: none;
+    color: #F94A04;
     margin: 0 1rem;
     font-size: 1.9rem;
-    color: #eee;
-    background-color: #F94A04;
+    border: 1px solid #22222271;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
 }
-.socialmedia_links button:hover{
-    background-color: #F93404;
+.socialmedia_links a:hover{
+    background-color: #F94A04;
+    border: 1px solid white;
+    color: #eee;
 }
 .bodyleft_header3{
     text-align: center;
@@ -1168,6 +1213,12 @@ a, p, li{
     font-weight: 750;
     font-size: 2.5rem;
     margin: 1rem;
+}
+.inline_adsbar{
+    width: 100%;
+    display: block;
+    background-color: palegreen;
+    height: 30vh;
 }
 .aboutauthor_div{
     width: 90%;
@@ -1278,7 +1329,7 @@ a, p, li{
 }
 .posts_div{
     width: 80%;
-    height: 78vh;
+    height: 60vh;
     cursor: pointer;
     margin-bottom: 1rem;
     border: 1px solid #2222224a;
@@ -1286,7 +1337,7 @@ a, p, li{
 }
 .posts_div img{
     width: 100%;
-    height: 60%;
+    height: 55%;
 }
  .posts_div_niche{
     position: absolute;

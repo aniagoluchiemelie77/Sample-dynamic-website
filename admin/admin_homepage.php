@@ -66,93 +66,6 @@ require ("connect.php");
             <input class="createeditor_input-submit btn" value="Submit" name="createeditor_Submit" type="submit"/>
         </form>
     </div>
-    <div class="logout_alert container_center hidden" id="create_writer">
-        <form class="create_editor_container popupform2" action="forms.php" method="post">
-            <i class="fa fa-times popup_close2" aria-hidden="true"></i>
-            <div class="createeditor_inputgroup">
-                <h1>Create New Writer</h1>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_username">Username:</label>
-                <input class="createeditor_input" type="text" name="writer_username" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_firstname">Firstname:</label>
-                <input class="createeditor_input" type="text" name="writer_firstname" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_lastname">Lastname:</label>
-                <input class="createeditor_input" type="text" name="writer_lastname" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_email">Email:</label>
-                <input class="createeditor_input" type="email" name="writer_email" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_password">Suggest Password:</label>
-                <input class="createeditor_input" type="password" name="writer_password" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_password-confirm">Confirm Password:</label>
-                <input class="createeditor_input" type="password" name="writer_password-confirm" required/>
-            </div>
-            <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
-        </form>
-    </div>
-    <div class="logout_alert2 container_center hidden" id="write_message">
-        <form class="create_editor_container2 popupform3" action="forms.php" method="post">
-            <i class="fa fa-times popup_close3" id="cancelbtn"aria-hidden="true"></i>
-            <div class="message_popup_btns" id='messagebtns'>
-                <a class="message_popup_btns-a active">To Editors</a>
-                <a class="message_popup_btns-a">To Writers</a>
-            </div>
-            <div class="message_popup_contents" id="messagebody">
-                <div class="message_popup_contents_div1 messagetabcontent">
-                    <div>
-                        <label for="message_textarea">Compose Message</label>
-                        <textarea name="message_textarea"></textarea>
-                    </div>
-                    <input class="addmessage" value="Submit" name="addmessage_Submit" type="submit"/>
-                </div>
-                <div class="message_popup_contents_div2 hidden messagetabcontent">
-                    <div>
-                        <label for="message_textarea">Compose Message</label>
-                        <textarea name="message_textarea"></textarea>
-                    </div>
-                    <input class="addmessage" value="Submit" name="addmessage_Submit" type="submit"/>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="logout_alert container_center hidden" id="create_writer">
-        <form class="create_editor_container popupform4" action="forms.php" method="post">
-        <i class="fa fa-times popup_close4" aria-hidden="true"></i>
-        <div class="createeditor_inputgroup">
-            <h1>Create New Writer</h1>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_firstname">Firstname:</label>
-            <input class="createeditor_input" type="text" name="writer_firstname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_lastname">Lastname:</label>
-            <input class="createeditor_input" type="text" name="writer_lastname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_email">Email:</label>
-            <input class="createeditor_input" type="email" name="writer_email" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_password">Suggest Password:</label>
-            <input class="createeditor_input" type="password" name="writer_password" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_password-confirm">Confirm Password:</label>
-            <input class="createeditor_input" type="text" name="writer_password-confirm" required/>
-        </div>
-        <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
-        </form>
-    </div>
     <!--<div class="logout_alert container_center hidden" id="delete">
         <h1 class="logout_alert_header">Post Successfully Deleted.</h1>
     </div>-->
@@ -188,12 +101,6 @@ require ("connect.php");
                     <i class="fa fa-sticky-note" aria-hidden="true"></i>
                     <p class="paragraph">
                         Pages
-                    </p>
-                </div>
-                <div class="sidebar_reviews border-gradient-side sidebarbtn">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Reviews
                     </p>
                 </div>
                 <div class="sidebar_settings border-gradient-side sidebarbtn">
@@ -248,17 +155,11 @@ require ("connect.php");
                         </div>
                         <p class="website_info_p2">Add Draft</p>
                     </a>
-                    <a class="website_info" id="messagediv">
+                    <a class="website_info" id="messagediv" href="create_new/message.php">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
                         <p class="website_info_p2">Add Message</p>
-                    </a>
-                    <a class="website_info" id="advertdiv" href="adverts.php">
-                        <div class="website_info_subdiv">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </div>
-                        <p class="website_info_p2">Adverts</p>
                     </a>
                 </div>
                 <div class="addtionalinfo">
@@ -273,7 +174,7 @@ require ("connect.php");
                               <th>Views</th>
                               <th>Comments</th>
                               <th>Date</th>
-                              <th>Update</th>
+                              <th>Actions</th>
                             </tr>
                             <tr class="border-gradient-side-dark">
                               <td>Futterkiste</td>
@@ -696,14 +597,7 @@ require ("connect.php");
                                 </p>
                                 <p class="users_div_subdiv_p">
                                     <span>Firstname:</span>
-                                    <?php
-                                        if(isset($_SESSION['email'])){
-                                            $email = $_SESSION['email'];
-                                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                            while($row = mysqli_fetch_array($query)){
-                                                echo $row['firstName'];
-                                            }
-                                        }
+                                    <?php echo $_SESSION['firstname'];
                                     ?>
                                 </p> 
                                 <p class="users_div_subdiv_p">
@@ -764,15 +658,7 @@ require ("connect.php");
                             </p>
                             <p class="users_div_subdiv_p">
                                 <span>Firstname:</span>
-                                <?php
-                               if(isset($_SESSION['email'])){
-                                  $email = $_SESSION['email'];
-                                  $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                  while($row = mysqli_fetch_array($query)){
-                                    echo $row['firstName'];
-                                   }
-                                }
-                                ?>
+                                <?php echo $_SESSION['firstname'];?>
                             </p> 
                             <p class="users_div_subdiv_p">
                                 <span>Role:</span>
@@ -1120,8 +1006,8 @@ require ("connect.php");
                 <div class='pages_container'>
                     <h1>Pages</h1>
                     <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/topics.php">
-                            Topics
+                        <a class='pages_container_subdiv-links' href="pages/categories.php">
+                            Categories
                         </a>
                     </div>
                     <div class="pages_container_subdiv ">
@@ -1153,206 +1039,6 @@ require ("connect.php");
                         <a class='pages_container_subdiv-links' href="pages/workwithus.php">
                             Work with Us
                         </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/hireourwriters.php">
-                            Hire Our Writers
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="reviews tabcontent hidden">
-                <div class="reviews_div1 reviewdiv">
-                    <div class="review_header">
-                        <h1 class="revheader"> Recent Reviews</h1>
-                        <a class="btn" href="view_all/reviews.php">View All</a>
-                    </div>
-                    <div class="review_divcontainer border-gradient-side-dark">
-                        <div class="review_divcontainer_subdiv">
-                            <div class="review_divcontainer_subdiv2">
-                                <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                <div class="review_divcontainer_subdiv1">
-                                    <p class="user_review_p">
-                                        chibs01
-                                    </p>
-                                    <p class="user_review_p">
-                                        chiemelieaniagolu3@gmail.com
-                                    </p>
-                                    <p class="user_review_p">
-                                        105.113.64.213
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="review_divcontainer_subdiv2">
-                                    <p class="comment_section">
-                                        I really like this post and i would look foward to reading more from this website.
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3-pre">
-                                    <p class="review_date">
-                                        <span>Posted On:</span> 10th July 2024
-                                    </p>
-                                    <p class="review_time">
-                                        <span>Time:</span> 10:00 PM
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3">
-                                <a class="btn" href="#" target="_blank">
-                                    Reply
-                                </a> 
-                                <a class="btn" href="#" target="_blank">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a> 
-                            </div>
-                        </div>
-                        <div class="review_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="review_divcontainer_subdiv2">
-                                <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                <div class="review_divcontainer_subdiv1">
-                                    <p class="user_review_p">
-                                        chibs01
-                                    </p>
-                                    <p class="user_review_p">
-                                        chiemelieaniagolu3@gmail.com
-                                    </p>
-                                    <p class="user_review_p">
-                                        105.113.64.213
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="review_divcontainer_subdiv2">
-                                    <p class="comment_section">
-                                        I really like this post and i would look foward to reading more from this website.
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3-pre">
-                                    <p class="review_date">
-                                        <span>Posted On:</span> 10th July 2024
-                                    </p>
-                                    <p class="review_time">
-                                        <span>Time:</span> 10:00 PM
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3">
-                                <a class="btn" href="#" target="_blank">
-                                    Reply
-                                </a> 
-                                <a class="btn" href="#" target="_blank">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a> 
-                            </div>
-                        </div>
-                        <div class="review_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="review_divcontainer_subdiv2">
-                                <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                <div class="review_divcontainer_subdiv1">
-                                    <p class="user_review_p">
-                                        chibs01
-                                    </p>
-                                    <p class="user_review_p">
-                                        chiemelieaniagolu3@gmail.com
-                                    </p>
-                                    <p class="user_review_p">
-                                        105.113.64.213
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="review_divcontainer_subdiv2">
-                                    <p class="comment_section">
-                                        I really like this post and i would look foward to reading more from this website.
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3-pre">
-                                    <p class="review_date">
-                                        <span>Posted On:</span> 10th July 2024
-                                    </p>
-                                    <p class="review_time">
-                                        <span>Time:</span> 10:00 PM
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3">
-                                <a class="btn" href="#" target="_blank">
-                                    Reply
-                                </a> 
-                                <a class="btn" href="#" target="_blank">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a> 
-                            </div>
-                        </div>
-                        <div class="review_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="review_divcontainer_subdiv2">
-                                <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                <div class="review_divcontainer_subdiv1">
-                                    <p class="user_review_p">
-                                        chibs01
-                                    </p>
-                                    <p class="user_review_p">
-                                        chiemelieaniagolu3@gmail.com
-                                    </p>
-                                    <p class="user_review_p">
-                                        105.113.64.213
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="review_divcontainer_subdiv2">
-                                    <p class="comment_section">
-                                        I really like this post and i would look foward to reading more from this website.
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3-pre">
-                                    <p class="review_date">
-                                        <span>Posted On:</span> 10th July 2024
-                                    </p>
-                                    <p class="review_time">
-                                        <span>Time:</span> 10:00 PM
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3">
-                                <a class="btn" href="#" target="_blank">
-                                    Reply
-                                </a> 
-                                <a class="btn" href="#" target="_blank">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a> 
-                            </div>
-                        </div>
-                        <div class="review_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="review_divcontainer_subdiv2">
-                                <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                <div class="review_divcontainer_subdiv1">
-                                    <p class="user_review_p">
-                                        chibs01
-                                    </p>
-                                    <p class="user_review_p">
-                                        chiemelieaniagolu3@gmail.com
-                                    </p>
-                                    <p class="user_review_p">
-                                        105.113.64.213
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="review_divcontainer_subdiv2">
-                                    <p class="comment_section">
-                                        I really like this post and i would look foward to reading more from this website.
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3-pre">
-                                    <p class="review_date">
-                                        <span>Posted On:</span> 10th July 2024
-                                    </p>
-                                    <p class="review_time">
-                                        <span>Time:</span> 10:00 PM
-                                    </p>
-                            </div>
-                            <div class="review_divcontainer_subdiv3">
-                                <a class="btn" href="#" target="_blank">
-                                    Reply
-                                </a> 
-                                <a class="btn" href="#" target="_blank">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a> 
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

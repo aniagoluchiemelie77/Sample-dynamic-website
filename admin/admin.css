@@ -1636,14 +1636,13 @@ a, td,span, p, label{
 }
 .create_editor_container{
     display: flex;
-    border: 1.5px solid #222;
+    border: 1px solid #22222286;
     padding: 1rem;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0, .5);
     padding: 1rem 0;
     flex-direction: column;
     background-color: #FAFAFA;
     min-height: fit-content;
-    width: 80%;
+    width: 90%;
     height: fit-content;
     align-items: center;
     position: relative;
@@ -1713,6 +1712,7 @@ a, td,span, p, label{
 .createeditor_input-submit{
     padding: 1rem;
     width: 90%;
+    cursor: pointer;
     border: none;
     color: #FAFAFA;
     background-color: #F94A04;
@@ -1943,6 +1943,13 @@ a, td,span, p, label{
 .about_section_topicsdiv_subdiv-action div i{
     font-size: 2.5rem;
     color: #222222;
+}
+/*for create_new/adverts.php*/
+.about_section_adscontainer{
+    margin: 1rem 0;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
 }
 @media only screen and (min-width: 39rem) and (max-width: 65rem){
     a, td,span, p, label{

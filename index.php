@@ -14,6 +14,46 @@ $current_page = $page_name."?".$query_string;
 date_default_timezone_set('UTC');
 $date = date('Y-m-d');
 $time = date("H:iA");
+require("connect.php");
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+$userEmail = " ";
+if(isset($_POST['submit_btn'])){
+    $message = "<div><h1><br>Thank you for subscribing with us.</br></h1>
+        <p>Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information.</p>
+         </div>";
+    $userEmail = $_POST['email'];
+    $email = $userEmail;
+    $mail = new PHPMailer(true);
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
+    $mail -> IsSMTP();
+    $mail -> SMTPAuth = true;
+    $mail -> SMTPSecure = "tls";
+    $mail -> Host = "stmp.gmail.com";
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port = 587;
+    $mail -> Username = "aniagoluchiemelie77@gmail.com";
+    $mail -> Password = "otxteulzfnelidgd";
+    $mail -> FromName = "Uniquetechcontentwriter";
+    $mail -> AddAddress ($email);
+    $mail->addReplyTo('aniagoluachiemelie77@gmail.com', 'Information');
+    $mail -> Subject = "Successful Email Updates Subscription";
+    $mail -> isHTML(TRUE);
+    $mail -> Body = $message;
+    if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
+        if($mail->preSend()){
+            $msg = "Thank You For Subscribing With Us.";
+        }
+    }else{
+        $msg = "Invalid Email";
+    }
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,11 +73,9 @@ $time = date("H:iA");
     <body id="container">
         <?php include("includes/header.php");?>
         <div class="cookie_container" id ="cookie_container">
-            <p class="cookie_container_p">This website uses cookies and similar technologies to operate the site, analyze data, improve user experience, and show ads. You can choose to agree to the use of these technologies or adjust your settings. Check our <a>Privacy Policy</a> for more details.</p>
+            <p class="cookie_container_p">This website uses cookies and similar technologies to operate the site, analyze data, improve user experience, and show ads. You can choose to agree to the use of these technologies or adjust your settings. Check our <a href="pages/privacypolicy.php">Privacy Policy</a> for more details.</p>
             <div class="cookie_container_subdiv">
                 <a class="cookie_container_subdiv-btns">Accept</a>
-                <a class="cookie_container_subdiv-btns">Decline</a>
-                <a class="cookie_container_subdiv-btns">Accept All</a>
             </div>
         </div>
         <div class="header__menu-sidebar hidden" id="sidebar">
@@ -560,27 +598,6 @@ $time = date("H:iA");
             </a>
             </div>
             <div class="body_right border-gradient-leftside--lightdark">
-                <?php
-                $userEmail = " ";
-                if(isset($_POST['submit_btn'])){
-                $userEmail = $_POST['email'];
-                if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
-                    $subject = "Thank You For Subscribing With Us";
-                    $message = "Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information";
-                    $sender = "from:bahdmannatural@gmail.com";
-                    if(mail($userEmail, $subject, $message, $sender)){ 
-                        $msg = "Thanks For Subscribing With Us";
-                        ?><?php
-                        $userEmail = " ";
-                    }else{
-                        $msg = "Oops, Email Subscription Failed";
-                        ?><?php
-                    }
-                }else{
-                    $msg = "Invalid Email";
-                }
-                }
-                ?>
                 <form class="sec2__susbribe-box other_width" method="post" action="index.php">
                 <div class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
                 <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
@@ -695,7 +712,7 @@ $time = date("H:iA");
                         <input class="topics_search" name='topics_search' type='text' placeholder="Search Topics.." required/>
                         <button type="submit" class="fa fa-search" name='topics_search_submit'></button>
                     </form>
-                    <h1>Topics</h1>
+                    <h1>Categories</h1>
                     <div class="setion2_bodyright_topicsdiv_subdiv">
                         <a>Cybersecurity</a>
                         <a>Artificial Intelligence</a>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../connect.php";
+include("../connect.php")
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,35 +16,12 @@ include "../connect.php";
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../editor.css"/>
-	<title>Draft</title>
+	<title>Drafts</title>
 </head>
 <body>
     <?php require("../extras/header.php");?>
     <section class="body">
-        <div class="sidebar">
-            <div class="sidebar_workspace_container workspacediv">
-                <?php 
-                $query5 = mysqli_query($conn, "SELECT * FROM workspaces ORDER BY 'id' DESC LIMIT 3");
-                while($row = mysqli_fetch_array($query5)){
-                    $workspacename = $row['workspace_name'];
-                    $content = Substr($row['content'],0, 10);
-                }?>
-                <div id="workspaces" class="sidebar_workspace_container_subdiv">
-                    <div class="sidebar_workspace1 active3" name="stored_workspaces">
-                    </div>
-                    <label for="stored_workspaces"></label>
-                </div>
-                <div class="border-gradient-top-light sidebar_workspace_container_subdiv2">
-                    <div class="sidebar_workspace" id="workspace_creator">
-                        <p class="darkp">New Workspace</p>
-                    </div>
-                </div>
-            </div>
-            <p class="sidebar_footer">
-                &copy; uniquetechcontentwriter 2024
-            </p>
-        </div>
-        <div class="aside_sidebar">
+        <div class="aside_sidebar2">
             <form class="workspace_container" action="../forms.php" method="post">
                 <textarea name="workspace_content" id="workspace_area"></textarea>
                 <input type="text" name="workspace_name" placeholder="Save As.." class="workspace_input1"/>
@@ -52,6 +29,26 @@ include "../connect.php";
             </form>
         </div>        
     </section>
-    <script src="../admin.js"></script>
+    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
+    <script src="../editor.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#workspace_area',
+            width: 980,
+            height: 900,
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                'media', 'table', 'emoticons', 'help'
+                ],toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                'forecolor backcolor emoticons | help',
+            menu: {
+            favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+            },
+            menubar: 'favs file edit view insert format tools table help',
+            content_css: 'css/content.css'
+        });
+    </script>
 </body>
 </html>

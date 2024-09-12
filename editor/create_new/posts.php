@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../connect.php";
+include("../connect.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@ include "../connect.php";
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../editor.css"/>
-	<title>New Post</title>
+	<title>Create New Post</title>
 </head>
 <body>
     <?php require("../extras/header.php");?>
@@ -39,10 +39,10 @@ include "../connect.php";
                 </div>
             </div>
             <div class="newpost_container_div5 newpost_subdiv">
-                <label class="form__label" for="Post_featured">Featured Video/Audio</label>
+                <label class="form__label" for="Post_featured">Featured Video/Audio:</label>
                 <div class="newpost_container_div5_subdiv2">
                     <input class="form__input" name="Post_featured" type="text"/>
-                    <p class="newpost_subdiv2-p">Enter url to video/audio (optional)</p>
+                    <p class="newpost_subdiv2-p"><span>*</span>Enter url to video/audio (optional)</p>
                 </div>
             </div>
             <div class="newpost_container_div6 newpost_subdiv">
@@ -53,8 +53,8 @@ include "../connect.php";
                 </div>
             </div>
             <div class="newpost_container_div7 newpost_subdiv">
-                <label class="form__label" for="Post_Content">Post Content</label>
-                <textarea class="newpost_container_div7_subdiv2" name="Post_content">
+                <label class="form__label" for="Post_Content">Post Content:</label>
+                <textarea class="newpost_container_div7_subdiv2" name="Post_content" id="myTextarea">
                 </textarea>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">
@@ -62,5 +62,26 @@ include "../connect.php";
             </div>
         </form>
     </section>
+    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
+    <script src="../editor.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#myTextarea',
+            width: 810,
+            height: 900,
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                'media', 'table', 'emoticons', 'help'
+            ],toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                'forecolor backcolor emoticons | help',
+            menu: {
+            favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+            },
+            menubar: 'favs file edit view insert format tools table help',
+            content_css: 'css/content.css'
+        });
+    </script>
 </body>
 </html>

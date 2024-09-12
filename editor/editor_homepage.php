@@ -2,7 +2,7 @@
 session_start();
 session_regenerate_id();
 if(!isset($_SESSION['email'])) {
-    header("Location: index.php");
+    header("Location: login/index.php");
 };
 require ("connect.php");
 ?>
@@ -19,14 +19,14 @@ require ("connect.php");
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="editor.css"/>
+    <link rel="stylesheet" href="admin.css"/>
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
-	<title>Editor's Homepage</title>
+	<title>Editor Homepage</title>
 </head>
 <body>
-    <div class="logout_alert hidden">
+    <div class="logout_alert hidden popupform5">
         <h1 class="logout_alert_header">Are You Sure You Want To Logout?</h1>
         <div>
             <a class="btn" href="extras/logout.php">Yes</a>
@@ -34,91 +34,38 @@ require ("connect.php");
         </div>
     </div>
     <div class="logout_alert container_center hidden" id="create_writer">
-        <form class="create_editor_container" action="forms.php" method="post">
-        <i class="fa fa-times" aria-hidden="true"></i>
-        <div class="createeditor_inputgroup">
-            <h1>Create New Writer</h1>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_firstname">Firstname:</label>
-            <input class="createeditor_input" type="text" name="writer_firstname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_lastname">Lastname:</label>
-            <input class="createeditor_input" type="text" name="writer_lastname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_email">Email:</label>
-            <input class="createeditor_input" type="email" name="writer_email" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_password">Suggest Password:</label>
-            <input class="createeditor_input" type="password" name="writer_password" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_password-confirm">Confirm Password:</label>
-            <input class="createeditor_input" type="text" name="writer_password-confirm" required/>
-        </div>
-        <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
-        </form>
-    </div>
-    <div class="logout_alert2 container_center hidden" id="write_message">
-        <form class="create_editor_container2" action="forms.php" method="post">
-            <i class="fa fa-times" aria-hidden="true"></i>
-            <div class="message_popup_btns" id='messagebtns'>
-                <a class="message_popup_btns-a active">To Editors</a>
-                <a class="message_popup_btns-a notactive_btn">To Writers</a>
+        <form class="create_editor_container popupform1" action="forms.php" method="post">
+            <i class="fa fa-times popup_close1" aria-hidden="true"></i>
+            <div class="createeditor_inputgroup">
+                <h1>Create New Editor</h1>
             </div>
-            <div class="message_popup_contents" id="messagebody">
-                <div class="message_popup_contents_div1">
-                    <div>
-                        <label for="message_textarea">Compose Message</label>
-                        <textarea name="message_textarea"></textarea>
-                    </div>
-                    <input class="addmessage" value="Submit" name="addmessage_Submit" type="submit"/>
-                </div>
-                <div class="message_popup_contents_div2 hidden">
-                    <div>
-                        <label for="message_textarea">Compose Message</label>
-                        <textarea name="message_textarea"></textarea>
-                    </div>
-                    <input class="addmessage" value="Submit" name="addmessage_Submit" type="submit"/>
-                </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_username">Username:</label>
+                <input class="createeditor_input" type="text" name="editor_username" required/>
             </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_firstname">Firstname:</label>
+                <input class="createeditor_input" type="text" name="editor_firstname" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_lastname">Lastname:</label>
+                <input class="createeditor_input" type="text" name="editor_lastname" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_email">Email:</label>
+                <input class="createeditor_input" type="email" name="editor_email" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_password">Suggest Password:</label>
+                <input class="createeditor_input" type="password" name="editor_password" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="editor_password-confirm">Confirm Password:</label>
+                <input class="createeditor_input" type="password" name="editor_password-confirm" required/>
+            </div>
+            <input class="createeditor_input-submit btn" value="Submit" name="createeditor_Submit" type="submit"/>
         </form>
     </div>
-    <div class="logout_alert container_center hidden" id="create_writer">
-        <form class="create_editor_container" action="forms.php" method="post">
-        <i class="fa fa-times" aria-hidden="true"></i>
-        <div class="createeditor_inputgroup">
-            <h1>Create New Writer</h1>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_firstname">Firstname:</label>
-            <input class="createeditor_input" type="text" name="writer_firstname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_lastname">Lastname:</label>
-            <input class="createeditor_input" type="text" name="writer_lastname" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_email">Email:</label>
-            <input class="createeditor_input" type="email" name="writer_email" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_password">Suggest Password:</label>
-            <input class="createeditor_input" type="password" name="writer_password" required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label" for="writer_password-confirm">Confirm Password:</label>
-            <input class="createeditor_input" type="text" name="writer_password-confirm" required/>
-        </div>
-        <input class="createeditor_input-submit btn" value="Submit" name="Createwriter_Submit" type="submit"/>
-        </form>
-    </div>
-    <!--<div class="logout_alert container_center hidden" id="delete">
-        <h1 class="logout_alert_header">Post Successfully Deleted.</h1>
-    </div>-->
     <?php require("extras/header.php");?>
     <section class="body">
         <div class="sidebar">
@@ -147,16 +94,16 @@ require ("connect.php");
                         Posts
                     </p>
                 </div>
+                <div class="sidebar_pages border-gradient-side sidebarbtn">
+                    <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                    <p class="paragraph">
+                        Pages
+                    </p>
+                </div>
                 <div class="sidebar_settings border-gradient-side sidebarbtn">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     <p class="paragraph">
                         Settings
-                    </p>
-                </div>
-                <div class="Contact Developer border-gradient-side sidebarbtn">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Report Issue
                     </p>
                 </div>
                 <div class="logout border-gradient-side">
@@ -173,22 +120,11 @@ require ("connect.php");
         <div class="aside_sidebar">
             <div class="website_info_div tabcontent active2">
                 <h1 class="aside_sidebar_header">Welcome, <?php echo $_SESSION['username']?> </h1>
-                <div class = "message_box" id="imagebox">
-                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                    <p>Please all editors should ensure to update profile before end of this Month.</p>
-                    <p>Please all editors should ensure to update profile before end of this Month.</p>
-                </div>
                 <div class="webinfo_container">
-                    <a class="website_info" href="../index.php" target="_blank">
-                        <div class="website_info_subdiv">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                        </div>
-                        <p class="website_info_p2">View Website</p>
-                    </a>
                     <div class="website_info">
                         <div class="website_info_subdiv">
                             <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <p class="website_info_p1">15k</p>
+                            <p class="website_info_p1">10.5k</p>
                         </div>
                         <p class="website_info_p2">Published</p>
                     </div>
@@ -197,6 +133,12 @@ require ("connect.php");
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
                         <p class="website_info_p2">New Post</p>
+                    </a>
+                    <a class="website_info" href="../index.php" target="_blank">
+                        <div class="website_info_subdiv">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        </div>
+                        <p class="website_info_p2">View Website</p>
                     </a>
                     <a class="website_info" href="create_new/workspace.php">
                         <div class="website_info_subdiv">
@@ -217,7 +159,7 @@ require ("connect.php");
                               <th>Views</th>
                               <th>Comments</th>
                               <th>Date</th>
-                              <th>Update</th>
+                              <th>Actions</th>
                             </tr>
                             <tr class="border-gradient-side-dark">
                               <td>Futterkiste</td>
@@ -225,17 +167,19 @@ require ("connect.php");
                               <td>3</td>
                               <td>July 10th 2024</td>
                               <td>
-                                <a class="edit" href="viewpost.php">View</a>
-                              </td>
+                                <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
+                                <a class="delete" href="#">Delete</a>
+                            </td>
                             </tr>
                             <tr>
-                                <td>Futterkiste</td>
-                                <td>50</td>
-                                <td>6</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="viewpost.php">View</a>
-                                </td>
+                              <td>Futterkiste</td>
+                              <td>50</td>
+                              <td>6</td>
+                              <td>July 10th 2024</td>
+                              <td>
+                                <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                <a class="delete" href="#">Delete</a>
+                            </td>
                             </tr>
                             <tr>
                                 <td>Futterkiste</td>
@@ -243,8 +187,9 @@ require ("connect.php");
                                 <td>10</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                    <a class="edit" href="viewpost.php">View</a>
-                                </td>
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                  <a class="delete" href="#">Delete</a>
+                              </td>
                               </tr>
                               <tr>
                                 <td>Futterkiste</td>
@@ -252,8 +197,9 @@ require ("connect.php");
                                 <td>12</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                    <a class="edit" href="#" target="_blank">View</a>
-                                </td>
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                  <a class="delete" href="#">Delete</a>
+                              </td>
                               </tr>
                               <tr>
                                 <td>Futterkiste</td>
@@ -261,8 +207,9 @@ require ("connect.php");
                                 <td>32</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                    <a class="edit" href="#" target="_blank">View</a>
-                                </td>
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                  <a class="delete" href="#">Delete</a>
+                              </td>
                               </tr>
                               <tr>
                                 <td>Futterkiste</td>
@@ -270,8 +217,9 @@ require ("connect.php");
                                 <td>40</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                    <a class="edit" href="#" target="_blank">View</a>
-                                </td>
+                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                  <a class="delete" href="#">Delete</a>
+                              </td>
                               </tr>
                           </table>
                     </div>
@@ -426,7 +374,7 @@ require ("connect.php");
                 </div>
                 <div class="profile_body-activities">
                     <div class="profile_body-activities_subdiv">
-                        <h1>Activities</h1>
+                        <h1>Recent Activities</h1>
                         <a class="btn">View All</a>
                     </div>
                     <div class="profile_body-activities_subdiv border-gradient-side-dark">
@@ -451,16 +399,6 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <?php
-                $select_query = mysqli_query($conn, "SELECT * FROM admin_login_info");
-                $result = mysqli_num_rows($select_query);
-                if($result>0){
-                    $data = mysqli_fetch_array($select_query);
-                    $email = $data['email'];
-                    $firstname = $data['firstname'];
-                    $username = $data['username'];
-                }
-            ?>
             <div class="users tabcontent hidden">
                 <div class="users_admin_div userdiv">
                     <div class="user_header">
@@ -471,11 +409,11 @@ require ("connect.php");
                             <div class="divimages_side--back">
                                 <p class="users_div_subdiv_p">
                                     <span>Username:</span>
-                                    <?php echo $username; ?>
+                                    <?php echo $_SESSION['username']; ?>
                                 </p>
                                 <p class="users_div_subdiv_p">
                                     <span>Firstname:</span>
-                                        <?php echo $firstname; ?>
+                                        <?php echo $_SESSION['firstname']; ?>
                                 </p> 
                                 <p class="users_div_subdiv_p">
                                     <span>Role:</span>
@@ -483,7 +421,15 @@ require ("connect.php");
                                 </p>
                                 <p class="users_div_subdiv_p">
                                     <span>Email:</span>
-                                    <?php echo $email; ?>
+                                    <?php
+                                        if(isset($_SESSION['email'])){
+                                            $email = $_SESSION['email'];
+                                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                            while($row = mysqli_fetch_array($query)){
+                                                echo $row['email'];
+                                            }
+                                        }
+                                    ?>
                                 </p>
                             </div>
                             <!--<div class="user_imgbox">
@@ -502,11 +448,20 @@ require ("connect.php");
                             <div class="divimages_side--back">
                                 <p class="users_div_subdiv_p">
                                     <span>Username:</span>
-                                    <?php echo $_SESSION['username']; ?>
+                                    <?php
+                                        if(isset($_SESSION['email'])){
+                                            $email = $_SESSION['email'];
+                                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                            while($row = mysqli_fetch_array($query)){
+                                                echo $row['username'];
+                                            }
+                                        }
+                                    ?>
                                 </p>
                                 <p class="users_div_subdiv_p">
                                     <span>Firstname:</span>
-                                    <?php echo $_SESSION['firstname']; ?>
+                                    <?php echo $_SESSION['firstname'];
+                                    ?>
                                 </p> 
                                 <p class="users_div_subdiv_p">
                                     <span>Role:</span>
@@ -514,22 +469,27 @@ require ("connect.php");
                                 </p>
                                 <p class="users_div_subdiv_p">
                                     <span>Email:</span>
-                                    <?php echo $_SESSION['email']; ?>
+                                    <?php
+                                        if(isset($_SESSION['email'])){
+                                            $email = $_SESSION['email'];
+                                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
+                                            while($row = mysqli_fetch_array($query)){
+                                                echo $row['email'];
+                                            }
+                                        }
+                                    ?>
                                 </p>
                                 <center>
                                     <div class="users_delete_edit">
-                                        <a class="users_edit" href="edit/editor.php" target="_blank">
+                                        <a class="users_edit">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        <a class="users_delete">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                 </center>
                             </div>
-                        </div>
-                        <div class="users_div_subdiv_subdiv">
-                            <a class="users_create" id="create_user-origin">
-                                <center><i class="fa fa-plus" aria-hidden="true"></i></center>
-                                <h3> New Editor</h3>
-                            </a>    
                         </div>
                     </div>
                 </div>
@@ -555,15 +515,7 @@ require ("connect.php");
                             </p>
                             <p class="users_div_subdiv_p">
                                 <span>Firstname:</span>
-                                <?php
-                               if(isset($_SESSION['email'])){
-                                  $email = $_SESSION['email'];
-                                  $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                  while($row = mysqli_fetch_array($query)){
-                                    echo $row['firstName'];
-                                   }
-                                }
-                                ?>
+                                <?php echo $_SESSION['firstname'];?>
                             </p> 
                             <p class="users_div_subdiv_p">
                                 <span>Role:</span>
@@ -583,7 +535,7 @@ require ("connect.php");
                             </p>
                             <center>
                                 <div class="users_delete_edit">
-                                    <a class="users_edit" href="edit/writer.php" target="_blank">
+                                    <a class="users_edit">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -603,10 +555,17 @@ require ("connect.php");
                 </div>
             </div>
             <div class="posts tabcontent hidden">
+                <div class="posts_delete_edit2 hidden">
+                    <h1>Delete Selected Post?</h1>
+                    <div class="posts_delete_edit2_subdiv">
+                        <a class="delete_post btn">Yes</a>
+                        <a class="no_action btn">No</a>
+                    </div>
+                </div>
                 <div class="posts_div1 postsdiv">
                     <div class="posts_header">
                         <h1> Recently Published Posts</h1>
-                        <a class="btn" href="view_all/posts.php">View All</a>
+                        <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <div class="posts_divcontainer_subdiv">
@@ -615,8 +574,11 @@ require ("connect.php");
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    <a class="users_edit" href="edit/post.php" target="_blank">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
                                 </div>
                             </div>
@@ -655,7 +617,10 @@ require ("connect.php");
                                 </h3>
                                 <div class="posts_delete_edit">
                                     <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
                                 </div>
                             </div>
@@ -694,7 +659,10 @@ require ("connect.php");
                                 </h3>
                                 <div class="posts_delete_edit">
                                     <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
                                 </div>
                             </div>
@@ -733,7 +701,10 @@ require ("connect.php");
                                 </h3>
                                 <div class="posts_delete_edit">
                                     <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="users_delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
                                 </div>
                             </div>
@@ -770,7 +741,7 @@ require ("connect.php");
                 <div class="posts_div2 postsdiv">
                     <div class="posts_header">
                         <h1> Unpublished Articles</h1>
-                        <a class="btn" href="view_all/unpublished_articles.php" target="_blank">View All</a>
+                        <a class="btn" href="view_all/unpublished_articles.php">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <div class="posts_divcontainer_subdiv">
@@ -807,7 +778,7 @@ require ("connect.php");
                                     Post Title
                                 </h3>
                                 <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php" target="_blank">
+                                    <a class="users_edit" href="edit/post.php">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a class="users_delete">
@@ -888,42 +859,47 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
+            <div class="pages tabcontent hidden">
+                <div class='pages_container'>
+                    <h1>Pages</h1>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/categories.php">
+                            Categories
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv ">
+                        <a class='pages_container_subdiv-links' href="pages/aboutwebsite.php">
+                            About Website
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/advertisewithus.php">
+                            Advertise With Us
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/contactus.php">
+                            Contact Us
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/privacypolicy.php">
+                            Privacy Policy
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages/termsofservice.php">
+                            Terms of Services
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="settings tabcontent hidden">
                 <h1>Settings</h1>
             </div>
-            <div class="developer_contact tabcontent hidden">
-                <p class="developer_contact_p"><b>Developed and Managed by:</b> Leventis Tech Services</p>
-                <div class="developer_contact_subdiv">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <p>River Rd Ugbomoro, Uvwie LGA, Delta State, Nigeria.</p>
-                </div>
-                <div class="developer_contact_subdiv">
-                    <div>
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <p>chiboyaniagolu3@gmail.com</p>
-                    </div>
-                    <div>
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                        <p>09122312493</p>
-                    </div>
-                </div>
-                <div class="developer_contact_subdiv">
-                        <h2>Follow Us</h2>
-                        <div>
-                            <i class="fa fa-whatsapp" aria-hidden="true"></i>
-                            <i class="fa fa-linkedin" aria-hidden="true"></i>
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                        </div>
-                </div>
-                <div>
-                    <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">
-                       <i class="fa fa-info-circle" aria-hidden="true"></i>Report an Issue
-                    </a> 
-                    <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">Contact Us</a>
-                </div>       
-            </div>
         </div>  
-        <script src="../admin/admin.js"></script>   
+        <script src="admin.js"></script>   
+       <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script type="text/javascript" src="otherJSFiles/custom.js"></script>   

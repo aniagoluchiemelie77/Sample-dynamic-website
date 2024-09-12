@@ -1944,13 +1944,6 @@ a, td,span, p, label{
     font-size: 2.5rem;
     color: #222222;
 }
-/*for create_new/adverts.php*/
-.about_section_adscontainer{
-    margin: 1rem 0;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
 @media only screen and (min-width: 39rem) and (max-width: 65rem){
     a, td,span, p, label{
         font-size: 2.2rem;

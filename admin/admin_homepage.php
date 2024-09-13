@@ -137,6 +137,13 @@ require ("connect.php");
                         </div>
                         <p class="website_info_p2">Published</p>
                     </div>
+                    <a class="website_info" href="pages/subscribers.php">
+                        <div class="website_info_subdiv">
+                            <i class="fa fa-check-square" aria-hidden="true"></i>
+                            <p class="website_info_p1">10.5k</p>
+                        </div>
+                        <p class="website_info_p2">Subscribers</p>
+                    </a>
                     <a class="website_info" href="create_new/posts.php" target="_blank">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>

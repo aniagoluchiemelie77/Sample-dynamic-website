@@ -1,4 +1,3 @@
-
 const editBtn = document.querySelector('.profile_edit_btn');
 const header = document.querySelector('.body');
 const body = document.querySelector('.header');
@@ -22,20 +21,20 @@ const createEditorOrigin = document.getElementById('create_user-origin');
 const createEditorDiv = document.getElementById('create_editor');
 const createWriterOrigin = document.getElementById('create_writer_origin');
 const createWriterDiv = document.getElementById('create_writer');
-const deletedAlert = document.getElementById('delete');
-const writeMessageDiv = document.getElementById('write_message');
-const writeMessageOrigin = document.getElementById('messagediv');
-const messagePopupBtns = document.querySelectorAll('.message_popup_btns-a');
-const messagePopupContents = document.querySelectorAll('.messagetabcontent');
-const workspaceCreator = document.getElementById('workspace_creator');
-let otherWorkspaces = document.getElementById('workspaces');
 let profilePicUploadBtn = document.getElementById('profileuploads');
 let workspaceContainer = document.querySelector('.sidebar_workspace_container');
 let workspace = document.querySelector('.sidebar_workspace');
 const editAboutPageBtn = document.getElementById('Edit_about');
 const editAboutDiv = document.getElementById('hidden_aboutdiv');
 
-
+const displayPopups = function(divname, clickorigin){
+  clickorigin.addEventListener('click', () => {
+    divname.classList.remove('hidden');
+    divname.style.display = 'flex';
+  })
+}
+displayPopups(createEditorDiv, createWriterOrigin);
+//displayPopups(createWriterDiv, createWriterOrigin);
 //editAboutPageBtn.addEventListener('click', () => {
  // editAboutDiv.style.display = 'flex';
 //})
@@ -80,7 +79,6 @@ const tabbedComponent2 = function(btndiv, tabcontent){
       })
   });
 }
-
 tabbedComponent(sideBtns, tabContent);
 tabbedComponent2(messagePopupBtns, messagePopupContents);
 const displayForm = function(){
@@ -90,22 +88,11 @@ const displayForm = function(){
 let displayExit;
 
 const displayExitAlert = function(event){
-  logoutDiv.classList.remove('hidden');
-  logoutDiv.style.display = 'flex';
-  event.stopPropagation();
+ logoutDiv.classList.remove('hidden');
+ logoutDiv.style.display = 'flex';
+ event.stopPropagation();
 }
 logout.addEventListener('click', displayExitAlert);
-
-const displayCreateEditor = function(){
-  createEditorDiv.classList.remove('hidden');
-  createEditorDiv.style.display = 'flex';
-}
-createEditorOrigin.addEventListener('click', displayCreateEditor);
-const displayCreateWriter = function(){
-  createWriterDiv.classList.remove('hidden');
-  createWriterDiv.style.display = 'flex';
-}
-createWriterOrigin.addEventListener('click', displayCreateWriter);
 
 const stickyNavFunc = function () {
   const navHeight = header.getBoundingClientRect().height;
@@ -127,12 +114,6 @@ const stickyNavFunc = function () {
   headerObs.observe(header);
 };
 stickyNavFunc();
-
-const displayWriteMessage = function(){
-  writeMessageDiv.classList.remove('hidden');
-  writeMessageDiv.style.display = 'flex';
-}
-writeMessageOrigin.addEventListener('click', displayWriteMessage);
 const removeExitAlert = function(){
   logoutDiv.classList.toggle('hidden');
   logoutDiv.style.display = 'unset';

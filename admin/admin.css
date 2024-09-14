@@ -1245,9 +1245,8 @@ a, td,span, p, label{
     flex-direction: column;
     align-items: center;
     width: 80%;
-    border: 1.5px solid #222;
+    border: 1px solid #F94A04;
     padding: 1rem;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0, .5);
     background-color: #FAFAFA;
 }
 .newpost_container .newpost_subdiv{
@@ -1259,7 +1258,6 @@ a, td,span, p, label{
 .newpost_container .newpost_subdiv p{
     font-size: 1.2rem;
     margin-top: .5rem;
-    text-align: left;
 }
 .newpost_container .newpost_subdiv span{
     margin-right: .2rem;
@@ -1501,6 +1499,10 @@ a, td,span, p, label{
 }
 .newpost_container_div6 label{
     width: 10%;
+    font-weight: 750;
+}
+.bold{
+    font-weight: 750;
 }
 .newpost_container_div7{
     display: flex;
@@ -1529,6 +1531,33 @@ a, td,span, p, label{
 }
 .newpost_container_div9 input:hover{
     background-color: #F93404;
+}
+.newpost_container_div10{
+    width: 100%;
+    padding: 1rem;
+}
+.newpost_container_div10 p{
+    text-align: center;
+    font-size: 1.5rem;
+}
+.leftp{
+    text-align: left;
+}
+.centerp{
+    text-align: center;
+}
+input[type="datetime-local"] {
+    width: 60%;
+    padding: 1rem;
+    border-radius: .5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 1px solid #F94A04;
+    outline: none;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
 }
 /*Workspace Styles*/
 .sidebar_workspace_container{
@@ -1666,13 +1695,26 @@ a, td,span, p, label{
     width: fit-content;
     font-weight: 700;
 }
+.create_editor_container div .writer_bio{
+    padding: 1rem;
+    outline: none;
+    border: 1px solid #222222;
+    min-height: 10vh;
+    width: 79%;
+}
+.create_editor_container div .writer_bio:focus{
+    border: 1px solid #F94A04;
+}
 .create_editor_container div input{
-    width: 80%;
     padding: 1rem;
     border: none;
     border-bottom: 1px solid black;
 }
-.create_editor_container div input:focus{
+.reginput{
+    width: 80%;
+    border-bottom: 1px solid black;
+}
+.create_editor_container div .reginput:focus{
     border-bottom: 2px solid #F94A04;
     outline: none;
 }

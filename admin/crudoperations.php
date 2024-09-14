@@ -31,7 +31,14 @@ function selectAll ($tablename, $condition = []){
     executeQuery($sql, $value);
 }
 function selectOne ($tablename, $condition){
-    global $conn;
+    $servername = "localhost";
+    $user = "root";
+    $pass = "";
+    $db = "new_posts";
+    $conn = new mysqli($servername, $user, $pass, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
     $sql = "SELECT * FROM $tablename";
     $i = 0;
     foreach($condition as $key => $value){
@@ -45,7 +52,14 @@ function selectOne ($tablename, $condition){
     executeQuery($sql, $value);
 }
 function create ($tablename, $data){
-    global $conn;
+    $servername = "localhost";
+    $user = "root";
+    $pass = "";
+    $db = "new_posts";
+    $conn = new mysqli($servername, $user, $pass, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
     $sql = "INSERT INTO $tablename SET ";
     $i = 0;
     foreach($data as $key => $value){
@@ -59,7 +73,14 @@ function create ($tablename, $data){
     executeQuery($sql, $data);
 }
 function update ($tablename, $id, $data){
-    global $conn;
+    $servername = "localhost";
+    $user = "root";
+    $pass = "";
+    $db = "new_posts";
+    $conn = new mysqli($servername, $user, $pass, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
     $sql = "UPDATE $tablename SET ";
     $i = 0;
     foreach($data as $key => $value){
@@ -74,8 +95,15 @@ function update ($tablename, $id, $data){
     executeQuery($sql, $data);
 }
 function delete ($tablename, $id, $condition){
-    global $conn;
-    $sql = "DELETE FROM $tablename WHERE id = $id ";
+    $servername = "localhost";
+    $user = "root";
+    $pass = "";
+    $db = "new_posts";
+    $conn = new mysqli($servername, $user, $pass, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $sql = "DELETE FROM $tablename WHERE id = '$id'";
     $i = 0;
     foreach($condition as $key => $value){
         if($i === 0){
@@ -86,5 +114,32 @@ function delete ($tablename, $id, $condition){
         $i ++;
         }
     executeQuery($sql, $condition);
+}
+
+function createcategory($filename, $content, $description) {
+    $file = fopen('../../pages/'.$filename, 'w');
+    if ($file) {
+        fwrite($file, $content);
+        fclose($file);
+    } else {
+        die("Unable to create file.");
+    }
+    $servername = "localhost";
+    $user = "root";
+    $pass = "";
+    $db = "new_posts";
+    $conn = new mysqli($servername, $user, $pass, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $stmt = $conn->prepare("INSERT INTO topics (name, description) VALUES (?, ?)");
+    $stmt->bind_param("ss", $filename, $description);
+    if ($stmt->execute()) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    $stmt->close();
+    $conn->close();
 }
 ?>

@@ -35,7 +35,7 @@ include("../connect.php");
                 <label class="form__label" for="Post_Sub_Title">Sub Title:</label>
                 <div class="newpost_container_div3_subdiv2">
                     <input class="form__input" name="Post_Sub_Title" type="text"/>
-                    <p class="newpost_subdiv2-p"><span>*</span>Text displayed under title (OPTIONAL)</p>
+                    <p class="newpost_subdiv2-p leftp"><span>*</span>Text displayed under title (OPTIONAL)</p>
                 </div>
             </div>
             <div class="newpost_container_div4 newpost_subdiv">
@@ -50,14 +50,14 @@ include("../connect.php");
                 <label class="form__label" for="Post_featured">Featured Video/Audio:</label>
                 <div class="newpost_container_div5_subdiv2">
                     <input class="form__input" name="Post_featured" type="text"/>
-                    <p class="newpost_subdiv2-p"><span>*</span>Enter url to video/audio (optional)</p>
+                    <p class="newpost_subdiv2-p leftp"><span>*</span>Enter url to video/audio (optional)</p>
                 </div>
             </div>
             <div class="newpost_container_div6 newpost_subdiv">
                 <label class="form__label" for="Post_Image">Post Image</label>
                 <div class="newpost_subdiv2">
                     <input class="form__input" name="Post_Image" type="file" required/>
-                    <p class="newpost_subdiv2-p"><span>*</span>Image should be less than 300KB</p>
+                    <p class="newpost_subdiv2-p leftp"><span>*</span>Image should be less than 300KB</p>
                 </div>
             </div>
             <div class="newpost_container_div7 newpost_subdiv">
@@ -69,10 +69,11 @@ include("../connect.php");
                 <input class="form__submit_input" type="submit" value="Publish" name="create_post" />
             </div>
             <div class="newpost_container_div10 newpost_subdiv">
-                <p class="form__submit_or">---Or---</p>
+                <p class="form__submit_or centerp bold">----------- Or -----------</p>
             </div>
             <div class="newpost_container_div11 newpost_subdiv">
-                <p class="form__submit_or">---Or---</p>
+                <label class="form__label bold" for="schedule_post">Schedule Post Publish</label>
+                <input class="" type="datetime-local" name="schedule_post" />
             </div>
         </form>
     </section>

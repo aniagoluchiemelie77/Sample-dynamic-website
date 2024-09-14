@@ -41,29 +41,29 @@ require ("connect.php");
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label" for="editor_username">Username:</label>
-                <input class="createeditor_input" type="text" name="editor_username" required/>
+                <input class="createeditor_input reginput" type="text" name="editor_username" required/>
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label" for="editor_firstname">Firstname:</label>
-                <input class="createeditor_input" type="text" name="editor_firstname" required/>
+                <input class="createeditor_input reginput" type="text" name="editor_firstname" required/>
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label" for="editor_lastname">Lastname:</label>
-                <input class="createeditor_input" type="text" name="editor_lastname" required/>
+                <input class="createeditor_input reginput" type="text" name="editor_lastname" required/>
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label" for="editor_email">Email:</label>
-                <input class="createeditor_input" type="email" name="editor_email" required/>
+                <input class="createeditor_input reginput" type="email" name="editor_email" required/>
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label" for="editor_password">Suggest Password:</label>
-                <input class="createeditor_input" type="password" name="editor_password" required/>
+                <input class="createeditor_input reginput" type="password" name="editor_password" required/>
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label" for="editor_password-confirm">Confirm Password:</label>
-                <input class="createeditor_input" type="password" name="editor_password-confirm" required/>
+                <input class="createeditor_input reginput" type="password" name="editor_password-confirm" required/>
             </div>
-            <input class="createeditor_input-submit btn" value="Submit" name="createeditor_Submit" type="submit"/>
+            <input class="createeditor_input-submit btn" value="Go" name="createeditor_Submit" type="submit"/>
         </form>
     </div>
     <div class="logout_alert container_center hidden" id="add_writer">
@@ -74,21 +74,45 @@ require ("connect.php");
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label" for="writer_firstname">Firstname:</label>
-                <input class="createeditor_input" type="text" name="writer_firstname" required/>
+                <input class="createeditor_input reginput" type="text" name="writer_firstname" required/>
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label" for="writer_lastname">Lastname:</label>
-                <input class="createeditor_input" type="text" name="writer_lastname" required/>
+                <input class="createeditor_input reginput" type="text" name="writer_lastname" required/>
             </div>
             <div class="createeditor_inputgroup">
                 <label class="createeditor_label" for="writer_email">Email:</label>
-                <input class="createeditor_input" type="email" name="writer_email" required/>
+                <input class="createeditor_input reginput" type="email" name="writer_email" required/>
             </div>
             <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_bio">Bio:</label>
-                <textarea name="writer_bio"></textarea>
+                <label class="createeditor_label" for="writer_bio">Short Bio:</label>
+                <textarea class="writer_bio" name="writer_bio"></textarea>
             </div>
-            <input class="createeditor_input-submit btn" value="Submit" name="addwriter" type="submit"/>
+            <input class="createeditor_input-submit btn" value="Go" name="addwriter" type="submit"/>
+        </form>
+    </div>
+    <div class="logout_alert container_center hidden" id="create_category">
+        <form class="create_editor_container popupform1" action="forms.php" method="post">
+            <i class="fa fa-times popup_close1" aria-hidden="true"></i>
+            <div class="createeditor_inputgroup">
+                <h1>Add Category</h1>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="category_name">Category name</label>
+                <input class="createeditor_input reginput" type="text" name="category_name" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_bio">Description</label>
+                <textarea class="writer_bio" name="writer_bio"></textarea>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_bio">Add Image</label>
+                <div class="newpost_subdiv2">
+                    <input class="form__input" name="Post_Image" type="file" required/>
+                    <p class="newpost_subdiv2-p leftp">( <span>*</span>Image should be less than 300KB )</p>
+                </div>
+            </div>
+            <input class="createeditor_input-submit btn" value="Go" name="addcategory" type="submit"/>
         </form>
     </div>
     <!--<div class="logout_alert container_center hidden" id="delete">
@@ -1103,7 +1127,7 @@ require ("connect.php");
                             <h2>Connect With Us On Social Media</h2>
                             <div>
                                 <a><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-                                <a><i class="fab fa-linkedin" aria-hidden="true"></i></i></a>
+                                <a href="https://www.linkedin.com/in/chiemelie-aniagolu-7799b32b0/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></i></a>
                                 <a><i class="fab fa-facebook" aria-hidden="true"></i></a>
                                 <a><i class="fa-brands fa-x-twitter"></i></a>
                             </div>

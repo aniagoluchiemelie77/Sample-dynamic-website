@@ -1,6 +1,8 @@
 <?php
 session_start();
 require ("../connect.php");
+include('../crudoperations.php');
+$content = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +74,7 @@ require ("../connect.php");
                     </a>
                 </div>
             </div>
-            <a class="about_section_topicsdiv_subdiv-action">
+            <a class="about_section_topicsdiv_subdiv-action" id="add_category">
                 <div class="actions_subdiv">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </div>

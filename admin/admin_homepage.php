@@ -66,6 +66,31 @@ require ("connect.php");
             <input class="createeditor_input-submit btn" value="Submit" name="createeditor_Submit" type="submit"/>
         </form>
     </div>
+    <div class="logout_alert container_center hidden" id="add_writer">
+        <form class="create_editor_container popupform1" action="forms.php" method="post">
+            <i class="fa fa-times popup_close1" aria-hidden="true"></i>
+            <div class="createeditor_inputgroup">
+                <h1>Add Writer</h1>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_firstname">Firstname:</label>
+                <input class="createeditor_input" type="text" name="writer_firstname" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_lastname">Lastname:</label>
+                <input class="createeditor_input" type="text" name="writer_lastname" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_email">Email:</label>
+                <input class="createeditor_input" type="email" name="writer_email" required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label" for="writer_bio">Bio:</label>
+                <textarea name="writer_bio"></textarea>
+            </div>
+            <input class="createeditor_input-submit btn" value="Submit" name="addwriter" type="submit"/>
+        </form>
+    </div>
     <!--<div class="logout_alert container_center hidden" id="delete">
         <h1 class="logout_alert_header">Post Successfully Deleted.</h1>
     </div>-->

@@ -20,10 +20,10 @@ setTimeout(() => {
   cookieContainer.style.bottom = "0";
 }, 3000);
 function responding(evt) {
-  if (evt.target.nodeName === 'a'){
+  if (evt.target.nodeName === 'button'){
     evt.target.addEventListener('click', () => {
       cookieContainer.style.bottom = "-100%";
-      localStorage.setItem("cookie_Banner", "true");
+      cookieContainer.style.display = "none";
     });
   }else{
     return;

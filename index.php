@@ -54,6 +54,11 @@ if(isset($_POST['submit_btn'])){
     }
 
 }
+if (isset($_POST['accept_cookies'])) {
+    setcookie('tracker', 'accepted', time() + (86400 * 30), "/"); // 30 days
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,12 +77,14 @@ if(isset($_POST['submit_btn'])){
     </head>
     <body id="container">
         <?php include("includes/header.php");?>
-        <div class="cookie_container" id ="cookie_container">
-            <p class="cookie_container_p">This website uses cookies and similar technologies to operate the site, analyze data, improve user experience, and show ads. You can choose to agree to the use of these technologies or adjust your settings. Check our <a href="pages/privacypolicy.php">Privacy Policy</a> for more details.</p>
-            <div class="cookie_container_subdiv">
-                <a class="cookie_container_subdiv-btns">Accept</a>
+        <?php if (!isset($_COOKIE['tracker'])): ?>
+            <div class="cookie_container" id ="cookie_container">
+                <p class="cookie_container_p">This website uses cookies and similar technologies to operate the site, analyze data, improve user experience. By using this site, you agree to our use of cookies to enhance your experience. Check our <a href="pages/privacypolicy.php">Privacy Policy</a> for more details.</p>
+                <form class="cookie_container_subdiv" method="post">
+                    <button class="cookie_container_subdiv-btns" type="submit" name="accept_cookies">Accept</button>
+                </form>
             </div>
-        </div>
+        <?php endif; ?>
         <div class="header__menu-sidebar hidden" id="sidebar">
             <div class="header__menu-sidebar-div1 sidebar-input">
                 <a class="sidebarbtn">
@@ -189,7 +196,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -203,7 +215,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -217,7 +234,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -231,7 +253,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -245,7 +272,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -259,7 +291,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -273,7 +310,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -287,7 +329,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -301,7 +348,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -315,7 +367,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -329,7 +386,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -343,7 +405,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -357,7 +424,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -371,7 +443,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -385,7 +462,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -399,7 +481,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -413,7 +500,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -427,7 +519,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -441,7 +538,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -455,7 +557,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -469,7 +576,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -483,7 +595,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -497,7 +614,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -511,7 +633,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -525,7 +652,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -539,7 +671,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -553,7 +690,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -567,7 +709,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -581,7 +728,12 @@ if(isset($_POST['submit_btn'])){
                     <div class="normal-divs__subdiv__div">
                         <h1 class="normal-divs__header">Sample Niche</h1>
                         <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                        <p class="normal-divs__releasedate">June 13, 2024</p>
+                        <div>
+                            <p class="normal-divs__releasedate firstp">June 13, 2024</p>
+                            <p class="normal-divs__releasedate">
+                                <i class="fa fa-clock" aria-hidden="true"></i> 5 mins read
+                            </p>
+                        </div>
                     </div>
                 </a>
                 <div class="normal-divs__subdiv2">
@@ -721,6 +873,153 @@ if(isset($_POST['submit_btn'])){
                     </div>
                 </div>
                 <div class="ads_sidebar"></div>
+                <div class="section2__div1__header headers">
+                    <h1>Latest Commentary</h1>
+                </div>
+                <a class="commentary_divs">
+                    <div class='commentary_divs_imagediv'>
+                        <img src="images/chibs.jpg" alt="Commentary's Image" />
+                        <div class="commentary_divs_imagediv_subdiv">
+                            <h1>Aniagolu Chiemelie</h1>
+                            <p>Chief Technologist for Security Research and Innovation, HP Inc. Security Labs.</p>
+                        </div>
+                    </div>
+                    <div class="commentary_divs_body">
+                        <h2>Sample Niche</h2>
+                        <h3>Hardware Supply Chain Threats Can Undermine Endpoint Infrastructure</h3>
+                        <div class="commentary_divs_body_subdiv">
+                            <p>Sept 12th 2023</p>
+                            <p><i class="fa fa-clock" aria-hidden="true"></i>
+                            10mins read.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="commentary_divs">
+                    <div class='commentary_divs_imagediv'>
+                        <img src="images/chibs.jpg" alt="Commentary's Image" />
+                        <div class="commentary_divs_imagediv_subdiv">
+                            <h1>Aniagolu Chiemelie</h1>
+                            <p>Chief Technologist for Security Research and Innovation, HP Inc. Security Labs.</p>
+                        </div>
+                    </div>
+                    <div class="commentary_divs_body">
+                        <h2>Sample Niche</h2>
+                        <h3>Hardware Supply Chain Threats Can Undermine Endpoint Infrastructure</h3>
+                        <div class="commentary_divs_body_subdiv">
+                            <p>Sept 12th 2023</p>
+                            <p><i class="fa fa-clock" aria-hidden="true"></i>
+                            10mins read.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="commentary_divs">
+                    <div class='commentary_divs_imagediv'>
+                        <img src="images/chibs.jpg" alt="Commentary's Image" />
+                        <div class="commentary_divs_imagediv_subdiv">
+                            <h1>Aniagolu Chiemelie</h1>
+                            <p>Chief Technologist for Security Research and Innovation, HP Inc. Security Labs.</p>
+                        </div>
+                    </div>
+                    <div class="commentary_divs_body">
+                        <h2>Sample Niche</h2>
+                        <h3>Hardware Supply Chain Threats Can Undermine Endpoint Infrastructure</h3>
+                        <div class="commentary_divs_body_subdiv">
+                            <p>Sept 12th 2023</p>
+                            <p><i class="fa fa-clock" aria-hidden="true"></i>
+                            10mins read.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="commentary_divs">
+                    <div class='commentary_divs_imagediv'>
+                        <img src="images/chibs.jpg" alt="Commentary's Image" />
+                        <div class="commentary_divs_imagediv_subdiv">
+                            <h1>Aniagolu Chiemelie</h1>
+                            <p>Chief Technologist for Security Research and Innovation, HP Inc. Security Labs.</p>
+                        </div>
+                    </div>
+                    <div class="commentary_divs_body">
+                        <h2>Sample Niche</h2>
+                        <h3>Hardware Supply Chain Threats Can Undermine Endpoint Infrastructure</h3>
+                        <div class="commentary_divs_body_subdiv">
+                            <p>Sept 12th 2023</p>
+                            <p><i class="fa fa-clock" aria-hidden="true"></i>
+                            10mins read.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="commentary_divs">
+                    <div class='commentary_divs_imagediv'>
+                        <img src="images/chibs.jpg" alt="Commentary's Image" />
+                        <div class="commentary_divs_imagediv_subdiv">
+                            <h1>Aniagolu Chiemelie</h1>
+                            <p>Chief Technologist for Security Research and Innovation, HP Inc. Security Labs.</p>
+                        </div>
+                    </div>
+                    <div class="commentary_divs_body">
+                        <h2>Sample Niche</h2>
+                        <h3>Hardware Supply Chain Threats Can Undermine Endpoint Infrastructure</h3>
+                        <div class="commentary_divs_body_subdiv">
+                            <p>Sept 12th 2023</p>
+                            <p><i class="fa fa-clock" aria-hidden="true"></i>
+                            10mins read.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="commentary_divs">
+                    <div class='commentary_divs_imagediv'>
+                        <img src="images/chibs.jpg" alt="Commentary's Image" />
+                        <div class="commentary_divs_imagediv_subdiv">
+                            <h1>Aniagolu Chiemelie</h1>
+                            <p>Chief Technologist for Security Research and Innovation, HP Inc. Security Labs.</p>
+                        </div>
+                    </div>
+                    <div class="commentary_divs_body">
+                        <h2>Sample Niche</h2>
+                        <h3>Hardware Supply Chain Threats Can Undermine Endpoint Infrastructure</h3>
+                        <div class="commentary_divs_body_subdiv">
+                            <p>Sept 12th 2023</p>
+                            <p><i class="fa fa-clock" aria-hidden="true"></i>
+                            10mins read.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="commentary_divs">
+                    <div class='commentary_divs_imagediv'>
+                        <img src="images/chibs.jpg" alt="Commentary's Image" />
+                        <div class="commentary_divs_imagediv_subdiv">
+                            <h1>Aniagolu Chiemelie</h1>
+                            <p>Chief Technologist for Security Research and Innovation, HP Inc. Security Labs.</p>
+                        </div>
+                    </div>
+                    <div class="commentary_divs_body">
+                        <h2>Sample Niche</h2>
+                        <h3>Hardware Supply Chain Threats Can Undermine Endpoint Infrastructure</h3>
+                        <div class="commentary_divs_body_subdiv">
+                            <p>Sept 12th 2023</p>
+                            <p><i class="fa fa-clock" aria-hidden="true"></i>
+                            10mins read.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="commentary_divs">
+                    <div class='commentary_divs_imagediv'>
+                        <img src="images/chibs.jpg" alt="Commentary's Image" />
+                        <div class="commentary_divs_imagediv_subdiv">
+                            <h1>Aniagolu Chiemelie</h1>
+                            <p>Chief Technologist for Security Research and Innovation, HP Inc. Security Labs.</p>
+                        </div>
+                    </div>
+                    <div class="commentary_divs_body">
+                        <h2>Sample Niche</h2>
+                        <h3>Hardware Supply Chain Threats Can Undermine Endpoint Infrastructure</h3>
+                        <div class="commentary_divs_body_subdiv">
+                            <p>Sept 12th 2023</p>
+                            <p><i class="fa fa-clock" aria-hidden="true"></i>
+                            10mins read.</p>
+                        </div>
+                    </div>
+                </a>
             </div>
         </section>
         <section class="section3">

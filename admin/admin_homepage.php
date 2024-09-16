@@ -179,20 +179,38 @@ require ("connect.php");
             <div class="website_info_div tabcontent active2">
                 <h1 class="aside_sidebar_header">Welcome, <?php echo $_SESSION['username']?> </h1>
                 <div class="webinfo_container">
+                    <?php
+                        $sql1 = "SELECT COUNT(*) as total1 FROM paid_posts";
+                        $result1 = $conn->query($sql1);
+                        $sql2 = "SELECT COUNT(*) as total2 FROM posts";
+                        $result2 = $conn->query($sql2);
+                        if ($result1->num_rows > 0 && $result2->num_rows > 0) {
+                            $row1 = $result1->fetch_assoc();
+                            $row2 = $result2->fetch_assoc();
+                            $totalRows = $row1["total1"] + $row2["total2"];
+                    ?>
                     <div class="website_info">
                         <div class="website_info_subdiv">
                             <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <p class="website_info_p1">10.5k</p>
+                            <p class="website_info_p1"><?php echo $totalRows;?></p>
                         </div>
                         <p class="website_info_p2">Published</p>
                     </div>
+                    <?php };?>
+                    <?php //for subscriber count
+                        $subscribers = "SELECT COUNT(*) as total FROM subscribers";
+                        $result = $conn->query($subscribers);
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                    ?>
                     <a class="website_info" href="pages/subscribers.php">
                         <div class="website_info_subdiv">
                             <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <p class="website_info_p1">10.5k</p>
+                            <p class="website_info_p1"><?php echo $row["total"];?></p>
                         </div>
                         <p class="website_info_p2">Subscribers</p>
                     </a>
+                    <?php };?>
                     <a class="website_info" href="create_new/posts.php" target="_blank">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -228,14 +246,12 @@ require ("connect.php");
                             <tr>
                               <th>Article</th>
                               <th>Views</th>
-                              <th>Comments</th>
                               <th>Date</th>
                               <th>Actions</th>
                             </tr>
                             <tr class="border-gradient-side-dark">
                               <td>Futterkiste</td>
                               <td>20</td>
-                              <td>3</td>
                               <td>July 10th 2024</td>
                               <td>
                                 <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
@@ -245,7 +261,6 @@ require ("connect.php");
                             <tr>
                               <td>Futterkiste</td>
                               <td>50</td>
-                              <td>6</td>
                               <td>July 10th 2024</td>
                               <td>
                                 <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
@@ -255,7 +270,6 @@ require ("connect.php");
                             <tr>
                                 <td>Futterkiste</td>
                                 <td>100</td>
-                                <td>10</td>
                                 <td>July 10th 2024</td>
                                 <td>
                                   <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
@@ -265,7 +279,6 @@ require ("connect.php");
                               <tr>
                                 <td>Futterkiste</td>
                                 <td>36</td>
-                                <td>12</td>
                                 <td>July 10th 2024</td>
                                 <td>
                                   <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
@@ -275,7 +288,6 @@ require ("connect.php");
                               <tr>
                                 <td>Futterkiste</td>
                                 <td>55</td>
-                                <td>32</td>
                                 <td>July 10th 2024</td>
                                 <td>
                                   <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
@@ -285,7 +297,6 @@ require ("connect.php");
                               <tr>
                                 <td>Futterkiste</td>
                                 <td>43</td>
-                                <td>40</td>
                                 <td>July 10th 2024</td>
                                 <td>
                                   <a class="edit" href="edit/post.php" target="_blank">Edit</a> /

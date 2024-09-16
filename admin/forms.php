@@ -3,54 +3,67 @@ require ("connect.php");
 if (isset($_POST['create_post'])) {
     $title = $_POST['Post_Title'];
     $niche = $_POST['Post_Niche'];
+    $subtitle = $_POST['Post_Sub_Title'];
+    $link = $_POST['Post_featured'];
+    $category = $_POST['Post_Status'];
     $content = $_POST['Post_content'];
-    $selects = $_POST['Post_Status'];
-    $uid = uniqid();
-    $featured = $_POST['Post_featured'];
-    $sub_title = $_POST['Post_Sub_Title'];
-    $image = $uid . $_FILES['Post_Image']['name'];
-    $image_size = $uid . $_FILES['Post_Image']['size'];
-    $image_type = $uid . $_FILES['Post_Image']['type'];
-    $date = date('Y-m-d H:i:s');
-    $error = " ";
-    if($title == " " OR  $niche == " " OR $content == " "){
-        $error .= "Fill in the necessary inputs";
-        echo "$error";
-    }else{
-        if($image_type == "image/jpeg" OR $image_type == "image/jpg" OR $image_type = "image/png" OR $image_type = "image/webp"){
-                    if($image_size <= 900000){
-                        move_uploaded_file($_FILES['Post_Image']['tmp_name'],'images/' . $uid . $_FILES['Post_Image']['name']);
-                            if($selects == "paid_post"){
-                                $insertQuery = "INSERT INTO paid_posts (Title, Niche, Content, Subtitle, link, image, Post_date)
-                                VALUES ('$title', '$niche', '$content', '$sub_title', '$featured', '$image', '$date')";
-                                $result = $conn->query($insertQuery);
-                                if($result === TRUE){
-                                    echo `<div class="logout_alert container_center" id="delete">
-                                            <h1 class="logout_alert_header">Post Uploaded Successfully.</h1>
-                                          </div>`;
-                                    header('Location: admin_homepage.php');
-                                }else{
-                                    echo "Unsuccessful, Please Retry";
-                                }
-                            }else if($selects == "none"){
-                                $insertQuery2 = "INSERT INTO posts (Posts_Niche, subtitle, link, Posts_Image, Posts_Content, Posts_Date, Posts_Title)
-                                VALUES (\'$niche\', \'$sub_title\', \'$featured\', \'$image\', \'$content\', \'$date\', \'$title\')";
-                               $result = $conn->query($insertQuery2);
-                                if($result === TRUE){
-                                    echo "Successful";
-                                }else{
-                                    echo "Unsuccessful, Please Retry";
-                                }
-                            }
-                    }else{
-                        echo "Image File too large";
-                    }
+    $schedule = $_POST['schedule'];
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $image = $_FILES['Post_Image']['name'];
+    $target = "images/" . basename($image);
+    if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
+        $imagePath = $target;
+        $response = array();
+        if($category === "paid_post"){
+            if (!empty($schedule)) {
+                $sql = "INSERT INTO paid_posts (title, niche, content, subtitle, link, image, Date, time, schedule) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$schedule')";
+                if ($conn->query($sql) === TRUE) {
+                    $response['success'] = true;
+                    $response['message'] = "Post added successfully!";
+                } else {
+                    $response['success'] = false;
+                    $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+                }
             }else{
-            echo "Invalid Image File Type";
-        } 
+                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, Date, time) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time')";
+                if ($conn->query($sql) === TRUE) {
+                    $response['success'] = true;
+                    $response['message'] = "Post added successfully!";
+                } else {
+                    $response['success'] = false;
+                    $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+        }elseif ($category === "none"){
+            if (!empty($schedule)) {
+                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, Date, time, schedule) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$schedule')";
+                if ($conn->query($sql) === TRUE) {
+                    $response['success'] = true;
+                    $response['message'] = "Post added successfully!";
+                } else {
+                    $response['success'] = false;
+                    $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }else{
+                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, Date, time) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time')";
+                if ($conn->query($sql) === TRUE) {
+                    $response['success'] = true;
+                    $response['message'] = "Post added successfully!";
+                } else {
+                    $response['success'] = false;
+                    $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+        }else {
+        $response['success'] = false;
+        $response['message'] = "Failed to upload image.";
+        exit();
+        }
+        $conn->close();
+        echo json_encode($response);
     }
 }
-
 require ("connect.php");
 if (isset($_POST['profileedit_Submit'])) {
     $firstname = $_POST['profile_firstname'];

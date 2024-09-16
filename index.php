@@ -1,19 +1,25 @@
 <?php
 session_start();
-$user_agent = $_SERVER['HTTP_USER_AGENT'];
-if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-    $ip = $_SERVER['HTTP_CLIENT_IP'];
-}else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-}else{
-    $ip = $_SERVER['REMOTE_ADDR'];
+require('connect.php');
+function getVisitorIP() {
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        return $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        return $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        return $_SERVER['REMOTE_ADDR'];
+    }
 }
-$page_name = $_SERVER['SCRIPT_NAME'];
-$query_string = $_SERVER['QUERY_STRING'];
-$current_page = $page_name."?".$query_string;
+$ip_address = getVisitorIP();
+$api_url = "http://www.geoplugin.net/json.gp?ip=" . $ip_address;
+$response = file_get_contents($api_url);
+$data = json_decode($response);
+$country = $data->geoplugin_countryName;
 date_default_timezone_set('UTC');
 $date = date('Y-m-d');
 $time = date("H:iA");
+$insertIP = "INSERT INTO web_visitors (ip_address, country, visit_time) VALUES ('$ip_address', '$country', '$time')";
+$result1 = $conn->query($insertIP);
 require("connect.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -27,6 +33,7 @@ if(isset($_POST['submit_btn'])){
     $message = "<div><h1><br>Thank you for subscribing with us.</br></h1>
         <p>Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information.</p>
          </div>";
+    $response = array();
     $userEmail = $_POST['email'];
     $email = $userEmail;
     $mail = new PHPMailer(true);
@@ -46,12 +53,23 @@ if(isset($_POST['submit_btn'])){
     $mail -> isHTML(TRUE);
     $mail -> Body = $message;
     if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
-        if($mail->preSend()){
+        $sql = "INSERT INTO subscribers (email, date, time) VALUES ('$userEmail', '$date', '$time')";
+        $result = $conn->query($sql);
+        if($mail->preSend() and $result === TRUE){
+            $response['success'] = true;
+            $response['message'] = "Thank You For Subscribing With Us.";
             $msg = "Thank You For Subscribing With Us.";
+        }else{
+            $response['success'] = false;
+            $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
         }
     }else{
+        $response['success'] = false;
+        $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
         $msg = "Invalid Email";
     }
+    $conn->close();
+    echo json_encode($response);
 
 }
 if (isset($_POST['accept_cookies'])) {
@@ -67,6 +85,7 @@ if (isset($_POST['accept_cookies'])) {
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="Article website" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -750,13 +769,13 @@ if (isset($_POST['accept_cookies'])) {
             </a>
             </div>
             <div class="body_right border-gradient-leftside--lightdark">
-                <form class="sec2__susbribe-box other_width" method="post" action="index.php">
+                <form class="sec2__susbribe-box other_width" method="POST" action="index.php" id="susbribe-box">
                 <div class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
                 <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
                 <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
-                <p class="error_div"><?php if(!empty($msg)){ echo $msg;}?></p>
+                <p class="error_div" id="error_message"><?php if(!empty($msg)){ echo $msg;}?></p>
                 <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required/>
-                <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn"/>
+                <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" onclick="submitPost()"/>
                 </form>
                 <div class="section2__div1__header headers">
                     <h1>Latest News</h1>
@@ -1089,5 +1108,39 @@ if (isset($_POST['accept_cookies'])) {
         </section>
         <?php include("includes/footer.php");?>
         <script src="index.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            function submitPost() {
+                const subscribeBox = document.getElementById('susbribe-box');
+                const formData = new FormData(subscribeBox);
+                fetch('index.php', {
+                    method: 'POST',
+                    body: formData
+                    })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: data.message
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.message
+                        });
+                    }
+                    })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error occurred while subscription.'
+                    });
+                });
+            }
+        </script>
     </body>
 </html>

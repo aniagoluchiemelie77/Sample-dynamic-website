@@ -16,20 +16,19 @@ const container = document.getElementById("container");
 let touchStartTime, clientX, clientY;
 console.log(initCoords);
 
+
 setTimeout(() => {
   cookieContainer.style.bottom = "0";
 }, 3000);
-function responding(evt) {
+//function responding(evt) {
   if (evt.target.nodeName === 'button'){
     evt.target.addEventListener('click', () => {
       cookieContainer.style.bottom = "-100%";
-      cookieContainer.style.display = "none";
+     // cookieContainer.style.display = "none";
     });
-  }else{
-    return;
   }
-}
-cookieContainer.addEventListener('click', responding);
+//}
+//cookieContainer.addEventListener('click', responding);
 //implementing sticky nav bar
 const stickyNavFunc = function () {
     const navHeight = header.getBoundingClientRect().height;

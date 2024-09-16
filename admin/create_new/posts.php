@@ -10,6 +10,7 @@ include("../connect.php");
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="Tech News and Articles website" />
     <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
@@ -21,7 +22,7 @@ include("../connect.php");
 <body>
     <?php require("../extras/header.php");?>
     <section class="newpost_body">
-        <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data">
+        <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data" id="postForm">
             <div class="newpost_container_div1 newpost_subdiv">
                 <h1>Create New Post</h1>
             </div>
@@ -66,17 +67,18 @@ include("../connect.php");
                 </textarea>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="Publish" name="create_post" />
+                <input class="form__submit_input" type="submit" value="Publish" name="create_post" onclick="submitPost()"/>
             </div>
             <div class="newpost_container_div10 newpost_subdiv">
                 <p class="form__submit_or centerp bold">----------- Or -----------</p>
             </div>
             <div class="newpost_container_div11 newpost_subdiv">
-                <label class="form__label bold" for="schedule_post">Schedule Post Publish</label>
-                <input class="" type="datetime-local" name="schedule_post" />
+                <label class="form__label bold" for="schedule">Schedule Post Publish</label>
+                <input class="" type="datetime-local" name="schedule" />
             </div>
         </form>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../admin.js"></script>
     <script type="text/javascript">
@@ -97,6 +99,38 @@ include("../connect.php");
             menubar: 'favs file edit view insert format tools table help',
             content_css: 'css/content.css'
         });
+    </script>
+    <script>
+        function submitPost() {
+            const form = document.getElementById('postForm');
+            const formData = new FormData(form);
+
+            fetch('../forms.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+            .then(data => {
+                if (data.success == "true") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.message
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message
+                    });
+                }
+            }) .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while submitting the post.'
+                });
+            });
+        }
     </script>
 </body>
 </html>

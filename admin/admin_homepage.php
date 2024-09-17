@@ -244,106 +244,81 @@ require ("connect.php");
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <table>
                             <tr>
-                              <th>Article</th>
-                              <th>Views</th>
-                              <th>Date</th>
-                              <th>Actions</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Actions</th>
                             </tr>
                             <tr class="border-gradient-side-dark">
-                              <td>Futterkiste</td>
-                              <td>20</td>
-                              <td>July 10th 2024</td>
-                              <td>
-                                <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
-                                <a class="delete" href="#">Delete</a>
-                            </td>
-                            </tr>
-                            <tr>
-                              <td>Futterkiste</td>
-                              <td>50</td>
-                              <td>July 10th 2024</td>
-                              <td>
-                                <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                <a class="delete" href="#">Delete</a>
-                            </td>
+                                <td>Futterkiste</td>
+                                <td>July 10th 2024</td>
+                                <td>
+                                    <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Futterkiste</td>
-                                <td>100</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                  <a class="delete" href="#">Delete</a>
-                              </td>
-                              </tr>
-                              <tr>
+                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Futterkiste</td>
-                                <td>36</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                  <a class="delete" href="#">Delete</a>
-                              </td>
-                              </tr>
-                              <tr>
+                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Futterkiste</td>
-                                <td>55</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                  <a class="delete" href="#">Delete</a>
-                              </td>
-                              </tr>
-                              <tr>
+                                   <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                   <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Futterkiste</td>
-                                <td>43</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                  <a class="delete" href="#">Delete</a>
-                              </td>
-                              </tr>
-                          </table>
+                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Futterkiste</td>
+                                <td>July 10th 2024</td>
+                                <td>
+                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
-                        <h1>Recent Articles</h1>
+                        <h1>Recent Drafts</h1>
                         <a class="btn" href="view_all/unpublished_articles.php">View All</a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <table>
                             <tr>
-                              <th>Article</th>
-                              <th>Author</th>
-                              <th>Date</th>
-                              <th>Actions</th>
+                                <th>Draft Name</th>
+                                <th>Author</th>
+                                <th>Date</th>
+                                <th>Actions</th>
                             </tr>
                             <tr class="border-gradient-side-dark">
-                              <td>Futterkiste</td>
-                              <td>Maria Anders</td>
-                              <td>July 10th 2024</td>
-                              <td>
-                                <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
-                                <a class="delete" href="#">Delete</a>
-                            </td>
-                            </tr>
-                            <tr>
-                              <td>Futterkiste</td>
-                              <td>Francisco Chang</td>
-                              <td>July 10th 2024</td>
-                              <td>
-                                <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                <a class="delete" href="#">Delete</a>
-                            </td>
-                            </tr>
-                            <tr>
                                 <td>Futterkiste</td>
-                                <td>Francisco Chang</td>
+                                <td>Maria Anders</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                  <a class="delete" href="#">Delete</a>
+                                    <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
                                 </td>
                             </tr>
                             <tr>
@@ -351,8 +326,8 @@ require ("connect.php");
                                 <td>Francisco Chang</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                  <a class="delete" href="#">Delete</a>
+                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
                                 </td>
                             </tr>
                             <tr>
@@ -360,8 +335,8 @@ require ("connect.php");
                                 <td>Francisco Chang</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                  <a class="delete" href="#">Delete</a>
+                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
                                 </td>
                             </tr>
                             <tr>
@@ -369,11 +344,29 @@ require ("connect.php");
                                 <td>Francisco Chang</td>
                                 <td>July 10th 2024</td>
                                 <td>
-                                  <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                  <a class="delete" href="#">Delete</a>
+                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
                                 </td>
                             </tr>
-                          </table>
+                            <tr>
+                                <td>Futterkiste</td>
+                                <td>Francisco Chang</td>
+                                <td>July 10th 2024</td>
+                                <td>
+                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Futterkiste</td>
+                                <td>Francisco Chang</td>
+                                <td>July 10th 2024</td>
+                                <td>
+                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
+                                    <a class="delete" href="#">Delete</a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="addtionalinfo">
@@ -1153,8 +1146,70 @@ require ("connect.php");
                 </div>    
             </div>
         </div>  
-        <script src="admin.js"></script>   
-       <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+        <script src="admin.js"></script> 
+        <script>
+            <?php
+                $condition_value1 = 'Tablet';
+                $condition_value2 = 'Desktop';
+                $condition_value3 = 'Mobile'; // Replace with your condition value
+                $devicecount1 = "SELECT COUNT(*) as count_tablet FROM web_visitors WHERE user_devicetype = '$condition_value1'";
+                $devicecount2 = "SELECT COUNT(*) as count_dextop FROM web_visitors WHERE user_devicetype = '$condition_value2'";
+                $devicecount3 = "SELECT COUNT(*) as count_mobile FROM web_visitors WHERE user_devicetype = '$condition_value3'";
+                $result_mobile = $conn->query($devicecount3);
+                $result_desktop = $conn->query($devicecount2);
+                $result_tablet = $conn->query($devicecount1);
+                if ($result_mobile->num_rows > 0 && $result_desktop->num_rows > 0 && $result_tablet->num_rows > 0) {
+                    $row_mobile = $result_mobile->fetch_assoc();
+                    $row_desktop = $result_desktop->fetch_assoc();
+                    $row_tablet = $result_tablet->fetch_assoc();
+                    echo "Total mobile devices: " . $row_mobile["count_mobile"] . "<br>";
+                    echo "Total desktop devices: " . $row_desktop["count_desktop"] . "<br>";
+                    echo "Total tablet devices: " . $row_tablet["count_tablet"] . "<br>";
+            ?>
+            anychart.onDocumentReady(function(){
+                var data = [
+                    {x: "Dextop", value: <?php echo $row_desktop["count_desktop"];?>, exploded: true},
+                    {x: "Tablet", value: <?php echo $row_tablet["count_tablet"];?>},
+                    {x: "Mobile", value: <?php echo $row_mobile["count_mobile"];?>}
+                ];
+                var chart = anychart.pie();
+                chart.title("Visitors Devices Statistics");
+                chart.data(data);
+                chart.container("pie_container")
+                chart.draw();
+                chart.legend().itemsLayout("vertical");
+                chart.legend().position("right");
+                chart.sort("desc");  
+            });
+            <?php }; 
+                $condition_value1 = 'new';
+                $condition_value2 = 'returning';
+                $usertype_query1 = "SELECT COUNT(*) as count_new FROM web_visitors WHERE visit_type = '$condition_value1'";
+                $usertype_query2 = "SELECT COUNT(*) as count_returning FROM web_visitors WHERE visit_type = '$condition_value2'";
+                $result_usertype_query1 = $conn->query($usertype_query1);
+                $result_usertype_query2 = $conn->query($usertype_query2);
+                if ($result_usertype_query1->num_rows > 0 && $result_usertype_query2->num_rows > 0) {
+                    $row_returning = $result_usertype_query2->fetch_assoc();
+                    $row_new = $result_usertype_query1->fetch_assoc();
+                    $row_tablet = $result_tablet->fetch_assoc();
+            ?>
+            anychart.onDocumentReady(function(){
+                var data2 = [
+                    {x: "New visitors", value: <?php echo $row_new["count_new"];?>, exploded: true},
+                    {x: "Returning visitors", value: <?php echo $row_returning["count_returning"];?>},
+                ];
+                var chart2 = anychart.pie();
+                chart2.title("Visitors Statistics");
+                chart2.data(data2);
+                chart2.container("pie_chartcontainer2")
+                chart2.draw();
+                chart2.legend().itemsLayout("vertical");
+                chart2.legend().position("right");
+                chart2.sort("desc");  
+            });
+            <?php }; $conn->close(); ?>
+        </script>  
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script type="text/javascript" src="otherJSFiles/custom.js"></script>   

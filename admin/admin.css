@@ -1258,6 +1258,7 @@ a, td,span, p, label{
 .newpost_container .newpost_subdiv p{
     font-size: 1.2rem;
     margin-top: .5rem;
+    color: #222222;
 }
 .newpost_container .newpost_subdiv span{
     margin-right: .2rem;

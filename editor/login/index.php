@@ -12,6 +12,7 @@ if (isset($_REQUEST['Sign_In'])) {
     if($result>0){
         session_start();
         $data = mysqli_fetch_array($select_query);
+        $id = $data['id'];
         $email = $data['email'];
         $firstname = $data['firstname'];
         $lastname = $data['lastname'];
@@ -27,6 +28,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $country_code = $data['country_code'];
         //declaring session variables
         $_SESSION['email'] = $email;
+        $_SESSION['id'] = $id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['lastname'] = $lastname;
         $_SESSION['username'] = $username;

@@ -66,6 +66,13 @@ include("../connect.php");
                 <textarea class="newpost_container_div7_subdiv2" name="Post_content" id="myTextarea">
                 </textarea>
             </div>
+            <div class="newpost_container_div3 newpost_subdiv">
+                <label class="form__label" for="Post_Sub_Title">Author's name:</label>
+                <div class="newpost_container_div3_subdiv2">
+                    <input class="form__input" name="Post_Sub_Title" type="text"/>
+                    <p class="newpost_subdiv2-p leftp"><span>*</span> Author's First and Last Name (OPTIONAL)</p>
+                </div>
+            </div>
             <div class="newpost_container_div9 newpost_subdiv">
                 <input class="form__submit_input" type="submit" value="Publish" name="create_post" onclick="submitPost()"/>
             </div>

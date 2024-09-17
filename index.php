@@ -1,6 +1,17 @@
 <?php
 session_start();
 require('connect.php');
+function getDeviceType() {
+    $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+    if (strpos($user_agent, 'mobile') !== false) {
+        return 'Mobile';
+    } elseif (strpos($user_agent, 'tablet') !== false) {
+        return 'Tablet';
+    } else {
+        return 'Desktop';
+    }
+}
+$device_type = getDeviceType();
 function getVisitorIP() {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         return $_SERVER['HTTP_CLIENT_IP'];
@@ -11,6 +22,7 @@ function getVisitorIP() {
     }
 }
 $ip_address = getVisitorIP();
+$visit_type = "";
 $api_url = "http://www.geoplugin.net/json.gp?ip=" . $ip_address;
 $response = file_get_contents($api_url);
 $data = json_decode($response);
@@ -18,8 +30,19 @@ $country = $data->geoplugin_countryName;
 date_default_timezone_set('UTC');
 $date = date('Y-m-d');
 $time = date("H:iA");
-$insertIP = "INSERT INTO web_visitors (ip_address, country, visit_time) VALUES ('$ip_address', '$country', '$time')";
-$result1 = $conn->query($insertIP);
+$visitor_check = "SELECT * FROM web_visitors WHERE ip_address = '$ip_address'";
+$result_check = $conn->query($visitor_check);
+if ($result_check->num_rows > 0) {
+    $visit_type = 'returning';
+    if ($visit_type == 'returning') {
+        $sql_update = "UPDATE web_visitors SET visit_type = '$visit_type', visit_time = '$time' WHERE ip_address = '$ip_address'";
+        $update_check = $conn->query($sql_update);
+    }
+} else {
+    $visit_type = 'new';
+    $insertIP = "INSERT INTO web_visitors (ip_address, country, user_devicetype, visit_time, visit_type) VALUES ('$ip_address', '$country', '$device_type', '$time', '$visit_type')";
+    $result1 = $conn->query($insertIP);
+}
 require("connect.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;

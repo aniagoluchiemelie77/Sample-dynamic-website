@@ -1,4 +1,5 @@
 <?php
+session_start();
 require ("connect.php");
 if (isset($_POST['create_post'])) {
     $title = $_POST['Post_Title'];

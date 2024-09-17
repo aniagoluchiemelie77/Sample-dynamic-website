@@ -60,6 +60,13 @@ include("../connect.php");
             <div class="newpost_container_div9 newpost_subdiv">
                 <input class="form__submit_input" type="submit" value="Publish" name="create_post" />
             </div>
+            <div class="newpost_container_div10 newpost_subdiv">
+                <p class="form__submit_or centerp bold">----------- Or -----------</p>
+            </div>
+            <div class="newpost_container_div11 newpost_subdiv">
+                <label class="form__label bold" for="schedule">Schedule Post Publish</label>
+                <input class="" type="datetime-local" name="schedule" />
+            </div>
         </form>
     </section>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>

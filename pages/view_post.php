@@ -9,6 +9,32 @@ require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
 //$id = $_GET['id'];
+
+// Get the post ID from the URL
+$post_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+if ($post_id > 0) {
+    $sql = "
+        SELECT title, niche, image, content, DATE_FORMAT(date, '%M %d, %Y') as formatted_date
+        FROM paid_posts
+        WHERE id = $post_id
+    ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        echo "<div class='post-details'>
+                <h1>" . $row["title"] . "</h1>
+                <p><strong>Niche:</strong> " . $row["niche"] . "</p>
+                <img src='" . $row["image"] . "' alt='" . $row["title"] . "' />
+                <p><strong>Date:</strong> " . $row["formatted_date"] . "</p>
+                <div class='content'>" . $row["content"] . "</div>
+              </div>";
+    } else {
+        echo "Post not found.";
+    }
+} else {
+    echo "Invalid post ID.";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

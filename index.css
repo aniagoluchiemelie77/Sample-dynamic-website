@@ -577,14 +577,19 @@ a, p, li{
   .smallerdivs{
     grid-area: 1 / 2 / -1 / -1;
     display: flex;
+    cursor: pointer;
     flex-direction: column;
     justify-content: flex-start;
   }
-  .smallerdivs .smaller__div{
+  .smallerdivs a{
     display: flex;
-    flex-wrap: nowrap;
-    padding: var(--div-padding-full);
     cursor: pointer;
+    flex-wrap: nowrap;
+  }
+  .smallerdivs a div{
+    display: flex;
+    flex-direction: column;
+    padding: var(--div-padding-full);
   }
   .section1__div1 .larger__div img{
     height: 80%;
@@ -609,7 +614,7 @@ a, p, li{
 }
 .section1__div1 a div p{
     padding: var(--div-padding-full);
-    color: black;
+    color: rgba(0, 0, 0, 0.648);
 }
 .section1__div2 a img{
     height: 35vh;
@@ -638,7 +643,7 @@ a, p, li{
 }
 .section1__div2 a div p{
     padding: var(--div-padding-full);
-    color: black;
+    color: rgba(0, 0, 0, 0.648);
 }
 .section2 div .headers{
     font-size: 2.1rem;

@@ -178,54 +178,27 @@ if (isset($_POST['accept_cookies'])) {
         </div>
         <section class="section1">
         <?php 
-            require ('connect.php');
-            $query = mysqli_query($conn, "SELECT * FROM paid_posts LIMIT 4");
-            $i = 1;
-            while($row = mysqli_fetch_array($query)){
-                $i++;
-                $niche = $row['niche'];
-                $title = $row['title'];
-                $image = $row['image'];
-                $date = $row['Date'];
-                $id = $row['id'];
-            };
+            $selectpaidposts = "SELECT id, title, niche, image, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY date DESC";
+            $paidpostselection_result = $conn->query($selectpaidposts); 
+            if ($paidpostselection_result->num_rows > 0) {
+                $counter = 0;
+                while($row = $paidpostselection_result->fetch_assoc()) {
+                    $counter++;
+                    $class = $counter == 1 ? "section1__div1 larger__div" : "section1__div2 smallerdivs";
+                    $class2 = $counter == 1 ? "larger__div__subdiv" : "smaller__div__subdiv";
+                    echo "<div class='$class'>
+                            <a href='pages/view_post.php?id=". $row['id'] ."'>
+                                <img src='images/".$row['image']."' alt='article image'/>
+                                <div class='$class2'>
+                                    <h1>". $row['niche'] ."</h1>
+                                    <h2>". $row['title'] ."</h2>
+                                    <p>" . $row["formatted_date"] . "</p>
+                                </div>
+                            </a>
+                        </div>";
+                }
+            }
         ?>
-        <div class="section1__div1 larger__div">
-            <a href="pages/view_post.php?view=<?php echo $title;?>">
-                <img src="images/<?php echo $image;?>" alt="article image">
-                <div class="larger__div__subdiv">
-                    <h1><?php echo $niche;?></h1>
-                    <h2><?php echo $title;?></h2>
-                    <p><?php echo $date;?></p>
-                </div>
-            </a>
-        </div>
-        <div class="section1__div2 smallerdivs">
-            <a class="section1__articlearticle2 smaller__div" href="pages/view_post.php">
-                <img src="images/<?php echo $image;?>" alt="article image">
-                <div class="smaller__div__subdiv">
-                    <h1><?php echo $niche;?></h1>
-                    <h2><?php echo $title;?></h2>
-                    <p><?php echo $date;?></p>
-                </div>
-            </a>
-            <a class="section1__article__div3 smaller__div border-gradient-top" href="pages/view_post.php">
-                <img src="images/<?php echo $image;?>" alt="article image">
-                <div class="smaller__div__subdiv">
-                    <h1><?php echo $niche;?></h1>
-                    <h2><?php echo $title;?></h2>
-                    <p><?php echo $date;?></p>
-                </div>
-            </a>
-            <a class="section1__articlearticle3 smaller__div border-gradient-top" href="pages/view_post.php">
-                <img src="images/<?php echo $image;?>" alt="article image">
-                <div class="smaller__div__subdiv">
-                    <h1><?php echo $niche;?></h1>
-                    <h2><?php echo $title;?></h2>
-                    <p><?php echo $date;?></p>
-                </div>
-            </a>
-        </div>
         </section>
         <section class="section2">
             <div class="section2__div1">

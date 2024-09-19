@@ -242,61 +242,30 @@ require ("connect.php");
                         <a class="btn" href="view_all/posts.php">View All</a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
-                        <table>
-                            <tr>
-                                <th>Title</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                            <tr class="border-gradient-side-dark">
-                                <td>Futterkiste</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                   <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                   <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                        </table>
+                        <?php
+                            $selectposts = "SELECT title, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY date DESC LIMIT 8";
+                            $selectposts_result = $conn->query($selectposts);
+                            if ($selectposts_result->num_rows > 0) {
+                                $sn = 0;
+                                echo "<table>
+                                        <tr>
+                                            <th>S/n</th>
+                                            <th>Title</th>
+                                            <th>Date</th>
+                                            <th>Actions</th>
+                                        </tr>";
+                                while($row = $selectposts_result->fetch_assoc()) {
+                                    $sn++; 
+                                    echo "<tr class='border-gradient-side-dark'>
+                                            <td>" . $sn . "</td>
+                                            <td>" . $row["title"] . "</td>
+                                            <td>" . $row["formatted_date"] . "</td>
+                                            <td><a class='edit' href='edit/post.php?edit=' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                        </tr>";                           
+                        
+                                }; echo "</table>";
+                            };
+                        ?>
                     </div>
                 </div>
                 <div class="addtionalinfo">
@@ -375,43 +344,26 @@ require ("connect.php");
                         <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark visits">
-                        <table>
-                            <tr>
-                              <th>S/n</th>
-                              <th>Country Name</th>
-                              <th>Total Visits</th>
-                            </tr>
-                            <tr class="border-gradient-side-dark">
-                              <td>1</td>
-                              <td>Australia <img src="flags/country_flags/aia.svg.ico"/></td>
-                              <td>3000</td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>USA <img src="flags/country_flags13/usa.svg.ico"/></td>
-                              <td>2500</td>
-                            </tr>
-                            <tr>
-                              <td>3</td>
-                              <td>Canada <img src="flags/country_flags3/can.svg.ico"/></td>
-                              <td>2000</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>UK <img src="flags/country_flags5/gbr.svg.ico"/></td>
-                                <td>1000</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Spain <img src="flags/country_flags4/esp.svg.ico"/></td>
-                                <td>600</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Honduras <img src="flags/country_flags6/hnd.svg.ico"/></td>
-                                <td>300</td>
-                            </tr>
-                          </table>
+                        <?php
+                            $countrycount = "SELECT country, COUNT(*) as visit_count FROM web_visitors GROUP BY country ORDER BY visit_count DESC LIMIT 6";
+                            $result = $conn->query($countrycount);
+                            if ($result->num_rows > 0) {
+                                $i = 0;
+                                echo "<table>
+                                        <tr>
+                                            <th>S/n</th>
+                                            <th>Country Name</th>
+                                            <th>Total Visits</th>
+                                        </tr>";
+                                while($row = $result->fetch_assoc()) {    
+                                    $i ++;
+                                    echo "<tr class='border-gradient-side-dark'>
+                                            <td>" . $i . "</td>
+                                            <td>" . $row["country"] . "</td>
+                                            <td>" . $row["visit_count"] . "</td>
+                                        </tr>";    
+                        ?>
+                        <?php }  echo "</table>";};?>
                     </div>
                 </div>
                 <div class="addtionalinfo">
@@ -421,37 +373,6 @@ require ("connect.php");
                     <div class="addtionalinfo_body border-gradient-side-dark stats">
                         <div class="visits_subdiv visitsubdivs border-gradient-side2-dark">
                             <div id="pie_container" style="width:90%; height:80%"></div>
-                            <!--<h1 class="visits_subdiv_header padding_b">Visitors Devices Statistics</h1>
-                            <div class="wrapper">
-                                <div class="pie-wrap">
-                                    <div class="orange entry">
-                                    </div>
-                                    <div class="yellowgreen entry">
-                                    </div>
-                                    <div class="wheat entry">
-                                    </div>
-                                </div>
-                                <div class="key-wrap">
-                                    <div>
-                                        <span class="first"></span>
-                                        <p class="key-wrap_p">
-                                            Dextop
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <span class="second"></span>
-                                        <p class="key-wrap_p">
-                                            Tablet
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <span class="third"></span>
-                                        <p class="key-wrap_p">
-                                            Mobile
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>-->
                         </div>   
                         <div class="visits_subdiv2 visitsubdivs">
                             <h1 class="visits_subdiv2_header padding_b">Page Views</h1>
@@ -465,29 +386,6 @@ require ("connect.php");
                         </div>
                         <div class="visits_subdiv3 visitsubdivs border-gradient-side-dark">
                             <div id="pie_chartcontainer2" style="width: 100%; height: 100%"></div>
-                            <!--<h1 class="visits_subdiv_header padding_b">Users Statistics</h1>
-                            <div class="wrapper">
-                                <div class="pie-wrap2">
-                                    <div class="darkblue entry">
-                                    </div>
-                                    <div class="yellow entry">
-                                    </div>
-                                </div>
-                                <div class="key-wrap2">
-                                    <div>
-                                        <span class="first"></span>
-                                        <p class="key-wrap_p">
-                                            Returning Visitors
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <span class="second"></span>
-                                        <p class="key-wrap_p">
-                                            New Visitors
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -758,13 +656,6 @@ require ("connect.php");
                 </div>
             </div>
             <div class="posts tabcontent hidden">
-                <div class="posts_delete_edit2 hidden">
-                    <h1>Delete Selected Post?</h1>
-                    <div class="posts_delete_edit2_subdiv">
-                        <a class="delete_post btn">Yes</a>
-                        <a class="no_action btn">No</a>
-                    </div>
-                </div>
                 <div class="posts_div1 postsdiv">
                     <div class="posts_header">
                         <h1> Recently Published Posts</h1>
@@ -789,9 +680,6 @@ require ("connect.php");
                                     <p class="posts_divcontainer_p">
                                         <span> Written By:</span> Aniagolu
                                     </p>
-                                    <p class="posts_divcontainer_p">
-                                        <span> Edited By:</span> Chiemelie
-                                    </p>
                             </div>
                             <div class="posts_divcontainer_subdiv3">
                                 <p class="posts_divcontainer_subdiv_p">
@@ -800,17 +688,6 @@ require ("connect.php");
                                 <p class="posts_divcontainer_subdiv_p">
                                     <span> Publish Time:</span> 10:00 pm.
                                 </p> 
-                            </div>
-                            <div class="posts_divcontainer_subdiv4">
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-thumbs-up" aria-hidden="true"></span> 10k.
-                                </a> 
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-thumbs-down" aria-hidden="true"></span> 10.
-                                </a> 
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-comment" aria-hidden="true"></span> 200
-                                </a> 
                             </div>
                         </div>
                         <div class="posts_divcontainer_subdiv border-gradient-side-dark">
@@ -831,9 +708,6 @@ require ("connect.php");
                                     <p class="posts_divcontainer_p">
                                         <span> Written By:</span> Aniagolu
                                     </p>
-                                    <p class="posts_divcontainer_p">
-                                        <span> Edited By:</span> Chiemelie
-                                    </p>
                             </div>
                             <div class="posts_divcontainer_subdiv3">
                                 <p class="posts_divcontainer_subdiv_p">
@@ -842,17 +716,6 @@ require ("connect.php");
                                 <p class="posts_divcontainer_subdiv_p">
                                     <span> Publish Time:</span> 10:00 pm.
                                 </p> 
-                            </div>
-                            <div class="posts_divcontainer_subdiv4">
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-thumbs-up" aria-hidden="true"></span> 10k.
-                                </a> 
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-thumbs-down" aria-hidden="true"></span> 10.
-                                </a> 
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-comment" aria-hidden="true"></span> 200
-                                </a> 
                             </div>
                         </div>
                         <div class="posts_divcontainer_subdiv border-gradient-side-dark">
@@ -873,9 +736,6 @@ require ("connect.php");
                                     <p class="posts_divcontainer_p">
                                         <span> Written By:</span> Aniagolu
                                     </p>
-                                    <p class="posts_divcontainer_p">
-                                        <span> Edited By:</span> Chiemelie
-                                    </p>
                             </div>
                             <div class="posts_divcontainer_subdiv3">
                                 <p class="posts_divcontainer_subdiv_p">
@@ -884,17 +744,6 @@ require ("connect.php");
                                 <p class="posts_divcontainer_subdiv_p">
                                     <span> Publish Time:</span> 10:00 pm.
                                 </p> 
-                            </div>
-                            <div class="posts_divcontainer_subdiv4">
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-thumbs-up" aria-hidden="true"></span> 10k.
-                                </a> 
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-thumbs-down" aria-hidden="true"></span> 10.
-                                </a> 
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-comment" aria-hidden="true"></span> 200
-                                </a> 
                             </div>
                         </div>
                         <div class="posts_divcontainer_subdiv border-gradient-side-dark">
@@ -915,9 +764,6 @@ require ("connect.php");
                                     <p class="posts_divcontainer_p">
                                         <span> Written By:</span> Aniagolu
                                     </p>
-                                    <p class="posts_divcontainer_p">
-                                        <span> Edited By:</span> Chiemelie
-                                    </p>
                             </div>
                             <div class="posts_divcontainer_subdiv3">
                                 <p class="posts_divcontainer_subdiv_p">
@@ -926,17 +772,6 @@ require ("connect.php");
                                 <p class="posts_divcontainer_subdiv_p">
                                     <span> Publish Time:</span> 10:00 pm.
                                 </p> 
-                            </div>
-                            <div class="posts_divcontainer_subdiv4">
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-thumbs-up" aria-hidden="true"></span> 10k.
-                                </a> 
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-thumbs-down" aria-hidden="true"></span> 10.
-                                </a> 
-                                <a class="posts_divcontainer_subdiv_a" href="#" target="_blank">
-                                    <span class="fa fa-comment" aria-hidden="true"></span> 200
-                                </a> 
                             </div>
                         </div>
                     </div>
@@ -1162,9 +997,6 @@ require ("connect.php");
                     $row_mobile = $result_mobile->fetch_assoc();
                     $row_desktop = $result_desktop->fetch_assoc();
                     $row_tablet = $result_tablet->fetch_assoc();
-                    echo "Total mobile devices: " . $row_mobile["count_mobile"] . "<br>";
-                    echo "Total desktop devices: " . $row_desktop["count_desktop"] . "<br>";
-                    echo "Total tablet devices: " . $row_tablet["count_tablet"] . "<br>";
             ?>
             anychart.onDocumentReady(function(){
                 var data = [

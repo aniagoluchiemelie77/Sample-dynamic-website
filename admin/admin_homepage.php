@@ -211,6 +211,13 @@ require ("connect.php");
                         <p class="website_info_p2">Subscribers</p>
                     </a>
                     <?php };?>
+                    <a class="website_info" href="pages/newslettersignups.php">
+                        <div class="website_info_subdiv">
+                            <i class="fa fa-check-square" aria-hidden="true"></i>
+                            <p class="website_info_p1">12</p>
+                        </div>
+                        <p class="website_info_p2">Signups</p>
+                    </a>
                     <a class="website_info" href="create_new/posts.php" target="_blank">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>

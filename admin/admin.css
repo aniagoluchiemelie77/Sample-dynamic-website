@@ -917,11 +917,52 @@ a, td,span, p, label{
  .posts_delete_edit2_subdiv a:nth-child(2){
     margin-left: 1rem;
  }
+ .width80{
+    width: 80%;
+    margin: 1rem 0;
+ }
+ .middle_centering{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+ }
  .posts .postsdiv{
     padding: 1rem 1.5rem;
     background-color: #FAFAFA;
     margin: 1rem 0;
     width: 80%;
+ }
+ .posts .postsdiv2{
+    padding: 1rem 1.5rem;
+    background-color: #FAFAFA;
+    margin: 1rem 0;
+    width: 100%;
+ }
+ .postsdiv2 .posts_header h1{
+    font-size: 2.5rem;
+    font-weight: 750;
+ }
+ .postsdiv2 .posts_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .8rem 0;
+ }
+ .postsdiv2 .subscribers_subdiv{
+    display: flex;
+    padding: 1rem;
+    width: 100%;
+    flex-wrap: nowrap;
+    align-items: center;
+ }
+ .postsdiv2 .subscribers_subdiv i{
+    font-size: 3.5rem;
+    margin-right: 1.5rem;
+ }
+ .postsdiv2 .subscribers_subdiv div p span{
+    font-weight: 800;
  }
  .postsdiv .posts_header h1{
     font-size: 2.5rem;
@@ -938,6 +979,11 @@ a, td,span, p, label{
  }
  .posts_divcontainer .posts_divcontainer_subdiv{
     padding: .5rem 1rem;
+ }
+ .posts_divcontainer .posts_divcontainer_subdiv2{
+    padding: .5rem 1rem;
+    display: flex;
+    flex-direction: column;
  }
  .posts_divcontainer .posts_divcontainer_subdiv:nth-child(even){
     background-color: #eee;
@@ -958,6 +1004,14 @@ a, td,span, p, label{
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body a{
     cursor: pointer;
     color: black;
+ }
+ .posts_divcontainer_subdiv_body2 a{
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.578);
+ }
+ .posts_divcontainer_subdiv_body2 a:hover{
+    color: #F94A04;
+    cursor: pointer;
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body a:hover i{
     color: #F94A04;

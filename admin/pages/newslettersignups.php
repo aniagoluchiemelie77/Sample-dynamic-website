@@ -17,7 +17,7 @@ include("../connect.php");
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css"/>
-	<title>Email Subscribers</title>
+	<title>Newsletter Signups</title>
 </head>
 <body>
     <?php require("../extras/header.php");?>
@@ -25,15 +25,15 @@ include("../connect.php");
         <div class="posts width80">
             <div class="posts_div2 postsdiv2">
                 <div class="posts_header">
-                    <h1>Email Subscribers</h1>
+                    <h1>Newsletter Signups</h1>
                 </div>
                 <div class="posts_divcontainer border-gradient-side-dark">
                     <?php
-                        $selectsubscribers = "SELECT id, email, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM subscribers ORDER BY id DESC LIMIT 100";
-                        $selectsubscribers_result = $conn->query($selectsubscribers);
-                        if ($selectsubscribers_result->num_rows > 0) {
+                        $select_newslettersubscribers = "SELECT id, firstname, lastname, company_name, job_title, email, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM newsletter_subscribers ORDER BY id DESC LIMIT 100";
+                        $select_newslettersubscribers_result = $conn->query($select_newslettersubscribers);
+                        if ($select_newslettersubscribers_result->num_rows > 0) {
                             $sn = 0;
-                            while($row = $selectsubscribers_result->fetch_assoc()) {
+                            while($row = $select_newslettersubscribers_result->fetch_assoc()) {
                                 $time = $row['time'];
                                 $formatted_time = date("g:i A", strtotime($time));
                                 $sn++; 
@@ -42,7 +42,11 @@ include("../connect.php");
                                                 <div class='subscribers_subdiv'>
                                                     <i class='fa fa-user-circle' aria-hidden='true'></i>
                                                     <div class='posts_delete_edit'>
+                                                        <p><span>Firstname: </span> ".$row['firstname']."</p>
+                                                        <p><span>Lastname: </span> ".$row['lastname']."</p>
                                                         <p><span>Email: </span> ".$row['email']."</p>
+                                                        <p><span>Company Name: </span> ".$row['company_name']."</p>
+                                                        <p><span>Job Title: </span> ".$row['job_title']."</p>
                                                         <p><span>Date: </span> ".$row['formatted_date']."</p>
                                                         <p><span>Time: </span> ".$formatted_time."</p>
                                                     </div>

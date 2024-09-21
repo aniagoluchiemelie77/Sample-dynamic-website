@@ -67,14 +67,27 @@ include("../connect.php");
                 </textarea>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
-                <label class="form__label" for="Post_Sub_Title">Author's name:</label>
+                <label class="form__label" for="author_firstname">Author's Firstname:</label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="Post_Sub_Title" type="text"/>
-                    <p class="newpost_subdiv2-p leftp"><span>*</span> Author's First and Last Name (OPTIONAL)</p>
+                    <input class="form__input" name="author_firstname" type="text"/>
+                    <p class="newpost_subdiv2-p leftp"><span>*</span> Author's First Name (OPTIONAL)</p>
                 </div>
             </div>
+            <div class="newpost_container_div3 newpost_subdiv">
+                <label class="form__label" for="author_lastname">Author's Lastname:</label>
+                <div class="newpost_container_div3_subdiv2">
+                    <input class="form__input" name="author_lastname" type="text"/>
+                    <p class="newpost_subdiv2-p leftp"><span>*</span> Author's Last Name (OPTIONAL)</p>
+                </div>
+            </div>
+            <div class="newpost_container_div7 newpost_subdiv">
+                <label class="form__label" for="about_author">About Author:</label>
+                <textarea class="newpost_container_div7_subdiv2b" name="about_author">
+                </textarea>
+                <p class="newpost_subdiv2-p leftp"><span>*</span> About Author (OPTIONAL)</p>
+            </div>
             <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="Publish" name="create_post" onclick="submitPost()"/>
+                <input class="form__submit_input" type="submit" value="Publish" name="create_post"/>
             </div>
             <div class="newpost_container_div10 newpost_subdiv">
                 <p class="form__submit_or centerp bold">----------- Or -----------</p>
@@ -86,7 +99,9 @@ include("../connect.php");
         </form>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="../admin.js"></script>
     <script type="text/javascript">
         tinymce.init({
@@ -108,36 +123,25 @@ include("../connect.php");
         });
     </script>
     <script>
-        function submitPost() {
-            const form = document.getElementById('postForm');
-            const formData = new FormData(form);
-
-            fetch('../forms.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.json())
-            .then(data => {
-                if (data.success == "true") {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: data.message
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data.message
-                    });
-                }
-            }) .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'An error occurred while submitting the post.'
-                });
-            });
+        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
+        var messageText = "<?= $_SESSION['status']?? ' '?>";
+        if (messageType == 'Error' && messageText != " "){
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })  
+        }else if (messageType == 'Success' && messageText != " "){
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })  
         }
+        <?php unset($_SESSION['status_type']);?>
+        <?php unset($_SESSION['status']);?>
     </script>
 </body>
 </html>

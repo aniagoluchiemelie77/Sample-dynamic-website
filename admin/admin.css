@@ -1519,7 +1519,16 @@ a, td,span, p, label{
     height: 90vh;
     padding: .8rem;
 }
+.newpost_container_div7 .newpost_container_div7_subdiv2b{
+    min-width: 100%;
+    height: 30vh;
+    padding: .8rem;
+}
 .newpost_container_div7 .newpost_container_div7_subdiv2:focus{
+    outline: 1px solid #F94A04;
+    border: none;
+}
+.newpost_container_div7 .newpost_container_div7_subdiv2b:focus{
     outline: 1px solid #F94A04;
     border: none;
 }

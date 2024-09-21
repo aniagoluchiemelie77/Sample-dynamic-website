@@ -9,6 +9,9 @@ if (isset($_POST['create_post'])) {
     $category = $_POST['Post_Status'];
     $content = $_POST['Post_content'];
     $schedule = $_POST['schedule'];
+    $author_lastname = $_POST['author_lastname'];
+    $author_firstname = $_POST['author_firstname'];
+    $author_bio = $_POST['about_author'];
     $date = date('y-m-d');
     $time = date('H:i:s');
     $image = $_FILES['Post_Image']['name'];
@@ -17,52 +20,71 @@ if (isset($_POST['create_post'])) {
         $imagePath = $target;
         $response = array();
         if($category === "paid_post"){
-            if (!empty($schedule)) {
-                $sql = "INSERT INTO paid_posts (title, niche, content, subtitle, link, image, Date, time, schedule) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$schedule')";
-                if ($conn->query($sql) === TRUE) {
-                    $response['success'] = true;
-                    $response['message'] = "Post added successfully!";
-                } else {
-                    $response['success'] = false;
-                    $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
-                }
+            $max_rows = 4;
+            $row_count = "SELECT COUNT(*) as total FROM paid_posts";
+            $rowcount_result = $conn->query($row_count);
+            $row = $rowcount_result->fetch_assoc();
+            $total_rows = $row['total'];
+            if ($total_rows >= $max_rows) {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error!, Cannot add more posts. The maximum limit of $max_rows posts has been reached.";
+                header('location: {$_SERVER["HTTP_REFERER"]}');
             }else{
-                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, Date, time) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time')";
-                if ($conn->query($sql) === TRUE) {
-                    $response['success'] = true;
-                    $response['message'] = "Post added successfully!";
-                } else {
-                    $response['success'] = false;
-                    $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+                if (!empty($schedule)) {
+                    $sql = "INSERT INTO paid_posts (title, niche, content, subtitle, link, image, schedule, authors_firstname, about_author, authors_lastname) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath','$schedule', '$author_firstname', '$author_bio', '$author_lastname')";
+                    if ($conn->query($sql) === TRUE) {
+                        $_SESSION['status_type'] = "Success";
+                        $_SESSION['status'] = "Post Published Successfully!";
+                        header('location: {$_SERVER["HTTP_REFERER"]}');
+                    } else {
+                        $_SESSION['status_type'] = "Error";
+                        $_SESSION['status'] = "Error!, Please Retry";
+                        header('location: {$_SERVER["HTTP_REFERER"]}');
+                    }
+                }else{
+                    $sql = "INSERT INTO paid_posts (title, niche, content, subtitle, link, image, Date, time, authors_firstname, about_author, authors_lastname) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$author_firstname', '$author_bio', '$author_lastname')";
+                    if ($conn->query($sql) == TRUE) {
+                        $_SESSION['status_type'] = "Success";
+                        $_SESSION['status'] = "Post Published Successfully!";
+                        header('location: {$_SERVER["HTTP_REFERER"]}');
+                    } else {
+                        $_SESSION['status_type'] = "Error";
+                        $_SESSION['status'] = "Error!, Please Retry";
+                        header('location: {$_SERVER["HTTP_REFERER"]}');
+                    }
                 }
             }
         }elseif ($category === "none"){
             if (!empty($schedule)) {
-                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, Date, time, schedule) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$schedule')";
+                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, schedule, authors_firstname, about_author, authors_lastname) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$schedule', '$author_firstname', '$author_bio', '$author_lastname')";
                 if ($conn->query($sql) === TRUE) {
-                    $response['success'] = true;
-                    $response['message'] = "Post added successfully!";
+                    $_SESSION['status_type'] = "Success";
+                    $_SESSION['status'] = "Post Published Successfully!";
+                    header('location: {$_SERVER["HTTP_REFERER"]}');
                 } else {
-                    $response['success'] = false;
-                    $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+                    $_SESSION['status_type'] = "Error";
+                    $_SESSION['status'] = "Error!, Please Retry";
+                    header('location: {$_SERVER["HTTP_REFERER"]}');
                 }
             }else{
-                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, Date, time) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time')";
+                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, Date, time, authors_firstname, about_author, authors_lastname) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$author_firstname', '$author_bio', '$author_lastname')";
                 if ($conn->query($sql) === TRUE) {
-                    $response['success'] = true;
-                    $response['message'] = "Post added successfully!";
+                    $_SESSION['status_type'] = "Success";
+                    $_SESSION['status'] = "Post Published Successfully!";
+                    header('location: {$_SERVER["HTTP_REFERER"]}');
                 } else {
-                    $response['success'] = false;
-                    $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+                    $_SESSION['status_type'] = "Error";
+                    $_SESSION['status'] = "Error!, Please Retry";
+                    header('location: {$_SERVER["HTTP_REFERER"]}');
                 }
             }
         }else {
-        $response['success'] = false;
-        $response['message'] = "Failed to upload image.";
-        exit();
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error!, Failed to upload image.";
+            header('location: {$_SERVER["HTTP_REFERER"]}');
+            exit();
         }
         $conn->close();
-        echo json_encode($response);
     }
 }
 require ("connect.php");

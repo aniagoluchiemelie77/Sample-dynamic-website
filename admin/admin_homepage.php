@@ -274,68 +274,32 @@ require ("connect.php");
                         <a class="btn" href="view_all/unpublished_articles.php">View All</a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
-                        <table>
-                            <tr>
-                                <th>Draft Name</th>
-                                <th>Author</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                            <tr class="border-gradient-side-dark">
-                                <td>Futterkiste</td>
-                                <td>Maria Anders</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php?edit=<?php echo $id;?>" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>Francisco Chang</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>Francisco Chang</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>Francisco Chang</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>Francisco Chang</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Futterkiste</td>
-                                <td>Francisco Chang</td>
-                                <td>July 10th 2024</td>
-                                <td>
-                                    <a class="edit" href="edit/post.php" target="_blank">Edit</a> /
-                                    <a class="delete" href="#">Delete</a>
-                                </td>
-                            </tr>
-                        </table>
+                        <?php
+                            $selectdrafts = "SELECT title, authors_lastname, authors_firstname, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM unpublished_articles ORDER BY date DESC LIMIT 8";
+                            $selectdrafts_result = $conn->query($selectdrafts);
+                            if ($selectdrafts_result->num_rows > 0) {
+                                $sn = 0;
+                                echo "<table>
+                                        <tr>
+                                            <th>S/n</th>
+                                            <th>Title</th>
+                                            <th>Author</th>
+                                            <th>Date</th>
+                                            <th>Actions</th>
+                                        </tr>";
+                                while($row = $selectdrafts_result->fetch_assoc()) {
+                                    $sn++; 
+                                    echo "<tr class='border-gradient-side-dark'>
+                                            <td>" . $sn . "</td>
+                                            <td>" . $row["title"] . "</td>
+                                            <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
+                                            <td>" . $row["formatted_date"] . "</td>
+                                            <td><a class='edit' href='edit/post.php?edit=' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                        </tr>";                           
+                        
+                                }; echo "</table>";
+                            };
+                        ?>
                     </div>
                 </div>
                 <div class="addtionalinfo">
@@ -539,53 +503,30 @@ require ("connect.php");
                         <a class="btn" href="view_all/editors.php">View All</a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
-                        <div class="users_div_subdiv_subdiv divimages">
-                            <div class="divimages_side--back">
-                                <p class="users_div_subdiv_p">
-                                    <span>Username:</span>
-                                    <?php
-                                        if(isset($_SESSION['email'])){
-                                            $email = $_SESSION['email'];
-                                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                            while($row = mysqli_fetch_array($query)){
-                                                echo $row['username'];
-                                            }
-                                        }
-                                    ?>
-                                </p>
-                                <p class="users_div_subdiv_p">
-                                    <span>Firstname:</span>
-                                    <?php echo $_SESSION['firstname'];
-                                    ?>
-                                </p> 
-                                <p class="users_div_subdiv_p">
-                                    <span>Role:</span>
-                                    Editor
-                                </p>
-                                <p class="users_div_subdiv_p">
-                                    <span>Email:</span>
-                                    <?php
-                                        if(isset($_SESSION['email'])){
-                                            $email = $_SESSION['email'];
-                                            $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                            while($row = mysqli_fetch_array($query)){
-                                                echo $row['email'];
-                                            }
-                                        }
-                                    ?>
-                                </p>
-                                <center>
-                                    <div class="users_delete_edit">
-                                        <a class="users_edit">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </a>
-                                        <a class="users_delete">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </center>
-                            </div>
-                        </div>
+                        <?php
+                            $selecteditors = "SELECT username, firstname, email, id, image FROM editor ORDER BY id DESC LIMIT 3";
+                            $selecteditors_result = $conn->query($selecteditors);
+                            if ($selecteditors_result->num_rows > 0) {
+                                $sn = 0;
+                                while($row = $selecteditors_result->fetch_assoc()) {
+                                    $sn++; 
+                                    echo "<div class='users_div_subdiv_subdiv divimages'>
+                                            <div class='divimages_side--back'>
+                                                <p class='users_div_subdiv_p'><span>Username: </span>".$row['username']."</p>
+                                                <p class='users_div_subdiv_p'><span>Firstname: </span>".$row['firstname']."</p> 
+                                                <p class='users_div_subdiv_p'><span>Role: </span>Editor</p>
+                                                <p class='users_div_subdiv_p'><span>Email: </span>".$row['email']."</p>
+                                                <center>
+                                                    <div class='users_delete_edit'>
+                                                        <a class='users_edit'><i class='fa fa-eye' aria-hidden='true'></i></a>
+                                                        <a class='users_delete'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                                                    </div>
+                                                </center>
+                                            </div>
+                                    </div>";                         
+                                };
+                            };
+                        ?>
                         <div class="users_div_subdiv_subdiv">
                             <a class="users_create" id="create_user-origin">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
@@ -600,52 +541,31 @@ require ("connect.php");
                         <a class="btn" href="view_all/writers.php">View All</a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
-                        <div class="users_div_subdiv_subdiv divimages">
-                            <div class="divimages_side--back">
-                            <p class="users_div_subdiv_p">
-                                <span>Username:</span>
-                                <?php
-                               if(isset($_SESSION['email'])){
-                                  $email = $_SESSION['email'];
-                                  $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                  while($row = mysqli_fetch_array($query)){
-                                    echo $row['username'];
-                                   }
-                                }
-                                ?>
-                            </p>
-                            <p class="users_div_subdiv_p">
-                                <span>Firstname:</span>
-                                <?php echo $_SESSION['firstname'];?>
-                            </p> 
-                            <p class="users_div_subdiv_p">
-                                <span>Role:</span>
-                                Writer
-                            </p>
-                            <p class="users_div_subdiv_p">
-                                <span>Email:</span>
-                                <?php
-                                    if(isset($_SESSION['email'])){
-                                        $email = $_SESSION['email'];
-                                        $query = mysqli_query($conn, "SELECT admin_login_info.* FROM `admin_login_info` WHERE admin_login_info.email = '$email'");
-                                        while($row = mysqli_fetch_array($query)){
-                                            echo $row['email'];
-                                        }
-                                    }
-                                ?>
-                            </p>
-                            <center>
-                                <div class="users_delete_edit">
-                                    <a class="users_edit">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="users_delete">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </center>
-                            </div>
-                        </div>
+                        <?php
+                            $selectwriters = "SELECT firstname, lastname, email, id, image FROM writer ORDER BY id DESC LIMIT 3";
+                            $selectwriters_result = $conn->query($selectwriters);
+                            if ($selectwriters_result->num_rows > 0) {
+                                $sn = 0;
+                                while($row = $selectwriters_result->fetch_assoc()) {
+                                    $sn++; 
+                                    echo "<div class='users_div_subdiv_subdiv divimages'>
+                                            <div class='divimages_side--back'>
+                                                <p class='users_div_subdiv_p'><span>Firstname: </span>".$row['firstname']."</p>
+                                                <p class='users_div_subdiv_p'><span>Lastname: </span>".$row['lastname']."</p> 
+                                                <p class='users_div_subdiv_p'><span>Role: </span>Writer</p>
+                                                <p class='users_div_subdiv_p'><span>Email: </span>".$row['email']."</p>
+                                                <p class='users_div_subdiv_p'><span>Contributions: </span>Plenty</p>
+                                                <center>
+                                                    <div class='users_delete_edit'>
+                                                        <a class='users_edit'><i class='fa fa-eye' aria-hidden='true'></i></a>
+                                                        <a class='users_delete'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                                                    </div>
+                                                </center>
+                                            </div>
+                                    </div>";                         
+                                };
+                            };
+                        ?>
                         <div class="users_div_subdiv_subdiv">
                             <a class="users_create" id="create_writer_origin">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
@@ -656,124 +576,90 @@ require ("connect.php");
                 </div>
             </div>
             <div class="posts tabcontent hidden">
+                <div class="posts_div2 postsdiv">
+                    <div class="posts_header">
+                        <h1> Paid Posts</h1>
+                    </div>
+                    <div class="posts_divcontainer border-gradient-side-dark">
+                        <?php
+                            $selectposts3 = "SELECT id, title, image, time, schedule, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY id DESC";
+                            $selectposts3_result = $conn->query($selectposts3);
+                            if ($selectposts3_result->num_rows > 0) {
+                                $sn = 0;
+                                while($row = $selectposts3_result->fetch_assoc()) {
+                                    $time = $row['time'];
+                                    $formatted_time = date("g:i A", strtotime($time));
+                                    $sn++; 
+                                    echo "<div class='posts_divcontainer_subdiv'>
+                                            <div class='posts_divcontainer_subdiv_body'>
+                                                <h3 class='posts_divcontainer_header'>".$row['title']."</h3>
+                                                <div class='posts_delete_edit'>
+                                                    <a class='users_edit' href='edit/post.php' target='_blank'>
+                                                        <i class='fa fa-pencil' aria-hidden='true'></i>
+                                                    </a>
+                                                    <a class='users_delete'>
+                                                        <i class='fa fa-trash' aria-hidden='true'></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class='posts_divcontainer_subdiv3'>
+                                                <p class='posts_divcontainer_subdiv_p'>
+                                                    <span> Publish Date: </span>".$row['formatted_date']."
+                                                </p> 
+                                                <p class='posts_divcontainer_subdiv_p'>
+                                                    <span> Publish Time:</span> ".$formatted_time."
+                                                </p> 
+                                            </div>
+                                    </div>";                           
+                                };
+                            };
+                        ?>
+                    </div>
+                </div>
                 <div class="posts_div1 postsdiv">
                     <div class="posts_header">
                         <h1> Recently Published Posts</h1>
                         <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
-                        <div class="posts_divcontainer_subdiv">
-                            <div class="posts_divcontainer_subdiv_body">
-                                <h3 class="posts_divcontainer_header">
-                                    Post Title
-                                </h3>
-                                <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="users_delete">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="posts_divcontainer_subdiv2">
-                                    <p class="posts_divcontainer_p">
-                                        <span> Written By:</span> Aniagolu
-                                    </p>
-                            </div>
-                            <div class="posts_divcontainer_subdiv3">
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Publish Date:</span> 10th July 2024.
-                                </p> 
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Publish Time:</span> 10:00 pm.
-                                </p> 
-                            </div>
-                        </div>
-                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="posts_divcontainer_subdiv_body">
-                                <h3 class="posts_divcontainer_header">
-                                    Post Title
-                                </h3>
-                                <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="users_delete">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="posts_divcontainer_subdiv2">
-                                    <p class="posts_divcontainer_p">
-                                        <span> Written By:</span> Aniagolu
-                                    </p>
-                            </div>
-                            <div class="posts_divcontainer_subdiv3">
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Publish Date:</span> 10th July 2024.
-                                </p> 
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Publish Time:</span> 10:00 pm.
-                                </p> 
-                            </div>
-                        </div>
-                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="posts_divcontainer_subdiv_body">
-                                <h3 class="posts_divcontainer_header">
-                                    Post Title
-                                </h3>
-                                <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="users_delete">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="posts_divcontainer_subdiv2">
-                                    <p class="posts_divcontainer_p">
-                                        <span> Written By:</span> Aniagolu
-                                    </p>
-                            </div>
-                            <div class="posts_divcontainer_subdiv3">
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Publish Date:</span> 10th July 2024.
-                                </p> 
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Publish Time:</span> 10:00 pm.
-                                </p> 
-                            </div>
-                        </div>
-                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="posts_divcontainer_subdiv_body">
-                                <h3 class="posts_divcontainer_header">
-                                    Post Title
-                                </h3>
-                                <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="users_delete">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="posts_divcontainer_subdiv2">
-                                    <p class="posts_divcontainer_p">
-                                        <span> Written By:</span> Aniagolu
-                                    </p>
-                            </div>
-                            <div class="posts_divcontainer_subdiv3">
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Publish Date:</span> 10th July 2024.
-                                </p> 
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Publish Time:</span> 10:00 pm.
-                                </p> 
-                            </div>
-                        </div>
+                        <?php
+                            $selectposts2 = "SELECT id, title, time, schedule, 	admin_id, editor_id, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 8";
+                            $selectposts2_result = $conn->query($selectposts2);
+                            if ($selectposts2_result->num_rows > 0) {
+                                $sn = 0;
+                                while($row = $selectposts2_result->fetch_assoc()) {
+                                    $time = $row['time'];
+                                    $formatted_time = date("g:i A", strtotime($time));
+                                    $sn++; 
+                                    echo "<div class='posts_divcontainer_subdiv'>
+                                            <div class='posts_divcontainer_subdiv_body'>
+                                                <h3 class='posts_divcontainer_header'>".$row['title']."</h3>
+                                                <div class='posts_delete_edit'>
+                                                    <a class='users_edit' href='edit/post.php' target='_blank'>
+                                                        <i class='fa fa-pencil' aria-hidden='true'></i>
+                                                    </a>
+                                                    <a class='users_delete'>
+                                                        <i class='fa fa-trash' aria-hidden='true'></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class='posts_divcontainer_subdiv2'>
+                                                <p class='posts_divcontainer_p'>
+                                                    <span> Written By:</span> Aniagolu
+                                                </p>
+                                            </div>
+                                            <div class='posts_divcontainer_subdiv3'>
+                                                <p class='posts_divcontainer_subdiv_p'>
+                                                    <span> Publish Date: </span>".$row['formatted_date']."
+                                                </p> 
+                                                <p class='posts_divcontainer_subdiv_p'>
+                                                    <span> Publish Time:</span> ".$formatted_time."
+                                                </p> 
+                                            </div>
+                                    </div>";                           
+                                };
+                            };
+                        ?>
                     </div>
                 </div>
                 <div class="posts_div2 postsdiv">
@@ -782,118 +668,44 @@ require ("connect.php");
                         <a class="btn" href="view_all/unpublished_articles.php">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
-                        <div class="posts_divcontainer_subdiv">
-                            <div class="posts_divcontainer_subdiv_body">
-                                <h3 class="posts_divcontainer_header">
-                                    Post Title
-                                </h3>
-                                <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="users_delete">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="posts_divcontainer_subdiv2">
-                                    <p class="posts_divcontainer_p">
-                                        <span> Written By:</span> Aniagolu
-                                    </p>
-                            </div>
-                            <div class="posts_divcontainer_subdiv3">
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Written On:</span> 10th July 2024.
-                                </p> 
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Time:</span> 10:00 pm.
-                                </p> 
-                            </div>
-                        </div>
-                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="posts_divcontainer_subdiv_body">
-                                <h3 class="posts_divcontainer_header">
-                                    Post Title
-                                </h3>
-                                <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="users_delete">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="posts_divcontainer_subdiv2">
-                                    <p class="posts_divcontainer_p">
-                                        <span> Written By:</span> Aniagolu
-                                    </p>
-                            </div>
-                            <div class="posts_divcontainer_subdiv3">
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Written On:</span> 10th July 2024.
-                                </p> 
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Time:</span> 10:00 pm.
-                                </p> 
-                            </div>
-                        </div>
-                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="posts_divcontainer_subdiv_body">
-                                <h3 class="posts_divcontainer_header">
-                                    Post Title
-                                </h3>
-                                <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="users_delete">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="posts_divcontainer_subdiv2">
-                                    <p class="posts_divcontainer_p">
-                                        <span> Written By:</span> Aniagolu
-                                    </p>
-                            </div>
-                            <div class="posts_divcontainer_subdiv3">
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Written On:</span> 10th July 2024.
-                                </p> 
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span>Time:</span> 10:00 pm.
-                                </p> 
-                            </div>
-                        </div>
-                        <div class="posts_divcontainer_subdiv border-gradient-side-dark">
-                            <div class="posts_divcontainer_subdiv_body">
-                                    <h3 class="posts_divcontainer_header">
-                                        Post Title
-                                    </h3>
-                                <div class="posts_delete_edit">
-                                    <a class="users_edit" href="edit/post.php" target="_blank">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="users_delete">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="posts_divcontainer_subdiv2">
-                                    <p class="posts_divcontainer_p">
-                                        <span> Written By:</span> Aniagolu
-                                    </p>
-                            </div>
-                            <div class="posts_divcontainer_subdiv3">
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Written On:</span> 10th July 2024.
-                                </p> 
-                                <p class="posts_divcontainer_subdiv_p">
-                                    <span> Time:</span> 10:00 pm.
-                                </p> 
-                            </div>
-                        </div>
+                        <?php
+                            $selectdrafts2 = "SELECT id, title, time, admin_id, editor_id, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM unpublished_articles ORDER BY id DESC LIMIT 8";
+                            $selectdrafts2_result = $conn->query($selectdrafts2);
+                            if ($selectdrafts2_result->num_rows > 0) {
+                                $sn = 0;
+                                while($row = $selectdrafts2_result->fetch_assoc()) {
+                                    $time = $row['time'];
+                                    $formatted_time = date("g:i A", strtotime($time));
+                                    $sn++; 
+                                    echo "<div class='posts_divcontainer_subdiv'>
+                                            <div class='posts_divcontainer_subdiv_body'>
+                                                <h3 class='posts_divcontainer_header'>".$row['title']."</h3>
+                                                <div class='posts_delete_edit'>
+                                                    <a class='users_edit' href='edit/post.php' target='_blank'>
+                                                        <i class='fa fa-pencil' aria-hidden='true'></i>
+                                                    </a>
+                                                    <a class='users_delete'>
+                                                        <i class='fa fa-trash' aria-hidden='true'></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class='posts_divcontainer_subdiv2'>
+                                                <p class='posts_divcontainer_p'>
+                                                    <span> Written By:</span> Aniagolu
+                                                </p>
+                                            </div>
+                                            <div class='posts_divcontainer_subdiv3'>
+                                                <p class='posts_divcontainer_subdiv_p'>
+                                                    <span> Publish Date: </span>".$row['formatted_date']."
+                                                </p> 
+                                                <p class='posts_divcontainer_subdiv_p'>
+                                                    <span> Publish Time:</span> ".$formatted_time."
+                                                </p> 
+                                            </div>
+                                    </div>";                           
+                                };
+                            };
+                        ?>
                     </div>
                 </div>
             </div>
@@ -1041,9 +853,10 @@ require ("connect.php");
             });
             <?php }; $conn->close(); ?>
         </script>  
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript" src="otherJSFiles/custom.js"></script>   
     </section>
 </body>

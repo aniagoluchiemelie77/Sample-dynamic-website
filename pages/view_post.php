@@ -13,28 +13,12 @@ require '../PHPMailer/src/SMTP.php';
 // Get the post ID from the URL
 $post_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($post_id > 0) {
-    $sql = "
-        SELECT title, niche, image, content, DATE_FORMAT(date, '%M %d, %Y') as formatted_date
-        FROM paid_posts
-        WHERE id = $post_id
-    ";
+    $sql = " SELECT title, niche, image, content, time, subtitle, link, DATE_FORMAT(date, '%M %d, %Y') as formatted_date FROM paid_posts WHERE id = $post_id";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        echo "<div class='post-details'>
-                <h1>" . $row["title"] . "</h1>
-                <p><strong>Niche:</strong> " . $row["niche"] . "</p>
-                <img src='" . $row["image"] . "' alt='" . $row["title"] . "' />
-                <p><strong>Date:</strong> " . $row["formatted_date"] . "</p>
-                <div class='content'>" . $row["content"] . "</div>
-              </div>";
-    } else {
-        echo "Post not found.";
-    }
-} else {
-    echo "Invalid post ID.";
-}
-
+        $time = $row['time'];
+        $formatted_time = date("g:i A", strtotime($time));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,12 +49,12 @@ if ($post_id > 0) {
                 <a>Data Analytics</a>
                 <a>Cybersecurity</a>
             </div>
-            <h1 class="Post_header">Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-            <h2>The disclosure of CVE-2024-28987 means that, in two weeks, there have been two critical bugs and corresponding patches for SolarWinds' less-often-discussed IT help desk software.</h2>
+            <h1 class="Post_header"><?php echo $row["title"];?></h1>
+            <h2><?php echo $row["subtitle"];?></h2>
             <div class="authors_div">
                 <div class="authors_div_imgbox">
                     <img src="../images\chibs.jpg" alt="Author's Image"/>
-                    <p><span class="span1">Aniagolu Chiemelie, Contributing Writer.</span> <span class="span3">August 23, 2024.</span></p>
+                    <p><span class="span1">Aniagolu Chiemelie, Contributing Writer.</span> <span class="span3"><?php echo $row["formatted_date"];?></span><span class="span3"><?php echo $formatted_time;?></span></p>
                 </div>
                 <div class="authors_div_otherdiv">
                     <i class="fa fa-clock" aria-hidden="true"></i>
@@ -78,7 +62,7 @@ if ($post_id > 0) {
                 </div>
             </div>
             <div class="post_image_div">
-                <img src="../images/image1.jpeg" alt="Post Image"/>
+                <img src="../images/<?php echo $row["image"];?>" alt="Post Image"/>
                 <span>Source: Getty Images</span>
             </div>
             <div class="socialmedia_links">
@@ -89,17 +73,7 @@ if ($post_id > 0) {
                 <a><i class="fa fa-print" aria-hidden="true"></i></a>
                 <a><i class="fa fa-envelope" aria-hidden="true"></i></a>
             </div>
-            <p>
-                For the second week in a row, SolarWinds has released a patch for a critical vulnerability in its IT help and ticketing software, Web Help Desk (WHD). According to its latest hotfix notice, the issue — tracked as CVE-2024-28987 — concerns hardcoded credentials that could allow a remote, unauthenticated attacker to break into WHD and modify data.
-                "Security is hard and a continuous process," says Horizon3.ai vulnerability researcher Zach Hanley, who first discovered and reported the bug. "This application had just received a security look from being exploited in the wild, and a few years [before] had a different hardcoded credential vulnerability. Regular security reviews on the same application can still be valuable for companies."
-                Two Critical Bugs & Two Urgent Fixes 
-                <span class="inline_adsbar"></span>
-                On Aug. 13, SolarWinds released a hotfix for CVE-2024-28986, a Java deserialization issue that could have allowed an attacker to run commands on a targeted machine. It was given a "critical" 9.8 out of 10 score on the CVSS scale. Following what the company described as "thorough testing," it was unable to prove that the issue could be exploited by an unauthenticated attacker. But just two days after news of it broke, CISA added CVE-2024-28986 to its catalog of known exploited vulnerabilities, indicating that active exploitation by threat actors was already underway.
-                This week, the company followed up this initial bad news with more of the same, this time concerning a second vulnerability in the same program. In this case, there was no ambiguity that an unauthenticated attacker could leverage hardcoded credentials in WHD to access internal functionalities and data, which goes some way to justifying its "critical" 9.1 CVSS score.
-                Contrary to other reporting, CVE-2024-28987 was not first introduced in the patch for CVE-2024-28986. "This issue has existed for some time in the product, likely for several years," Hanley reports. SolarWinds declined to provide Dark Reading with further comment.
-                SolarWinds' newest patch incorporates fixes for both issues. Customers are advised to update immediately. To hammer the point home, Hanley says, "Imagine if an attacker had access to all the details in help desk tickets — what sensitive information may they be able to extract? Credentials, business operations details, etc."
-
-            </p>
+            <p><?php echo $row["content"];?></p>
             <div class="socialmedia_links">
                 <a><i class="fa-brands fa-x-twitter"></i></a>
                 <a class="fab fa-facebook" aria-hidden="true"></a>
@@ -119,6 +93,14 @@ if ($post_id > 0) {
                         <p>Nate Nelson is a freelance writer based in New York City. Formerly a reporter at Threatpost, he contributes to a number of cybersecurity blogs and podcasts. He writes "Malicious Life" -- an</p>
                     </div>
                 </a>
+                <?php 
+                        } else {
+                            echo "Post not found.";
+                        }
+                    } else {
+                        echo "Invalid post ID.";
+                    }
+                ?>
                 <div class = "subscribe_div">
                     <p>Keep up with the latest cybersecurity threats, newly discovered vulnerabilities, data breach information, and emerging trends. Delivered daily or weekly right to your email inbox.
                     </p>
@@ -243,15 +225,8 @@ if ($post_id > 0) {
                     }
                 
                 }
+                include('../helpers/emailsubscribeform.php');
             ?>
-            <form class="sec2__susbribe-box other_width" method="post" action="view_post.php">
-                <div class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
-                <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
-                <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
-                <p class="error_div"><?php if(!empty($msg)){ echo $msg;}?></p>
-                <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required/>
-                <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn"/>
-            </form>
         </div>
     </div>
     <?php include("../includes/footer2.php");?>

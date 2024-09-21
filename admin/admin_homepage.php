@@ -243,7 +243,7 @@ require ("connect.php");
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <?php
-                            $selectposts = "SELECT title, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY date DESC LIMIT 8";
+                            $selectposts = "SELECT id, title, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 8";
                             $selectposts_result = $conn->query($selectposts);
                             if ($selectposts_result->num_rows > 0) {
                                 $sn = 0;
@@ -260,7 +260,7 @@ require ("connect.php");
                                             <td>" . $sn . "</td>
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?edit=' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -275,7 +275,7 @@ require ("connect.php");
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <?php
-                            $selectdrafts = "SELECT title, authors_lastname, authors_firstname, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM unpublished_articles ORDER BY date DESC LIMIT 8";
+                            $selectdrafts = "SELECT id, title, authors_lastname, authors_firstname, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM unpublished_articles ORDER BY id DESC LIMIT 8";
                             $selectdrafts_result = $conn->query($selectdrafts);
                             if ($selectdrafts_result->num_rows > 0) {
                                 $sn = 0;
@@ -294,7 +294,7 @@ require ("connect.php");
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?edit=' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -594,7 +594,7 @@ require ("connect.php");
                                             <div class='posts_divcontainer_subdiv_body'>
                                                 <h3 class='posts_divcontainer_header'>".$row['title']."</h3>
                                                 <div class='posts_delete_edit'>
-                                                    <a class='users_edit' href='edit/post.php' target='_blank'>
+                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
                                                     <a class='users_delete'>
@@ -635,7 +635,7 @@ require ("connect.php");
                                             <div class='posts_divcontainer_subdiv_body'>
                                                 <h3 class='posts_divcontainer_header'>".$row['title']."</h3>
                                                 <div class='posts_delete_edit'>
-                                                    <a class='users_edit' href='edit/post.php' target='_blank'>
+                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
                                                     <a class='users_delete'>
@@ -681,7 +681,7 @@ require ("connect.php");
                                             <div class='posts_divcontainer_subdiv_body'>
                                                 <h3 class='posts_divcontainer_header'>".$row['title']."</h3>
                                                 <div class='posts_delete_edit'>
-                                                    <a class='users_edit' href='edit/post.php' target='_blank'>
+                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
                                                     <a class='users_delete'>

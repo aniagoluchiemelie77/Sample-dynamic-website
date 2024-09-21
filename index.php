@@ -11,7 +11,6 @@ function getDeviceType() {
         return 'Desktop';
     }
 }
-$device_type = getDeviceType();
 function getVisitorIP() {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         return $_SERVER['HTTP_CLIENT_IP'];
@@ -21,6 +20,7 @@ function getVisitorIP() {
         return $_SERVER['REMOTE_ADDR'];
     }
 }
+$device_type = getDeviceType();
 $ip_address = getVisitorIP();
 $visit_type = "";
 $api_url = "http://www.geoplugin.net/json.gp?ip=" . $ip_address;
@@ -91,7 +91,6 @@ if(isset($_POST['submit_btn'])){
         $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
         $msg = "Invalid Email";
     }
-    $conn->close();
     echo json_encode($response);
 
 }
@@ -177,28 +176,28 @@ if (isset($_POST['accept_cookies'])) {
             </div>
         </div>
         <section class="section1">
-        <?php 
-            $selectpaidposts = "SELECT id, title, niche, image, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY date DESC";
-            $paidpostselection_result = $conn->query($selectpaidposts); 
-            if ($paidpostselection_result->num_rows > 0) {
-                $counter = 0;
-                while($row = $paidpostselection_result->fetch_assoc()) {
-                    $counter++;
-                    $class = $counter == 1 ? "section1__div1 larger__div" : "section1__div2 smallerdivs";
-                    $class2 = $counter == 1 ? "larger__div__subdiv" : "smaller__div__subdiv";
-                    echo "<div class='$class'>
-                            <a href='pages/view_post.php?id=". $row['id'] ."'>
-                                <img src='images/".$row['image']."' alt='article image'/>
-                                <div class='$class2'>
-                                    <h1>". $row['niche'] ."</h1>
-                                    <h2>". $row['title'] ."</h2>
-                                    <p>" . $row["formatted_date"] . "</p>
-                                </div>
-                            </a>
+            <?php 
+                $selectpaidposts = "SELECT id, title, niche, image, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY date DESC";
+                $paidpostselection_result = $conn->query($selectpaidposts); 
+                if ($paidpostselection_result->num_rows > 0) {
+                    $counter = 0;
+                    while($row = $paidpostselection_result->fetch_assoc()) {
+                        $counter++;
+                        $class = $counter == 1 ? "section1__div1 larger__div" : "section1__div2 smallerdivs";
+                        $class2 = $counter == 1 ? "larger__div__subdiv" : "smaller__div__subdiv";
+                        echo "<div class='$class'>
+                                <a href='pages/view_post.php?id=". $row['id'] ."'>
+                                    <img src='images/".$row['image']."' alt='article image'/>
+                                    <div class='$class2'>
+                                        <h1>". $row['niche'] ."</h1>
+                                        <h2>". $row['title'] ."</h2>
+                                        <p>" . $row["formatted_date"] . "</p>
+                                    </div>
+                                </a>
                         </div>";
+                    }
                 }
-            }
-        ?>
+            ?>
         </section>
         <section class="section2">
             <div class="section2__div1">

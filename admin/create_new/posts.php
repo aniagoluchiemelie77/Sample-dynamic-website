@@ -40,11 +40,14 @@ include("../connect.php");
                 </div>
             </div>
             <div class="newpost_container_div4 newpost_subdiv">
-                <label class="form__select" for="Post_Status">Status:</label>
+                <label class="form__select" for="Post_Status">Post Type:</label>
                 <select class="newpost_subdiv2" name="Post_Status">      
-                    <option class="newpost_subdiv4-option" value="">-- Please Select --</option>      
-                    <option class="newpost_subdiv4-option" value="none">None</option>
-                    <option class="newpost_subdiv4-option" value="paid_post">Paid Post</option>
+                    <option class="newpost_subdiv4-option" value="">-- Please Select --</option>
+                    <option class="newpost_subdiv4-option" value="paid_post">Paid Post</option>      
+                    <option class="newpost_subdiv4-option" value="article">Article</option>
+                    <option class="newpost_subdiv4-option" value="news">News</option>
+                    <option class="newpost_subdiv4-option" value="press_release">Press Release</option>
+                    <option class="newpost_subdiv4-option" value="commentary">Commentary</option>
                 </select>
             </div>
             <div class="newpost_container_div5 newpost_subdiv">

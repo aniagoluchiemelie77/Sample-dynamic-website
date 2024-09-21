@@ -658,16 +658,18 @@ a, p, li{
 }
 .section2 div .normal-divs{
     padding: var(--div-padding-full);
+    border-bottom: 1px solid #22222254;
 }
 .section2 div .normal-divs a{
     display: flex;
     flex-wrap: nowrap;
     padding: var(--div-padding-full);
-    width: fit-content;
+    width: 100%;
     cursor: pointer;
 }
 .section2 div .normal-divs a img{
-    height: 15rem;
+    height: 17rem;
+    width: 20rem;
     border-radius: var(--border-radius-big);
     -webkit-border-radius: var(--border-radius-big);
     -moz-border-radius: var(--border-radius-big);

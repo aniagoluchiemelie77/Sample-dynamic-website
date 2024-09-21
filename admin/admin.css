@@ -369,16 +369,9 @@ a, td,span, p, label{
     color: #eee;
     font-size: 2.3rem;
 }
-.header_img img{
-    width: 4rem;
-    height: 4rem;
-    border: 2px solid #FAFAFA;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    align-items: center;
+.header_img i{
+    color: #eee;
+    font-size: 2.8rem;
 }
 .body{
     min-height: calc(100vh - var(--header-height));
@@ -994,6 +987,7 @@ a, td,span, p, label{
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body{
     display: flex;
     flex-wrap: nowrap;
+    padding: 1.2rem 0;
     justify-content: space-between;
     align-items: center;
  }

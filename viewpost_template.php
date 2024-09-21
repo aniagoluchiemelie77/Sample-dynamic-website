@@ -1,24 +1,20 @@
 <?php
 session_start();
-require("../connect.php");
+require('../connect.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
 require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
-//$id = $_GET['id'];
-
 // Get the post ID from the URL
 $post_title = isset($_GET['title']) ? intval($_GET['title']) : 0;
 if ($post_title > 0) {
-    $getposts_sql = " SELECT * FROM posts WHERE title = '$post_title' LIMIT 1";
-    $getpaidposts_sql = " SELECT * FROM paid_posts WHERE title = '$post_title' LIMIT 1";
-    $getnews_sql = " SELECT * FROM news WHERE title = '$post_title' LIMIT 1";
-    $getcommentary_sql = " SELECT * FROM commentaries WHERE title = '$post_title' LIMIT 1";
-    $getpressrelease_sql = " SELECT * FROM press_releases WHERE title = '$post_title' LIMIT 1";
-
+    $getposts_sql = " SELECT * FROM posts WHERE title = $post_title LIMIT 1";
+    $getpaidposts_sql = " SELECT * FROM paid_posts WHERE title = $post_title LIMIT 1";
+    $getnews_sql = " SELECT * FROM news WHERE title = $post_title LIMIT 1";
+    $getcommentary_sql = " SELECT * FROM commentaries WHERE title = $post_title LIMIT 1";
+    $getpressrelease_sql = " SELECT * FROM press_releases WHERE title = $post_title LIMIT 1";
     $getposts_result = $conn->query($getposts_sql);
     $getpaidposts_result = $conn->query($getpaidposts_sql);
     $getnews_result = $conn->query($getnews_sql);
@@ -42,7 +38,7 @@ if ($post_title > 0) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie"/>
     <link rel="stylesheet" href="../index.css"/>
-	<title>View post</title>
+	<title><?php echo $row['niche'];?> </title>
 </head>
 <body>
     <?php require("../includes/header2.php");?>
@@ -50,7 +46,7 @@ if ($post_title > 0) {
     <div class="body_container">
         <div class="body_left">
             <div class="page_links">
-                <a href="../">Home</a> > <p>View Post</p>
+                <a href="../">Home</a> > <a href="../pages/<?php echo $row['niche'];?>.php"><?php echo $row['niche'];?></a> > <p><?php echo $row['title'];?></p>
             </div>
             <div class="body_left_relatedniches">
                 <a>Artificial Intelligence</a>
@@ -84,12 +80,12 @@ if ($post_title > 0) {
             </div>
             <p><?php echo $row["content"];?></p>
             <div class="socialmedia_links">
-                <a><i class="fa-brands fa-x-twitter"></i></a>
-                <a class="fab fa-facebook" aria-hidden="true"></a>
-                <a class="fab fa-linkedin" aria-hidden="true"></a>
-                <a class="fab fa-reddit-alien" aria-hidden="true"></a>
-                <a class="fa fa-print" aria-hidden="true"></a>
-                <a class="fa fa-envelope" aria-hidden="true"></a>
+            <a><i class="fa-brands fa-x-twitter"></i></a>
+                <a><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                <a><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                <a><i class="fab fa-reddit-alien" aria-hidden="true"></i></a>
+                <a><i class="fa fa-print" aria-hidden="true"></i></a>
+                <a><i class="fa fa-envelope" aria-hidden="true"></i></a>
             </div>
             <h3 class="bodyleft_header3">About the Author</h3>
             <center>

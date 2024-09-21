@@ -11,6 +11,6 @@
             <span></span>
             <i class="fa fa-bell" aria-hidden="true"></i>
         </a>
-        <img src="../images/Diamakaimg1.png" alt="Author's Image"/>
+        <i class='fa fa-user-circle' aria-hidden='true'></i>
     </div>
 </header>

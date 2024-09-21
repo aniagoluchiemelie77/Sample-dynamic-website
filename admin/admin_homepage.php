@@ -177,7 +177,7 @@ require ("connect.php");
         </div>
         <div class="aside_sidebar">
             <div class="website_info_div tabcontent active2">
-                <h1 class="aside_sidebar_header">Welcome, <?php echo $_SESSION['username']?> </h1>
+                <h1 class="aside_sidebar_header">Welcome Back, <?php echo $_SESSION['username']?> </h1>
                 <div class="webinfo_container">
                     <?php
                         $sql1 = "SELECT COUNT(*) as total1 FROM paid_posts";
@@ -210,14 +210,21 @@ require ("connect.php");
                         </div>
                         <p class="website_info_p2">Subscribers</p>
                     </a>
-                    <?php };?>
+                    <?php 
+                        };
+                        $newslettersignup_count = "SELECT COUNT(*) as total FROM newsletter_subscribers";
+                        $newslettersignupcount_result = $conn->query($newslettersignup_count);
+                        if ($newslettersignupcount_result->num_rows > 0) {
+                            $row = $newslettersignupcount_result->fetch_assoc();
+                    ?>
                     <a class="website_info" href="pages/newslettersignups.php">
                         <div class="website_info_subdiv">
                             <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <p class="website_info_p1">12</p>
+                            <p class="website_info_p1"><?php echo $row["total"];?></p>
                         </div>
                         <p class="website_info_p2">Signups</p>
                     </a>
+                    <?php };?>
                     <a class="website_info" href="create_new/posts.php" target="_blank">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -577,6 +584,45 @@ require ("connect.php");
                             <a class="users_create" id="create_writer_origin">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
                                 <h3> New Writer</h3>
+                            </a>    
+                        </div>
+                    </div>
+                </div>
+                <div class="users_writer_div userdiv">
+                    <div class="user_header">
+                        <h2>Others</h2>
+                        <a class="btn" href="view_all/otherusers.php">View All</a>
+                    </div>
+                    <div class="users_div_subdiv border-gradient-side-dark">
+                        <?php
+                            $selectotherusers = "SELECT firstname, lastname, email, id, image, role FROM otherwebsite_users ORDER BY id DESC LIMIT 3";
+                            $selectotherusers_result = $conn->query($selectotherusers);
+                            if ($selectotherusers_result->num_rows > 0) {
+                                $sn = 0;
+                                while($row = $selectotherusers_result->fetch_assoc()) {
+                                    $sn++; 
+                                    echo "<div class='users_div_subdiv_subdiv divimages'>
+                                            <div class='divimages_side--back'>
+                                                <p class='users_div_subdiv_p'><span>Firstname: </span>".$row['firstname']."</p>
+                                                <p class='users_div_subdiv_p'><span>Lastname: </span>".$row['lastname']."</p> 
+                                                <p class='users_div_subdiv_p'><span>Role: </span>".$row['role']."</p>
+                                                <p class='users_div_subdiv_p'><span>Email: </span>".$row['email']."</p>
+                                                <p class='users_div_subdiv_p'><span>Contributions: </span>Plenty</p>
+                                                <center>
+                                                    <div class='users_delete_edit'>
+                                                        <a class='users_edit'><i class='fa fa-eye' aria-hidden='true'></i></a>
+                                                        <a class='users_delete'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                                                    </div>
+                                                </center>
+                                            </div>
+                                    </div>";                         
+                                };
+                            };
+                        ?>
+                        <div class="users_div_subdiv_subdiv">
+                            <a class="users_create" id="create_writer_origin">
+                                <center><i class="fa fa-plus" aria-hidden="true"></i></center>
+                                <h3> New User</h3>
                             </a>    
                         </div>
                     </div>

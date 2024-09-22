@@ -15,13 +15,25 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie"/>
     <link rel="stylesheet" href="../index.css"/>
-	<title>Newsletter Subscribe</title>
+	<title>Newsletter Subscription</title>
 </head>
 <body>
     <?php require("../includes/header2.php");?>
-    <div class="ads_bar"></div>
     <div class="body_container">
-        <div class="body_left">
+        <div class="body_right">
+            <div class="sidebar_divs_container">
+                <div class="webinfo">
+                    <h1>Uniquecontentwriter</h1>
+                    <img src="../images\image1.jpeg" alt="Blog's Coverphoto"/>
+                    <p>Here at Uniquecontentwriter.com, we give you the latest news and updates on Cybersecurity, Artificial Intelligence and lots more.</p>
+                </div>
+            </div>
+            <?php include("../helpers/emailsubscribeform.php");?>    
+        </div>
+        <div class="body_left border-gradient-leftside--lightdark">
+            <div class="page_links">
+                <a href="../">Home</a> > <p>Newsletter Subscription</p>
+            </div>
             <h1 class="Post_header">DARK READING NEWSLETTER</h1>
             <h2>Register for Your Free Newsletter Now:</h2>
             <div class = "subscribe_div">
@@ -59,37 +71,13 @@ session_start();
                     </div>
                 </div>
                 <div class="formcontainer_subdiv">
-                    <p>In return for this content, I agree to the Informa Group and/or Dark Reading contacting me (including by email) about this and other subject matter matching my interests. I understand that I can opt-out at any time by clicking 'unsubscribe' on emails or contacting Informa as set out in our <a>Privacy Policy.</a></p>
+                    <p>In return for this content, I agree to the Informa Group and/or Dark Reading contacting me (including by email) about this and other subject matter matching my interests. I understand that I can opt-out at any time by clicking 'unsubscribe' on emails or contacting Informa as set out in our <a href="privacypolicy.php">Privacy Policy.</a></p>
                 </div>
                 <div class="formcontainer_subdiv">
                     <p>Checkboxes</p>
                 </div>
                 <input class="formcontainer_submit" value="Submit" type="submit"/>
             </form>
-        </div>
-        <div class="body_right border-gradient-leftside--lightdark">
-            <div class="ads_sidebar"></div>
-            <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Top Posts</h3>
-            <a class="posts_div" href="#">
-                <img src="../images/chibs.jpg" alt="Post's Image"/>
-                <p class="posts_div_niche">Cybersecurity</p>
-                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
-                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                <div class="posts_div_subdiv">
-                    <p>Aug 15th, 2024</p>
-                    <p>10mins Read.</p>
-                </div>
-            </a>
-            <a class="posts_div" href="#">
-                <img src="../images/chibs.jpg" alt="Post's Image"/>
-                <p class="posts_div_niche">Cybersecurity</p>
-                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
-                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                <div class="posts_div_subdiv">
-                    <p>Aug 15th, 2024</p>
-                    <p>10mins Read.</p>
-                </div>
-            </a>
         </div>
     </div>
     <?php include("../includes/footer2.php");?>

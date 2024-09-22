@@ -12,21 +12,22 @@
             <div class="mainheader__logobox">
                 <img src="#" alt="companylogo">
             </div>
+            <a class="mainheader__signupbtn" href="newslettersubscribe.php">Newsletter Signup</a>
         </div>
         <div class="header__dropdownlinks">
-            <a class="header__dropdownlinks-1 headerlinks lightp" href="cybersecurity.php">
+            <a class="header__dropdownlinks-1 headerlinks lightp" href="pages/cybersecurity.php">
                 Cybersecurity
             </a>
-            <a class="header__dropdownlinks-2 headerlinks lightp" href="artificialintelligence.php">
+            <a class="header__dropdownlinks-2 headerlinks lightp" href="pages\artificialintelligence.php">
                 Artificial Intelligence
             </a>
-            <a class="header__dropdownlinks-3 headerlinks lightp" href="dataanalytics.php">
+            <a class="header__dropdownlinks-3 headerlinks lightp" href="pages\dataanalytics.php">
                 Data Analytics
             </a>
-            <a class="header__dropdownlinks-4 headerlinks lightp" href="cloudcomputing.php">
+            <a class="header__dropdownlinks-4 headerlinks lightp" href="pages\cloudcomputing.php">
                 Cloud Computing
             </a>
-            <a class="header__dropdownlinks-5 headerlinks lightp" href="news.php">
+            <a class="header__dropdownlinks-5 headerlinks lightp" href="pages\news.php">
                 News
             </a>
             <div class="header__dropdownlinks-6  lightp">

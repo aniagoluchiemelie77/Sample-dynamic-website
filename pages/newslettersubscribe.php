@@ -15,7 +15,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie"/>
     <link rel="stylesheet" href="../index.css"/>
-	<title>Subscribe</title>
+	<title>Newsletter Subscribe</title>
 </head>
 <body>
     <?php require("../includes/header2.php");?>

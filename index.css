@@ -119,6 +119,8 @@ a, p, li{
 .section3{
     height: fit-content;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     background: var(--color60-shade);
     border-radius: var(--border-radius-big);
@@ -126,6 +128,10 @@ a, p, li{
     -moz-border-radius: var(--border-radius-big);
     -ms-border-radius: var(--border-radius-big);
     -o-border-radius: var(--border-radius-big);
+}
+.thickdiv{
+    min-height: fit-content;
+    padding: 1.5rem;
 }
 .footer{
     min-height: fit-content;
@@ -328,6 +334,14 @@ a, p, li{
     flex-direction: column;
     align-items: center;
     min-height: fit-content;
+}
+.body_left .bodyleft_main{
+    text-align: center;
+    width: 90%;
+    padding: 1.5rem;
+    font-weight: 750;
+    font-size: 2.5rem;
+    border-bottom: 1px solid #2222224a ;
 }
 .header__menu-sidebar{
     padding: 2rem;
@@ -655,6 +669,39 @@ a, p, li{
 }
 .section2 div{
     padding: 0 1.5rem 1.5rem 1.5rem;
+}
+.sidebar_divs_container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar_divs_container .webinfo{
+    width: 90%;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar_divs_container .webinfo h1{
+    padding: 1.5rem 0;
+    font-size: 2.5rem;
+}
+.sidebar_divs_container .webinfo img{
+    width: 27rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+.sidebar_divs_container .webinfo p{
+    padding: 1rem 0;
+    color: #222222c3;
 }
 .section2 div .normal-divs{
     padding: var(--div-padding-full);
@@ -1341,7 +1388,7 @@ a, p, li{
     width: 80%;
 }
 .posts_div{
-    width: 80%;
+    width: 90%;
     height: 60vh;
     cursor: pointer;
     margin: 1rem 0;
@@ -1353,7 +1400,7 @@ a, p, li{
     height: 55%;
 }
 .commentary_divs{
-    width: 80%;
+    width: 90%;
     border: 1px solid #2222224a;
     cursor: pointer;
     margin: 1rem 0;

@@ -19,7 +19,7 @@ include("../connect.php");
 	<title>Add Message</title>
 </head>
 <body>
-    <?php require("../extras/header.php");?>
+    <?php require("../extras/header2.php");?>
     <section class="newpost_body"></section>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../admin.js"></script>

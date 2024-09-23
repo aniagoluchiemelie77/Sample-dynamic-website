@@ -19,7 +19,7 @@ include("../connect.php")
 	<title>Edit Profile</title>
 </head>
 <body>
-    <?php require("../extras/header.php");?>
+    <?php require("../extras/header2.php");?>
     <div class="editprofile_container">
     <form class="create_editor_container" action="../forms.php" method="post">
         <div class="createeditor_inputgroup">

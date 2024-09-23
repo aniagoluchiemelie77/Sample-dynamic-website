@@ -20,7 +20,7 @@ include("../connect.php");
 	<title>Create New Post</title>
 </head>
 <body>
-    <?php require("../extras/header.php");?>
+    <?php require("../extras/header2.php");?>
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data" id="postForm">
             <div class="newpost_container_div1 newpost_subdiv">

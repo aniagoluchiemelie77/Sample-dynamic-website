@@ -19,7 +19,7 @@ include("../connect.php");
 	<title>View Editors</title>
 </head>
 <body>
-    <?php require("../extras/header.php");?>
+    <?php require("../extras/header2.php");?>
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="posts_header">

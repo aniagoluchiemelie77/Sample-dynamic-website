@@ -20,7 +20,7 @@ include("../connect.php");
 	<title>Newsletter Signups</title>
 </head>
 <body>
-    <?php require("../extras/header.php");?>
+    <?php require("../extras/header2.php");?>
     <section class="middle_centering">
         <div class="posts width80">
             <div class="posts_div2 postsdiv2">

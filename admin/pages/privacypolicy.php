@@ -22,7 +22,7 @@ require ("../connect.php");
 	<title>Privacy Policy</title>
 </head>
 <body>
-    <?php require("../extras/header.php");?>
+    <?php require("../extras/header2.php");?>
     <section class="about_section">
         <div class="about_header">
             <h1>Privacy Policy</h1>

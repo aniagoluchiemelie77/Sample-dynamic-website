@@ -166,9 +166,7 @@ require ("connect.php");
                 </div>
                 <div class="logout border-gradient-side">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Logout
-                    </p>
+                    <p class="paragraph">Logout</p>
                 </div>
             </div>
             <p class="sidebar_footer">
@@ -196,8 +194,8 @@ require ("connect.php");
                         </div>
                         <p class="website_info_p2">Published</p>
                     </div>
-                    <?php };?>
-                    <?php //for subscriber count
+                    <?php 
+                        };
                         $subscribers = "SELECT COUNT(*) as total FROM subscribers";
                         $result = $conn->query($subscribers);
                         if ($result->num_rows > 0) {
@@ -314,6 +312,29 @@ require ("connect.php");
                                 }; echo "</table>";
                             };
                         ?>
+                    </div>
+                </div>
+                <div class="addtionalinfo">
+                    <div class="addtionalinfo_header">
+                        <h1>Collections</h1>
+                    </div>
+                    <div class="addtionalinfo_body border-gradient-side-dark rowflexdisplay">
+                        <a class="collections_links" href="collections\ebooks.php">
+                            <i class="fa-solid fa-book"></i> 
+                            <p>Ebooks (<span>32</span>)</p>
+                        </a>
+                        <a class="collections_links" href="collections\whitepapers.php">
+                            <i class="fa-sharp fa-regular fa-copy"></i> 
+                            <p>White Papers (<span>32</span>)</p>
+                        </a>
+                        <a class="collections_links" href="collections\videoscripts.php">
+                            <i class="fa fa-file-video" aria-hidden="true"></i>               
+                            <p>Video Scripts (<span>32</span>)</p>
+                        </a>
+                        <a class="collections_links" href="create_new\collections.php">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>         
+                            <p>Add Collection</p>
+                        </a>
                     </div>
                 </div>
                 <div class="addtionalinfo">
@@ -767,43 +788,57 @@ require ("connect.php");
                     <h1>Pages</h1>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/categories.php">
-                            Categories
+                            <p>Categories</p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv ">
                         <a class='pages_container_subdiv-links' href="pages/aboutwebsite.php">
-                            About Website
+                            <p>About Website</p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/advertisewithus.php">
-                            Advertise With Us
+                            <p>Advertise With Us</p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/contactus.php">
-                            Contact Us
+                            <p>Contact Us</p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/privacypolicy.php">
-                            Privacy Policy
+                            <p>Privacy Policy</p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/termsofservice.php">
-                            Terms of Services
+                            <p>Terms of Services</p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/workwithus.php">
-                            Work with Us
+                            <p>Work with Us</p>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="settings tabcontent hidden">
-                <h1>Settings</h1>
+                <div class='pages_container'>
+                    <h1>Settings</h1>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages\customisewebpage.php">
+                            <i class="fa-solid fa-palette"></i>
+                            <p>Customize Website</p>
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv ">
+                        <a class='pages_container_subdiv-links' href="pages\changepassword.php">
+                            <i class="fa fa-lock" aria-hidden="true"></i> 
+                            <p>Change Password</p>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="developer_contact tabcontent hidden">
                 <div class="developer_contact_container">
@@ -830,10 +865,10 @@ require ("connect.php");
                         <div class="developer_contact_followlinks">
                             <h2>Connect With Us On Social Media</h2>
                             <div>
-                                <a><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                                <a href="https://wa.me/2349054223480"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                                 <a href="https://www.linkedin.com/in/chiemelie-aniagolu-7799b32b0/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></i></a>
                                 <a><i class="fab fa-facebook" aria-hidden="true"></i></a>
-                                <a><i class="fa-brands fa-x-twitter"></i></a>
+                                <a href="https://x.com/vik_chiboy?t=Hf3kF-Fgx-LQFI5BhnTX3A&s=09"><i class="fa-brands fa-x-twitter"></i></a>
                             </div>
                         </div>
                         <div class="developer_contact_subdiv">

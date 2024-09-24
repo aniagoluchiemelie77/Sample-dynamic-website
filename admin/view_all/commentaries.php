@@ -1,6 +1,6 @@
 <?php
-session_start();
-include("../connect.php");
+    session_start();
+    include("../connect.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,21 +16,21 @@ include("../connect.php");
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css"/>
-	<title>View Published Posts</title>
+	<title>View Commentaries</title>
 </head>
 <body>
     <?php require("../extras/header2.php");?>
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="posts_header">
-                <h1> Published Posts</h1>
+                <h1>Commentaries</h1>
             </div>
             <div class="posts_divcontainer border-gradient-side-dark">
                 <?php
-                    $select_allposts = "SELECT id, title, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 100";
-                    $select_allposts_result = $conn->query($select_allposts);
-                    if ($select_allposts_result->num_rows > 0) {
-                        while($row = $select_allposts_result->fetch_assoc()) {
+                    $select_commentaries= "SELECT id, title, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM commentaries ORDER BY id DESC LIMIT 100";
+                    $select_commentaries_result = $conn->query($select_commentaries);
+                    if ($select_commentaries_result->num_rows > 0) {
+                        while($row = $select_commentaries_result->fetch_assoc()) {
                             $time = $row['time'];
                             $formatted_time = date("g:i A", strtotime($time));
                             echo "<div class='posts_divcontainer_subdiv'>

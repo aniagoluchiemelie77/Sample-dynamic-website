@@ -316,21 +316,144 @@ require ("connect.php");
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
+                        <h1>Recent Press Releases</h1>
+                        <a class="btn" href="view_all\pressreleases.php">View All</a>
+                    </div>
+                    <div class="addtionalinfo_body border-gradient-side-dark">
+                        <?php
+                            $selectpressreleases = "SELECT id, title, authors_lastname, authors_firstname, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases ORDER BY id DESC LIMIT 8";
+                            $selectpressreleases_result = $conn->query($selectpressreleases);
+                            if ($selectpressreleases_result->num_rows > 0) {
+                                $sn = 0;
+                                echo "<table>
+                                        <tr>
+                                            <th>S/n</th>
+                                            <th>Title</th>
+                                            <th>Author</th>
+                                            <th>Date</th>
+                                            <th>Actions</th>
+                                        </tr>";
+                                while($row = $selectpressreleases_result->fetch_assoc()) {
+                                    $sn++; 
+                                    echo "<tr class='border-gradient-side-dark'>
+                                            <td>" . $sn . "</td>
+                                            <td>" . $row["title"] . "</td>
+                                            <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
+                                            <td>" . $row["formatted_date"] . "</td>
+                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                        </tr>";                           
+                        
+                                }; echo "</table>";
+                            };
+                        ?>
+                    </div>
+                </div>
+                <div class="addtionalinfo">
+                    <div class="addtionalinfo_header">
+                        <h1>Recent News Posts</h1>
+                        <a class="btn" href="view_all\news.php">View All</a>
+                    </div>
+                    <div class="addtionalinfo_body border-gradient-side-dark">
+                        <?php
+                            $selectnews = "SELECT id, title, authors_lastname, authors_firstname, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM news ORDER BY id DESC LIMIT 8";
+                            $selectnews_result = $conn->query($selectnews);
+                            if ($selectnews_result->num_rows > 0) {
+                                $sn = 0;
+                                echo "<table>
+                                        <tr>
+                                            <th>S/n</th>
+                                            <th>Title</th>
+                                            <th>Author</th>
+                                            <th>Date</th>
+                                            <th>Actions</th>
+                                        </tr>";
+                                while($row = $selectnews_result_result->fetch_assoc()) {
+                                    $sn++; 
+                                    echo "<tr class='border-gradient-side-dark'>
+                                            <td>" . $sn . "</td>
+                                            <td>" . $row["title"] . "</td>
+                                            <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
+                                            <td>" . $row["formatted_date"] . "</td>
+                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                        </tr>";                           
+                        
+                                }; echo "</table>";
+                            };
+                        ?>
+                    </div>
+                </div>
+                <div class="addtionalinfo">
+                    <div class="addtionalinfo_header">
+                        <h1>Recent Commentaries</h1>
+                        <a class="btn" href="view_all\commentaries.php">View All</a>
+                    </div>
+                    <div class="addtionalinfo_body border-gradient-side-dark">
+                        <?php
+                            $selectcommentaries = "SELECT id, title, authors_lastname, authors_firstname, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM commentaries ORDER BY id DESC LIMIT 8";
+                            $selectcommentaries_result = $conn->query($selectcommentaries);
+                            if ($selectcommentaries_result->num_rows > 0) {
+                                $sn = 0;
+                                echo "<table>
+                                        <tr>
+                                            <th>S/n</th>
+                                            <th>Title</th>
+                                            <th>Author</th>
+                                            <th>Date</th>
+                                            <th>Actions</th>
+                                        </tr>";
+                                while($row = $selectcommentaries_result->fetch_assoc()) {
+                                    $sn++; 
+                                    echo "<tr class='border-gradient-side-dark'>
+                                            <td>" . $sn . "</td>
+                                            <td>" . $row["title"] . "</td>
+                                            <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
+                                            <td>" . $row["formatted_date"] . "</td>
+                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                        </tr>";                           
+                        
+                                }; echo "</table>";
+                            };
+                        ?>
+                    </div>
+                </div>
+                <div class="addtionalinfo">
+                    <div class="addtionalinfo_header">
                         <h1>Collections</h1>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark rowflexdisplay">
+                        <?php
+                            $count_ebooks = "SELECT COUNT(*) as total FROM ebooks";
+                            $count_ebooks_result = $conn->query($count_ebooks);
+                            if ($count_ebooks_result->num_rows > 0) {
+                                $row1 = $count_ebooks_result->fetch_assoc();
+                        ?>
                         <a class="collections_links" href="collections\ebooks.php">
                             <i class="fa-solid fa-book"></i> 
-                            <p>Ebooks (<span>32</span>)</p>
+                            <p>Ebooks (<span><?php echo $row1["total"];?></span>)</p>
                         </a>
+                        <?php 
+                            };
+                            $count_whitepapers = "SELECT COUNT(*) as total FROM whitepapers";
+                            $count_whitepapers_result = $conn->query($count_whitepapers);
+                            if ($count_whitepapers_result->num_rows > 0) {
+                                $row1 = $count_whitepapers_result->fetch_assoc();
+                        ?>
                         <a class="collections_links" href="collections\whitepapers.php">
                             <i class="fa-sharp fa-regular fa-copy"></i> 
-                            <p>White Papers (<span>32</span>)</p>
+                            <p>White Papers (<span><?php echo $row1["total"];?></span>)</p>
                         </a>
+                        <?php 
+                            };
+                            $count_videoscripts = "SELECT COUNT(*) as total FROM whitepapers";
+                            $count_videoscripts_result = $conn->query($count_videoscripts);
+                            if ($count_videoscripts_result->num_rows > 0) {
+                                $row1 = $count_videoscripts_result->fetch_assoc();
+                        ?>
                         <a class="collections_links" href="collections\videoscripts.php">
                             <i class="fa fa-file-video" aria-hidden="true"></i>               
-                            <p>Video Scripts (<span>32</span>)</p>
+                            <p>Video Scripts (<span><?php echo $row1["total"];?></span>)</p>
                         </a>
+                        <?php };?>
                         <a class="collections_links" href="create_new\collections.php">
                             <i class="fa fa-plus-square" aria-hidden="true"></i>         
                             <p>Add Collection</p>
@@ -391,7 +514,7 @@ require ("connect.php");
             </div>
             <div class="profile tabcontent hidden">
                 <figure class="profile_imgbox">
-                    <img src="images/Diamakaimg1.png" alt="Authors Profile Picture" class="profile_imgbox_img"/>
+                    <img src="../images/Diamakaimg1.png" alt="Authors Profile Picture" class="profile_imgbox_img"/>
                     <a class="profile_imgbox_edit" id="profileuploads">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
@@ -667,14 +790,6 @@ require ("connect.php");
                                     echo "<div class='posts_divcontainer_subdiv'>
                                             <div class='posts_divcontainer_subdiv_body'>
                                                 <h3 class='posts_divcontainer_header'>".$row['title']."</h3>
-                                                <div class='posts_delete_edit'>
-                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
-                                                        <i class='fa fa-pencil' aria-hidden='true'></i>
-                                                    </a>
-                                                    <a class='users_delete'>
-                                                        <i class='fa fa-trash' aria-hidden='true'></i>
-                                                    </a>
-                                                </div>
                                             </div>
                                             <div class='posts_divcontainer_subdiv3'>
                                                 <p class='posts_divcontainer_subdiv_p'>
@@ -683,6 +798,14 @@ require ("connect.php");
                                                 <p class='posts_divcontainer_subdiv_p'>
                                                     <span> Publish Time:</span> ".$formatted_time."
                                                 </p> 
+                                            </div>
+                                             <div class='posts_delete_edit'>
+                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
+                                                        <i class='fa fa-pencil' aria-hidden='true'></i>
+                                                    </a>
+                                                    <a class='users_delete'>
+                                                        <i class='fa fa-trash' aria-hidden='true'></i>
+                                                    </a>
                                             </div>
                                     </div>";                           
                                 };
@@ -708,14 +831,6 @@ require ("connect.php");
                                     echo "<div class='posts_divcontainer_subdiv'>
                                             <div class='posts_divcontainer_subdiv_body'>
                                                 <h3 class='posts_divcontainer_header'>".$row['title']."</h3>
-                                                <div class='posts_delete_edit'>
-                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
-                                                        <i class='fa fa-pencil' aria-hidden='true'></i>
-                                                    </a>
-                                                    <a class='users_delete'>
-                                                        <i class='fa fa-trash' aria-hidden='true'></i>
-                                                    </a>
-                                                </div>
                                             </div>
                                             <div class='posts_divcontainer_subdiv2'>
                                                 <p class='posts_divcontainer_p'>
@@ -729,6 +844,14 @@ require ("connect.php");
                                                 <p class='posts_divcontainer_subdiv_p'>
                                                     <span> Publish Time:</span> ".$formatted_time."
                                                 </p> 
+                                            </div>
+                                            <div class='posts_delete_edit'>
+                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
+                                                        <i class='fa fa-pencil' aria-hidden='true'></i>
+                                                    </a>
+                                                    <a class='users_delete'>
+                                                        <i class='fa fa-trash' aria-hidden='true'></i>
+                                                    </a>
                                             </div>
                                     </div>";                           
                                 };
@@ -754,14 +877,6 @@ require ("connect.php");
                                     echo "<div class='posts_divcontainer_subdiv'>
                                             <div class='posts_divcontainer_subdiv_body'>
                                                 <h3 class='posts_divcontainer_header'>".$row['title']."</h3>
-                                                <div class='posts_delete_edit'>
-                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
-                                                        <i class='fa fa-pencil' aria-hidden='true'></i>
-                                                    </a>
-                                                    <a class='users_delete'>
-                                                        <i class='fa fa-trash' aria-hidden='true'></i>
-                                                    </a>
-                                                </div>
                                             </div>
                                             <div class='posts_divcontainer_subdiv2'>
                                                 <p class='posts_divcontainer_p'>
@@ -775,6 +890,14 @@ require ("connect.php");
                                                 <p class='posts_divcontainer_subdiv_p'>
                                                     <span> Publish Time:</span> ".$formatted_time."
                                                 </p> 
+                                            </div>
+                                            <div class='posts_delete_edit'>
+                                                <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
+                                                    <i class='fa fa-pencil' aria-hidden='true'></i>
+                                                </a>
+                                                <a class='users_delete'>
+                                                    <i class='fa fa-trash' aria-hidden='true'></i>
+                                                </a>
                                             </div>
                                     </div>";                           
                                 };

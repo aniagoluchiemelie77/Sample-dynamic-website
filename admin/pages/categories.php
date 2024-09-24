@@ -34,7 +34,7 @@ $content = "";
                 <img src="../../images/image1.jpeg" alt="Topic's Image"/>
                 <div class="about_section_topicsdiv_subdiv_subdiv">
                     <h1><span>Cybersecurity</span></h1>
-                    <p>Posts about Topic: <span>30</span>
+                    <p>Posts on this Category: <span>30</span>
                     <p>Date created: <span>June 24th 2024</span></p>
                     <a class="topics_actions">
                         <i class="fa fa-trash" aria-hidden="true"></i>
@@ -42,10 +42,10 @@ $content = "";
                 </div>
             </div>
             <div class="about_section_topicsdiv_subdiv">
-                <img src="../images/AI_image.jpeg" alt="Topic's Image"/>
+                <img src="../../images/AI_image.jpeg" alt="Topic's Image"/>
                 <div class="about_section_topicsdiv_subdiv_subdiv">
                     <h1><span>Artificial Intelligence</span></h1>
-                    <p>Posts about Topic: <span>30</span>
+                    <p>Posts on this Category: <span>30</span>
                     <p>Date created: <span>June 24th 2024</span></p>
                     <a class="topics_actions">
                         <i class="fa fa-trash" aria-hidden="true"></i>
@@ -53,10 +53,10 @@ $content = "";
                 </div>
             </div>
             <div class="about_section_topicsdiv_subdiv">
-                <img src="../images/dataanalytics.jpeg" alt="Topic's Image"/>
+                <img src="../../images/dataanalytics.jpeg" alt="Topic's Image"/>
                 <div class="about_section_topicsdiv_subdiv_subdiv">
                     <h1><span>Data Analytics</span></h1>
-                    <p>Posts about Topic: <span>30</span>
+                    <p>Posts on this Category: <span>30</span>
                     <p>Date created: <span>June 24th 2024</span></p>
                     <a class="topics_actions">
                         <i class="fa fa-trash" aria-hidden="true"></i>
@@ -64,10 +64,10 @@ $content = "";
                 </div>
             </div>
             <div class="about_section_topicsdiv_subdiv">
-                <img src="../images/cloudcomputing2.jpeg" alt="Topic's Image"/>
+                <img src="../../images/cloudcomputing2.jpeg" alt="Topic's Image"/>
                 <div class="about_section_topicsdiv_subdiv_subdiv">
                     <h1><span>Cloud Computing</span></h1>
-                    <p>Posts about Topic: <span>30</span>
+                    <p>Posts on this Category: <span>30</span>
                     <p>Date created: <span>June 24th 2024</span></p>
                     <a class="topics_actions">
                         <i class="fa fa-trash" aria-hidden="true"></i>

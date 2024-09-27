@@ -8,26 +8,8 @@ use PHPMailer\PHPMailer\Exception;
 require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
-//$id = $_GET['id'];
-
-// Get the post ID from the URL
-$post_title = isset($_GET['title']) ? intval($_GET['title']) : 0;
-if ($post_title > 0) {
-    $getposts_sql = " SELECT * FROM posts WHERE title = '$post_title' LIMIT 1";
-    $getpaidposts_sql = " SELECT * FROM paid_posts WHERE title = '$post_title' LIMIT 1";
-    $getnews_sql = " SELECT * FROM news WHERE title = '$post_title' LIMIT 1";
-    $getcommentary_sql = " SELECT * FROM commentaries WHERE title = '$post_title' LIMIT 1";
-    $getpressrelease_sql = " SELECT * FROM press_releases WHERE title = '$post_title' LIMIT 1";
-
-    $getposts_result = $conn->query($getposts_sql);
-    $getpaidposts_result = $conn->query($getpaidposts_sql);
-    $getnews_result = $conn->query($getnews_sql);
-    $getcommentary_result = $conn->query($getcommentary_sql);
-    $getpressrelease_result = $conn->query($getpressrelease_sql);
-    if ($getposts_result->num_rows > 0 || $getpaidposts_result->num_rows > 0 || $getnews_result->num_rows > 0 || $getcommentary_result->num_rows > 0 || $getpressrelease_result->num_rows > 0) {
-        $row = $getposts_result->fetch_assoc() || $getpaidposts_result->fetch_assoc() || $getnews_result->fetch_assoc() || $getcommentary_result->fetch_assoc() || $getpressrelease_result->fetch_assoc();
-        $time = $row['time'];
-        $formatted_time = date("g:i A", strtotime($time));
+$post_id = isset($_GET['id1']) ? intval($_GET['id1']) : 0;
+$post_id2 = isset($_GET['id2']) ? intval($_GET['id2']) : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +28,6 @@ if ($post_title > 0) {
 </head>
 <body>
     <?php require("../includes/header2.php");?>
-    <div class="ads_bar"></div>
     <div class="body_container">
         <div class="body_left">
             <div class="page_links">
@@ -58,64 +39,174 @@ if ($post_title > 0) {
                 <a>Data Analytics</a>
                 <a>Cybersecurity</a>
             </div>
-            <h1 class="Post_header"><?php echo $row["title"];?></h1>
-            <h2><?php echo $row["subtitle"];?></h2>
-            <div class="authors_div">
-                <div class="authors_div_imgbox">
-                    <img src="../images\chibs.jpg" alt="Author's Image"/>
-                    <p><span class="span1">Aniagolu Chiemelie, Contributing Writer.</span> <span class="span3"><?php echo $row["formatted_date"];?></span><span class="span3"><?php echo $formatted_time;?></span></p>
-                </div>
-                <div class="authors_div_otherdiv">
-                    <i class="fa fa-clock" aria-hidden="true"></i>
-                    <p>10 mins read.</p>
-                </div>
-            </div>
-            <div class="post_image_div">
-                <img src="../images/<?php echo $row["image"];?>" alt="Post Image"/>
-                <span>Source: Getty Images</span>
-            </div>
-            <div class="socialmedia_links">
-                <a><i class="fa-brands fa-x-twitter"></i></a>
-                <a><i class="fab fa-facebook" aria-hidden="true"></i></a>
-                <a><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-                <a><i class="fab fa-reddit-alien" aria-hidden="true"></i></a>
-                <a><i class="fa fa-print" aria-hidden="true"></i></a>
-                <a><i class="fa fa-envelope" aria-hidden="true"></i></a>
-            </div>
-            <p><?php echo $row["content"];?></p>
-            <div class="socialmedia_links">
-                <a><i class="fa-brands fa-x-twitter"></i></a>
-                <a class="fab fa-facebook" aria-hidden="true"></a>
-                <a class="fab fa-linkedin" aria-hidden="true"></a>
-                <a class="fab fa-reddit-alien" aria-hidden="true"></a>
-                <a class="fa fa-print" aria-hidden="true"></a>
-                <a class="fa fa-envelope" aria-hidden="true"></a>
-            </div>
-            <h3 class="bodyleft_header3">About the Author</h3>
-            <center>
-                <a href="../authors/author.php" class="aboutauthor_div">
-                    <div class="aboutauthor_div_subdiv1">
-                        <img src="../images/chibs.jpg" alt ="Author's Image"/>
-                    </div>
-                    <div class="aboutauthor_div_subdiv2">
-                        <p class="p--bold">Aniagolu Chiemelie, Contributing Writer</p>
-                        <p>Nate Nelson is a freelance writer based in New York City. Formerly a reporter at Threatpost, he contributes to a number of cybersecurity blogs and podcasts. He writes "Malicious Life" -- an</p>
-                    </div>
-                </a>
-                <?php 
-                        } else {
-                            echo "Post not found.";
+            <?php
+                if ($post_id > 0) {
+                    $getposts_sql = " SELECT id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM paid_posts WHERE id = '$post_id' LIMIT 1";
+                    $getposts_result = $conn->query($getposts_sql);
+                    if ($getposts_result->num_rows > 0) {
+                        $row = $getposts_result->fetch_assoc();
+                        $time = $row['time'];
+                        $title = $row['title'];
+                        $niche = $row['niche'];
+                        $content = $row['content'];
+                        $subtitle = $row['subtitle'];
+                        $image = $row['image_path'];
+                        $date = $row['formatted_date'];
+                        $id = $row['id'];
+                        $link = $row['link'];
+                        $formatted_time = date("g:i A", strtotime($time));
+                        $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$id'";
+                        $selectwriter_result = $conn->query($selectwriter);
+                        if ($selectwriter_result->num_rows > 0) {
+                            while($row = $selectwriter_result->fetch_assoc()) {
+                                $bio = $row["bio"];
+                                $max_length = 250;
+                                if (strlen($bio) > $max_length) {
+                                    $bio = substr($bio, 0, $max_length) . '...';
+                                }
+                                echo "<h1 class='Post_header'>".$title."</h1>
+                                        <h2>".$subtitle."</h2>
+                                        <div class='authors_div'>
+                                            <div class='authors_div_imgbox'>
+                                                <img src='../images/".$row['image']."' alt='Author's Image'/>
+                                                <p><span class='span1'>".$row['firstname'] .$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</span><span class='span3'>".$date."</span><span class='span3'>".$formatted_time."</span></p>
+                                            </div>
+                                            <div class='authors_div_otherdiv'>
+                                                <i class='fa fa-clock' aria-hidden='true'></i>
+                                                <p>10 mins read.</p>
+                                            </div>
+                                        </div>
+                                        <video controls>
+                                            <source src='".$link."' type='video/mp4'>
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <div class='post_image_div'>
+                                            <img src='../images/".$image."' alt='Post Image'/>
+                                            <span>Source: Getty Images</span>
+                                        </div>
+                                        <div class='socialmedia_links'>
+                                            <a><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                        </div>
+                                        <p>".$content."</p>
+                                        <div class='socialmedia_links'>
+                                            <a><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                        </div>
+                                        <h3 class='bodyleft_header3'>About the Author</h3>
+                                        <center>
+                                            <a href='../authors/author.php?' class='aboutauthor_div'>
+                                                <div class='aboutauthor_div_subdiv1'>
+                                                    <img src='../images/".$row['image']."' alt ='Author's Image'/>
+                                                </div>
+                                                <div class='aboutauthor_div_subdiv2'>
+                                                    <p class='p--bold'>".$row['firstname'] .$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</p>
+                                                    <p>".$bio."</p>
+                                                </div>
+                                            </a>
+                                            <div class = 'subscribe_div'>
+                                                <p>Keep up with the latest cybersecurity threats, newly discovered vulnerabilities, data breach information, and emerging trends. Delivered daily or weekly right to your email inbox.</p>
+                                                <a class ='mainheader__signupbtn'>Subscribe</a>
+                                            </div>
+                                        </center>
+                                    ";
+                            }
                         }
-                    } else {
-                        echo "Invalid post ID.";
                     }
-                ?>
-                <div class = "subscribe_div">
-                    <p>Keep up with the latest cybersecurity threats, newly discovered vulnerabilities, data breach information, and emerging trends. Delivered daily or weekly right to your email inbox.
-                    </p>
-                    <a class ="mainheader__signupbtn">Subscribe</a>
-                </div>
-            </center>
+                }
+            ?>
+            <?php
+                if ($post_id2 > 0) {
+                    $getposts_sql = " SELECT id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM posts WHERE id = '$post_id2'";
+                    $getposts_result = $conn->query($getposts_sql);
+                    if ($getposts_result->num_rows > 0) {
+                        $row = $getposts_result->fetch_assoc();
+                        $time = $row['time'];
+                        $title = $row['title'];
+                        $niche = $row['niche'];
+                        $content = $row['content'];
+                        $subtitle = $row['subtitle'];
+                        $image = $row['image_path'];
+                        $date = $row['formatted_date'];
+                        $id = $row['id'];
+                        $link = $row['link'];
+                        $formatted_time = date("g:i A", strtotime($time));
+                        $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$id'";
+                        $selectwriter_result = $conn->query($selectwriter);
+                        if ($selectwriter_result->num_rows > 0) {
+                            while($row = $selectwriter_result->fetch_assoc()) {
+                                $bio = $row["bio"];
+                                $max_length = 250;
+                                if (strlen($bio) > $max_length) {
+                                    $bio = substr($bio, 0, $max_length) . '...';
+                                }
+                                echo "<h1 class='Post_header'>".$title."</h1>
+                                        <h2>".$subtitle."</h2>
+                                        <div class='authors_div'>
+                                            <div class='authors_div_imgbox'>
+                                                <img src='../images/".$row['image']."' alt='Author's Image'/>
+                                                <p><span class='span1'>".$row['firstname'] .$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</span><span class='span3'>".$date."</span><span class='span3'>".$formatted_time."</span></p>
+                                            </div>
+                                            <div class='authors_div_otherdiv'>
+                                                <i class='fa fa-clock' aria-hidden='true'></i>
+                                                <p>10 mins read.</p>
+                                            </div>
+                                        </div>
+                                        <video controls>
+                                            <source src='".$link."' type='video/mp4'>
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <div class='post_image_div'>
+                                            <img src='../images/".$image."' alt='Post Image'/>
+                                            <span>Source: Getty Images</span>
+                                        </div>
+                                        <div class='socialmedia_links'>
+                                            <a><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                        </div>
+                                        <p>".$content."</p>
+                                        <div class='socialmedia_links'>
+                                            <a><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                        </div>
+                                        <h3 class='bodyleft_header3'>About the Author</h3>
+                                        <center>
+                                            <a href='../authors/author.php?' class='aboutauthor_div'>
+                                                <div class='aboutauthor_div_subdiv1'>
+                                                    <img src='../images/".$row['image']."' alt ='Author's Image'/>
+                                                </div>
+                                                <div class='aboutauthor_div_subdiv2'>
+                                                    <p class='p--bold'>".$row['firstname'] .$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</p>
+                                                    <p>".$bio."</p>
+                                                </div>
+                                            </a>
+                                            <div class = 'subscribe_div'>
+                                                <p>Keep up with the latest cybersecurity threats, newly discovered vulnerabilities, data breach information, and emerging trends. Delivered daily or weekly right to your email inbox.</p>
+                                                <a class ='mainheader__signupbtn'>Subscribe</a>
+                                            </div>
+                                        </center>
+                                    ";
+                            }
+                        }
+                    }
+                }
+            ?>
             <h1 class="bodyleft_header3 border-gradient-bottom--lightdark">You may also like</h1>
             <div class="more_posts">
                 <a class="more_posts_subdiv" href="#">
@@ -169,7 +260,6 @@ if ($post_title > 0) {
             </div>
         </div>
         <div class="body_right border-gradient-leftside--lightdark">
-            <div class="ads_sidebar"></div>
             <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
             <a class="posts_div" href="#">
                 <img src="../images/chibs.jpg" alt="Post's Image"/>

@@ -177,7 +177,7 @@ if (isset($_POST['accept_cookies'])) {
         </div>
         <section class="section1">
             <?php 
-                $selectpaidposts = "SELECT id, title, niche, image, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY date DESC";
+                $selectpaidposts = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY date DESC";
                 $paidpostselection_result = $conn->query($selectpaidposts); 
                 if ($paidpostselection_result->num_rows > 0) {
                     $counter = 0;
@@ -186,8 +186,8 @@ if (isset($_POST['accept_cookies'])) {
                         $class = $counter == 1 ? "section1__div1 larger__div" : "section1__div2 smallerdivs";
                         $class2 = $counter == 1 ? "larger__div__subdiv" : "smaller__div__subdiv";
                         echo "<div class='$class'>
-                                <a href='pages/view_post.php?id=". $row['id'] ."'>
-                                    <img src='images/".$row['image']."' alt='article image'/>
+                                <a href='pages/view_post.php?id1=". $row['id'] ."'>
+                                    <img src='images/".$row['image_path']."' alt='article image'/>
                                     <div class='$class2'>
                                         <h1>". $row['niche'] ."</h1>
                                         <h2>". $row['title'] ."</h2>
@@ -205,27 +205,18 @@ if (isset($_POST['accept_cookies'])) {
                     <h1>Latest Articles</h1>
                 </div>
                 <?php
-                    $selectposts_sql = "SELECT id, title, niche, image, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
+                    $selectposts_sql = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
                     $selectposts_result = $conn->query($selectposts_sql);
                     if ($selectposts_result->num_rows > 0) {
                         while($row = $selectposts_result->fetch_assoc()) {
                             $id = $row["id"];
                             $title = $row["title"];
                             $niche = $row["niche"];
-                            $image = $row["image"];
+                            $image = $row["image_path"];
                             $date = $row["formatted_date"];
-                            $foldername = "$niche";
-                            $filepath= "$foldername/$title.php";
-                            if (!file_exists($foldername)) {
-                                mkdir($foldername, 0777, true);
-                            }
-                            if (!file_exists($filepath)) {
-                                $content = `include("../viewpost_template.php")`;
-                                file_put_contents($filepath, $content);
-                            }
                             echo "<div class='section2__div1__div1 normal-divs'>
-                                    <a class='normal-divs__subdiv' href='$filepath title=$title'>
-                                        <img src='admin/$image' alt='article image'>
+                                    <a class='normal-divs__subdiv' href='pages/view_post.php? id2=".$row["id"]."'>
+                                        <img src='$image' alt='article image'>
                                         <div class='normal-divs__subdiv__div'>
                                             <h1 class='normal-divs__header'>$niche</h1>
                                             <h2 class='normal-divs__title'>$title</h2>

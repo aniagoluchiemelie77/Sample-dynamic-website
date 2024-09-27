@@ -6,7 +6,7 @@
                     <i class="fa fa-home" aria-hidden="true"></i>
                 </a>
                 <a class="mainheader__header-nav-2" id="searchicon">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <i class="fa-solid fa-list"></i>
                 </a>
             </div>
             <div class="mainheader__logobox">

@@ -1188,6 +1188,10 @@ a, p, li{
     justify-content: space-between;
     padding: 1.5rem 0;
 }
+.body_left video{
+    height: 50vh;
+    width: 70%;
+}
 .authors_div_imgbox{
     display: flex;
     align-items: center;
@@ -1240,7 +1244,7 @@ a, p, li{
 }
 .socialmedia_links{
     display: flex;
-    width: 100%;
+    width: 80%;
     padding: 2rem 0;
 }
 .socialmedia_links a{
@@ -1255,7 +1259,7 @@ a, p, li{
     color: #F94A04;
     margin: 0 1rem;
     font-size: 1.9rem;
-    border: 1px solid #22222271;
+    border: 1px solid #F94A04;
     border-radius: .5rem;
     -webkit-border-radius: .5rem;
     -moz-border-radius: .5rem;

@@ -26,10 +26,10 @@ include("../connect.php");
             <div class="newpost_container_div1 newpost_subdiv">
                 <h1>Create New Post</h1>
             </div>
-            <div class="newpost_container_div2 newpost_subdiv">
-                <input class="form__input input1" name="Post_Title" type="text" placeholder="Add Title.." required/>
-                <div class="newpost_container_div2_subdiv2">
-                    <input class="form__input" name="Post_Niche" type="text" placeholder="Niche.." required/>
+            <div class="newpost_container_div3 newpost_subdiv">
+                <label class="form__label" for="Post_Title">Post Title:</label>
+                <div class="newpost_container_div3_subdiv2">
+                    <input class="form__input" name="Post_Title" type="text" required/>
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
@@ -40,14 +40,29 @@ include("../connect.php");
                 </div>
             </div>
             <div class="newpost_container_div4 newpost_subdiv">
+                <label class="form__select" for="Post_Niche">Category:</label>
+                <select class="newpost_subdiv2" name="Post_Niche">
+                    <option class="newpost_subdiv4-option" value="">-- Please Select --</option>
+                    <?php 
+                        $selectcategory = "SELECT name FROM topics ORDER BY id";
+                        $selectcategory_result = $conn->query($selectcategory);
+                        if ($selectcategory_result->num_rows > 0) {
+                            while($row = $selectcategory_result->fetch_assoc()) {
+                                echo "<option class='newpost_subdiv4-option' value='".$row['name']."'>".$row['name']."</option>";
+                            }
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="newpost_container_div4 newpost_subdiv">
                 <label class="form__select" for="Post_Status">Post Type:</label>
                 <select class="newpost_subdiv2" name="Post_Status">      
                     <option class="newpost_subdiv4-option" value="">-- Please Select --</option>
                     <option class="newpost_subdiv4-option" value="paid_post">Paid Post</option>      
-                    <option class="newpost_subdiv4-option" value="article">Article</option>
+                    <option class="newpost_subdiv4-option" value="posts">Article</option>
                     <option class="newpost_subdiv4-option" value="news">News</option>
-                    <option class="newpost_subdiv4-option" value="press_release">Press Release</option>
-                    <option class="newpost_subdiv4-option" value="commentary">Commentary</option>
+                    <option class="newpost_subdiv4-option" value="press_releases">Press Release</option>
+                    <option class="newpost_subdiv4-option" value="commentaries">Commentary</option>
                 </select>
             </div>
             <div class="newpost_container_div5 newpost_subdiv">

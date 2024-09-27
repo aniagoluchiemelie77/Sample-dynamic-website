@@ -1,7 +1,58 @@
 <?php
 session_start();
+$admin_id = 1; 
+$_SESSION['status_type'] = "";
+$_SESSION['status'] = "";
 require ("connect.php");
+function savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename) {
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    if($tablename === "paid_post"){
+        $max_rows = 4;
+        $row_count = "SELECT COUNT(*) as total FROM paid_posts";
+        $rowcount_result = $conn->query($row_count);
+        $row = $rowcount_result->fetch_assoc();
+        $total_rows = $row['total']; 
+        if ($total_rows >= $max_rows) {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error!, Cannot add more posts. The maximum limit of $max_rows posts has been reached.";
+            header('location: {$_SERVER["HTTP_REFERER"]}');
+        } 
+    }else{
+        $stmt = $conn->prepare("INSERT INTO $tablename (title, subtitle, image_path, content, niche, link, schedule, admin_id, Date, time, authors_firstname, about_author, authors_lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssssssss", $title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $date, $time, $author_firstname, $author_bio, $author_lastname);
+        if ($stmt->execute()) {
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Published Successfully!";
+            header('location: {$_SERVER["HTTP_REFERER"]}');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error!, Please Retry";
+            header('location: {$_SERVER["HTTP_REFERER"]}');
+    }
+    $stmt->close();
+    }
+}
 if (isset($_POST['create_post'])) {
+    $title = $_POST['Post_Title'];
+    $subtitle = $_POST['Post_Sub_Title'];
+    $content = $_POST['Post_content'];
+    $niche = $_POST['Post_Niche'];
+    $link = $_POST['Post_featured'];
+    $schedule = $_POST['schedule'];
+    $author_firstname = $_POST['author_firstname'];
+    $author_lastname = $_POST['author_lastname'];
+    $author_bio = $_POST['about_author'];
+    $tablename = $_POST['Post_Status'];
+    $image = $_FILES['Post_Image']['name'];
+    $target = "../images/" . basename($image);
+    if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
+        $imagePath = $target;
+        savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename);
+    }
+}
+/*if (isset($_POST['create_post'])) {
     $title = $_POST['Post_Title'];
     $niche = $_POST['Post_Niche'];
     $subtitle = $_POST['Post_Sub_Title'];
@@ -86,7 +137,7 @@ if (isset($_POST['create_post'])) {
         }
         $conn->close();
     }
-}
+}*/
 require ("connect.php");
 if (isset($_POST['profileedit_Submit'])) {
     $firstname = $_POST['profile_firstname'];

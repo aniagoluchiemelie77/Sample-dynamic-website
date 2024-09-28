@@ -272,7 +272,7 @@ require ("connect.php");
                                             <td>" . $sn . "</td>
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id2=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -306,7 +306,7 @@ require ("connect.php");
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id3=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -340,7 +340,7 @@ require ("connect.php");
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id6=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -374,7 +374,7 @@ require ("connect.php");
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id4=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -408,7 +408,7 @@ require ("connect.php");
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id5=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -800,7 +800,7 @@ require ("connect.php");
                                                 </p> 
                                             </div>
                                              <div class='posts_delete_edit'>
-                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
+                                                    <a class='users_edit' href='edit/post.php?id1=".$row['id']."' target='_blank'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
                                                     <a class='users_delete'>
@@ -846,7 +846,7 @@ require ("connect.php");
                                                 </p> 
                                             </div>
                                             <div class='posts_delete_edit'>
-                                                    <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
+                                                    <a class='users_edit' href='edit/post.php?id2=".$row['id']."' target='_blank'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
                                                     <a class='users_delete'>
@@ -892,7 +892,7 @@ require ("connect.php");
                                                 </p> 
                                             </div>
                                             <div class='posts_delete_edit'>
-                                                <a class='users_edit' href='edit/post.php?id=".$row['id']."' target='_blank'>
+                                                <a class='users_edit' href='edit/post.php?id3=".$row['id']."' target='_blank'>
                                                     <i class='fa fa-pencil' aria-hidden='true'></i>
                                                 </a>
                                                 <a class='users_delete'>

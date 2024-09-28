@@ -47,8 +47,6 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                     }
                     echo "</div>";
                 }
-            ?>
-            <?php
                 if ($post_id > 0) {
                     $getposts_sql = " SELECT id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM paid_posts WHERE id = '$post_id' LIMIT 1";
                     $getposts_result = $conn->query($getposts_sql);
@@ -85,7 +83,7 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                                                 <p>10 mins read.</p>
                                             </div>
                                         </div>
-                                        <video controls>
+                                        <video width='70%' controls>
                                             <source src='".$link."' type='video/mp4'>
                                             Your browser does not support the video tag.
                                         </video>
@@ -131,8 +129,6 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                         }
                     }
                 }
-            ?>
-            <?php
                 if ($post_id2 > 0) {
                     $getposts_sql = " SELECT id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM posts WHERE id = '$post_id2'";
                     $getposts_result = $conn->query($getposts_sql);
@@ -169,7 +165,7 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                                                 <p>10 mins read.</p>
                                             </div>
                                         </div>
-                                        <video controls>
+                                        <video width='70%' controls>
                                             <source src='".$link."' type='video/mp4'>
                                             Your browser does not support the video tag.
                                         </video>

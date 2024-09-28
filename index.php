@@ -119,7 +119,7 @@ if (isset($_POST['accept_cookies'])) {
     <body id="container">
         <?php include("includes/header.php");?>
         <?php if (!isset($_COOKIE['tracker'])): ?>
-            <div class="cookie_container" id ="cookie_container">
+            <div class="cookie_container">
                 <p class="cookie_container_p">This website uses cookies and similar technologies to operate the site, analyze data, improve user experience. By using this site, you agree to our use of cookies to enhance your experience. Check our <a href="pages/privacypolicy.php">Privacy Policy</a> for more details.</p>
                 <form class="cookie_container_subdiv" method="post">
                     <button class="cookie_container_subdiv-btns" type="submit" name="accept_cookies">Accept</button>

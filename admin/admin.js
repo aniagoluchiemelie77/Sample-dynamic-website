@@ -27,6 +27,20 @@ let workspace = document.querySelector('.sidebar_workspace');
 const editAboutPageBtn = document.getElementById('Edit_about');
 const editAboutDiv = document.getElementById('hidden_aboutdiv');
 
+
+sideBtns.forEach((tab, index) => {
+  tab.addEventListener('click', (e) => {
+    sideBtns.forEach((tab) => {
+      tab.classList.remove('active');
+    });
+    tab.classList.add('active');
+    tabContent.forEach((content) =>{
+      content.style.display = 'none';
+    })
+    tabContent[index].style.display = 'flex';
+  })
+});
+
 const displayPopups = function(divname, clickorigin){
   clickorigin.addEventListener('click', () => {
     divname.classList.remove('hidden');
@@ -34,16 +48,10 @@ const displayPopups = function(divname, clickorigin){
   })
 }
 displayPopups(createEditorDiv, createWriterOrigin);
-//displayPopups(createWriterDiv, createWriterOrigin);
-//editAboutPageBtn.addEventListener('click', () => {
- // editAboutDiv.style.display = 'flex';
-//})
 const removeHiddenClass = function (e) {
   e.stopPropagation();
   logoutDiv.classList.add('hidden');
 };
-  
-//removing popups
 const onClickOutside = (element) => {
   document.addEventListener('click', e => {
     if (!element.contains(e.target)) {
@@ -51,42 +59,10 @@ const onClickOutside = (element) => {
     }
   });
 };
-const tabbedComponent = function(btndiv, tabcontent){
-  btndiv.forEach((tab, index) => {
-    tab.addEventListener('click', (e) => {
-      btndiv.forEach((tab) => {
-        tab.classList.remove('active');
-      });
-      tab.classList.add('active');
-      tabcontent.forEach((content) =>{
-        content.style.display = 'none';
-      })
-      tabcontent[index].style.display = 'flex';
-      })
-  });
-}
-const tabbedComponent2 = function(btndiv, tabcontent){
-  btndiv.forEach((tab, index) => {
-    tab.addEventListener('click', (e) => {
-      btndiv.forEach((tab) => {
-        tab.classList.remove('active');
-      });
-      tab.classList.add('active');
-      tabcontent.forEach((content) =>{
-        content.classList.add('hidden');
-      })
-      tabcontent[index].classList.remove('hidden');
-      })
-  });
-}
-tabbedComponent(sideBtns, tabContent);
-tabbedComponent2(messagePopupBtns, messagePopupContents);
 const displayForm = function(){
     form.classList.remove('hidden');
 }
-//editBtn.addEventListener('click', displayForm);
 let displayExit;
-
 const displayExitAlert = function(event){
  logoutDiv.classList.remove('hidden');
  logoutDiv.style.display = 'flex';

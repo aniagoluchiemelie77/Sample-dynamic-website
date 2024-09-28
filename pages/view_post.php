@@ -10,6 +10,9 @@ require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
 $post_id = isset($_GET['id1']) ? intval($_GET['id1']) : 0;
 $post_id2 = isset($_GET['id2']) ? intval($_GET['id2']) : 0;
+$post_id3 = isset($_GET['id3']) ? intval($_GET['id3']) : 0;
+$post_id4 = isset($_GET['id4']) ? intval($_GET['id4']) : 0;
+$post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,12 +36,18 @@ $post_id2 = isset($_GET['id2']) ? intval($_GET['id2']) : 0;
             <div class="page_links">
                 <a href="../">Home</a> > <p>View Post</p>
             </div>
-            <div class="body_left_relatedniches">
-                <a>Artificial Intelligence</a>
-                <a>Cloud Computing</a>
-                <a>Data Analytics</a>
-                <a>Cybersecurity</a>
-            </div>
+            <?php
+                $getniche_sql = " SELECT name FROM topics ORDER BY id";
+                $getniche_result = $conn->query($getniche_sql);
+                if ($getniche_result->num_rows > 0) {
+                    echo "<div class='body_left_relatedniches'>";
+                    while($row = $getniche_result->fetch_assoc()) {
+                        $category_name = $row['name'];
+                        echo "<a href='$category_name.php'>$category_name</a>";
+                    }
+                    echo "</div>";
+                }
+            ?>
             <?php
                 if ($post_id > 0) {
                     $getposts_sql = " SELECT id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM paid_posts WHERE id = '$post_id' LIMIT 1";

@@ -208,8 +208,10 @@ if (isset($_POST['accept_cookies'])) {
                     $selectposts_sql = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
                     $selectposts_result = $conn->query($selectposts_sql);
                     if ($selectposts_result->num_rows > 0) {
+                        $i = 0;
                         while($row = $selectposts_result->fetch_assoc()) {
                             $id = $row["id"];
+                            $i++;
                             $title = $row["title"];
                             $niche = $row["niche"];
                             $image = $row["image_path"];
@@ -245,11 +247,11 @@ if (isset($_POST['accept_cookies'])) {
             <div class="body_right border-gradient-leftside--lightdark">
                 <?php include('helpers/emailsubscribeform.php');?>
                 <?php include('helpers/newsdiv.php');?>
+                <?php include('helpers/commentariesdiv.php');?>
+                <?php include('helpers/searchcategories.php');?>
                 <?php include('helpers/whitepapersdiv.php');?>
                 <?php include('helpers/ebooksdiv.php');?>
-                <?php include('helpers/webinars.php');?>
-                <?php include('helpers/searchcategories.php');?>
-                <?php include('helpers/commentariesdiv.php');?>
+                <?php include('helpers/videoscripts.php');?>
             </div>
         </section>
         <section class="section3">

@@ -3,59 +3,32 @@
     <a href="pages/pressreleases.php" class="section2__div2__link mainheader__signupbtn">View All</a>
 </div>
 <div class="section3__div2">
-    <a class="section3__div2__article1">
-        <img src="images\image1.jpeg" alt="article image">
-        <div class="section3__subdiv">
-            <h1 class="section3__subdiv-h1">Sample Niche</h1>
-            <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-            <div class="section3__subdiv_subdiv">
-                <p>June 13, 2024</p>
-                <p>10 mins read.</p>
-            </div>
-        </div>
-    </a>
-    <a class="section3__div2__article2">
-        <img src="images\image1.jpeg" alt="article image">
-        <div class="section3__subdiv">
-            <h1 class="section3__subdiv-h1">Sample Niche</h1>
-            <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-            <div class="section3__subdiv_subdiv">
-                <p>June 13, 2024</p>
-                <p>10 mins read.</p>
-            </div>
-        </div>
-    </a>
-    <a class="section3__div2__article3">
-        <img src="images\image1.jpeg" alt="article image">
-        <div class="section3__subdiv">
-            <h1 class="section3__subdiv-h1">Sample Niche</h1>
-            <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-            <div class="section3__subdiv_subdiv">
-                <p>June 13, 2024</p>
-                <p>10 mins read.</p>
-            </div>
-        </div>
-    </a>
-    <a class="section3__div2__article4">
-        <img src="images\image1.jpeg" alt="article image">
-        <div class="section3__subdiv">
-            <h1 class="section3__subdiv-h1">Sample Niche</h1>
-            <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-            <div class="section3__subdiv_subdiv">
-                <p>June 13, 2024</p>
-                <p>10 mins read.</p>
-            </div>
-        </div>
-    </a>
-    <a class="section3__div2__article5">
-        <img src="images\image1.jpeg" alt="article image">
-        <div class="section3__subdiv">
-            <h1 class="section3__subdiv-h1">Sample Niche</h1>
-            <h2 class="section3__subdiv-h2">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-            <div class="section3__subdiv_subdiv">
-                <p>June 13, 2024</p>
-                <p>10 mins read.</p>
-            </div>
-        </div>
-    </a>
+    <?php
+        $selectpressreleases_sql = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases ORDER BY id DESC LIMIT 5";
+        $selectpressreleases_result = $conn->query($selectpressreleases_sql);
+        if ($selectpressreleases_result->num_rows > 0) {
+            while($row = $selectpressreleases_result->fetch_assoc()) {
+                $max_length = 150;
+                $id = $row["id"];
+                $title = $row["title"];
+                $niche = $row["niche"];
+                $image = $row["image_path"];
+                $date = $row["formatted_date"];
+                if (strlen($title) > $max_length) {
+                    $title = substr($title, 0, $max_length) . '...';
+                }
+                echo "<a class='section3__div2__article1' href='pages/view_post.php?id5=$id'>
+                        <img src='$image' alt='article image'>
+                        <div class='section3__subdiv'>
+                            <h1 class='section3__subdiv-h1'>$niche</h1>
+                            <h2 class='section3__subdiv-h2'>$title</h2>
+                            <div class='section3__subdiv_subdiv'>
+                                <p>$date</p>
+                                <p>10 mins read.</p>
+                            </div>
+                        </div>
+                    </a>";
+            }
+        }
+    ?>
 </div>

@@ -65,6 +65,15 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                         $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$id'";
                         $selectwriter_result = $conn->query($selectwriter);
                         if ($selectwriter_result->num_rows > 0) {
+                            $read_count = '';
+                            if (!function_exists('calculateReadingTime')) {
+                                function calculateReadingTime($content) {
+                                    $wordCount = str_word_count(strip_tags($content));
+                                    $minutes = floor($wordCount / 200);
+                                    return $minutes  . ' mins read ';
+                                }
+                                $read_count = calculateReadingTime($content);
+                            }
                             while($row = $selectwriter_result->fetch_assoc()) {
                                 $bio = $row["bio"];
                                 $max_length = 250;
@@ -80,7 +89,7 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                                             </div>
                                             <div class='authors_div_otherdiv'>
                                                 <i class='fa fa-clock' aria-hidden='true'></i>
-                                                <p>10 mins read.</p>
+                                                <p>$read_count</p>
                                             </div>
                                         </div>
                                         <video width='70%' controls>
@@ -138,6 +147,15 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                         $title = $row['title'];
                         $niche = $row['niche'];
                         $content = $row['content'];
+                        $read_count = '';
+                        if (!function_exists('calculateReadingTime')) {
+                            function calculateReadingTime($content) {
+                                $wordCount = str_word_count(strip_tags($content));
+                                $minutes = floor($wordCount / 200);
+                                return $minutes  . ' mins read ';
+                            }
+                            $read_count = calculateReadingTime($content);
+                        }
                         $subtitle = $row['subtitle'];
                         $image = $row['image_path'];
                         $date = $row['formatted_date'];
@@ -162,7 +180,7 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                                             </div>
                                             <div class='authors_div_otherdiv'>
                                                 <i class='fa fa-clock' aria-hidden='true'></i>
-                                                <p>10 mins read.</p>
+                                                <p>$read_count</p>
                                             </div>
                                         </div>
                                         <video width='70%' controls>

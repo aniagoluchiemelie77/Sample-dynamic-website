@@ -117,7 +117,7 @@ if (isset($_POST['accept_cookies'])) {
 	<title>Home</title>
     </head>
     <body id="container">
-        <?php include("includes/header.php");?>
+        <?php require ('includes/header.php'); ?>
         <?php if (!isset($_COOKIE['tracker'])): ?>
             <div class="cookie_container">
                 <p class="cookie_container_p">This website uses cookies and similar technologies to operate the site, analyze data, improve user experience. By using this site, you agree to our use of cookies to enhance your experience. Check our <a href="pages/privacypolicy.php">Privacy Policy</a> for more details.</p>
@@ -201,14 +201,22 @@ if (isset($_POST['accept_cookies'])) {
         </section>
         <section class="section2">
             <div class="section2__div1">
+                <div class="search_div" id="result"></div>
                 <div class="section2__div1__header headers">
                     <h1>Latest Articles</h1>
                 </div>
                 <?php
-                    $selectposts_sql = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
+                    $selectposts_sql = "SELECT id, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
                     $selectposts_result = $conn->query($selectposts_sql);
                     if ($selectposts_result->num_rows > 0) {
                         $i = 0;
+                        if (!function_exists('calculateReadingTime')) {
+                            function calculateReadingTime($content) {
+                                $wordCount = str_word_count(strip_tags($content));
+                                $minutes = floor($wordCount / 200);
+                                return $minutes  . ' mins read ';
+                            }
+                        }
                         while($row = $selectposts_result->fetch_assoc()) {
                             $id = $row["id"];
                             $i++;
@@ -216,6 +224,9 @@ if (isset($_POST['accept_cookies'])) {
                             $niche = $row["niche"];
                             $image = $row["image_path"];
                             $date = $row["formatted_date"];
+                            $content = $row["content"];
+                            $readingTime = calculateReadingTime($row['content']);
+
                             echo "<div class='section2__div1__div1 normal-divs'>
                                     <a class='normal-divs__subdiv' href='pages/view_post.php? id2=".$row["id"]."'>
                                         <img src='$image' alt='article image'>
@@ -224,7 +235,7 @@ if (isset($_POST['accept_cookies'])) {
                                             <h2 class='normal-divs__title'>$title</h2>
                                             <div>
                                                 <p class='normal-divs__releasedate firstp'>$date</p>
-                                                <p class='normal-divs__releasedate'><i class='fa fa-clock' aria-hidden='true'></i> 5 mins read</p>
+                                                <p class='normal-divs__releasedate'><i class='fa fa-clock' aria-hidden='true'></i> $readingTime</p>
                                             </div>
                                         </div>
                                     </a>
@@ -259,6 +270,25 @@ if (isset($_POST['accept_cookies'])) {
         </section>
         <?php include("includes/footer.php");?>
         <script src="index.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('#search').on('input', function(){
+                    var query = $(this).val();
+                    if(query != ''){
+                        $.ajax({
+                            url: "forms.php",
+                            method: "POST",
+                            data: {query: query},
+                            success: function(data){
+                                $('#result').html(data);
+                            }
+                        });
+                    } else {
+                        $('#result').html('');
+                    }
+                });
+            });
+        </script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script>
             function submitPost() {

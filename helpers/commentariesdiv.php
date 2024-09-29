@@ -3,9 +3,16 @@
                         <h2>Latest Commentaries</h2>
                     </div>
                     <?php 
-                        $selectcommentaries = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, authors_image, about_author, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM commentaries ORDER BY id DESC LIMIT 8";
+                        $selectcommentaries = "SELECT id, content, admin_id, editor_id, authors_firstname, authors_lastname, authors_image, about_author, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM commentaries ORDER BY id DESC LIMIT 8";
                         $selectcommentaries_result = $conn->query($selectcommentaries);
                         if ($selectcommentaries_result->num_rows > 0) {
+                            if (!function_exists('calculateReadingTime')) {
+                                function calculateReadingTime($content) {
+                                    $wordCount = str_word_count(strip_tags($content));
+                                    $minutes = floor($wordCount / 200);
+                                    return $minutes  . ' mins read ';
+                                }
+                            }
                             while($row = $selectcommentaries_result->fetch_assoc()) {
                                 $max_length = 150;
                                 $max_length2 = 120;
@@ -20,6 +27,7 @@
                                 $authors_lastname = $row["authors_lastname"];
                                 $authors_lastname = $row["authors_lastname"];
                                 $about_author = $row["about_author"];
+                                $readingTime = calculateReadingTime($row['content']);
                                 if (strlen($title) > $max_length) {
                                     $title = substr($title, 0, $max_length) . '...';
                                 }
@@ -39,7 +47,7 @@
                                             <h3>$title</h3>
                                             <div class='commentary_divs_body_subdiv'>
                                                 <p>$date</p>
-                                                <p><i class='fa fa-clock' aria-hidden='true'></i>10mins read.</p>
+                                                <p><i class='fa fa-clock' aria-hidden='true'></i>$readingTime</p>
                                             </div>
                                         </div>
                                 </a>";

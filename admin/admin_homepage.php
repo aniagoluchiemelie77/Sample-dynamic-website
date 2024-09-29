@@ -21,6 +21,7 @@ require ("connect.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="admin.css"/>
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
 	<title>Admin Homepage</title>
@@ -272,7 +273,7 @@ require ("connect.php");
                                             <td>" . $sn . "</td>
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id2=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id2=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete'href='../admin/admin_homepage.php?id2=".$row["id"]."'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -306,7 +307,7 @@ require ("connect.php");
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id3=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id3=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='../admin/admin_homepage.php?id3=".$row["id"]."'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -340,7 +341,7 @@ require ("connect.php");
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id6=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id6=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='../admin/admin_homepage.php?id6=".$row["id"]."'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -374,7 +375,7 @@ require ("connect.php");
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id4=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id4=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='../admin/admin_homepage.php?id4=".$row["id"]."'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -408,7 +409,7 @@ require ("connect.php");
                                             <td>" . $row["title"] . "</td>
                                             <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id5=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='#'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id5=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='../admin/admin_homepage.php?id5=".$row["id"]."'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -1068,7 +1069,7 @@ require ("connect.php");
         <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script type="text/javascript" src="otherJSFiles/custom.js"></script>   
+        <script type="text/javascript" src="otherJSFiles/custom.js"></script>  
     </section>
 </body>
 </html>

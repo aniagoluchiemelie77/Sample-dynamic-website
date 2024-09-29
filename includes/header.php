@@ -14,9 +14,8 @@
             </div>
             <a class="mainheader__signupbtn" href="../pages/newslettersubscribe.php">Newsletter Signup</a>
         </div>
-        <form class="header_searchbar hidden" action="forms.php" method="get" id="search_form">
-            <input type="text" name="search" placeholder="Search.." />
-            <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
+        <form class="header_searchbar hidden" id="search_form">
+            <input type="text" name="search" id="search" placeholder="Search.." />
         </form>
         <div class="header__dropdownlinks">
             <a class="header__dropdownlinks-1 headerlinks lightp" href="pages/cybersecurity.php">

@@ -7,6 +7,13 @@
         $selectpressreleases_sql = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases ORDER BY id DESC LIMIT 5";
         $selectpressreleases_result = $conn->query($selectpressreleases_sql);
         if ($selectpressreleases_result->num_rows > 0) {
+            if (!function_exists('calculateReadingTime')) {
+                function calculateReadingTime($content) {
+                    $wordCount = str_word_count(strip_tags($content));
+                    $minutes = floor($wordCount / 200);
+                    return $minutes  . ' mins read ';
+                }
+            }
             while($row = $selectpressreleases_result->fetch_assoc()) {
                 $max_length = 150;
                 $id = $row["id"];
@@ -17,6 +24,7 @@
                 if (strlen($title) > $max_length) {
                     $title = substr($title, 0, $max_length) . '...';
                 }
+                $readingTime = calculateReadingTime($row['content']);
                 echo "<a class='section3__div2__article1' href='pages/view_post.php?id5=$id'>
                         <img src='$image' alt='article image'>
                         <div class='section3__subdiv'>
@@ -24,7 +32,7 @@
                             <h2 class='section3__subdiv-h2'>$title</h2>
                             <div class='section3__subdiv_subdiv'>
                                 <p>$date</p>
-                                <p>10 mins read.</p>
+                                <p>$readingTime</p>
                             </div>
                         </div>
                     </a>";

@@ -13,6 +13,7 @@ $post_id2 = isset($_GET['id2']) ? intval($_GET['id2']) : 0;
 $post_id3 = isset($_GET['id3']) ? intval($_GET['id3']) : 0;
 $post_id4 = isset($_GET['id4']) ? intval($_GET['id4']) : 0;
 $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
+$url = "http://localhost/Sample-dynamic-website";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +44,8 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                     echo "<div class='body_left_relatedniches'>";
                     while($row = $getniche_result->fetch_assoc()) {
                         $category_name = $row['name'];
-                        echo "<a href='$category_name.php'>$category_name</a>";
+                        $title_case_name = ucwords(str_replace('_', ' ', $category_name));
+                        echo "<a href='$category_name.php'>$title_case_name</a>";
                     }
                     echo "</div>";
                 }
@@ -101,21 +103,21 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                                             <span>Source: Getty Images</span>
                                         </div>
                                         <div class='socialmedia_links'>
-                                            <a><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
                                         <p>".$content."</p>
                                         <div class='socialmedia_links'>
-                                            <a><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
                                         <h3 class='bodyleft_header3'>About the Author</h3>
                                         <center>
@@ -137,17 +139,104 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                             }
                         }
                     }
+                    $otherpaidposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts WHERE id != '$post_id' ORDER BY date DESC";
+                    $otherpaidposts_result = $conn->query($otherpaidposts_sql);
+                    if ($otherpaidposts_result->num_rows > 0) {
+                        echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
+                              <div class='more_posts'>
+                        ";
+                        if (!function_exists('calculateReadingTime')) {
+                            function calculateReadingTime($content) {
+                                $wordCount = str_word_count(strip_tags($content));
+                                $minutes = floor($wordCount / 200);
+                                return $minutes  . ' mins read ';
+                            }
+                        }
+                        while ($row = $otherpaidposts_result->fetch_assoc()) {
+                            $id = $row["id"];
+                            $max_length2 = 120;
+                            $title = $row["title"];
+                            $niche = $row["niche"];
+                            $image = $row["image_path"];
+                            $date = $row["formatted_date"];
+                            $content = $row["content"];
+                            if (strlen($title) > $max_length2) {
+                                $title = substr($title, 0, $max_length2) . '...';
+                            }
+                            $readingTime = calculateReadingTime($row['content']);
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>
+                                    <img src='../images/$image' alt = 'Post Image'/>
+                                    <div class='more_posts_subdiv_subdiv'>
+                                        <h1>$title</h1>
+                                        <span>$date</span>
+                                        <span>$readingTime</span>
+                                    </div>
+                                    <p class='posts_div_niche'>$niche</p>
+                                </a>
+                                </div>";
+                        }
+                    }
                 }
                 if ($post_id2 > 0) {
-                    $getposts_sql = " SELECT id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM posts WHERE id = '$post_id2'";
+                    $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM posts WHERE id = '$post_id2'";
                     $getposts_result = $conn->query($getposts_sql);
                     if ($getposts_result->num_rows > 0) {
                         $row = $getposts_result->fetch_assoc();
+                        $author_firstname = "";
+                        $author_lastname = "";
+                        $author_image = "";
+                        $author_bio = "";
+                        $id_type = '';
+                        $role = "";
+                        $id_admin="";
+                        $id_editor="";
+                        $id_writer="";
                         $time = $row['time'];
                         $title = $row['title'];
                         $niche = $row['niche'];
                         $content = $row['content'];
                         $read_count = '';
+                        if (!empty($row['admin_id'])) {
+                            $admin_id = $row['admin_id'];
+                            $sql_admin = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $admin_id";
+                            $result_admin = $conn->query($sql_admin);
+                            if ($result_admin->num_rows > 0) {
+                                $admin = $result_admin->fetch_assoc();
+                                $author_firstname = $admin['firstname'];
+                                $author_lastname = $admin['lastname'];
+                                $author_image = $admin['image'];
+                                $id_type = "Admin";
+                                $id_admin = $admin['id'];
+                                $author_bio = $admin['bio'];
+                                $role = "Editor-in-chief Uniquetechcontentwriter.com";
+                            }
+                        }elseif (!empty($row['editor_id'])) {
+                            $editor_id = $row['editor_id'];
+                            $sql_editor = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $editor_id";
+                            $result_editor = $conn->query($sql_editor);
+                            if ($result_editor->num_rows > 0) {
+                                $editor = $result_editor->fetch_assoc();
+                                $author_firstname = $editor['firstname'];
+                                $author_image = $editor['image'];
+                                $author_lastname = $editor['lastname'];
+                                $author_bio = $editor['bio'];
+                                $id_editor = $editor['id'];
+                                $id_type = "Editor";
+                                $role = 'Editor At Uniquetechcontentwriter.com';
+                            }
+                        }
+                        else {
+                            $author_firstname = $row['author_firstname'];
+                            $author_lastname = $row['author_lastname'];
+                            $author_bio = $row['author_bio'];
+                            $role = 'Contributing Writer';
+                            $id_writer = 4;
+                            $id_type = "Writer";
+                        }
+                        $max_length = 200;
+                        if (strlen($author_bio) > $max_length) {
+                            $author_bio = substr($author_bio, 0, $max_length) . '...';
+                        }
                         if (!function_exists('calculateReadingTime')) {
                             function calculateReadingTime($content) {
                                 $wordCount = str_word_count(strip_tags($content));
@@ -162,21 +251,12 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                         $id = $row['id'];
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
-                        $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$id'";
-                        $selectwriter_result = $conn->query($selectwriter);
-                        if ($selectwriter_result->num_rows > 0) {
-                            while($row = $selectwriter_result->fetch_assoc()) {
-                                $bio = $row["bio"];
-                                $max_length = 250;
-                                if (strlen($bio) > $max_length) {
-                                    $bio = substr($bio, 0, $max_length) . '...';
-                                }
-                                echo "<h1 class='Post_header'>".$title."</h1>
+                        echo "<h1 class='Post_header'>".$title."</h1>
                                         <h2>".$subtitle."</h2>
                                         <div class='authors_div'>
                                             <div class='authors_div_imgbox'>
-                                                <img src='../images/".$row['image']."' alt='Author's Image'/>
-                                                <p><span class='span1'>".$row['firstname'] .$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</span><span class='span3'>".$date."</span><span class='span3'>".$formatted_time."</span></p>
+                                                <img src='../$author_image' alt='Author's Image'/>
+                                                <p><span class='span1'>$author_firstname $author_lastname, $role.</span><span class='span3'>$date</span><span class='span3'>$formatted_time</span></p>
                                             </div>
                                             <div class='authors_div_otherdiv'>
                                                 <i class='fa fa-clock' aria-hidden='true'></i>
@@ -188,35 +268,35 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                                             Your browser does not support the video tag.
                                         </video>
                                         <div class='post_image_div'>
-                                            <img src='../images/".$image."' alt='Post Image'/>
+                                            <img src='../".$image."' alt='Post Image'/>
                                             <span>Source: Getty Images</span>
                                         </div>
                                         <div class='socialmedia_links'>
-                                            <a><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
                                         <p>".$content."</p>
                                         <div class='socialmedia_links'>
-                                            <a><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
                                         <h3 class='bodyleft_header3'>About the Author</h3>
                                         <center>
-                                            <a href='../authors/author.php?' class='aboutauthor_div'>
+                                            <a href='../authors/author.php?id=$id_admin$id_editor&idtype=$id_type' class='aboutauthor_div'>
                                                 <div class='aboutauthor_div_subdiv1'>
-                                                    <img src='../images/".$row['image']."' alt ='Author's Image'/>
+                                                    <img src='../$author_image' alt ='Author's Image'/>
                                                 </div>
                                                 <div class='aboutauthor_div_subdiv2'>
-                                                    <p class='p--bold'>".$row['firstname'] .$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</p>
-                                                    <p>".$bio."</p>
+                                                    <p class='p--bold'>$author_firstname $author_lastname, $role.</p>
+                                                    <p>$author_bio </p>
                                                 </div>
                                             </a>
                                             <div class = 'subscribe_div'>
@@ -225,62 +305,46 @@ $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
                                             </div>
                                         </center>
                                     ";
+                    }
+                    $otherposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts WHERE id != '$post_id2' ORDER BY date DESC LIMIT 8";
+                    $otherposts_result = $conn->query($otherposts_sql);
+                    if ($otherposts_result->num_rows > 0) {
+                        echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
+                              <div class='more_posts'>
+                        ";
+                        if (!function_exists('calculateReadingTime')) {
+                            function calculateReadingTime($content) {
+                                $wordCount = str_word_count(strip_tags($content));
+                                $minutes = floor($wordCount / 200);
+                                return $minutes  . ' mins read ';
                             }
+                        }
+                        while ($row = $otherposts_result->fetch_assoc()) {
+                            $id = $row["id"];
+                            $max_length2 = 120;
+                            $title = $row["title"];
+                            $niche = $row["niche"];
+                            $image = $row["image_path"];
+                            $date = $row["formatted_date"];
+                            $content = $row["content"];
+                            if (strlen($title) > $max_length2) {
+                                $title = substr($title, 0, $max_length2) . '...';
+                            }
+                            $readingTime = calculateReadingTime($row['content']);
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>
+                                    <img src='../$image' alt = 'Post Image'/>
+                                    <div class='more_posts_subdiv_subdiv'>
+                                        <h1>$title</h1>
+                                        <span>$date</span>
+                                        <span>$readingTime</span>
+                                    </div>
+                                    <p class='posts_div_niche'>$niche</p>
+                                </a>
+                                </div>";
                         }
                     }
                 }
             ?>
-            <h1 class="bodyleft_header3 border-gradient-bottom--lightdark">You may also like</h1>
-            <div class="more_posts">
-                <a class="more_posts_subdiv" href="#">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                </a>
-                <a class="more_posts_subdiv" href="#">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                </a>
-                <a class="more_posts_subdiv" href="#">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                </a>
-                <a class="more_posts_subdiv" href="#">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                </a>
-                <a class="more_posts_subdiv" href="#">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                </a>
-                <a class="more_posts_subdiv" href="#">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                </a>
-            </div>
         </div>
         <div class="body_right border-gradient-leftside--lightdark">
             <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>

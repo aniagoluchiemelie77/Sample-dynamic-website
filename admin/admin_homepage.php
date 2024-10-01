@@ -464,7 +464,7 @@ require ("connect.php");
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
                         <h1>Top Visits</h1>
-                        <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
+                        <a class="btn" href="view_all\visits.php" target="_blank">View All</a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark visits">
                         <?php

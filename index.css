@@ -365,6 +365,14 @@ a, p, li{
 .header__menu-sidebar .header__menu-sidebar-div1 {
     display: flex;
     flex-wrap: nowrap;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: var(--div-padding-full);
+    align-items: center;
+}
+.header__menu-sidebar .header__menu-sidebar-div1a {
+    display: flex;
+    flex-wrap: nowrap;
     justify-content: flex-end;
     width: 100%;
     padding: var(--div-padding-full);
@@ -728,18 +736,24 @@ a, p, li{
 .section2 div .normal-divs a .normal-divs__subdiv__div{
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    width: calc(100% - 20rem );
+    align-items: flex-start;
 }
 .section2 div .normal-divs a .normal-divs__subdiv__div div .firstp{
     margin-right: 2.4rem;
 }
 .section2 div .normal-divs div{
     display: flex;
-    width: 70%;
+    width: 90%;
+    align-items: center;
     margin-left: .2rem;
 }
+.section2 div .normal-divs div p{
+    width: calc(100% - 4.9rem);
+}
 .section2 div .normal-divs div img{
-    height: 3rem;
+    width: 3.8rem;
+    height: 3.8rem;
     border-radius: var(--border-radius-circle);
     margin-right: 1.2rem;
     -webkit-border-radius: var(--border-radius-circle);
@@ -1110,7 +1124,7 @@ a, p, li{
     align-content: center;
     justify-content: center;
 }
-.footer .footer__div3__subdiv div a{
+.follow_btns{
     padding: var(--div-padding-full);
     margin-right: 1rem;
     border: 1px solid #eeeeee3c;
@@ -1120,14 +1134,14 @@ a, p, li{
     -ms-border-radius: .9rem;
     -o-border-radius: .9rem;
 }
-.footer .footer__div3__subdiv div a i{
-    font-size: 2rem;
-    color: #eee;
-}
-.footer .footer__div3__subdiv div a:hover{
+.follow_btns:hover{
     background-color: var(--color10);
     color: #eee;
     border: 1px solid var(--color10);
+}
+.follow_btns i{
+    font-size: 2rem;
+    color: #eee;
 }
 /*For view_post.php*/
 .page_links{
@@ -1209,6 +1223,9 @@ a, p, li{
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     margin-right: 1rem;
+}
+.authors_div_imgbox p{
+    width: calc(100% - 9rem);
 }
 .authors_div_imgbox .span3{
     display: block;

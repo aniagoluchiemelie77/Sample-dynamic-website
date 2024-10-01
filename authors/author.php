@@ -1,6 +1,9 @@
 <?php
 session_start();
-//$id = $_GET["ID"];
+require ('../connect.php');
+$id = isset($_GET['id']) ? $_GET['id'] : null;
+$idtype = isset($_GET['idtype']) ? $_GET['idtype'] : null;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,187 +22,174 @@ session_start();
 </head>
 <body>
     <?php require("../includes/header2.php");?>
+
     <center>
-        <section class="authordiv_container">
-            <img src="../images/chibs.jpg" alt ="Author's Image"/>
-            <div class = "authordiv_container_subdiv">
-                <h1><span>Robert Lemos, </span><span>Contributing Writer</span></h1>
-                <p>Veteran technology journalist of more than 20 years. Former research engineer. Written for more than two dozen publications, including CNET News.com, Dark Reading, MIT's Technology Review, Popular Science, and Wired News. Five awards for journalism, including Best Deadline Journalism (Online) in 2003 for coverage of the Blaster worm. Crunches numbers on various trends using Python and R. Recent reports include analyses of the shortage in cybersecurity workers and annual vulnerability trends.</p>
-            </div>
-        </section>
-        <div class="body_container">
-            <div class="body_left">                
-                <h1 class="bodyleft_header3 border-gradient-bottom--lightdark">Latest from <span>Robert Lemos, </span><span>Contributing Writer</span></h1>
-                <div class="more_posts">
-                    <a class="more_posts_subdiv" href="../pages/view_post.php">
-                        <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                        <div class="more_posts_subdiv_subdiv">
-                            <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                            <span>June 24th 2024.</span>
-                        </div>
-                        <p class="posts_div_niche">Cybersecurity</p>
-                    </a>
-                    <a class="more_posts_subdiv" href="../pages/view_post.php">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                    </a>
-                    <a class="more_posts_subdiv" href="../pages/view_post.php">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                    </a>
-                    <a class="more_posts_subdiv" href="../pages/view_post.php">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                    </a>
-                    <a class="more_posts_subdiv" href="../pages/view_post.php">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                    </a>
-                    <a class="more_posts_subdiv" href="../pages/view_post.php">
-                    <img src="../images/66b7389276868Bigdata_artificial_intelligence.png" alt = "Post's Image"/>
-                    <div class="more_posts_subdiv_subdiv">
-                        <h1>Patch Now: Second SolarWinds Critical Bug in Web Help Desk</h1>
-                        <span>June 24th 2024.</span>
-                    </div>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                    </a>
-                </div>
-                <section class="section2">
-                    <div class="section2__div1">
-                        <div class="section2__div1__header headers">
-                            <h1>More from <span>Robert Lemos, </span><span>Contributing Writer</span></h1>
-                        </div>
-                        <div class="section2__div1__div1 normal-divs">
-                            <a class="normal-divs__subdiv">
-                                <img src="../images\image1.jpeg" alt="article image">
-                                <div class="authorsdiv">
-                                    <h1 class="normal-divs__header">Sample Niche</h1>
-                                    <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                                    <p class="normal-divs__releasedate">June 13, 2024</p>
-                                </div>
-                            </a>
-                            <div class="normal-divs__subdiv2">
-                                <img src="../images\chibs.jpg" alt="article image">
-                                <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
+        <?php
+            $author_firstname = "";
+            $author_lastname = "";
+            $author_image = "";
+            $role = "";
+            $author_bio = "";
+            if($idtype == "Admin"){
+                $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $id";
+                $getauthor_result = $conn->query($getauthor_sql);
+                if ($getauthor_result->num_rows > 0) {
+                    $author = $getauthor_result->fetch_assoc();
+                    $author_firstname = $author['firstname'];
+                    $author_lastname = $author['lastname'];
+                    $author_bio = $author['bio'];
+                    $author_image = $author['image'];
+                    $role = "Editor-in-chief Uniquetechcontentwriter.com";
+                    echo "<section class='authordiv_container'>
+                            <img src='../$author_image' alt ='Author's Image'/>
+                            <div class = 'authordiv_container_subdiv'>
+                                <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
+                                <p>$author_bio</p>
                             </div>
-                        </div>
-                        <div class="section2__div1__div1 normal-divs">
-                            <a class="normal-divs__subdiv">
-                                <img src="../images\image1.jpeg" alt="article image">
-                                <div class="authorsdiv">
-                                    <h1 class="normal-divs__header">Sample Niche</h1>
-                                    <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                                    <p class="normal-divs__releasedate">June 13, 2024</p>
-                                </div>
-                            </a>
-                            <div class="normal-divs__subdiv2">
-                                <img src="../images\chibs.jpg" alt="article image">
-                                <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
+                        </section>";
+                }
+                function checkAuthorPosts($id, $conn) {
+                    $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                    $authorPosts = [];
+                    foreach ($tables as $table) {
+                        $sql = "SELECT * FROM $table WHERE admin_id = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("s", $id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                
+                        if ($result->num_rows > 0) {
+                            $authorPosts[$table] = $result->fetch_all(MYSQLI_ASSOC);
+                        }
+                    }
+                    return $authorPosts;
+                }
+                $authorPosts = checkAuthorPosts($id, $conn);
+                if (!empty($authorPosts)) {
+                    foreach ($authorPosts as $table => $posts) {
+                        $posttype = "";
+                        if ($table = "paid_posts"){
+                            $posttype = "paid_post";
+                            echo "<div class='body_container'>
+                                    <div class='body_left'>    
+                                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More from <span> $author_firstname  $author_lastname, </span><span> $role</span></h1>
+                                        <div class='more_posts'>
+                            ";
+                            foreach ($posts as $post) {
+                                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id1=$id'>
+                                    <img src='../". $post['image_path']."' alt = 'Post's Image'/>
+                                    <div class='more_posts_subdiv_subdiv'>
+                                        <h1>". $post['title']."</h1>
+                                        <span>". $post['Date']."</span>
+                                    </div>
+                                    <p class='posts_div_niche'>". $post['niche']."</p>
+                                </a>
+                                </div></div></div>";
+                            }          
+                        }
+                        if ($table = "posts"){
+                            $posttype = "post";
+                            echo "<div class='body_container'>
+                                    <div class='body_left'>    
+                                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest from <span> $author_firstname  $author_lastname, </span><span> $role</span></h1>
+                                        <div class='more_posts'>
+                            ";
+                            foreach ($posts as $post) {
+                                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>
+                                    <img src='../". $post['image_path']."' alt = 'Post's Image'/>
+                                    <div class='more_posts_subdiv_subdiv'>
+                                        <h1>". $post['title']."</h1>
+                                        <span>". $post['Date']."</span>
+                                    </div>
+                                    <p class='posts_div_niche'>". $post['niche']."</p>
+                                </a>
+                                </div></div></div>";
+                            }
+                        }
+                        if ($table = "commentaries"){
+                            $posttype = "commentary";
+                            echo "<div class='body_container'>
+                                    <div class='body_left'>    
+                                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest from <span> $author_firstname  $author_lastname, </span><span> $role</span></h1>
+                                        <div class='more_posts'>
+                            ";
+                            foreach ($posts as $post) {
+                                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id4=$id'>
+                                    <img src='../". $post['image_path']."' alt = 'Post's Image'/>
+                                    <div class='more_posts_subdiv_subdiv'>
+                                        <h1>". $post['title']."</h1>
+                                        <span>". $post['Date']."</span>
+                                    </div>
+                                    <p class='posts_div_niche'>". $post['niche']."</p>
+                                </a>
+                                </div></div></div>";
+                            }
+                        }
+                        if ($table = "news"){
+                            $posttype = "news";
+                            echo "
+                            <div class='body_container'>
+                                    <div class='body_left'>    
+                                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest from <span> $author_firstname  $author_lastname, </span><span> $role</span></h1>
+                                        <div class='more_posts'>
+                            ";
+                            foreach ($posts as $post) {
+                                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>
+                                    <img src='../". $post['image_path']."' alt = 'Post's Image'/>
+                                    <div class='more_posts_subdiv_subdiv'>
+                                        <h1>". $post['title']."</h1>
+                                        <span>". $post['Date']."</span>
+                                    </div>
+                                    <p class='posts_div_niche'>". $post['niche']."</p>
+                                </a>
+                                </div></div></div>";
+                            }
+                        }
+                        if ($table = "press_releases"){
+                            $posttype = "press release";
+                            echo "<div class='body_container'>
+                                    <div class='body_left'>    
+                                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest from <span> $author_firstname  $author_lastname, </span><span> $role</span></h1>
+                                        <div class='more_posts'>
+                            ";
+                            foreach ($posts as $post) {
+                                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id5=$id'>
+                                    <img src='../". $post['image_path']."' alt = 'Post's Image'/>
+                                    <div class='more_posts_subdiv_subdiv'>
+                                        <h1>". $post['title']."</h1>
+                                        <span>". $post['Date']."</span>
+                                    </div>
+                                    <p class='posts_div_niche'>". $post['niche']."</p>
+                                </a>
+                                </div></div></div>";
+                            }
+                        }
+                    }
+                } else {
+                    echo "No posts found for author $firstname $lastname.";
+                }
+                
+            }
+            if($idtype == "Editor"){
+                $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $id";
+                $getauthor_result = $conn->query($getauthor_sql);
+                if ($getauthor_result->num_rows > 0) {
+                    $author = $getauthor_result->fetch_assoc();
+                    $author_firstname = $author['firstname'];
+                    $author_lastname = $author['lastname'];
+                    $author_bio = $author['bio'];
+                    $author_image = $author['image'];
+                    $role = "Editor At Uniquetechcontentwriter.com";
+                    echo "<section class='authordiv_container'>
+                            <img src='../$author_image' alt ='Author's Image'/>
+                            <div class = 'authordiv_container_subdiv'>
+                                <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
+                                <p>$author_bio</p>
                             </div>
-                        </div>
-                        <div class="section2__div1__div1 normal-divs">
-                            <a class="normal-divs__subdiv">
-                                <img src="../images\image1.jpeg" alt="article image">
-                                <div class="authorsdiv">
-                                    <h1 class="normal-divs__header">Sample Niche</h1>
-                                    <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                                    <p class="normal-divs__releasedate">June 13, 2024</p>
-                                </div>
-                            </a>
-                            <div class="normal-divs__subdiv2">
-                                <img src="../images\chibs.jpg" alt="article image">
-                                <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                            </div>
-                        </div>
-                        <div class="section2__div1__div1 normal-divs">
-                            <a class="normal-divs__subdiv">
-                                <img src="../images\image1.jpeg" alt="article image">
-                                <div class="authorsdiv">
-                                    <h1 class="normal-divs__header">Sample Niche</h1>
-                                    <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                                    <p class="normal-divs__releasedate">June 13, 2024</p>
-                                </div>
-                            </a>
-                            <div class="normal-divs__subdiv2">
-                                <img src="../images\chibs.jpg" alt="article image">
-                                <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                            </div>
-                        </div>
-                        <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                            <a class="normal-divs__subdiv" href="pages/view_post.php">
-                                <img src="../images\image1.jpeg" alt="article image">
-                                <div class="authorsdiv">
-                                    <h1 class="normal-divs__header">Sample Niche</h1>
-                                    <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                                    <p class="normal-divs__releasedate">June 13, 2024</p>
-                                </div>
-                            </a>
-                            <div class="normal-divs__subdiv2">
-                                <img src="../images\chibs.jpg" alt="article image">
-                                <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                            </div>
-                        </div>
-                        <div class="section2__div1__div1 normal-divs border-gradient-top-dark">
-                            <a class="normal-divs__subdiv" href="pages/view_post.php">
-                                <img src="../images\image1.jpeg" alt="article image">
-                                <div class="authorsdiv">
-                                    <h1 class="normal-divs__header">Sample Niche</h1>
-                                    <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                                    <p class="normal-divs__releasedate">June 13, 2024</p>
-                                </div>
-                            </a>
-                            <div class="normal-divs__subdiv2">
-                                <img src="../images\chibs.jpg" alt="article image">
-                                <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                            </div>
-                        </div>
-                        <div class="section2__div1__div4 normal-divs border-gradient-top-dark">
-                            <a class="normal-divs__subdiv" href="pages/view_post.php">
-                                <img src="../images\image1.jpeg" alt="article image">
-                                <div class="authorsdiv">
-                                    <h1 class="normal-divs__header">Sample Niche</h1>
-                                    <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                                    <p class="normal-divs__releasedate">June 13, 2024</p>
-                                </div>
-                            </a>
-                            <div class="normal-divs__subdiv2">
-                                <img src="../images\chibs.jpg" alt="article image">
-                                <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                            </div>
-                        </div>
-                        <div class="section2__div1__div5 normal-divs border-gradient-top-dark">
-                            <a class="normal-divs__subdiv" href="pages/view_post.php">
-                                <img src="../images\image1.jpeg" alt="article image">
-                                <div class="authorsdiv">
-                                    <h1 class="normal-divs__header">Sample Niche</h1>
-                                    <h2 class="normal-divs__title">Microsoft, Late to the Game on Dangerous DNSSEC Zero-day flaw.</h2>
-                                    <p class="normal-divs__releasedate">June 13, 2024</p>
-                                </div>
-                            </a>
-                            <div class="normal-divs__subdiv2">
-                                <img src="../images\chibs.jpg" alt="article image">
-                                <p class="normal-divs__subdiv2__p">by <span>Elizabeth Montalbano, Contributing Writer</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+                        </section>";
+                }
+            }
+        ?>
             <div class="body_right border-gradient-leftside--lightdark">
                 <div class="ads_sidebar"></div>
                 <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>

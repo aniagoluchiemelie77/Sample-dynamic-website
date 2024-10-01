@@ -127,31 +127,32 @@ if (isset($_POST['accept_cookies'])) {
             </div>
         <?php endif; ?>
         <div class="header__menu-sidebar hidden" id="sidebar">
-            <div class="header__menu-sidebar-div1 sidebar-input">
+            <div class="header__menu-sidebar-div1a sidebar-input">
                 <a class="sidebarbtn">
-                    <svg width="2.9rem" height="2.9rem" viewBox="0 0 24 24" fill="#222222" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="24" height="24" fill="black"/>
-                        <path d="M7 17L16.8995 7.10051" stroke="#FAFAFA" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M7 7.00001L16.8995 16.8995" stroke="#FAFAFA" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                    <i class="fa fa-times popup_close1" aria-hidden="true"></i>
                 </a>
             </div>
             <div class="header__menu-sidebar-div1 border-gradient-top-dark">
                 <div class="sidebar__logobox">
-                    <img src="#" alt="companylogo">
+                    <img src="images\chibs.jpg" alt="companylogo">
                 </div> 
                 <div class="header__menu-sidebar-div1-subdiv2">
                     <h1 class="sidebar__col-header">More</h1>
-                    <a href="OtherHtmlPages\aboutus.html" class="sidebar__links">About Us</a>
+                    <a href="pages\aboutus.php" class="sidebar__links">About Us</a>
                     <a href="#" class="sidebar__links">Pitch to Us</a>
-                    <a href="#" class="OtherHtmlPages\Advertise.html">Advertise with Us</a>
+                    <a href="pages/advertisewithus.php">Advertise with Us</a>
+                    <a href="pages/sharenewstips.php">Share News tip</a>
+                    <a href="pages/ourterms.php">Terms of Service</a>
+                    <a href="pages/workwithus.php">Work With Us</a>
                 </div>
                 <div class="header__menu-sidebar-div1-subdiv3">
                     <h1 class="sidebar__col-header">Sources</h1>
+                    <a href="pages/pressreleases.php" class="sidebar__links">Press Releases</a>
+                    <a href="pages/commentaries.php" class="sidebar__links">Commentaries</a>
+                    <a href="pages/news.php" class="sidebar__links">News</a>
                     <a href="#" class="sidebar__links">White Papers</a>
-                    <a href="#" class="sidebar__links">Webinars</a>
+                    <a href="#" class="sidebar__links">Videoscripts</a>
                     <a href="#" class="sidebar__links">Ebooks</a>
-                    <a href="#" class="sidebar__links">Press Release</a>
                 </div>
             </div>
             <div class="header__menu-sidebar-div2 border-gradient-top-dark">
@@ -206,8 +207,14 @@ if (isset($_POST['accept_cookies'])) {
                     <h1>Latest Articles</h1>
                 </div>
                 <?php
-                    $selectposts_sql = "SELECT id, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
+                    $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
                     $selectposts_result = $conn->query($selectposts_sql);
+                    $author_firstname = "";
+                    $author_lastname = "";
+                    $author_image = "";
+                    $author_bio = "";
+                    $id_type = '';
+                    $role = "";
                     if ($selectposts_result->num_rows > 0) {
                         $i = 0;
                         if (!function_exists('calculateReadingTime')) {
@@ -226,6 +233,40 @@ if (isset($_POST['accept_cookies'])) {
                             $date = $row["formatted_date"];
                             $content = $row["content"];
                             $readingTime = calculateReadingTime($row['content']);
+                            if (!empty($row['admin_id'])) {
+                                $admin_id = $row['admin_id'];
+                                $sql_admin = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $admin_id";
+                                $result_admin = $conn->query($sql_admin);
+                                if ($result_admin->num_rows > 0) {
+                                    $admin = $result_admin->fetch_assoc();
+                                    $author_firstname = $admin['firstname'];
+                                    $author_lastname = $admin['lastname'];
+                                    $author_image = $admin['image'];
+                                    $id_type = "Admin";
+                                    $author_bio = $admin['bio'];
+                                    $role = "Editor-in-chief Uniquetechcontentwriter.com";
+                                }
+                            }elseif (!empty($row['editor_id'])) {
+                                $editor_id = $row['editor_id'];
+                                $sql_editor = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $editor_id";
+                                $result_editor = $conn->query($sql_editor);
+                                if ($result_editor->num_rows > 0) {
+                                    $editor = $result_editor->fetch_assoc();
+                                    $author_firstname = $editor['firstname'];
+                                    $author_image = $editor['image'];
+                                    $author_lastname = $editor['lastname'];
+                                    $author_bio = $editor['bio'];
+                                    $id_type = "Editor";
+                                    $role = 'Editor At Uniquetechcontentwriter.com';
+                                }
+                            }else {
+                                $author_firstname = $row['author_firstname'];
+                                $author_lastname = $row['author_lastname'];
+                                $author_bio = $row['author_bio'];
+                                $role = 'Contributing Writer';
+                                $id_writer = 4;
+                                $id_type = "Writer";
+                            }
 
                             echo "<div class='section2__div1__div1 normal-divs'>
                                     <a class='normal-divs__subdiv' href='pages/view_post.php? id2=".$row["id"]."'>
@@ -240,8 +281,8 @@ if (isset($_POST['accept_cookies'])) {
                                         </div>
                                     </a>
                                     <div class='normal-divs__subdiv2'>
-                                        <img src='images\image1.jpeg' alt='article image'>
-                                        <p class='normal-divs__subdiv2__p'>By <span>Elizabeth Montalbano, </span><span>Contributing Writer</span></p>
+                                        <img src='$author_image' alt='article image'>
+                                        <p class='normal-divs__subdiv2__p'>By <span>$author_firstname $author_lastname, </span><span>$role</span></p>
                                     </div>
                             </div>";
                         }

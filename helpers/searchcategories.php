@@ -10,8 +10,9 @@
         if ($selectcategory_result->num_rows > 0) {
             while($row = $selectcategory_result->fetch_assoc()) {
                 $category_names = $row['name'];
+                $title_case_name = ucwords(str_replace('_', ' ', $category_names));
                 echo "<div class='setion2_bodyright_topicsdiv_subdiv'>
-                        <a href='pages/$category_names.php'>$category_names</a>
+                        <a href='pages/$category_names.php'>$title_case_name</a>
                 </div>";
             }
         }

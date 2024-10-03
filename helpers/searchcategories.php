@@ -8,13 +8,44 @@
         $selectcategory = "SELECT name FROM topics ORDER BY id";
         $selectcategory_result = $conn->query($selectcategory);
         if ($selectcategory_result->num_rows > 0) {
+            if (!function_exists('convertToReadable')) {
+                function convertToReadable($slug) {
+                    $string = str_replace('-', ' ', $slug);
+                    $string = ucwords($string);
+                    return $string;
+                }
+            }
+            if (!function_exists('removeHyphen')) {
+                function removeHyphen($string) {
+                    $string = str_replace(['-', ' '], '', $string);
+                    return $string;
+                }
+            }
             while($row = $selectcategory_result->fetch_assoc()) {
                 $category_names = $row['name'];
-                $title_case_name = ucwords(str_replace('_', ' ', $category_names));
+                $cleanString = removeHyphen($category_names);
+                $readableString = convertToReadable($category_names);
                 echo "<div class='setion2_bodyright_topicsdiv_subdiv'>
-                        <a href='pages/$category_names.php'>$title_case_name</a>
+                        <a href='pages/$cleanString.php'>$readableString</a>
                 </div>";
             }
         }
     ?>
 </div>
+<?php
+//reverse of the above functionality
+// Function to convert a string to a URL-friendly format
+/*function convertToSlug($string) {
+    // Convert the string to lowercase
+    $string = strtolower($string);
+    // Replace spaces with hyphens
+    $string = str_replace(' ', '-', $string);
+    return $string;
+}*/
+
+// Example usage
+//$niche = "Data Analysis";
+//$slug = convertToSlug($niche);
+
+//echo $slug;  Outputs: data-analysis
+?>

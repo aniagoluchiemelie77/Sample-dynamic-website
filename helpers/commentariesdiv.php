@@ -34,7 +34,7 @@
                                 if (strlen($about_author) > $max_length2) {
                                     $about_author = substr($about_author, 0, $max_length2) . '...';
                                 }
-                                echo "<a class='commentary_divs' href='pages/view_post.php?id4='$id''>
+                                echo "<a class='commentary_divs' href='pages/view_post.php?id4=$id'>
                                         <div class='commentary_divs_imagediv'>
                                             <img src='images/chibs.jpg' alt='Commentary Image'/>
                                             <div class='commentary_divs_imagediv_subdiv'>

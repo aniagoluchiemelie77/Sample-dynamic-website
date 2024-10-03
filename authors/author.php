@@ -3,6 +3,7 @@ session_start();
 require ('../connect.php');
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 $idtype = isset($_GET['idtype']) ? $_GET['idtype'] : null;
+$author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
 
 ?>
 <!DOCTYPE html>
@@ -81,6 +82,13 @@ $idtype = isset($_GET['idtype']) ? $_GET['idtype'] : null;
                             return 'th';
                         }
                     }
+                    if (!function_exists('calculateReadingTime')) {
+                        function calculateReadingTime($content) {
+                            $wordCount = str_word_count(strip_tags($content));
+                            $minutes = floor($wordCount / 200);
+                            return $minutes  . ' mins read ';
+                        }
+                    }
                     foreach ($authorPosts as $table => $posts) {
                         $posttype = ""; 
                         if ($table = "paid_posts"){
@@ -88,6 +96,101 @@ $idtype = isset($_GET['idtype']) ? $_GET['idtype'] : null;
                         }
                         else if ($table = "posts"){
                             $posttype = 2;
+                        }
+                        else if ($table = "commentaries"){
+                            $posttype = 4;
+                        }
+                        else if ($table= "news"){
+                            $posttype = 3;
+                        }
+                        else if ($table = "press_releases"){
+                            $posttype = 5;
+                        }
+                        foreach ($posts as $post) {
+                            $title = $post["title"];
+                            $max_length = 60;
+                            $date = $post["Date"];
+                            if (strlen($title) > $max_length) {
+                                $title = substr($title, 0, $max_length) . '...';
+                            }
+                            $dateTime = new DateTime($date);
+                            $day = $dateTime->format('j');
+                            $month = $dateTime->format('M');
+                            $year = $dateTime->format('Y');
+                            $ordinalSuffix = getOrdinalSuffix($day);
+                            $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                            $readingTime = calculateReadingTime($post['content']);
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id$posttype=".$post['id']."'>";
+                            echo"<img src='../".$post['image_path']."' alt = 'Post's Image'/>
+                            <div class='more_posts_subdiv_subdiv'>
+                                <h1>$title</h1>
+                                <span>$formattedDate</span>
+                                <span>$readingTime</span>
+                            </div>
+                            <p class='posts_div_niche'>". $post['niche']."</p>
+                        </a>";
+                        }  
+                    }
+                } else {
+                    echo "No posts found for author $firstname $lastname.";
+                }
+                echo"</div></div>";
+            }
+            if($idtype == "Editor"){
+                $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $id";
+                $getauthor_result = $conn->query($getauthor_sql);
+                if ($getauthor_result->num_rows > 0) {
+                    $author = $getauthor_result->fetch_assoc();
+                    $author_firstname = $author['firstname'];
+                    $author_lastname = $author['lastname'];
+                    $author_bio = $author['bio'];
+                    $author_image = $author['image'];
+                    $role = "Editor at Uniquetechcontentwriter";
+                    echo "<section class='authordiv_container'>
+                            <img src='../$author_image' alt ='Author's Image'/>
+                            <div class = 'authordiv_container_subdiv'>
+                                <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
+                                <p>$author_bio</p>
+                            </div>
+                        </section>
+                        <div class='body_container'>
+                            <div class='body_left'>    
+                                <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
+                                <div class='more_posts'>";
+                } 
+                function checkAuthorPosts($id, $conn) {
+                    $tables = [ 'posts', 'commentaries', 'news', 'press_releases'];
+                    $authorPosts = [];
+                    foreach ($tables as $table) {
+                        $sql = "SELECT * FROM $table WHERE editor_id = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("s", $id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            $authorPosts[$table] = $result->fetch_all(MYSQLI_ASSOC);
+                        }
+                    }
+                    return $authorPosts;
+                }
+                $authorPosts = checkAuthorPosts($id, $conn);
+                if (!empty($authorPosts)) {
+                    if (!function_exists('getOrdinalSuffix')) {
+                        function getOrdinalSuffix($day) {
+                            if (!in_array(($day % 100), [11, 12, 13])) {
+                                switch ($day % 10) {
+                                    case 1: return 'st';
+                                    case 2: return 'nd';
+                                    case 3: return 'rd';
+                                }
+                            }
+                            return 'th';
+                        }
+                    }
+                    foreach ($authorPosts as $table => $posts) {
+                        $posttype = ""; 
+                        if ($table = "posts"){
+                            $posttype = 2;        
                         }
                         else if ($table = "commentaries"){
                             $posttype = 4;
@@ -126,8 +229,8 @@ $idtype = isset($_GET['idtype']) ? $_GET['idtype'] : null;
                 }
                 echo"</div></div>";
             }
-            if($idtype == "Editor"){
-                $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $id";
+            if($idtype == "Writer"){
+                $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_fname";
                 $getauthor_result = $conn->query($getauthor_sql);
                 if ($getauthor_result->num_rows > 0) {
                     $author = $getauthor_result->fetch_assoc();
@@ -135,25 +238,28 @@ $idtype = isset($_GET['idtype']) ? $_GET['idtype'] : null;
                     $author_lastname = $author['lastname'];
                     $author_bio = $author['bio'];
                     $author_image = $author['image'];
-                    $role = "Editor at Uniquetechcontentwriter";
+                    $role = "Contributing Writer";
                     echo "<section class='authordiv_container'>
                             <img src='../$author_image' alt ='Author's Image'/>
                             <div class = 'authordiv_container_subdiv'>
                                 <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
                                 <p>$author_bio</p>
                             </div>
-                        </section>";
-                }
-                function checkAuthorPosts($id, $conn) {
-                    $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                        </section>
+                        <div class='body_container'>
+                            <div class='body_left'>    
+                                <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
+                                <div class='more_posts'>";
+                } 
+                function checkAuthorPosts($author_fname, $conn) {
+                    $tables = [ 'posts', 'commentaries', 'news', 'press_releases'];
                     $authorPosts = [];
                     foreach ($tables as $table) {
-                        $sql = "SELECT * FROM $table WHERE admin_id = ?";
+                        $sql = "SELECT * FROM $table WHERE authors_firstname = ?";
                         $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("s", $id);
+                        $stmt->bind_param("s", $author_fname);
                         $stmt->execute();
                         $result = $stmt->get_result();
-                
                         if ($result->num_rows > 0) {
                             $authorPosts[$table] = $result->fetch_all(MYSQLI_ASSOC);
                         }
@@ -162,90 +268,59 @@ $idtype = isset($_GET['idtype']) ? $_GET['idtype'] : null;
                 }
                 $authorPosts = checkAuthorPosts($id, $conn);
                 if (!empty($authorPosts)) {
-                    foreach ($authorPosts as $table => $posts) {
-                        $posttype = "";
-                        if ($table = "posts"){
-                            $posttype = "post";
-                            echo "<div class='body_container'>
-                                    <div class='body_left'>    
-                                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest from <span> $author_firstname  $author_lastname, </span><span> $role</span></h1>
-                                        <div class='more_posts'>
-                            ";
-                            foreach ($posts as $post) {
-                                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>
-                                    <img src='../". $post['image_path']."' alt = 'Post's Image'/>
-                                    <div class='more_posts_subdiv_subdiv'>
-                                        <h1>". $post['title']."</h1>
-                                        <span>". $post['Date']."</span>
-                                    </div>
-                                    <p class='posts_div_niche'>". $post['niche']."</p>
-                                </a>
-                                </div></div></div>";
+                    if (!function_exists('getOrdinalSuffix')) {
+                        function getOrdinalSuffix($day) {
+                            if (!in_array(($day % 100), [11, 12, 13])) {
+                                switch ($day % 10) {
+                                    case 1: return 'st';
+                                    case 2: return 'nd';
+                                    case 3: return 'rd';
+                                }
                             }
-                        }
-                        if ($table = "commentaries"){
-                            $posttype = "commentary";
-                            echo "<div class='body_container'>
-                                    <div class='body_left'>    
-                                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest from <span> $author_firstname  $author_lastname, </span><span> $role</span></h1>
-                                        <div class='more_posts'>
-                            ";
-                            foreach ($posts as $post) {
-                                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id4=$id'>
-                                    <img src='../". $post['image_path']."' alt = 'Post's Image'/>
-                                    <div class='more_posts_subdiv_subdiv'>
-                                        <h1>". $post['title']."</h1>
-                                        <span>". $post['Date']."</span>
-                                    </div>
-                                    <p class='posts_div_niche'>". $post['niche']."</p>
-                                </a>
-                                </div></div></div>";
-                            }
-                        }
-                        if ($table = "news"){
-                            $posttype = "news";
-                            echo "
-                            <div class='body_container'>
-                                    <div class='body_left'>    
-                                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest from <span> $author_firstname  $author_lastname, </span><span> $role</span></h1>
-                                        <div class='more_posts'>
-                            ";
-                            foreach ($posts as $post) {
-                                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>
-                                    <img src='../". $post['image_path']."' alt = 'Post's Image'/>
-                                    <div class='more_posts_subdiv_subdiv'>
-                                        <h1>". $post['title']."</h1>
-                                        <span>". $post['Date']."</span>
-                                    </div>
-                                    <p class='posts_div_niche'>". $post['niche']."</p>
-                                </a>
-                                </div></div></div>";
-                            }
-                        }
-                        if ($table = "press_releases"){
-                            $posttype = "press release";
-                            echo "<div class='body_container'>
-                                    <div class='body_left'>    
-                                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest from <span> $author_firstname  $author_lastname, </span><span> $role</span></h1>
-                                        <div class='more_posts'>
-                            ";
-                            foreach ($posts as $post) {
-                                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id5=$id'>
-                                    <img src='../". $post['image_path']."' alt = 'Post's Image'/>
-                                    <div class='more_posts_subdiv_subdiv'>
-                                        <h1>". $post['title']."</h1>
-                                        <span>". $post['Date']."</span>
-                                    </div>
-                                    <p class='posts_div_niche'>". $post['niche']."</p>
-                                </a>
-                                </div></div></div>";
-                            }
+                            return 'th';
                         }
                     }
+                    foreach ($authorPosts as $table => $posts) {
+                        $posttype = ""; 
+                        if ($table = "posts"){
+                            $posttype = 2;        
+                        }
+                        else if ($table = "commentaries"){
+                            $posttype = 4;
+                        }
+                        else if ($table= "news"){
+                            $posttype = 3;
+                        }
+                        else if ($table = "press_releases"){
+                            $posttype = 5;
+                        }
+                        foreach ($posts as $post) {
+                            $title = $post["title"];
+                            $max_length = 60;
+                            $date = $post["Date"];
+                            if (strlen($title) > $max_length) {
+                                $title = substr($title, 0, $max_length) . '...';
+                            }
+                            $dateTime = new DateTime($date);
+                            $day = $dateTime->format('j');
+                            $month = $dateTime->format('M');
+                            $year = $dateTime->format('Y');
+                            $ordinalSuffix = getOrdinalSuffix($day);
+                            $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id$posttype=".$post['id']."'>";
+                            echo"<img src='../".$post['image_path']."' alt = 'Post's Image'/>
+                            <div class='more_posts_subdiv_subdiv'>
+                                <h1>$title</h1>
+                                <span>$formattedDate</span>
+                            </div>
+                            <p class='posts_div_niche'>". $post['niche']."</p>
+                        </a>";
+                        }  
+                    }
                 } else {
-                    echo "No posts found for author $firstname $lastname.";
+                    echo "No posts found for author $author_firstname $author_lastname.";
                 }
-                
+                echo"</div></div>";
             }
         ?>
             <div class="body_right border-gradient-leftside--lightdark">

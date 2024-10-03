@@ -25,16 +25,16 @@
         <div class="footer__div3__subdiv">
             <h1 class="footer__header lightp">Follow Us</h1>
             <div class="footer__div3__smedialinks">
-                <a class="footer__smedia-links" href="#">
+                <a class="footer__smedia-links follow_btns" href="#">
                     <i class="fa-brands fa-x-twitter"></i>
                 </a>
-                <a class="footer__smedia-links border-gradient-side" href="#">
+                <a class="footer__smedia-links follow_btns" href="#">
                     <i class="fab fa-linkedin" aria-hidden="true"></i>
                 </a>
-                <a class="footer__smedia-links border-gradient-side" href="#">
+                <a class="footer__smedia-links follow_btns" href="#">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
-                <a class="footer__smedia-links border-gradient-side" href="#">
+                <a class="footer__smedia-links follow_btns" href="#">
                     <i class="fa fa-rss" aria-hidden="true"></i>
                 </a>
             </div>

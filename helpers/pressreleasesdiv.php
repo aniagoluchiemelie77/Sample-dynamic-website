@@ -15,7 +15,7 @@
                 }
             }
             while($row = $selectpressreleases_result->fetch_assoc()) {
-                $max_length = 150;
+                $max_length = 60;
                 $id = $row["id"];
                 $title = $row["title"];
                 $niche = $row["niche"];

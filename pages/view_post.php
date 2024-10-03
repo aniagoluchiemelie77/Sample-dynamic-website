@@ -50,7 +50,7 @@ $url = "http://localhost/Sample-dynamic-website";
                     echo "</div>";
                 }
                 if ($post_id > 0) {
-                    $getposts_sql = " SELECT id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM paid_posts WHERE id = '$post_id' LIMIT 1";
+                    $getposts_sql = " SELECT id, admin_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM paid_posts WHERE id = '$post_id' LIMIT 1";
                     $getposts_result = $conn->query($getposts_sql);
                     if ($getposts_result->num_rows > 0) {
                         $row = $getposts_result->fetch_assoc();
@@ -62,9 +62,10 @@ $url = "http://localhost/Sample-dynamic-website";
                         $image = $row['image_path'];
                         $date = $row['formatted_date'];
                         $id = $row['id'];
+                        $admin_id = $row['admin_id'];
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
-                        $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$id'";
+                        $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$admin_id'";
                         $selectwriter_result = $conn->query($selectwriter);
                         if ($selectwriter_result->num_rows > 0) {
                             $read_count = '';
@@ -86,8 +87,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <h2>".$subtitle."</h2>
                                         <div class='authors_div'>
                                             <div class='authors_div_imgbox'>
-                                                <img src='../images/".$row['image']."' alt='Author's Image'/>
-                                                <p><span class='span1'>".$row['firstname'] .$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</span><span class='span3'>".$date."</span><span class='span3'>".$formatted_time."</span></p>
+                                                <img src='../".$row['image']."' alt='Author's Image'/>
+                                                <p><span class='span1'>".$row['firstname']."  ".$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</span><span class='span3'>".$date."</span><span class='span3'>".$formatted_time."</span></p>
                                             </div>
                                             <div class='authors_div_otherdiv'>
                                                 <i class='fa fa-clock' aria-hidden='true'></i>
@@ -99,7 +100,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                             Your browser does not support the video tag.
                                         </video>
                                         <div class='post_image_div'>
-                                            <img src='../images/".$image."' alt='Post Image'/>
+                                            <img src='../".$image."' alt='Post Image'/>
                                             <span>Source: Getty Images</span>
                                         </div>
                                         <div class='socialmedia_links'>
@@ -123,10 +124,10 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <center>
                                             <a href='../authors/author.php?' class='aboutauthor_div'>
                                                 <div class='aboutauthor_div_subdiv1'>
-                                                    <img src='../images/".$row['image']."' alt ='Author's Image'/>
+                                                    <img src='../".$row['image']."' alt ='Author's Image'/>
                                                 </div>
                                                 <div class='aboutauthor_div_subdiv2'>
-                                                    <p class='p--bold'>".$row['firstname'] .$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</p>
+                                                    <p class='p--bold'>".$row['firstname']." ".$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</p>
                                                     <p>".$bio."</p>
                                                 </div>
                                             </a>
@@ -164,7 +165,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $title = substr($title, 0, $max_length2) . '...';
                             }
                             $readingTime = calculateReadingTime($row['content']);
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id1=$id'>
                                     <img src='../images/$image' alt = 'Post Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>

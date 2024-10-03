@@ -14,8 +14,8 @@
                                 }
                             }
                             while($row = $selectcommentaries_result->fetch_assoc()) {
-                                $max_length = 150;
-                                $max_length2 = 120;
+                                $max_length = 60;
+                                $max_length2 = 60;
                                 $id = $row["id"];
                                 $title = $row["title"];
                                 $niche = $row["niche"];

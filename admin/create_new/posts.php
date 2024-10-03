@@ -47,8 +47,17 @@ include("../connect.php");
                         $selectcategory = "SELECT name FROM topics ORDER BY id";
                         $selectcategory_result = $conn->query($selectcategory);
                         if ($selectcategory_result->num_rows > 0) {
+                            if (!function_exists('convertToReadable')) {
+                                function convertToReadable($slug) {
+                                    $string = str_replace('-', ' ', $slug);
+                                    $string = ucwords($string);
+                                    return $string;
+                                }
+                            }
                             while($row = $selectcategory_result->fetch_assoc()) {
-                                echo "<option class='newpost_subdiv4-option' value='".$row['name']."'>".$row['name']."</option>";
+                                $category_names = $row['name'];
+                                $readableString = convertToReadable($category_names);
+                                echo "<option class='newpost_subdiv4-option' value='$readableString'>$readableString</option>";
                             }
                         }
                     ?>

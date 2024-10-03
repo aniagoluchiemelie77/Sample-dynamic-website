@@ -116,9 +116,6 @@ require ("connect.php");
             <input class="createeditor_input-submit btn" value="Go" name="addcategory" type="submit"/>
         </form>
     </div>
-    <!--<div class="logout_alert container_center hidden" id="delete">
-        <h1 class="logout_alert_header">Post Successfully Deleted.</h1>
-    </div>-->
     <?php require("extras/header.php");?>
     <section class="body">
         <div class="sidebar">
@@ -269,11 +266,16 @@ require ("connect.php");
                                         </tr>";
                                 while($row = $selectposts_result->fetch_assoc()) {
                                     $sn++; 
+                                    $max_length = 60;
+                                    $title = $row["title"];
+                                    if (strlen($title) > $max_length) {
+                                        $title = substr($title, 0, $max_length) . '...';
+                                    }
                                     echo "<tr class='border-gradient-side-dark'>
                                             <td>" . $sn . "</td>
-                                            <td>" . $row["title"] . "</td>
+                                            <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id2=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete'href='../admin/admin_homepage.php?id2=".$row["id"]."'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id2=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'posts')>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -288,7 +290,7 @@ require ("connect.php");
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <?php
-                            $selectdrafts = "SELECT id, title, authors_lastname, authors_firstname, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM unpublished_articles ORDER BY id DESC LIMIT 8";
+                            $selectdrafts = "SELECT id, title, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM unpublished_articles ORDER BY id DESC LIMIT 8";
                             $selectdrafts_result = $conn->query($selectdrafts);
                             if ($selectdrafts_result->num_rows > 0) {
                                 $sn = 0;
@@ -296,18 +298,21 @@ require ("connect.php");
                                         <tr>
                                             <th>S/n</th>
                                             <th>Title</th>
-                                            <th>Author</th>
                                             <th>Date</th>
                                             <th>Actions</th>
                                         </tr>";
                                 while($row = $selectdrafts_result->fetch_assoc()) {
                                     $sn++; 
+                                    $max_length = 60;
+                                    $title = $row["title"];
+                                    if (strlen($title) > $max_length) {
+                                        $title = substr($title, 0, $max_length) . '...';
+                                    }
                                     echo "<tr class='border-gradient-side-dark'>
                                             <td>" . $sn . "</td>
-                                            <td>" . $row["title"] . "</td>
-                                            <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
+                                            <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id3=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='../admin/admin_homepage.php?id3=".$row["id"]."'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id3=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'unpublished_articles')>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -330,18 +335,21 @@ require ("connect.php");
                                         <tr>
                                             <th>S/n</th>
                                             <th>Title</th>
-                                            <th>Author</th>
                                             <th>Date</th>
                                             <th>Actions</th>
                                         </tr>";
                                 while($row = $selectpressreleases_result->fetch_assoc()) {
+                                    $max_length = 60;
+                                    $title = $row["title"];
+                                    if (strlen($title) > $max_length) {
+                                        $title = substr($title, 0, $max_length) . '...';
+                                    }
                                     $sn++; 
                                     echo "<tr class='border-gradient-side-dark'>
                                             <td>" . $sn . "</td>
-                                            <td>" . $row["title"] . "</td>
-                                            <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
+                                            <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id6=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='../admin/admin_homepage.php?id6=".$row["id"]."'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id6=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'press_releases')>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -364,18 +372,21 @@ require ("connect.php");
                                         <tr>
                                             <th>S/n</th>
                                             <th>Title</th>
-                                            <th>Author</th>
                                             <th>Date</th>
                                             <th>Actions</th>
                                         </tr>";
                                 while($row = $selectnews_result_result->fetch_assoc()) {
+                                    $max_length = 60;
+                                    $title = $row["title"];
+                                    if (strlen($title) > $max_length) {
+                                        $title = substr($title, 0, $max_length) . '...';
+                                    }
                                     $sn++; 
                                     echo "<tr class='border-gradient-side-dark'>
                                             <td>" . $sn . "</td>
-                                            <td>" . $row["title"] . "</td>
-                                            <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
+                                            <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id4=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='../admin/admin_homepage.php?id4=".$row["id"]."'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id4=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'unpublished_articles')>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -398,18 +409,21 @@ require ("connect.php");
                                         <tr>
                                             <th>S/n</th>
                                             <th>Title</th>
-                                            <th>Author</th>
                                             <th>Date</th>
                                             <th>Actions</th>
                                         </tr>";
                                 while($row = $selectcommentaries_result->fetch_assoc()) {
+                                    $max_length = 60;
+                                    $title = $row["title"];
+                                    if (strlen($title) > $max_length) {
+                                        $title = substr($title, 0, $max_length) . '...';
+                                    }
                                     $sn++; 
                                     echo "<tr class='border-gradient-side-dark'>
                                             <td>" . $sn . "</td>
-                                            <td>" . $row["title"] . "</td>
-                                            <td>" . $row["authors_firstname"] .$row["authors_lastname"] . "</td>
+                                            <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id5=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' href='../admin/admin_homepage.php?id5=".$row["id"]."'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id5=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'commentaries')>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -894,6 +908,9 @@ require ("connect.php");
                                             </div>
                                             <div class='posts_delete_edit'>
                                                 <a class='users_edit' href='edit/post.php?id3=".$row['id']."' target='_blank'>
+                                                   <i class='fa fa-star' aria-hidden='true'></i>
+                                                </a>
+                                                <a class='users_edit' href='edit/post.php?id3=".$row['id']."' target='_blank'>
                                                     <i class='fa fa-pencil' aria-hidden='true'></i>
                                                 </a>
                                                 <a class='users_delete'>
@@ -1066,7 +1083,6 @@ require ("connect.php");
             <?php }; $conn->close(); ?>
         </script>  
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript" src="otherJSFiles/custom.js"></script>  

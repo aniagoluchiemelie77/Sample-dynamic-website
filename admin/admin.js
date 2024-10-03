@@ -22,8 +22,6 @@ const createEditorDiv = document.getElementById('create_editor');
 const createWriterOrigin = document.getElementById('create_writer_origin');
 const createWriterDiv = document.getElementById('create_writer');
 let profilePicUploadBtn = document.getElementById('profileuploads');
-let workspaceContainer = document.querySelector('.sidebar_workspace_container');
-let workspace = document.querySelector('.sidebar_workspace');
 const editAboutPageBtn = document.getElementById('Edit_about');
 const editAboutDiv = document.getElementById('hidden_aboutdiv');
 
@@ -41,13 +39,14 @@ sideBtns.forEach((tab, index) => {
   })
 });
 
-const displayPopups = function(divname, clickorigin){
+/*const displayPopups = function(divname, clickorigin){
   clickorigin.addEventListener('click', () => {
     divname.classList.remove('hidden');
     divname.style.display = 'flex';
   })
 }
 displayPopups(createEditorDiv, createWriterOrigin);
+*/
 const removeHiddenClass = function (e) {
   e.stopPropagation();
   logoutDiv.classList.add('hidden');

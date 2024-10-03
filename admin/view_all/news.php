@@ -43,7 +43,7 @@
                                         <p class='posts_divcontainer_subdiv_p'><span> Publish Time: </span>".$formatted_time."</p> 
                                     </div>
                                     <div class='posts_delete_edit'>
-                                        <a class='users_edit' href='../edit/post.php?id=".$row["id"]."title=".$row["title"]."'>
+                                        <a class='users_edit' href='../edit/post.php?id4=".$row["id"]."&title=".$row["title"]."'>
                                             <i class='fa fa-pencil' aria-hidden='true'></i>
                                         </a>
                                         <a class='users_delete'>

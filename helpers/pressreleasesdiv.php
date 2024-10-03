@@ -26,7 +26,7 @@
                 }
                 $readingTime = calculateReadingTime($row['content']);
                 echo "<a class='section3__div2__article1' href='pages/view_post.php?id5=$id'>
-                        <img src='$image' alt='article image'>
+                        <img src='images\Pressreleasesimg.png' alt='article image'>
                         <div class='section3__subdiv'>
                             <h1 class='section3__subdiv-h1'>$niche</h1>
                             <h2 class='section3__subdiv-h2'>$title</h2>

@@ -724,7 +724,7 @@ $url = "http://localhost/Sample-dynamic-website";
                     }
                 }
                 if ($post_id5 > 0) {
-                    $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM posts WHERE id = '$post_id2'";
+                    $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = '$post_id5'";
                     $getposts_result = $conn->query($getposts_sql);
                     if ($getposts_result->num_rows > 0) {
                         $row = $getposts_result->fetch_assoc();
@@ -756,7 +756,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $author_bio = $admin['bio'];
                                 $role = "Editor-in-chief Uniquetechcontentwriter.com";
                             }
-                        }elseif (!empty($row['editor_id'])) {
+                        }
+                        elseif (!empty($row['editor_id'])) {
                             $editor_id = $row['editor_id'];
                             $sql_editor = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $editor_id";
                             $result_editor = $conn->query($sql_editor);
@@ -774,6 +775,23 @@ $url = "http://localhost/Sample-dynamic-website";
                         else {
                             $author_firstname = $row['author_firstname'];
                             $author_lastname = $row['author_lastname'];
+                            $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname AND lastname = $author_lastname";
+                            $result_writer = $conn->query($sql_writer);
+                            if ($result_writer->num_rows > 0) {
+                                $writer = $result_writer->fetch_assoc();
+                                $author_firstname = $writer['firstname'];
+                                $author_lastname = $writer['lastname'];
+                                $author_image = $writer['image'];
+                                $id_type = "Writer";
+                                $id_writer = $writer['id'];
+                                $author_bio = $writer['bio'];
+                                $role = "Contributing Writer";
+                            }else{
+                                $author_bio = $row['author_bio'];
+                                $role = 'Contributing Writer';
+                                $id_writer = '';
+                                $id_type = "Writer";
+                            }
                             $author_bio = $row['author_bio'];
                             $role = 'Contributing Writer';
                             $id_writer = 4;
@@ -836,7 +854,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                         </div>
                                         <h3 class='bodyleft_header3'>About the Author</h3>
                                         <center>
-                                            <a href='../authors/author.php?id=$id_admin$id_editor&idtype=$id_type' class='aboutauthor_div'>
+                                            <a href='../authors/author.php?id=$id_admin$id_editor$id_writer&idtype=$id_type' class='aboutauthor_div'>
                                                 <div class='aboutauthor_div_subdiv1'>
                                                     <img src='../$author_image' alt ='Author's Image'/>
                                                 </div>
@@ -852,7 +870,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                         </center>
                                     ";
                     }
-                    $otherposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts WHERE id != '$post_id2' ORDER BY date DESC LIMIT 8";
+                    $otherposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases WHERE id != '$post_id5' ORDER BY date DESC LIMIT 8";
                     $otherposts_result = $conn->query($otherposts_sql);
                     if ($otherposts_result->num_rows > 0) {
                         echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
@@ -878,7 +896,7 @@ $url = "http://localhost/Sample-dynamic-website";
                             }
                             $readingTime = calculateReadingTime($row['content']);
                             echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>
-                                    <img src='../$image' alt = 'Post Image'/>
+                                    <img src='../images\Pressreleasesimg.png' alt = 'Post Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$date</span>

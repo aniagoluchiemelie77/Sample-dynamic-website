@@ -724,7 +724,7 @@ $url = "http://localhost/Sample-dynamic-website";
                     }
                 }
                 if ($post_id5 > 0) {
-                    $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = '$post_id5'";
+                    $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = '$post_id5'";
                     $getposts_result = $conn->query($getposts_sql);
                     if ($getposts_result->num_rows > 0) {
                         $row = $getposts_result->fetch_assoc();
@@ -816,7 +816,7 @@ $url = "http://localhost/Sample-dynamic-website";
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
                         echo "<h1 class='Post_header'>".$title."</h1>
-                                        <h2>".$subtitle."</h2>
+                                    <h2>".$subtitle."</h2>
                                         <div class='authors_div'>
                                             <div class='authors_div_imgbox'>
                                                 <img src='../$author_image' alt='Author's Image'/>

@@ -4,7 +4,7 @@
 </div>
 <div class="section3__div2">
     <?php
-        $selectpressreleases_sql = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases ORDER BY id DESC LIMIT 5";
+        $selectpressreleases_sql = "SELECT id, title, niche, image_path, content, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases ORDER BY id DESC LIMIT 5";
         $selectpressreleases_result = $conn->query($selectpressreleases_sql);
         if ($selectpressreleases_result->num_rows > 0) {
             if (!function_exists('calculateReadingTime')) {

@@ -443,6 +443,9 @@ a, td,span, p, label{
     -ms-transform: scale(1.08);
     -o-transform: scale(1.08);
 }
+.rowflexdisplay a p span{
+    color: black;
+}
 .rowflexdisplay a:hover p span{
     color: #F94A04;
 }
@@ -857,6 +860,9 @@ a, td,span, p, label{
 }
 .divimages:hover .divimages_side--back {
     display: block;
+    background-color: rgba(0, 2, 0, 0.4);
+    backdrop-filter: blur(10px);
+    padding: .5rem;
 }
  .users .users_div_subdiv .users_div_subdiv_subdiv{
     background-color: #222222;
@@ -2060,8 +2066,8 @@ input[type="datetime-local"] {
     height: fit-content;
 }
 .message_div-container .message_div-container_subdiv{
-    height: 88vh;
-    width: 30vw;
+    height: 90vh;
+    width: 28vw;
 }
 .message_div-container .message_div-container_subdiv img{
     height: 50%;
@@ -2089,7 +2095,7 @@ input[type="datetime-local"] {
 .message_div-container_subdiv-imagebody .input_group input:focus{
     border-bottom: 1px solid #F94A04;
 }
-.message_div-container_subdiv-imagebody .input_group p, span{
+.message_div-container_subdiv-imagebody form .input_group p, span{
     font-size: 1.2rem;
     color: #F93404;
 }

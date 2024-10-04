@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../connect.php");
+$usertype = " ";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,13 +34,14 @@ include("../connect.php");
                     $sn = 0;
                     while($row = $selectalleditors_result->fetch_assoc()) {
                         $sn++; 
+                        $usertype = "Editor";
                         echo "<div class='users_div_subdiv_subdiv divimages' style=background-image:url('../".$row['image']."')>
                                     <div class='divimages_side--back'>
                                         <p class='users_div_subdiv_p'><span>".$row['firstname']."</span></p>
                                         <p class='users_div_subdiv_p'><span>".$row['lastname']."</span></p> 
                                         <center>
                                             <div class='users_delete_edit'>
-                                                <a class='users_edit' href='create_new/message.php?id=".$row['id']."&usertype=Editor'>Message</a>
+                                                <a class='users_edit' href='create_new/message.php?usertype=$usertype&id=".$row['id']."'>Message</a>
                                             </div>
                                         </center>
                                     </div>
@@ -83,7 +85,7 @@ include("../connect.php");
             </div>
             <div class="users_div_subdiv border-gradient-side-dark">
                 <?php
-                    $selectallotherusers = "SELECT id, image, firstname, lastname FROM otherwebsite_users ORDER BY id DESC";
+                    $selectallotherusers = "SELECT id, image, firstname, lastname, role FROM otherwebsite_users ORDER BY id DESC";
                             $selectallotherusers_result = $conn->query($selectallotherusers);
                             if ($selectallotherusers_result->num_rows > 0) {
                                 $sn = 0;
@@ -93,6 +95,7 @@ include("../connect.php");
                                             <div class='divimages_side--back'>
                                                 <p class='users_div_subdiv_p'><span>".$row['firstname']."</span></p>
                                                 <p class='users_div_subdiv_p'><span>".$row['lastname']."</span></p> 
+                                                <p class='users_div_subdiv_p'><span>".$row['role']."</span></p> 
                                                 <center>
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit' href='create_new/message.php?id=".$row['id']."&usertype=OtherUser'>Message</a>

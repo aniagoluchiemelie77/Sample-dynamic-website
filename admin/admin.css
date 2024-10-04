@@ -807,7 +807,7 @@ a, td,span, p, label{
     -ms-border-radius: .5rem;
     -o-border-radius: .5rem;
 }
-.aside_sidebar .users{
+ .users{
     padding: 1.5rem 1rem;
     background-color: #FAFAFA;
     width: 100%;
@@ -823,27 +823,26 @@ a, td,span, p, label{
     align-items: center;
     padding: 1rem;
 }
-.aside_sidebar .users .userdiv{
+ .users .userdiv{
     margin: 1rem;
     padding: 1.5rem;
     min-width: 100%;
 }
-.aside_sidebar .users div h2{
+.users div h2{
     font-size: 2.9rem;
     font-weight: 750;
 }
-.aside_sidebar .users span{
+ .users span{
     font-weight: 800;
     color: #F94A04;
 }
-.aside_sidebar .users .users_div_subdiv{
+ .users .users_div_subdiv{
     display: flex; 
     padding: 1rem;
 }
 .divimages{
     perspective: 200rem;
     -moz-perspective: 200rem;
-    background-image: url('../images/newDiamakaimg1.png');
     background-position: center;
     background-size: cover;
     width: 20vw;
@@ -859,7 +858,7 @@ a, td,span, p, label{
 .divimages:hover .divimages_side--back {
     display: block;
 }
-.aside_sidebar .users .users_div_subdiv .users_div_subdiv_subdiv{
+ .users .users_div_subdiv .users_div_subdiv_subdiv{
     background-color: #222222;
     min-height: 35vh;
     color: #FAFAFA;
@@ -885,6 +884,7 @@ a, td,span, p, label{
  .users_div_subdiv_subdiv .users_delete_edit a{
     cursor: pointer;
     padding: .5rem 1rem;
+    color: #eee;
     border-radius: 1rem;
     background-color: #F94A04;
     -webkit-border-radius: 1rem;
@@ -2027,6 +2027,84 @@ input[type="datetime-local"] {
 .about_section_topicsdiv_subdiv-action div i{
     font-size: 2.5rem;
     color: #222222;
+}
+/*For create_new/message.php */
+.newpost_body2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #eee;
+}
+.nav_quicklinks{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 1rem;
+}
+.nav_quicklinks a{
+    margin-right: 1rem;
+    color: black;
+    cursor: pointer;
+}
+.nav_quicklinks a:hover{
+    color: #F93404;
+    text-decoration: underline;
+}
+.nav_quicklinks p{
+    margin-left: 1rem;
+}
+.message_div-container{
+    padding: 1rem;
+    height: fit-content;
+}
+.message_div-container .message_div-container_subdiv{
+    height: 88vh;
+    width: 30vw;
+}
+.message_div-container .message_div-container_subdiv img{
+    height: 50%;
+    width: 100%;
+}
+.message_div-container_subdiv-imagebody{
+    padding: 1rem .5rem;
+    background-color: white;
+}
+.message_div-container_subdiv-imagebody form .input_group, input{
+    width: 100%;
+    background-color: inherit;
+}
+.message_div-container_subdiv-imagebody .input_group {
+    padding: 1rem .3rem;
+    display: flex;
+    flex-direction: column;
+}
+.message_div-container_subdiv-imagebody .input_group input{
+    padding: 1rem;
+    border: none;
+    border-bottom: 1px solid #22222276;
+    outline: none;
+}
+.message_div-container_subdiv-imagebody .input_group input:focus{
+    border-bottom: 1px solid #F94A04;
+}
+.message_div-container_subdiv-imagebody .input_group p, span{
+    font-size: 1.2rem;
+    color: #F93404;
+}
+.message_div-container_subdiv-imagebody .input_group textarea{
+    padding: 1rem;
+    border: none;
+    background-color: inherit;
+    outline: 1px solid #22222275;
+}
+.message_div-container_subdiv-imagebody .input_group textarea:focus{
+    outline: 1px solid #F94A04;
+}
+.message_div-container_subdiv-imagebody form .send_messagebtn{
+    border: none;
+    margin-bottom: 1rem;
 }
 @media only screen and (min-width: 39rem) and (max-width: 65rem){
     a, td,span, p, label{

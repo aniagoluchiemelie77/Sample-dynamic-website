@@ -239,7 +239,7 @@ require ("connect.php");
                         </div>
                         <p class="website_info_p2">Add Draft</p>
                     </a>
-                    <a class="website_info" id="messagediv" href="create_new/message.php">
+                    <a class="website_info" id="messagediv" href="messages.php">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
@@ -637,7 +637,7 @@ require ("connect.php");
                         <h2>Admin</h2>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
-                        <div class="users_div_subdiv_subdiv divimages">
+                        <div class="users_div_subdiv_subdiv divimages" style="background-image:url('<?php echo '../' . $_SESSION['image']; ?>')">
                             <div class="divimages_side--back">
                                 <p class="users_div_subdiv_p">
                                     <span>Username:</span>
@@ -664,9 +664,6 @@ require ("connect.php");
                                     ?>
                                 </p>
                             </div>
-                            <!--<div class="user_imgbox">
-                                <img src="images/newDiamakaimg1.png" alt="admin's image"/>
-                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -677,13 +674,14 @@ require ("connect.php");
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-                            $selecteditors = "SELECT username, firstname, email, id, image FROM editor ORDER BY id DESC LIMIT 3";
-                            $selecteditors_result = $conn->query($selecteditors);
-                            if ($selecteditors_result->num_rows > 0) {
+                            $selectthreeeditors = "SELECT * FROM editor ORDER BY id DESC LIMIT 3";
+                            $selectthreeeditors_result = $conn->query($selectthreeeditors);
+                            if ($selectthreeeditors_result->num_rows > 0) {
                                 $sn = 0;
-                                while($row = $selecteditors_result->fetch_assoc()) {
+                                while($row = $selectthreeeditors_result->fetch_assoc()) {
                                     $sn++; 
-                                    echo "<div class='users_div_subdiv_subdiv divimages'>
+                                    $image = $row['image'];
+                                    echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
                                                 <p class='users_div_subdiv_p'><span>Username: </span>".$row['username']."</p>
                                                 <p class='users_div_subdiv_p'><span>Firstname: </span>".$row['firstname']."</p> 
@@ -715,13 +713,14 @@ require ("connect.php");
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-                            $selectwriters = "SELECT firstname, lastname, email, id, image FROM writer ORDER BY id DESC LIMIT 3";
+                            $selectwriters = "SELECT * FROM writer ORDER BY id DESC LIMIT 3";
                             $selectwriters_result = $conn->query($selectwriters);
                             if ($selectwriters_result->num_rows > 0) {
                                 $sn = 0;
                                 while($row = $selectwriters_result->fetch_assoc()) {
                                     $sn++; 
-                                    echo "<div class='users_div_subdiv_subdiv divimages'>
+                                    $image = $row['image'];
+                                    echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
                                                 <p class='users_div_subdiv_p'><span>Firstname: </span>".$row['firstname']."</p>
                                                 <p class='users_div_subdiv_p'><span>Lastname: </span>".$row['lastname']."</p> 
@@ -749,18 +748,19 @@ require ("connect.php");
                 </div>
                 <div class="users_writer_div userdiv">
                     <div class="user_header">
-                        <h2>Others</h2>
+                        <h2>Others Website Users</h2>
                         <a class="btn" href="view_all/otherusers.php">View All</a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-                            $selectotherusers = "SELECT firstname, lastname, email, id, image, role FROM otherwebsite_users ORDER BY id DESC LIMIT 3";
+                            $selectotherusers = "SELECT * FROM otherwebsite_users ORDER BY id DESC LIMIT 3";
                             $selectotherusers_result = $conn->query($selectotherusers);
                             if ($selectotherusers_result->num_rows > 0) {
                                 $sn = 0;
                                 while($row = $selectotherusers_result->fetch_assoc()) {
                                     $sn++; 
-                                    echo "<div class='users_div_subdiv_subdiv divimages'>
+                                    $image = $row['image'];
+                                    echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
                                                 <p class='users_div_subdiv_p'><span>Firstname: </span>".$row['firstname']."</p>
                                                 <p class='users_div_subdiv_p'><span>Lastname: </span>".$row['lastname']."</p> 

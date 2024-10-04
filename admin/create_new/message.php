@@ -20,7 +20,29 @@ include("../connect.php");
 </head>
 <body>
     <?php require("../extras/header2.php");?>
-    <section class="newpost_body"></section>
+    <div class="newpost_body2">
+        <div class="nav_quicklinks">
+            <a href = "../admin_homepage.php">Home </a> > <p>Send Message to <span></span> </p>
+        </div>
+        <div class="message_div-container">
+            <div class="message_div-container_subdiv">
+                <img src="../../images/dids.jpg" alt='Editors Image'/>
+                <div class="message_div-container_subdiv-imagebody">
+                    <form action="../forms.php">
+                        <div class="input_group">
+                            <input name="subject" placeholder="Title"/>
+                            <p><span>* </span>Optional</p>
+                        </div>
+                        <div class="input_group">
+                            <label for="content">Compose:</label>
+                            <textarea name="content"></textarea>
+                        </div>
+                        <input type="submit" name="send_message" value="Send" class="btn send_messagebtn"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../admin.js"></script>
     <script type="text/javascript">

@@ -59,7 +59,7 @@ if (isset($_REQUEST['fgtpswd'])){
 	<title>Forgot Password</title>
 </head>
 <body>
-    <section class="section1">
+    <section class="section1 flexcenter">
         <div class="container" id="signIn">
             <form method="post" class="form" id="validate_form" action="forgotpassword.php">
                 <h1>Enter Your Email</h1>

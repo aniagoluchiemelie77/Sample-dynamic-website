@@ -1,25 +1,5 @@
+@import "../index.css";
 :root{
-    --plia-font-size: 1.5rem;
-    --plia-font-size-small: 1rem;
-    --color60: #FAFAFA;
-    --color30: #222222;
-    --color10: #F94A04;
-    --color60-shade: #eee;
-    --sectionpadding-big: 2rem;
-    --sectionpadding-small: 1.5rem;
-    --sectionpadding-medium: 1rem;
-    --color10-shade: #F93404;
-    --border-radius-small: .6rem;
-    --border-radius-big: 1rem;
-    --border-radius-circle: 50%;
-    --div-padding-full: 1rem;
-    --column-gap-main: 1.5rem;
-    --article-header: 2.4rem;
-    --article-header-medium: 2rem;
-    --article-header-small: 1.6rem;
-    --transform-size-small: scale(1.05);
-    --transform-size-medium: scale(1.15);
-    --transform-size-big: scale(1.4);
     --height: 70vh;
     --header-height: 18vh;
     --sidebar-width: 17vw;
@@ -39,45 +19,47 @@ html{
     scroll-behavior: cubic-bezier(0.2, 0, 0.38, 1);
 }
 a, td,span, p, label{
-    font-size: 1.5rem;
+    font-size: var(--pfontsize);
     font-weight: normal;
     line-height: 1.5;
     text-decoration: none;
 }
-.lightp{
-    color: #FAFAFA;
-}
-.darkp{
-    color: black;
-}
-.sticky{
-    top: 0;
-    left: 0;
-}
-.flex_direction-column-center{
+.flexcenter{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
-.flex_direction-row-center{
+.flexcenter-row{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
-.section1{
-    background: linear-gradient(to left, #eee, white);
-    min-height: var(--height);
+.flexcenter-column{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+.lightp{
+    color: var(--color60);
+}
+.darkp{
+    color: var(--color30-shade);
+}
+.sticky{
+    top: 0;
+    left: 0;
+}
+.section1{
+    background: linear-gradient(to left, var(--color60-shade), var(--color60-tint));
+    min-height: var(--height);
+}
 .container{
     min-width: 500px;
-    background-color: #222222;
+    background-color: var(--color30);
     box-shadow: 0 25px 35px rgba(0,0,1,.5);
-    padding: 2rem;
+    padding: var(--sectionpadding-highest);
     border-radius: 2rem;
     -webkit-border-radius: 2rem;
     -moz-border-radius: 2rem;
@@ -89,14 +71,14 @@ a, td,span, p, label{
     background: var(--color30);
     color: var(--color60);
     display: flex;
-    padding: var(--sectionpadding-big);
+    padding: var(--sectionpadding-highest);
     align-items: center;
 }
 .container h1{
-    font-size: 3.3rem;
+    font-size: var(--header-h2);
     text-align: center;
     padding: 1.7rem 0;
-    background-image: linear-gradient(45deg, #F94A04, #F93404);
+    background-image: linear-gradient(45deg, var(--color10), var(--color10-shade));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -107,8 +89,8 @@ a, td,span, p, label{
 }
 .error_div{
     width: 100%;
-    color: #F94A04;
-    padding: 1rem;
+    color: var(--color10);
+    padding: var(--divpadding);
 }
 .checkbox_group{
     display: flex;
@@ -117,21 +99,21 @@ a, td,span, p, label{
     padding: .5rem 0;
 }
 .checkbox_group p{
-    color: #eee;
+    color: var(--color60-shade);
     margin-left: 1rem;
 }
 .checkbox_group input:checked{
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .container .form .input_group input{
     width: 100%;
     outline: none;
-    color: #eee;
+    color: var(--color60-shade);
     background-color: transparent;
     border: none;
     padding-left: 2.4rem;
     padding-bottom: .3rem;
-    border-bottom: 1px solid #FAFAFA;
+    border-bottom: 1px solid var(--color60);
 }
 .form .input_group{
     position: relative;
@@ -140,8 +122,8 @@ a, td,span, p, label{
 }
 .form .input_group i{
     position: absolute;
-    font-size: 1.6rem;
-    color: #eee;
+    font-size: var(--ifontsize-7);
+    color: var(--color60-shade);
     transform: translateY(-.5rem);
     -webkit-transform: translateY(-.5rem);
     -moz-transform: translateY(-.5rem);
@@ -150,7 +132,7 @@ a, td,span, p, label{
 }
 
 .form .input_group input:focus{
-    border-bottom: 2px solid #F94A04;
+    border-bottom: 2px solid var(--color10);
     padding-left: 1rem;
     background: inherit;
 }
@@ -161,7 +143,7 @@ a, td,span, p, label{
     position: relative;
     left: 2.5rem;
     top: -2.4rem;
-    color: #eee;
+    color: var(--color60-shade);
     transition: .5s ease-in-out all;
     -webkit-transition: .5s ease-in-out all;
     -moz-transition: .5s ease-in-out all;
@@ -172,25 +154,25 @@ a, td,span, p, label{
     top: -3.3rem;
     font-size: .8rem;
     opacity: 0;
-    color: #F94A04;
+    color: var(--color10);
 }
  .container .recover a{
     float: right;
     font-size: 1.5rem;
-    color: #F94A04;
+    color: var(--color10);
     text-decoration: none;
 }
 .container .recover a:hover{
     text-decoration: underline;
 }
 .form .btn_main{
-    background: #F94A04;
+    background: var(--color10);
     text-align: center;
     padding: 1rem .2rem;
     border: none;
     cursor: pointer;
     width: 100%;
-    color: #FAFAFA;
+    color: var(--color60);
     margin: 1rem 0;
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
@@ -199,14 +181,14 @@ a, td,span, p, label{
     -o-border-radius: 1rem;
 }
 .form .btn_main:hover{
-    background-color: #F93404;
+    background-color: var(--color10-shade);
 }
 .footer__div3{
     display: flex;
     width: 90%;
     justify-content: space-between;
     align-items: flex-start;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
 }
 .footer__div3__subdiv h1{
     margin: 1.2rem 0;
@@ -221,106 +203,34 @@ a, td,span, p, label{
     text-align: center;
     border-radius: .5rem;
     height: fit-content;
-    border: 1px solid #eeeeeec3;
+    border: 1px solid var(--color60-shade)eeec3;
     -webkit-border-radius: .5rem;
     -moz-border-radius: .5rem;
     -ms-border-radius: .5rem;
     -o-border-radius: .5rem;
 }
 .footer__div3__subdiv div a:hover{
-    background-color: #F94A04;
-    border: 1px solid #F94A04;
+    background-color: var(--color10);
+    border: 1px solid var(--color10);
 }
 .footer__div3__subdiv div a i{
-    font-size: 2rem;
-    color: #eee;
+    font-size: var(--ifontsize-6);
+    color: var(--color60-shade);
 }
 .border-gradient-side{
-    border:  white 10px solid;
+    border:  var(--color60-tint) 10px solid;
     border-image-slice: 1;
     border-width: 1px;
     border-top: 0;
     border-right: 0;
     border-bottom: 0;
   }
-  @media only screen and (max-width:40rem){
-    body{
-        min-height: 100svh;
-    }
-    a, td,span, p, label{
-        font-size: 1.9rem;
-    }
-    .section1{
-        min-height: 80svh;
-        padding: 2rem 1rem;
-    }
-    .container{
-        min-width: 93%;
-        padding: 1.5rem;
-    }
-    .footer{
-        height: 20svh;
-        display: flex;
-    }
-    .container h1{
-        font-size: 3.8rem;
-        padding: 2rem 0;
-    }
-    .container .form{
-        padding: .5rem .7rem;
-    }
-    .form .input_group input{
-        font-size: 1.9rem;
-    }
-    .form .input_group input::placeholder{
-        margin-bottom: .8rem; 
-        font-size: 1.9rem;
-    }
-     .container .recover a{
-        font-size: 1.9rem;
-    }
-    .form .btn_main{
-        font-size: 1.9rem;
-    }
-    footer{
-        padding: 2rem;
-    }
-    .footer__div3{
-        display: flex;
-        width: 100%;
-        justify-content: space-evenly;
-        align-items: center;
-        flex-direction: column;
-        min-height: fit-content;
-    }
-    .footer__div3 p{
-        padding: .5rem 0;
-    }
-    .footer__div3__subdiv h1{
-        font-size: 2rem;
-    }
-    .footer__div3__subdiv div {
-        height: fit-content;
-    }
-    .footer__div3__subdiv div a{
-        margin: 0 .5rem;
-        padding: 0 .5rem;
-    }
-    .footer__div3 span{
-        background-image: linear-gradient(45deg, #F94A04, #F93404);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        font-size: 1.9rem;
-        font-weight: 700;
-    }
-  }
 /*For admin homepage*/
 .header{
     display: flex;
-    background-color: #222222;
+    background-color: var(--color30);
     align-items: center;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     min-height: var(--header-height);
     justify-content: space-between;
 }
@@ -334,24 +244,24 @@ a, td,span, p, label{
     display: flex;
     overflow: hidden;
     width: 50vw;
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .header_searchbar input{
     border: none;
     padding: 1rem;
-    background-color: #222222;
-    border-bottom: 1px solid #eee;
+    background-color: var(--color30);
+    border-bottom: 1px solid var(--color60-shade);
     outline: none;
-    color: #eee;
+    color: var(--color60-shade);
     width: 90%;
 }
 .header_searchbar input:focus{
-    border-bottom: 2px solid #F93404;
+    border-bottom: 2px solid var(--color10-shade);
 }
 .header_searchbar button{
     height: fit-content;
     padding: 1rem;
-    color: #eee;
+    color: var(--color60-shade);
     width: 10%;
     border: none;
     outline: none;
@@ -366,12 +276,12 @@ a, td,span, p, label{
 }
 .header_img a{
     margin-right: 2rem;
-    color: #eee;
+    color: var(--color60-shade);
     font-size: 2.3rem;
 }
 .header_img i{
-    color: #eee;
-    font-size: 2.8rem;
+    color: var(--color60-shade);
+    font-size:var(--ifontsize-3);
 }
 .body{
     min-height: calc(100vh - var(--header-height));
@@ -381,15 +291,15 @@ a, td,span, p, label{
 .body .sidebar{
     float: left;
     width: var(--sidebar-width);
-    background-color: #222222;
+    background-color: var(--color30);
     height: 100vh;
     margin: 0;
     display: flex;
     flex-direction: column;
-    padding: 1rem 1rem;
+    padding: var(--divpadding);
 }
 .border-gradient-side{
-    border:  #eeeeee48 10px solid;
+    border:  var(--color60-shade)eee48 10px solid;
     border-image-slice: 1;
     border-width: .4px;
     border-left: 0;
@@ -397,7 +307,7 @@ a, td,span, p, label{
     border-bottom: 0;
   }
   .border-gradient-side-dark{
-    border:  #222222 10px solid;
+    border:  var(--color30) 10px solid;
     border-image-slice: 1;
     border-width: .4px;
     border-left: 0;
@@ -405,7 +315,7 @@ a, td,span, p, label{
     border-bottom: 0;
   }
   .border-gradient-side2-dark{
-    border:  #222222 10px solid;
+    border:  var(--color30) 10px solid;
     border-image-slice: 1;
     border-width: .4px;
     border-left: 0;
@@ -413,7 +323,7 @@ a, td,span, p, label{
     border-bottom: 0;
   }
   .border-gradient-top-light{
-    border:  #FAFAFA 10px solid;
+    border:  var(--color60) 10px solid;
     border-image-slice: 1;
     border-width: .4px;
     border-left: 0;
@@ -422,13 +332,13 @@ a, td,span, p, label{
   }
   .rowflexdisplay{
     display: flex;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     flex-wrap: wrap;
     align-items: center;
   }
   .rowflexdisplay a{
     width: 20%;
-    color: black;
+    color: var(--color30-shade);
     padding: 1rem;
     cursor: pointer;
     display: flex;
@@ -436,7 +346,7 @@ a, td,span, p, label{
     align-items: center;
   }
   .rowflexdisplay a:hover{
-    color: #F94A04;
+    color: var(--color10);
     transform: scale(1.08);
     -webkit-transform: scale(1.08);
     -moz-transform: scale(1.08);
@@ -444,18 +354,18 @@ a, td,span, p, label{
     -o-transform: scale(1.08);
 }
 .rowflexdisplay a p span{
-    color: black;
+    color: var(--color30-shade);
 }
 .rowflexdisplay a:hover p span{
-    color: #F94A04;
+    color: var(--color10);
 }
 .rowflexdisplay a i{
-    font-size: 2.2rem;
+    font-size: var(--ifontsize-5);
     margin-bottom: .5rem;
 }
 .body .sidebar div{
     display: flex;
-    padding: 1.2rem;
+    padding: var(--divpadding-high);
     flex-direction: column;
 }
 .body .sidebar div .sidebarbtn{
@@ -470,12 +380,12 @@ a, td,span, p, label{
     -o-transition: all .3s ease-out;
 }
 .body .sidebar p{
-    color: #eee;
+    color: var(--color60-shade);
 }
 .body .sidebar div i{
     margin-right: 1rem;
-    color: #FAFAFA;
-    font-size: 1.7rem;
+    color: var(--color60);
+    font-size: var(--ifontsize-7);
 }
 .active2{
     display: flex;
@@ -484,19 +394,19 @@ a, td,span, p, label{
     margin-left: var(--sidebar-width);
     position: relative;
     align-items: center;
-    background-color: #eee;
+    background-color: var(--color60-shade);
     min-height: 100%;
     overflow-y: scroll;
 }
 .aside_sidebar2{
     position: relative;
     align-items: center;
-    background-color: #eee;
+    background-color: var(--color60-shade);
     min-height: 100%;
     overflow-y: scroll;
 }
 .aside_sidebar .aside_sidebar_header{
-    background-image: linear-gradient(to right, #F94A04, #F93404);
+    background-image: linear-gradient(to right, var(--color10), var(--color10-shade));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -507,17 +417,17 @@ a, td,span, p, label{
 }
  .website_info_div{
     width: 100%;
-    padding: 1rem;
-    background-color: #eee;
+    padding: var(--divpadding);
+    background-color: var(--color60-shade);
     min-height: fit-content;
     flex-direction: column;
     align-items: center;
 }
 .website_info_div .webinfo_container{
     min-width: 100%;
-    background-color: #eee;
+    background-color: var(--color60-shade);
     display: flex;
-    padding: 1.2rem;
+    padding: var(--divpadding-high);
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
@@ -530,8 +440,8 @@ a, td,span, p, label{
 .website_info_div .webinfo_container .website_info{
     width: 13rem;
     height: 10rem;
-    background-color: #222222;
-    padding: 1rem;
+    background-color: var(--color30);
+    padding: var(--divpadding);
     margin: 1rem 0;
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
@@ -552,23 +462,23 @@ a, td,span, p, label{
 }
 .webinfo_container .website_info div i{
     margin-right: .6rem;
-    color: #eee;
-    font-size: 2.3rem;
+    color: var(--color60-shade);
+    font-size: var(--ifontsize-5);
 }
 .webinfo_container .website_info:hover div i{
-    color: #F94A04;
+    color: var(--color10);
 }
 .website_info_div .webinfo_container .website_info p{
-    color: #eee;
+    color: var(--color60-shade);
 }
 .website_info_div .webinfo_container .website_info:hover p{
-    color: #F94A04;
+    color: var(--color10);
 }
 .addtionalinfo{
     width: 90%;
     margin: 1rem 0;
-    background-color: #FAFAFA;
-    padding: 1.5rem;
+    background-color: var(--color60);
+    padding: var(--divpadding-highest);
     border-radius: .5rem;
     -webkit-border-radius: .5rem;
     -moz-border-radius: .5rem;
@@ -583,12 +493,12 @@ a, td,span, p, label{
     padding: 1rem 0;
 }
 .addtionalinfo .addtionalinfo_header h1{
-    font-size: 2.5rem;
-    padding: .5rem .5rem;
+    font-size: var(--header-h5);
+    padding: .5rem;
 }
  .btn{
-    background-color: #F94A04;
-    color: #FAFAFA;
+    background-color: var(--color10);
+    color: var(--color60);
     cursor: pointer;
     padding: .8rem 1rem;
     border-radius: 1rem;
@@ -598,7 +508,7 @@ a, td,span, p, label{
     -o-border-radius: 1rem;
 }
  .btn:hover{
-    background-color: #F93404;
+    background-color: var(--color10-shade);
 }
  .addtionalinfo_body{
     width: 100%;
@@ -627,20 +537,20 @@ a, td,span, p, label{
     margin-left: 1rem;
 }
 .addtionalinfo_body table tr:nth-child(2){
-    background-color: #eee;
+    background-color: var(--color60-shade);
 }
 .addtionalinfo_body table tr:nth-child(4){
-    background-color: #eee;
+    background-color: var(--color60-shade);
 }
 .addtionalinfo_body table tr:nth-child(6){
-    background-color: #eee;
+    background-color: var(--color60-shade);
 }
 .addtionalinfo_body table a{
-    color: #F94A04;
+    color: var(--color10);
     cursor: pointer;
 }
 .addtionalinfo_body table a:hover{
-    color: #F93404;
+    color: var(--color10-shade);
     text-decoration: underline;
 }
 .stats {
@@ -653,18 +563,18 @@ a, td,span, p, label{
 }
 .stats .visits_subdiv2{
     grid-area: 1 / 2 / 2 / -1;
-    background-color: #eee;
-    padding: 1.2rem;
+    background-color: var(--color60-shade);
+    padding: var(--divpadding-high);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .stats .visits_subdiv3{
     grid-area: 2 / 2 / -1 / -1;
-    padding: 1.2rem;
+    padding: var(--divpadding-high);
 }
 .visits_subdiv2_header{
-    font-size: 2.2rem;
+    font-size: var(--header-h6);
     text-align: center;
 }
 .hidden{
@@ -676,10 +586,10 @@ a, td,span, p, label{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: #FAFAFA;
+    background-color: var(--color60);
 }
 .profile p, span{
-    color: black;
+    color: var(--color30-shade);
 }
 .profile figure{
     position: relative;
@@ -693,12 +603,12 @@ a, td,span, p, label{
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    border: 3px solid #F94A04;
+    border: 3px solid var(--color10);
 }
 .profile_imgbox a{
     position: absolute;
     cursor: pointer;
-    color: #eee;
+    color: var(--color60-shade);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -706,8 +616,8 @@ a, td,span, p, label{
     right: .5rem;
     width: 50px;
     height: 50px;
-    border: #eee 3px solid;
-    background-color: #222222;
+    border: var(--color60-shade) 3px solid;
+    background-color: var(--color30);
     padding: 1rem;
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -716,7 +626,7 @@ a, td,span, p, label{
     -o-border-radius: 50%;
 }
 .profile_imgbox a:hover i{
-    color: #F94A04;
+    color: var(--color10);
 }
 .profile_body{
     margin: 1.2rem 0;
@@ -736,7 +646,7 @@ a, td,span, p, label{
     font-size: 2rem;
 }
 .profile_body .firsti:hover{
-    color: #F94A04;
+    color: var(--color10);
 }
 .profile_firstp{
     margin-bottom: 1rem;
@@ -770,7 +680,7 @@ a, td,span, p, label{
 .profile_body-activities{
     width: 80%;
     margin: 1rem 0;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     display: flex;
     flex-direction: column;
     border-radius: 1rem;
@@ -778,7 +688,7 @@ a, td,span, p, label{
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
-    background-color: #eee;
+    background-color: var(--color60-shade);
 }
 .profile_body-activities div{
     display: flex;
@@ -788,11 +698,11 @@ a, td,span, p, label{
     padding: .8rem 1rem;
 }
 .profile_body-activities div h1{
-    font-size: 2.5rem;
+    font-size: var(--header-h5);
 }
 .active{
-    background-color: #F94A04;
-    color: #FAFAFA;
+    background-color: var(--color10);
+    color: var(--color60);
 }
 .active2{
     display: flex;
@@ -801,8 +711,8 @@ a, td,span, p, label{
     min-width: 90%;
     text-align: center;
     cursor: pointer;
-    background-color: #F94A04;
-    color: #FAFAFA;
+    background-color: var(--color10);
+    color: var(--color60);
     padding: .9rem 1rem;
     border-radius: .5rem;
     -webkit-border-radius: .5rem;
@@ -812,7 +722,7 @@ a, td,span, p, label{
 }
  .users{
     padding: 1.5rem 1rem;
-    background-color: #FAFAFA;
+    background-color: var(--color60);
     width: 100%;
     height: 100%;
     align-items: flex-start;
@@ -824,24 +734,24 @@ a, td,span, p, label{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: var(--divpadding);
 }
  .users .userdiv{
     margin: 1rem;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     min-width: 100%;
 }
 .users div h2{
-    font-size: 2.9rem;
+    font-size: var(--header-h3);
     font-weight: 750;
 }
  .users span{
-    font-weight: 800;
-    color: #F94A04;
+    font-weight: var(--spanfontweight);
+    color: var(--color10);
 }
  .users .users_div_subdiv{
     display: flex; 
-    padding: 1rem;
+    padding: var(--divpadding);
 }
 .divimages{
     perspective: 200rem;
@@ -865,9 +775,9 @@ a, td,span, p, label{
     padding: .5rem;
 }
  .users .users_div_subdiv .users_div_subdiv_subdiv{
-    background-color: #222222;
+    background-color: var(--color30);
     min-height: 35vh;
-    color: #FAFAFA;
+    color: var(--color60);
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -879,7 +789,7 @@ a, td,span, p, label{
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
 }
  .users_div_subdiv_subdiv .users_delete_edit{
     width: 100%;
@@ -890,16 +800,16 @@ a, td,span, p, label{
  .users_div_subdiv_subdiv .users_delete_edit a{
     cursor: pointer;
     padding: .5rem 1rem;
-    color: #eee;
+    color: var(--color60-shade);
     border-radius: 1rem;
-    background-color: #F94A04;
+    background-color: var(--color10);
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
 }
  .users_div_subdiv_subdiv .users_delete_edit a:hover{
-    background-color: #F93404;
+    background-color: var(--color10-shade);
  }
  .users_div_subdiv_subdiv .users_delete_edit i{
     color: #222;
@@ -912,8 +822,8 @@ a, td,span, p, label{
     justify-content: center;
  }
  .users .users_div_subdiv_subdiv:nth-child(2) i{
-    font-size: 2rem;
-    color: #F94A04;
+    font-size: var(--ifontsize-6);
+    color: var(--color10);
     align-items: center;
  }
  .posts{
@@ -930,7 +840,7 @@ a, td,span, p, label{
     margin-left: var(--sidebar-width);
     z-index: 100;
     bottom: 0;
-    padding: 1rem;
+    padding: var(--divpadding);
     align-items: center;
     justify-content: space-evenly;
     transition: all .3s ease-in;
@@ -940,8 +850,8 @@ a, td,span, p, label{
     -o-transition: all .3s ease-in;
 }
  .posts .posts_delete_edit2 h1{
-    color: #FAFAFA;
-    font-size: 2.5rem;
+    color: var(--color60);
+    font-size: var(--header-h5);
  }
  .posts_delete_edit2_subdiv a:nth-child(2){
     margin-left: 1rem;
@@ -955,22 +865,22 @@ a, td,span, p, label{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #eee;
+    background-color: var(--color60-shade);
  }
  .posts .postsdiv{
     padding: 1rem 1.5rem;
-    background-color: #FAFAFA;
+    background-color: var(--color60);
     margin: 1rem 0;
     width: 80%;
  }
  .posts .postsdiv2{
     padding: 1rem 1.5rem;
-    background-color: #FAFAFA;
+    background-color: var(--color60);
     margin: 1rem 0;
     width: 100%;
  }
  .postsdiv2 .posts_header h1{
-    font-size: 2.5rem;
+    font-size: var(--header-h5);
     font-weight: 750;
  }
  .postsdiv2 .posts_header{
@@ -981,20 +891,20 @@ a, td,span, p, label{
  }
  .postsdiv2 .subscribers_subdiv{
     display: flex;
-    padding: 1rem;
+    padding: var(--divpadding);
     width: 100%;
     flex-wrap: nowrap;
     align-items: center;
  }
  .postsdiv2 .subscribers_subdiv i{
-    font-size: 3.5rem;
+    font-size: var(--ifontsize-2);
     margin-right: 1.5rem;
  }
  .postsdiv2 .subscribers_subdiv div p span{
-    font-weight: 800;
+    font-weight: var(--spanfontweight);
  }
  .postsdiv .posts_header h1{
-    font-size: 2.5rem;
+    font-size: var(--header-h5);
     font-weight: 750;
  }
  .postsdiv .posts_header{
@@ -1008,7 +918,7 @@ a, td,span, p, label{
  }
  .posts_divcontainer .posts_divcontainer_subdiv{
     padding: .5rem 1rem;
-    border-bottom: 1px solid #22222243;
+    border-bottom: 1px solid var(--color30)43;
  }
  .posts_divcontainer .posts_divcontainer_subdiv2{
     padding: .5rem 1rem;
@@ -1016,7 +926,7 @@ a, td,span, p, label{
     flex-direction: column;
  }
  .posts_divcontainer_subdiv h3{
-    font-size: 2rem;
+    font-size: var(--header-h7);
     padding: 1.2rem 0;
     font-weight: 750;
  }
@@ -1025,31 +935,31 @@ a, td,span, p, label{
  }
  .posts_divcontainer_subdiv a{
     cursor: pointer;
-    color: black;
+    color: var(--color30-shade);
  }
  .posts_divcontainer_subdiv_body2 a{
     cursor: pointer;
     color: rgba(0, 0, 0, 0.578);
  }
  .posts_divcontainer_subdiv_body2 a:hover{
-    color: #F94A04;
+    color: var(--color10);
     cursor: pointer;
  }
  .posts_divcontainer_subdiv a:hover i{
-    color: #F94A04;
+    color: var(--color10);
  }
  .posts_divcontainer_subdiv a:nth-child(2){
     margin-left: .6rem;
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv2{
-    padding: 1rem;
+    padding: var(--divpadding);
     flex-wrap: nowrap;
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv2 span{
     font-weight: 780;
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv3{
-    padding: 1rem;
+    padding: var(--divpadding);
     display: flex;
     flex-wrap: nowrap;
  }
@@ -1057,7 +967,7 @@ a, td,span, p, label{
     margin-right: 2rem;
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv3 span{
-    font-weight: 780;
+    font-weight: var(--spanfontweight);
  }
  .posts_divcontainer_subdiv4{
     display: flex;
@@ -1067,7 +977,7 @@ a, td,span, p, label{
     flex-wrap: nowrap;
  }
  .posts_divcontainer_subdiv4 a{
-    color: #222222;
+    color: var(--color30);
  }
  .posts_divcontainer_subdiv4 span{
     transition: all .3s ease-in-out;
@@ -1077,7 +987,7 @@ a, td,span, p, label{
     -o-transition: all .3s ease-in-out;
 }
  .posts_divcontainer_subdiv4 span:hover{
-    color: #F94A04;
+    color: var(--color10);
 }
 .pages{
     flex-direction: column;
@@ -1086,24 +996,24 @@ a, td,span, p, label{
 }
 .pages_container{
     width: 80%;
-    background-color: #FAFAFA;
-    padding: 1.5rem;
+    background-color: var(--color60);
+    padding: var(--divpadding-highest);
 }
 .pages_container h1{
     padding: 1.5rem 0;
-    font-size: 2.5rem;
+    font-size: var(--header-h5);
     text-align: center;
     font-weight: 700;
     width: 100%;
-    border-bottom: 1.5px solid #222222b5;
+    border-bottom: 1.5px solid var(--color30)b5;
 }
 .pages_container_subdiv{
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     cursor: pointer;
-   border-bottom: 1px solid #22222217;
+   border-bottom: 1px solid var(--color30)17;
 }
 .pages_container_subdiv a{
-    color: black;
+    color: var(--color30-shade);
     font-size: 1.9rem;
     font-weight: 500;
     display: flex;
@@ -1113,27 +1023,27 @@ a, td,span, p, label{
 }
 .pages_container_subdiv a i{
     margin-right: 1rem;
-    color: black;
+    color: var(--color30-shade);
 }
 .pages_container_subdiv:hover{
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .pages_container_subdiv:hover a p{
     text-decoration: underline;
-    color: #eee;
+    color: var(--color60-shade);
 }
 .pages_container_subdiv:hover a i{
-    color: #eee;
+    color: var(--color60-shade);
 }
 .settings{
     flex-direction: column;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     align-items: center;
 }
 .developer_contact{
     flex-direction: column;
-    padding: 1.5rem;
-    background-color: #FAFAFA;
+    padding: var(--divpadding-highest);
+    background-color: var(--color60);
     width: 100%;
     align-items: center;
     height: fit-content;
@@ -1144,23 +1054,23 @@ a, td,span, p, label{
     align-items: center;
     width: 95%;
     min-height: 100%;
-    border: 1px solid #22222250;
-    padding: 1.5rem;
+    border: 1px solid var(--color30)50;
+    padding: var(--divpadding-highest);
 }
 .developer_contact_header {
     margin-bottom: 1rem;
     width: 90%;
-    border-bottom: 1px solid #22222250;
+    border-bottom: 1px solid var(--color30)50;
 }
 .developer_contact_header h1{
-    font-size: 2.5rem;
+    font-size: var(--header-h5);
     font-weight: 750;
     padding: 1rem 0;
 }
 .developer_contact_container_body{
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: var(--divpadding);
     width: 90%;
 }
 .developer_contact_container_body .developer_contact_subdiv{
@@ -1171,14 +1081,14 @@ a, td,span, p, label{
     width: 100%;
 }
 .developer_contact_subdiv h3{
-    font-size: 2rem;
+    font-size: var(--header-h7);
     margin-right: 1rem;
 }
 .developer_contact_subdiv a{
     margin-right: 1rem;
 }
 .developer_contact_subdiv i{
-    font-size: 1.9rem;
+    font-size: var(--ifontsize-6);
     margin-right: 1rem;
 }
 .developer_contact_subdiv span{
@@ -1191,7 +1101,7 @@ a, td,span, p, label{
     padding: 1rem 0;
 }
 .developer_contact_followlinks h2{
-    font-size: 2rem;
+    font-size: var(--header-h7);
     padding-bottom: 1rem;
 }
 .developer_contact_followlinks div{
@@ -1201,17 +1111,17 @@ a, td,span, p, label{
     padding: 1rem;
     margin: 0 1rem;
     cursor: pointer;
-    border: 1px solid #22222236;
+    border: 1px solid var(--color30)36;
 }
 .developer_contact_followlinks div a:hover{
-    background-color: #F94A04;
-    border: 1px solid #F94A04;
+    background-color: var(--color10);
+    border: 1px solid var(--color10);
 }
 .developer_contact_followlinks div a:hover i{
-    color: #eee;
+    color: var(--color60-shade);
 }
 .developer_contact_followlinks div a i{
-    color: black;
+    color: var(--color30-shade);
 }
 .display{
     display: flex;
@@ -1241,8 +1151,8 @@ a, td,span, p, label{
     padding: 1.5rem 0;
 }
 .logout_alert h1{
-    color: #eee;
-    font-size: 3rem;
+    color: var(--color60-shade);
+    font-size: var(--header-h2);
     padding: 1.5rem 0;
     margin-bottom: 1rem;
 }
@@ -1264,16 +1174,16 @@ a, td,span, p, label{
     align-items: center;
     justify-content: center;
     padding: 2rem 0;
-    background-color: #eee;
+    background-color: var(--color60-shade);
 }
 .newpost_body .newpost_container{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 80%;
-    border: 1px solid #F94A04;
+    border: 1px solid var(--color10);
     padding: 1rem;
-    background-color: #FAFAFA;
+    background-color: var(--color60);
 }
 .newpost_container .newpost_subdiv{
     width: 80%;
@@ -1296,14 +1206,14 @@ a, td,span, p, label{
 .newpost_container .newpost_subdiv p{
     font-size: 1.2rem;
     margin-top: .5rem;
-    color: #222222;
+    color: var(--color30);
 }
 .newpost_container .newpost_subdiv span{
     margin-right: .2rem;
-    color: #F94A04;
+    color: var(--color10);
 }
 .newpost_container .newpost_subdiv h1{
-    font-size: 2.5rem;
+    font-size: var(--header-h5);
     font-weight: 750;
     padding: 1rem 0;
 }
@@ -1316,11 +1226,11 @@ a, td,span, p, label{
     padding: 1rem;
     outline: none;
     border: none;
-    background-color: #eee;
-    border-bottom: 1px solid black;
+    background-color: var(--color60-shade);
+    border-bottom: 1px solid var(--color30-shade);
 }
 .newpost_container_div2 input:focus{
-    border-bottom: 1px solid #F94A04;
+    border-bottom: 1px solid var(--color10);
 }
 .input1{
     width: 70%;
@@ -1341,14 +1251,14 @@ a, td,span, p, label{
 .newpost_body_addition .form__input1{
     width: 40%;
     padding: 1rem;
-    background-color: #eee;
+    background-color: var(--color60-shade);
     border: none;
     outline: none;
 }
 .newpost_body_addition_subdiv{
     float: right;
     margin-left: 1rem;
-    border: 1px solid #222222;
+    border: 1px solid var(--color30);
     width: 50%;
     padding: 1rem;
     display: grid;
@@ -1359,14 +1269,14 @@ a, td,span, p, label{
 }
 .div1{
     grid-area: 1 / 1 / 2 / -1;
-    background-color: #eee;
+    background-color: var(--color60-shade);
 }
 .div1 input{
     width: 85%;
     padding: 1rem;
     border: none;
     outline: none;
-    background-color: #eee;
+    background-color: var(--color60-shade);
 }
 .div1 button{
     width: 10%;
@@ -1380,14 +1290,14 @@ a, td,span, p, label{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: var(--divpadding);
     cursor: pointer;
 }
 .div2:hover{
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .div2 i{
-    font-size: 2.3rem;
+    font-size: var(--ifontsize-5);
     margin-bottom: .5rem;
 }
 .div3{
@@ -1395,14 +1305,14 @@ a, td,span, p, label{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: var(--divpadding);
     cursor: pointer;
 }
 .div3:hover{
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .div3 i{
-    font-size: 2.3rem;
+    font-size: var(--ifontsize-5);
     margin-bottom: .5rem;
 }
 .div4{
@@ -1410,70 +1320,70 @@ a, td,span, p, label{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: var(--divpadding);
     cursor: pointer;
 }
 .div4 i{
-    font-size: 2.3rem;
+    font-size: var(--ifontsize-5);
     margin-bottom: .5rem;
 }
 .div4:hover{
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .div5{
     grid-area: 3 / 1 / 4 / 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: var(--divpadding);
     cursor: pointer;
 }
 .div5 i{
-    font-size: 2.3rem;
+    font-size: var(--ifontsize-5);
     margin-bottom: .5rem;
 }
 .div5:hover{
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .div6{
     grid-area: 3 / 2 / 4 / 3;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: var(--divpadding);
     cursor: pointer;
 }
 .div6 i{
-    font-size: 2.3rem;
+    font-size: var(--ifontsize-5);
     margin-bottom: .5rem;
 }
 .div6:hover{
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .div7{
     grid-area: 3 / 3 / 4 / -1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: var(--divpadding);
     cursor: pointer;
 }
 .div7 i{
-    font-size: 2.3rem;
+    font-size: var(--ifontsize-5);
     margin-bottom: .5rem;
 }
 .div7:hover{
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .div8{
     grid-area: 4 / 1 / -1 / -1;
-    background-color: #F94A04;
+    background-color: var(--color10);
     text-align: center;
-    padding: 1rem;
+    padding: var(--divpadding);
     cursor: pointer;
 }
 .div8:hover{
-    background-color: #F93404;
+    background-color: var(--color10-shade);
 }
 .newpost_container_div3{
     display: flex;
@@ -1483,8 +1393,8 @@ a, td,span, p, label{
     padding: 1rem;
     outline: none;
     border: none;
-    background-color: #eee;
-    border-bottom: 1px solid black;
+    background-color: var(--color60-shade);
+    border-bottom: 1px solid var(--color30-shade);
     width: 100%;
 }
 .newpost_container_div3 label{
@@ -1529,8 +1439,8 @@ a, td,span, p, label{
     padding: 1rem;
     outline: none;
     border: none;
-    background-color: #eee;
-    border-bottom: 1px solid black;
+    background-color: var(--color60-shade);
+    border-bottom: 1px solid var(--color30-shade);
     width: 100%;
 }
 .newpost_container_div6 {
@@ -1541,7 +1451,7 @@ a, td,span, p, label{
     font-weight: 750;
 }
 .bold{
-    font-weight: 750;
+    font-weight: var(--spanfontweight);
 }
 .newpost_container_div7{
     display: flex;
@@ -1563,26 +1473,26 @@ a, td,span, p, label{
     padding: .8rem;
 }
 .newpost_container_div7 .newpost_container_div7_subdiv2:focus{
-    outline: 1px solid #F94A04;
+    outline: 1px solid var(--color10);
     border: none;
 }
 .newpost_container_div7 .newpost_container_div7_subdiv2b:focus{
-    outline: 1px solid #F94A04;
+    outline: 1px solid var(--color10);
     border: none;
 }
 .newpost_container_div9 input{
     width: 100%;
     padding: 1rem;
     border: none;
-    color: #FAFAFA;
-    background-color: #F94A04;
+    color: var(--color60);
+    background-color: var(--color10);
 }
 .newpost_container_div9 input:hover{
-    background-color: #F93404;
+    background-color: var(--color10-shade);
 }
 .newpost_container_div10{
     width: 100%;
-    padding: 1rem;
+    padding: var(--divpadding);
 }
 .newpost_container_div10 p{
     text-align: center;
@@ -1600,7 +1510,7 @@ input[type="datetime-local"] {
     border-radius: .5rem;
     font-size: 1.5rem;
     cursor: pointer;
-    border: 1px solid #F94A04;
+    border: 1px solid var(--color10);
     outline: none;
     -webkit-border-radius: .5rem;
     -moz-border-radius: .5rem;
@@ -1616,7 +1526,7 @@ input[type="datetime-local"] {
     overflow: hidden;
 }
 .active3{
-    border: 3px solid #F94A04;
+    border: 3px solid var(--color10);
 }
 .sidebar_workspace_container .sidebar_workspace_container_subdiv{
     background-color: inherit;
@@ -1626,13 +1536,13 @@ input[type="datetime-local"] {
     height: 15rem;
 }
 .sidebar_workspace_container div .sidebar_workspace{
-    background-color: #FAFAFA;
+    background-color: var(--color60);
     height: 90%;
     width: 95%;
     z-index: 10;
 }
 .sidebar_workspace_container div .sidebar_workspace1{
-    background-color: #FAFAFA;
+    background-color: var(--color60);
     height: 80%;
     width: 95%;
     position: relative;
@@ -1654,20 +1564,20 @@ input[type="datetime-local"] {
 .sidebar_workspace_container label{
     text-align: center;
     padding: 1rem;
-    color: #FAFAFA;
+    color: var(--color60);
 }
 .sidebar_workspace_container div .darkp{
-    color: #222222;
+    color: var(--color30);
     font-weight: 750;
     font-size: 1.3rem;
 }
 .sidebar_workspace_container div i{
-    color: #222222;
+    color: var(--color30);
 }
 .workspace_container{
     min-width: 100%;
     min-height: 100%;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1693,31 +1603,30 @@ input[type="datetime-local"] {
     padding: 1rem;
     margin-top: 1rem;
     border: none;
-    color: #FAFAFA;
-    background-color: #F94A04;
+    color: var(--color60);
+    background-color: var(--color10);
 }
 /*For View Posts*/
 .sectioneer{
     display: flex;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #eee;
+    background-color: var(--color60-shade);
     min-height: fit-content;
 }
 .sectioneer_divcontainer{
     width: 80%;
-    background-color: #FAFAFA;
-    padding: 1.5rem;
+    background-color: var(--color60);
+    padding: var(--divpadding-highest);
 }
 .create_editor_container{
     display: flex;
-    border: 1px solid #22222286;
-    padding: 1rem;
+    border: 1px solid var(--color30)86;
     padding: 1rem 0;
     flex-direction: column;
-    background-color: #FAFAFA;
+    background-color: var(--color60);
     min-height: fit-content;
     width: 90%;
     height: fit-content;
@@ -1726,13 +1635,13 @@ input[type="datetime-local"] {
     justify-content: center;
 }
 .create_editor_container div{
-    padding: 1rem;
+    padding: var(--divpadding);
     margin: .4rem 0;
     width: 90%;
     min-height: fit-content;
 }
 .create_editor_container div h1{
-    color: black;
+    color: var(--color30-shade);
     text-align: center;
 }
 .container_center{
@@ -1746,24 +1655,24 @@ input[type="datetime-local"] {
 .create_editor_container div .writer_bio{
     padding: 1rem;
     outline: none;
-    border: 1px solid #222222;
+    border: 1px solid var(--color30);
     min-height: 10vh;
     width: 79%;
 }
 .create_editor_container div .writer_bio:focus{
-    border: 1px solid #F94A04;
+    border: 1px solid var(--color10);
 }
 .create_editor_container div input{
     padding: 1rem;
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--color30-shade);
 }
 .reginput{
     width: 80%;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--color30-shade);
 }
 .create_editor_container div .reginput:focus{
-    border-bottom: 2px solid #F94A04;
+    border-bottom: 2px solid var(--color10);
     outline: none;
 }
 .createeditor_input-submit{
@@ -1773,7 +1682,7 @@ input[type="datetime-local"] {
     margin: 1rem 0;
 }
 .create_editor_container i{
-    font-size: 3rem;
+    font-size: var(--ifontsize-2);
     position: absolute;
     top: 0;
     right: 0;
@@ -1789,11 +1698,11 @@ input[type="datetime-local"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
-    background-color: #eee;
+    padding: var(--divpadding-highest);
+    background-color: var(--color60-shade);
 }
 .bigheader{
-    font-size: 2.7rem;
+    font-size: var(--header-h4);
     margin-bottom: 1rem;
 }
 .rightmargin{
@@ -1804,8 +1713,8 @@ input[type="datetime-local"] {
     width: 90%;
     cursor: pointer;
     border: none;
-    color: #FAFAFA;
-    background-color: #F94A04;
+    color: var(--color60);
+    background-color: var(--color10);
 }
 .flexcolumn{
     display: flex;
@@ -1818,7 +1727,7 @@ input[type="datetime-local"] {
 }
 .textarea:focus{
     border: none;
-    outline: .5px solid #F93404;
+    outline: .5px solid var(--color10-shade);
 }
 /*For add message*/
 .message_popup_btns a{
@@ -1828,10 +1737,10 @@ input[type="datetime-local"] {
 .create_editor_container2{
     display: flex;
     border: 1.5px solid #222;
-    padding: 1rem;
+    padding: var(--divpadding);
     box-shadow: 5px 10px 10px rgba(0, 0, 0, .5);
     flex-direction: column;
-    background-color: #FAFAFA;
+    background-color: var(--color60);
     min-height: fit-content;
     width: 80%;
     height: fit-content;
@@ -1842,8 +1751,8 @@ input[type="datetime-local"] {
 .create_editor_container2 i{
     position: absolute;
     right: 1rem;
-    font-size: 2.5rem;
-    color: #F94A04;
+    font-size: var(--ifontsize-5);
+    color: var(--color10);
     top: 1rem;
     cursor: pointer;
 }
@@ -1862,7 +1771,7 @@ input[type="datetime-local"] {
     font-size: 2rem;
     text-align: center;
     cursor: pointer;
-    border: 1px solid #F94A04;
+    border: 1px solid var(--color10);
 }
 .create_editor_container2 .message_popup_contents{
     display: flex;
@@ -1889,24 +1798,24 @@ input[type="datetime-local"] {
 }
 .create_editor_container2 textarea:focus{
     border: none;
-    outline: 1px solid #F94A04;
+    outline: 1px solid var(--color10);
 }
 .create_editor_container2 input{
     width: 100%;
     padding: 1rem;
     margin: 1rem 0;
-    background-color: #F94A04;
-    color: #FAFAFA;
+    background-color: var(--color10);
+    color: var(--color60);
     border: none;
     outline: none;
     cursor: pointer;
 }
 .create_editor_container2 input:hover{
-    background-color: #F93404;
+    background-color: var(--color10-shade);
 }
 /*For pages/aboutwebsite.php*/
 .about_section{
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1915,28 +1824,28 @@ input[type="datetime-local"] {
     padding: 1.5rem 0;
     width: 80%;
     text-align: center;
-    border-bottom: 1px solid #2222223c;
+    border-bottom: 1px solid var(--color30)3c;
 }
 .about_header h1{
-    font-size: 2.6rem;
+    font-size: var(--header-h4);
     font-weight: 750;
 }
 .about_section .about_contents{
     min-height: fit-content;
-    padding: 1rem;
+    padding: var(--divpadding);
     margin: 1rem 0;
 }
 .about_section .about_section_btn{
     margin: 1rem 0;
-    background-color: #F94A04;
+    background-color: var(--color10);
     padding: 1rem;
-    color: #eee;
+    color: var(--color60-shade);
     cursor: pointer;
     border: none;
     width: 30%;
 }
 .about_section .about_section_btn:hover{
-    background-color: #F93404;
+    background-color: var(--color10-shade);
 }
 .about_section .about_section_btn i{
     margin-left: .5rem;
@@ -1946,25 +1855,25 @@ input[type="datetime-local"] {
     display: none;
     flex-direction: column;
     margin: 1rem 0;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     background-color: #f5f5f5;
-    border: 1px solid #F94A04;
+    border: 1px solid var(--color10);
     height: fit-content;
     align-items: center
 }
 .about_section .about_editdiv input{
     width: 85%;
-    color: #eee;
+    color: var(--color60-shade);
     cursor: pointer;
     border: none;
-    background-color: #F94A04;
+    background-color: var(--color10);
     padding: 1rem;
     margin: 1rem 0;
 }
 /*For Pages/topics.php*/
 .about_section_topicsdiv{
     display: flex;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     margin: 1rem 0;
     flex-wrap: wrap;
 }
@@ -1972,13 +1881,13 @@ input[type="datetime-local"] {
     height: 60vh;
     width: 25vw;
     margin: 1rem;
-    border: 1px solid #22222289;
+    border: 1px solid var(--color30)89;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .about_section_topicsdiv .about_section_topicsdiv_subdiv:hover{
-    border: 1.5px solid #F94A04;
+    border: 1.5px solid var(--color10);
 }
 .about_section_topicsdiv .about_section_topicsdiv_subdiv img{
     height: 65%;
@@ -1986,20 +1895,20 @@ input[type="datetime-local"] {
 }
 .about_section_topicsdiv_subdiv div{
     width: 100%;
-    padding: 1rem;
+    padding: var(--divpadding);
 }
 .about_section_topicsdiv_subdiv div h1 span{
-    font-weight: 750;
+    font-weight: var(--spanfontweight);
     text-align: center;
     font-size: 2.1rem;
 }
 .about_section_topicsdiv_subdiv div p{
     font-size: 1.3rem;
-    color: #222222c6;
+    color: var(--color30)c6;
 }
 .about_section_topicsdiv_subdiv div p span{
     font-size: 1.3rem;
-    color: #222222c6;
+    color: var(--color30)c6;
 }
 .about_section_topicsdiv_subdiv div a{
     cursor: pointer;
@@ -2007,16 +1916,16 @@ input[type="datetime-local"] {
     padding: 1rem 0;
 }
 .about_section_topicsdiv_subdiv div a i:hover{
-    color: #F94A04;
+    color: var(--color10);
 }
 .about_section_topicsdiv_subdiv div a i{
-    color: #222222be;
+    color: var(--color30)be;
 }
 .about_section_topicsdiv_subdiv-action{
     height: fit-content;
-    border: 1px solid #22222289;
+    border: 1px solid var(--color30)89;
     width: auto;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     cursor: pointer;
     margin: 1rem;
     display: flex;
@@ -2024,15 +1933,15 @@ input[type="datetime-local"] {
     align-items: center;
 }
 .about_section_topicsdiv_subdiv-action:hover{
-    background-color: #F94A04;
-    color: #eee;
+    background-color: var(--color10);
+    color: var(--color60-shade);
 }
 .about_section_topicsdiv_subdiv-action:hover div i{
-    color: #eee;
+    color: var(--color60-shade);
 }
 .about_section_topicsdiv_subdiv-action div i{
     font-size: 2.5rem;
-    color: #222222;
+    color: var(--color30);
 }
 /*For create_new/message.php */
 .newpost_body2{
@@ -2040,29 +1949,29 @@ input[type="datetime-local"] {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    background-color: #eee;
+    padding: var(--sectionpadding-highest);
+    background-color: var(--color60-shade);
 }
 .nav_quicklinks{
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    padding: 1rem;
+    padding: var(--divpadding);
 }
 .nav_quicklinks a{
     margin-right: 1rem;
-    color: black;
+    color: var(--color30-shade);
     cursor: pointer;
 }
 .nav_quicklinks a:hover{
-    color: #F93404;
+    color: var(--color10-shade);
     text-decoration: underline;
 }
 .nav_quicklinks p{
     margin-left: 1rem;
 }
 .message_div-container{
-    padding: 1rem;
+    padding: var(--divpadding);
     height: fit-content;
 }
 .message_div-container .message_div-container_subdiv{
@@ -2075,7 +1984,7 @@ input[type="datetime-local"] {
 }
 .message_div-container_subdiv-imagebody{
     padding: 1rem .5rem;
-    background-color: white;
+    background-color: var(--color60-tint);
 }
 .message_div-container_subdiv-imagebody form .input_group, input{
     width: 100%;
@@ -2089,24 +1998,24 @@ input[type="datetime-local"] {
 .message_div-container_subdiv-imagebody .input_group input{
     padding: 1rem;
     border: none;
-    border-bottom: 1px solid #22222276;
+    border-bottom: 1px solid var(--color30)76;
     outline: none;
 }
 .message_div-container_subdiv-imagebody .input_group input:focus{
-    border-bottom: 1px solid #F94A04;
+    border-bottom: 1px solid var(--color10);
 }
 .message_div-container_subdiv-imagebody form .input_group p, span{
     font-size: 1.2rem;
-    color: #F93404;
+    color: var(--color10-shade);
 }
 .message_div-container_subdiv-imagebody .input_group textarea{
     padding: 1rem;
     border: none;
     background-color: inherit;
-    outline: 1px solid #22222275;
+    outline: 1px solid var(--color30)75;
 }
 .message_div-container_subdiv-imagebody .input_group textarea:focus{
-    outline: 1px solid #F94A04;
+    outline: 1px solid var(--color10);
 }
 .message_div-container_subdiv-imagebody form .send_messagebtn{
     border: none;
@@ -2114,7 +2023,7 @@ input[type="datetime-local"] {
 }
 @media only screen and (min-width: 39rem) and (max-width: 65rem){
     a, td,span, p, label{
-        font-size: 2.2rem;
+        font-size: var(--pfontsize-tabviewwdth);
     }
     .header{
         padding: 1rem 1.5rem;
@@ -2130,7 +2039,7 @@ input[type="datetime-local"] {
     }
     .body{
         height: calc(100vh - 15vh);
-        background-color: #eee;
+        background-color: var(--color60-shade);
         overflow-y: scroll;
     }
     .header_img a{
@@ -2153,7 +2062,7 @@ input[type="datetime-local"] {
     }
     .body .sidebar div i{
         margin-right: 1.5rem;
-        font-size: 2.2rem;
+        font-size: var(--ifontsize-7);
     }
     .aside_sidebar{
         margin-left: 0;
@@ -2178,13 +2087,13 @@ input[type="datetime-local"] {
     }
     .webinfo_container .website_info div i{
         margin-right: .6rem;
-        font-size: 2.3rem;
+        font-size: var(--ifontsize-5);
     }
     .addtionalinfo{
        margin-top: 1rem;
     }
     .addtionalinfo .addtionalinfo_header h1{
-        font-size: 2.8rem;
+        font-size: var(--header-h4);
     }
     .addtionalinfo_body table tr{
         margin-bottom: 1rem;
@@ -2193,20 +2102,20 @@ input[type="datetime-local"] {
     .profile{
         width: 90%;
         margin-bottom: 1rem;
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
     }
     .profile figure img{
         height: 15rem;
         width: 15rem;
     }
     .profile_imgbox a i{
-        font-size: 2rem;
+        font-size: var(--ifontsize-6);
     }
     .profile_body{
         width: 90%;
     }
     .aside_sidebar .users{
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
         width: 90%;
         margin-bottom: 1rem;
         overflow: hidden;
@@ -2227,46 +2136,25 @@ input[type="datetime-local"] {
         min-width: 100%;
         margin-left: var(--sidebar-width);
         bottom: 0;
-        padding: 1rem;
+        padding: var(--divpadding);
         align-items: center;
         justify-content: space-evenly;
     }
      .posts .postsdiv{
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
         width: 100%;
      }
-    .reviews{
-        width: 90%;
-        padding: 1.5rem;
-        background-color: #FAFAFA;
-    }
-    .reviews .reviewdiv{
-        padding: 1.5rem;
-        width: 100%;
-    }
-    .reviewdiv .review_header{
-        padding: 1.5rem;
-    }
-     .revheader{
-        font-size: 2.8rem;
-     }
-     .review_divcontainer{
-        padding: 1rem .8rem;
-     }
-     .review_divcontainer_subdiv1{
-        padding: 1.5rem 0;    
-    }
     .settings{
         flex-direction: column;
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
         width: 90%;
     }
     .developer_contact{
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
         width: 90%;
     }
     .developer_contact h1{
-        font-size: 2.5rem;
+        font-size: var(--header-h5);
         padding: 2rem 0;
     }
     .developer_contact p{
@@ -2282,7 +2170,7 @@ input[type="datetime-local"] {
         justify-content: space-evenly;
     }
     .developer_contact i{
-        font-size: 1.5rem;
+        font-size: var(--ifontsize-7);
     }
     .developer_contact b{
         margin-right: 1rem;
@@ -2297,7 +2185,7 @@ input[type="datetime-local"] {
         display: flex;
     }
     .logout_alert h1{
-        font-size: 3.3rem;
+        font-size: var(--header-h2);
     }
     /*For Create New Post page*/
     .newpost_body .newpost_container{
@@ -2314,7 +2202,7 @@ input[type="datetime-local"] {
         margin-right: .3rem;
     }
     .newpost_container .newpost_subdiv h1{
-        font-size: 2.8rem;
+        font-size: var(--header-h4);
     }
     .newpost_container_div3 label{
         width: 13%;
@@ -2351,10 +2239,10 @@ input[type="datetime-local"] {
     .newpost_container_div7 .newpost_container_div7_subdiv2{
         min-width: 100%;
         min-height: 50vh;
-        padding: 1rem;
+        padding: var(--divpadding);
     }
     .newpost_container_div7 .newpost_container_div7_subdiv2:focus{
-        outline: 1px solid #F94A04;
+        outline: 1px solid var(--color10);
     }
     /*Workspace Styles*/
     .sidebar_workspace_container{
@@ -2367,8 +2255,8 @@ input[type="datetime-local"] {
         margin-right: 2rem;
     }
     .sidebar_workspace_container div i{
-        color: #222222;
-        font-size: 2rem;
+        color: var(--color30);
+        font-size: var(--ifontsize-6);
     }
     .sidebar_workspace_container div p{
         display: none;
@@ -2400,17 +2288,17 @@ input[type="datetime-local"] {
         padding: 1.3rem .5rem;
     }
     .postsdiv .posts_header h1{
-        font-size: 2.8rem;
+        font-size: var(--header-h4);
     }
     .posts_divcontainer_subdiv .posts_divcontainer_subdiv_body h3 {
-        font-size: 2.2rem;
+        font-size: var(--header-h6);
     }
     .create_editor_container{
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
         width: 90%;
     }
     .create_editor_container div h1{
-        font-size: 2.8rem;
+        font-size: var(--header-h4);
     }
     .container_center{
         align-items: center;
@@ -2420,7 +2308,7 @@ input[type="datetime-local"] {
         font-weight: 750;
     }
     .create_editor_container div input{
-        border-bottom: 1px solid #222222;
+        border-bottom: 1px solid var(--color30);
     }
     .create_editor_container div input:focus{
         outline: none;
@@ -2433,10 +2321,10 @@ input[type="datetime-local"] {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
     }
     .bigheader{
-        font-size: 2.7rem;
+        font-size: var(--header-h6);
         margin-bottom: 1rem;
     }
     .rightmargin{
@@ -2457,3 +2345,75 @@ input[type="datetime-local"] {
         padding: 1rem;
     }
 }
+@media only screen and (max-width:40rem){
+    body{
+        min-height: 100svh;
+    }
+    a, td,span, p, label{
+        font-size: var(--pfontsize);
+    }
+    .section1{
+        min-height: 80svh;
+        padding: 2rem 1rem;
+    }
+    .container{
+        min-width: 93%;
+        padding: var(--divpadding-highest);
+    }
+    .footer{
+        height: 20svh;
+        display: flex;
+    }
+    .container h1{
+        font-size: var(--header-h1);
+        padding: 2rem 0;
+    }
+    .container .form{
+        padding: .5rem .7rem;
+    }
+    .form .input_group input{
+        font-size: 1.9rem;
+    }
+    .form .input_group input::placeholder{
+        margin-bottom: .8rem; 
+        font-size: 1.9rem;
+    }
+     .container .recover a{
+        font-size: 1.9rem;
+    }
+    .form .btn_main{
+        font-size: 1.9rem;
+    }
+    footer{
+        padding: var(--sectionpadding-highest);
+    }
+    .footer__div3{
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+        min-height: fit-content;
+    }
+    .footer__div3 p{
+        padding: .5rem 0;
+    }
+    .footer__div3__subdiv h1{
+        font-size: var(--header-h7);
+    }
+    .footer__div3__subdiv div {
+        height: fit-content;
+    }
+    .footer__div3__subdiv div a{
+        margin: 0 .5rem;
+        padding: 0 .5rem;
+    }
+    .footer__div3 span{
+        background-image: linear-gradient(45deg, var(--color10), var(--color10-shade));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-size: 1.9rem;
+        font-weight: var(--spanfontweight);
+    }
+  }

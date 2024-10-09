@@ -38,7 +38,7 @@ if ($_GET['secret']){
 	<title>Reset Password</title>
 </head>
 <body>
-    <section class="section1">
+    <section class="section1 flexcenter">
         <div class="container" id="signIn">
             <form method="post" class="form" action="resetpassword.php">
                 <h1>Reset Password</h1>

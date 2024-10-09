@@ -5,7 +5,7 @@
     flex-wrap: nowrap;
     background-color: orangered;
     width: 100%;
-    padding: 1rem;
+    padding: var(--divpadding);
     position: relative;
     align-items: center;
 }
@@ -16,10 +16,10 @@
     width: 5%;
     left: 0;
     z-index: 50;
-    background-color: #F94A04;
+    background-color: var(--color10);
 }
 .website_info_div .message_box i, p{
-    color: #fafafa;
+    color: var(--color60);
 }
 @keyframes slide{
     0%{
@@ -36,7 +36,7 @@
         -ms-transform:translateX(-100%); 
         -o-transform:translateX(-100%); }}
 .website_info_div .message_box i{
-    font-size: 2rem;
+    font-size: var(--ifontsize-6);
     position: absolute;
     left: 1rem;
     top: 1rem;
@@ -52,16 +52,16 @@
     animation-play-state:paused;
 }
 .profile_body-activities p{
-    color: black;
+    color: var(--color30-shade);
 }
 .posts_divcontainer .posts_divcontainer_subdiv p{
-    color: black;
+    color: var(--color30-shade);
 }
 /*from view_all/posts.php */
 .sectioneer p{
-    color: black;
+    color: var(--color30-shade);
 }
 .sectioneer span{
-    color: black;
-    font-weight: 750;
+    color: var(--color30-shade);
+    font-weight: var(--spanfontweight);
 }

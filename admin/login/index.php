@@ -72,7 +72,7 @@ if(isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])){
 	<title>Admin Login</title>
 </head>
 <body>
-    <section class="section1">
+    <section class="section1 flexcenter">
         <div class="container" id="signIn">
             <h1 class="form__title">Sign In</h1>
             <form method="post" class="form">

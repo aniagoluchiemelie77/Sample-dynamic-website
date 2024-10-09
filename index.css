@@ -1,27 +1,36 @@
 :root{
-   --plia-font-size: 1.5rem;
+   --pfontsize: 1.5rem;
+   --pfontsize-tabviewwdth: 2.2rem;
+   --color10-shade: #F93404;
+   --color10: #F94A04;
    --plia-font-size-small: 1rem;
    --color60: #FAFAFA;
-   --color30: #222222;
-   --color10: #F94A04;
    --color60-shade: #eee;
-   --sectionpadding-big: 2rem;
-   --sectionpadding-small: 1rem;
+    --color60-tint: white;
+    --color30: #222222;
+    --color30-shade: black;
+    --sectionpadding-highest: 2rem;
+    --sectionpadding-small: 1rem;
    --sectionpadding-medium: 1.5rem;
-   --color10-shade: #F93404;
-   --border-radius-small: .6rem;
-   --border-radius-big: 1rem;
-   --border-radius-circle: 50%;
-   --div-padding-full: 1rem;
-   --div-padding-full_leftright: 0 1rem;
-   --div-padding-full_topbottom: 1rem 0;
-   --column-gap-main: 1.5rem;
-   --article-header: 2.4rem;
-   --article-header-medium: 2rem;
-   --article-header-small: 1.6rem;
-   --transform-size-small: scale(1.05);
-   --transform-size-medium: scale(1.15);
-   --transform-size-big: scale(1.4);
+    --header-h1: 3.8rem;
+    --header-h2: 3.3rem;
+    --header-h3: 3rem;
+    --header-h4: 2.7rem;
+    --header-h5: 2.5rem;
+    --header-h6: 2.2rem;
+    --header-h7: 2rem;
+    --header-h8: 1.6rem;
+    --divpadding: 1rem;
+    --divpadding-highest: 1.5rem;
+    --divpadding-high: 1.2rem;
+    --spanfontweight: 750;
+    --ifontsize-1: 3.5rem;
+    --ifontsize-2: 3rem;
+    --ifontsize-3: 2.8rem;
+    --ifontsize-4: 2.5rem;
+    --ifontsize-5: 2.3rem;
+    --ifontsize-6: 2rem;
+    --ifontsize-7: 1.6rem;
 }
 *,
 *::after,
@@ -41,7 +50,7 @@ body{
     position: relative;
 }
 a, p, li{
-    font-size: var(--plia-font-size);
+    font-size: var(--pfontsize);
     font-weight: normal;
     line-height: 1.5;
     text-decoration: none;
@@ -66,8 +75,8 @@ a, p, li{
     -o-transition: all .5s ease-in-out;
 }
 .cookie_container p{
-    color: #eee;
-    padding: var(--div-padding-full_topbottom);
+    color: var(--color60-shade);
+    padding: 1rem 0;
 }
 .cookie_container p a{
     color: var(--color10);
@@ -85,7 +94,7 @@ a, p, li{
 .cookie_container .cookie_container_subdiv button{
     padding: 1rem;
     background-color: var(--color10);
-    color: #eee;
+    color: var(--color60-shade);
     border-radius: .5rem;
     cursor: pointer;
     -webkit-border-radius: .5rem;
@@ -100,7 +109,7 @@ a, p, li{
 .header{
     min-height: fit-content;
     background: var(--color30);
-    padding: var(--sectionpadding-big);
+    padding: var(--sectionpadding-highest);
     align-self: center;
     width: 100%;
 }
@@ -116,7 +125,7 @@ a, p, li{
     min-height: fit-content;
     background: var(--color60);
     display: flex;
-    column-gap: var(--column-gap-main);
+    column-gap: 1.5rem;
 }
 .section3{
     height: fit-content;
@@ -125,11 +134,11 @@ a, p, li{
     justify-content: center;
     flex-direction: column;
     background: var(--color60-shade);
-    border-radius: var(--border-radius-big);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
-    -o-border-radius: var(--border-radius-big);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 .thickdiv{
     min-height: fit-content;
@@ -157,7 +166,7 @@ a, p, li{
 .mainheader__header-nav i{
     color: #FAFAFA;
     cursor: pointer;
-    font-size: 2.5rem;
+    font-size: var(--ifontsize-4);
 }
 .mainheader__header-nav i:hover{
     color: var(--color10);
@@ -177,7 +186,7 @@ a, p, li{
 }
 .header form button{
     background-color: var(--color10);
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     border: none;
     outline: none;
     color: #FAFAFA;
@@ -185,20 +194,20 @@ a, p, li{
 }
 .header form input{
     width: 90%;
-    padding: var(--div-padding-full);
-    font-size: var(--plia-font-size);
+    padding: var(--divpadding);
+    font-size: var(--pfontsize);
     color: var(--color60);
     border: none;
     outline: none;
     border-bottom: 1.5px solid var(--color10);
-    background-color: #222222;
+    background-color: var(--color30);
 }
 .mainheader__header-nav a:hover svg{
-   transform: var(--transform-size-big);
-   -webkit-transform: var(--transform-size-big);
-   -moz-transform: var(--transform-size-big);
-   -ms-transform: var(--transform-size-big);
-   -o-transform: var(--transform-size-big);
+   transform: scale(1.4);
+   -webkit-transform: scale(1.4);
+   -moz-transform: scale(1.4);
+   -ms-transform: scale(1.4);
+   -o-transform: scale(1.4);
 }
 .mainheader__header-nav a:nth-child(2){
     margin-left: 2rem;
@@ -211,12 +220,12 @@ a, p, li{
     background-color: var(--color10);
     color: var(--color60);
     padding: 1.3rem 1.1rem;
-    border-radius: var(--border-radius-big);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
     cursor: pointer;
-    -o-border-radius: var(--border-radius-big);
+    -o-border-radius: 1rem;
 }
 .mainheader__signupbtn:hover{
     background-color: var(--color10-shade);
@@ -227,7 +236,7 @@ a, p, li{
     background-color: var(--color10);
 }
 .header__dropdownlinks{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -240,7 +249,7 @@ a, p, li{
     width: fit-content;
     height: fit-content;
     align-items: flex-start;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     flex-direction: column;
 }
 .header__dropdownlinks-6{
@@ -252,19 +261,19 @@ a, p, li{
 }
 .dropbtn {
     background-color: inherit;
-    color: white;
+    color: var(--color60-tint);
     cursor: pointer;
-    padding: var(--div-padding-full);
-    font-size: var(--plia-font-size);
+    padding: var(--divpadding);
+    font-size: var(--pfontsize);
     border: none;
   }
   .dropbtn:hover{
     background-color: var(--color10);
-    border-radius: var(--border-radius-big);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
-    -o-border-radius: var(--border-radius-big);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
   .header__dropdownlinks-6 .header__dropdownlinks-content{
     display: none;
@@ -278,11 +287,11 @@ a, p, li{
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
 }
 
   .header__dropdownlinks-6 .header__dropdownlinks-content a{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     width: 100%;
     transition: all .3s ease-in-out;
     -webkit-transition: all .3s ease-in-out;
@@ -296,12 +305,12 @@ a, p, li{
   }
 .header__dropdownlinks .headerlinks:hover{
     color: var(--color60);
-    border-radius: var(--border-radius-big);
+    border-radius: 1rem;
     background-color: var(--color10);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
-    -o-border-radius: var(--border-radius-big);
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 .header__dropdownlinks a:hover .dropdown_svgs{
     display: block;
@@ -326,7 +335,7 @@ a, p, li{
     width: 70%;
     display: flex;
     flex-direction: column;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     align-items: center;
     min-height: fit-content;
 }
@@ -346,12 +355,12 @@ a, p, li{
     border-bottom: 1px solid #2222224a ;
 }
 .header__menu-sidebar{
-    padding: var(--sectionpadding-big);
+    padding: var(--sectionpadding-highest);
     width: 60vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: linear-gradient(to left, black, var(--color30));
+    background-image: linear-gradient(to left, var(--color30-shade), var(--color30));
     height: 100vh;
     z-index: 100;
     position: fixed;
@@ -367,7 +376,7 @@ a, p, li{
     flex-wrap: nowrap;
     justify-content: space-evenly;
     width: 100%;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     align-items: center;
 }
 .header__menu-sidebar .header__menu-sidebar-div1a {
@@ -375,15 +384,15 @@ a, p, li{
     flex-wrap: nowrap;
     justify-content: flex-end;
     width: 100%;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     align-items: center;
 }
 .header__menu-sidebar .sidebar-input a:hover{
-    transform: var(--transform-size-big);
-    -webkit-transform: var(--transform-size-big);
-    -moz-transform: var(--transform-size-big);
-    -ms-transform: var(--transform-size-big);
-    -o-transform: var(--transform-size-big);
+    transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    -moz-transform: scale(1.4);
+    -ms-transform: scale(1.4);
+    -o-transform: scale(1.4);
 }
 .header__menu-sidebar-div1 .sidebar-input-div1{
     display: flex;
@@ -400,8 +409,8 @@ a, p, li{
 }
 .sidebar-input-div1 input{
     width: 80%;
-    padding: var(--div-padding-full);
-    font-size: var(--plia-font-size);
+    padding: var(--divpadding);
+    font-size: var(--pfontsize);
     color: var(--color60);
     border: none;
     outline: none;
@@ -413,13 +422,13 @@ a, p, li{
     position: absolute;
     top: 0;
     left: 0;
-    background-image: linear-gradient(to right, var(--color60), white);
+    background-image: linear-gradient(to right, var(--color60), var(--color60-tint));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    font-size: var(--plia-font-size);
+    font-size: var(--pfontsize);
     pointer-events: none;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     transition: .5s ease-in;
     -webkit-transition: .5s ease-in;
     -moz-transition: .5s ease-in;
@@ -449,13 +458,13 @@ a, p, li{
 .header__menu-sidebar-div1 .header__menu-sidebar-div1-subdiv2{
     display: flex;
     flex-direction: column;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     justify-content: flex-start;
     height: 100%;
 }
 .header__menu-sidebar-div1 .header__menu-sidebar-div1-subdiv2 h1{
     padding-bottom: 1.4rem;
-    font-size: var(--article-header);
+    font-size: var( --header-h5);
     font-weight: 850;
     color: var(--color60);
 }
@@ -465,27 +474,27 @@ a, p, li{
 }
 .header__menu-sidebar-div1-subdiv2 a:hover{
     color: var(--color10);
-    transform: var(--transform-size-small);
-    border-radius: var(--border-radius-big);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
-    -o-border-radius: var(--border-radius-big);
-    -webkit-transform: var(--transform-size-small);
-    -moz-transform: var(--transform-size-small);
-    -ms-transform: var(--transform-size-small);
-    -o-transform: var(--transform-size-small);
+    transform: scale(1.05);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
 }
 .header__menu-sidebar-div1-subdiv3{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     height: 100%;
 }
 .header__menu-sidebar-div1-subdiv3 h1{
     padding-bottom: 1.4rem;
-    font-size: var(--article-header);
+    font-size: var( --header-h5);
     font-weight: 850;
     color: var(--color60);
 }
@@ -495,19 +504,19 @@ a, p, li{
 }
 .header__menu-sidebar-div1-subdiv3 a:hover{
     color: var(--color10);
-    transform: var(--transform-size-small);
-    border-radius: var(--border-radius-big);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
-    -o-border-radius: var(--border-radius-big);
-    -webkit-transform: var(--transform-size-small);
-    -moz-transform: var(--transform-size-small);
-    -ms-transform: var(--transform-size-small);
-    -o-transform: var(--transform-size-small);
+    transform: scale(1.05);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
 }
 .border-gradient-top{
-    border:  white 10px solid;
+    border:  var(--color60-tint) 10px solid;
     border-image-slice: 1;
     border-width: 1px;
     border-left: 0;
@@ -547,7 +556,7 @@ a, p, li{
     border-top: 0;
   }
   .border-gradient-side{
-    border:  white 10px solid;
+    border:  var(--color60-tint) 10px solid;
     border-image-slice: 1;
     border-width: 1px;
     border-top: 0;
@@ -556,7 +565,7 @@ a, p, li{
   }
   .header__menu-sidebar-div2{
     width: 100%;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -569,14 +578,14 @@ a, p, li{
   }
   .header__menu-sidebar-div2-subdiv1{
     width: fit-content;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
   }
   .header__menu-sidebar-div2-subdiv1 h1{
     padding-bottom: 1.7rem;
-    font-size: var(--article-header);
+    font-size: var( --header-h5);
     font-weight: 850;
     color: var(--color60);
   }
@@ -584,13 +593,13 @@ a, p, li{
     width: 100%;
   }
   .header__menu-sidebar-div2-subdiv1-subdiv a{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
   }
   .smallerdivs a:active{
-    background-color: #eeeeee37;
+    background-color: var(--color60-shade)eee37;
   }
   .larger__div{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     cursor: pointer;
     grid-area: 1 / 1 / -1 / 2;
   }
@@ -613,65 +622,65 @@ a, p, li{
   .smallerdivs a div{
     display: flex;
     flex-direction: column;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
   }
   .section1__div1 .larger__div img{
     height: 80%;
     width: 100%;
-    border-radius: var(--border-radius-big);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
-    -o-border-radius: var(--border-radius-big);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 .section1__div1 a div h1{
-    font-size: var(--article-header-medium);
+    font-size: var(--header-h7);
     background-color: var(--color10);
-    color: #eee;
+    color: var(--color60-shade);
     text-transform: uppercase;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
 }
 .section1__div1 a div h2{
-    font-size: var(--article-header-medium);
-    padding: var(--div-padding-full);
-    color: black;
+    font-size: var(--header-h7);
+    padding: var(--divpadding);
+    color: var(--color30-shade);
 }
 .section1__div1 a div p{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     color: rgba(0, 0, 0, 0.648);
 }
 .section1__div2 a img{
     height: 35vh;
     width: 35%;
     margin-right: 1rem;
-    border-radius: var(--border-radius-big);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
-    -o-border-radius: var(--border-radius-big);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 .section1__div2 a div h1{
-    font-size: var(--article-header-medium);
+    font-size: var(--header-h7);
     background-color: var(--color10);
-    color: #eee;
+    color: var(--color60-shade);
     clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
     text-transform: uppercase;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
 }
 .section1__div2 a div h2{
-    font-size: var(--article-header-medium);
+    font-size: var(--header-h7);
     width: fit-content;
-    padding: var(--div-padding-full);
-    color: black;
+    padding: var(--divpadding);
+    color: var(--color30-shade);
     max-width: 25vw;
 }
 .section1__div2 a div p{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     color: rgba(0, 0, 0, 0.648);
 }
 .section2 div .headers{
     font-size: 2.1rem;
-    padding: var(--sectionpadding-big);
+    padding: var(--sectionpadding-highest);
     text-transform: capitalize;
     font-weight: 750;
     width: 90%;
@@ -697,8 +706,8 @@ a, p, li{
     justify-content: center;
 }
 .sidebar_divs_container .webinfo h1{
-    padding: var(--div-padding-full_topbottom);
-    font-size: 2.5rem;
+    padding: 1rem 0;
+    font-size: var(--header-h5);
 }
 .sidebar_divs_container .webinfo img{
     width: 27rem;
@@ -710,28 +719,28 @@ a, p, li{
     -o-border-radius: 1rem;
 }
 .sidebar_divs_container .webinfo p{
-    padding: var(--div-padding-full_topbottom);
+    padding: 1rem 0;
     color: #222222c3;
 }
 .section2 div .normal-divs{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     border-bottom: 1px solid #22222254;
 }
 .section2 div .normal-divs a{
     display: flex;
     flex-wrap: nowrap;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     width: 100%;
     cursor: pointer;
 }
 .section2 div .normal-divs a img{
     height: 17rem;
     width: 20rem;
-    border-radius: var(--border-radius-big);
-    -webkit-border-radius: var(--border-radius-big);
-    -moz-border-radius: var(--border-radius-big);
-    -ms-border-radius: var(--border-radius-big);
-    -o-border-radius: var(--border-radius-big);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 .section2 div .normal-divs a .normal-divs__subdiv__div{
     display: flex;
@@ -754,27 +763,27 @@ a, p, li{
 .section2 div .normal-divs div img{
     width: 3.8rem;
     height: 3.8rem;
-    border-radius: var(--border-radius-circle);
+    border-radius: 50%;
     margin-right: 1.2rem;
-    -webkit-border-radius: var(--border-radius-circle);
-    -moz-border-radius: var(--border-radius-circle);
-    -ms-border-radius: var(--border-radius-circle);
-    -o-border-radius: var(--border-radius-circle);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
 }
 .section2 div .normal-divs div p span{
-    font-weight: 800;
+    font-weight: var(--spanfontweight);
 }
 .section2 div .section2__div1__link{
     margin-left: 2.3rem;
-    padding: var(--div-padding-full);
-    color: black;
+    padding: var(--divpadding);
+    color: var(--color30-shade);
     display: flex;
     flex-wrap: nowrap;
 }
 .section2 div .section2__div2__link{
     margin-left: 2.3rem;
-    color: black;
-    padding: var(--div-padding-full);
+    color: var(--color30-shade);
+    padding: var(--divpadding);
     display: flex;
     flex-wrap: nowrap;
 }
@@ -783,9 +792,9 @@ a, p, li{
     padding: 1rem;
     width: 70%;
     background-color: var(--color10);
-    color: #eee;
+    color: var(--color60-shade);
     clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
-    font-size: var(--plia-font-size);
+    font-size: var(--pfontsize);
 }
 .normal-divs__releasedate{
     font-size: 1.3rem;
@@ -793,7 +802,7 @@ a, p, li{
 }
 .section2 div div a div .normal-divs__title{
     padding: 1.6rem 0;
-    color: black;
+    color: var(--color30-shade);
 }
 .sec2__susbribe-box{
     padding: var(--sectionpadding-medium);
@@ -817,7 +826,7 @@ a, p, li{
     width: 80%;
   }
   .sec2__susbribe-box-darker{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -827,13 +836,13 @@ a, p, li{
   }
   .sec2__susbribe-box-darker h1{
     padding: 1rem 0 2.5rem 0;
-    font-size: var(--article-header);
+    font-size: var( --header-h5);
     font-weight: 850;
     color: var(--color60);
   }
   .sec2__susbribe-box-darker .sec2__susbribe-box-input-light{
     width: 79%;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     position: relative;
     display: flex;
     justify-content: center;
@@ -855,7 +864,7 @@ a, p, li{
     width: 7rem;
     height: 7rem;
     background-color: var(--color10);
-    color: #eee;
+    color: var(--color60-shade);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -866,12 +875,12 @@ a, p, li{
     -o-border-radius: 50%;
 }
 .sec2__susbribe-box .icon i{
-    font-size: 3.5rem;
+    font-size: var(--ifontsize-1);
     margin-top: 1.4rem;
 }
   .sec2__susbribe-box h1{
     padding: 1rem 0 2.5rem 0;
-    font-size: var(--article-header);
+    font-size: var( --header-h5);
     font-weight: 850;
   }
   .sec2__susbribe-box .sec2__susbribe-box-p1{
@@ -880,7 +889,7 @@ a, p, li{
   }
   .sec2__susbribe-box .sec2__susbribe-box_input{
     width: 80%;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     border: 1px solid #22222231;
     margin: 1rem 0;
     outline: none;
@@ -897,7 +906,7 @@ a, p, li{
     border: none;
     outline: none;
     background-color: var(--color10);
-    color: #eee;
+    color: var(--color60-shade);
     cursor: pointer;
     margin-bottom: 1rem;
   }
@@ -911,7 +920,7 @@ a, p, li{
 .sec2__adsbox fieldset{
     min-height: 40vh;
     width: 35vw;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     box-shadow: 16px 15px 18px -14px rgba(0,0,0,0.63);
     -webkit-box-shadow: 16px 15px 18px -14px rgba(0,0,0,0.63);
     -moz-box-shadow: 16px 15px 18px -14px rgba(0,0,0,0.63);
@@ -921,10 +930,10 @@ a, p, li{
     height: fit-content;
 }
 .sec2__adsbox fieldset .sec2__adsbox-title{
-    font-size: var(--article-header-small);
+    font-size: var( --header-h8);
 }
 .section3 .section3__div1{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     width: 90%;
     display: flex;
     min-height: fit-content;
@@ -940,7 +949,7 @@ a, p, li{
     border: 1.2px solid var(--color10);
 }
 .setion2_bodyright_subdiv h1{
-    font-size: 2.5rem;
+    font-size: var(--header-h5);
     padding: 1.5rem;
 }
 .setion2_bodyright_subdiv_subdiv{
@@ -951,12 +960,12 @@ a, p, li{
 .setion2_bodyright_subdiv_subdiv a{
     padding: .5rem;
     cursor: pointer;
-    color: black;
+    color: var(--color30-shade);
     border-bottom: 1px solid #2222223b;
 }
 .setion2_bodyright_subdiv_subdiv a:hover{
     background-color: var(--color10);
-    color: #eee;
+    color: var(--color60-shade);
 }
 .setion2_bodyright_topicsdiv{
     width: 80%;
@@ -985,7 +994,7 @@ a, p, li{
     width: 18%;
     padding: 1rem;
     border: none;
-    color: #eee;
+    color: var(--color60-shade);
     cursor: pointer;
     background-color: var(--color10);
 }
@@ -995,7 +1004,7 @@ a, p, li{
 .setion2_bodyright_topicsdiv h1{
     width: 100%;
     padding: 1rem;
-    font-size: 2.4rem;
+    font-size: var(--header-h5);
 }
 .setion2_bodyright_topicsdiv div{
     display: flex;
@@ -1006,18 +1015,18 @@ a, p, li{
     border-bottom: 1px solid #2222222a;
     padding: .5rem;
     width: 100%;
-    color: black;
+    color: var(--color30-shade);
     cursor: pointer;
 }
 .setion2_bodyright_topicsdiv div a:hover{
     color: var(--color10);
 }
 .section3 div h1{
-    font-size: var(--article-header);
-    padding: var(--div-padding-full);
+    font-size: var( --header-h5);
+    padding: var(--divpadding);
 }
 .section3 div a{
-    color: #eee;
+    color: var(--color60-shade);
 }
 .section3__div2{
     width: 90%;
@@ -1043,20 +1052,20 @@ a, p, li{
     top: 1rem;
     left: 1rem;
     text-transform: uppercase;
-    font-size: var(--plia-font-size);
+    font-size: var(--pfontsize);
     background-color: rgba(0, 0, 5, .6);
     backdrop-filter: blur(10px);
 }
 .section3 a div h2{
-    font-size: 1.5rem;
+    font-size: var(--header-h8);
     padding: 1rem;
     width: 100%;
     text-transform: capitalize;
-    color: black;
+    color: var(--color30-shade);
 }
 .section3 a div p{
     width: 100%;
-    font-size: var(--plia-font-size-small);
+    font-size: 1rem;
     color: #222222ce;
 }
 .section3__subdiv_subdiv{
@@ -1070,7 +1079,7 @@ a, p, li{
     color: var(--color60);
 }
 .darkp{
-    color: black;
+    color: var(--color30-shade);
 }
 .footer .footer__div1{
     min-height: fit-content;
@@ -1078,32 +1087,32 @@ a, p, li{
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
 }
 .footer .footer__newpagelinks{
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     width: 80%;
-    padding: var(--div-padding-full);
-    font-size: var(--plia-font-size);
+    padding: var(--divpadding);
+    font-size: var(--pfontsize);
 }
 .footer .footer__newpagelinks a{
     font-size: 1.7rem;
 }
 .footer .footer__newpagelinks a:hover{
     color: var(--color10);
-    transform: var(--transform-size-medium);
-    -webkit-transform: var(--transform-size-medium);
-    -moz-transform: var(--transform-size-medium);
-    -ms-transform: var(--transform-size-medium);
-    -o-transform: var(--transform-size-medium);
+    transform: scale(1.15);
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    -o-transform: scale(1.15);
 }
 .footer .footer__div3{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     width: 80%;
     align-items: flex-end;
     justify-content: space-around;
@@ -1115,8 +1124,8 @@ a, p, li{
     align-items: center;
 }
 .footer .footer__div3__subdiv h1{
-    font-size: var(--article-header-medium);
-    padding: var(--div-padding-full_topbottom);
+    font-size: var(--header-h7);
+    padding: 1rem 0;
 }
 .footer .footer__div3__subdiv div{
     display: flex;
@@ -1125,9 +1134,9 @@ a, p, li{
     justify-content: center;
 }
 .follow_btns{
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     margin-right: 1rem;
-    border: 1px solid #eeeeee3c;
+    border: 1px solid var(--color60-shade)eee3c;
     border-radius: .9rem;
     -webkit-border-radius: .9rem;
     -moz-border-radius: .9rem;
@@ -1136,12 +1145,12 @@ a, p, li{
 }
 .follow_btns:hover{
     background-color: var(--color10);
-    color: #eee;
+    color: var(--color60-shade);
     border: 1px solid var(--color10);
 }
 .follow_btns i{
-    font-size: 2rem;
-    color: #eee;
+    font-size: var(--ifontsize-6);
+    color: var(--color60-shade);
 }
 /*For view_post.php*/
 .page_links{
@@ -1149,17 +1158,17 @@ a, p, li{
     flex-wrap: nowrap;
     align-items: center;
     width: 90%;
-    padding: var(--div-padding-full_topbottom);
+    padding: 1rem 0;
 }
 .page_links a{
     margin: 0 1rem;
-    color: #222222;
+    color: var(--color30);
     font-size: 1.5rem;
     cursor: pointer;
 }
 .page_links p{
     margin: 0 1rem;
-    color: #222222;
+    color: var(--color30);
     font-size: 1.5rem;
 }
 .page_links a:hover{
@@ -1178,7 +1187,7 @@ a, p, li{
     padding: 1rem;
     font-weight: 500;
     cursor: pointer;
-    color: black;
+    color: var(--color30-shade);
     border: 1px solid #2222229b;
     border-radius: .5rem;
     -webkit-border-radius: .5rem;
@@ -1188,18 +1197,18 @@ a, p, li{
 }
 .body_left_relatedniches a:hover{
     background-color: var(--color10);
-    color: #eee;
+    color: var(--color60-shade);
 }
 .body_left .Post_header{
-    font-size: 3.4rem;
+    font-size: var(--header-h2);
     font-weight: 800;
     padding: 2rem 0;
     width: 90%;
 }
 .body_left h2{
     width: 90%;
-    padding: var(--div-padding-full_topbottom);
-    font-size: 2rem;
+    padding: 1rem 0;
+    font-size: var(--header-h7);
 }
 .body_left .authors_div{
     display: flex;
@@ -1236,19 +1245,19 @@ a, p, li{
 .authors_div_otherdiv{
     display: flex;
     align-items: center;
-    padding: var(--div-padding-full_leftright);
+    padding: 0 1rem;
     width: 50%;
     justify-content: flex-end;
 }
 .authors_div_otherdiv i{
     margin-right: 1rem;
     color: #2222227a;
-    font-size: 1.5rem;
+    font-size: var(--ifontsize-6);
 }
 .post_image_div{
     width: 100%;
     min-height: fit-content;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1269,7 +1278,7 @@ a, p, li{
 }
 .socialmedia_links a{
     width: calc(100% / 5);
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -1288,14 +1297,14 @@ a, p, li{
 }
 .socialmedia_links a:hover{
     background-color: var(--color10);
-    border: 1px solid white;
-    color: #eee;
+    border: 1px solid var(--color60-tint);
+    color: var(--color60-shade);
 }
 .bodyleft_header3{
     text-align: center;
     padding: 2rem;
     font-weight: 750;
-    font-size: 2.5rem;
+    font-size: var(--header-h5);
     margin: 1rem;
 }
 .inline_adsbar{
@@ -1306,8 +1315,8 @@ a, p, li{
 }
 .aboutauthor_div{
     width: 90%;
-    padding: 1.5rem;
-    background-color: #eee;
+    padding: var(--divpadding-highest);
+    background-color: var(--color60-shade);
     display: flex;
     border: 1px solid #2222222a;
     cursor: pointer;
@@ -1343,7 +1352,7 @@ a, p, li{
 .aboutauthor_div div:nth-child(2){
     font-weight: 750;
     padding-bottom: 1rem;
-    color: black;
+    color: var(--color30-shade);
 }
 .aboutauthor_div .aboutauthor_div_subdiv2{
     display: flex;
@@ -1352,18 +1361,18 @@ a, p, li{
     align-items: center;
 }
 .p--bold{
-    font-weight: 750;
+    font-weight: var(--spanfontweight);
     padding-bottom: 1rem;
 }
 .aboutauthor_div div p{
-    color: black;
+    color: var(--color30-shade);
 }
 .subscribe_div{
-    background-color: #222222;
+    background-color: var(--color30);
     width: 80%;
     margin: 1rem 0;
-    padding: 1.5rem;
-    color: #eee;
+    padding: var(--divpadding-highest);
+    color: var(--color60-shade);
     min-height: fit-content;
     display: flex;
     flex-direction: column;
@@ -1374,7 +1383,7 @@ a, p, li{
     max-width: 90%;
 }
 .more_posts{
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     display: flex;
     flex-wrap: wrap;
 }
@@ -1382,7 +1391,7 @@ a, p, li{
     position: relative;
     height: 60vh;
     width: 20vw;
-    color: black;
+    color: var(--color30-shade);
     border: 1px solid #2222224a;
     margin: 1rem;
     cursor: pointer;
@@ -1395,7 +1404,7 @@ a, p, li{
     padding: 0 1rem;
 }
 .more_posts a div h1{
-    font-size: 1.5rem;
+    font-size: var(--header-h8);
     width: 100%;
     font-weight: 600;
 }
@@ -1455,24 +1464,24 @@ a, p, li{
     width: calc(100% - 8rem);
 }
 .commentary_divs_imagediv div h2{
-    color: #eee;
-    font-size: 1.9rem;
-    padding: var(--div-padding-full_topbottom);
+    color: var(--color60-shade);
+    font-size: var(--header-h8);
+    padding: 1rem 0;
     font-weight: 750;
 }
 .commentary_divs_imagediv div p{
     font-size: 1.2rem;
-    color: #eee;
+    color: var(--color60-shade);
 }
 .commentary_divs_body h2{
     color: var(--color10);
-    padding: var(--div-padding-full_topbottom);
+    padding: 1rem 0;
     font-weight: 750;
-    font-size: 1.6rem;
+    font-size: var(--header-h8);
 }
 .commentary_divs_body h3{
     padding-bottom: 1rem;
-    color: black;
+    color: var(--color30-shade);
 }
 .commentary_divs_body .commentary_divs_body_subdiv{
     display: flex;
@@ -1488,32 +1497,32 @@ a, p, li{
     position: absolute;
     top: 1rem;
     left: 1rem;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     text-transform: uppercase;
     background-color: rgba(0,0,0,.6);
     backdrop-filter: blur(10px);
-    color: #eee;
+    color: var(--color60-shade);
 }
 .posts_div h1{
-    font-size: 1.6rem;
+    font-size: var(--header-h8);
     padding: .5rem 1rem;
-    color: black;
+    color: var(--color30-shade);
     text-transform: capitalize;
 }
 .posts_div_otherp{
     padding: .5rem 1rem;
     font-size: 1.3rem;
-    color: black;
+    color: var(--color30-shade);
 }
 .posts_div_otherp span{
-    font-weight: 750;
-    color: black;
+    font-weight: var(--spanfontweight);
+    color: var(--color30-shade);
 }
 .posts_div_subdiv{
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     width: 100%;
 }
 .posts_div_subdiv p{
@@ -1527,21 +1536,21 @@ a, p, li{
     display: flex;
     flex-direction: column;
     width: 90%;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     margin: 1rem 0;
     background-color: #f6f6f6;
 }
 .head_paragraph h3{
-    font-size: 2rem;
-    padding: var(--div-padding-full_topbottom);
+    font-size: var(--header-h7);
+    padding: 1rem 0;
 }
 .formcontainer .formcontainer_subdiv{
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: var(--color60-tint);
     margin: 1rem 0;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     border: 1px solid #22222267;
     height: fit-content;
 }
@@ -1550,15 +1559,15 @@ a, p, li{
 }
 .formcontainer_subdiv input{
     width: 100%;
-    border: 1px solid #222222;
+    border: 1px solid var(--color30);
     outline: none;
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     margin-top: 1rem;
 }
 .formcontainer label{
     font-size: 1.5rem;
     font-weight: 550;
-    padding: var(--div-padding-full_topbottom);
+    padding: 1rem 0;
 }
 .formcontainer_subdiv input:focus{
     border: 1px solid var(--color10);
@@ -1571,9 +1580,9 @@ a, p, li{
     text-decoration: underline;
 }
 .formcontainer_submit{
-    color: #eee;
+    color: var(--color60-shade);
     background-color: var(--color10);
-    padding: var(--div-padding-full);
+    padding: var(--divpadding);
     border: none;
     outline: none;
     cursor: pointer;
@@ -1588,7 +1597,7 @@ a, p, li{
     display: flex;
     flex-wrap: nowrap;
     min-height: 40vh;
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     align-items: center;
 }
 .authordiv_container img{
@@ -1602,12 +1611,12 @@ a, p, li{
 }
 .authordiv_container_subdiv{
     width: calc(100% - 28rem);
-    padding: 1.5rem;
+    padding: var(--divpadding-highest);
     display: flex;
     flex-direction: column;
 }
 .authordiv_container_subdiv h1{
-    font-size: 2.9rem;
+    font-size: var(--header-h3);
     font-weight: 750;
     padding: 1.2rem 0;
 }
@@ -1620,7 +1629,7 @@ a, p, li{
         position: relative;
     }
     a, p, li{
-        font-size: 2.5rem;
+        font-size: var(--pfontsize-tabviewwdth);
     }
     .header{
         height: fit-content;
@@ -1692,7 +1701,7 @@ a, p, li{
     }
     .header__menu-sidebar-div1-subdiv3 h1{
         padding-bottom: 1.4rem;
-        font-size: 3rem;
+        font-size: var(--header-h3);
     }
     .header__menu-sidebar-div1-subdiv3 a{
         padding-bottom: 1.5rem;
@@ -1700,7 +1709,7 @@ a, p, li{
     }
       .header__menu-sidebar-div2{
         width: 100%;
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
@@ -1712,18 +1721,18 @@ a, p, li{
       }
       .header__menu-sidebar-div2-subdiv1 h1{
         padding-bottom: 2rem;
-        font-size: 3rem;
+        font-size: var(--header-h3);
       }
       .section1__article__div1{
         grid-area: 1 / 1 / 2 / -1;
       }
       .section1__articlearticle2{
         grid-area: 2 / 1 / -1 / 2;
-        padding: 1rem;
+        padding: var(--divpadding);
       }
       .section1__article__div3{
         grid-area: 2 / 2 / -1 / -1;
-        padding: 1rem;
+        padding: var(--divpadding);
       }
       .section1__articlearticle3{
         display: none;
@@ -1732,45 +1741,45 @@ a, p, li{
         width: 55%;
     }
     .smaller__div div{
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
     }
     .smaller__div div h1{
-        font-size: 3rem;
+        font-size: var(--header-h3);
         padding-bottom: 1.5rem;
     }
     .smaller__div div h2{
-        font-size: 3rem;
+        font-size: var(--header-h4);
     }
     .larger__div{
         display: flex;
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
         flex-wrap: nowrap;
     }
     .larger__div img{
         height: 95%;
     }
     .larger__div div{
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
     }
     .larger__div div h1{
-        font-size: 3rem;
+        font-size: var(--header-h3);
     }
     .larger__div  h2{
-        font-size: 3rem;
-        padding: var(--div-padding-full);
+        font-size: var(--header-h3);
+        padding: var(--divpadding);
     }
     .larger__div  p{
         margin-top: 30rem;
     }
     .section2 div .headers{
-        font-size: 3rem;
+        font-size: var(--header-h3);
     }
     .section2 div .normal-divs article img{
         height: 20rem;
     }
     .section2 div .normal-divs div{
         display: flex;
-        padding: 1.5rem;
+        padding: var(--divpadding-highest);
         width: 95%;
     }
     .section2 div .normal-divs div img{
@@ -1781,7 +1790,7 @@ a, p, li{
         font-size: 2.5rem;
     }
     .section2 div .normal-divs div p span{
-        font-weight: 800;
+        font-weight: var(--spanfontweight);
     }
     .section2 div .section2__div1__link{
         font-size: 2.5rem;
@@ -1792,11 +1801,11 @@ a, p, li{
     .section2 div div article div h1{
         text-transform: uppercase;
         padding-bottom: 2rem;
-        font-size: 2.5rem;
+        font-size: var(--header-h5);
     }
     .section2 div div article div h2{
         padding-bottom: 2rem;
-        font-size: 2.5rem;
+        font-size: var(--header-h5);
     }
     .sec2__susbribe-box{
         width: 44vw;
@@ -1809,7 +1818,7 @@ a, p, li{
         background-color: var(--color10-shade);
       }
       .sec2__susbribe-box h1{
-        font-size: 3rem;
+        font-size: var(--header-h3);
       }
       .sec2__susbribe-box p{
         padding: 1rem 0 1rem 0;
@@ -1858,7 +1867,7 @@ a, p, li{
         width: 2.5rem;
     }
     .main:hover input ~ .checkbox-container {
-        background-color: black;
+        background-color: var(--color30-shade);
     }
     .main input:active ~ .checkbox-container {
         background-color: var(--color10);
@@ -1899,7 +1908,7 @@ a, p, li{
         display: block;
     }
     .sec2__adsbox fieldset .sec2__adsbox-title{
-        font-size: var(--article-header-small);
+        font-size: var( --header-h8);
     }
     .section3 div{
         display: flex;
@@ -1909,7 +1918,7 @@ a, p, li{
         overflow-x: scroll;
     }
     .section3 div h1{
-        font-size: 3.5rem;
+        font-size: var(--header-h1);
     }
     .section3 div article{
         max-width: 30rem;
@@ -1918,17 +1927,17 @@ a, p, li{
         height: 55%;
     }
     .section3 div article div h1{
-        font-size: 2.5rem;
+        font-size: var(--header-h5);
     }
     .section3 div article div h2{
-        font-size: 2.5rem;
+        font-size: var(--header-h5);
     }
     .section3 div article div p{
         font-size: 2.5rem;
     }
     .footer .footer__newpagelinks{
         width: 90%;
-        padding: 1rem 1rem;
+        padding: 1rem;
     }
     .footer .footer__newpagelinks a{
         font-size: 2.3rem;
@@ -1938,7 +1947,7 @@ a, p, li{
         width: 90%;
     }
     .footer .footer__div3__subdiv h1{
-        font-size: 2.5rem;
+        font-size: var(--header-h5);
         padding: 1.6rem 0;
     }
     .footer .footer__div3__subdiv div a{
@@ -2030,7 +2039,7 @@ a, p, li{
       }
       .header__menu-sidebar-div2 p{
         color: var(--color60);
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
         max-width: 100%;
       }
       .header__menu-sidebar-div2-subdiv1{
@@ -2038,7 +2047,7 @@ a, p, li{
       }
       .header__menu-sidebar-div2-subdiv1 h1{
         padding-bottom: 1.7rem;
-        font-size: var(--article-header);
+        font-size: var( --header-h5);
         font-weight: 850;
         color: var(--color60);
       }
@@ -2050,43 +2059,43 @@ a, p, li{
         margin-top: 2.2rem;
     }
     .smaller__div div{
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
         cursor: pointer;
     }
     .smaller__div div h1{
-        font-size: var(--article-header);
+        font-size: var( --header-h5);
         padding-bottom: 1.5rem;
     }
     .section1__div2 article div h2{
-        font-size: var(--article-header-medium);
+        font-size: var(--header-h7);
         max-width: fit-content;
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
     }
     .section1__div2 article div p {
         margin-top: 4.6rem;
     }
     .section1 .section1__article__div1{
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
     }
     .larger__div img{
         width: 90%;
     }
     .larger__div div p{
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
     }
     .larger__div  h2{
-        font-size: var(--article-header-medium);
-        padding: var(--div-padding-full);
+        font-size: var(--header-h7);
+        padding: var(--divpadding);
     }
     .section2 div .headers{
-        font-size: var(--article-header-small);
+        font-size: var( --header-h8);
         padding: 2rem;
     }
     .section2 div{
         padding: 1.5rem 1rem;
     }
     .section2 div .normal-divs{
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
     }
     .section2 div .normal-divs article{
         align-items: flex-start;
@@ -2108,21 +2117,21 @@ a, p, li{
         margin-right: 1.2rem;
 }
     .section2 div .normal-divs div p span{
-        font-weight: 800;
+        font-weight: var(--spanfontweight);
     }
     .section2 div .section2__div1__link{
         margin-left: 2.3rem;
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
     }
     .section2 div .section2__div2__link{
         margin-left: 2.3rem;
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
     }
     .section2 div div article div h1{
-        font-size: 2rem;
+        font-size: var(--header-h7);
     }
     .section2 div div article div h2{
-        font-size: 1.8rem;
+        font-size: var(--header-h8);
     }
     .sec2__susbribe-box{
         padding: 2rem;
@@ -2130,7 +2139,7 @@ a, p, li{
       }
       .sec2__susbribe-box h1{
         padding: 1rem 0 2.5rem 0;
-        font-size: var(--article-header);
+        font-size: var( --header-h5);
         font-weight: 850;
       }
       .sec2__susbribe-box p{
@@ -2139,7 +2148,7 @@ a, p, li{
       }
       .sec2__susbribe-box .sec2__susbribe-box-input{
         min-width: 70%;
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
         position: relative;
         display: flex;
         justify-content: center;
@@ -2198,7 +2207,7 @@ a, p, li{
         border: 2px solid var(--color10);
     }
     .main:hover input ~ .checkbox-container {
-        background-color: black;
+        background-color: var(--color30-shade);
     }
     .main input:active ~ .checkbox-container {
         background-color: var(--color10);
@@ -2245,7 +2254,7 @@ a, p, li{
     .sec2__adsbox fieldset{
         min-height: 40vh;
         width: 35vw;
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
         box-shadow: 16px 15px 18px -14px rgba(0,0,0,0.63);
         -webkit-box-shadow: 16px 15px 18px -14px rgba(0,0,0,0.63);
         -moz-box-shadow: 16px 15px 18px -14px rgba(0,0,0,0.63);
@@ -2255,7 +2264,7 @@ a, p, li{
         height: fit-content;
     }
     .sec2__adsbox fieldset .sec2__adsbox-title{
-        font-size: var(--article-header-small);
+        font-size: var( --header-h8);
     }
     .section3 div{
         display: flex;
@@ -2267,25 +2276,25 @@ a, p, li{
         overflow-x: scroll;
     }
     .section3 .section3__div1{
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
     }
     .section3 div h1{
-        font-size: var(--article-header);
-        padding: var(--div-padding-full);
+        font-size: var( --header-h5);
+        padding: var(--divpadding);
     }
     .section3 div a{
-        color: black;
+        color: var(--color30-shade);
         display: flex;
     }
     .section3 div a:active{
         text-decoration: underline;
     }
     .section3 div a:hover{
-        transform: var(--transform-size-small);
-        -webkit-transform: var(--transform-size-small);
-        -moz-transform: var(--transform-size-small);
-        -ms-transform: var(--transform-size-small);
-        -o-transform: var(--transform-size-small);
+        transform: scale(1.05);
+        -webkit-transform: scale(1.05);
+        -moz-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+        -o-transform: scale(1.05);
     }
     .section3 div a svg{
         margin-left: .1rem;
@@ -2305,11 +2314,11 @@ a, p, li{
         width: 100%;
         height: 60%;
         margin-bottom: 1.2rem;
-        border-radius: var(--border-radius-big);
-        -webkit-border-radius: var(--border-radius-big);
-        -moz-border-radius: var(--border-radius-big);
-        -ms-border-radius: var(--border-radius-big);
-        -o-border-radius: var(--border-radius-big);
+        border-radius: 1rem;
+        -webkit-border-radius: 1rem;
+        -moz-border-radius: 1rem;
+        -ms-border-radius: 1rem;
+        -o-border-radius: 1rem;
     }
     .section3 div article div{
         display: flex;
@@ -2327,7 +2336,7 @@ a, p, li{
         padding-bottom: .5rem;
     }
     .section3 div article div p{
-        padding-top: var(--div-padding-full);
+        padding-top: var(--divpadding);
         font-size: 1.8rem;
     }
     .footer .footer__newpagelinks{
@@ -2336,7 +2345,7 @@ a, p, li{
         width: 100%;
     }
     .footer form {
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
         min-width: 45%;
         display: flex;
         flex-direction: column;
@@ -2354,7 +2363,7 @@ a, p, li{
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        padding: var(--div-padding-full);
+        padding: var(--divpadding);
         width: 100%;
         align-items: flex-end;
         justify-content: space-around;
@@ -2366,7 +2375,7 @@ a, p, li{
         align-items: center;
     }
     .footer .footer__div3__subdiv h1{
-        font-size: var(--article-header-medium);
+        font-size: var(--header-h7);
         padding: 1.2rem 0;
     }
     .footer .footer__div3__subdiv div{

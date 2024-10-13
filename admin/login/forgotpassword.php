@@ -3,24 +3,26 @@ require("../connect.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
 require '../../PHPMailer/src/Exception.php';
 require '../../PHPMailer/src/PHPMailer.php';
 require '../../PHPMailer/src/SMTP.php';
 if (isset($_REQUEST['fgtpswd'])){
     $email = $_REQUEST['email'];
+    $token = bin2hex(random_bytes(50));
     $check_email = mysqli_query($conn, "SELECT email FROM admin_login_info WHERE email = '$email'");
     $res = mysqli_num_rows($check_email);
     if ($res > 0){
+        $stmt = $conn->prepare("UPDATE admin_login_info SET token = ? WHERE email = ?");
+        $stmt->bind_param('ss', $token, $email);
+        $stmt->execute();
         $message = "<div><p><br>Hello</br></p>
                     <p>You recieved this mail because we got a password reset request for your account.</p>
-                    <br><p><button class='btn'><a href='http://localhost/Sample-dynamic-website/admin/login/resetpassword.php?secret='.base64_encode($email).''>Reset Password</a></button></p></br>
+                    <br><p><button class='btn'><a href='http://localhost/Sample-dynamic-website/admin/login/resetpassword.php?token=$token'>Reset Password</a></button></p></br>
                     <p>If you did not request a password reset, no further action is required.</p>
                     </div>";
-        $email = $email;
-        $mail = new PHPMailer(true);
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
+        $mail = new PHPMailer(true); 
         $mail -> IsSMTP();
+        $mail->SMTPDebug = 2;
         $mail -> SMTPAuth = true;
         $mail -> SMTPSecure = "tls";
         $mail -> Host = "stmp.gmail.com";
@@ -30,7 +32,7 @@ if (isset($_REQUEST['fgtpswd'])){
         $mail -> Password = "otxteulzfnelidgd";
         $mail -> FromName = "Uniquetechcontentwriter";
         $mail -> AddAddress ($email);
-        $mail->addReplyTo('bahdmannatural@gmail.com', 'Information');
+        $mail->addReplyTo('aniagoluchiemelie77@gmail.com', 'Information');
         $mail -> Subject = "Reset Password";
         $mail -> isHTML(TRUE);
         $mail -> Body = $message;

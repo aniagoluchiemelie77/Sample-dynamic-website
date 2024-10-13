@@ -27,11 +27,11 @@ require ("connect.php");
 	<title>Admin Homepage</title>
 </head>
 <body>
-    <div class="logout_alert hidden popupform5">
+    <div class="logout_alert hidden" id="logout_alert">
         <h1 class="logout_alert_header">Are You Sure You Want To Logout?</h1>
         <div>
             <a class="btn" href="extras/logout.php">Yes</a>
-            <a class="btn cancellogout">No</a>
+            <a class="btn cancellogout" id="dismiss-popup-btn">No</a>
         </div>
     </div>
     <div class="logout_alert container_center hidden" id="create_editor">
@@ -120,59 +120,59 @@ require ("connect.php");
     <section class="body">
         <div class="sidebar">
             <div class="links_group">
-                <div class="dashboard active sidebarbtn">
+                <div class="dashboard active sidebarbtn tab">
                     <i class="fa fa-tachometer" aria-hidden="true"></i>
                     <p class="paragraph">
                         Dashboard
                     </p>
                 </div>
-                <div class="sidebar_profile border-gradient-side sidebarbtn">
+                <div class="sidebar_profile border-gradient-side sidebarbtn tab">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <p class="paragraph">
                         Profile
                     </p>
                 </div>
-                <div class="sidebar_users border-gradient-side sidebarbtn">
+                <div class="sidebar_users border-gradient-side sidebarbtn tab">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <p class="paragraph">
                         Users
                     </p>
                 </div>
-                <div class="sidebar_posts border-gradient-side sidebarbtn">
+                <div class="sidebar_posts border-gradient-side sidebarbtn tab">
                     <i class="fa fa-newspaper" aria-hidden="true"></i>
                     <p class="paragraph">
                         Posts
                     </p>
                 </div>
-                <div class="sidebar_pages border-gradient-side sidebarbtn">
+                <div class="sidebar_pages border-gradient-side sidebarbtn tab">
                     <i class="fa fa-sticky-note" aria-hidden="true"></i>
                     <p class="paragraph">
                         Pages
                     </p>
                 </div>
-                <div class="sidebar_settings border-gradient-side sidebarbtn">
+                <div class="sidebar_settings border-gradient-side sidebarbtn tab">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     <p class="paragraph">
                         Settings
                     </p>
                 </div>
-                <div class="Contact Developer border-gradient-side sidebarbtn">
+                <div class="Contact Developer border-gradient-side sidebarbtn tab">
                     <i class="fa fa-phone" aria-hidden="true"></i>
                     <p class="paragraph">
                         Contact Developer
                     </p>
                 </div>
-                <div class="logout border-gradient-side">
+                <button class="logout border-gradient-side" id="open-popup-btn">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    <p class="paragraph">Logout</p>
-                </div>
+                    Logout
+                </buton>
             </div>
             <p class="sidebar_footer">
                 &copy; uniquetechcontentwriter 2024
             </p>
         </div>
         <div class="aside_sidebar">
-            <div class="website_info_div tabcontent active2">
+            <div class="website_info_div active2 tab_content" id="tab1">
                 <h1 class="aside_sidebar_header">Welcome Back, <?php echo $_SESSION['username']?> </h1>
                 <div class="webinfo_container">
                     <?php
@@ -527,7 +527,7 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="profile tabcontent hidden">
+            <div class="profile tab_content hidden" id="tab2">
                 <figure class="profile_imgbox">
                     <img src="../images/Diamakaimg1.png" alt="Authors Profile Picture" class="profile_imgbox_img"/>
                     <a class="profile_imgbox_edit" id="profileuploads">
@@ -631,7 +631,7 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="users tabcontent hidden">
+            <div class="users tab_content hidden" id="tab3">
                 <div class="users_admin_div userdiv">
                     <div class="user_header">
                         <h2>Admin</h2>
@@ -787,7 +787,7 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="posts tabcontent hidden">
+            <div class="posts tab_content hidden" id="tab4">
                 <div class="posts_div2 postsdiv">
                     <div class="posts_header">
                         <h1> Paid Posts</h1>
@@ -924,7 +924,7 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="pages tabcontent hidden">
+            <div class="pages tab_content hidden" id="tab5">
                 <div class='pages_container'>
                     <h1>Pages</h1>
                     <div class="pages_container_subdiv">
@@ -964,7 +964,7 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="settings tabcontent hidden">
+            <div class="settings tab_content hidden" id="tab6">
                 <div class='pages_container'>
                     <h1>Settings</h1>
                     <div class="pages_container_subdiv">
@@ -981,7 +981,7 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="developer_contact tabcontent hidden">
+            <div class="developer_contact tab_content hidden" id="tab7">
                 <div class="developer_contact_container">
                     <div class="developer_contact_header">
                         <h1>Contact Website Developer</h1>

@@ -5,8 +5,10 @@ if (isset($_REQUEST['reset_pswd'])){
     $password = md5($_REQUEST['pwd']);
     $confirm_password = md5($_REQUEST['cpwd']);
     if ($password == $confirm_password){
-        $reset_query = mysqli_query($conn, "UPDATE admin_login_info SET password = '$password' WHERE email = '$email'");
-        if($reset_query > 0){
+        $stmt = $conn->prepare("UPDATE admin_login_info SET password = ?, token = NULL WHERE email = ?");
+        $stmt->bind_param('ss', $password, $email);
+        $stmt->execute();
+        if($stmt->execute()){
             $msg = "Password Reset Successful! <a href='index.php'>Click Here</a> to continue login process";
         }else{
             $msg = "Error While Updating Password";
@@ -15,11 +17,14 @@ if (isset($_REQUEST['reset_pswd'])){
         $msg = "Passwords do not match";
     }
 }
-if ($_GET['secret']){
-    $email = base64_decode($_GET['secret']);
-    $check_details = mysqli_query($conn, "SELECT email FROM admin_login_info WHERE email = '$email'");
-    $res = mysqli_num_rows($check_details);
-    if ($res > 0){ ?>
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $token = $_POST['token'];
+    $stmt = $conn->prepare("SELECT email FROM admin_login_info WHERE token = ?");
+    $stmt->bind_param('s', $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0){
+        $email = $result->fetch_assoc()['email']; 
 ?>
 <!DOCTYPE html>
 <html lang="en">

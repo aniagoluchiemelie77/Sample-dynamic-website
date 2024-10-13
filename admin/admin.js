@@ -1,9 +1,34 @@
+'use strict';
+const sideBtns = document.querySelectorAll('.sidebarbtn');
+const tabContent = document.querySelectorAll('.tab_content');
+const logoutBtn = document.getElementById('open-popup-btn');
+const logoutDiv = document.getElementById('logout_alert');
+const exitLogoutDiv = document.getElementById('dismiss-popup-btn');
+
+  sideBtns.forEach((tab, index) => {
+    tab.addEventListener('click', (e) => {
+      sideBtns.forEach((tab) => {
+        tab.classList.remove('active');
+      });
+      tab.classList.add('active');
+      tabContent.forEach((content) =>{
+        content.style.display = 'none';
+        content.classList.add('hidden');
+      })
+      tabContent[index].style.display = 'flex';
+      tabContent[index].classList.remove('hidden');
+    })
+  })
+            logoutBtn.addEventListener('click', () => {
+                logoutDiv.classList.remove('hidden');
+                logoutDiv.style.display = 'flex';
+            })
+/*
 const editBtn = document.querySelector('.profile_edit_btn');
 const header = document.querySelector('.body');
 const body = document.querySelector('.header');
 const sidebar = document.querySelector('.sidebar');
 const sideBtns = document.querySelectorAll('.sidebarbtn');
-const tabContent = document.querySelectorAll('.tabcontent');
 const popupForm1 = document.querySelector('.popupform1');
 const popupForm2 = document.querySelector('.popupform2');
 const popupForm3 = document.querySelector('.popupform3');
@@ -39,14 +64,14 @@ sideBtns.forEach((tab, index) => {
   })
 });
 
-/*const displayPopups = function(divname, clickorigin){
+const displayPopups = function(divname, clickorigin){
   clickorigin.addEventListener('click', () => {
     divname.classList.remove('hidden');
     divname.style.display = 'flex';
   })
 }
 displayPopups(createEditorDiv, createWriterOrigin);
-*/
+
 const removeHiddenClass = function (e) {
   e.stopPropagation();
   logoutDiv.classList.add('hidden');
@@ -103,3 +128,4 @@ onClickOutside(popupForm1);
 onClickOutside(popupForm2);
 onClickOutside(popupForm3);
 onClickOutside(popupForm4);
+*/

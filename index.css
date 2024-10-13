@@ -172,7 +172,7 @@ a, p, li{
     color: var(--color10);
 }
 .header form{
-    width: 80%;
+    width: 70%;
     margin: .5rem 0;
     background-color: var(--color10);
     border-radius: 2rem;
@@ -185,7 +185,7 @@ a, p, li{
     align-items: center;
 }
 .header form button{
-    background-color: var(--color10);
+    background-color: inherit;
     padding: var(--divpadding);
     border: none;
     outline: none;
@@ -193,13 +193,13 @@ a, p, li{
     width: 10%;
 }
 .header form input{
-    width: 90%;
+    width: calc(100% - 10%);
+    height: 100%;
     padding: var(--divpadding);
     font-size: var(--pfontsize);
     color: var(--color60);
     border: none;
     outline: none;
-    border-bottom: 1.5px solid var(--color10);
     background-color: var(--color30);
 }
 .mainheader__header-nav a:hover svg{

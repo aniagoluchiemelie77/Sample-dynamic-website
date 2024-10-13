@@ -181,7 +181,7 @@ $url = "http://localhost/Sample-dynamic-website";
                             }
                             $readingTime = calculateReadingTime($row['content']);
                             echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id1=$id'>
-                                    <img src='../images/$image' alt = 'Post Image'/>
+                                    <img src='../$image' alt = 'Post Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$date</span>

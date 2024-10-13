@@ -60,7 +60,7 @@
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
                                 <div class='newpost_container_div6_subdiv1'>
-                                    <img src='".$row['image_path']."' alt='Post Image'/>
+                                    <img src='../../".$row['image_path']."' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Post_Image'>Edit Image: </label>
@@ -126,7 +126,7 @@
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
                                 <div class='newpost_container_div6_subdiv1'>
-                                    <img src='".$row['image_path']."' alt='Post Image'/>
+                                    <img src='../../".$row['image_path']."' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Post_Image'>Edit Image: </label>
@@ -192,7 +192,7 @@
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
                                 <div class='newpost_container_div6_subdiv1'>
-                                    <img src='".$row['image_path']."' alt='Post Image'/>
+                                    <img src='../../".$row['image_path']."' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Post_Image'>Edit Image: </label>
@@ -258,7 +258,7 @@
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
                                 <div class='newpost_container_div6_subdiv1'>
-                                    <img src='".$row['image_path']."' alt='Post Image'/>
+                                    <img src='../../".$row['image_path']."' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Post_Image'>Edit Image: </label>
@@ -324,7 +324,7 @@
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
                                 <div class='newpost_container_div6_subdiv1'>
-                                    <img src='".$row['image_path']."' alt='Post Image'/>
+                                    <img src='../../".$row['image_path']."' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Post_Image'>Edit Image: </label>
@@ -390,7 +390,7 @@
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
                                 <div class='newpost_container_div6_subdiv1'>
-                                    <img src='".$row['image_path']."' alt='Post Image'/>
+                                    <img src='../../".$row['image_path']."' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Post_Image'>Edit Image: </label>

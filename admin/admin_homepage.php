@@ -20,7 +20,6 @@ require ("connect.php");
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="admin.css"/>
-    <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
@@ -119,44 +118,44 @@ require ("connect.php");
     <?php require("extras/header.php");?>
     <section class="body">
         <div class="sidebar">
-            <div class="links_group">
-                <div class="dashboard active sidebarbtn tab">
+            <div class="links_group" id="links">
+                <div class="active sidebarbtn" id="tab">
                     <i class="fa fa-tachometer" aria-hidden="true"></i>
                     <p class="paragraph">
                         Dashboard
                     </p>
                 </div>
-                <div class="sidebar_profile border-gradient-side sidebarbtn tab">
+                <div class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <p class="paragraph">
                         Profile
                     </p>
                 </div>
-                <div class="sidebar_users border-gradient-side sidebarbtn tab">
+                <div class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <p class="paragraph">
                         Users
                     </p>
                 </div>
-                <div class="sidebar_posts border-gradient-side sidebarbtn tab">
+                <div class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-newspaper" aria-hidden="true"></i>
                     <p class="paragraph">
                         Posts
                     </p>
                 </div>
-                <div class="sidebar_pages border-gradient-side sidebarbtn tab">
+                <div class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-sticky-note" aria-hidden="true"></i>
                     <p class="paragraph">
                         Pages
                     </p>
                 </div>
-                <div class="sidebar_settings border-gradient-side sidebarbtn tab">
+                <div class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     <p class="paragraph">
                         Settings
                     </p>
                 </div>
-                <div class="Contact Developer border-gradient-side sidebarbtn tab">
+                <div class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-phone" aria-hidden="true"></i>
                     <p class="paragraph">
                         Contact Developer
@@ -172,7 +171,7 @@ require ("connect.php");
             </p>
         </div>
         <div class="aside_sidebar">
-            <div class="website_info_div active2 tab_content" id="tab1">
+            <div class="website_info_div tab_content active2" id="tab1">
                 <h1 class="aside_sidebar_header">Welcome Back, <?php echo $_SESSION['username']?> </h1>
                 <div class="webinfo_container">
                     <?php
@@ -1022,7 +1021,6 @@ require ("connect.php");
                 </div>    
             </div>
         </div>  
-        <script src="admin.js"></script> 
         <script>
             <?php
                 $condition_value1 = 'Tablet';
@@ -1085,7 +1083,8 @@ require ("connect.php");
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script type="text/javascript" src="otherJSFiles/custom.js"></script>  
+        <script type="text/javascript" src="otherJSFiles/custom.js"></script>
     </section>
+    <script src="admin.js"></script> 
 </body>
 </html>

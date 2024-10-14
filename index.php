@@ -311,25 +311,6 @@ if (isset($_POST['accept_cookies'])) {
         </section>
         <?php include("includes/footer.php");?>
         <script src="index.js"></script>
-        <script>
-            $(document).ready(function(){
-                $('#search').on('input', function(){
-                    var query = $(this).val();
-                    if(query != ''){
-                        $.ajax({
-                            url: "forms.php",
-                            method: "POST",
-                            data: {query: query},
-                            success: function(data){
-                                $('#result').html(data);
-                            }
-                        });
-                    } else {
-                        $('#result').html('');
-                    }
-                });
-            });
-        </script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script>
             function submitPost() {

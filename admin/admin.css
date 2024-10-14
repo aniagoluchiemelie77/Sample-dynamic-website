@@ -410,9 +410,6 @@ a, td,span, p, label{
     background-color: var(--color10);
     color: var(--color60);
 }
-.active2{
-    display: flex;
-}
 .aside_sidebar{
     margin-left: var(--sidebar-width);
     position: relative;
@@ -420,6 +417,9 @@ a, td,span, p, label{
     background-color: var(--color60-shade);
     min-height: 100%;
     overflow-y: scroll;
+}
+.aside_sidebar .active2{
+    display: flex;
 }
 .aside_sidebar2{
     position: relative;

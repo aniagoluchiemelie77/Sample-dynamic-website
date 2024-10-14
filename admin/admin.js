@@ -1,11 +1,12 @@
 'use strict';
-const sideBtns = document.querySelectorAll('.sidebarbtn');
-const tabContent = document.querySelectorAll('.tab_content');
-const logoutBtn = document.getElementById('open-popup-btn');
-const logoutDiv = document.getElementById('logout_alert');
-const exitLogoutDiv = document.getElementById('dismiss-popup-btn');
+console.log("JavaScript file is connected properly.");
 
-  sideBtns.forEach((tab, index) => {
+/*
+logoutBtn.addEventListener('click', () => {
+                logoutDiv.classList.remove('hidden');
+                logoutDiv.style.display = 'flex';
+            })
+sideBtns.forEach((tab, index) => {
     tab.addEventListener('click', (e) => {
       sideBtns.forEach((tab) => {
         tab.classList.remove('active');
@@ -19,11 +20,6 @@ const exitLogoutDiv = document.getElementById('dismiss-popup-btn');
       tabContent[index].classList.remove('hidden');
     })
   })
-            logoutBtn.addEventListener('click', () => {
-                logoutDiv.classList.remove('hidden');
-                logoutDiv.style.display = 'flex';
-            })
-/*
 const editBtn = document.querySelector('.profile_edit_btn');
 const header = document.querySelector('.body');
 const body = document.querySelector('.header');

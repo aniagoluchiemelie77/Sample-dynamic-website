@@ -98,6 +98,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                 if (strlen($bio) > $max_length) {
                                     $bio = substr($bio, 0, $max_length) . '...';
                                 }
+                                
                                 echo "<h1 class='Post_header'>".$title."</h1>
                                         <h2>".$subtitle."</h2>
                                         <div class='authors_div'>
@@ -109,12 +110,14 @@ $url = "http://localhost/Sample-dynamic-website";
                                                 <i class='fa fa-clock' aria-hidden='true'></i>
                                                 <p>$read_count</p>
                                             </div>
-                                        </div>
-                                        <video width='70%' controls>
+                                        </div>";
+                                if (!empty($link)) {
+                                    echo" <video width='70%' controls>
                                             <source src='".$link."' type='video/mp4'>
                                             Your browser does not support the video tag.
-                                        </video>
-                                        <div class='post_image_div'>
+                                        </video>";
+                                }       
+                                echo"<div class='post_image_div'>
                                             <img src='../".$image."' alt='Post Image'/>
                                             <span>Source: Getty Images</span>
                                         </div>
@@ -269,59 +272,61 @@ $url = "http://localhost/Sample-dynamic-website";
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
                         echo "<h1 class='Post_header'>".$title."</h1>
-                                        <h2>".$subtitle."</h2>
-                                        <div class='authors_div'>
-                                            <div class='authors_div_imgbox'>
-                                                <img src='../$author_image' alt='Author's Image'/>
-                                                <p><span class='span1'>$author_firstname $author_lastname, $role.</span><span class='span3'>$date</span><span class='span3'>$formatted_time</span></p>
-                                            </div>
-                                            <div class='authors_div_otherdiv'>
-                                                <i class='fa fa-clock' aria-hidden='true'></i>
-                                                <p>$read_count</p>
-                                            </div>
-                                        </div>
-                                        <video width='70%' controls>
-                                            <source src='".$link."' type='video/mp4'>
-                                            Your browser does not support the video tag.
-                                        </video>
-                                        <div class='post_image_div'>
-                                            <img src='../".$image."' alt='Post Image'/>
-                                            <span>Source: Getty Images</span>
-                                        </div>
-                                        <div class='socialmedia_links'>
-                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
-                                        </div>
-                                        <p>".$content."</p>
-                                        <div class='socialmedia_links'>
-                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
-                                        </div>
-                                        <h3 class='bodyleft_header3'>About the Author</h3>
-                                        <center>
-                                            <a href='../authors/author.php?id=$id_admin$id_editor&idtype=$id_type' class='aboutauthor_div'>
-                                                <div class='aboutauthor_div_subdiv1'>
-                                                    <img src='../$author_image' alt ='Author's Image'/>
-                                                </div>
-                                                <div class='aboutauthor_div_subdiv2'>
-                                                    <p class='p--bold'>$author_firstname $author_lastname, $role.</p>
-                                                    <p>$author_bio </p>
-                                                </div>
-                                            </a>
-                                            <div class = 'subscribe_div'>
-                                                <p>Keep up with the latest cybersecurity threats, newly discovered vulnerabilities, data breach information, and emerging trends. Delivered daily or weekly right to your email inbox.</p>
-                                                <a class ='mainheader__signupbtn'>Subscribe</a>
-                                            </div>
-                                        </center>
-                                    ";
+                                <h2>".$subtitle."</h2>
+                                <div class='authors_div'>
+                                    <div class='authors_div_imgbox'>
+                                        <img src='../$author_image' alt='Author's Image'/>
+                                        <p><span class='span1'>$author_firstname $author_lastname, $role.</span><span class='span3'>$date</span><span class='span3'>$formatted_time</span></p>
+                                    </div>
+                                    <div class='authors_div_otherdiv'>
+                                        <i class='fa fa-clock' aria-hidden='true'></i>
+                                        <p>$read_count</p>
+                                    </div>
+                                </div>";
+                        if (!empty($link)) {
+                            echo" <video width='70%' controls>
+                                    <source src='".$link."' type='video/mp4'>
+                                    Your browser does not support the video tag.
+                                </video>";
+                        } 
+                        echo"<div class='post_image_div'>
+                                <img src='../".$image."' alt='Post Image'/>
+                                <span>Source: Getty Images</span>
+                            </div>
+                            <div class='socialmedia_links'>
+                                <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                            </div>
+                            <p>".$content."</p>
+                            <div class='socialmedia_links'>
+                                <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                            </div>
+                            <h3 class='bodyleft_header3'>About the Author</h3>
+                            <center>
+                                <a href='../authors/author.php?id=$id_admin$id_editor&idtype=$id_type' class='aboutauthor_div'>
+                                    <div class='aboutauthor_div_subdiv1'>
+                                        <img src='../$author_image' alt ='Author's Image'/>
+                                    </div>
+                                    <div class='aboutauthor_div_subdiv2'>
+                                        <p class='p--bold'>$author_firstname $author_lastname, $role.</p>
+                                        <p>$author_bio </p>
+                                    </div>
+                                </a>
+                                <div class = 'subscribe_div'>
+                                    <p>Keep up with the latest cybersecurity threats, newly discovered vulnerabilities, data breach information, and emerging trends. Delivered daily or weekly right to your email inbox.</p>
+                                    <a class ='mainheader__signupbtn'>Subscribe</a>
+                                </div>
+                            </center>
+                        ";
                     }
                     $otherposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts WHERE id != '$post_id2' ORDER BY date DESC LIMIT 8";
                     $otherposts_result = $conn->query($otherposts_sql);
@@ -461,10 +466,14 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <p>$read_count</p>
                                         </div>
                                     </div>
-                                    <video width='70%' controls>
+                            ";
+                            if (!empty($link)) {
+                                echo" <video width='70%' controls>
                                         <source src='".$link."' type='video/mp4'>
                                         Your browser does not support the video tag.
-                                    </video>
+                                    </video>";
+                            } 
+                            echo"
                                     <div class='post_image_div'>
                                         <img src='../".$image."' alt='Post Image'/>
                                         <span>Source: Getty Images</span>
@@ -642,10 +651,14 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <p>$read_count</p>
                                     </div>
                                 </div>
-                                <video width='70%' controls>
+                            ";
+                        if (!empty($link)) {
+                            echo" <video width='70%' controls>
                                     <source src='".$link."' type='video/mp4'>
                                     Your browser does not support the video tag.
-                                </video>
+                                </video>";
+                        } 
+                        echo"
                                 <div class='post_image_div'>
                                     <img src='../".$image."' alt='Post Image'/>
                                     <span>Source: Getty Images</span>
@@ -816,59 +829,62 @@ $url = "http://localhost/Sample-dynamic-website";
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
                         echo "<h1 class='Post_header'>".$title."</h1>
-                                    <h2>".$subtitle."</h2>
-                                        <div class='authors_div'>
-                                            <div class='authors_div_imgbox'>
-                                                <img src='../$author_image' alt='Author's Image'/>
-                                                <p><span class='span1'>$author_firstname $author_lastname, $role.</span><span class='span3'>$date</span><span class='span3'>$formatted_time</span></p>
-                                            </div>
-                                            <div class='authors_div_otherdiv'>
-                                                <i class='fa fa-clock' aria-hidden='true'></i>
-                                                <p>$read_count</p>
-                                            </div>
+                                <h2>".$subtitle."</h2>
+                                <div class='authors_div'>
+                                    <div class='authors_div_imgbox'>
+                                        <img src='../$author_image' alt='Author's Image'/>
+                                        <p><span class='span1'>$author_firstname $author_lastname, $role.</span><span class='span3'>$date</span><span class='span3'>$formatted_time</span></p>
+                                    </div>
+                                    <div class='authors_div_otherdiv'>
+                                        <i class='fa fa-clock' aria-hidden='true'></i>
+                                        <p>$read_count</p>
+                                    </div>
+                                </div>
+                            ";
+                            if (!empty($link)) {
+                                echo" <video width='70%' controls>
+                                        <source src='".$link."' type='video/mp4'>
+                                        Your browser does not support the video tag.
+                                    </video>";
+                            } 
+                            echo"<div class='post_image_div'>
+                                    <img src='../".$image."' alt='Post Image'/>
+                                    <span>Source: Getty Images</span>
+                                </div>
+                                <div class='socialmedia_links'>
+                                    <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                </div>
+                                <p>".$content."</p>
+                                <div class='socialmedia_links'>
+                                    <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                </div>
+                                <h3 class='bodyleft_header3'>About the Author</h3>
+                                <center>
+                                    <a href='../authors/author.php?id=$id_admin$id_editor$id_writer&idtype=$id_type' class='aboutauthor_div'>
+                                        <div class='aboutauthor_div_subdiv1'>
+                                            <img src='../$author_image' alt ='Author's Image'/>
                                         </div>
-                                        <video width='70%' controls>
-                                            <source src='".$link."' type='video/mp4'>
-                                            Your browser does not support the video tag.
-                                        </video>
-                                        <div class='post_image_div'>
-                                            <img src='../".$image."' alt='Post Image'/>
-                                            <span>Source: Getty Images</span>
+                                        <div class='aboutauthor_div_subdiv2'>
+                                            <p class='p--bold'>$author_firstname $author_lastname, $role.</p>
+                                            <p>$author_bio </p>
                                         </div>
-                                        <div class='socialmedia_links'>
-                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
-                                        </div>
-                                        <p>".$content."</p>
-                                        <div class='socialmedia_links'>
-                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
-                                        </div>
-                                        <h3 class='bodyleft_header3'>About the Author</h3>
-                                        <center>
-                                            <a href='../authors/author.php?id=$id_admin$id_editor$id_writer&idtype=$id_type' class='aboutauthor_div'>
-                                                <div class='aboutauthor_div_subdiv1'>
-                                                    <img src='../$author_image' alt ='Author's Image'/>
-                                                </div>
-                                                <div class='aboutauthor_div_subdiv2'>
-                                                    <p class='p--bold'>$author_firstname $author_lastname, $role.</p>
-                                                    <p>$author_bio </p>
-                                                </div>
-                                            </a>
-                                            <div class = 'subscribe_div'>
-                                                <p>Keep up with the latest cybersecurity threats, newly discovered vulnerabilities, data breach information, and emerging trends. Delivered daily or weekly right to your email inbox.</p>
-                                                <a class ='mainheader__signupbtn'>Subscribe</a>
-                                            </div>
-                                        </center>
-                                    ";
+                                    </a>
+                                    <div class = 'subscribe_div'>
+                                        <p>Keep up with the latest cybersecurity threats, newly discovered vulnerabilities, data breach information, and emerging trends. Delivered daily or weekly right to your email inbox.</p>
+                                        <a class ='mainheader__signupbtn'>Subscribe</a>
+                                    </div>
+                                </center>
+                            ";
                     }
                     $otherposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases WHERE id != '$post_id5' ORDER BY date DESC LIMIT 8";
                     $otherposts_result = $conn->query($otherposts_sql);

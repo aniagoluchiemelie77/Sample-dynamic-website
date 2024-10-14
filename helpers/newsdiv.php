@@ -10,6 +10,11 @@
                     return $minutes  . ' mins read ';
                 }
             }
+            echo"<div class='sidebar_divs_container'>
+                    <div class='section2__div1__header headers'>
+                        <h1>Latest News</h1>
+                    </div>
+                ";
             while($row = $selectnews_result->fetch_assoc()) {
                 $max_length = 150;
                 $id = $row["id"];
@@ -21,11 +26,7 @@
                     $title = substr($title, 0, $max_length) . '...';
                 }
                 $readingTime = calculateReadingTime($row['content']);
-                echo "<div class='sidebar_divs_container'>
-                        <div class='section2__div1__header headers'>
-                            <h1>Latest News</h1>
-                        </div>
-                        <a class='posts_div' href='pages/view_post.php?id3='$id''>
+                echo "<a class='posts_div' href='pages/view_post.php?id3='$id''>
                             <img src='$image' alt='Post Image'/>
                             <p class='posts_div_niche'>$niche</p>
                             <h1>$title</h1>
@@ -35,9 +36,9 @@
                                 <p>$readingTime</p>
                             </div>
                         </a>
-                        <a href='pages/news.php' class='mainheader__signupbtn'>See More News</a>
-                    </div>
                 ";
             }
+            echo "<a href='pages/news.php' class='mainheader__signupbtn'>See More News</a>
+            </div>";
         }
     ?>

@@ -15,19 +15,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie"/>
     <link rel="stylesheet" href="../index.css"/>
-	<title>Press Releases</title>
+	<title>Commentaries</title>
     </head>
     <body id="container">
         <?php require("../includes/header2.php");?>
         <div class="body_container">
             <div class="body_left">
                 <div class="page_links">
-                    <a href="../">Home</a> > <p>Press Releases</p>
+                    <a href="../">Home</a> > <p>Commentaries</p>
                 </div>
-                <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest Press Releases</h1>
+                <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest Commentaries</h1>
                 <div class='more_posts'>;
                 <?php
-                    $selectnewsposts_sql = "SELECT id, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases ORDER BY id DESC LIMIT 12";
+                    $selectnewsposts_sql = "SELECT id, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM commentaries ORDER BY id DESC LIMIT 12";
                     $selectnewsposts_result = $conn->query($selectnewsposts_sql);
                     if ($selectnewsposts_result->num_rows > 0) {
                         $i = 0;
@@ -54,8 +54,8 @@
                                     return $minutes  . ' mins read ';
                                 }
                             }
-                            echo "<a class='more_posts_subdiv' href='view_post.php?id5=$id'>
-                                    <img src='../images\Pressreleasesimg.png' alt = 'Post's Image'/>
+                            echo "<a class='more_posts_subdiv' href='view_post.php?id4=$id'>
+                                    <img src='../$image' alt = 'Post's Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$date</span>

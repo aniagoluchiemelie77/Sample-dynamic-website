@@ -10,6 +10,13 @@
                     return $minutes  . ' mins read ';
                 }
             }
+            echo "<div class='section3__div1 border-gradient-bottom--lightdark'>
+                        <h1>Press Releases</h1>
+                        <a href='pages/pressreleases.php' class='section2__div2__link mainheader__signupbtn'>View All</a>
+                    </div>
+                    <div class='section3__div2'>
+            ";
+
             while($row = $selectpressreleases_result->fetch_assoc()) {
                 $max_length = 60;
                 $id = $row["id"];
@@ -21,12 +28,7 @@
                     $title = substr($title, 0, $max_length) . '...';
                 }
                 $readingTime = calculateReadingTime($row['content']);
-                echo "<div class='section3__div1 border-gradient-bottom--lightdark'>
-                        <h1>Press Releases</h1>
-                        <a href='pages/pressreleases.php' class='section2__div2__link mainheader__signupbtn'>View All</a>
-                    </div>
-                    <div class='section3__div2'>
-                        <a class='section3__div2__article1' href='pages/view_post.php?id5=$id'>
+                echo "<a class='section3__div2__article1' href='pages/view_post.php?id5=$id'>
                             <img src='images\Pressreleasesimg.png' alt='article image'>
                             <div class='section3__subdiv'>
                                 <h1 class='section3__subdiv-h1'>$niche</h1>
@@ -37,8 +39,8 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
                 ";
             }
+            echo"</div></div>";
         }
     ?>

@@ -119,12 +119,12 @@ $url = "http://localhost/Sample-dynamic-website";
                                             <span>Source: Getty Images</span>
                                         </div>
                                         <div class='socialmedia_links'>
-                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                            <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")'target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a onclick='window.print() return false;'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
                                         <p>".$content."</p>
                                         <div class='socialmedia_links'>

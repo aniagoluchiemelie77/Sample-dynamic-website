@@ -53,23 +53,44 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                                 <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
                                 <div class='more_posts'>";
                 } 
-                function checkAuthorPosts($id, $conn) {
-                    $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
-                    $authorPosts = [];
-                    foreach ($tables as $table) {
-                        $sql = "SELECT * FROM $table WHERE admin_id = ?";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("s", $id);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        if ($result->num_rows > 0) {
-                            $authorPosts[$table] = $result->fetch_all(MYSQLI_ASSOC);
+                $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                $results = [];
+                foreach ($tables as $table) {
+                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("s", $id);
+                    $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+                    $stmt->execute();
+                    while ($stmt->fetch()) {
+                        $posttype = 0;
+                        if ($table == 'paid_posts') {
+                            $posttype = 1;
+                        } 
+                        elseif ($table == 'posts') {
+                            $posttype = 2;
+                        } 
+                        elseif ($table == 'commentaries') {
+                            $posttype = 4;
+                        } 
+                        elseif ($table == 'news') {
+                            $posttype = 3;
                         }
+                        elseif ($table == 'press_releases') {
+                            $posttype = 5;
+                        }
+                        $results[] = [
+                            'id' => $id,
+                            'title' => $title,
+                            'niche' => $niche,
+                            'content' => $content,
+                            'image_path' => $image,
+                            'Date' => $date,
+                            'table' => $table,
+                            'posttype' => $posttype
+                        ];
                     }
-                    return $authorPosts;
                 }
-                $authorPosts = checkAuthorPosts($id, $conn);
-                if (!empty($authorPosts)) {
+                foreach ($results as $result) {
                     if (!function_exists('getOrdinalSuffix')) {
                         function getOrdinalSuffix($day) {
                             if (!in_array(($day % 100), [11, 12, 13])) {
@@ -89,51 +110,32 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                             return $minutes  . ' mins read ';
                         }
                     }
-                    foreach ($authorPosts as $table => $posts) {
-                        $posttype = ""; 
-                        if ($table = "paid_posts"){
-                            $posttype = 1;        
-                        }
-                        else if ($table = "posts"){
-                            $posttype = 2;
-                        }
-                        else if ($table = "commentaries"){
-                            $posttype = 4;
-                        }
-                        else if ($table= "news"){
-                            $posttype = 3;
-                        }
-                        else if ($table = "press_releases"){
-                            $posttype = 5;
-                        }
-                        foreach ($posts as $post) {
-                            $title = $post["title"];
-                            $max_length = 60;
-                            $date = $post["Date"];
-                            if (strlen($title) > $max_length) {
-                                $title = substr($title, 0, $max_length) . '...';
-                            }
-                            $dateTime = new DateTime($date);
-                            $day = $dateTime->format('j');
-                            $month = $dateTime->format('M');
-                            $year = $dateTime->format('Y');
-                            $ordinalSuffix = getOrdinalSuffix($day);
-                            $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
-                            $readingTime = calculateReadingTime($post['content']);
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id$posttype=".$post['id']."'>";
-                            echo"<img src='../".$post['image_path']."' alt = 'Post's Image'/>
+                    $max_length = 60;
+                    $id = $result['id'];
+                    $title = $result["title"];
+                    $date = $result["Date"];
+                    if (strlen($title) > $max_length) {
+                        $title = substr($title, 0, $max_length) . '...';
+                    }
+                    $dateTime = new DateTime($date);
+                    $day = $dateTime->format('j');
+                    $month = $dateTime->format('M');
+                    $year = $dateTime->format('Y');
+                    $ordinalSuffix = getOrdinalSuffix($day);
+                    $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                    $readingTime = calculateReadingTime($result['content']);
+                    echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id".$result['posttype']."=$id'>
+                            <img src='../".$result['image_path']."' alt = 'Post's Image'/>
                             <div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
                                 <span>$formattedDate</span>
                                 <span>$readingTime</span>
                             </div>
-                            <p class='posts_div_niche'>". $post['niche']."</p>
-                        </a>";
-                        }  
-                    }
-                } else {
-                    echo "No posts found for author $firstname $lastname.";
+                            <p class='posts_div_niche'>". $result['niche']."</p>
+                        </a>
+                    ";
                 }
+                
                 echo"</div></div>";
             }
             if($idtype == "Editor"){
@@ -152,29 +154,50 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                                 <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
                                 <p>$author_bio</p>
                             </div>
-                        </section>
-                        <div class='body_container'>
-                            <div class='body_left'>    
-                                <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
-                                <div class='more_posts'>";
+                            </section>
+                           <div class='body_container'>
+                                <div class='body_left'>    
+                                    <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
+                                    <div class='more_posts'>";
                 } 
-                function checkAuthorPosts($id, $conn) {
-                    $tables = [ 'posts', 'commentaries', 'news', 'press_releases'];
-                    $authorPosts = [];
-                    foreach ($tables as $table) {
-                        $sql = "SELECT * FROM $table WHERE editor_id = ?";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("s", $id);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        if ($result->num_rows > 0) {
-                            $authorPosts[$table] = $result->fetch_all(MYSQLI_ASSOC);
+                $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                $results = [];
+                foreach ($tables as $table) {
+                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("s", $id);
+                    $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+                    $stmt->execute();
+                    while ($stmt->fetch()) {
+                        $posttype = 0;
+                        if ($table == 'paid_posts') {
+                            $posttype = 1;
+                        } 
+                        elseif ($table == 'posts') {
+                            $posttype = 2;
+                        } 
+                        elseif ($table == 'commentaries') {
+                            $posttype = 4;
+                        } 
+                        elseif ($table == 'news') {
+                            $posttype = 3;
                         }
+                        elseif ($table == 'press_releases') {
+                            $posttype = 5;
+                        }
+                        $results[] = [
+                            'id' => $id,
+                            'title' => $title,
+                            'niche' => $niche,
+                            'content' => $content,
+                            'image_path' => $image,
+                            'Date' => $date,
+                            'table' => $table,
+                            'posttype' => $posttype
+                        ];
                     }
-                    return $authorPosts;
                 }
-                $authorPosts = checkAuthorPosts($id, $conn);
-                if (!empty($authorPosts)) {
+                foreach ($results as $result) {
                     if (!function_exists('getOrdinalSuffix')) {
                         function getOrdinalSuffix($day) {
                             if (!in_array(($day % 100), [11, 12, 13])) {
@@ -187,46 +210,39 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                             return 'th';
                         }
                     }
-                    foreach ($authorPosts as $table => $posts) {
-                        $posttype = ""; 
-                        if ($table = "posts"){
-                            $posttype = 2;        
+                    if (!function_exists('calculateReadingTime')) {
+                        function calculateReadingTime($content) {
+                            $wordCount = str_word_count(strip_tags($content));
+                            $minutes = floor($wordCount / 200);
+                            return $minutes  . ' mins read ';
                         }
-                        else if ($table = "commentaries"){
-                            $posttype = 4;
-                        }
-                        else if ($table= "news"){
-                            $posttype = 3;
-                        }
-                        else if ($table = "press_releases"){
-                            $posttype = 5;
-                        }
-                        foreach ($posts as $post) {
-                            $title = $post["title"];
-                            $max_length = 60;
-                            $date = $post["Date"];
-                            if (strlen($title) > $max_length) {
-                                $title = substr($title, 0, $max_length) . '...';
-                            }
-                            $dateTime = new DateTime($date);
-                            $day = $dateTime->format('j');
-                            $month = $dateTime->format('M');
-                            $year = $dateTime->format('Y');
-                            $ordinalSuffix = getOrdinalSuffix($day);
-                            $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id$posttype=".$post['id']."'>";
-                            echo"<img src='../".$post['image_path']."' alt = 'Post's Image'/>
+                    }
+                    $max_length = 60;
+                    $id = $result['id'];
+                    $title = $result["title"];
+                    $date = $result["Date"];
+                    if (strlen($title) > $max_length) {
+                        $title = substr($title, 0, $max_length) . '...';
+                    }
+                    $dateTime = new DateTime($date);
+                    $day = $dateTime->format('j');
+                    $month = $dateTime->format('M');
+                    $year = $dateTime->format('Y');
+                    $ordinalSuffix = getOrdinalSuffix($day);
+                    $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                    $readingTime = calculateReadingTime($result['content']);
+                    echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id".$result['posttype']."=$id'>
+                            <img src='../".$result['image_path']."' alt = 'Post's Image'/>
                             <div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
                                 <span>$formattedDate</span>
+                                <span>$readingTime</span>
                             </div>
-                            <p class='posts_div_niche'>". $post['niche']."</p>
-                        </a>";
-                        }  
-                    }
-                } else {
-                    echo "No posts found for author $firstname $lastname.";
+                            <p class='posts_div_niche'>". $result['niche']."</p>
+                        </a>
+                    ";
                 }
+                
                 echo"</div></div>";
             }
             if($idtype == "Writer"){
@@ -251,23 +267,44 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                                 <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
                                 <div class='more_posts'>";
                 } 
-                function checkAuthorPosts($author_fname, $conn) {
-                    $tables = [ 'posts', 'commentaries', 'news', 'press_releases'];
-                    $authorPosts = [];
-                    foreach ($tables as $table) {
-                        $sql = "SELECT * FROM $table WHERE authors_firstname = ?";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("s", $author_fname);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        if ($result->num_rows > 0) {
-                            $authorPosts[$table] = $result->fetch_all(MYSQLI_ASSOC);
+                $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                $results = [];
+                foreach ($tables as $table) {
+                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("s", $id);
+                    $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+                    $stmt->execute();
+                    while ($stmt->fetch()) {
+                        $posttype = 0;
+                        if ($table == 'paid_posts') {
+                            $posttype = 1;
+                        } 
+                        elseif ($table == 'posts') {
+                            $posttype = 2;
+                        } 
+                        elseif ($table == 'commentaries') {
+                            $posttype = 4;
+                        } 
+                        elseif ($table == 'news') {
+                            $posttype = 3;
                         }
+                        elseif ($table == 'press_releases') {
+                            $posttype = 5;
+                        }
+                        $results[] = [
+                            'id' => $id,
+                            'title' => $title,
+                            'niche' => $niche,
+                            'content' => $content,
+                            'image_path' => $image,
+                            'Date' => $date,
+                            'table' => $table,
+                            'posttype' => $posttype
+                        ];
                     }
-                    return $authorPosts;
                 }
-                $authorPosts = checkAuthorPosts($id, $conn);
-                if (!empty($authorPosts)) {
+                foreach ($results as $result) {
                     if (!function_exists('getOrdinalSuffix')) {
                         function getOrdinalSuffix($day) {
                             if (!in_array(($day % 100), [11, 12, 13])) {
@@ -280,111 +317,105 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                             return 'th';
                         }
                     }
-                    foreach ($authorPosts as $table => $posts) {
-                        $posttype = ""; 
-                        if ($table = "posts"){
-                            $posttype = 2;        
+                    if (!function_exists('calculateReadingTime')) {
+                        function calculateReadingTime($content) {
+                            $wordCount = str_word_count(strip_tags($content));
+                            $minutes = floor($wordCount / 200);
+                            return $minutes  . ' mins read ';
                         }
-                        else if ($table = "commentaries"){
-                            $posttype = 4;
-                        }
-                        else if ($table= "news"){
-                            $posttype = 3;
-                        }
-                        else if ($table = "press_releases"){
-                            $posttype = 5;
-                        }
-                        foreach ($posts as $post) {
-                            $title = $post["title"];
-                            $max_length = 60;
-                            $date = $post["Date"];
-                            if (strlen($title) > $max_length) {
-                                $title = substr($title, 0, $max_length) . '...';
-                            }
-                            $dateTime = new DateTime($date);
-                            $day = $dateTime->format('j');
-                            $month = $dateTime->format('M');
-                            $year = $dateTime->format('Y');
-                            $ordinalSuffix = getOrdinalSuffix($day);
-                            $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id$posttype=".$post['id']."'>";
-                            echo"<img src='../".$post['image_path']."' alt = 'Post's Image'/>
+                    }
+                    $max_length = 60;
+                    $id = $result['id'];
+                    $title = $result["title"];
+                    $date = $result["Date"];
+                    if (strlen($title) > $max_length) {
+                        $title = substr($title, 0, $max_length) . '...';
+                    }
+                    $dateTime = new DateTime($date);
+                    $day = $dateTime->format('j');
+                    $month = $dateTime->format('M');
+                    $year = $dateTime->format('Y');
+                    $ordinalSuffix = getOrdinalSuffix($day);
+                    $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                    $readingTime = calculateReadingTime($result['content']);
+                    echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id".$result['posttype']."=$id'>
+                            <img src='../".$result['image_path']."' alt = 'Post's Image'/>
                             <div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
                                 <span>$formattedDate</span>
+                                <span>$readingTime</span>
                             </div>
-                            <p class='posts_div_niche'>". $post['niche']."</p>
-                        </a>";
-                        }  
-                    }
-                } else {
-                    echo "No posts found for author $author_firstname $author_lastname.";
+                            <p class='posts_div_niche'>". $result['niche']."</p>
+                        </a>
+                    ";
                 }
+                
                 echo"</div></div>";
             }
         ?>
-            <div class="body_right border-gradient-leftside--lightdark">
-                <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
-                <a class="posts_div" href="#">
-                    <img src="../images/chibs.jpg" alt="Post's Image"/>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                    <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
-                    <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                    <div class="posts_div_subdiv">
-                        <p>Aug 15th, 2024</p>
-                        <p>10mins Read.</p>
-                    </div>
-                </a>
-                <a class="posts_div" href="#">
-                    <img src="../images/chibs.jpg" alt="Post's Image"/>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                    <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
-                    <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                    <div class="posts_div_subdiv">
-                        <p>Aug 15th, 2024</p>
-                        <p>10mins Read.</p>
-                    </div>
-                </a>
-                <a class="posts_div" href="#">
-                    <img src="../images/chibs.jpg" alt="Post's Image"/>
-                    <p class="posts_div_niche">Cybersecurity</p>
-                    <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
-                    <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                    <div class="posts_div_subdiv">
-                        <p>Aug 15th, 2024</p>
-                        <p>10mins Read.</p>
-                    </div>
-                </a>
-                <?php
-                    $userEmail = " ";
-                    if(isset($_POST['submit_btn'])){
+        <div class="body_right border-gradient-leftside--lightdark">
+            <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
+            <a class="posts_div" href="#">
+                <img src="../images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <a class="posts_div" href="#">
+                <img src="../images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <a class="posts_div" href="#">
+                <img src="../images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <?php
+                $userEmail = " ";
+                if(isset($_POST['submit_btn'])){
                     $userEmail = $_POST['email'];
                     if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
-                    $subject = "Thank You For Subscribing With Us";
-                    $message = "Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information";
-                    $sender = "from:bahdmannatural@gmail.com";
-                    if(mail($userEmail, $subject, $message, $sender)){ 
-                        $msg = "Thanks For Subscribing With Us";
-                        ?><?php
-                        $userEmail = " ";
+                        $subject = "Thank You For Subscribing With Us";
+                        $message = "Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information";
+                        $sender = "from:bahdmannatural@gmail.com";
+                        if(mail($userEmail, $subject, $message, $sender)){ 
+                            $msg = "Thanks For Subscribing With Us";
+            ?><?php
+                            $userEmail = " ";
+                        }
+                        else{
+                            $msg = "Oops, Email Subscription Failed";
+            ?><?php
+                        }
                     }else{
-                        $msg = "Oops, Email Subscription Failed";
-                        ?><?php
+                        $msg = "Invalid Email";
                     }
-                    }else{
-                    $msg = "Invalid Email";
-                    }
-                    }
-                ?>
-                <form class="sec2__susbribe-box other_width" method="post" action="author.php">
+                }
+            ?>
+            <form class="sec2__susbribe-box other_width" method="post" action="author.php">
                 <div class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
                 <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
                 <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
                 <p class="error_div"><?php if(!empty($msg)){ echo $msg;}?></p>
                 <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required/>
                 <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn"/>
-                </form>
-            </div>
+            </form>
+        </div>
         </div>
     </center>
     <?php require("../includes/footer.php");?>

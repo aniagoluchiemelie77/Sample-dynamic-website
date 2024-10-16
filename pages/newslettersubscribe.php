@@ -1,6 +1,6 @@
 <?php
 session_start();
-//$id = $_GET["ID"];
+require('../connect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

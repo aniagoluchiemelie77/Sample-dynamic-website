@@ -99,6 +99,6 @@
         }
     }
     for ($page = 1; $page <= $total_pages; $page++) {
-        echo '<center><div class="pagination_div"><a href="cybersecurity.php?page=' . $page . '">' . $page . '</a></div> </center>';
+        echo '<center><div id="pagination_div"><a href="#?page=' . $page . '">' . $page . '</a></div> </center>';
     }
 ?>

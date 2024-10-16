@@ -12,10 +12,11 @@
             <div class="mainheader__logobox">
                 <img src="#" alt="companylogo">
             </div>
-            <a class="mainheader__signupbtn" href="../pages/newslettersubscribe.php">Newsletter Signup</a>
+            <a class="mainheader__signupbtn" href="pages/newslettersubscribe.php">Newsletter Signup</a>
         </div>
         <form class="header_searchbar hidden" id="search_form">
             <input type="text" name="search" id="search" placeholder="Search.." />
+            <button class="fa fa-search" aria-hidden="true" type="submit"></button>
         </form>
         <div class="header__dropdownlinks">
             <?php 

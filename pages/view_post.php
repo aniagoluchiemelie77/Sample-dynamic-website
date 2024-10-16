@@ -129,7 +129,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                             <a onclick='window.print() return false;'><i class='fa fa-print' aria-hidden='true'></i></a>
                                             <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
-                                        <p>".$content."</p>
+                                        <p class='content_body'>".$content."</p>
                                         <div class='socialmedia_links'>
                                             <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                             <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>

@@ -113,7 +113,7 @@
                 <?php include('../helpers/emailsubscribeform.php');?>
             </div>
         </div>
-        <section class="section2">
+        <section class="section2" id="section1">
             <div class="section2__div1">
                 <div class="search_div" id="result"></div>
                 <div class="section2__div1__header headers">

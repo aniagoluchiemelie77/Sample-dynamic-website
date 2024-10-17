@@ -30,50 +30,86 @@ $content = "";
             <h1>Categories</h1>
         </div>
         <div class="about_section_topicsdiv">
-            <div class="about_section_topicsdiv_subdiv">
-                <img src="../../images/image1.jpeg" alt="Topic's Image"/>
-                <div class="about_section_topicsdiv_subdiv_subdiv">
-                    <h1><span>Cybersecurity</span></h1>
-                    <p>Posts on this Category: <span>30</span>
-                    <p>Date created: <span>June 24th 2024</span></p>
-                    <a class="topics_actions">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="about_section_topicsdiv_subdiv">
-                <img src="../../images/AI_image.jpeg" alt="Topic's Image"/>
-                <div class="about_section_topicsdiv_subdiv_subdiv">
-                    <h1><span>Artificial Intelligence</span></h1>
-                    <p>Posts on this Category: <span>30</span>
-                    <p>Date created: <span>June 24th 2024</span></p>
-                    <a class="topics_actions">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="about_section_topicsdiv_subdiv">
-                <img src="../../images/dataanalytics.jpeg" alt="Topic's Image"/>
-                <div class="about_section_topicsdiv_subdiv_subdiv">
-                    <h1><span>Data Analytics</span></h1>
-                    <p>Posts on this Category: <span>30</span>
-                    <p>Date created: <span>June 24th 2024</span></p>
-                    <a class="topics_actions">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="about_section_topicsdiv_subdiv">
-                <img src="../../images/cloudcomputing2.jpeg" alt="Topic's Image"/>
-                <div class="about_section_topicsdiv_subdiv_subdiv">
-                    <h1><span>Cloud Computing</span></h1>
-                    <p>Posts on this Category: <span>30</span>
-                    <p>Date created: <span>June 24th 2024</span></p>
-                    <a class="topics_actions">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
+            <?php
+                $getcategories_sql = " SELECT name, image_path, Date, time FROM topics ORDER BY id";
+                $getcategories_result = $conn->query($getcategories_sql);
+                if ($getcategories_result->num_rows > 0) {
+                    if (!function_exists('convertToReadable')) {
+                        function convertToReadable($slug) {
+                            $string = str_replace('-', ' ', $slug);
+                            $string = ucwords($string);
+                            return $string;
+                        }
+                    }
+                    if (!function_exists('removeHyphen')) {
+                        function removeHyphen($string) {
+                            $string = str_replace(['-', ' '], '', $string);
+                            return $string;
+                        }
+                    }
+                    if (!function_exists('getOrdinalSuffix')) {
+                        function getOrdinalSuffix($day) {
+                            if (!in_array(($day % 100), [11, 12, 13])) {
+                                switch ($day % 10) {
+                                    case 1: return 'st';
+                                    case 2: return 'nd';
+                                    case 3: return 'rd';
+                                }
+                            }
+                            return 'th';
+                        }
+                    }
+                    while($row = $getcategories_result->fetch_assoc()){
+                        $time = $row['time'];
+                        $date = $row['Date'];
+                        $name = $row['name'];
+                        $img = $row['image_path'];
+                        $dateTime = new DateTime($date);
+                        $day = $dateTime->format('j');
+                        $month = $dateTime->format('M');
+                        $year = $dateTime->format('Y');
+                        $ordinalSuffix = getOrdinalSuffix($day);
+                        $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                        $formatted_time = date("g:i A", strtotime($time));
+                        $cleanString = removeHyphen($name);
+                        $readableString = convertToReadable($name);
+                        $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                        $results = [];
+                        $totalRows = "";
+                        foreach ($tables as $table) {
+                            $sql = "SELECT COUNT(*) as total1 FROM $table WHERE niche LIKE ?";
+                            $stmt = $conn->prepare($sql);
+                            $nicheq = $readableString;
+                            $searchTerm = "%" . $nicheq . "%";
+                            $stmt->bind_param("s", $searchTerm);
+                            $stmt->execute();
+                            $stmt->bind_result($total);
+                            while ($stmt->fetch()) {
+                                $results[] = [
+                                    'total1' => $total
+                                ];
+                            }
+                        }
+                        foreach ($results as $result) {
+                            $totalRows = $result["total1"];
+                            echo"<div class='about_section_topicsdiv_subdiv'>
+                                <img src='../../$img' alt='Topic Image'/>
+                                <div class='about_section_topicsdiv_subdiv_subdiv'>
+                                    <h1><span>$readableString</h1>
+                                    <p>Total Number of Posts for this Category: <span>$totalRows</span></p>
+                                    <p>Date created: <span>$formattedDate</span></p>
+                                    <p>Time: <span>$formatted_time</span></p>
+                                    <a class='topics_actions'>
+                                        <i class='fa fa-trash' aria-hidden='true'></i>
+                                    </a>
+                                </div>
+                                </div>
+                            ";
+                        }
+                        
+                            }
+                        }
+                    ?>
             <a class="about_section_topicsdiv_subdiv-action" id="add_category">
                 <div class="actions_subdiv">
                     <i class="fa fa-plus" aria-hidden="true"></i>

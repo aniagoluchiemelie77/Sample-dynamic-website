@@ -611,16 +611,18 @@ a, td,span, p, label{
     flex-direction: column;
     background-color: var(--color60);
 }
-.profile p, span{
+.profile p span{
     color: var(--color30-shade);
+    font-size: var(--pfontsize);
 }
 .profile figure{
     position: relative;
     width: fit-content;
 }
 .profile figure img{
-    height: 250px;
-    width: 200px;
+    height: 25rem;
+    width: 25rem;
+    object-fit: cover;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -676,6 +678,7 @@ a, td,span, p, label{
 }
 .profile_firstp span{
     font-weight: 700;
+    color: var(--color30-shade);
 }
 .profile_body .profile_body_subdiv_subdiv{
     width: 90%;
@@ -722,6 +725,14 @@ a, td,span, p, label{
 }
 .profile_body-activities div h1{
     font-size: var(--header-h5);
+}
+.profile_body-activities div .datetime_div{
+    display: flex;
+    flex-wrap: nowrap;
+    width: fit-content;
+}
+.profile_body-activities div .datetime_div .paragraph{
+    margin-right: 1rem;
 }
 .profile_body .profile_edit_btn{
     min-width: 90%;
@@ -972,7 +983,9 @@ a, td,span, p, label{
     flex-wrap: nowrap;
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv2 span{
-    font-weight: 780;
+    font-weight: var(--spanfontweight);
+    color: var(--color30-shade);
+    font-size: var(--pfontsize);
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv3{
     padding: var(--divpadding);
@@ -984,6 +997,8 @@ a, td,span, p, label{
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv3 span{
     font-weight: var(--spanfontweight);
+    color: var(--color30-shade);
+    font-size: var(--pfontsize);
  }
  .posts_divcontainer_subdiv4{
     display: flex;
@@ -1901,12 +1916,13 @@ input[type="datetime-local"] {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 1px solid #2222226c;
 }
 .about_section_topicsdiv .about_section_topicsdiv_subdiv:hover{
-    border: 1.5px solid var(--color10);
+    border: 1px solid var(--color10);
 }
 .about_section_topicsdiv .about_section_topicsdiv_subdiv img{
-    height: 65%;
+    height: 60%;
     width: 100%;
 }
 .about_section_topicsdiv_subdiv div{
@@ -2361,7 +2377,7 @@ input[type="datetime-local"] {
         padding: 1rem;
     }
 }
-@media only screen and (max-width:40rem){
+@media only screen and (max-width: 39rem){
     body{
         min-height: 100svh;
     }

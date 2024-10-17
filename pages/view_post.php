@@ -732,7 +732,15 @@ $url = "http://localhost/Sample-dynamic-website";
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
                                 </a>
-                                </div>";
+                                </div>
+                                <section class='section2' id='section1'>
+                                    <div class='section2__div1'>
+                                        <div class='section2__div1__header headers'>
+                                            <h1>For You</h1>
+                                        </div>
+                                        <?php include('../includes/pagination.php');?>
+                                    </div>
+                                </section>";
                         }
                     }
                 }

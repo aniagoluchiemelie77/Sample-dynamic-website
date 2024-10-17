@@ -526,9 +526,9 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="profile tab_content hidden" id="tab2">
+            <div class="profile tab_content" id="tab2">
                 <figure class="profile_imgbox">
-                    <img src="../images/Diamakaimg1.png" alt="Authors Profile Picture" class="profile_imgbox_img"/>
+                    <img src="../<?php echo $_SESSION['image'];?>" alt="Authors Profile Picture" class="profile_imgbox_img"/>
                     <a class="profile_imgbox_edit" id="profileuploads">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
@@ -606,31 +606,41 @@ require ("connect.php");
                 <div class="profile_body-activities">
                     <div class="profile_body-activities_subdiv">
                         <h1>Recent Activities</h1>
-                        <a class="btn">View All</a>
+                        <a class="btn" href="pages/useractivities.php">View All</a>
                     </div>
-                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
-                        <p>Created new admin</p>
-                        <p>10th July 2024</p>
-                    </div>
-                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
-                        <p>Created new admin</p>
-                        <p>10th July 2024</p>
-                    </div>
-                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
-                        <p>Created new admin</p>
-                        <p>10th July 2024</p>
-                    </div>
-                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
-                        <p>Created new admin</p>
-                        <p>10th July 2024</p>
-                    </div>
-                    <div class="profile_body-activities_subdiv border-gradient-side-dark">
-                        <p>Created new admin</p>
-                        <p>10th July 2024</p>
-                    </div>
+                    <?php
+                        $getuseractivities_sql = " SELECT content, Date, time FROM updates ORDER BY id DESC LIMIT 7";
+                        $getuseractivities_result = $conn->query($getuseractivities_sql);
+                        if ($getuseractivities_result->num_rows > 0) {
+                            while($row = $getuseractivities_result->fetch_assoc()){
+                                $time = $row['time'];
+                                $date = $row['Date'];
+                                $content = $row['content'];
+                                $max_length = 64;
+                                if (strlen($content) > $max_length) {
+                                    $content = substr($content, 0, $max_length) . '...';
+                                }
+                                $dateTime = new DateTime($date);
+                                $day = $dateTime->format('j');
+                                $month = $dateTime->format('M');
+                                $year = $dateTime->format('Y');
+                                $ordinalSuffix = getOrdinalSuffix($day);
+                                $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                                $formatted_time = date("g:i A", strtotime($time));
+                                echo "<div class='profile_body-activities_subdiv border-gradient-side-dark'>
+                                        <p>$content</p>
+                                        <div class='datetime_div'>
+                                            <p class='paragraph'>$formattedDate</p>
+                                            <p>$formatted_time</p>
+                                        </div>
+                                    </div>
+                                ";
+                            }
+                        }
+                    ?>
                 </div>
             </div>
-            <div class="users tab_content hidden" id="tab3">
+            <div class="users tab_content" id="tab3">
                 <div class="users_admin_div userdiv">
                     <div class="user_header">
                         <h2>Admin</h2>
@@ -786,14 +796,14 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="posts tab_content hidden" id="tab4">
+            <div class="posts tab_content" id="tab4">
                 <div class="posts_div2 postsdiv">
                     <div class="posts_header">
                         <h1> Paid Posts</h1>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <?php
-                            $selectposts3 = "SELECT id, title, image, time, schedule, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY id DESC";
+                            $selectposts3 = "SELECT id, title, time, schedule, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY id DESC";
                             $selectposts3_result = $conn->query($selectposts3);
                             if ($selectposts3_result->num_rows > 0) {
                                 $sn = 0;
@@ -923,7 +933,7 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="pages tab_content hidden" id="tab5">
+            <div class="pages tab_content" id="tab5">
                 <div class='pages_container'>
                     <h1>Pages</h1>
                     <div class="pages_container_subdiv">
@@ -963,7 +973,7 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="settings tab_content hidden" id="tab6">
+            <div class="settings tab_content" id="tab6">
                 <div class='pages_container'>
                     <h1>Settings</h1>
                     <div class="pages_container_subdiv">
@@ -980,7 +990,7 @@ require ("connect.php");
                     </div>
                 </div>
             </div>
-            <div class="developer_contact tab_content hidden" id="tab7">
+            <div class="developer_contact tab_content" id="tab7">
                 <div class="developer_contact_container">
                     <div class="developer_contact_header">
                         <h1>Contact Website Developer</h1>

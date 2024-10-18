@@ -29,6 +29,9 @@
     <?php require("../extras/header2.php");?>
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data" id="postForm">
+            <div class="page_links">
+                <a href="../admin_homepage.php">Home</a> > <p>Edit Post</p>
+            </div>
             <div class="newpost_container_div1 newpost_subdiv">
                 <h1>Edit Post</h1>
             </div>

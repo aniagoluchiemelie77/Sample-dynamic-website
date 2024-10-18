@@ -1,6 +1,8 @@
 <?php
 session_start();
 require ("../connect.php");
+include('../crudoperations.php');
+$content = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,32 +21,37 @@ require ("../connect.php");
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
-	<title>Customise Frontend</title>
+	<title>Create Category</title>
 </head>
 <body>
     <?php require("../extras/header2.php");?>
-    <section class="sectioneer">
-       <div class='pages_container'>
-            <div class="page_links">
-                <a href="../admin_homepage.php">Home</a> > <p>Settings</p> > <p>Customise Website</p>
+    <section class="about_section">
+        <div class="page_links">
+            <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <a href="../pages/categories.php">Categories</a> > <p> Create Category</p>
+        </div>
+        <form class="formcontainer">
+        <div class="head_paragraph">
+            <h3>Create Category</h3>
+        </div>
+        <div class="formcontainer_subdiv">
+            <div class="input_group">
+                <label for ="name">Category Name:</label>
+                <input type="text" name="name" required/>
             </div>
-            <h1>Actions</h1>
-            <div class="pages_container_subdiv">
-                <a class='pages_container_subdiv-links' href="pages/categories.php">
-                    <p>Change Website Color</p>
-                </a>
+            <div class="input_group categorygroup">
+                <label for ="desc">Short Description:</label>
+                <textarea class="newpost_container_div7_subdiv2" name="Post_content" id="myTextarea"></textarea>
             </div>
-            <div class="pages_container_subdiv">
-                <a class='pages_container_subdiv-links' href="pages/advertisewithus.php">
-                    <p>Edit Privacy Policy Messages</p>
-                </a>
-            </div>
-            <div class="pages_container_subdiv">
-                <a class='pages_container_subdiv-links' href="pages/privacypolicy.php">
-                    <p>Edit Website Features (logo, Image, Desc..)</p>
-                </a>
+            <div class="newpost_container_div6 newpost_subdiv">
+                <label class="form__label" for="Post_Image">Category Image:</label>
+                <div class="newpost_subdiv2">
+                    <input class="form__input" name="Post_Image" type="file" required/>
+                    <p class="newpost_subdiv2-p leftp"><span>*</span>Image should be less than 300KB</p>
+                </div>
             </div>
         </div>
+        <input class="formcontainer_submit" value="Go" type="submit"/>
+        </form>
     </section>
 </body>
 </html>

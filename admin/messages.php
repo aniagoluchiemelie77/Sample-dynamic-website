@@ -22,6 +22,9 @@ $usertype = " ";
 <body>
     <?php require("extras/header.php");?>
     <div class="users">
+        <div class="page_links">
+            <a href="admin_homepage.php">Home</a> > <p>Send Messages</p>
+        </div>
         <div class="users_editor_div userdiv">
             <div class="user_header">
                 <h2>Editors</h2>

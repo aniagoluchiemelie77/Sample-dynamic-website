@@ -929,6 +929,8 @@ a, td,span, p, label{
  }
  .postsdiv2 .subscribers_subdiv div p span{
     font-weight: var(--spanfontweight);
+    color: var(--color30-shade);
+    font-size: var(--pfontsize);
  }
  .postsdiv .posts_header h1{
     font-size: var(--header-h5);
@@ -946,6 +948,24 @@ a, td,span, p, label{
  .posts_divcontainer .posts_divcontainer_subdiv{
     padding: .5rem 1rem;
     border-bottom: 1px solid var(--color30)43;
+ }
+ .editor_div{
+    display: flex;
+    flex-wrap: nowrap;
+ }
+ .editor_div img{
+    width: 15%;
+    height: 15rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+    object-fit: cover;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+ .editor_div .editor_div-body{
+    width: calc(100% - (15% + 1rem));
  }
  .posts_divcontainer .posts_divcontainer_subdiv2{
     padding: .5rem 1rem;
@@ -1115,6 +1135,10 @@ a, td,span, p, label{
     font-size: var(--header-h7);
     margin-right: 1rem;
 }
+.developer_contact_subdiv span{
+    color: var(--color30-shade);
+    font-size: var(--header-h7);
+}
 .developer_contact_subdiv a{
     margin-right: 1rem;
 }
@@ -1232,6 +1256,7 @@ a, td,span, p, label{
 }
 .newpost_container_div6_subdiv1 img{
     width: 15rem;
+    object-fit: cover;
     height: 15rem;
 }
 .newpost_container .newpost_subdiv p{
@@ -1512,11 +1537,16 @@ a, td,span, p, label{
     border: none;
 }
 .newpost_container_div9 input{
-    width: 100%;
+    width: fit-content;
+    border-radius: 1rem;
     padding: 1rem;
     border: none;
     color: var(--color60);
     background-color: var(--color10);
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 .newpost_container_div9 input:hover{
     background-color: var(--color10-shade);
@@ -1671,6 +1701,13 @@ input[type="datetime-local"] {
     width: 90%;
     min-height: fit-content;
 }
+.create_editor_container .newpost_container_div6_subdiv2{
+    display: flex;
+    flex-direction: column;
+}
+.create_editor_container .newpost_container_div6_subdiv2 input{
+    border: none;
+}
 .create_editor_container div h1{
     color: var(--color30-shade);
     text-align: center;
@@ -1741,11 +1778,16 @@ input[type="datetime-local"] {
 }
 .createeditor_input-submit{
     padding: 1rem;
-    width: 90%;
     cursor: pointer;
     border: none;
+    width: fit-content;
     color: var(--color60);
     background-color: var(--color10);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 .flexcolumn{
     display: flex;
@@ -1865,6 +1907,11 @@ input[type="datetime-local"] {
     min-height: fit-content;
     padding: var(--divpadding);
     margin: 1rem 0;
+    width: 90%;
+}
+.about_section .about_contents span{
+    color: var(--color30-shade);
+    font-size: var(--pfontsize);
 }
 .about_section .about_section_btn{
     margin: 1rem 0;
@@ -1873,7 +1920,12 @@ input[type="datetime-local"] {
     color: var(--color60-shade);
     cursor: pointer;
     border: none;
-    width: 30%;
+    width: fit-content;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 .about_section .about_section_btn:hover{
     background-color: var(--color10-shade);
@@ -1912,7 +1964,6 @@ input[type="datetime-local"] {
     height: 60vh;
     width: 25vw;
     margin: 1rem;
-    border: 1px solid var(--color30)89;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1951,11 +2002,15 @@ input[type="datetime-local"] {
     color: var(--color10);
 }
 .about_section_topicsdiv_subdiv div a i{
-    color: var(--color30)be;
+    color: var(--color30-shade);
+}
+.about_section_topicsdiv_subdiv-action p{
+    color: var(--color30-shade);
 }
 .about_section_topicsdiv_subdiv-action{
     height: fit-content;
-    border: 1px solid var(--color30)89;
+    border: 1px solid #2222226c;
+    color: var(--color30-shade);
     width: auto;
     padding: var(--divpadding-highest);
     cursor: pointer;
@@ -2002,6 +2057,10 @@ input[type="datetime-local"] {
 .nav_quicklinks p{
     margin-left: 1rem;
 }
+.nav_quicklinks p span{
+   color: var(--color30-shade);
+   font-size: var(--pfontsize);
+}
 .message_div-container{
     padding: var(--divpadding);
     height: fit-content;
@@ -2013,6 +2072,7 @@ input[type="datetime-local"] {
 .message_div-container .message_div-container_subdiv img{
     height: 50%;
     width: 100%;
+    object-fit: cover;
 }
 .message_div-container_subdiv-imagebody{
     padding: 1rem .5rem;
@@ -2043,8 +2103,9 @@ input[type="datetime-local"] {
 .message_div-container_subdiv-imagebody .input_group textarea{
     padding: 1rem;
     border: none;
+    min-height: 20vh;
     background-color: inherit;
-    outline: 1px solid var(--color30)75;
+    outline: 1px solid var(--color30);
 }
 .message_div-container_subdiv-imagebody .input_group textarea:focus{
     outline: 1px solid var(--color10);
@@ -2052,6 +2113,21 @@ input[type="datetime-local"] {
 .message_div-container_subdiv-imagebody form .send_messagebtn{
     border: none;
     margin-bottom: 1rem;
+}
+/*For create_new/category.php*/
+.categorygroup{
+    display: flex;
+    flex-direction: column;
+}
+.categorygroup textarea{
+    width: 100%;
+    border: none;
+    outline: 1px solid var(--color30);
+    padding: 1rem;
+    min-height: 30vh;
+}
+.categorygroup textarea:focus{
+    outline: 1px solid var(--color10);
 }
 @media only screen and (min-width: 39rem) and (max-width: 65rem){
     a, td,span, p, label{

@@ -800,6 +800,7 @@ require ("connect.php");
                 <div class="posts_div2 postsdiv">
                     <div class="posts_header">
                         <h1> Paid Posts</h1>
+                        <a class="btn" href="view_all/paidposts.php">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <?php
@@ -840,15 +841,39 @@ require ("connect.php");
                 <div class="posts_div1 postsdiv">
                     <div class="posts_header">
                         <h1> Recently Published Posts</h1>
-                        <a class="btn" href="view_all/posts.php" target="_blank">View All</a>
+                        <a class="btn" href="view_all/posts.php">View All</a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <?php
-                            $selectposts2 = "SELECT id, title, time, schedule, 	admin_id, editor_id, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 8";
+                            $selectposts2 = "SELECT id, title, time, schedule, admin_id, editor_id, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname FROM posts ORDER BY id DESC LIMIT 8";
                             $selectposts2_result = $conn->query($selectposts2);
                             if ($selectposts2_result->num_rows > 0) {
+                                $author_firstname = "";
+                                $author_lastname = "";
                                 $sn = 0;
                                 while($row = $selectposts2_result->fetch_assoc()) {
+                                    if (!empty($row['admin_id'])) {
+                                        $admin_id = $row['admin_id'];
+                                        $sql_admin = "SELECT id, firstname, lastname FROM admin_login_info WHERE id = $admin_id";
+                                        $result_admin = $conn->query($sql_admin);
+                                        if ($result_admin->num_rows > 0) {
+                                            $admin = $result_admin->fetch_assoc();
+                                            $author_firstname = $admin['firstname'];
+                                            $author_lastname = $admin['lastname'];
+                                        }
+                                    }elseif (!empty($row['editor_id'])) {
+                                        $editor_id = $row['editor_id'];
+                                        $sql_editor = "SELECT id, firstname, lastname FROM editor WHERE id = $editor_id";
+                                        $result_editor = $conn->query($sql_editor);
+                                        if ($result_editor->num_rows > 0) {
+                                            $editor = $result_editor->fetch_assoc();
+                                            $author_firstname = $editor['firstname'];
+                                            $author_lastname = $editor['lastname'];
+                                        }
+                                    }else {
+                                        $author_firstname = $row['author_firstname'];
+                                        $author_lastname = $row['author_lastname'];
+                                    }
                                     $time = $row['time'];
                                     $formatted_time = date("g:i A", strtotime($time));
                                     $sn++; 
@@ -858,7 +883,7 @@ require ("connect.php");
                                             </div>
                                             <div class='posts_divcontainer_subdiv2'>
                                                 <p class='posts_divcontainer_p'>
-                                                    <span> Written By:</span> Aniagolu
+                                                    <span> Written By:</span> $author_firstname $author_lastname
                                                 </p>
                                             </div>
                                             <div class='posts_divcontainer_subdiv3'>

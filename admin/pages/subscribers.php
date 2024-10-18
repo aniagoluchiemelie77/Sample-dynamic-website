@@ -23,6 +23,9 @@ include("../connect.php");
     <?php require("../extras/header2.php");?>
     <section class="middle_centering">
         <div class="posts width80">
+            <div class="page_links">
+                <a href="../admin_homepage.php">Home</a> > <p>Subscribers</p>
+            </div>
             <div class="posts_div2 postsdiv2">
                 <div class="posts_header">
                     <h1>Email Subscribers</h1>

@@ -22,21 +22,52 @@
     <?php require("../extras/header2.php");?>
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
+            <div class="page_links">
+                <a href="../admin_homepage.php">Home</a>  > <p>Posts</p> > <p>Commentaries</p>
+            </div>
             <div class="posts_header">
                 <h1>Commentaries</h1>
             </div>
             <div class="posts_divcontainer border-gradient-side-dark">
                 <?php
-                    $select_commentaries= "SELECT id, title, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM commentaries ORDER BY id DESC LIMIT 100";
+                    $select_commentaries= "SELECT id, admin_id, editor_id, title, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname FROM commentaries ORDER BY id DESC LIMIT 100";
                     $select_commentaries_result = $conn->query($select_commentaries);
                     if ($select_commentaries_result->num_rows > 0) {
+                        $author_firstname = "";
+                        $author_lastname = "";
+                        $role = "";
                         while($row = $select_commentaries_result->fetch_assoc()) {
+                            if (!empty($row['admin_id'])) {
+                                $admin_id = $row['admin_id'];
+                                $sql_admin = "SELECT id, firstname, lastname FROM admin_login_info WHERE id = $admin_id";
+                                $result_admin = $conn->query($sql_admin);
+                                if ($result_admin->num_rows > 0) {
+                                    $admin = $result_admin->fetch_assoc();
+                                    $author_firstname = $admin['firstname'];
+                                    $author_lastname = $admin['lastname'];
+                                    $role = "Admin";
+                                }
+                            }elseif (!empty($row['editor_id'])) {
+                                $editor_id = $row['editor_id'];
+                                $sql_editor = "SELECT id, firstname, lastname FROM editor WHERE id = $editor_id";
+                                $result_editor = $conn->query($sql_editor);
+                                if ($result_editor->num_rows > 0) {
+                                    $editor = $result_editor->fetch_assoc();
+                                    $author_firstname = $editor['firstname'];
+                                    $author_lastname = $editor['lastname'];
+                                    $role = "Editor";
+                                }
+                            }else {
+                                $author_firstname = $row['author_firstname'];
+                                $author_lastname = $row['author_lastname'];
+                                $role = "Contributing Writer";
+                            }
                             $time = $row['time'];
                             $formatted_time = date("g:i A", strtotime($time));
                             echo "<div class='posts_divcontainer_subdiv'>
                                     <h3 class='posts_divcontainer_header'>". $row["title"]."</h3>
                                     <div class='posts_divcontainer_subdiv2'>
-                                        <p class='posts_divcontainer_p'><span> Written By: </span> Aniagolu</p>
+                                        <p class='posts_divcontainer_p'><span> Written By: </span>$author_firstname $author_lastname ( $role )</p>
                                     </div>
                                     <div class='posts_divcontainer_subdiv3'>
                                         <p class='posts_divcontainer_subdiv_p'><span> Publish Date: </span>". $row["formatted_date"]."</p> 

@@ -25,6 +25,17 @@ include("../connect.php")
         <div class="createeditor_inputgroup">
             <h1 class="bigheader">Edit Profile</h1>
         </div>
+        <div class='newpost_container_div6 newpost_subdiv'>
+            <div class='newpost_container_div6_subdiv1'>
+                <img src='../../<?php echo $_SESSION['image']; ?>' alt='Post Image'/>
+            </div>
+            <div class='newpost_container_div6_subdiv2'>
+                <label class='form__label' for='Post_Image'>Edit Image: </label>
+                <div class='newpost_subdiv2'>
+                    <input class='form__input' name='Post_Image' type='file' required/>
+                </div>
+            </div>
+        </div>
         <div class="createeditor_inputgroup">
             <label class="createeditor_label rightmargin" for="profile_firstname">Firstname:</label>
             <input class="createeditor_input" type="text" name="profile_firstname" value='<?php echo $_SESSION['firstname'];?>'required/>

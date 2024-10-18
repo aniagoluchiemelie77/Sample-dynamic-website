@@ -30,6 +30,9 @@ $content = "";
             <h1>Categories</h1>
         </div>
         <div class="about_section_topicsdiv">
+            <div class="page_links">
+                <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <p>Categories</p>
+            </div>
             <?php
                 $getcategories_sql = " SELECT name, image_path, Date, time FROM topics ORDER BY id";
                 $getcategories_result = $conn->query($getcategories_sql);
@@ -110,7 +113,7 @@ $content = "";
                             }
                         }
                     ?>
-            <a class="about_section_topicsdiv_subdiv-action" id="add_category">
+            <a class="about_section_topicsdiv_subdiv-action" id="add_category" href="../create_new/category.php">
                 <div class="actions_subdiv">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </div>

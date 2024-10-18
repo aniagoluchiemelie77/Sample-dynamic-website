@@ -24,6 +24,9 @@ require ("../connect.php");
 <body>
     <?php require("../extras/header2.php");?>
     <section class="about_section">
+        <div class="page_links">
+            <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <p>Terms of Services</p>
+        </div>
         <div class="about_header">
             <h1>Terms of Service</h1>
         </div>

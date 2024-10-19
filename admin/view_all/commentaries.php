@@ -16,6 +16,7 @@
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 	<title>View Commentaries</title>
 </head>
 <body>
@@ -77,7 +78,7 @@
                                         <a class='users_edit' href='../edit/post.php?id5=".$row["id"]."&title=".$row["title"]."'>
                                             <i class='fa fa-pencil' aria-hidden='true'></i>
                                         </a>
-                                        <a class='users_delete'>
+                                        <a class='users_delete' onclick='confirmDeleteC(".$row['id'].")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
                                         </a>
                                     </div>
@@ -89,5 +90,22 @@
             </div>
         </div>
     </section>
+    <script>
+        function confirmDeleteC(postId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../delete.php?id5=' + postId;
+                }
+            })
+        }
+    </script>
 </body>
 </html>

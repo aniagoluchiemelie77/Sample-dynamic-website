@@ -775,6 +775,7 @@ a, td,span, p, label{
  .users span{
     font-weight: var(--spanfontweight);
     color: var(--color10);
+    font-size: var(--pfontsize);
 }
  .users .users_div_subdiv{
     display: flex; 
@@ -1172,8 +1173,13 @@ a, td,span, p, label{
 .developer_contact_followlinks div a{
     padding: 1rem;
     margin: 0 1rem;
+    border-radius: 1rem;
     cursor: pointer;
-    border: 1px solid var(--color30)36;
+    border: 1px solid var(--color30);
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 .developer_contact_followlinks div a:hover{
     background-color: var(--color10);

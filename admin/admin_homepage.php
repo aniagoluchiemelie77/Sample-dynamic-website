@@ -23,6 +23,7 @@ require ("connect.php");
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>Admin Homepage</title>
 </head>
 <body>
@@ -216,7 +217,7 @@ require ("connect.php");
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id2=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'posts')>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id2=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeleteP(".$row['id'].")'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -253,7 +254,7 @@ require ("connect.php");
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id3=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'unpublished_articles')>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id3=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeleteD(".$row['id'].")'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -290,7 +291,7 @@ require ("connect.php");
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id6=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'press_releases')>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id6=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeletePR(".$row['id'].")'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -327,7 +328,7 @@ require ("connect.php");
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id4=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'unpublished_articles')>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id4=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeleteN(".$row['id'].")'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -364,7 +365,7 @@ require ("connect.php");
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id5=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='deletePost('".$row['id']."', 'commentaries')>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id5=".$row["id"]."' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeleteC(".$row['id'].")'>Delete</a></td>
                                         </tr>";                           
                         
                                 }; echo "</table>";
@@ -532,7 +533,22 @@ require ("connect.php");
                     <div class="profile_body_subdiv_subdiv profilesubdiv">
                         <div>
                             <i class="fa fa-newspaper" aria-hidden="true"></i>
-                            <p>Posts Published: <span>25</span></p>
+                            <?php
+                                $id = $_SESSION['id'];
+                                $total_posts = 0;
+                                $tables = ['paid_posts', 'posts', 'news', 'press_releases', 'commentaries'];
+                                foreach ($tables as $table) {
+                                    $sql = "SELECT COUNT(*) AS count FROM $table WHERE admin_id = ?";
+                                    $stmt = $conn->prepare($sql);
+                                    $stmt->bind_param("s", $id);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    $row = $result->fetch_assoc();
+                                    $total_posts += $row['count'];
+                                    $stmt->close();
+                                }
+                            ?>
+                            <p>Posts Published: <span><?php echo $total_posts;?></span></p>
                         </div>
                     </div>
                     <div class="profile_body_subdiv_subdiv profilesubdiv">
@@ -625,19 +641,36 @@ require ("connect.php");
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-                            $selectthreeeditors = "SELECT * FROM editor ORDER BY id DESC LIMIT 3";
+                            $selectthreeeditors = "SELECT id, email, image, firstname, lastname FROM editor ORDER BY id DESC LIMIT 3";
                             $selectthreeeditors_result = $conn->query($selectthreeeditors);
                             if ($selectthreeeditors_result->num_rows > 0) {
                                 $sn = 0;
                                 while($row = $selectthreeeditors_result->fetch_assoc()) {
-                                    $sn++; 
+                                    $id = $row['id'];
                                     $image = $row['image'];
+                                    $firstname = $row['firstname'];
+                                    $lastname = $row['lastname'];
+                                    $email = $row['email'];
+                                    $total_posts = 0;
+                                    $tables = ['posts', 'news', 'press_releases', 'commentaries'];
+                                    foreach ($tables as $table) {
+                                        $sql = "SELECT COUNT(*) AS count FROM $table WHERE editor_id = ?";
+                                        $stmt = $conn->prepare($sql);
+                                        $stmt->bind_param("s", $id);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+                                        $row = $result->fetch_assoc();
+                                        $total_posts += $row['count'];
+                                       $stmt->close();
+                                    }
+                                    $sn++; 
                                     echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
-                                                <p class='users_div_subdiv_p'><span>Username: </span>".$row['username']."</p>
-                                                <p class='users_div_subdiv_p'><span>Firstname: </span>".$row['firstname']."</p> 
+                                                <p class='users_div_subdiv_p'><span>Firstname: </span>$firstname</p>
+                                                <p class='users_div_subdiv_p'><span>Lastname: </span>$lastname</p> 
                                                 <p class='users_div_subdiv_p'><span>Role: </span>Editor</p>
-                                                <p class='users_div_subdiv_p'><span>Email: </span>".$row['email']."</p>
+                                                <p class='users_div_subdiv_p'><span>Email: </span>$email</p>
+                                                <p class='users_div_subdiv_p'><span>Contributions: </span>$total_posts</p>
                                                 <center>
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit'><i class='fa fa-eye' aria-hidden='true'></i></a>
@@ -664,20 +697,36 @@ require ("connect.php");
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-                            $selectwriters = "SELECT * FROM writer ORDER BY id DESC LIMIT 3";
+                            $selectwriters = "SELECT id, firstname, lastname, email, image  FROM writer ORDER BY id DESC LIMIT 3";
                             $selectwriters_result = $conn->query($selectwriters);
                             if ($selectwriters_result->num_rows > 0) {
                                 $sn = 0;
                                 while($row = $selectwriters_result->fetch_assoc()) {
-                                    $sn++; 
+                                    $id = $row['id'];
                                     $image = $row['image'];
+                                    $firstname = $row['firstname'];
+                                    $lastname = $row['lastname'];
+                                    $email = $row['email'];
+                                    $total_posts = 0;
+                                    $tables = ['posts', 'news', 'press_releases', 'commentaries'];
+                                    foreach ($tables as $table) {
+                                        $sql = "SELECT COUNT(*) AS count FROM $table WHERE authors_firstname = ?";
+                                        $stmt = $conn->prepare($sql);
+                                        $stmt->bind_param("s", $firstname);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+                                        $row = $result->fetch_assoc();
+                                        $total_posts += $row['count'];
+                                       $stmt->close();
+                                    }
+                                    $sn++; 
                                     echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
-                                                <p class='users_div_subdiv_p'><span>Firstname: </span>".$row['firstname']."</p>
-                                                <p class='users_div_subdiv_p'><span>Lastname: </span>".$row['lastname']."</p> 
+                                                <p class='users_div_subdiv_p'><span>Firstname: </span>$firstname</p>
+                                                <p class='users_div_subdiv_p'><span>Lastname: </span>$lastname</p> 
                                                 <p class='users_div_subdiv_p'><span>Role: </span>Writer</p>
-                                                <p class='users_div_subdiv_p'><span>Email: </span>".$row['email']."</p>
-                                                <p class='users_div_subdiv_p'><span>Contributions: </span>Plenty</p>
+                                                <p class='users_div_subdiv_p'><span>Email: </span>$email</p>
+                                                <p class='users_div_subdiv_p'><span>Contributions: </span>$total_posts</p>
                                                 <center>
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit'><i class='fa fa-eye' aria-hidden='true'></i></a>
@@ -770,7 +819,7 @@ require ("connect.php");
                                                     <a class='users_edit' href='edit/post.php?id1=".$row['id']."' target='_blank'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
-                                                    <a class='users_delete'>
+                                                    <a class='users_delete' onclick='confirmDeletePP(".$row['id'].")'>
                                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                                     </a>
                                             </div>
@@ -840,7 +889,7 @@ require ("connect.php");
                                                     <a class='users_edit' href='edit/post.php?id2=".$row['id']."' target='_blank'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
-                                                    <a class='users_delete'>
+                                                    <a class='users_delete' onclick='confirmDeleteP(".$row['id'].")'>
                                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                                     </a>
                                             </div>
@@ -889,7 +938,7 @@ require ("connect.php");
                                                 <a class='users_edit' href='edit/post.php?id3=".$row['id']."' target='_blank'>
                                                     <i class='fa fa-pencil' aria-hidden='true'></i>
                                                 </a>
-                                                <a class='users_delete'>
+                                                <a class='users_delete' onclick='confirmDeleteD(".$row['id'].")'>
                                                     <i class='fa fa-trash' aria-hidden='true'></i>
                                                 </a>
                                             </div>
@@ -998,7 +1047,101 @@ require ("connect.php");
                 </div>    
             </div>
         </div>  
-        <script>
+    </section>
+    <script src="admin.js"></script> 
+    <script>
+        function confirmDeletePP(postId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'delete.php?id1=' + postId;
+                }
+            })
+        }
+        function confirmDeleteP(postId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'delete.php?id2=' + postId;
+                }
+            })
+        }
+        function confirmDeleteD(postId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'delete.php?id3=' + postId;
+                }
+            })
+        }
+        function confirmDeleteN(postId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'delete.php?id4=' + postId;
+                }
+            })
+        }
+        function confirmDeleteC(postId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'delete.php?id5=' + postId;
+                }
+            })
+        }
+        function confirmDeletePR(postId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'delete.php?id6=' + postId;
+                }
+            })
+        }
+    </script>
+    <script>
             <?php
                 $condition_value1 = 'Tablet';
                 $condition_value2 = 'Desktop';
@@ -1059,9 +1202,6 @@ require ("connect.php");
         </script>  
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript" src="otherJSFiles/custom.js"></script>
-    </section>
-    <script src="admin.js"></script> 
 </body>
 </html>

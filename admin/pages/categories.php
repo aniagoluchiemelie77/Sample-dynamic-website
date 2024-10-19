@@ -76,30 +76,24 @@ $content = "";
                         $formatted_time = date("g:i A", strtotime($time));
                         $cleanString = removeHyphen($name);
                         $readableString = convertToReadable($name);
-                        $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
-                        $results = [];
-                        $totalRows = "";
+                        $niche = $readableString;
+                        $total_posts = 0;
+                        $tables = ['paid_posts', 'posts', 'news', 'press_releases', 'commentaries'];
                         foreach ($tables as $table) {
-                            $sql = "SELECT COUNT(*) as total1 FROM $table WHERE niche LIKE ?";
+                            $sql = "SELECT COUNT(*) AS count FROM $table WHERE niche = ?";
                             $stmt = $conn->prepare($sql);
-                            $nicheq = $readableString;
-                            $searchTerm = "%" . $nicheq . "%";
-                            $stmt->bind_param("s", $searchTerm);
+                            $stmt->bind_param("s", $niche);
                             $stmt->execute();
-                            $stmt->bind_result($total);
-                            while ($stmt->fetch()) {
-                                $results[] = [
-                                    'total1' => $total
-                                ];
-                            }
+                            $result = $stmt->get_result();
+                            $row = $result->fetch_assoc();
+                            $total_posts += $row['count'];
+                            $stmt->close();
                         }
-                        foreach ($results as $result) {
-                            $totalRows = $result["total1"];
-                            echo"<div class='about_section_topicsdiv_subdiv'>
+                        echo"<div class='about_section_topicsdiv_subdiv'>
                                 <img src='../../$img' alt='Topic Image'/>
                                 <div class='about_section_topicsdiv_subdiv_subdiv'>
                                     <h1><span>$readableString</h1>
-                                    <p>Total Number of Posts for this Category: <span>$totalRows</span></p>
+                                    <p>Total Number of Posts for this Category: <span>$total_posts</span></p>
                                     <p>Date created: <span>$formattedDate</span></p>
                                     <p>Time: <span>$formatted_time</span></p>
                                     <a class='topics_actions'>
@@ -109,10 +103,8 @@ $content = "";
                                 </div>
                             ";
                         }
-                        
-                            }
-                        }
-                    ?>
+                    }
+                ?>
             <a class="about_section_topicsdiv_subdiv-action" id="add_category" href="../create_new/category.php">
                 <div class="actions_subdiv">
                     <i class="fa fa-plus" aria-hidden="true"></i>

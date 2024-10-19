@@ -43,6 +43,9 @@ include("../connect.php");
                                             <p class='posts_divcontainer_p'><span> Nationality: </span>". $row["country"]."</p>
                                         </div>
                                         <div class='posts_delete_edit'>
+                                            <a class='users_delete btn'>Promote to Admin</a>
+                                        </div>
+                                        <div class='posts_delete_edit'>
                                             <a class='users_edit' href='../edit/user.php?id=".$row["id"]."&usertype=Editor'>
                                                 <i class='fa fa-pencil' aria-hidden='true'></i>
                                             </a>

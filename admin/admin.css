@@ -853,6 +853,9 @@ a, td,span, p, label{
     color: var(--color10);
     align-items: center;
  }
+ .users_div_subdiv_subdiv .users_create{
+    color: var(--color60);
+ }
  .posts{
     flex-direction: column;
     align-items: center;
@@ -979,6 +982,10 @@ a, td,span, p, label{
  }
  .posts_divcontainer_subdiv .posts_delete_edit{
     padding: 1rem 0;
+ }
+ .posts_divcontainer_subdiv .posts_delete_edit .btn{
+    color: var(--color60);
+    cursor: pointer;
  }
  .posts_divcontainer_subdiv a{
     cursor: pointer;

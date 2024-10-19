@@ -33,64 +33,6 @@ require ("connect.php");
             <a class="btn cancellogout" id="dismiss-popup-btn">No</a>
         </div>
     </div>
-    <div class="logout_alert container_center hidden" id="create_editor">
-        <form class="create_editor_container popupform1" action="forms.php" method="post">
-            <i class="fa fa-times popup_close1" aria-hidden="true"></i>
-            <div class="createeditor_inputgroup">
-                <h1>Create New Editor</h1>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="editor_username">Username:</label>
-                <input class="createeditor_input reginput" type="text" name="editor_username" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="editor_firstname">Firstname:</label>
-                <input class="createeditor_input reginput" type="text" name="editor_firstname" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="editor_lastname">Lastname:</label>
-                <input class="createeditor_input reginput" type="text" name="editor_lastname" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="editor_email">Email:</label>
-                <input class="createeditor_input reginput" type="email" name="editor_email" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="editor_password">Suggest Password:</label>
-                <input class="createeditor_input reginput" type="password" name="editor_password" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="editor_password-confirm">Confirm Password:</label>
-                <input class="createeditor_input reginput" type="password" name="editor_password-confirm" required/>
-            </div>
-            <input class="createeditor_input-submit btn" value="Go" name="createeditor_Submit" type="submit"/>
-        </form>
-    </div>
-    <div class="logout_alert container_center hidden" id="add_writer">
-        <form class="create_editor_container popupform1" action="forms.php" method="post">
-            <i class="fa fa-times popup_close1" aria-hidden="true"></i>
-            <div class="createeditor_inputgroup">
-                <h1>Add Writer</h1>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_firstname">Firstname:</label>
-                <input class="createeditor_input reginput" type="text" name="writer_firstname" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_lastname">Lastname:</label>
-                <input class="createeditor_input reginput" type="text" name="writer_lastname" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_email">Email:</label>
-                <input class="createeditor_input reginput" type="email" name="writer_email" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_bio">Short Bio:</label>
-                <textarea class="writer_bio" name="writer_bio"></textarea>
-            </div>
-            <input class="createeditor_input-submit btn" value="Go" name="addwriter" type="submit"/>
-        </form>
-    </div>
     <div class="logout_alert container_center hidden" id="create_category">
         <form class="create_editor_container popupform1" action="forms.php" method="post">
             <i class="fa fa-times popup_close1" aria-hidden="true"></i>
@@ -708,7 +650,7 @@ require ("connect.php");
                             };
                         ?>
                         <div class="users_div_subdiv_subdiv">
-                            <a class="users_create" id="create_user-origin">
+                            <a class="users_create" href="create_new/editor.php">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
                                 <h3> New Editor</h3>
                             </a>    
@@ -748,7 +690,7 @@ require ("connect.php");
                             };
                         ?>
                         <div class="users_div_subdiv_subdiv">
-                            <a class="users_create" id="create_writer_origin">
+                            <a class="users_create" href="create_new/writer.php">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
                                 <h3> New Writer</h3>
                             </a>    
@@ -788,7 +730,7 @@ require ("connect.php");
                             };
                         ?>
                         <div class="users_div_subdiv_subdiv">
-                            <a class="users_create" id="create_writer_origin">
+                            <a class="users_create" href="create_new/user.php">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
                                 <h3> New User</h3>
                             </a>    

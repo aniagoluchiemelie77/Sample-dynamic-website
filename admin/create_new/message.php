@@ -1,6 +1,7 @@
 <?php
 session_start();
 require ("../connect.php");
+include ('../crudoperations.php');
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 $post_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -140,6 +141,9 @@ $user_type = $_GET['usertype'];
         $stmt = $conn->prepare("INSERT INTO messages (user_id, user_type, title, message, Date, time) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("isssss", $user_id, $user_type, $title, $message, $date, $time);
         if ($stmt->execute()) {
+            $content = "You sent $user_type( $user_id ) a message";
+            $forUser = 'F';
+            logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
             $_SESSION['status'] = "Post Published Successfully!";
         }

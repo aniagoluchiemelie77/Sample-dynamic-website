@@ -21,6 +21,7 @@ $content = "";
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>Create Category</title>
 </head>
 <body>
@@ -29,29 +30,54 @@ $content = "";
         <div class="page_links">
             <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <a href="../pages/categories.php">Categories</a> > <p> Create Category</p>
         </div>
-        <form class="formcontainer">
-        <div class="head_paragraph">
-            <h3>Create Category</h3>
-        </div>
-        <div class="formcontainer_subdiv">
-            <div class="input_group">
-                <label for ="name">Category Name:</label>
-                <input type="text" name="name" required/>
+        <form class="formcontainer" id="topicForm">
+            <div class="head_paragraph">
+                <h3>Create Category</h3>
             </div>
-            <div class="input_group categorygroup">
-                <label for ="desc">Short Description:</label>
-                <textarea class="newpost_container_div7_subdiv2" name="Post_content" id="myTextarea"></textarea>
-            </div>
-            <div class="newpost_container_div6 newpost_subdiv">
-                <label class="form__label" for="Post_Image">Category Image:</label>
-                <div class="newpost_subdiv2">
-                    <input class="form__input" name="Post_Image" type="file" required/>
-                    <p class="newpost_subdiv2-p leftp"><span>*</span>Image should be less than 300KB</p>
+            <div class="formcontainer_subdiv">
+                <div class="input_group">
+                    <label for ="name">Category Name:</label>
+                    <input type="text" name="topicName" id="topicName" required/>
+                </div>
+                <div class="input_group categorygroup">
+                    <label for ="desc">Short Description:</label>
+                    <textarea class="newpost_container_div7_subdiv2" name="topicDesc" id="myTextarea"></textarea>
+                </div>
+                <div class="newpost_container_div6 newpost_subdiv">
+                    <label class="form__label" for="topicImg">Category Image:</label>
+                    <div class="newpost_subdiv2">
+                        <input class="form__input" name="topicImg" type="file" required/>
+                        <p class="newpost_subdiv2-p leftp"><span>*</span>Optional</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <input class="formcontainer_submit" value="Go" type="submit"/>
+            <input class="formcontainer_submit" value="Go" type="submit" onclick="submitForm()"/>
         </form>
     </section>
+    </button>
+    </form> 
+    <script>
+        function submitForm() {
+            var topicName = document.getElementById('topicName').value;
+            if (topicName) {
+                fetch('../forms.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'topicName=' + encodeURIComponent(topicName)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    Swal.fire('Success', data, 'success');
+                })
+                .catch(error => {
+                    Swal.fire('Error', 'Something went wrong!', 'error');
+                });
+            } else {
+                Swal.fire('Error', 'Please enter a topic name', 'error');
+            }
+        }
+    </script>
 </body>
 </html>

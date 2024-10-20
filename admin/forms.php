@@ -1,9 +1,10 @@
 <?php
 session_start();
-$admin_id = 1; 
+$admin_id = $_SESSION['id']; 
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 require ("connect.php");
+include ('crudoperations.php');
 function savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename) {
     global $conn;
     $date = date('y-m-d');
@@ -23,6 +24,9 @@ function savePost($title, $subtitle, $imagePath, $content, $niche, $link, $sched
         $stmt = $conn->prepare("INSERT INTO $tablename (title, subtitle, image_path, content, niche, link, schedule, admin_id, Date, time, authors_firstname, about_author, authors_lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssssssssss", $title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $date, $time, $author_firstname, $author_bio, $author_lastname);
         if ($stmt->execute()) {
+            $content = "You created a $tablename post";
+            $forUser = 'T';
+            logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
             $_SESSION['status'] = "Post Published Successfully!";
             header('location: {$_SERVER["HTTP_REFERER"]}');
@@ -49,96 +53,12 @@ if (isset($_POST['create_post'])) {
     $target = "../images/" . basename($image);
     if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
         $imagePath = $target;
-        savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename);
+        if( !empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)){
+            $admin_id = " ";
+            savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename);
+        }
     }
 }
-/*if (isset($_POST['create_post'])) {
-    $title = $_POST['Post_Title'];
-    $niche = $_POST['Post_Niche'];
-    $subtitle = $_POST['Post_Sub_Title'];
-    $link = $_POST['Post_featured'];
-    $category = $_POST['Post_Status'];
-    $content = $_POST['Post_content'];
-    $schedule = $_POST['schedule'];
-    $author_lastname = $_POST['author_lastname'];
-    $author_firstname = $_POST['author_firstname'];
-    $author_bio = $_POST['about_author'];
-    $date = date('y-m-d');
-    $time = date('H:i:s');
-    $image = $_FILES['Post_Image']['name'];
-    $target = "images/" . basename($image);
-    if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
-        $imagePath = $target;
-        $response = array();
-        if($category === "paid_post"){
-            $max_rows = 4;
-            $row_count = "SELECT COUNT(*) as total FROM paid_posts";
-            $rowcount_result = $conn->query($row_count);
-            $row = $rowcount_result->fetch_assoc();
-            $total_rows = $row['total'];
-            if ($total_rows >= $max_rows) {
-                $_SESSION['status_type'] = "Error";
-                $_SESSION['status'] = "Error!, Cannot add more posts. The maximum limit of $max_rows posts has been reached.";
-                header('location: {$_SERVER["HTTP_REFERER"]}');
-            }else{
-                if (!empty($schedule)) {
-                    $sql = "INSERT INTO paid_posts (title, niche, content, subtitle, link, image, schedule, authors_firstname, about_author, authors_lastname) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath','$schedule', '$author_firstname', '$author_bio', '$author_lastname')";
-                    if ($conn->query($sql) === TRUE) {
-                        $_SESSION['status_type'] = "Success";
-                        $_SESSION['status'] = "Post Published Successfully!";
-                        header('location: {$_SERVER["HTTP_REFERER"]}');
-                    } else {
-                        $_SESSION['status_type'] = "Error";
-                        $_SESSION['status'] = "Error!, Please Retry";
-                        header('location: {$_SERVER["HTTP_REFERER"]}');
-                    }
-                }else{
-                    $sql = "INSERT INTO paid_posts (title, niche, content, subtitle, link, image, Date, time, authors_firstname, about_author, authors_lastname) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$author_firstname', '$author_bio', '$author_lastname')";
-                    if ($conn->query($sql) == TRUE) {
-                        $_SESSION['status_type'] = "Success";
-                        $_SESSION['status'] = "Post Published Successfully!";
-                        header('location: {$_SERVER["HTTP_REFERER"]}');
-                    } else {
-                        $_SESSION['status_type'] = "Error";
-                        $_SESSION['status'] = "Error!, Please Retry";
-                        header('location: {$_SERVER["HTTP_REFERER"]}');
-                    }
-                }
-            }
-        }elseif ($category === "none"){
-            if (!empty($schedule)) {
-                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, schedule, authors_firstname, about_author, authors_lastname) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$schedule', '$author_firstname', '$author_bio', '$author_lastname')";
-                if ($conn->query($sql) === TRUE) {
-                    $_SESSION['status_type'] = "Success";
-                    $_SESSION['status'] = "Post Published Successfully!";
-                    header('location: {$_SERVER["HTTP_REFERER"]}');
-                } else {
-                    $_SESSION['status_type'] = "Error";
-                    $_SESSION['status'] = "Error!, Please Retry";
-                    header('location: {$_SERVER["HTTP_REFERER"]}');
-                }
-            }else{
-                $sql = "INSERT INTO posts (title, niche, content, subtitle, link, image, Date, time, authors_firstname, about_author, authors_lastname) VALUES ('$title', '$niche', '$content', '$subtitle', '$link', '$imagePath', '$date', '$time', '$author_firstname', '$author_bio', '$author_lastname')";
-                if ($conn->query($sql) === TRUE) {
-                    $_SESSION['status_type'] = "Success";
-                    $_SESSION['status'] = "Post Published Successfully!";
-                    header('location: {$_SERVER["HTTP_REFERER"]}');
-                } else {
-                    $_SESSION['status_type'] = "Error";
-                    $_SESSION['status'] = "Error!, Please Retry";
-                    header('location: {$_SERVER["HTTP_REFERER"]}');
-                }
-            }
-        }else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error!, Failed to upload image.";
-            header('location: {$_SERVER["HTTP_REFERER"]}');
-            exit();
-        }
-        $conn->close();
-    }
-}*/
-require ("connect.php");
 if (isset($_POST['profileedit_Submit'])) {
     $firstname = $_POST['profile_firstname'];
     $lastname = $_POST['profile_lastname'];
@@ -164,7 +84,6 @@ if (isset($_POST['profileedit_Submit'])) {
         }
 } 
 
-require ("connect.php");
 if (isset($_POST['workspace_submit'])) {
     $content = $_POST['workspace_content'];
     $workspace_name = $_POST['workspace_name'];
@@ -178,9 +97,6 @@ if (isset($_POST['workspace_submit'])) {
             echo "Unsuccessful, Please Retry";
         };
 } 
-
-require ("connect.php");
-require ("edit/post.php");
 if (isset($_POST['edit_post'])) {
     $title = $_POST['Post_Title'];
     $niche = $_POST['Post_Niche'];
@@ -211,8 +127,6 @@ if (isset($_POST['edit_post'])) {
         echo "Invalid Image File Type";
     } 
 }
-
-require ("connect.php");
 if (isset($_POST['createeditor_Submit'])) {
     $firstname = $_POST['editor_firstname'];
     $username = $_POST['editor_username'];
@@ -233,8 +147,6 @@ if (isset($_POST['createeditor_Submit'])) {
             }
     }
 } 
- 
-require ("connect.php");
 if (isset($_POST['Createwriter_Submit'])) {
     $firstname = $_POST['writer_firstname'];
     $username = $_POST['writer_username'];
@@ -255,4 +167,43 @@ if (isset($_POST['Createwriter_Submit'])) {
             }
     }
 } 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $topicNameRaw = $_POST['topicName'];
+    $desc = $_POST['topicDesc'];
+    $topicName = strtolower(str_replace(' ', '-', $topicNameRaw));
+    $date = date('Y-m-d');
+    $time = date('H:i:s');
+    $image = $_FILES['topicImg']['name'];
+    $target = "../images/" . basename($image);
+    if(!empty($image)){
+        if (move_uploaded_file($_FILES['topicImg']['tmp_name'], $target)) {
+            $imagePath = $target;
+        }
+    }else{
+        $imagePrompt = "Illustration of " . $topicNameRaw . " without any people";
+        $image = generateImage($imagePrompt);
+        if (move_uploaded_file($image, $target)) {
+            $imagePath = $target;
+        }
+    }
+    $sql = "INSERT INTO topics (name, description, image_path, Date, time) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssss", $topicName, $desc, $imagePath, $date, $time);
+    if ($stmt->execute()) {
+        $content = "You created a new topic";
+        $forUser = 'F';
+        logUpdate($conn, $forUser, $content);
+        $fileName = '../pages/' . str_replace('-', '', $topicName) . '.php';
+        $fileContent = $topic_pagetemplate;
+        file_put_contents($fileName, $fileContent);
+    } else {
+        echo "Failed to add topic.";
+    }
+    $stmt->close();
+}
+function generateImage($prompt) {
+    // This is where you would call your image generation API and return the image URL or path
+    // For example, using a hypothetical function `generate_image()`
+    return generate_image($prompt);
+}
 ?>

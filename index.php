@@ -103,18 +103,19 @@ if (isset($_POST['accept_cookies'])) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Article website" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu chiemelie"/>
-    <link rel="stylesheet" href="index.css"/>
-	<title>Home</title>
+	    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="Article website" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+        <meta name="author" content="Aniagolu chiemelie"/>
+        <link rel="stylesheet" href="index.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	    <title>Home</title>
     </head>
     <body id="container">
         <?php require ('includes/header.php'); ?>
@@ -202,7 +203,10 @@ if (isset($_POST['accept_cookies'])) {
         </section>
         <section class="section2">
             <div class="section2__div1">
-                <div class="search_div" id="result"></div>
+                <div class="search_div" id="results">
+                    <h2>You searched for: </h2>
+                    <div id="resultsContent"></div>
+                </div>
                 <div class="section2__div1__header headers">
                     <h1>Latest Articles</h1>
                 </div>
@@ -345,5 +349,29 @@ if (isset($_POST['accept_cookies'])) {
                 });
             }
         </script>
+        <script>
+            function submitSearch() {
+                var query = document.getElementById('search').value;
+                if (query) {
+                    fetch('forms.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'query=' + encodeURIComponent(query)
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('results').style.display = 'block';
+                        document.getElementById('resultsContent').innerHTML = data;
+                    })
+                    .catch(error => {
+                        Swal.fire('Error', 'Something went wrong!', 'error');
+                    });
+                } else {
+                    Swal.fire('Error', 'Please enter a search term', 'error');
+                }
+            }
+    </script>
     </body>
 </html>

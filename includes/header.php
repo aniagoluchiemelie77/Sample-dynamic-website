@@ -15,8 +15,8 @@
             <a class="mainheader__signupbtn" href="pages/newslettersubscribe.php">Newsletter Signup</a>
         </div>
         <form class="header_searchbar hidden" id="search_form">
-            <input type="text" name="search" id="search" placeholder="Search.." />
-            <button class="fa fa-search" aria-hidden="true" type="submit"></button>
+            <input type="text" name="query" id="search" placeholder="Search.." />
+            <button class="fa fa-search" aria-hidden="true" type="button" onclick="submitSearch()"></button>
         </form>
         <div class="header__dropdownlinks">
             <?php 

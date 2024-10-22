@@ -1142,29 +1142,29 @@ require ("connect.php");
         }
     </script>
     <script>
-            <?php
-                $condition_value1 = 'Tablet';
-                $condition_value2 = 'Desktop';
-                $condition_value3 = 'Mobile'; // Replace with your condition value
-                $devicecount1 = "SELECT COUNT(*) as count_tablet FROM web_visitors WHERE user_devicetype = '$condition_value1'";
-                $devicecount2 = "SELECT COUNT(*) as count_dextop FROM web_visitors WHERE user_devicetype = '$condition_value2'";
-                $devicecount3 = "SELECT COUNT(*) as count_mobile FROM web_visitors WHERE user_devicetype = '$condition_value3'";
-                $result_mobile = $conn->query($devicecount3);
-                $result_desktop = $conn->query($devicecount2);
-                $result_tablet = $conn->query($devicecount1);
-                if ($result_mobile->num_rows > 0 && $result_desktop->num_rows > 0 && $result_tablet->num_rows > 0) {
-                    $row_mobile = $result_mobile->fetch_assoc();
-                    $row_desktop = $result_desktop->fetch_assoc();
-                    $row_tablet = $result_tablet->fetch_assoc();
-            ?>
-            anychart.onDocumentReady(function(){
-                var data = [
-                    {x: "Dextop", value: <?php echo $row_desktop["count_desktop"];?>, exploded: true},
-                    {x: "Tablet", value: <?php echo $row_tablet["count_tablet"];?>},
-                    {x: "Mobile", value: <?php echo $row_mobile["count_mobile"];?>}
-                ];
-                var chart = anychart.pie();
-                chart.title("Visitors Devices Statistics");
+        <?php
+            $condition_value1 = 'Tablet';
+            $condition_value2 = 'Desktop';
+            $condition_value3 = 'Mobile'; // Replace with your condition value
+            $devicecount1 = "SELECT COUNT(*) as count_tablet FROM web_visitors WHERE user_devicetype = '$condition_value1'";
+            $devicecount2 = "SELECT COUNT(*) as count_dextop FROM web_visitors WHERE user_devicetype = '$condition_value2'";
+            $devicecount3 = "SELECT COUNT(*) as count_mobile FROM web_visitors WHERE user_devicetype = '$condition_value3'";
+            $result_mobile = $conn->query($devicecount3);
+            $result_desktop = $conn->query($devicecount2);
+            $result_tablet = $conn->query($devicecount1);
+            if ($result_mobile->num_rows > 0 && $result_desktop->num_rows > 0 && $result_tablet->num_rows > 0) {
+                $row_mobile = $result_mobile->fetch_assoc();
+                $row_desktop = $result_desktop->fetch_assoc();
+                $row_tablet = $result_tablet->fetch_assoc();
+        ?>
+        anychart.onDocumentReady(function(){
+            var data = [
+                {x: "Dextop", value: <?php echo $row_desktop["count_desktop"];?>, exploded: true},
+                {x: "Tablet", value: <?php echo $row_tablet["count_tablet"];?>},
+                {x: "Mobile", value: <?php echo $row_mobile["count_mobile"];?>}
+            ];
+            var chart = anychart.pie();
+            chart.title("Visitors Devices Statistics");
                 chart.data(data);
                 chart.container("pie_container")
                 chart.draw();

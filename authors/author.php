@@ -160,20 +160,17 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                                     <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
                                     <div class='more_posts'>";
                 } 
-                $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                $tables = ['posts', 'commentaries', 'news', 'press_releases'];
                 $results = [];
                 foreach ($tables as $table) {
-                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
+                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE editor_id = ? ORDER BY id DESC LIMIT 12";
                     $stmt = $conn->prepare($sql);
                     $stmt->bind_param("s", $id);
                     $stmt->bind_result($id, $title, $niche, $content, $image, $date);
                     $stmt->execute();
                     while ($stmt->fetch()) {
                         $posttype = 0;
-                        if ($table == 'paid_posts') {
-                            $posttype = 1;
-                        } 
-                        elseif ($table == 'posts') {
+                        if ($table == 'posts') {
                             $posttype = 2;
                         } 
                         elseif ($table == 'commentaries') {
@@ -267,20 +264,17 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                                 <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
                                 <div class='more_posts'>";
                 } 
-                $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                $tables = ['posts', 'commentaries', 'news', 'press_releases'];
                 $results = [];
                 foreach ($tables as $table) {
-                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
+                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE writer_id = ? ORDER BY id DESC LIMIT 12";
                     $stmt = $conn->prepare($sql);
                     $stmt->bind_param("s", $id);
                     $stmt->bind_result($id, $title, $niche, $content, $image, $date);
                     $stmt->execute();
                     while ($stmt->fetch()) {
                         $posttype = 0;
-                        if ($table == 'paid_posts') {
-                            $posttype = 1;
-                        } 
-                        elseif ($table == 'posts') {
+                        if ($table == 'posts') {
                             $posttype = 2;
                         } 
                         elseif ($table == 'commentaries') {

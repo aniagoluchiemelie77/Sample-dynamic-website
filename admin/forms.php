@@ -175,16 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $time = date('H:i:s');
     $image = $_FILES['topicImg']['name'];
     $target = "../images/" . basename($image);
-    if(!empty($image)){
-        if (move_uploaded_file($_FILES['topicImg']['tmp_name'], $target)) {
-            $imagePath = $target;
-        }
-    }else{
-        $imagePrompt = "Illustration of " . $topicNameRaw . " without any people";
-        $image = generateImage($imagePrompt);
-        if (move_uploaded_file($image, $target)) {
-            $imagePath = $target;
-        }
+    if (move_uploaded_file($_FILES['topicImg']['tmp_name'], $target)) {
+        $imagePath = $target;
     }
     $sql = "INSERT INTO topics (name, description, image_path, Date, time) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
@@ -200,10 +192,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Failed to add topic.";
     }
     $stmt->close();
-}
-function generateImage($prompt) {
-    // This is where you would call your image generation API and return the image URL or path
-    // For example, using a hypothetical function `generate_image()`
-    return generate_image($prompt);
 }
 ?>

@@ -17,23 +17,24 @@ function savePost($title, $subtitle, $imagePath, $content, $niche, $link, $sched
         $total_rows = $row['total']; 
         if ($total_rows >= $max_rows) {
             $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error!, Cannot add more posts. The maximum limit of $max_rows posts has been reached.";
-            header('location: {$_SERVER["HTTP_REFERER"]}');
+            $_SESSION['status'] = "Max Limit for Paid Posts Reached";
+            header('location: create_new/posts.php');
         } 
-    }else{
+    }
+    else{
         $stmt = $conn->prepare("INSERT INTO $tablename (title, subtitle, image_path, content, niche, link, schedule, admin_id, Date, time, authors_firstname, about_author, authors_lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssssssssss", $title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $date, $time, $author_firstname, $author_bio, $author_lastname);
         if ($stmt->execute()) {
             $content = "You created a $tablename post";
-            $forUser = 'T';
+            $forUser = 0;
             logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
-            $_SESSION['status'] = "Post Published Successfully!";
-            header('location: {$_SERVER["HTTP_REFERER"]}');
+            $_SESSION['status'] = "Post Created Successfully";
+            header('location: create_new/posts.php');
         } else {
             $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error!, Please Retry";
-            header('location: {$_SERVER["HTTP_REFERER"]}');
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: create_new/posts.php');
     }
     $stmt->close();
     }
@@ -55,8 +56,8 @@ if (isset($_POST['create_post'])) {
         $imagePath = $target;
         if( !empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)){
             $admin_id = " ";
-            savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename);
         }
+        savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename);
     }
 }
 if (isset($_POST['profileedit_Submit'])) {
@@ -167,7 +168,7 @@ if (isset($_POST['Createwriter_Submit'])) {
             }
     }
 } 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+/*if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $topicNameRaw = $_POST['topicName'];
     $desc = $_POST['topicDesc'];
     $topicName = strtolower(str_replace(' ', '-', $topicNameRaw));
@@ -192,5 +193,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Failed to add topic.";
     }
     $stmt->close();
-}
+}*/
 ?>

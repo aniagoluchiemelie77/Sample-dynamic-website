@@ -1,6 +1,6 @@
 
     <?php 
-        $selectnews = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM news ORDER BY id DESC LIMIT 6";
+        $selectnews = "SELECT id, title, niche, image_path, content, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM news ORDER BY id DESC LIMIT 6";
         $selectnews_result = $conn->query($selectnews);
         if ($selectnews_result->num_rows > 0) {
             if (!function_exists('calculateReadingTime')) {
@@ -26,7 +26,7 @@
                     $title = substr($title, 0, $max_length) . '...';
                 }
                 $readingTime = calculateReadingTime($row['content']);
-                echo "<a class='posts_div' href='pages/view_post.php?id3='$id''>
+                echo "<a class='posts_div' href='pages/view_post.php?id3=$id'>
                             <img src='$image' alt='Post Image'/>
                             <p class='posts_div_niche'>$niche</p>
                             <h1>$title</h1>

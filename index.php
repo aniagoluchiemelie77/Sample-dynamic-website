@@ -264,9 +264,9 @@ if (isset($_POST['accept_cookies'])) {
                                     $role = 'Editor At Uniquetechcontentwriter.com';
                                 }
                             }else {
-                                $author_firstname = $row['author_firstname'];
-                                $author_lastname = $row['author_lastname'];
-                                $author_bio = $row['author_bio'];
+                                $author_firstname = $row['authors_firstname'];
+                                $author_lastname = $row['authors_lastname'];
+                                $author_bio = $row['about_author'];
                                 $role = 'Contributing Writer';
                                 $id_writer = 4;
                                 $id_type = "Writer";

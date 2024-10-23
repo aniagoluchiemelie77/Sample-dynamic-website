@@ -243,7 +243,7 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                 echo"</div></div>";
             }
             if($idtype == "Writer"){
-                $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_fname";
+                $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM writer WHERE id = $id";
                 $getauthor_result = $conn->query($getauthor_sql);
                 if ($getauthor_result->num_rows > 0) {
                     $author = $getauthor_result->fetch_assoc();
@@ -267,10 +267,10 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                 $tables = ['posts', 'commentaries', 'news', 'press_releases'];
                 $results = [];
                 foreach ($tables as $table) {
-                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE writer_id = ? ORDER BY id DESC LIMIT 12";
+                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE authors_firstname like ? ORDER BY id DESC LIMIT 12";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("s", $id);
-                    $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+                    $stmt->bind_param("s", $author_firstname);
+                    $stmt->bind_result($author_firstname, $title, $niche, $content, $image, $date);
                     $stmt->execute();
                     while ($stmt->fetch()) {
                         $posttype = 0;

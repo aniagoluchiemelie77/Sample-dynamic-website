@@ -317,7 +317,7 @@ require ("connect.php");
                                             <th>Date</th>
                                             <th>Actions</th>
                                         </tr>";
-                                while($row = $selectnews_result_result->fetch_assoc()) {
+                                while($row = $selectnews_result->fetch_assoc()) {
                                     $max_length = 60;
                                     $title = $row["title"];
                                     if (strlen($title) > $max_length) {
@@ -570,6 +570,18 @@ require ("connect.php");
                         $getuseractivities_sql = " SELECT content, Date, time FROM updates ORDER BY id DESC LIMIT 7";
                         $getuseractivities_result = $conn->query($getuseractivities_sql);
                         if ($getuseractivities_result->num_rows > 0) {
+                            if (!function_exists('getOrdinalSuffix')) {
+                                function getOrdinalSuffix($day) {
+                                    if (!in_array(($day % 100), [11, 12, 13])) {
+                                        switch ($day % 10) {
+                                            case 1: return 'st';
+                                            case 2: return 'nd';
+                                            case 3: return 'rd';
+                                        }
+                                    }
+                                    return 'th';
+                                }
+                            }
                             while($row = $getuseractivities_result->fetch_assoc()){
                                 $time = $row['time'];
                                 $date = $row['Date'];

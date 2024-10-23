@@ -362,8 +362,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
                                 </a>
-                                </div>";
-                        }
+                                ";
+                        }echo"</div>";
                     }
                 }
                 if ($post_id3 > 0) {
@@ -416,9 +416,9 @@ $url = "http://localhost/Sample-dynamic-website";
                             }
                         }
                         else {
-                            $author_firstname = $row['author_firstname'];
-                            $author_lastname = $row['author_lastname'];
-                            $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname AND lastname = $author_lastname";
+                            $author_firstname = $row['authors_firstname'];
+                            $author_lastname = $row['authors_lastname'];
+                            $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname LIKE '%$author_firstname%' OR lastname LIKE '%$author_lastname%'";
                             $result_writer = $conn->query($sql_writer);
                             if ($result_writer->num_rows > 0) {
                                 $writer = $result_writer->fetch_assoc();
@@ -723,7 +723,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $title = substr($title, 0, $max_length2) . '...';
                             }
                             $readingTime = calculateReadingTime($row['content']);
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id4=$id'>
                                     <img src='../$image' alt = 'Post Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
@@ -731,21 +731,13 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <span>$readingTime</span>
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
-                                </a>
-                                </div>
-                                <section class='section2' id='section1'>
-                                    <div class='section2__div1'>
-                                        <div class='section2__div1__header headers'>
-                                            <h1>For You</h1>
-                                        </div>
-                                        <?php include('../includes/pagination.php');?>
-                                    </div>
-                                </section>";
+                                </a>";
                         }
+                        echo "</div>";
                     }
                 }
                 if ($post_id5 > 0) {
-                    $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = '$post_id5'";
+                    $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = $post_id5";
                     $getposts_result = $conn->query($getposts_sql);
                     if ($getposts_result->num_rows > 0) {
                         $row = $getposts_result->fetch_assoc();
@@ -794,9 +786,9 @@ $url = "http://localhost/Sample-dynamic-website";
                             }
                         }
                         else {
-                            $author_firstname = $row['author_firstname'];
-                            $author_lastname = $row['author_lastname'];
-                            $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname AND lastname = $author_lastname";
+                            $author_firstname = $row['authors_firstname'];
+                            $author_lastname = $row['authors_lastname'];
+                            $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname LIKE '%$author_firstname%' OR lastname LIKE '%$author_lastname%'";
                             $result_writer = $conn->query($sql_writer);
                             if ($result_writer->num_rows > 0) {
                                 $writer = $result_writer->fetch_assoc();
@@ -808,7 +800,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $author_bio = $writer['bio'];
                                 $role = "Contributing Writer";
                             }else{
-                                $author_bio = $row['author_bio'];
+                                $author_bio = $row['about_author'];
                                 $role = 'Contributing Writer';
                                 $id_writer = '';
                                 $id_type = "Writer";
@@ -928,8 +920,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
                                 </a>
-                                </div>";
-                        }
+                                ";
+                        }echo "</div>";
                     }
                 }
             ?>

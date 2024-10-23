@@ -1,8 +1,7 @@
 <?php
 session_start();
 require ("../connect.php");
-include('../crudoperations.php');
-$content = "";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,10 +75,10 @@ $content = "";
                         $formatted_time = date("g:i A", strtotime($time));
                         $cleanString = removeHyphen($name);
                         $readableString = convertToReadable($name);
-                        $niche = $readableString;
                         $total_posts = 0;
                         $tables = ['paid_posts', 'posts', 'news', 'press_releases', 'commentaries'];
                         foreach ($tables as $table) {
+                            $niche = $readableString;
                             $sql = "SELECT COUNT(*) AS count FROM $table WHERE niche = ?";
                             $stmt = $conn->prepare($sql);
                             $stmt->bind_param("s", $niche);

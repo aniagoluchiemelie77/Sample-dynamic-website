@@ -685,8 +685,8 @@ require ("connect.php");
                                                 <p class='users_div_subdiv_p'><span>Contributions: </span>$total_posts</p>
                                                 <center>
                                                     <div class='users_delete_edit'>
-                                                        <a class='users_edit'><i class='fa fa-eye' aria-hidden='true'></i></a>
-                                                        <a class='users_delete'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                                                        <a class='users_edit' href='edit/user.php?id=$id&usertype=Editor'><i class='fa fa-eye' aria-hidden='true'></i></a>
+                                                        <a class='users_delete' onclick='confirmDeleteEditor($id)'><i class='fa fa-trash' aria-hidden='true'></i></a>
                                                     </div>
                                                 </center>
                                             </div>
@@ -741,8 +741,8 @@ require ("connect.php");
                                                 <p class='users_div_subdiv_p'><span>Contributions: </span>$total_posts</p>
                                                 <center>
                                                     <div class='users_delete_edit'>
-                                                        <a class='users_edit'><i class='fa fa-eye' aria-hidden='true'></i></a>
-                                                        <a class='users_delete'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                                                        <a class='users_edit' href='edit/user.php?id=$id&usertype=Writer'><i class='fa fa-eye' aria-hidden='true'></i></a>
+                                                        <a class='users_delete' onclick='confirmDeleteWriter($id)'><i class='fa fa-trash' aria-hidden='true'></i></a>
                                                     </div>
                                                 </center>
                                             </div>
@@ -781,8 +781,8 @@ require ("connect.php");
                                                 <p class='users_div_subdiv_p'><span>Contributions: </span>Plenty</p>
                                                 <center>
                                                     <div class='users_delete_edit'>
-                                                        <a class='users_edit'><i class='fa fa-eye' aria-hidden='true'></i></a>
-                                                        <a class='users_delete'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                                                        <a class='users_edit'href='edit/user.php?id=".$row['id']."&usertype=Other_user'><i class='fa fa-eye' aria-hidden='true'></i></a>
+                                                        <a class='users_delete' onclick='confirmDeleteOtheruser(".$row['id'].")'><i class='fa fa-trash' aria-hidden='true'></i></a>
                                                     </div>
                                                 </center>
                                             </div>
@@ -1107,6 +1107,51 @@ require ("connect.php");
                 }
             })
         }
+        function confirmDeleteEditor(Id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'delete.php?id=' + Id + '&usertype=Editor';
+                }
+            })
+        }
+        function confirmDeleteWriter(Id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'delete.php?id=' + Id + '&usertype=Writer';
+                }
+            })
+        }
+        function confirmDeleteOtheruser(Id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'delete.php?id=' + Id + '&usertype=Otheruser';
+                }
+            })
+        }
         function confirmDeleteN(postId) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -1171,7 +1216,7 @@ require ("connect.php");
         ?>
         anychart.onDocumentReady(function(){
             var data = [
-                {x: "Dextop", value: <?php echo $row_desktop["count_desktop"];?>, exploded: true},
+                {x: "Dextop", value: <?php echo $row_desktop["count_dextop"];?>, exploded: true},
                 {x: "Tablet", value: <?php echo $row_tablet["count_tablet"];?>},
                 {x: "Mobile", value: <?php echo $row_mobile["count_mobile"];?>}
             ];
@@ -1211,9 +1256,30 @@ require ("connect.php");
                 chart2.sort("desc");  
             });
             <?php }; $conn->close(); ?>
-        </script>  
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script type="text/javascript" src="otherJSFiles/custom.js"></script>
+    </script>  
+    <script>
+        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
+        var messageText = "<?= $_SESSION['status']?? ' '?>";
+        if (messageType == 'Error' && messageText != " "){
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })  
+        }else if (messageType == 'Success' && messageText != " "){
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })  
+        }
+        <?php unset($_SESSION['status_type']);?>
+        <?php unset($_SESSION['status']);?>
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
 </body>
 </html>

@@ -21,7 +21,7 @@ include("../connect.php")
 <body>
     <?php require("../extras/header2.php");?>
     <div class="editprofile_container">
-    <form class="create_editor_container" action="../forms.php" method="post">
+    <form class="create_editor_container" action="../forms.php" method="post" enctype="multipart/form-data">
         <div class="createeditor_inputgroup">
             <h1 class="bigheader">Edit Profile</h1>
         </div>
@@ -30,9 +30,9 @@ include("../connect.php")
                 <img src='../../<?php echo $_SESSION['image']; ?>' alt='Post Image'/>
             </div>
             <div class='newpost_container_div6_subdiv2'>
-                <label class='form__label' for='Post_Image'>Edit Image: </label>
+                <label class='form__label' for='Img'>Edit Image: </label>
                 <div class='newpost_subdiv2'>
-                    <input class='form__input' name='Post_Image' type='file' required/>
+                    <input class='form__input' name='Img' type='file' required/>
                 </div>
             </div>
         </div>
@@ -88,11 +88,33 @@ include("../connect.php")
                 <input class="createeditor_input" type="number" name="profile-mobile" value='<?php echo $_SESSION['mobile']; ?>'required/>
             </div>
         </div>
-        <input class="createeditor_input-submit" value="Update" name="profileedit_Submit" type="submit"/>
+        <input class="createeditor_input-submit" value="Update" name="edit_profile" type="submit"/>
     </form>
     </div>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../admin.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
+        var messageText = "<?= $_SESSION['status']?? ' '?>";
+        if (messageType == 'Error' && messageText != " "){
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })  
+        }else if (messageType == 'Success' && messageText != " "){
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })  
+        }
+        <?php unset($_SESSION['status_type']);?>
+        <?php unset($_SESSION['status']);?>
+    </script>
     <script type="text/javascript">
         tinymce.init({
             selector: '#myTextarea',

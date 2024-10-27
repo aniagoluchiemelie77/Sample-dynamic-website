@@ -49,10 +49,10 @@ include("../connect.php");
                                             <a class='users_delete btn'>Promote to Editor</a>
                                         </div>
                                         <div class='posts_delete_edit'>
-                                            <a class='users_edit' href='../edit/user.php?id=".$row["id"]."&usertype=Writer'>
+                                            <a class='users_edit' href='../edit/user.php?id=".$row['id']."&usertype=Writer'>
                                                 <i class='fa fa-pencil' aria-hidden='true'></i>
                                             </a>
-                                            <a class='users_delete'>
+                                            <a class='users_delete' onclick='confirmDeleteWriter(".$row['id'].")'>
                                                 <i class='fa fa-trash' aria-hidden='true'></i>
                                             </a>
                                         </div>
@@ -64,5 +64,22 @@ include("../connect.php");
                 ?>
             </div>
     </section>
+    <script>
+        function confirmDeleteWriter(Id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../delete.php?id=' + Id + '&usertype=Writer';
+                }
+            })
+        }
+    </script>
 </body>
 </html>

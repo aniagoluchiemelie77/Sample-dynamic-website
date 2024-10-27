@@ -1,5 +1,5 @@
 'use strict';
-console.log("JavaScript file is connected properly.");
+
 
 /*
 logoutBtn.addEventListener('click', () => {

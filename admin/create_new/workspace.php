@@ -49,14 +49,14 @@ include("../connect.php")
                 </div>
             </div>
             <div class="newpost_container_div6 newpost_subdiv">
-                <label class="form__label" for="Post_Image">Draft Post's Image</label>
+                <label class="form__label" for="Img">Draft Post's Image</label>
                 <div class="newpost_subdiv2">
-                    <input class="form__input" name="Post_Image" type="file" required/>
+                    <input class="form__input" name="Img" type="file" required/>
                     <p class="newpost_subdiv2-p leftp"><span>*</span>Image should be less than 300KB</p>
                 </div>
             </div>
             <div class="newpost_container_div7 newpost_subdiv">
-                <label class="form__label" for="Post_Content">Draft Post's Content:</label>
+                <label class="form__label" for="Post_content">Draft Post's Content:</label>
                 <textarea class="newpost_container_div7_subdiv2" name="Post_content" id="workspace_area">
                 </textarea>
             </div>
@@ -87,6 +87,28 @@ include("../connect.php")
     </section>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../admin.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
+        var messageText = "<?= $_SESSION['status']?? ' '?>";
+        if (messageType == 'Error' && messageText != " "){
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })  
+        }else if (messageType == 'Success' && messageText != " "){
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })  
+        }
+        <?php unset($_SESSION['status_type']);?>
+        <?php unset($_SESSION['status']);?>
+    </script>
     <script>
         tinymce.init({
             selector: '#workspace_area',

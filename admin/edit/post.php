@@ -47,6 +47,7 @@
                                     <input class='form__input' name='Post_Niche' type='text' value='".$row['niche']."'required/>
                                 </div>
                             </div>
+                            <input type='hidden' name='table_type' value='paid_posts'/>
                             <div class='newpost_container_div3 newpost_subdiv'>
                                 <label class='form__label' for='Post_Sub_Title'>Sub Title:</label>
                                 <div class='newpost_container_div3_subdiv2'>
@@ -120,6 +121,7 @@
                                     <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
                                 </div>
                             </div>
+                            <input type='hidden' name='table_type' value='posts'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
                                 <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
                                 <div class='newpost_container_div5_subdiv2'>
@@ -186,6 +188,7 @@
                                     <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
                                 </div>
                             </div>
+                            <input type='hidden' name='table_type' value='unpublished_articles'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
                                 <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
                                 <div class='newpost_container_div5_subdiv2'>
@@ -252,6 +255,7 @@
                                     <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
                                 </div>
                             </div>
+                            <input type='hidden' name='table_type' value='news'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
                                 <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
                                 <div class='newpost_container_div5_subdiv2'>
@@ -318,6 +322,7 @@
                                     <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
                                 </div>
                             </div>
+                            <input type='hidden' name='table_type' value='commentaries'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
                                 <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
                                 <div class='newpost_container_div5_subdiv2'>
@@ -384,6 +389,7 @@
                                     <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
                                 </div>
                             </div>
+                            <input type='hidden' name='table_type' value='press_releases'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
                                 <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
                                 <div class='newpost_container_div5_subdiv2'>

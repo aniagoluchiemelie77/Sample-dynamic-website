@@ -1,6 +1,11 @@
 <?php
+    session_start();
+    $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+    $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
     include ('connect.php');
     include ('crudoperations.php');
+    $_SESSION['status_type'] = "";
+    $_SESSION['status'] = "";
     if (isset($_GET['id1'])) {
         $postId = $_GET['id1'];
         $sql = "DELETE FROM paid_posts WHERE id = ?";
@@ -8,28 +13,16 @@
         $stmt->bind_param("i", $postId);
         if ($stmt->execute()) {
             $content = "You deleted a paid post";
-            $forUser = 'F';
+            $forUser = 0;
             logUpdate($conn, $forUser, $content);
-            echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        text: 'Your post has been deleted.'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                </script>";
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Deleted Successfully";
+            header('location: admin_homepage.php');
         } 
         else {
-            echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                    </script>";
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
         }
         $stmt->close();
     }
@@ -40,28 +33,16 @@
         $stmt->bind_param("i", $postId);
         if ($stmt->execute()) {
             $content = "You deleted a post";
-            $forUser = 'F';
+            $forUser = 0;
             logUpdate($conn, $forUser, $content);
-            echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        text: 'Your post has been deleted.'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                </script>";
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Deleted Successfully";
+            header('location: admin_homepage.php');
         } 
         else {
-            echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                    </script>";
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
         }
         $stmt->close();
     }
@@ -72,28 +53,16 @@
         $stmt->bind_param("i", $postId);
         if ($stmt->execute()) {
             $content = "You deleted a Draft";
-            $forUser = 'F';
+            $forUser = 0;
             logUpdate($conn, $forUser, $content);
-            echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        text: 'Your post has been deleted.'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                </script>";
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Deleted Successfully";
+            header('location: admin_homepage.php');
         } 
         else {
-            echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                    </script>";
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
         }
         $stmt->close();
     }
@@ -104,28 +73,16 @@
         $stmt->bind_param("i", $postId);
         if ($stmt->execute()) {
             $content = "You deleted a news post";
-            $forUser = 'F';
+            $forUser = 0;
             logUpdate($conn, $forUser, $content);
-            echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        text: 'Your post has been deleted.'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                </script>";
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Deleted Successfully";
+            header('location: admin_homepage.php');
         } 
         else {
-            echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                    </script>";
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
         }
         $stmt->close();
     }
@@ -136,28 +93,16 @@
         $stmt->bind_param("i", $postId);
         if ($stmt->execute()) {
             $content = "You deleted a commentary post";
-            $forUser = 'F';
+            $forUser = 0;
             logUpdate($conn, $forUser, $content);
-            echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        text: 'Your post has been deleted.'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                </script>";
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Deleted Successfully";
+            header('location: admin_homepage.php');
         } 
         else {
-            echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                    </script>";
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
         }
         $stmt->close();
     }
@@ -168,28 +113,73 @@
         $stmt->bind_param("i", $postId);
         if ($stmt->execute()) {
             $content = "You deleted a press release post";
-            $forUser = 'F';
+            $forUser = 0;
             logUpdate($conn, $forUser, $content);
-            echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        text: 'Your post has been deleted.'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                </script>";
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Deleted Successfully";
+            header('location: admin_homepage.php');
         } 
         else {
-            echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!'
-                    }).then(function() {
-                        window.location.href = 'admin_homepage.php';
-                    });
-                    </script>";
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
+    }
+    if ($usertype == "Editor") {
+        $sql = "DELETE FROM editor WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute()) {
+            $content = "Admin ".$_SESSION['firstname']."  deleted an Editor";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "User Deleted Successfully";
+            header('location: admin_homepage.php');
+        } 
+        else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
+    }
+    if ($usertype == "Writer") {
+        $sql = "DELETE FROM writer WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute()) {
+            $content = "Admin ".$_SESSION['firstname']."  deleted a Writer";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "User Deleted Successfully";
+            header('location: admin_homepage.php');
+        } 
+        else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
+    }
+    if ($usertype == "Otheruser") {
+        $sql = "DELETE FROM otherwebsite_users WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute()) {
+            $content = "Admin ".$_SESSION['firstname']."  deleted a User";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "User Deleted Successfully";
+            header('location: admin_homepage.php');
+        } 
+        else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
         }
         $stmt->close();
     }

@@ -47,10 +47,10 @@ include("../connect.php");
                                             <p class='posts_divcontainer_p'><span> Time: </span>$formatted_time</p>
                                         </div>
                                         <div class='posts_delete_edit'>
-                                            <a class='users_edit' href='../edit/user.php?id=".$row["id"]."&usertype=User'>
+                                            <a class='users_edit' href='../edit/user.php?id=".$row["id"]."&usertype=Other_user'>
                                                 <i class='fa fa-pencil' aria-hidden='true'></i>
                                             </a>
-                                            <a class='users_delete'>
+                                            <a class='users_delete' onclick='confirmDeleteOtheruser(".$row['id'].")'>
                                                 <i class='fa fa-trash' aria-hidden='true'></i>
                                             </a>
                                         </div>
@@ -62,5 +62,22 @@ include("../connect.php");
                 ?>
             </div>
     </section>
+    <script>
+        function confirmDeleteOtheruser(Id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#F93404',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../delete.php?id=' + Id + '&usertype=Otheruser';
+                }
+            })
+        }
+    </script>
 </body>
 </html>

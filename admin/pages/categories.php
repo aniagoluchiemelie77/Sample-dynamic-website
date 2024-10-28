@@ -99,7 +99,7 @@ require ("../connect.php");
                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                     </a>
                                 </div>
-                                </div>
+                            </div>
                             ";
                         }
                     }

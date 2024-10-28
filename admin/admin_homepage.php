@@ -34,30 +34,6 @@ require ("connect.php");
             <a class="btn cancellogout" id="dismiss-popup-btn">No</a>
         </div>
     </div>
-    <div class="logout_alert container_center hidden" id="create_category">
-        <form class="create_editor_container popupform1" action="forms.php" method="post">
-            <i class="fa fa-times popup_close1" aria-hidden="true"></i>
-            <div class="createeditor_inputgroup">
-                <h1>Add Category</h1>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="category_name">Category name</label>
-                <input class="createeditor_input reginput" type="text" name="category_name" required/>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_bio">Description</label>
-                <textarea class="writer_bio" name="writer_bio"></textarea>
-            </div>
-            <div class="createeditor_inputgroup">
-                <label class="createeditor_label" for="writer_bio">Add Image</label>
-                <div class="newpost_subdiv2">
-                    <input class="form__input" name="Post_Image" type="file" required/>
-                    <p class="newpost_subdiv2-p leftp">( <span>*</span>Image should be less than 300KB )</p>
-                </div>
-            </div>
-            <input class="createeditor_input-submit btn" value="Go" name="addcategory" type="submit"/>
-        </form>
-    </div>
     <?php require("extras/header.php");?>
     <section class="body">
         <div class="sidebar">

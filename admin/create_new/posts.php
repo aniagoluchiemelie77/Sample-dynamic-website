@@ -68,10 +68,10 @@ include("../connect.php");
                 </select>
             </div>
             <div class="newpost_container_div4 newpost_subdiv">
-                <label class="form__select" for="Post_Status">Post Type:</label>
-                <select class="newpost_subdiv2" name="Post_Status">      
+                <label class="form__select" for="Post_status">Post Type:</label>
+                <select class="newpost_subdiv2" name="Post_status">      
                     <option class="newpost_subdiv4-option" value="">-- Please Select --</option>
-                    <option class="newpost_subdiv4-option" value="paid_post">Paid Post</option>      
+                    <option class="newpost_subdiv4-option" value="paid_posts">Paid Post</option>      
                     <option class="newpost_subdiv4-option" value="posts">Article</option>
                     <option class="newpost_subdiv4-option" value="news">News</option>
                     <option class="newpost_subdiv4-option" value="press_releases">Press Release</option>
@@ -93,7 +93,7 @@ include("../connect.php");
                 </div>
             </div>
             <div class="newpost_container_div7 newpost_subdiv">
-                <label class="form__label" for="Post_Content">Post Content:</label>
+                <label class="form__label" for="Post_content">Post Content:</label>
                 <textarea class="newpost_container_div7_subdiv2" name="Post_content" id="myTextarea">
                 </textarea>
             </div>

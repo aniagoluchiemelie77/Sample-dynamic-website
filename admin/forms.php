@@ -5,15 +5,21 @@ $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 require ("connect.php");
 include ('crudoperations.php');
-function savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename) {
+function savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio) {
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $stmt = $conn->prepare("INSERT INTO $tablename (title, subtitle, image_path, content, niche, link, schedule, admin_id, Date, time, authors_firstname, about_author, authors_lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssssss", $title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $date, $time, $author_firstname, $author_bio, $author_lastname);
-    if ($stmt->execute()) {
+    $sql = "INSERT INTO paid_posts (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    if($query = $conn->prepare($sql)) { 
+        $query->bind_param("sssssssisssss", $admin_id, $title, $niche, $imagePath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname);;
+        $query->execute();
+    } else {
+        $error = $conn->errno . ' ' . $conn->error;
+        echo $error; 
+    }
+    /*if ($query->execute()) {
         $content = "Admin ".$_SESSION['firstname']." created a $tablename post";
-        $forUser = 0;
+        $forUser = 'T';
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Post Created Successfully";
@@ -22,8 +28,7 @@ function savePost($title, $subtitle, $imagePath, $content, $niche, $link, $sched
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: create_new/posts.php');
-    }
-    $stmt->close();
+    }*/
 }
 function saveDraft($admin_id, $title, $niche, $subtitle, $link, $content, $author_firstname, $author_lastname, $about_author, $imagePath) {
     global $conn;
@@ -207,15 +212,14 @@ if (isset($_POST['create_post'])) {
     $author_firstname = $_POST['author_firstname'];
     $author_lastname = $_POST['author_lastname'];
     $author_bio = $_POST['about_author'];
-    $tablename = $_POST['Post_Status'];
     $image = $_FILES['Post_Image']['name'];
     $target = "../images/" . basename($image);
     if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
         $imagePath = $target;
         if( !empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)){
-            $admin_id = " ";
+            $admin_id = "";
         }
-        savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename);
+        savePost($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio);
     }
 }
 if (isset($_POST['edit_profile'])) {

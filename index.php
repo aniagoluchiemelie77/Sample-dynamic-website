@@ -188,7 +188,7 @@ if (isset($_POST['accept_cookies'])) {
                         $class = $counter == 1 ? "section1__div1 larger__div" : "section1__div2 smallerdivs";
                         $class2 = $counter == 1 ? "larger__div__subdiv" : "smaller__div__subdiv";
                         echo "<div class='$class'>
-                                <a href='pages/view_post.php?id1=".$row['id']."&title=".$row['title']."'>
+                                <a href='pages/view_post.php?id1=".$row['id']."'>
                                     <img src='".$row['image_path']."' alt='article image'/>
                                     <div class='$class2'>
                                         <h1>". $row['niche'] ."</h1>

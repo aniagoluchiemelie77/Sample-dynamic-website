@@ -19,7 +19,7 @@ require ("../connect.php");
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
-	<title>Customise Frontend</title>
+	<title>Customise Webpage</title>
 </head>
 <body>
     <?php require("../extras/header2.php");?>
@@ -31,17 +31,17 @@ require ("../connect.php");
             <h1>Actions</h1>
             <div class="pages_container_subdiv">
                 <a class='pages_container_subdiv-links' href="pages/categories.php">
-                    <p>Change Website Color</p>
+                    <p>Change Theme</p>
                 </a>
             </div>
             <div class="pages_container_subdiv">
                 <a class='pages_container_subdiv-links' href="pages/advertisewithus.php">
-                    <p>Edit Privacy Policy Messages</p>
+                    <p>Edit Messages</p>
                 </a>
             </div>
             <div class="pages_container_subdiv">
                 <a class='pages_container_subdiv-links' href="pages/privacypolicy.php">
-                    <p>Edit Website Features (logo, Image, Desc..)</p>
+                    <p>Edit Website Features (logo, Image..)</p>
                 </a>
             </div>
         </div>

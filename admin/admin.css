@@ -598,7 +598,13 @@ a, td,span, p, label{
 }
 .visits_subdiv2_header{
     font-size: var(--header-h6);
+    width: 80%;
+    padding-bottom: 1rem;
+    text-transform: capitalize;
     text-align: center;
+}
+.visits_subdiv2_subdiv2 {
+    margin-top: 1rem;
 }
 .hidden{
     display: none;

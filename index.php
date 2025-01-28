@@ -179,7 +179,7 @@ if (isset($_POST['accept_cookies'])) {
         </div>
         <section class="section1">
             <?php 
-                $selectpaidposts = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY date DESC";
+                $selectpaidposts = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY date DESC LIMIT 4";
                 $paidpostselection_result = $conn->query($selectpaidposts); 
                 if ($paidpostselection_result->num_rows > 0) {
                     $counter = 0;

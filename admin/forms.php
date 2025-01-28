@@ -14,7 +14,7 @@ function savePost($title, $subtitle, $imagePath, $content, $niche, $link, $sched
         $query->bind_param("sssssssisssss", $admin_id, $title, $niche, $imagePath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname);
         if ($query->execute()) {
             $content = "Admin ".$_SESSION['firstname']." added a new post (".$post_type.")";
-            $forUser = 'T';
+            $forUser = 1;
             logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
             $_SESSION['status'] = "Post Created Successfully";
@@ -29,14 +29,14 @@ function savePost($title, $subtitle, $imagePath, $content, $niche, $link, $sched
         echo $error; 
     }
 }
-function saveDraft($admin_id, $title, $niche, $subtitle, $link, $content, $author_firstname, $author_lastname, $about_author, $imagePath) {
+function saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $admin_id) {
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $stmt = $conn->prepare("INSERT INTO unpublished_articles (admin_id, title, subtitle, image, link, Date, time, niche, content, authors_firstname, about_author, authors_lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssssssssss", $admin_id, $title, $subtitle, $imagePath, $link, $date, $time, $niche, $content, $author_firstname, $author_bio, $author_lastname);
+    $stmt = $conn->prepare("INSERT INTO unpublished_articles (admin_id, title, subtitle, image, link, Date, time, niche, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("issssssss", $admin_id, $title, $subtitle, $imagePath, $link, $date, $time, $niche, $content);
     if ($stmt->execute()) {
-        $content = "Admin ".$_SESSION['firstname']." created drafted a post";
+        $content = "Admin ".$_SESSION['firstname']." added a draft";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
@@ -296,22 +296,17 @@ if (isset($_POST['edit_profile_otheruser'])) {
 }
 if (isset($_POST['create_draft'])) {
     $title = $_POST['Post_Title'];
-    $niche = $_POST['Post_Niche'];
     $subtitle = $_POST['Post_Sub_Title'];
-    $link = $_POST['Post_featured'];
     $content = $_POST['Post_content'];
-    $author_firstname = $_POST['author_firstname'];
-    $author_lastname = $_POST['author_lastname'];
-    $about_author = $_POST['about_author'];
-    $image = $_FILES['Img']['name'];
+    $niche = $_POST['Post_Niche'];
+    $link = $_POST['Post_featured'];
+    $image = $_FILES['Post_Image']['name'];
     $target = "../images/" . basename($image);
-    if($password === $confirm_pasword){
-        if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
-            $imagePath = $target;
-            saveDraft($admin_id, $title, $niche, $subtitle, $link, $content, $author_firstname, $author_lastname, $about_author, $imagePath);
-        }
+    if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
+        $imagePath = $target;
+        saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $admin_id);
     }
-} 
+}
 if (isset($_POST['update_post'])) {
     $title = $_POST['Post_Title'];
     $niche = $_POST['Post_Niche'];

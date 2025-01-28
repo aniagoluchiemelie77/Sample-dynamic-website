@@ -297,7 +297,7 @@ $url = "http://localhost/Sample-dynamic-website";
                         $id = $row['id'];
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
-                        echo "<h1 class='Post_header'>".$title."</h1>
+                        echo "<h1 class='Post_header'>$title</h1>
                                 <h2>".$subtitle."</h2>
                                 <div class='authors_div'>
                                     <div class='authors_div_imgbox'>
@@ -320,21 +320,28 @@ $url = "http://localhost/Sample-dynamic-website";
                                 <span>Source: Getty Images</span>
                             </div>
                             <div class='socialmedia_links'>
-                                <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                <a target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                <a  target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                <a  target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                <a  target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
                                 <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                <a href='mailto:?subject=".$title."'&body=".$content."' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                             </div>
                             <p>".$content."</p>
                             <div class='socialmedia_links'>
-                                <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                <a href='https://twitter.com/intent/tweet?url=".$url."&text=".$title."' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                 <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=".$title."' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                <a href='https://reddit.com/submit?url={".$url."}&title={".$title."}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
                                 <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                <a href='mailto:?subject=".$title."'&body=".$content."' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                            </div><div class='socialmedia_links'>
+                                <a  target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                <a  target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                <a  target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                <a  target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                <a href='mailto:?subject=".$title."'&body=".$content."' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                             </div>
                             <h3 class='bodyleft_header3'>About the Author</h3>
                             <center>

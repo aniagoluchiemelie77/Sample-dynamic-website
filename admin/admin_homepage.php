@@ -430,14 +430,13 @@ require ("connect.php");
                             <div id="pie_container" style="width:90%; height:80%"></div>
                         </div>   
                         <div class="visits_subdiv2 visitsubdivs">
-                            <h1 class="visits_subdiv2_header padding_b">Page Views</h1>
+                            <h1 class="visits_subdiv2_header padding_b">Analyze website</h1>
                             <div class="visits_subdiv2_subdiv">
-                                <p>60%</p>
+                                <p>Track and analyze your website visitors using google analytics</p>
                             </div>
-                            <p class="visits_subdiv2_p"> 
-                                <span>Aug 12th</span> -
-                                <span> Sept 12</span>
-                            </p>
+                            <div class="visits_subdiv2_subdiv2">
+                                <a href="#" class="btn">Try now</a>
+                            </div>
                         </div>
                         <div class="visits_subdiv3 visitsubdivs border-gradient-side-dark">
                             <div id="pie_chartcontainer2" style="width: 100%; height: 100%"></div>

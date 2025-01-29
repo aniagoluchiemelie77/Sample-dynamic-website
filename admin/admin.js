@@ -1,12 +1,5 @@
 'use strict';
-
-
-/*
-logoutBtn.addEventListener('click', () => {
-                logoutDiv.classList.remove('hidden');
-                logoutDiv.style.display = 'flex';
-            })
-sideBtns.forEach((tab, index) => {
+/*sideBtns.forEach((tab, index) => {
     tab.addEventListener('click', (e) => {
       sideBtns.forEach((tab) => {
         tab.classList.remove('active');
@@ -20,6 +13,7 @@ sideBtns.forEach((tab, index) => {
       tabContent[index].classList.remove('hidden');
     })
   })
+  */
 const editBtn = document.querySelector('.profile_edit_btn');
 const header = document.querySelector('.body');
 const body = document.querySelector('.header');
@@ -46,20 +40,26 @@ let profilePicUploadBtn = document.getElementById('profileuploads');
 const editAboutPageBtn = document.getElementById('Edit_about');
 const editAboutDiv = document.getElementById('hidden_aboutdiv');
 
-
-sideBtns.forEach((tab, index) => {
-  tab.addEventListener('click', (e) => {
-    sideBtns.forEach((tab) => {
-      tab.classList.remove('active');
-    });
-    tab.classList.add('active');
-    tabContent.forEach((content) =>{
-      content.style.display = 'none';
-    })
-    tabContent[index].style.display = 'flex';
-  })
+function openTab(event, tabName) {
+  var i, tabPane, tabButton;
+  tabPane = document.getElementsByClassName("tab-pane");
+  for (i = 0; i < tabPane.length; i++) {
+      tabPane[i].style.display = "none";
+  }
+  // Remove the active class from all tab buttons
+  tabButton = document.getElementsByClassName("tab-button");
+  for (i = 0; i < tabButton.length; i++) {
+      tabButton[i].className = tabButton[i].className.replace(" active", "");
+  }
+  // Show the current tab and add an active class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  event.currentTarget.className += " active";
+}
+// Set the default active tab
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementsByClassName("tab-button")[0].click();
 });
-
+/*
 const displayPopups = function(divname, clickorigin){
   clickorigin.addEventListener('click', () => {
     divname.classList.remove('hidden');
@@ -67,7 +67,10 @@ const displayPopups = function(divname, clickorigin){
   })
 }
 displayPopups(createEditorDiv, createWriterOrigin);
-
+logoutBtn.addEventListener('click', () => {
+  logoutDiv.classList.remove('hidden');
+  logoutDiv.style.display = 'flex';
+});
 const removeHiddenClass = function (e) {
   e.stopPropagation();
   logoutDiv.classList.add('hidden');
@@ -89,27 +92,6 @@ const displayExitAlert = function(event){
  event.stopPropagation();
 }
 logout.addEventListener('click', displayExitAlert);
-
-const stickyNavFunc = function () {
-  const navHeight = header.getBoundingClientRect().height;
-  const stickyNav = function (entries) {
-      const [entry] = entries;
-      if (entry.isIntersecting) {
-        console.log('yeah')
-          //sidebar.classList.add('sticky');
-      }else{
-         // sidebar.classList.remove('sticky');
-          //headerObs.unobserve(header);
-      }
-  }
-  const headerObs = new IntersectionObserver(stickyNav, {
-      root: null,
-      threshold: 0,
-      rootMargin: `-${navHeight}px`,
-  });
-  headerObs.observe(header);
-};
-stickyNavFunc();
 const removeExitAlert = function(){
   logoutDiv.classList.toggle('hidden');
   logoutDiv.style.display = 'unset';
@@ -120,8 +102,4 @@ const upload = function(){
   document.getElementById('file_upload_id').click();
 }
 profilePicUploadBtn.addEventListener('click', upload);
-onClickOutside(popupForm1);
-onClickOutside(popupForm2);
-onClickOutside(popupForm3);
-onClickOutside(popupForm4);
 */

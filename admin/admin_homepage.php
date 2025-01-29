@@ -38,48 +38,48 @@ require ("connect.php");
     <section class="body">
         <div class="sidebar">
             <div class="links_group" id="links">
-                <div class="active sidebarbtn" id="tab">
+                <button class="active sidebarbtn" id="tab">
                     <i class="fa fa-tachometer" aria-hidden="true"></i>
                     <p class="paragraph">
                         Dashboard
                     </p>
-                </div>
-                <div class="border-gradient-side sidebarbtn" id="tab">
+                </button>
+                <button class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <p class="paragraph">
                         Profile
                     </p>
-                </div>
-                <div class="border-gradient-side sidebarbtn" id="tab">
+                </button>
+                <button class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <p class="paragraph">
                         Users
                     </p>
-                </div>
-                <div class="border-gradient-side sidebarbtn" id="tab">
+                </button>
+                <button class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-newspaper" aria-hidden="true"></i>
                     <p class="paragraph">
                         Posts
                     </p>
-                </div>
-                <div class="border-gradient-side sidebarbtn" id="tab">
+                </button>
+                <button class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-sticky-note" aria-hidden="true"></i>
                     <p class="paragraph">
                         Pages
                     </p>
-                </div>
-                <div class="border-gradient-side sidebarbtn" id="tab">
+                </button>
+                <button class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     <p class="paragraph">
                         Settings
                     </p>
-                </div>
-                <div class="border-gradient-side sidebarbtn" id="tab">
+                </button>
+                <button class="border-gradient-side sidebarbtn" id="tab">
                     <i class="fa fa-phone" aria-hidden="true"></i>
                     <p class="paragraph">
                         Contact Developer
                     </p>
-                </div>
+                </button>
                 <button class="logout border-gradient-side" id="open-popup-btn">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                     Logout

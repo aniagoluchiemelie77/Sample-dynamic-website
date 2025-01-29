@@ -971,6 +971,7 @@ a, td,span, p, label{
  .posts_divcontainer_subdiv .posts_delete_edit .btn{
     color: var(--color60);
     cursor: pointer;
+    border: none;
  }
  .posts_divcontainer_subdiv a{
     cursor: pointer;

@@ -15,6 +15,7 @@ include("../connect.php");
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="../admin.css"/>
 	<title>View Writers</title>
 </head>
@@ -45,9 +46,10 @@ include("../connect.php");
                                             <p class='posts_divcontainer_p'><span> Date Joined: </span>". $row["formatted_date"]."</p>
                                             <p class='posts_divcontainer_p'><span> Time: </span>$formatted_time</p>
                                         </div>
-                                        <div class='posts_delete_edit'>
-                                            <a class='users_delete btn'>Promote to Editor</a>
-                                        </div>
+                                        <form action='../promote_writer.php' method='POST' class='posts_delete_edit'>
+                                            <input type='hidden' name='writer_id' value='".$row["id"]."'>
+                                            <button type='submit' class='promote_button users_delete btn'>Promote to Editor</button>
+                                        </form>
                                         <div class='posts_delete_edit'>
                                             <a class='users_edit' href='../edit/user.php?id=".$row['id']."&usertype=Writer'>
                                                 <i class='fa fa-pencil' aria-hidden='true'></i>
@@ -64,6 +66,8 @@ include("../connect.php");
                 ?>
             </div>
     </section>
+    <script src="sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script>
         function confirmDeleteWriter(Id) {
             Swal.fire({
@@ -80,6 +84,27 @@ include("../connect.php");
                 }
             })
         }
+    </script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
+        var messageText = "<?= $_SESSION['status']?? ' '?>";
+        if (messageType == 'Error' && messageText != " "){
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })  
+        }else if (messageType == 'Success' && messageText != " "){
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })  
+        }
+        <?php unset($_SESSION['status_type']);?>
+        <?php unset($_SESSION['status']);?>
     </script>
 </body>
 </html>

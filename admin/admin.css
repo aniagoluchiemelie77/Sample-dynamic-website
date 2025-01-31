@@ -290,14 +290,16 @@ a, td,span, p, label{
 .body{
     min-height: calc(100vh - var(--header-height));
     width: 100vw;
+    background-color: var(--color30);
 }
 .body .sidebar{
     float: left;
     width: var(--sidebar-width);
-    background-color: var(--color30);
-    height: 100%;
+    min-height: 100%;
+    background-color: inherit;
     margin: 0;
     display: flex;
+    border: .1px solid var(--color60);
     flex-direction: column;
     padding: var(--divpadding);
 }
@@ -366,48 +368,37 @@ a, td,span, p, label{
     font-size: var(--ifontsize-5);
     margin-bottom: .5rem;
 }
-.body .sidebar div{
-    display: flex;
-    padding: var(--divpadding-high);
-    flex-direction: column;
-}
-.body .sidebar div .sidebarbtn{
+.body .sidebar button{
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: var(--divpadding-high);
     cursor: pointer;
+    border: none;
     transition: all .3s ease-out;
     -webkit-transition: all .3s ease-out;
     -moz-transition: all .3s ease-out;
     -ms-transition: all .3s ease-out;
     -o-transition: all .3s ease-out;
-}
-.body .sidebar div .logout{
-    padding: var(--divpadding-high);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: inherit;
-    border: none;
     cursor: pointer;
-    outline: none;
-    color: var(--color60-shade);
+    background: inherit;
+    color: white;
 }
-.body .sidebar div .logout:hover{
-    background-color: var(--color10);
-    color: var(--color60);
+.body .sidebar .sidebarbtn:hover{
+    color: var(--color10);
 }
-.body .sidebar p{
-    color: var(--color60-shade);
-}
-.body .sidebar div i{
+.body .sidebar i{
     margin-right: 1rem;
-    color: var(--color60);
     font-size: var(--ifontsize-7);
 }
-.active{
-    background-color: var(--color10);
-    color: var(--color60);
+.sidebar .active{
+    color: var(--color10);
+}
+.sidebar .active  p{
+    color: var(--color10);
+}
+.sidebar .active  i{
+    color: var(--color10);
 }
 .aside_sidebar{
     margin-left: var(--sidebar-width);
@@ -420,6 +411,7 @@ a, td,span, p, label{
 .aside_sidebar .active2{
     display: flex;
 }
+
 .aside_sidebar2{
     position: relative;
     align-items: center;

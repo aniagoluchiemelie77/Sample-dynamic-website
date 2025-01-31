@@ -24,6 +24,7 @@ require ("connect.php");
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="admin.js" defer></script> 
 	<title>Admin Homepage</title>
 </head>
 <body>
@@ -36,58 +37,49 @@ require ("connect.php");
     </div>
     <?php require("extras/header.php");?>
     <section class="body">
-        <div class="sidebar">
-            <div class="links_group" id="links">
-                <button class="active sidebarbtn" id="tab">
-                    <i class="fa fa-tachometer" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Dashboard
-                    </p>
-                </button>
-                <button class="border-gradient-side sidebarbtn" id="tab">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Profile
-                    </p>
-                </button>
-                <button class="border-gradient-side sidebarbtn" id="tab">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Users
-                    </p>
-                </button>
-                <button class="border-gradient-side sidebarbtn" id="tab">
-                    <i class="fa fa-newspaper" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Posts
-                    </p>
-                </button>
-                <button class="border-gradient-side sidebarbtn" id="tab">
-                    <i class="fa fa-sticky-note" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Pages
-                    </p>
-                </button>
-                <button class="border-gradient-side sidebarbtn" id="tab">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Settings
-                    </p>
-                </button>
-                <button class="border-gradient-side sidebarbtn" id="tab">
-                    <i class="fa fa-phone" aria-hidden="true"></i>
-                    <p class="paragraph">
-                        Contact Developer
-                    </p>
-                </button>
-                <button class="logout border-gradient-side" id="open-popup-btn">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    Logout
-                </buton>
-            </div>
-            <p class="sidebar_footer">
-                &copy; uniquetechcontentwriter 2024
-            </p>
+        <div class="sidebar ">
+            <button class="sidebarbtn active" id="tab">
+                <i class="fa fa-tachometer" aria-hidden="true"></i>
+                <p class="paragraph">
+                    Dashboard
+                </p>
+            </button>
+            <button class="sidebarbtn" id="tab" >
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <p class="paragraph">
+                    Profile
+                </p>
+            </button>
+            <button class="sidebarbtn" id="tab" >
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <p class="paragraph">
+                    Users
+                </p>
+            </button>
+            <button class="sidebarbtn" id="tab" >
+                <i class="fa fa-newspaper" aria-hidden="true"></i>
+                <p class="paragraph">
+                    Posts
+                </p>
+            </button>
+            <button class="sidebarbtn" id="tab">
+                <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                <p class="paragraph">
+                    Pages
+                </p>
+            </button>
+            <button class="sidebarbtn" id="tab">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <p class="paragraph">
+                    Settings
+                </p>
+            </button>
+            <button class="sidebarbtn" id="tab">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <p class="paragraph">
+                    Contact Developer
+                </p>
+            </button>
         </div>
         <div class="aside_sidebar">
             <div class="website_info_div tab_content active2" id="tab1">
@@ -1035,8 +1027,29 @@ require ("connect.php");
             </div>
         </div>  
     </section>
-    <script src="admin.js"></script> 
     <script>
+        const sideBtns = document.querySelectorAll('.sidebarbtn');
+        const tabComponents = document.querySelectorAll('.tab_content');
+
+        sideBtns.forEach((tab, index) =>{
+            tab.addEventListener('click', () => {
+                sideBtns.forEach((tab) => tab.classList.remove('active'));
+                tab.classList.add('active');
+                tabComponents.forEach((tabContent) => {
+                    tabContent.classList.remove('active2');
+                    tabContent.style.display = 'none';}
+                );
+                tabComponents[index].classList.add('active2');
+                tabComponents[index].style.display = 'flex';
+            });
+        })
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementsByClassName("sidebarbtn")[0].click();
+        });
+        function logoutPopUp () {
+            logoutDiv.classList.remove('hidden');
+            logoutDiv.style.display = 'flex';
+        }
         function confirmDeletePP(postId) {
             Swal.fire({
                 title: 'Are you sure?',

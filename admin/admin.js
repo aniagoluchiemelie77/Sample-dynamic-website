@@ -1,34 +1,12 @@
 'use strict';
-/*sideBtns.forEach((tab, index) => {
-    tab.addEventListener('click', (e) => {
-      sideBtns.forEach((tab) => {
-        tab.classList.remove('active');
-      });
-      tab.classList.add('active');
-      tabContent.forEach((content) =>{
-        content.style.display = 'none';
-        content.classList.add('hidden');
-      })
-      tabContent[index].style.display = 'flex';
-      tabContent[index].classList.remove('hidden');
-    })
-  })
-  */
+
+ const logoutBtn = document.getElementById('open-popup-btn');
 const editBtn = document.querySelector('.profile_edit_btn');
 const header = document.querySelector('.body');
 const body = document.querySelector('.header');
-const sidebar = document.querySelector('.sidebar');
-const sideBtns = document.querySelectorAll('.sidebarbtn');
 const popupForm1 = document.querySelector('.popupform1');
-const popupForm2 = document.querySelector('.popupform2');
-const popupForm3 = document.querySelector('.popupform3');
-const popupForm4 = document.querySelector('.popupform4');
-const popupForm5 = document.querySelector('.popupform5');
-const deletePostIcon = document.querySelectorAll('.users_delete');
-const deletePostDiv = document.querySelector('.posts_delete_edit2');
 const form = document.querySelector('.Edit_profile');
-const logout = document.querySelector('.logout');
-const logoutDiv = document.querySelector('.logout_alert');
+const logoutDiv = document.getElementById('.logout_alert');
 const logoutDiv2 = document.querySelector('.logout_alert2');
 const cancelLogout = document.querySelector('.cancellogout');
 const formInput = document.getElementById('form_input');
@@ -40,25 +18,8 @@ let profilePicUploadBtn = document.getElementById('profileuploads');
 const editAboutPageBtn = document.getElementById('Edit_about');
 const editAboutDiv = document.getElementById('hidden_aboutdiv');
 
-function openTab(event, tabName) {
-  var i, tabPane, tabButton;
-  tabPane = document.getElementsByClassName("tab-pane");
-  for (i = 0; i < tabPane.length; i++) {
-      tabPane[i].style.display = "none";
-  }
-  // Remove the active class from all tab buttons
-  tabButton = document.getElementsByClassName("tab-button");
-  for (i = 0; i < tabButton.length; i++) {
-      tabButton[i].className = tabButton[i].className.replace(" active", "");
-  }
-  // Show the current tab and add an active class to the button that opened the tab
-  document.getElementById(tabName).style.display = "block";
-  event.currentTarget.className += " active";
-}
-// Set the default active tab
-document.addEventListener("DOMContentLoaded", function() {
-  document.getElementsByClassName("tab-button")[0].click();
-});
+
+
 /*
 const displayPopups = function(divname, clickorigin){
   clickorigin.addEventListener('click', () => {

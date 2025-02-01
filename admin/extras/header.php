@@ -7,7 +7,7 @@
         <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
     </form>
     <div class="header_img">
-        <a class="notification" href="#">
+        <a class="notification" href="pages/updates.php">
             <span></span>
             <i class="fa fa-bell" aria-hidden="true"></i>
         </a>

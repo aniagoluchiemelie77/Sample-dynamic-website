@@ -531,7 +531,7 @@ require ("connect.php");
                 <div class="profile_body-activities">
                     <div class="profile_body-activities_subdiv">
                         <h1>Recent Activities</h1>
-                        <a class="btn" href="pages/useractivities.php">View All</a>
+                        <a class="btn" href="pages/updates.php">View All</a>
                     </div>
                     <?php
                         $getuseractivities_sql = " SELECT content, Date, time FROM updates ORDER BY id DESC LIMIT 7";

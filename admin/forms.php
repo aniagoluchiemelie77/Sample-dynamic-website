@@ -69,6 +69,32 @@ function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $adm
     }
     $stmt->close();
 }
+function updatePages($content, $tablename) {
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $string = str_replace('_', ' ', $tablename); 
+    $stmt = "INSERT INTO $tablename (content, date, time) VALUES (?, ?, ?)";
+    if($query = $conn->prepare($stmt)) { 
+        $query->bind_param("sss", $content, $date, $time);
+        if ($query->execute()) {
+            $content = "Admin ".$_SESSION['firstname']." updated this website's '(".$string.")'";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "".$string." Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+    } else {
+        $error = $conn->errno . ' ' . $conn->error;
+        echo $error; 
+        header('location: admin_homepage.php');
+    }
+}
 function updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath) {
     global $conn;
     $stmt = $conn->prepare("UPDATE admin_login_info SET firstname = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ?");
@@ -376,30 +402,19 @@ if (isset($_POST['create_user'])) {
     }
 
 } 
-/*if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $topicNameRaw = $_POST['topicName'];
-    $desc = $_POST['topicDesc'];
-    $topicName = strtolower(str_replace(' ', '-', $topicNameRaw));
-    $date = date('Y-m-d');
-    $time = date('H:i:s');
-    $image = $_FILES['topicImg']['name'];
-    $target = "../images/" . basename($image);
-    if (move_uploaded_file($_FILES['topicImg']['tmp_name'], $target)) {
-        $imagePath = $target;
-    }
-    $sql = "INSERT INTO topics (name, description, image_path, Date, time) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $topicName, $desc, $imagePath, $date, $time);
-    if ($stmt->execute()) {
-        $content = "You created a new topic";
-        $forUser = 'F';
-        logUpdate($conn, $forUser, $content);
-        $fileName = '../pages/' . str_replace('-', '', $topicName) . '.php';
-        $fileContent = $topic_pagetemplate;
-        file_put_contents($fileName, $fileContent);
-    } else {
-        echo "Failed to add topic.";
-    }
-    $stmt->close();
-}*/
+if (isset($_POST['edit_privacypolicy_btn'])) {
+    $content = $_POST['privacy_policy'];
+    $tablename = "privacy_policy";
+    updatePages($content, $tablename);
+} 
+if (isset($_POST['edit_aboutwebsite_btn'])) {
+    $content = $_POST['about_website'];
+    $tablename = "about_website";
+    updatePages($content, $tablename);
+} 
+if (isset($_POST['advertedit_btn'])) {
+    $content = $_POST['advertise_content'];
+    $tablename = "advert_info";
+    updatePages($content, $tablename);
+} 
 ?>

@@ -15,7 +15,7 @@ require ("../connect.php");
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../admin.css"/>
+    <link id="themeStylesheet" rel="stylesheet" href="../admin.css"/>
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
@@ -30,21 +30,36 @@ require ("../connect.php");
             </div>
             <h1>Actions</h1>
             <div class="pages_container_subdiv">
-                <a class='pages_container_subdiv-links' href="pages/categories.php">
+                <a class='pages_container_subdiv-links' href="#">
                     <p>Change Theme</p>
+                    <!--<div class="theme-icon" onclick="toggleTheme()">🌞</div>-->
                 </a>
             </div>
             <div class="pages_container_subdiv">
-                <a class='pages_container_subdiv-links' href="pages/advertisewithus.php">
+                <a class='pages_container_subdiv-links' href="#">
                     <p>Edit Messages</p>
                 </a>
             </div>
             <div class="pages_container_subdiv">
-                <a class='pages_container_subdiv-links' href="pages/privacypolicy.php">
+                <a class='pages_container_subdiv-links' href="#">
                     <p>Edit Website Features (logo, Image..)</p>
                 </a>
             </div>
         </div>
     </section>
+    <!--<script>
+        function toggleTheme() {
+            var themeStylesheet = document.getElementById('themeStylesheet');
+            var themeIcon = document.querySelector('.theme-icon');
+
+            if (themeStylesheet.getAttribute('href') === 'light.css') {
+                themeStylesheet.setAttribute('href', 'dark.css');
+                themeIcon.textContent = '🌜';
+            } else {
+                themeStylesheet.setAttribute('href', 'light.css');
+                themeIcon.textContent = '🌞';
+            }
+        }
+    </script>-->
 </body>
 </html>

@@ -28,11 +28,11 @@ require ("connect.php");
 	<title>Admin Homepage</title>
 </head>
 <body>
-    <div class="logout_alert hidden" id="logout_alert">
+    <div class="logout_alert" id="logout_alert">
         <h1 class="logout_alert_header">Are You Sure You Want To Logout?</h1>
         <div>
             <a class="btn" href="extras/logout.php">Yes</a>
-            <a class="btn cancellogout" id="dismiss-popup-btn">No</a>
+            <a class="btn cancellogout" id="dismiss-popup-btn" onclick = "cancelExit()">No</a>
         </div>
     </div>
     <?php require("extras/header.php");?>
@@ -78,6 +78,12 @@ require ("connect.php");
                 <i class="fa fa-phone" aria-hidden="true"></i>
                 <p class="paragraph">
                     Contact Developer
+                </p>
+            </button>
+            <button class="sidebarbtn2" onclick="displayExit()">
+                <i class="fa-solid fa-door-open"></i>
+                <p class="paragraph">
+                    Logout
                 </p>
             </button>
         </div>
@@ -438,12 +444,12 @@ require ("connect.php");
             </div>
             <div class="profile tab_content" id="tab2">
                 <figure class="profile_imgbox">
-                    <img src="../<?php echo $_SESSION['image'];?>" alt="Authors Profile Picture" class="profile_imgbox_img"/>
-                    <a class="profile_imgbox_edit" id="profileuploads">
+                    <img src="<?php echo $_SESSION['image'];?>" alt="Authors Profile Picture" class="profile_imgbox_img"/>
+                    <a class="profile_imgbox_edit" id="profileuploads" onclick="document.getElementById('fileInput').click();">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
-                    <form id="edit_profile_container" action="forms.php" method="post">
-                        <input type="file" id="file_upload_id" style="display:none" capture="camera" accept="images/*" multiple>
+                    <form id="profileForm" action="forms.php" method="POST" enctype="multipart/form-data">
+                        <input type="file" id="fileInput" name="profilePicture" style="display: none;" onchange="document.getElementById('profileForm').submit();">
                     </form>
                 </figure>
                 <div class="profile_body">
@@ -583,12 +589,12 @@ require ("connect.php");
                         <h2>Admin</h2>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
-                        <div class="users_div_subdiv_subdiv divimages" style="background-image:url('<?php echo '../' . $_SESSION['image']; ?>')">
+                        <div class="users_div_subdiv_subdiv divimages" style="background-image:url('<?php echo $_SESSION['image']; ?>')">
                             <div class="divimages_side--back">
                                 <p class="users_div_subdiv_p">
                                     <span>Username:</span>
                                     <?php echo $_SESSION['username']; ?>
-                                </p>
+                                </p> 
                                 <p class="users_div_subdiv_p">
                                     <span>Firstname:</span>
                                         <?php echo $_SESSION['firstname']; ?>
@@ -1030,6 +1036,8 @@ require ("connect.php");
     <script>
         const sideBtns = document.querySelectorAll('.sidebarbtn');
         const tabComponents = document.querySelectorAll('.tab_content');
+        const logoutDiv = document.getElementById('logout_alert');
+        const exitLogout = document.getElementById('dismiss-popup-btn');
 
         sideBtns.forEach((tab, index) =>{
             tab.addEventListener('click', () => {
@@ -1046,9 +1054,12 @@ require ("connect.php");
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementsByClassName("sidebarbtn")[0].click();
         });
-        function logoutPopUp () {
-            logoutDiv.classList.remove('hidden');
+        
+        function displayExit () {
             logoutDiv.style.display = 'flex';
+        }
+        function cancelExit () {
+            logoutDiv.style.display = 'none';
         }
         function confirmDeletePP(postId) {
             Swal.fire({

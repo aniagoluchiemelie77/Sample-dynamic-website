@@ -65,7 +65,7 @@ $url = "http://localhost/Sample-dynamic-website";
                     echo "</div>";
                 }
                 if ($post_id > 0) {
-                    $getposts_sql = " SELECT id, admin_id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, time, subtitle, link, content, authors_firstname, authors_lastname, about_author, author_image FROM paid_posts WHERE id = $post_id";
+                    $getposts_sql = "SELECT id, admin_id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, time, subtitle, link, content, authors_firstname, authors_lastname, about_author, author_image FROM paid_posts WHERE id = $post_id";
                     $getposts_result = $conn->query($getposts_sql);
                     if ($getposts_result -> num_rows > 0) {
                         $row = $getposts_result->fetch_assoc();

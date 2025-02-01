@@ -432,4 +432,60 @@ if (isset($_POST['contactus_editbtn'])) {
     $tablename = "contact_us";
     updatePages($content, $tablename);
 }
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profilePicture'])) {
+    $targetDir = "../images/";
+    $targetFile = $targetDir . basename($_FILES['profilePicture']['name']);
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    $check = getimagesize($_FILES['profilePicture']['tmp_name']);
+    if ($check !== false) {
+        if (!file_exists($targetFile)) {
+            if ($_FILES['profilePicture']['size'] <= 9000000) {
+                if (in_array($imageFileType, ['jpg', 'png', 'jpeg', 'gif'])) {
+                    if (move_uploaded_file($_FILES['profilePicture']['tmp_name'], $targetFile)) {
+                        $stmt = $conn->prepare("UPDATE admin_login_info SET image = ? ");
+                        $stmt->bind_param("s", $targetFile);
+                        if ($stmt->execute()) {
+                            $content = "Admin ".$_SESSION['firstname']." changed her profile picture";
+                            $forUser = 0;
+                            logUpdate($conn, $forUser, $content);
+                            $_SESSION['status_type'] = "Success";
+                            $_SESSION['status'] = "Profile Picture Updated Successfully";
+                            header('location: admin_homepage.php');
+                        } else {
+                            $_SESSION['status_type'] = "Error";
+                            $_SESSION['status'] = "Error, Please retry";
+                            header('location: admin_homepage.php');
+                        }
+                    } else {
+                        $_SESSION['status_type'] = "Error";
+                        $_SESSION['status'] = "Error, Please retry";
+                        header('location: admin_homepage.php');
+                    }
+                } else {
+                    $_SESSION['status_type'] = "Error";
+                    $_SESSION['status'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                    header('location: admin_homepage.php'); 
+                }
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Sorry, your image file is too large.";
+                header('location: admin_homepage.php');
+            }
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Sorry, Image already exists.";
+            header('location: admin_homepage.php');
+        }
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Submitted File is not an image.";
+        header('location: admin_homepage.php');
+    }
+} else {
+    $_SESSION['status_type'] = "Error";
+    $_SESSION['status'] = "No file uploaded.";
+    header('location: admin_homepage.php');
+    
+}
+?>
 ?>

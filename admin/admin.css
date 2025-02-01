@@ -387,7 +387,10 @@ a, td,span, p, label{
     background: inherit;
     color: white;
 }
-.body .sidebar .sidebarbtn:hover{
+.body .sidebar .sidebarbtn2:hover i{
+    color: var(--color10);
+}
+.body .sidebar button:hover{
     color: var(--color10);
 }
 .body .sidebar i{
@@ -851,7 +854,6 @@ a, td,span, p, label{
  }
  .users .users_div_subdiv_subdiv:nth-child(2) i{
     font-size: var(--ifontsize-6);
-    color: var(--color10);
     align-items: center;
  }
  .users_div_subdiv_subdiv .users_create{
@@ -1154,6 +1156,7 @@ a, td,span, p, label{
     display: flex;
 }
 .logout_alert{
+    display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;

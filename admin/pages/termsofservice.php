@@ -19,6 +19,7 @@ require ("../connect.php");
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>Terms of Service</title>
 </head>
 <body>
@@ -31,33 +32,22 @@ require ("../connect.php");
             <h1>Terms of Service</h1>
         </div>
         <div class="about_contents">
-            <span>
-            Dark Reading: Connecting The Cybersecurity Community
-            Long one of the most widely read cybersecurity news sites, Dark Reading is also the most trusted online community for security professionals like you. Our community members include thought-leading security researchers, CISOs, and technology specialists, along with thousands of other security professionals. We want you to join us. This is where enterprise security staffers and decision-makers come to learn about new cyber threats, vulnerabilities, and technology trends. It's where they learn about potential defenses against the latest attacks, and key technologies and practices that may help protect their most sensitive data in the future. It's where they come to read breaking news, deep-dive news analysis, feature articles, and special reports, as well as attend virtual events and webinars - all to help them embrace new (and big) ideas, find answers to their IT security questions, and solve their most pressing problems. Dark Reading includes 14 topical sections, each of which drills deeper into the enterprise security challenge: Cybersecurity Analytics, Cyberattacks & Data Breaches, Application Security, Cloud Security, Endpoint Security, ICS/OT Security, IoT, Cybersecurity Operations, Perimeter, Physical Security, Remote Workforce, Cyber Risk, Threat Intelligence, and Vulnerabilities & Threats. There are also two feature sections, The Edge and Dark Reading Technology, as well as our new international section, DR Global Middle East & Africa.
-
-            Advertisement
-            Each section is led by editors and subject matter experts who collaborate with security researchers, technology specialists, industry analysts and other Dark Reading members to provide timely, accurate, and informative content. Our goal is to challenge community members to think about security by providing strong, even unconventional points of view, backed by hard-nosed reporting, hands-on experience, and the professional knowledge that comes only with years of work in the information security industry. We want you to be part of this cybersecurity community. Please join us by signing up for our newsletters and participating in our polls and other interactive features -- all for free. We'll also invite you to join our live events where we can continue these conversations face-to-face.
-            If you're interested in participating further, contact our editors – we're always on the lookout for industry thought leaders who'd like to offer their perspectives on IT security and its role in business.
-
-            Contact Us
-            For more details on Dark Reading’s mission and sponsorship opportunities, download the Dark Reading Media Kit. If you wish to no longer receive any promotional emails from Informa Tech, please send an email to updatemydetailsIT@informa.com.
-            Title
-            Name/Email
-            Editor In Chief - Kelly Jackson Higgins
-            Managing Editor, Features - Fahmida Y. Rashid
-            Managing Editor, News - Tara Seals
-            Managing Editor, Copy Desk - Jim Donahue
-            Senior Editor, Features - Karen Spiegelman
-            Senior Editor - Becky Bracken
-            Associate Editor - Kristina Beek
-            </span>
+            <?php
+                $selectpage = "SELECT content FROM terms_of_service ORDER BY id DESC LIMIT 1";
+                $selectpage_result = $conn->query($selectpage);
+                if ($selectpage_result->num_rows > 0) {
+                    while ($row = $selectpage_result->fetch_assoc()) {
+                        echo " <span>".$row['content']."</span>";
+                    }
+                }
+            ?>
         </div>
         <button class="about_section_btn" id="Edit_about">Edit
             <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
         <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv">
-            <textarea class="about_editdiv-input" name="About_content" id="myTextarea"></textarea>
-            <input type="submit" value="Update" name="about_editdiv-editbtn" />
+            <textarea class="about_editdiv-input" name="website_terms" id="myTextarea"></textarea>
+            <input type="submit" value="Update" name="websiteterms_editbtn" />
         </form>
     </section>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
@@ -81,5 +71,38 @@ require ("../connect.php");
             content_css: 'css/content.css'
         });
     </script>
+     <script>
+        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
+        var messageText = "<?= $_SESSION['status']?? ' '?>";
+        if (messageType == 'Error' && messageText != " "){
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })  
+        }else if (messageType == 'Success' && messageText != " "){
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })  
+        }
+        <?php unset($_SESSION['status_type']);?>
+        <?php unset($_SESSION['status']);?>
+    </script>
+    <script>
+        const editAboutBtn = document.getElementById("Edit_about");
+        const editTextEditor = document.getElementById("hidden_aboutdiv")
+        
+        const editAction = function () {
+            editAboutBtn.addEventListener("click", () => {
+                editTextEditor.style.display = "block";
+            });
+        }
+        editAction();
+    </script>
+     <script src="sweetalert2.all.min.js"></script>
 </body>
 </html>

@@ -78,7 +78,7 @@ function updatePages($content, $tablename) {
     if($query = $conn->prepare($stmt)) { 
         $query->bind_param("sss", $content, $date, $time);
         if ($query->execute()) {
-            $content = "Admin ".$_SESSION['firstname']." updated this website's '(".$string.")'";
+            $content = "Admin ".$_SESSION['firstname']." updated this website's '".$string."'";
             $forUser = 0;
             logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
@@ -417,4 +417,19 @@ if (isset($_POST['advertedit_btn'])) {
     $tablename = "advert_info";
     updatePages($content, $tablename);
 } 
+if (isset($_POST['websiteterms_editbtn'])) {
+    $content = $_POST['website_terms'];
+    $tablename = "terms_of_service";
+    updatePages($content, $tablename);
+}
+if (isset($_POST['workwithus_editbtn'])) {
+    $content = $_POST['work_withus'];
+    $tablename = "work_with_us";
+    updatePages($content, $tablename);
+}
+if (isset($_POST['contactus_editbtn'])) {
+    $content = $_POST['contactus_content'];
+    $tablename = "contact_us";
+    updatePages($content, $tablename);
+}
 ?>

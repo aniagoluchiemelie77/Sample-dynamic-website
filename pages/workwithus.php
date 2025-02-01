@@ -36,7 +36,15 @@
             </div>
             <h3 class="bodyleft_main">Work With Us</h3>
             <div class="sidebar_divs_container thickdiv">
-                <p>Hullo.</p>
+                <?php
+                    $selectpage = "SELECT content FROM work_with_us ORDER BY id DESC LIMIT 1";
+                    $selectpage_result = $conn->query($selectpage);
+                    if ($selectpage_result->num_rows > 0) {
+                        while ($row = $selectpage_result->fetch_assoc()) {
+                        echo " <p>".$row['content']."</p>";
+                        }
+                    }
+                ?>
             </div>
         </div>
     </div>

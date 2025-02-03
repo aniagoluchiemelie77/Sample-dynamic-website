@@ -65,7 +65,7 @@ include("../connect.php");
                             }
                             $time = $row['time'];
                             $formatted_time = date("g:i A", strtotime($time));
-                            echo "<div class='posts_divcontainer_subdiv'>
+                            echo "<div class='posts_divcontainer_subdiv post' data-post-id='".$row["id"]."'>
                                     <h3 class='posts_divcontainer_header'>". $row["title"]."</h3>
                                     <div class='posts_divcontainer_subdiv2'>
                                         <p class='posts_divcontainer_p'><span> Written By: </span> $author_firstname $author_lastname ( $role )</p>
@@ -81,6 +81,7 @@ include("../connect.php");
                                         <a class='users_delete' onclick='confirmDeleteP(".$row['id'].")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
                                         </a>
+                                        <button class='star-btn' onclick='toggleFavorite(this)'><i class='fa fa-star' aria-hidden='true'></i></button>
                                     </div>
                                 </div>";                           
                         };
@@ -106,6 +107,33 @@ include("../connect.php");
                 }
             })
         }
+        function toggleFavorite(button) {
+            const postId = button.closest('.post').getAttribute('data-post-id');
+            fetch('forms.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ postId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    button.classList.toggle('favorite');
+                    updateEditorsPicks();
+                } else {
+                console.error('Failed to toggle favorite status');
+                }
+            });
+        }
+        /*function updateEditorsPicks() {
+            fetch('get_editors_picks.php')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('editors-picks').innerHTML = data;
+            });
+        }*/
+
     </script>
 </body>
 </html>

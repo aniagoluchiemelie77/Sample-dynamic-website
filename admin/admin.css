@@ -963,6 +963,8 @@ a, td,span, p, label{
  }
  .posts_divcontainer_subdiv .posts_delete_edit{
     padding: 1rem 0;
+    display: flex;
+    align-items: center;
  }
  .posts_divcontainer_subdiv .posts_delete_edit .btn{
     color: var(--color60);
@@ -984,8 +986,19 @@ a, td,span, p, label{
  .posts_divcontainer_subdiv a:hover i{
     color: var(--color10);
  }
+ .posts_divcontainer_subdiv .star-btn:hover i{
+    color: var(--color10);
+ }
  .posts_divcontainer_subdiv a:nth-child(2){
     margin-left: .6rem;
+ }
+ .star-btn{
+    margin-left: .6rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv2{
     padding: var(--divpadding);

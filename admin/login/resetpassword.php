@@ -1,30 +1,22 @@
 <?php
-require("../connect.php");
-if (isset($_REQUEST['reset_pswd'])){
-    $email = $_REQUEST['email'];
-    $password = md5($_REQUEST['pwd']);
-    $confirm_password = md5($_REQUEST['cpwd']);
-    if ($password == $confirm_password){
-        $stmt = $conn->prepare("UPDATE admin_login_info SET password = ?, token = NULL WHERE email = ?");
-        $stmt->bind_param('ss', $password, $email);
-        $stmt->execute();
-        if($stmt->execute()){
-            $msg = "Password Reset Successful! <a href='index.php'>Click Here</a> to continue login process";
+    session_start();
+    require("../connect.php");
+    if (isset($_POST['reset_pswd'])){
+        $email = $_POST['email'];
+        $password = md5($_POST['pwd']);
+        $confirm_password = md5($_POST['cpwd']);
+        if ($password === $confirm_password){
+            $stmt = $conn->prepare("UPDATE admin_login_info SET password = ?, token = NULL WHERE email = ?");
+            $stmt->bind_param('ss', $password, $email);
+            if($stmt->execute()){
+                $msg = "Password Reset Successful! <a href='index.php'>Click Here</a> to continue login process";
+            }else{
+                $msg = "Error While Updating Password";
+            }
         }else{
-            $msg = "Error While Updating Password";
+            $msg = "Error! Passwords do not match";
         }
-    }else{
-        $msg = "Passwords do not match";
     }
-}
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $token = $_POST['token'];
-    $stmt = $conn->prepare("SELECT email FROM admin_login_info WHERE token = ?");
-    $stmt->bind_param('s', $token);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0){
-        $email = $result->fetch_assoc()['email']; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,4 +59,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="../index.js"></script>
 </body>
 </html>
-<?php }}?>

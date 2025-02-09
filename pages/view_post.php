@@ -27,7 +27,6 @@ $url = "http://localhost/Sample-dynamic-website";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie"/>
-    <link rel="me" href="https://twitter.com/twitterdev">
     <link rel="stylesheet" href="../index.css"/>
 	<title>View post</title>
 </head>
@@ -65,19 +64,11 @@ $url = "http://localhost/Sample-dynamic-website";
                     echo "</div>";
                 }
                 if ($post_id > 0) {
-                    $getposts_sql = "SELECT id, admin_id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, time, subtitle, link, content, authors_firstname, authors_lastname, about_author, author_image FROM paid_posts WHERE id = $post_id";
+                    $getposts_sql = " SELECT id, admin_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM paid_posts WHERE id = '$post_id' LIMIT 1";
                     $getposts_result = $conn->query($getposts_sql);
-                    if ($getposts_result -> num_rows > 0) {
+                    if ($getposts_result->num_rows > 0) {
                         $row = $getposts_result->fetch_assoc();
-                        $author_firstname = "";
-                        $author_lastname = "";
-                        $author_image = "";
-                        $author_bio = "";
-                        $id_type = '';
-                        $role = "";
-                        $id_admin= 0;
-                        $id_editor= 0;
-                        $id_writer= 0;
+                        $idtype = 'Admin';
                         $time = $row['time'];
                         $title = $row['title'];
                         $niche = $row['niche'];
@@ -87,52 +78,33 @@ $url = "http://localhost/Sample-dynamic-website";
                         $date = $row['formatted_date'];
                         $id = $row['id'];
                         $admin_id = $row['admin_id'];
-                        if (!empty($admin_id)) {
-                            $id = $admin_id;
-                            $sql_admin = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $id";
-                            $result_admin = $conn->query($sql_admin);
-                            if ($result_admin->num_rows > 0) {
-                                $admin = $result_admin->fetch_assoc();
-                                $author_firstname = $admin['firstname'];
-                                $author_lastname = $admin['lastname'];
-                                $author_image = $admin['image'];
-                                $id_type = "Admin";
-                                $id_admin = $admin['id'];
-                                $author_bio = $admin['bio'];
-                                $role = "Editor-in-chief Uniquetechcontentwriter.com";
-                            }
-                        }
-                        else {
-                            $author_firstname = $row['authors_firstname'];
-                            $author_lastname = $row['authors_lastname'];
-                            $author_bio = $row['about_author'];
-                            $role = 'Contributing Writer';
-                            $author_image = $row['author_img'];
-                            $id_writer = 4;
-                            $id_type = "Writer";
-                        }
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
-                        $read_count = '';
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
+                        $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$admin_id'";
+                        $selectwriter_result = $conn->query($selectwriter);
+                        if ($selectwriter_result->num_rows > 0) {
+                            $read_count = '';
+                            if (!function_exists('calculateReadingTime')) {
+                                function calculateReadingTime($content) {
+                                    $wordCount = str_word_count(strip_tags($content));
+                                    $minutes = floor($wordCount / 200);
+                                    return $minutes  . ' mins read ';
+                                }
+                                $read_count = calculateReadingTime($content);
                             }
-                            $read_count = calculateReadingTime($content);
-                        }
-                        $max_length = 250;
-                        if (strlen($author_bio) > $max_length) {
-                            $author_bio = substr($author_bio, 0, $max_length) . '...';
-                        }
+                            while($row = $selectwriter_result->fetch_assoc()) {
+                                $bio = $row["bio"];
+                                $max_length = 250;
+                                if (strlen($bio) > $max_length) {
+                                    $bio = substr($bio, 0, $max_length) . '...';
+                                }
                                 
                                 echo "<h1 class='Post_header'>".$title."</h1>
                                         <h2>".$subtitle."</h2>
                                         <div class='authors_div'>
                                             <div class='authors_div_imgbox'>
-                                                <img src='../$author_image' alt='Author's Image'/>
-                                                <p><span class='span1'>$author_firstname $author_lastname, $role</span><span class='span3'>".$date."</span><span class='span3'>".$formatted_time."</span></p>
+                                                <img src='../".$row['image']."' alt='Author's Image'/>
+                                                <p><span class='span1'>".$row['firstname']."  ".$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</span><span class='span3'>".$date."</span><span class='span3'>".$formatted_time."</span></p>
                                             </div>
                                             <div class='authors_div_otherdiv'>
                                                 <i class='fa fa-clock' aria-hidden='true'></i>
@@ -149,32 +121,32 @@ $url = "http://localhost/Sample-dynamic-website";
                                             <img src='../".$image."' alt='Post Image'/>
                                             <span>Source: Getty Images</span>
                                         </div>
-                                        <div class='socialmedia_links'>https://reddit.com/submit?url={url}&title={title}
-                                            <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a onclick='window.print();return false;'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
-                                        </div>
-                                        <p class='content_body'>$content</p>
                                         <div class='socialmedia_links'>
-                                            <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                            <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")'target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a onclick='window.print() return false;'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                        </div>
+                                        <p class='content_body'>".$content."</p>
+                                        <div class='socialmedia_links'>
+                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
                                         <h3 class='bodyleft_header3'>About the Author</h3>
                                         <center>
-                                            <a href='../authors/author.php?idtype=$id_type&id=$id_admin' class='aboutauthor_div'>
+                                            <a href='../authors/author.php?idtype=$idtype&id=$admin_id' class='aboutauthor_div'>
                                                 <div class='aboutauthor_div_subdiv1'>
-                                                    <img src='../$author_image' alt ='Author's Image'/>
+                                                    <img src='../".$row['image']."' alt ='Author's Image'/>
                                                 </div>
                                                 <div class='aboutauthor_div_subdiv2'>
-                                                    <p class='p--bold'>$author_firstname $author_lastname, $role</p>
-                                                    <p>$author_bio</p>
+                                                    <p class='p--bold'>".$row['firstname']." ".$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</p>
+                                                    <p>".$bio."</p>
                                                 </div>
                                             </a>
                                             <div class = 'subscribe_div'>
@@ -184,6 +156,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                         </center>
                                     ";
                             }
+                        }
+                    }
                     $otherpaidposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts WHERE id != '$post_id' ORDER BY date DESC";
                     $otherpaidposts_result = $conn->query($otherpaidposts_sql);
                     if ($otherpaidposts_result->num_rows > 0) {
@@ -218,9 +192,9 @@ $url = "http://localhost/Sample-dynamic-website";
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
                                 </a>
-                                ";
+                                </div>";
                         }
-                        echo "</div>";}
+                    }
                 }
                 if ($post_id2 > 0) {
                     $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM posts WHERE id = '$post_id2'";
@@ -297,7 +271,7 @@ $url = "http://localhost/Sample-dynamic-website";
                         $id = $row['id'];
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
-                        echo "<h1 class='Post_header'>$title</h1>
+                        echo "<h1 class='Post_header'>".$title."</h1>
                                 <h2>".$subtitle."</h2>
                                 <div class='authors_div'>
                                     <div class='authors_div_imgbox'>
@@ -320,28 +294,21 @@ $url = "http://localhost/Sample-dynamic-website";
                                 <span>Source: Getty Images</span>
                             </div>
                             <div class='socialmedia_links'>
-                                <a target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                <a  target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                <a  target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                <a  target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                <a href='mailto:?subject=".$title."'&body=".$content."' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                             </div>
                             <p>".$content."</p>
                             <div class='socialmedia_links'>
-                                <a href='https://twitter.com/intent/tweet?url=".$url."&text=".$title."' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                 <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=".$title."' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                <a href='https://reddit.com/submit?url={".$url."}&title={".$title."}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                <a href='mailto:?subject=".$title."'&body=".$content."' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
-                            </div><div class='socialmedia_links'>
-                                <a  target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                <a  target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                <a  target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                <a  target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                <a href='mailto:?subject=".$title."'&body=".$content."' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                             </div>
                             <h3 class='bodyleft_header3'>About the Author</h3>
                             <center>
@@ -395,8 +362,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
                                 </a>
-                                ";
-                        }echo"</div>";
+                                </div>";
+                        }
                     }
                 }
                 if ($post_id3 > 0) {
@@ -449,9 +416,9 @@ $url = "http://localhost/Sample-dynamic-website";
                             }
                         }
                         else {
-                            $author_firstname = $row['authors_firstname'];
-                            $author_lastname = $row['authors_lastname'];
-                            $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname LIKE '%$author_firstname%' OR lastname LIKE '%$author_lastname%'";
+                            $author_firstname = $row['author_firstname'];
+                            $author_lastname = $row['author_lastname'];
+                            $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname AND lastname = $author_lastname";
                             $result_writer = $conn->query($sql_writer);
                             if ($result_writer->num_rows > 0) {
                                 $writer = $result_writer->fetch_assoc();
@@ -512,21 +479,21 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <span>Source: Getty Images</span>
                                     </div>
                                     <div class='socialmedia_links'>
-                                        <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                        <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                         <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                        <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                        <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                        <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                        <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                        <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                        <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                        <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                        <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                     </div>
                                     <p>".$content."</p>
                                     <div class='socialmedia_links'>
-                                        <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                        <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                         <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                        <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                        <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                        <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                        <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                        <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                        <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                        <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                        <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                     </div>
                                     <h3 class='bodyleft_header3'>About the Author</h3>
                                     <center>
@@ -697,21 +664,21 @@ $url = "http://localhost/Sample-dynamic-website";
                                     <span>Source: Getty Images</span>
                                 </div>
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                    <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                    <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                    <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
                                 <p>".$content."</p>
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                    <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                    <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                    <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
                                 <h3 class='bodyleft_header3'>About the Author</h3>
                                 <center>
@@ -756,7 +723,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $title = substr($title, 0, $max_length2) . '...';
                             }
                             $readingTime = calculateReadingTime($row['content']);
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id4=$id'>
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>
                                     <img src='../$image' alt = 'Post Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
@@ -764,13 +731,21 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <span>$readingTime</span>
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
-                                </a>";
+                                </a>
+                                </div>
+                                <section class='section2' id='section1'>
+                                    <div class='section2__div1'>
+                                        <div class='section2__div1__header headers'>
+                                            <h1>For You</h1>
+                                        </div>
+                                        <?php include('../includes/pagination.php');?>
+                                    </div>
+                                </section>";
                         }
-                        echo "</div>";
                     }
                 }
                 if ($post_id5 > 0) {
-                    $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = $post_id5";
+                    $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = '$post_id5'";
                     $getposts_result = $conn->query($getposts_sql);
                     if ($getposts_result->num_rows > 0) {
                         $row = $getposts_result->fetch_assoc();
@@ -819,9 +794,9 @@ $url = "http://localhost/Sample-dynamic-website";
                             }
                         }
                         else {
-                            $author_firstname = $row['authors_firstname'];
-                            $author_lastname = $row['authors_lastname'];
-                            $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname LIKE '%$author_firstname%' OR lastname LIKE '%$author_lastname%'";
+                            $author_firstname = $row['author_firstname'];
+                            $author_lastname = $row['author_lastname'];
+                            $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname AND lastname = $author_lastname";
                             $result_writer = $conn->query($sql_writer);
                             if ($result_writer->num_rows > 0) {
                                 $writer = $result_writer->fetch_assoc();
@@ -833,7 +808,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $author_bio = $writer['bio'];
                                 $role = "Contributing Writer";
                             }else{
-                                $author_bio = $row['about_author'];
+                                $author_bio = $row['author_bio'];
                                 $role = 'Contributing Writer';
                                 $id_writer = '';
                                 $id_type = "Writer";
@@ -885,21 +860,21 @@ $url = "http://localhost/Sample-dynamic-website";
                                     <span>Source: Getty Images</span>
                                 </div>
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                    <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                    <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                    <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
                                 <p>".$content."</p>
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=$url&text=$title' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=$url&title=$title' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                    <a href='https://reddit.com/submit?url={$url}&title={$title}' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                    <a onclick='window.print();return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                    <a href='mailto:?subject=$title&body=$content' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
                                 <h3 class='bodyleft_header3'>About the Author</h3>
                                 <center>
@@ -953,13 +928,82 @@ $url = "http://localhost/Sample-dynamic-website";
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
                                 </a>
-                                ";
-                        }echo "</div>";
+                                </div>";
+                        }
                     }
                 }
             ?>
         </div>
+        <div class="body_right border-gradient-leftside--lightdark">
+            <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
+            <a class="posts_div" href="#">
+                <img src="../images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <a class="posts_div" href="#">
+                <img src="../images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <a class="posts_div" href="#">
+                <img src="../images/chibs.jpg" alt="Post's Image"/>
+                <p class="posts_div_niche">Cybersecurity</p>
+                <h1>Unfixed Microsoft Entra ID Authentification Bypass Threatens Hybrid IDs.</h1>
+                <p class="posts_div_otherp">By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
+                <div class="posts_div_subdiv">
+                    <p>Aug 15th, 2024</p>
+                    <p>10mins Read.</p>
+                </div>
+            </a>
+            <?php
+                $userEmail = " ";
+                if(isset($_POST['submit_btn'])){
+                    $message = "<div><h1><br>Thank you for subscribing with us.</br></h1>
+                        <p>Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information.</p>
+                         </div>";
+                    $userEmail = $_POST['email'];
+                    $email = $userEmail;
+                    $mail = new PHPMailer(true);
+                    $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
+                    $mail -> IsSMTP();
+                    $mail -> SMTPAuth = true;
+                    $mail -> SMTPSecure = "tls";
+                    $mail -> Host = "stmp.gmail.com";
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                    $mail->Port = 587;
+                    $mail -> Username = "aniagoluchiemelie77@gmail.com";
+                    $mail -> Password = "otxteulzfnelidgd";
+                    $mail -> FromName = "Uniquetechcontentwriter";
+                    $mail -> AddAddress ($email);
+                    $mail->addReplyTo('aniagoluachiemelie77@gmail.com', 'Information');
+                    $mail -> Subject = "Successful Email Updates Subscription";
+                    $mail -> isHTML(TRUE);
+                    $mail -> Body = $message;
+                    if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
+                        if($mail->preSend()){
+                            $msg = "Thank You For Subscribing With Us.";
+                        }
+                    }else{
+                        $msg = "Invalid Email";
+                    }
+                
+                }
+                include('../helpers/emailsubscribeform.php');
+            ?>
+        </div>
     </div>
+    <?php include("../includes/footer2.php");?>
     <script src="../index.js"></script>
 </body>
 </html>

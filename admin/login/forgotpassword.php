@@ -1,48 +1,13 @@
 <?php
-require("../connect.php");
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-require '../../PHPMailer/src/Exception.php';
-require '../../PHPMailer/src/PHPMailer.php';
-require '../../PHPMailer/src/SMTP.php';
-if (isset($_REQUEST['fgtpswd'])){
-    $email = $_REQUEST['email'];
-    $token = bin2hex(random_bytes(50));
-    $check_email = mysqli_query($conn, "SELECT email FROM admin_login_info WHERE email = '$email'");
-    $res = mysqli_num_rows($check_email);
-    if ($res > 0){
-        $stmt = $conn->prepare("UPDATE admin_login_info SET token = ? WHERE email = ?");
-        $stmt->bind_param('ss', $token, $email);
-        $stmt->execute();
-        $message = "<div><p><br>Hello</br></p>
-                    <p>You recieved this mail because we got a password reset request for your account.</p>
-                    <br><p><button class='btn'><a href='http://localhost/Sample-dynamic-website/admin/login/resetpassword.php?token=$token'>Reset Password</a></button></p></br>
-                    <p>If you did not request a password reset, no further action is required.</p>
-                    </div>";
-        $mail = new PHPMailer(true); 
-        $mail -> IsSMTP();
-        $mail->SMTPDebug = 2;
-        $mail -> SMTPAuth = true;
-        $mail -> SMTPSecure = "tls";
-        $mail -> Host = "stmp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port = 587;
-        $mail -> Username = "aniagoluchiemelie77@gmail.com";
-        $mail -> Password = "otxteulzfnelidgd";
-        $mail -> FromName = "Uniquetechcontentwriter";
-        $mail -> AddAddress ($email);
-        $mail->addReplyTo('aniagoluchiemelie77@gmail.com', 'Information');
-        $mail -> Subject = "Reset Password";
-        $mail -> isHTML(TRUE);
-        $mail -> Body = $message;
-        if($mail->preSend()){
-            $msg = "We have e-mailed your password reset link";
-        }
+    require("../connect.php");
+    include("../crudoperations.php");
+    $msg = "";
+    if (isset($_REQUEST['fgtpswd'])){
+        $email = $_REQUEST['email'];
+        createOtp($conn, $email);
     }else{
         $msg = "Sorry, couldn't find a user with specified email address.";
-    };
-}
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +36,7 @@ if (isset($_REQUEST['fgtpswd'])){
                     <input type="email" name="email" id="form_input" placeholder="Enter your email.." data-parsley-type="email" data-parsley-trigger="keyup" required/>
                     <label for="email">Email</label>
                 </div>
-                <input type="submit" value="Send Reset Link" class="btn_main" name="fgtpswd"/>
+                <input type="submit" value="Send OTP" class="btn_main" name="fgtpswd"/>
             </form>
         </div>
     </section>

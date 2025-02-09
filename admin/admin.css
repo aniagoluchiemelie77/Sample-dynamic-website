@@ -87,6 +87,73 @@ a, td,span, p, label{
 .container .form{
     padding: .5rem 1.5rem;
 }
+.container .otp_form{
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+}
+.container .otp_form .input-field{
+    padding: 2rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container .otp_form .input-field input{
+    width: 5rem;
+    height: 5rem;
+    padding: .8rem;
+    border: 1px solid var(--color60);
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+    outline: none;
+    background-color: inherit;
+    text-align: center;
+    margin-right: 1rem;
+    font-size: var(--pfontsize);
+    color: var(--color60);
+}
+.input-field input::-webkit-inner-spin-button, .input-field input::-webkit-outer-spin-button{
+    display: none;
+}
+.otp_form button{
+    padding: 1.5rem;
+    display: none;
+    cursor: pointer;
+    background-color: var(--color10);
+    color: var(--color60);
+    border: none;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+.otp_form p{
+    font-size: var(--pfontsize);
+    padding: 1rem;
+    color: var(--color60);
+}
+.otp_form p a{
+    text-decoration: none;
+    color: var(--color60);
+    cursor: pointer;   
+}
+.otp_form p a:hover{
+    text-decoration: underline;
+    color: var(--color10);
+}
 .error_div{
     width: 100%;
     color: var(--color10);
@@ -208,7 +275,7 @@ a, td,span, p, label{
     text-align: center;
     border-radius: .5rem;
     height: fit-content;
-    border: 1px solid var(--color60-shade)eeec3;
+    border: 1px solid var(--color60-shade);
     -webkit-border-radius: .5rem;
     -moz-border-radius: .5rem;
     -ms-border-radius: .5rem;

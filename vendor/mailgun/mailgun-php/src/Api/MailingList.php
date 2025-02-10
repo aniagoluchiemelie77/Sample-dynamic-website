@@ -15,6 +15,7 @@ use Exception;
 use Mailgun\Api\MailingList\Member;
 use Mailgun\Assert;
 use Mailgun\Model\EmailValidation\ValidateResponse;
+use Mailgun\Model\MailingList\BulkResponse;
 use Mailgun\Model\MailingList\CreateResponse;
 use Mailgun\Model\MailingList\DeleteResponse;
 use Mailgun\Model\MailingList\PagesResponse;
@@ -39,12 +40,12 @@ class MailingList extends HttpApi
 
     /**
      * Returns a paginated list of mailing lists on the domain.
-     *
-     * @param  int                                $limit Maximum number of records to return (optional: 100 by default)
+     * @param  int                      $limit          Maximum number of records to return (optional: 100 by default)
+     * @param  array                    $requestHeaders
      * @return PagesResponse
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function pages(int $limit = 100)
+    public function pages(int $limit = 100, array $requestHeaders = [])
     {
         Assert::range($limit, 1, 1000);
 
@@ -52,24 +53,30 @@ class MailingList extends HttpApi
             'limit' => $limit,
         ];
 
-        $response = $this->httpGet('/v3/lists/pages', $params);
+        $response = $this->httpGet('/v3/lists/pages', $params, $requestHeaders);
 
         return $this->hydrateResponse($response, PagesResponse::class);
     }
 
     /**
      * Creates a new mailing list on the current domain.
-     *
-     * @param  string                             $address         Address for the new mailing list
-     * @param  string|null                        $name            Name for the new mailing list (optional)
-     * @param  string|null                        $description     Description for the new mailing list (optional)
-     * @param  string                             $accessLevel     List access level, one of: readonly (default), members, everyone
-     * @param  string                             $replyPreference Set where replies should go: list (default) | sender (optional)
+     * @param  string                   $address         Address for the new mailing list
+     * @param  string|null              $name            Name for the new mailing list (optional)
+     * @param  string|null              $description     Description for the new mailing list (optional)
+     * @param  string                   $accessLevel     List access level, one of: readonly (default), members, everyone
+     * @param  string                   $replyPreference Set where replies should go: list (default) | sender (optional)
+     * @param  array                    $requestHeaders
      * @return CreateResponse
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function create(string $address, ?string $name = null, ?string $description = null, string $accessLevel = 'readonly', string $replyPreference = 'list')
-    {
+    public function create(
+        string $address,
+        ?string $name = null,
+        ?string $description = null,
+        string $accessLevel = 'readonly',
+        string $replyPreference = 'list',
+        array $requestHeaders = []
+    ) {
         Assert::stringNotEmpty($address);
         Assert::nullOrStringNotEmpty($name);
         Assert::nullOrStringNotEmpty($description);
@@ -84,36 +91,36 @@ class MailingList extends HttpApi
         $description ? $params['description'] = $description : false;
         $name ? $params['name'] = $name : false;
 
-        $response = $this->httpPost('/v3/lists', $params);
+        $response = $this->httpPost('/v3/lists', $params, $requestHeaders);
 
         return $this->hydrateResponse($response, CreateResponse::class);
     }
 
     /**
      * Returns a single mailing list.
-     *
-     * @param  string                             $address Address of the mailing list
+     * @param  string                   $address        Address of the mailing list
+     * @param  array                    $requestHeaders
      * @return ShowResponse
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function show(string $address)
+    public function show(string $address, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpGet(sprintf('/v3/lists/%s', $address));
+        $response = $this->httpGet(sprintf('/v3/lists/%s', $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ShowResponse::class);
     }
 
     /**
      * Updates a mailing list.
-     *
-     * @param  string                             $address    Address of the mailing list
-     * @param  array                              $parameters Array of field => value pairs to update
+     * @param  string                   $address        Address of the mailing list
+     * @param  array                    $parameters     Array of field => value pairs to update
+     * @param  array                    $requestHeaders
      * @return UpdateResponse
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function update(string $address, array $parameters = [])
+    public function update(string $address, array $parameters = [], array $requestHeaders = [])
     {
         Assert::stringNotEmpty($address);
         Assert::isArray($parameters);
@@ -133,7 +140,7 @@ class MailingList extends HttpApi
             }
         }
 
-        $response = $this->httpPut(sprintf('/v3/lists/%s', $address), $parameters);
+        $response = $this->httpPut(sprintf('/v3/lists/%s', $address), $parameters, $requestHeaders);
 
         return $this->hydrateResponse($response, UpdateResponse::class);
     }
@@ -145,60 +152,115 @@ class MailingList extends HttpApi
      * @return DeleteResponse
      * @throws Exception|ClientExceptionInterface
      */
-    public function delete(string $address)
+    public function delete(string $address, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpDelete(sprintf('/v3/lists/%s', $address));
+        $response = $this->httpDelete(sprintf('/v3/lists/%s', $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, DeleteResponse::class);
     }
 
     /**
      * Validates mailing list.
-     *
-     * @param  string                             $address Address of the mailing list
+     * @param  string                   $address        Address of the mailing list
+     * @param  array                    $requestHeaders
      * @return ValidateResponse
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function validate(string $address)
+    public function validate(string $address, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpPost(sprintf('/v3/lists/%s/validate', $address));
+        $response = $this->httpPost(sprintf('/v3/lists/%s/validate', $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ValidateResponse::class);
     }
 
     /**
      * Get mailing list validation status.
-     *
-     * @param  string                             $address Address of the mailing list
+     * @param  string                   $address        Address of the mailing list
+     * @param  array                    $requestHeaders
      * @return ValidationStatusResponse
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function getValidationStatus(string $address)
+    public function getValidationStatus(string $address, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpGet(sprintf('/v3/lists/%s/validate', $address));
+        $response = $this->httpGet(sprintf('/v3/lists/%s/validate', $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ValidationStatusResponse::class);
     }
 
     /**
      * Cancel mailing list validation.
-     *
-     * @param  string                             $address Address of the mailing list
+     * @param  string                   $address        Address of the mailing list
+     * @param  array                    $requestHeaders
      * @return ValidationCancelResponse
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
-    public function cancelValidation(string $address)
+    public function cancelValidation(string $address, array $requestHeaders = [])
     {
         Assert::stringNotEmpty($address);
 
-        $response = $this->httpDelete(sprintf('/v3/lists/%s/validate', $address));
+        $response = $this->httpDelete(sprintf('/v3/lists/%s/validate', $address), [], $requestHeaders);
 
         return $this->hydrateResponse($response, ValidationCancelResponse::class);
+    }
+
+    /**
+     * Bulk upload members to a mailing list (JSON)
+     * @param string $mailList
+     * @param array $members
+     * @param bool $isUpsert
+     * @param array $requestHeaders
+     * @return BulkResponse
+     * @throws ClientExceptionInterface
+     */
+    public function bulkUploadJson(string $mailList, array $members, bool $isUpsert = false, array $requestHeaders = [])
+    {
+        Assert::stringNotEmpty($mailList);
+
+        $query = [
+            'members' => json_encode($members),
+            'upsert' => $isUpsert,
+        ];
+
+        $response = $this->httpPost(
+            sprintf('/v3/lists/%s/members.json?%s', $mailList, http_build_query($query)),
+            [],
+            $requestHeaders
+        );
+
+        return $this->hydrateResponse($response, BulkResponse::class);
+    }
+
+    /**
+     * Bulk upload members to a mailing list (CSV)
+     * //TODO
+     * @param string $mailList
+     * @param array $members
+     * @param bool $isUpsert
+     * @param array $requestHeaders
+     * @return BulkResponse
+     * @throws ClientExceptionInterface
+     */
+    public function bulkUploadCsv(string $mailList, array $members, bool $isUpsert = false, array $requestHeaders = [])
+    {
+        Assert::stringNotEmpty($mailList);
+
+        $payload = [
+            'members' => implode(",", $members),
+            'upsert' => $isUpsert ? 'true' : 'false'
+        ];
+
+        $response = $this->httpPost(
+            sprintf('/v3/lists/%s/members.csv', $mailList),
+            $payload,
+            $requestHeaders
+        );
+
+        return $this->hydrateResponse($response, BulkResponse::class);
     }
 }

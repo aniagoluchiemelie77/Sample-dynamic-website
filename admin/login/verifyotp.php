@@ -5,7 +5,6 @@
     if (isset($_REQUEST['resend_otp'])){
         $msg = "";
         $email = $_REQUEST['email'];
-        createOtp($conn, $email);
     }else{
         $msg = "Sorry, couldn't find a user with specified email address.";
     }

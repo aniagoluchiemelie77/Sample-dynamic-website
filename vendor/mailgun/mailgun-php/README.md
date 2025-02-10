@@ -20,12 +20,12 @@ curl -sS https://getcomposer.org/installer | php
 ```
 
 ## Required minimum php version
- - minimum php version 7.3
+ - minimum php version 7.4
 
 The Mailgun API Client is not hard coupled to Guzzle, Buzz or any other library that sends
 HTTP messages. Instead, it uses the [PSR-18](https://www.php-fig.org/psr/psr-18/) client abstraction.
 This will give you the flexibility to choose what
-[PSR-7 implementation](https://packagist.org/providers/psr/http-message-implementation)
+[PSR-7 implementation](https://packagist.org/providers/psr/http-factory-implementation)
 and [HTTP client](https://packagist.org/providers/psr/http-client-implementation)
 you want to use.
 
@@ -82,6 +82,37 @@ $result = $mgClient->domains()->updateWebScheme($domain, 'https');
 print_r($result);
 ```
 
+### Update web prefix
+
+```php
+# Include the Autoloader (see "Libraries" for install instructions)
+require 'vendor/autoload.php';
+use Mailgun\Mailgun;
+
+# Instantiate the client.
+$mgClient = Mailgun::create('KEY', 'FULL_DOMAIN_URL');
+$domain = "DOMAIN";
+
+# Issue the call to the client.
+$result = $mgClient->domains()->updateWebPrefix($domain, 'tracking');
+print_r($result);
+```
+
+ - Example of response
+```
+Mailgun\Model\Domain\WebPrefixResponse Object
+(
+    [message:Mailgun\Model\Domain\AbstractDomainResponse:private] => Domain web prefix updated
+    [domain:Mailgun\Model\Domain\AbstractDomainResponse:private] =>
+    [inboundDnsRecords:Mailgun\Model\Domain\AbstractDomainResponse:private] => Array
+        (
+        )
+    [outboundDnsRecords:Mailgun\Model\Domain\AbstractDomainResponse:private] => Array
+        (
+        )
+)
+```
+
 ### Custom http request to the API
 
 ```php
@@ -107,6 +138,92 @@ $resultPut = $mgClient->httpClient()->httpPut($path, $params);
 $resultDelete = $mgClient->httpClient()->httpDelete($path, $params);
 
 ```
+
+
+### SubAccounts
+
+```php
+//Enable Sub Account
+try {
+    $items = $mgClient->subaccounts()->enable($id);
+} catch (Exception $exception) {
+    echo sprintf('HTTP CODE - %s,', $exception->getCode());
+    echo sprintf('Error - %s', $exception->getMessage());
+}
+
+//Create a new Sub Account
+try {
+    $items = $mgClient->subaccounts()->create('some name');
+} catch (Exception $exception) {
+    echo sprintf('HTTP CODE - %s,', $exception->getCode());
+    echo sprintf('Error - %s', $exception->getMessage());
+}
+
+//Get All
+try {
+    $items = $mgClient->subaccounts()->index();
+
+    print_r($items->getItems());
+} catch (Exception $exception) {
+    echo sprintf('HTTP CODE - %s,', $exception->getCode());
+    echo sprintf('Error - %s', $exception->getMessage());
+}
+```
+### Performing API Requests "On Behalf Of" Subaccounts
+More Detailed you can read here - [https://help.mailgun.com/hc/en-us/articles/16380043681435-Subaccounts#01H2VMHAW8CN4A7WXM6ZFNSH4R](https://help.mailgun.com/hc/en-us/articles/16380043681435-Subaccounts#01H2VMHAW8CN4A7WXM6ZFNSH4R)
+```php
+$mgClient = Mailgun::create(
+    'xxx',
+    'yyy',
+    $subAccountId
+);
+```
+
+```php
+use Mailgun\HttpClient\HttpClientConfigurator;
+use Mailgun\Hydrator\NoopHydrator;
+
+$configurator = new HttpClientConfigurator();
+$configurator->setEndpoint('http://bin.mailgun.net/aecf68de');
+$configurator->setApiKey('key-example');
+$configurator->setSubAccountId($subAccountId)
+```
+
+### Load data from the Analytics API
+
+```php
+<?php
+# Include the Autoloader (see "Libraries" for install instructions)
+require 'vendor/autoload.php';
+
+use Mailgun\Mailgun;
+
+# Instantiate the client.
+$mgClient = Mailgun::create('xxx');
+$domain = "xxx.mailgun.org";
+
+$payload = [
+    "resolution" => "day",
+    "metrics" => [
+        "accepted_count",
+        "delivered_count",
+        "clicked_rate",
+        "opened_rate"
+    ],
+    "include_aggregates" => true,
+    "start" => "Sun, 22 Dec 2024 18:29:02 +0000",
+    "dimensions" => [
+        "time"
+    ],
+    "end" => "Wed, 25 Dec 2024 18:29:02 +0000",
+    "include_subaccounts" => true
+];
+
+$result = $mgClient->metrics()->loadMetrics($payload);
+
+print_r($result->getItems());
+
+````
 
 ### All usage examples
 

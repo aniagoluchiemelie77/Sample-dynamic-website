@@ -40,7 +40,9 @@ class RequestBuilder
 
     /**
      * Creates a new PSR-7 request.
-     *
+     * @param string $method HTTP method
+     * @param string $uri URI
+     * @param array $headers Request headers
      * @param array|string|null $body Request body. If body is an array we will send a as multipart stream request.
      *                                If array, each array *item* MUST look like:
      *                                array (
@@ -49,11 +51,20 @@ class RequestBuilder
      *                                'filename'=> string (optional)
      *                                'headers' => array (optinal) ['header-name' => 'header-value']
      *                                )
+     * @throws \JsonException
      */
     public function create(string $method, string $uri, array $headers = [], $body = null): RequestInterface
     {
         if (!is_array($body)) {
-            $stream = $this->getStreamFactory()->createStream((string) $body);
+            $stream = $this->getStreamFactory()->createStream((string)$body);
+
+            return $this->createRequest($method, $uri, $headers, $stream);
+        }
+
+        if (isset($headers['Content-Type']) && $headers['Content-Type'] === 'application/json') {
+            $jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
+            $stream = $this->getStreamFactory()->createStream($jsonBody);
+            $headers['Content-Type'] = 'application/json';
 
             return $this->createRequest($method, $uri, $headers, $stream);
         }
@@ -62,8 +73,7 @@ class RequestBuilder
         foreach ($body as $item) {
             $name = $this->getItemValue($item, 'name');
             $content = $this->getItemValue($item, 'content');
-            unset($item['name']);
-            unset($item['content']);
+            unset($item['name'], $item['content']);
 
             $builder->addResource($name, $content, $item);
         }
@@ -72,7 +82,7 @@ class RequestBuilder
         $boundary = $builder->getBoundary();
         $builder->reset();
 
-        $headers['Content-Type'] = 'multipart/form-data; boundary="'.$boundary.'"';
+        $headers['Content-Type'] = 'multipart/form-data; boundary="' . $boundary . '"';
 
         return $this->createRequest($method, $uri, $headers, $multipartStream);
     }
@@ -90,7 +100,7 @@ class RequestBuilder
     }
 
     /**
-     * @param  RequestFactoryInterface $requestFactory
+     * @param RequestFactoryInterface $requestFactory
      * @return $this
      */
     public function setRequestFactory(RequestFactoryInterface $requestFactory): self
@@ -113,7 +123,7 @@ class RequestBuilder
     }
 
     /**
-     * @param  StreamFactoryInterface $streamFactory
+     * @param StreamFactoryInterface $streamFactory
      * @return $this
      */
     public function setStreamFactory(StreamFactoryInterface $streamFactory): self
@@ -136,7 +146,7 @@ class RequestBuilder
     }
 
     /**
-     * @param  MultipartStreamBuilder $multipartStreamBuilder
+     * @param MultipartStreamBuilder $multipartStreamBuilder
      * @return $this
      */
     public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): self
@@ -147,10 +157,10 @@ class RequestBuilder
     }
 
     /**
-     * @param  string           $method
-     * @param  string           $uri
-     * @param  array            $headers
-     * @param  StreamInterface  $stream
+     * @param string $method
+     * @param string $uri
+     * @param array $headers
+     * @param StreamInterface $stream
      * @return RequestInterface
      */
     private function createRequest(string $method, string $uri, array $headers, StreamInterface $stream): RequestInterface
@@ -165,14 +175,14 @@ class RequestBuilder
     }
 
     /**
-     * @param  array        $item
-     * @param  string       $key
+     * @param array $item
+     * @param string $key
      * @return mixed|string
      */
     private function getItemValue(array $item, string $key)
     {
         if (is_bool($item[$key])) {
-            return (string) $item[$key];
+            return (string)$item[$key];
         }
 
         return $item[$key];

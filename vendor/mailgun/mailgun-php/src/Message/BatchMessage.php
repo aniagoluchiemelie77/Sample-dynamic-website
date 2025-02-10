@@ -28,27 +28,27 @@ class BatchMessage extends MessageBuilder
     /**
      * @var array
      */
-    private $batchRecipientAttributes = [];
+    private array $batchRecipientAttributes = [];
 
     /**
      * @var bool
      */
-    private $autoSend;
+    private bool $autoSend;
 
     /**
      * @var array
      */
-    private $messageIds = [];
+    private array $messageIds = [];
 
     /**
      * @var string
      */
-    private $domain;
+    private string $domain;
 
     /**
      * @var Message
      */
-    private $api;
+    private Message $api;
 
     /**
      * @param Message $messageApi
@@ -70,10 +70,9 @@ class BatchMessage extends MessageBuilder
      *                           full_name?: string,
      *                           first?: string,
      *                           last?: string,
-     *
      * @return MessageBuilder
      * @throws MissingRequiredParameter
-     * @throws TooManyRecipients
+     * @throws TooManyRecipients|ClientExceptionInterface
      */
     protected function addRecipient(string $headerName, string $address, array $variables): MessageBuilder
     {

@@ -1,6 +1,37 @@
 # Change Log
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
+
+## 4.3.3
+ - Fixed way of sending request with JSON body. loadMetrics works. Adjusted tests. Fixed warning related to the php 8.4 and nullable types
+
+## 4.3.2
+ - Added new API endpoint for getting metrics @see https://documentation.mailgun.com/docs/mailgun/api-reference/openapi-final/tag/Metrics/
+
+## 4.3.1
+ - Add method for retrieving stored messages by @oleksandr-mykhailenko in #920
+ - Add missed params to the create method for DomainV4.php by @oleksandr-mykhailenko in #921
+
+## 4.3.0
+- End of support php 7.3
+- Updated properties and added types to the classes properties
+- Update code style
+- Add missed field into IndexResponse for Webhooks
+- Fixed template search filters
+- Fixed tags API endpoints
+- Added new API endpoints
+
+## 4.2.0
+- Added basic templates functionality
+
+## 4.0.1
+ - Fix wrong classes in tests
+ - Fixed response in case of 404 http error. Respect server error message
+
+## 4.0
+ - SubAccount support @oleksandr-mykhailenko in #886
+ - Requests of behalf of Sub Account
+
 ## 3.6.2
  - Bugfix: TypeError caused by improper use of new self() instead of new static() in base class method
 

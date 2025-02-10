@@ -22,10 +22,13 @@ use Mailgun\Api\Ip;
 use Mailgun\Api\Mailboxes;
 use Mailgun\Api\MailingList;
 use Mailgun\Api\Message;
+use Mailgun\Api\Metrics;
 use Mailgun\Api\Route;
 use Mailgun\Api\Stats;
+use Mailgun\Api\SubAccounts;
 use Mailgun\Api\Suppression;
 use Mailgun\Api\Tag;
+use Mailgun\Api\Templates;
 use Mailgun\Api\Webhook;
 use Mailgun\HttpClient\HttpClientConfigurator;
 use Mailgun\HttpClient\Plugin\History;
@@ -43,7 +46,7 @@ class Mailgun
     /**
      * @var string|null
      */
-    private $apiKey;
+    private ?string $apiKey;
 
     /**
      * @var ClientInterface|PluginClient
@@ -53,19 +56,19 @@ class Mailgun
     /**
      * @var Hydrator
      */
-    private $hydrator;
+    private Hydrator $hydrator;
 
     /**
      * @var RequestBuilder
      */
-    private $requestBuilder;
+    private RequestBuilder $requestBuilder;
 
     /**
      * This is a object that holds the last response from the API.
      *
      * @var History
      */
-    private $responseHistory;
+    private History $responseHistory;
 
     /**
      * @param HttpClientConfigurator $configurator
@@ -74,8 +77,8 @@ class Mailgun
      */
     public function __construct(
         HttpClientConfigurator $configurator,
-        Hydrator $hydrator = null,
-        RequestBuilder $requestBuilder = null
+        ?Hydrator $hydrator = null,
+        ?RequestBuilder $requestBuilder = null
     ) {
         $this->requestBuilder = $requestBuilder ?: new RequestBuilder();
         $this->hydrator = $hydrator ?: new ModelHydrator();
@@ -86,15 +89,17 @@ class Mailgun
     }
 
     /**
-     * @param  string $apiKey
-     * @param  string $endpoint
+     * @param  string      $apiKey
+     * @param  string      $endpoint
+     * @param  string|null $subAccountId
      * @return self
      */
-    public static function create(string $apiKey, string $endpoint = 'https://api.mailgun.net'): self
+    public static function create(string $apiKey, string $endpoint = 'https://api.mailgun.net', ?string $subAccountId = null): self
     {
         $httpClientConfigurator = (new HttpClientConfigurator())
             ->setApiKey($apiKey)
-            ->setEndpoint($endpoint);
+            ->setEndpoint($endpoint)
+            ->setSubAccountId($subAccountId);
 
         return new self($httpClientConfigurator);
     }
@@ -121,6 +126,14 @@ class Mailgun
     public function domains(): Api\Domain
     {
         return new Api\Domain($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return Api\DomainV4
+     */
+    public function domainsV4(): Api\DomainV4
+    {
+        return new Api\DomainV4($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 
     /**
@@ -208,7 +221,7 @@ class Mailgun
      */
     public function webhooks(): Api\Webhook
     {
-        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey);
+        return new Api\Webhook($this->httpClient, $this->requestBuilder, $this->hydrator, $this->apiKey ?? '');
     }
 
     /**
@@ -225,5 +238,29 @@ class Mailgun
     public function httpClient(): Api\HttpClient
     {
         return new Api\HttpClient($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return SubAccounts
+     */
+    public function subaccounts(): Api\SubAccounts
+    {
+        return new Api\SubAccounts($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return Templates
+     */
+    public function templates(): Templates
+    {
+        return new Templates($this->httpClient, $this->requestBuilder, $this->hydrator);
+    }
+
+    /**
+     * @return Metrics
+     */
+    public function metrics(): Metrics
+    {
+        return new Metrics($this->httpClient, $this->requestBuilder, $this->hydrator);
     }
 }

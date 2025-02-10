@@ -60,6 +60,11 @@ final class HttpClientConfigurator
      */
     private $responseHistory;
 
+    /**
+     * @var ?string
+     */
+    private $subAccountId;
+
     public function __construct()
     {
         $this->responseHistory = new History();
@@ -74,14 +79,18 @@ final class HttpClientConfigurator
         if (!isset($userAgent) || !$userAgent) {
             $userAgent = 'mailgun-sdk-php/v2 (https://github.com/mailgun/mailgun-php)';
         }
+
+        $defaultPlugin = [
+            'User-Agent' => $userAgent,
+            'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $this->getApiKey())),
+        ];
+        if (null !== $this->getSubAccountId()) {
+            $defaultPlugin['X-Mailgun-On-Behalf-Of'] = $this->getSubAccountId();
+        }
+
         $plugins = [
             new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->endpoint)),
-            new Plugin\HeaderDefaultsPlugin(
-                [
-                'User-Agent' => $userAgent,
-                'Authorization' => 'Basic '.base64_encode(sprintf('api:%s', $this->getApiKey())),
-                ]
-            ),
+            new Plugin\HeaderDefaultsPlugin($defaultPlugin),
             new Plugin\HistoryPlugin($this->responseHistory),
         ];
 
@@ -92,6 +101,10 @@ final class HttpClientConfigurator
         return new PluginClient($this->getHttpClient(), $plugins);
     }
 
+    /**
+     * @param bool $debug
+     * @return $this
+     */
     public function setDebug(bool $debug): self
     {
         $this->debug = $debug;
@@ -99,6 +112,10 @@ final class HttpClientConfigurator
         return $this;
     }
 
+    /**
+     * @param string $endpoint
+     * @return $this
+     */
     public function setEndpoint(string $endpoint): self
     {
         $this->endpoint = $endpoint;
@@ -106,11 +123,18 @@ final class HttpClientConfigurator
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getApiKey(): string
     {
         return $this->apiKey;
     }
 
+    /**
+     * @param string $apiKey
+     * @return $this
+     */
     public function setApiKey(string $apiKey): self
     {
         $this->apiKey = $apiKey;
@@ -118,6 +142,9 @@ final class HttpClientConfigurator
         return $this;
     }
 
+    /**
+     * @return UriFactoryInterface
+     */
     private function getUriFactory(): UriFactoryInterface
     {
         if (null === $this->uriFactory) {
@@ -127,6 +154,10 @@ final class HttpClientConfigurator
         return $this->uriFactory;
     }
 
+    /**
+     * @param UriFactoryInterface $uriFactory
+     * @return $this
+     */
     public function setUriFactory(UriFactoryInterface $uriFactory): self
     {
         $this->uriFactory = $uriFactory;
@@ -134,6 +165,9 @@ final class HttpClientConfigurator
         return $this;
     }
 
+    /**
+     * @return ClientInterface
+     */
     private function getHttpClient(): ClientInterface
     {
         if (null === $this->httpClient) {
@@ -143,6 +177,10 @@ final class HttpClientConfigurator
         return $this->httpClient;
     }
 
+    /**
+     * @param ClientInterface $httpClient
+     * @return $this
+     */
     public function setHttpClient(ClientInterface $httpClient): self
     {
         $this->httpClient = $httpClient;
@@ -150,8 +188,30 @@ final class HttpClientConfigurator
         return $this;
     }
 
+    /**
+     * @return History
+     */
     public function getResponseHistory(): History
     {
         return $this->responseHistory;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSubAccountId(): ?string
+    {
+        return $this->subAccountId;
+    }
+
+    /**
+     * @param  string|null            $subAccountId
+     * @return HttpClientConfigurator
+     */
+    public function setSubAccountId(?string $subAccountId): self
+    {
+        $this->subAccountId = $subAccountId;
+
+        return $this;
     }
 }

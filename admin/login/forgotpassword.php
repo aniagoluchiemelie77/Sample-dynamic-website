@@ -1,10 +1,32 @@
 <?php
     require("../connect.php");
     include("../crudoperations.php");
+    require '../../vendor/autoload.php';
+    use Mailgun\Mailgun;
+    $apiKey = '1654a412-c74c01db';
+    $domain = 'sandbox0946a9b2a201481181d7d3cf49da8cac.mailgun.org';
     $msg = "";
     if (isset($_REQUEST['fgtpswd'])){
         $email = $_REQUEST['email'];
-        createOtp($conn, $email);
+            $check_email = mysqli_query($conn, "SELECT email FROM admin_login_info WHERE email = '$email'");
+            $res = mysqli_num_rows($check_email);
+            if ($res > 0){
+                $token = rand(10000, 99999);
+                $stmt = $conn->prepare("UPDATE admin_login_info SET token = ? WHERE email = ?");
+                $stmt->bind_param('ss', $token, $email);
+                if($stmt->execute()){
+                    $mg = Mailgun::create($apiKey);
+                    $mg->messages()->send($domain, [
+                        'from'    => 'Excited User <sandbox0946a9b2a201481181d7d3cf49da8cac.mailgun.org>',
+                        'to'      => "chiboyaniagolu3@gmail.com",
+                        'subject' => 'Your OTP Code',
+                        'text'    => 'Your OTP code is ' . $token
+                    ]);
+                    $msg = "OTP sent to your email";
+                    $_SESSION['email'] = $email;
+                    header("Location: verifyotp.php");
+                }
+            }
     }else{
         $msg = "Sorry, couldn't find a user with specified email address.";
     }

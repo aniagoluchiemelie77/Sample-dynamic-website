@@ -675,9 +675,6 @@ a, p, li{
     padding: 1rem 0;
     color: #222222c3;
 }
-#results {
-    display: none;
-}
 .section2 div .normal-divs{
     padding: var(--divpadding);
     border-bottom: 1px solid #22222254;
@@ -758,7 +755,7 @@ a, p, li{
     font-size: 1.3rem;
     color: rgba(0, 0, 0, 0.484);
 }
-.section2 div div a div .normal-divs__title{
+.section2 .normal-divs__title{
     padding: 1.6rem 0;
     color: var(--color30-shade);
 }

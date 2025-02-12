@@ -1,104 +1,73 @@
 <?php
-session_start();
-require('connect.php');
-function getDeviceType() {
-    $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-    if (strpos($user_agent, 'mobile') !== false) {
-        return 'Mobile';
-    } elseif (strpos($user_agent, 'tablet') !== false) {
-        return 'Tablet';
-    } else {
-        return 'Desktop';
-    }
-}
-function getVisitorIP() {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        return $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        return $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } else {
-        return $_SERVER['REMOTE_ADDR'];
-    }
-}
-$device_type = getDeviceType();
-$ip_address = getVisitorIP();
-$visit_type = "";
-$api_url = "http://www.geoplugin.net/json.gp?ip=" . $ip_address;
-$response = file_get_contents($api_url);
-$data = json_decode($response);
-$country = $data->geoplugin_countryName;
-date_default_timezone_set('UTC');
-$date = date('Y-m-d');
-$time = date("H:iA");
-$visitor_check = "SELECT * FROM web_visitors WHERE ip_address = '$ip_address'";
-$result_check = $conn->query($visitor_check);
-if ($result_check->num_rows > 0) {
-    $visit_type = 'returning';
-    if ($visit_type == 'returning') {
-        $sql_update = "UPDATE web_visitors SET visit_type = '$visit_type', visit_time = '$time' WHERE ip_address = '$ip_address'";
-        $update_check = $conn->query($sql_update);
-    }
-} else {
-    $visit_type = 'new';
-    $insertIP = "INSERT INTO web_visitors (ip_address, country, user_devicetype, visit_time, visit_type) VALUES ('$ip_address', '$country', '$device_type', '$time', '$visit_type')";
-    $result1 = $conn->query($insertIP);
-}
-require("connect.php");
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-$userEmail = " ";
-if(isset($_POST['submit_btn'])){
-    $message = "<div><h1><br>Thank you for subscribing with us.</br></h1>
-        <p>Thank you for subscribing to our email updates, We will keep you updated with the latest updates and information.</p>
-         </div>";
-    $response = array();
-    $userEmail = $_POST['email'];
-    $email = $userEmail;
-    $mail = new PHPMailer(true);
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
-    $mail -> IsSMTP();
-    $mail -> SMTPAuth = true;
-    $mail -> SMTPSecure = "tls";
-    $mail -> Host = "stmp.gmail.com";
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-    $mail->Port = 587;
-    $mail -> Username = "aniagoluchiemelie77@gmail.com";
-    $mail -> Password = "otxteulzfnelidgd";
-    $mail -> FromName = "Uniquetechcontentwriter";
-    $mail -> AddAddress ($email);
-    $mail->addReplyTo('aniagoluachiemelie77@gmail.com', 'Information');
-    $mail -> Subject = "Successful Email Updates Subscription";
-    $mail -> isHTML(TRUE);
-    $mail -> Body = $message;
-    if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
-        $sql = "INSERT INTO subscribers (email, date, time) VALUES ('$userEmail', '$date', '$time')";
-        $result = $conn->query($sql);
-        if($mail->preSend() and $result === TRUE){
-            $response['success'] = true;
-            $response['message'] = "Thank You For Subscribing With Us.";
-            $msg = "Thank You For Subscribing With Us.";
-        }else{
-            $response['success'] = false;
-            $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+    session_start();
+    require('connect.php');
+    function getDeviceType() {
+        $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+        if (strpos($user_agent, 'mobile') !== false) {
+            return 'Mobile';
+        } elseif (strpos($user_agent, 'tablet') !== false) {
+            return 'Tablet';
+        } else {
+            return 'Desktop';
         }
-    }else{
-        $response['success'] = false;
-        $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
-        $msg = "Invalid Email";
     }
-    echo json_encode($response);
-
-}
-if (isset($_POST['accept_cookies'])) {
-    setcookie('tracker', 'accepted', time() + (86400 * 30), "/"); // 30 days
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
+    function getVisitorIP() {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            return $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            return $_SERVER['REMOTE_ADDR'];
+        }
+    }
+    $device_type = getDeviceType();
+    $ip_address = getVisitorIP();
+    $visit_type = "";
+    $api_url = "http://www.geoplugin.net/json.gp?ip=" . $ip_address;
+    $response = file_get_contents($api_url);
+    $data = json_decode($response);
+    $country = $data->geoplugin_countryName;
+    date_default_timezone_set('UTC');
+    $date = date('Y-m-d');
+    $time = date("H:iA");
+    $visitor_check = "SELECT * FROM web_visitors WHERE ip_address = '$ip_address'";
+    $result_check = $conn->query($visitor_check);
+    if ($result_check->num_rows > 0) {
+        $visit_type = 'returning';
+        if ($visit_type == 'returning') {
+            $sql_update = "UPDATE web_visitors SET visit_type = '$visit_type', visit_time = '$time' WHERE ip_address = '$ip_address'";
+            $update_check = $conn->query($sql_update);
+        }
+    } else {
+        $visit_type = 'new';
+        $insertIP = "INSERT INTO web_visitors (ip_address, country, user_devicetype, visit_time, visit_type) VALUES ('$ip_address', '$country', '$device_type', '$time', '$visit_type')";
+        $result1 = $conn->query($insertIP);
+    }
+    $userEmail = " ";
+   // if(isset($_POST['submit_btn'])){
+    //if(filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
+       // $sql = "INSERT INTO subscribers (email, date, time) VALUES ('$userEmail', '$date', '$time')";
+       // $result = $conn->query($sql);
+       // if($mail->preSend() and $result === TRUE){
+            //$response['success'] = true;
+           // $response['message'] = "Thank You For Subscribing With Us.";
+           // $msg = "Thank You For Subscribing With Us.";
+       // }else{
+            //$response['success'] = false;
+           // $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+       // }
+    //}else{
+        //$response['success'] = false;
+        //$response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+        //$msg = "Invalid Email";
+    //}
+    //echo json_encode($response);
+    //} -->
+    if (isset($_POST['accept_cookies'])) {
+        setcookie('tracker', 'accepted', time() + (86400 * 30), "/"); // 30 days
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -203,10 +172,8 @@ if (isset($_POST['accept_cookies'])) {
         </section>
         <section class="section2">
             <div class="section2__div1">
-                <div class="search_div" id="results">
-                    <h2>You searched for: </h2>
-                    <div id="resultsContent"></div>
-                </div>
+                <div class="search_div suggestions-container" id="suggestions"></div>
+                <div id="results" class="results-container" style="display:none;"></div>
                 <div class="section2__div1__header headers">
                     <h1>Latest Articles</h1>
                 </div>
@@ -292,13 +259,13 @@ if (isset($_POST['accept_cookies'])) {
                         }
                     }
                 ?>
-            <a class="section2__div1__link">
+                <a class="section2__div1__link">
                 Load more
                 <svg width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="24" height="24" fill="#FAFAFA"/>
                     <path d="M9.5 7L14.5 12L9.5 17" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-            </a>
+                </a>
             </div>
             <div class="body_right border-gradient-leftside--lightdark">
                 <?php include('helpers/emailsubscribeform.php');?>
@@ -372,6 +339,63 @@ if (isset($_POST['accept_cookies'])) {
                     Swal.fire('Error', 'Please enter a search term', 'error');
                 }
             }
-    </script>
+        </script>
+        <script>
+            document.getElementById('search-bar').addEventListener('input', function() {
+                var query = this.value;
+                if (query.length > 0) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'search.php', true);
+                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                    xhr.onload = function() {
+                        if (this.status == 200) {
+                            var suggestions = JSON.parse(this.responseText);
+                            var suggestionsDiv = document.getElementById('suggestions');
+                            var resultsDiv = document.getElementById('results');
+                            resultsDiv.style.display = 'block';
+                            resultsDiv.innerHTML = '<h2 class ="headers">You searched for: ' + query + '</h2>';
+                            suggestions.forEach(function(suggestion) {
+                                if (suggestion.type === 'post') {
+                                    resultsDiv.innerHTML = `<h2 class ="headers">You searched for: ` + query + `</h2>;
+                                                    <div class='section2__div1__div1 normal-divs'>
+                                                        <a class='normal-divs__subdiv' href='pages/view_post.php? id2="${suggestion.id}"'>
+                                                            <img src='"${suggestion.image}"' alt='article image'>
+                                                            <div class='normal-divs__subdiv__div'>
+                                                                <h1 class='normal-divs__header'>"${suggestion.niche}"</h1>
+                                                                <h2 class='normal-divs__title'>"${suggestion.title}"</h2>
+                                                            <div>
+                                                            <p class='normal-divs__releasedate firstp'>$date</p>
+                                                            <p class='normal-divs__releasedate'><i class='fa fa-clock' aria-hidden='true'></i> $readingTime</p>
+                                                        </a>
+                                    </div>`;
+                                } else if (suggestion.type === 'author') {
+                                    resultsDiv.innerHTML = `<h2 class ="headers">You searched for: ` + query + `</h2>;
+                                        <a href='authors/author.php?id=${suggestion.id}' class='aboutauthor_div'>
+                                            <div class='aboutauthor_div_subdiv1'>
+                                                <img src='${suggestion.image}' alt ='Author's Image'/>
+                                            </div>
+                                            <div class='aboutauthor_div_subdiv2'>
+                                                <p class='normal-divs__title'>${suggestion.firstname}, ${suggestion.lastname}</p>
+                                                <p>${suggestion.bio}</p>
+                                                <p>Email: ${suggestion.email}</p>
+                                            </div>
+                                        </a>`;
+                                }
+                            });
+                            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    };
+                    xhr.send('query=' + query);
+                } else {
+                    document.getElementById('suggestions').innerHTML = '';
+                }
+            });
+            document.getElementById('suggestions').addEventListener('click', function(e) {
+                if (e.target && e.target.nodeName === "DIV") {
+                    document.getElementById('search-bar').value = e.target.textContent;
+                    this.innerHTML = '';
+                }
+            });
+</script>
     </body>
 </html>

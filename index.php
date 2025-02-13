@@ -399,6 +399,6 @@
                     this.innerHTML = '';
                 }
             });
-</script>
+        </script>
     </body>
 </html>

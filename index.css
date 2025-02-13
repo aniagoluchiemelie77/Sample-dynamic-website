@@ -1303,7 +1303,13 @@ a, p, li{
 }
 .p--bold{
     font-weight: var(--spanfontweight);
-    padding-bottom: 1rem;
+    padding-bottom: .5rem;
+    font-size: var(--header-h6);
+}
+.p--bold2{
+    font-weight: var(--spanfontweight);
+    padding: .5rem;
+    font-size: var(--header-h7);
 }
 .aboutauthor_div div p{
     color: var(--color30-shade);

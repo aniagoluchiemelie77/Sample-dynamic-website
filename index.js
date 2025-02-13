@@ -56,7 +56,7 @@ const stickyNavFunc = function () {
     });
     headerObs.observe(section1);
 };
-stickyNavFunc();
+
 const screenOnlyFuncs = function () {
     const onClickOutside = (element) => {
         document.addEventListener('click', e => {

@@ -129,7 +129,6 @@ $url = "http://localhost/Sample-dynamic-website";
                                             <a onclick='window.print() return false;'><i class='fa fa-print' aria-hidden='true'></i></a>
                                             <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
-                                        <p class='content_body'>".$content."</p>
                                         <div class='socialmedia_links'>
                                             <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                             <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -145,8 +144,9 @@ $url = "http://localhost/Sample-dynamic-website";
                                                     <img src='../".$row['image']."' alt ='Author's Image'/>
                                                 </div>
                                                 <div class='aboutauthor_div_subdiv2'>
-                                                    <p class='p--bold'>".$row['firstname']." ".$row['lastname'].", Editor-in-chief, Uniquetechcontentwriter.</p>
-                                                    <p>".$bio."</p>
+                                                    <p class='p--bold'>".$row['firstname']." ".$row['lastname']."</p>
+                                                    <p class='p--bold2'>Editor-in-chief, Uniquetechcontentwriter.</p>
+                                                    <p>$bio</p>
                                                 </div>
                                             </a>
                                             <div class = 'subscribe_div'>
@@ -191,9 +191,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <span>$readingTime</span>
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
-                                </a>
-                                </div>";
-                        }
+                                </a>";
+                        }echo"</div>";
                     }
                 }
                 if ($post_id2 > 0) {
@@ -271,8 +270,8 @@ $url = "http://localhost/Sample-dynamic-website";
                         $id = $row['id'];
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
-                        echo "<h1 class='Post_header'>".$title."</h1>
-                                <h2>".$subtitle."</h2>
+                        echo "<h1 class='Post_header'>$title</h1>
+                                <h2>$subtitle</h2>
                                 <div class='authors_div'>
                                     <div class='authors_div_imgbox'>
                                         <img src='../$author_image' alt='Author's Image'/>
@@ -285,12 +284,12 @@ $url = "http://localhost/Sample-dynamic-website";
                                 </div>";
                         if (!empty($link)) {
                             echo" <video width='70%' controls>
-                                    <source src='".$link."' type='video/mp4'>
+                                    <source src='$link' type='video/mp4'>
                                     Your browser does not support the video tag.
                                 </video>";
                         } 
                         echo"<div class='post_image_div'>
-                                <img src='../".$image."' alt='Post Image'/>
+                                <img src='../$image' alt='Post Image'/>
                                 <span>Source: Getty Images</span>
                             </div>
                             <div class='socialmedia_links'>
@@ -301,7 +300,6 @@ $url = "http://localhost/Sample-dynamic-website";
                                 <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                 <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                             </div>
-                            <p>".$content."</p>
                             <div class='socialmedia_links'>
                                 <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                 <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -317,8 +315,9 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <img src='../$author_image' alt ='Author's Image'/>
                                     </div>
                                     <div class='aboutauthor_div_subdiv2'>
-                                        <p class='p--bold'>$author_firstname $author_lastname, $role.</p>
-                                        <p>$author_bio </p>
+                                        <p class='p--bold'>$author_firstname $author_lastname</p>
+                                        <p class='p--bold2'>$role</p>
+                                        <p>$author_bio</p>
                                     </div>
                                 </a>
                                 <div class = 'subscribe_div'>
@@ -361,9 +360,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <span>$readingTime</span>
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
-                                </a>
-                                </div>";
-                        }
+                                </a>";
+                        }echo "</div>";
                     }
                 }
                 if ($post_id3 > 0) {
@@ -464,8 +462,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                     <div class='authors_div_otherdiv'>
                                         <i class='fa fa-clock' aria-hidden='true'></i>
                                         <p>$read_count</p>
-                                        </div>
                                     </div>
+                                </div>
                             ";
                             if (!empty($link)) {
                                 echo" <video width='70%' controls>
@@ -486,7 +484,6 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                         <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                     </div>
-                                    <p>".$content."</p>
                                     <div class='socialmedia_links'>
                                         <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                         <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -502,8 +499,9 @@ $url = "http://localhost/Sample-dynamic-website";
                                                 <img src='../$author_image' alt ='Author's Image'/>
                                             </div>
                                             <div class='aboutauthor_div_subdiv2'>
-                                                <p class='p--bold'>$author_firstname $author_lastname, $role.</p>
-                                                <p>$author_bio </p>
+                                                <p class='p--bold'>$author_firstname $author_lastname</p>
+                                                <p class='p--bold2'>$role</p>
+                                                <p>$author_bio</p>
                                             </div>
                                         </a>
                                         <div class = 'subscribe_div'>
@@ -546,9 +544,8 @@ $url = "http://localhost/Sample-dynamic-website";
                                         <span>$readingTime</span>
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>
-                                </a>
-                                </div>";
-                        }
+                                </a>";
+                        }echo "</div>";
                     }
                 }
                 if ($post_id4 > 0) {
@@ -671,7 +668,6 @@ $url = "http://localhost/Sample-dynamic-website";
                                     <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                     <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
-                                <p>".$content."</p>
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -687,8 +683,9 @@ $url = "http://localhost/Sample-dynamic-website";
                                             <img src='../$author_image' alt ='Author's Image'/>
                                         </div>
                                         <div class='aboutauthor_div_subdiv2'>
-                                            <p class='p--bold'>$author_firstname $author_lastname, $role.</p>
-                                            <p>$author_bio </p>
+                                            <p class='p--bold'>$author_firstname $author_lastname</p>
+                                            <p class='p--bold2'>$role</p>
+                                            <p>$author_bio</p>
                                         </div>
                                     </a>
                                     <div class = 'subscribe_div'>
@@ -867,7 +864,6 @@ $url = "http://localhost/Sample-dynamic-website";
                                     <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                     <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
-                                <p>".$content."</p>
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -883,8 +879,9 @@ $url = "http://localhost/Sample-dynamic-website";
                                             <img src='../$author_image' alt ='Author's Image'/>
                                         </div>
                                         <div class='aboutauthor_div_subdiv2'>
-                                            <p class='p--bold'>$author_firstname $author_lastname, $role.</p>
-                                            <p>$author_bio </p>
+                                            <p class='p--bold'>$author_firstname $author_lastname</p>
+                                            <p class='p--bold2'>$role</p>
+                                            <p>$author_bio</p>
                                         </div>
                                     </a>
                                     <div class = 'subscribe_div'>

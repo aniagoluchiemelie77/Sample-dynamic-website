@@ -31,7 +31,7 @@ include("../connect.php");
             </div>
             <div class="posts_divcontainer border-gradient-side-dark">
                 <?php
-                    $select_allposts = "SELECT id, title, admin_id, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY id DESC LIMIT 100";
+                    $select_allposts = "SELECT id, title, admin_id, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, is_favourite FROM paid_posts ORDER BY id DESC LIMIT 100";
                     $select_allposts_result = $conn->query($select_allposts);
                     if ($select_allposts_result->num_rows > 0) {
                         $author_firstname = "";
@@ -67,6 +67,13 @@ include("../connect.php");
                                         <a class='users_delete' onclick='confirmDeletePP(".$row['id'].")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
                                         </a>
+                                        <form id='favouriteForm' action='../script.php' method='POST'>
+                                            <input type='hidden' name='post_id1' value='".$row['id']."'>
+                                            <input type='hidden' name='isfavourite1' value='".$row['is_favourite']."'>
+                                            <button type='submit' class='users_delete2 star'>
+                                                <i class='fa fa-star' aria-hidden='true'></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>";                           
                         };
@@ -92,6 +99,48 @@ include("../connect.php");
                 }
             })
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('favouriteForm');
+            const starButton = form.querySelector('.star');
+            starButton.addEventListener('click', function(event) {
+                const isFavouriteInput = form.querySelector('input[name="isfavourite1"]');
+                isFavouriteInput.value = isFavouriteInput.value === '0' ? '1' : '0';
+                if (isFavouriteInput.value === '1') {
+                    starButton.classList.remove('users_delete2');
+                    starButton.classList.add('favourite');
+                } else {
+                    starButton.classList.remove('favourite');
+                    starButton.classList.add('users_delete2');
+                }
+            });
+            const isFavouriteInput = form.querySelector('input[name="isfavourite1"]');
+            if (isFavouriteInput.value === '1') {
+                starButton.classList.add('favourite');
+            } else {
+                starButton.classList.add('users_delete2');
+            }
+        });
+    </script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
+        var messageText = "<?= $_SESSION['status']?? ' '?>";
+        if (messageType == 'Error' && messageText != " "){
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })  
+        }else if (messageType == 'Success' && messageText != " "){
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })  
+        }
+        <?php unset($_SESSION['status_type']);?>
+        <?php unset($_SESSION['status']);?>
     </script>
 </body>
 </html>

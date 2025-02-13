@@ -24,9 +24,10 @@
         }else{
             $idtype = "id5";
         }
-        $sql = "INSERT INTO $post_type (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $is_favourite = 0;
+        $sql = "INSERT INTO $post_type (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         if($query = $conn->prepare($sql)) { 
-            $query->bind_param("sssssssisssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype);
+            $query->bind_param("sssssssisssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
             if ($query->execute()) {
                 $content = "Admin ".$_SESSION['firstname']." added a new post (".$post_type.")";
                 $forUser = 1;
@@ -511,25 +512,4 @@
         $_SESSION['status'] = "No file uploaded.";
         header('location: admin_homepage.php');
     }
-    /*header('Content-Type: application/json');
-    $postData = file_get_contents('php://input');
-    $request = json_decode($postData, true);
-    $postId = $request['postId'];
-
-    $sql = "UPDATE posts SET is_favorite = NOT is_favorite WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $postId);
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
-        $content = "Admin ".$_SESSION['firstname']." bookmarked a post";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Post Bookmarked Successfully";
-        header('location: view_all/posts.php');
-    } else {
-        echo json_encode(['success' => false]);
-    }
-    $stmt->close();
-    $conn->close();*/
 ?>

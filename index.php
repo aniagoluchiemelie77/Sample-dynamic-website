@@ -339,8 +339,6 @@
                     Swal.fire('Error', 'Please enter a search term', 'error');
                 }
             }
-        </script>
-        <script>
             document.getElementById('search-bar').addEventListener('input', function() {
                 var query = this.value;
                 if (query.length > 0) {

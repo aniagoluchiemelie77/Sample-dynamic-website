@@ -1038,9 +1038,18 @@ a, td,span, p, label{
     cursor: pointer;
     border: none;
  }
- .posts_divcontainer_subdiv a{
+ .posts_divcontainer_subdiv .users_delete2, .users_delete, .users_edit{
     cursor: pointer;
     color: var(--color30-shade);
+    margin-right: .9rem;
+ }
+ .posts_divcontainer_subdiv button{
+    border: none;
+    background-color: inherit;
+ }
+ .posts_divcontainer_subdiv .favourite{
+    cursor: pointer;
+    color: var(--color10);
  }
  .posts_divcontainer_subdiv_body2 a{
     cursor: pointer;
@@ -1050,22 +1059,8 @@ a, td,span, p, label{
     color: var(--color10);
     cursor: pointer;
  }
- .posts_divcontainer_subdiv a:hover i{
+ .posts_divcontainer_subdiv .users_delete2:hover, .users_delete:hover, .users_edit:hover i{
     color: var(--color10);
- }
- .posts_divcontainer_subdiv .star-btn:hover i{
-    color: var(--color10);
- }
- .posts_divcontainer_subdiv a:nth-child(2){
-    margin-left: .6rem;
- }
- .star-btn{
-    margin-left: .6rem;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
  }
  .posts_divcontainer_subdiv .posts_divcontainer_subdiv2{
     padding: var(--divpadding);

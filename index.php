@@ -356,7 +356,7 @@
                             suggestions.forEach(function(suggestion) {
                                 if (suggestion.type === 'post') {
                                     resultsDiv.innerHTML = `<h2 class="headers">You searched for: ${query}</h2>
-                                                        <a class='normal-divs__subdiv' href='pages/view_post.php?id2=${suggestion.id}'>
+                                                        <a class='normal-divs__subdiv' href='pages/view_post.php?${suggestion.idtype}=${suggestion.id}'>
                                                             <img src='${suggestion.image}' alt='article image'>
                                                             <div class='normal-divs__subdiv__div'>
                                                                 <h1 class='normal-divs__header'>${suggestion.niche}</h1>
@@ -373,7 +373,7 @@
                                                         </div>`;
                                 } else if (suggestion.type === 'author') {
                                     resultsDiv.innerHTML = `<h2 class ="headers">You searched for: ${query}</h2>;
-                                        <a href='authors/author.php?id=${suggestion.id}' class='aboutauthor_div'>
+                                        <a href='authors/author.php?id=${suggestion.id}&idtype=${suggestion.idtype}' class='aboutauthor_div'>
                                             <div class='aboutauthor_div_subdiv1'>
                                                 <img src='${suggestion.image}' alt ='Author's Image'/>
                                             </div>

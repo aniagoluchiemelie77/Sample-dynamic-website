@@ -16,6 +16,7 @@ include("../connect.php");
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css"/>
+    <script src="../admin.js" defer></script>
 	<title>Other Website Users</title>
 </head>
 <body>
@@ -62,22 +63,5 @@ include("../connect.php");
                 ?>
             </div>
     </section>
-    <script>
-        function confirmDeleteOtheruser(Id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '../delete.php?id=' + Id + '&usertype=Otheruser';
-                }
-            })
-        }
-    </script>
 </body>
 </html>

@@ -54,30 +54,6 @@ $content = "";
             <input class="formcontainer_submit" value="Go" type="submit" onclick="submitForm()"/>
         </form>
     </section>
-    </button>
-    </form> 
-    <script>
-        function submitForm() {
-            var topicName = document.getElementById('topicName').value;
-            if (topicName) {
-                fetch('../forms.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: 'topicName=' + encodeURIComponent(topicName)
-                })
-                .then(response => response.text())
-                .then(data => {
-                    Swal.fire('Success', data, 'success');
-                })
-                .catch(error => {
-                    Swal.fire('Error', 'Something went wrong!', 'error');
-                });
-            } else {
-                Swal.fire('Error', 'Please enter a topic name', 'error');
-            }
-        }
-    </script>
+    <script src="../admin.js"></script>
 </body>
 </html>

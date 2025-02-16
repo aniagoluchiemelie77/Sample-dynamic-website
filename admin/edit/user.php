@@ -81,7 +81,7 @@ $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
                             </div>
                             <div class='createeditor_inputgroup flexcolumn'>
                                 <label class='createeditor_label rightmargin nooutline' for='profile_bio'>Bio:</label>
-                                <textarea name='profile_bio' class='textarea' id='myTextarea'>$bio</textarea>
+                                <textarea name='profile_bio' class='textarea' id='myTextarea5'>$bio</textarea>
                             </div>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile-address1'>Address 1:</label>
@@ -158,7 +158,7 @@ $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
                             </div>
                             <div class='createeditor_inputgroup flexcolumn'>
                                 <label class='createeditor_label rightmargin nooutline' for='profile_bio'>Bio:</label>
-                                <textarea name='profile_bio' class='textarea' id='myTextarea'>$bio</textarea>
+                                <textarea name='profile_bio' class='textarea' id='myTextarea5'>$bio</textarea>
                             </div>
                             <input class='createeditor_input-submit' value='Update' name='edit_profile_writer' type='submit'/>
                         </form>
@@ -208,7 +208,7 @@ $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
                             </div>
                             <div class='createeditor_inputgroup flexcolumn'>
                                 <label class='createeditor_label rightmargin nooutline' for='profile_bio'>Bio:</label>
-                                <textarea name='profile_bio' class='textarea' id='myTextarea'>$bio</textarea>
+                                <textarea name='profile_bio' class='textarea' id='myTextarea5'>$bio</textarea>
                             </div>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_role'>Role:</label>
@@ -226,25 +226,6 @@ $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
     ?>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../admin.js"></script>
-    <script type="text/javascript">
-        tinymce.init({
-            selector: '#myTextarea',
-            width: 810,
-            height: 900,
-            plugins: [
-                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-                'media', 'table', 'emoticons', 'help'
-            ],toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-                'forecolor backcolor emoticons | help',
-            menu: {
-            favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
-            },
-            menubar: 'favs file edit view insert format tools table help',
-            content_css: 'css/content.css'
-        });
-    </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type']?? ' '?>";

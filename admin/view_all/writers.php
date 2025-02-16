@@ -16,6 +16,7 @@ include("../connect.php");
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../admin.js" defer></script>
     <link rel="stylesheet" href="../admin.css"/>
 	<title>View Writers</title>
 </head>
@@ -68,23 +69,6 @@ include("../connect.php");
     </section>
     <script src="sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
-    <script>
-        function confirmDeleteWriter(Id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '../delete.php?id=' + Id + '&usertype=Writer';
-                }
-            })
-        }
-    </script>
     <script>
         var messageType = "<?= $_SESSION['status_type']?? ' '?>";
         var messageText = "<?= $_SESSION['status']?? ' '?>";

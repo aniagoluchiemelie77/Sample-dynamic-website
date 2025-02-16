@@ -42,36 +42,17 @@ require ("../connect.php");
                 }
             ?>
         </div>
-        <button class="about_section_btn" id="Edit_about">Edit
+        <button class="about_section_btn" id="Edit_about5">Edit
             <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
-        <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv">
-            <textarea class="about_editdiv-input" name="website_terms" id="myTextarea"></textarea>
+        <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv5">
+            <textarea class="about_editdiv-input" name="website_terms" id="myTextarea9"></textarea>
             <input type="submit" value="Update" name="websiteterms_editbtn" />
         </form>
     </section>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../admin.js"></script>
-    <script type="text/javascript">
-        tinymce.init({
-            selector: '#myTextarea',
-            width: 810,
-            height: 900,
-            plugins: [
-                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-                'media', 'table', 'emoticons', 'help'
-            ],toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-                'forecolor backcolor emoticons | help',
-            menu: {
-            favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
-            },
-            menubar: 'favs file edit view insert format tools table help',
-            content_css: 'css/content.css'
-        });
-    </script>
-     <script>
+    <script>
         var messageType = "<?= $_SESSION['status_type']?? ' '?>";
         var messageText = "<?= $_SESSION['status']?? ' '?>";
         if (messageType == 'Error' && messageText != " "){
@@ -93,16 +74,10 @@ require ("../connect.php");
         <?php unset($_SESSION['status']);?>
     </script>
     <script>
-        const editAboutBtn = document.getElementById("Edit_about");
-        const editTextEditor = document.getElementById("hidden_aboutdiv")
-        
-        const editAction = function () {
-            editAboutBtn.addEventListener("click", () => {
-                editTextEditor.style.display = "block";
-            });
-        }
-        editAction();
+        const editAboutBtn5 = document.getElementById("Edit_about5");
+        const editTextEditor5 = document.getElementById("hidden_aboutdiv5")
+        editAction(editAboutBtn5, editTextEditor5);
     </script>
-     <script src="sweetalert2.all.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
 </body>
 </html>

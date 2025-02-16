@@ -17,8 +17,6 @@ require ("../connect.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css"/>
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>Advertise With Us</title>
 </head>
@@ -42,10 +40,10 @@ require ("../connect.php");
                 }
             ?>
         </div>
-        <button class="about_section_btn" id="Edit_about">Edit
+        <button class="about_section_btn" id="Edit_about2">Edit
             <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
-        <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv">
+        <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv2">
             <textarea class="about_editdiv-input" name="advertise_content" id="myTextarea"></textarea>
             <input type="submit" value="Update" name="advertedit_btn" />
         </form>
@@ -93,15 +91,9 @@ require ("../connect.php");
         <?php unset($_SESSION['status']);?>
     </script>
     <script>
-        const editAboutBtn = document.getElementById("Edit_about");
-        const editTextEditor = document.getElementById("hidden_aboutdiv")
-        
-        const editAction = function () {
-            editAboutBtn.addEventListener("click", () => {
-                editTextEditor.style.display = "block";
-            });
-        }
-        editAction();
+        const editAboutBtn2 = document.getElementById("Edit_about2");
+        const editTextEditor2 = document.getElementById("hidden_aboutdiv2");
+        editAction(editAboutBtn2, editTextEditor2);
     </script>
     <script src="sweetalert2.all.min.js"></script>
 </body>

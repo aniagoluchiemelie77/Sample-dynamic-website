@@ -17,6 +17,7 @@ include("../connect.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css"/>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <script src="../admin.js" defer></script>
 	<title>View Paid Posts</title>
 </head>
 <body>
@@ -84,21 +85,6 @@ include("../connect.php");
         </div>
     </section>
     <script>
-        function confirmDeletePP(postId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '../delete.php?id1=' + postId;
-                }
-            })
-        }
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('favouriteForm');
             const starButton = form.querySelector('.star');

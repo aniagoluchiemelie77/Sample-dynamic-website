@@ -150,46 +150,10 @@ $user_type = $_GET['usertype'];
         $stmt->close();
         }
     ?>
-    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../admin.js"></script>
+    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
-    <script>
-        document.getElementById('updateForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-            var formData = new FormData(this);
-            fetch('message.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Display the SweetAlert confirmatory message
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Table values updated successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Redirect to admin_homepage.php
-                            window.location.href = '../admin_homepage.php';
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'There was an error updating the table.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            }).catch(error => {
-                Swal.fire({
-                    title})})})
-
-    </script>
 </body>
 </html>
 <?php

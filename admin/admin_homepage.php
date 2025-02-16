@@ -1034,168 +1034,9 @@ require ("connect.php");
         </div>  
     </section>
     <script>
-        const sideBtns = document.querySelectorAll('.sidebarbtn');
-        const tabComponents = document.querySelectorAll('.tab_content');
-        const logoutDiv = document.getElementById('logout_alert');
-        const exitLogout = document.getElementById('dismiss-popup-btn');
-
-        sideBtns.forEach((tab, index) =>{
-            tab.addEventListener('click', () => {
-                sideBtns.forEach((tab) => tab.classList.remove('active'));
-                tab.classList.add('active');
-                tabComponents.forEach((tabContent) => {
-                    tabContent.classList.remove('active2');
-                    tabContent.style.display = 'none';}
-                );
-                tabComponents[index].classList.add('active2');
-                tabComponents[index].style.display = 'flex';
-            });
-        })
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementsByClassName("sidebarbtn")[0].click();
         });
-        
-        function displayExit () {
-            logoutDiv.style.display = 'flex';
-        }
-        function cancelExit () {
-            logoutDiv.style.display = 'none';
-        }
-        function confirmDeletePP(postId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'delete.php?id1=' + postId;
-                }
-            })
-        }
-        function confirmDeleteP(postId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'delete.php?id2=' + postId;
-                }
-            })
-        }
-        function confirmDeleteD(postId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'delete.php?id3=' + postId;
-                }
-            })
-        }
-        function confirmDeleteEditor(Id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'delete.php?id=' + Id + '&usertype=Editor';
-                }
-            })
-        }
-        function confirmDeleteWriter(Id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'delete.php?id=' + Id + '&usertype=Writer';
-                }
-            })
-        }
-        function confirmDeleteOtheruser(Id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'delete.php?id=' + Id + '&usertype=Otheruser';
-                }
-            })
-        }
-        function confirmDeleteN(postId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'delete.php?id4=' + postId;
-                }
-            })
-        }
-        function confirmDeleteC(postId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'delete.php?id5=' + postId;
-                }
-            })
-        }
-        function confirmDeletePR(postId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#F93404',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'delete.php?id6=' + postId;
-                }
-            })
-        }
     </script>
     <script>
         <?php
@@ -1221,40 +1062,40 @@ require ("connect.php");
             ];
             var chart = anychart.pie();
             chart.title("Visitors Devices Statistics");
-                chart.data(data);
-                chart.container("pie_container")
-                chart.draw();
-                chart.legend().itemsLayout("vertical");
-                chart.legend().position("right");
-                chart.sort("desc");  
-            });
-            <?php }; 
-                $condition_value1 = 'new';
-                $condition_value2 = 'returning';
-                $usertype_query1 = "SELECT COUNT(*) as count_new FROM web_visitors WHERE visit_type = '$condition_value1'";
-                $usertype_query2 = "SELECT COUNT(*) as count_returning FROM web_visitors WHERE visit_type = '$condition_value2'";
-                $result_usertype_query1 = $conn->query($usertype_query1);
-                $result_usertype_query2 = $conn->query($usertype_query2);
-                if ($result_usertype_query1->num_rows > 0 && $result_usertype_query2->num_rows > 0) {
-                    $row_returning = $result_usertype_query2->fetch_assoc();
-                    $row_new = $result_usertype_query1->fetch_assoc();
-                    $row_tablet = $result_tablet->fetch_assoc();
-            ?>
-            anychart.onDocumentReady(function(){
-                var data2 = [
-                    {x: "New visitors", value: <?php echo $row_new["count_new"];?>, exploded: true},
-                    {x: "Returning visitors", value: <?php echo $row_returning["count_returning"];?>},
-                ];
-                var chart2 = anychart.pie();
-                chart2.title("Visitors Statistics");
-                chart2.data(data2);
-                chart2.container("pie_chartcontainer2")
-                chart2.draw();
-                chart2.legend().itemsLayout("vertical");
-                chart2.legend().position("right");
-                chart2.sort("desc");  
-            });
-            <?php }; $conn->close(); ?>
+            chart.data(data);
+            chart.container("pie_container")
+            chart.draw();
+            chart.legend().itemsLayout("vertical");
+            chart.legend().position("right");
+            chart.sort("desc");  
+        });
+        <?php }; 
+            $condition_value1 = 'new';
+            $condition_value2 = 'returning';
+            $usertype_query1 = "SELECT COUNT(*) as count_new FROM web_visitors WHERE visit_type = '$condition_value1'";
+            $usertype_query2 = "SELECT COUNT(*) as count_returning FROM web_visitors WHERE visit_type = '$condition_value2'";
+            $result_usertype_query1 = $conn->query($usertype_query1);
+            $result_usertype_query2 = $conn->query($usertype_query2);
+            if ($result_usertype_query1->num_rows > 0 && $result_usertype_query2->num_rows > 0) {
+                $row_returning = $result_usertype_query2->fetch_assoc();
+                $row_new = $result_usertype_query1->fetch_assoc();
+                $row_tablet = $result_tablet->fetch_assoc();
+        ?>
+        anychart.onDocumentReady(function(){
+            var data2 = [
+                {x: "New visitors", value: <?php echo $row_new["count_new"];?>, exploded: true},
+                {x: "Returning visitors", value: <?php echo $row_returning["count_returning"];?>},
+            ];
+            var chart2 = anychart.pie();
+            chart2.title("Visitors Statistics");
+            chart2.data(data2);
+            chart2.container("pie_chartcontainer2")
+            chart2.draw();
+            chart2.legend().itemsLayout("vertical");
+            chart2.legend().position("right");
+            chart2.sort("desc");  
+        });
+        <?php }; $conn->close(); ?>
     </script>  
     <script>
         var messageType = "<?= $_SESSION['status_type']?? ' '?>";

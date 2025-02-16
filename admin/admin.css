@@ -1105,7 +1105,12 @@ a, td,span, p, label{
 .pages_container_subdiv{
     padding: var(--divpadding-highest);
     cursor: pointer;
-   border-bottom: 1px solid var(--color30)17;
+    display: flex;
+    align-items: center;
+}
+.pages_container_subdiv i{
+    color: var(--color30);
+    margin-right: 1rem;
 }
 .pages_container_subdiv a{
     color: var(--color30-shade);
@@ -2562,6 +2567,28 @@ input[type="datetime-local"] {
     }
     a, td,span, p, label{
         font-size: var(--pfontsize);
+    }
+    .body{
+        min-height: calc(100vh - var(--header-height));
+        display: flex;
+        flex-direction: column;
+    }
+    .body .sidebar{
+        float: none;
+        width: fit-content;
+        min-height: fit-content;
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+    }
+    .body .sidebar i{
+        margin-right: 1rem;
+        font-size: var(--ifontsize-7);
+    }
+    .aside_sidebar{
+    margin-left: 0;
+    min-height: 100%;
+    overflow-y: scroll;
     }
     .section1{
         min-height: 80svh;

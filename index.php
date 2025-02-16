@@ -86,7 +86,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	    <title>Home</title>
     </head>
-    <body id="container">
+    <body id="container" class="<?php echo (isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'light-mode') ? 'light-mode' : ''; ?>">
         <?php require ('includes/header.php'); ?>
         <?php if (!isset($_COOKIE['tracker'])): ?>
             <div class="cookie_container">
@@ -396,6 +396,14 @@
                     document.getElementById('search-bar').value = e.target.textContent;
                     this.innerHTML = '';
                 }
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'light-mode') {
+                document.body.classList.add('light-mode');
+            }
             });
         </script>
     </body>

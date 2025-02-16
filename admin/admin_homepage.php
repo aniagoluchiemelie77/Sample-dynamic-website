@@ -444,7 +444,7 @@ require ("connect.php");
             </div>
             <div class="profile tab_content" id="tab2">
                 <figure class="profile_imgbox">
-                    <img src="<?php echo $_SESSION['image'];?>" alt="Authors Profile Picture" class="profile_imgbox_img"/>
+                    <img src="../<?php echo $_SESSION['image'];?>" alt="Authors Profile Picture" class="profile_imgbox_img"/>
                     <a class="profile_imgbox_edit" id="profileuploads" onclick="document.getElementById('fileInput').click();">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
@@ -589,7 +589,7 @@ require ("connect.php");
                         <h2>Admin</h2>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
-                        <div class="users_div_subdiv_subdiv divimages" style="background-image:url('<?php echo $_SESSION['image']; ?>')">
+                        <div class="users_div_subdiv_subdiv divimages" style="background-image:url('../<?php echo $_SESSION['image']; ?>')">
                             <div class="divimages_side--back">
                                 <p class="users_div_subdiv_p">
                                     <span>Username:</span>

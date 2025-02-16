@@ -9,14 +9,39 @@ const searchForm = document.getElementById("search_form");
 const headerSearchBar = document.querySelector('.mainheader__searchbox-container');
 const closeMenuBtn = document.querySelector('.sidebarbtn');
 const header = document.querySelector('.header');
-const initCoords = section2.getBoundingClientRect();
+//const initCoords = section2.getBoundingClientRect();
 const sidebar = document.getElementById('sidebar');
 let surroundingDivs = !sidebar;
 const container = document.getElementById("container");
 let touchStartTime, clientX, clientY;
-console.log(initCoords);
+//console.log(initCoords);
 
+const paragraph = document.getElementById('paragraph');
+const lightIcon = document.getElementById('theme-icon2');
+const darkIcon = document.getElementById('theme-icon1');
 
+document.addEventListener('DOMContentLoaded', (event) => {   
+  let currentTheme = localStorage.getItem('theme');  
+    if (currentTheme === 'light-mode') {
+        document.body.classList.add('light-mode');
+        darkIcon.style.display = "none";
+        lightIcon.style.display = "block";
+    }
+    const themeIcon = document.getElementById('theme-icon');
+    themeIcon.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        if (document.body.classList.contains('light-mode')) {
+            darkIcon.style.display = "none";
+            lightIcon.style.display = "block"; // Night icon
+            paragraph.textContent = "Change to Dark Theme";
+        } else {
+            darkIcon.style.display = "block";
+            lightIcon.style.display = "none";
+            paragraph.textContent = "Change to Light Theme";
+        }
+        localStorage.setItem('theme', theme);
+    });
+});
 /*function delayPopup (param){
   setTimeout(() => {
     param.style.bottom = "0";
@@ -38,7 +63,7 @@ cookieContainer.addEventListener('click', responding);
   alert("The element is not found!");
 }*/
 //implementing sticky nav bar
-const stickyNavFunc = function () {
+/*const stickyNavFunc = function () {
     const navHeight = header.getBoundingClientRect().height;
     const stickyNav = function (entries) {
         const [entry] = entries;
@@ -55,9 +80,9 @@ const stickyNavFunc = function () {
         rootMargin: `-${navHeight}px`,
     });
     headerObs.observe(section1);
-};
+};*/
 
-const screenOnlyFuncs = function () {
+/*const screenOnlyFuncs = function () {
     const onClickOutside = (element) => {
         document.addEventListener('click', e => {
           if (!element.contains(e.target)) {
@@ -71,13 +96,13 @@ const removeHiddenClass = function (e) {
     e.stopPropagation();
     sidebar.classList.remove('hidden');
 }
-menubtn.addEventListener('click', removeHiddenClass);
+//menubtn.addEventListener('click', removeHiddenClass);
 //closing sidebar
 const addHiddenClass = function (e) {
     e.stopPropagation();
     sidebar.classList.toggle('hidden');
 }
-closeMenuBtn.addEventListener('click', addHiddenClass);
+//closeMenuBtn.addEventListener('click', addHiddenClass);
 
 //displaying search bar
 const displaySearchBar = function (e) {
@@ -115,6 +140,6 @@ function swipe(e, duration) {
 }
 };
 swipefunction();
-};
-screenOnlyFuncs();
+}*/;
+//screenOnlyFuncs();
 

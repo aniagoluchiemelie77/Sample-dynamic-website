@@ -356,6 +356,13 @@ tinymce.init({
   menubar: 'favs file edit view insert format tools table help',
   content_css: 'css/content.css'
 });
+function disableInputs() {
+  inputs.forEach(function(input) {
+      input.disabled = true;
+      input.value = " ";
+  });
+  verifyButton.disabled = true;
+};
 function startCountdown() {
   var timeLeft = 60;
   var interval = setInterval(function() {
@@ -372,7 +379,20 @@ function startCountdown() {
       }
       timeLeft -= 1;
   }, 1000); // Update every second
-}
+};
+function checkInputs() {
+  var allFilled = true;
+  inputs.forEach(function(input) {
+      if (input.value.length !== 1) {
+          allFilled = false;
+      }
+      if (input.value.length > 1) {
+          input.value = "";
+          return;
+      } 
+  });
+  verifyButton.style.display = allFilled ? 'block' : 'none';
+};
 function setupInputs() {
   inputs.forEach(function(input, index) {
       input.addEventListener('input', function() {
@@ -392,24 +412,4 @@ function setupInputs() {
           }
       });
   });
-}
-function checkInputs() {
-  var allFilled = true;
-  inputs.forEach(function(input) {
-      if (input.value.length !== 1) {
-          allFilled = false;
-      }
-      if (input.value.length > 1) {
-          input.value = "";
-          return;
-      } 
-  });
-  verifyButton.style.display = allFilled ? 'block' : 'none';
-}
-function disableInputs() {
-  inputs.forEach(function(input) {
-      input.disabled = true;
-      input.value = " ";
-  });
-  verifyButton.disabled = true;
-}
+};

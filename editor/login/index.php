@@ -41,7 +41,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $_SESSION['address'] = $address;
         $_SESSION['addresstwo'] = $addresstwo;
         $_SESSION['country_code'] = $country_code;
-        header("location: ../admin_homepage.php");
+        header("location: ../editor_homepage.php");
         exit();
     }else{
         $msg = "Invalid Email or Password";

@@ -572,12 +572,6 @@
                                                 <p class='users_div_subdiv_p'><span>Role: </span>Editor</p>
                                                 <p class='users_div_subdiv_p'><span>Email: </span>$email</p>
                                                 <p class='users_div_subdiv_p'><span>Contributions: </span>$total_posts</p>
-                                                <center>
-                                                    <div class='users_delete_edit'>
-                                                        <a class='users_edit' href='edit/user.php?id=$id&usertype=Editor'><i class='fa fa-eye' aria-hidden='true'></i></a>
-                                                        <a class='users_delete' onclick='confirmDeleteEditor($id)'><i class='fa fa-trash' aria-hidden='true'></i></a>
-                                                    </div>
-                                                </center>
                                             </div>
                                     </div>";                         
                                 };

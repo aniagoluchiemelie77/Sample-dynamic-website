@@ -1,6 +1,6 @@
 <header class="header">
     <div class="header_img">
-        <a class="notification" href="../admin_homepage.php">
+        <a class="notification" href="../editor_homepage.php">
             <i class="fa fa-home" aria-hidden="true"></i>
         </a>
     </div>

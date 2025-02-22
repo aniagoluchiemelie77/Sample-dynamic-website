@@ -591,6 +591,7 @@ a, p, li{
     display: flex;
     cursor: pointer;
     flex-wrap: nowrap;
+    margin-bottom: 1rem;
   }
   .smallerdivs a div{
     display: flex;
@@ -638,7 +639,7 @@ a, p, li{
     font-size: var(--header-h7);
     background-color: var(--color10);
     color: var(--color60-shade);
-    clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 0% 100%);
     text-transform: uppercase;
     padding: var(--divpadding);
 }

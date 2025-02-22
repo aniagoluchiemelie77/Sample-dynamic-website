@@ -154,18 +154,33 @@
                     $counter = 0;
                     while($row = $paidpostselection_result->fetch_assoc()) {
                         $counter++;
-                        $class = $counter == 1 ? "section1__div1 larger__div" : "section1__div2 smallerdivs";
-                        $class2 = $counter == 1 ? "larger__div__subdiv" : "smaller__div__subdiv";
-                        echo "<div class='$class'>
-                                <a href='pages/view_post.php?id1=".$row['id']."'>
-                                    <img src='".$row['image_path']."' alt='article image'/>
-                                    <div class='$class2'>
-                                        <h1>". $row['niche'] ."</h1>
-                                        <h2>". $row['title'] ."</h2>
-                                        <p>" . $row["formatted_date"] . "</p>
-                                    </div>
-                                </a>
-                        </div>";
+                        if ($counter == 1) {
+                            echo "<div class='section1__div1 larger__div'>
+                                    <a href='pages/view_post.php?id1=".$row['id']."'>
+                                        <img src='".$row['image_path']."' alt='article image'/>
+                                        <div class='larger__div__subdiv'>
+                                            <h1>". $row['niche'] ."</h1>
+                                            <h2>". $row['title'] ."</h2>
+                                            <p>" . $row["formatted_date"] . "</p>
+                                        </div>
+                                    </a>
+                                </div>";
+                        }else {
+                            if ($counter == 2) {
+                                echo "<div class='section1__div2 smallerdivs'>";
+                            }
+                            echo "
+                                    <a href='pages/view_post.php?id1=".$row['id']."'>
+                                        <img src='".$row['image_path']."' alt='article image'/>
+                                        <div class='smaller__div__subdiv'>
+                                            <h1>". $row['niche'] ."</h1>
+                                            <h2>". $row['title'] ."</h2>
+                                            <p>" . $row["formatted_date"] . "</p>
+                                        </div>
+                                    </a>";
+                        }
+                    }if ($counter > 1) {
+                        echo "</div>";
                     }
                 }
             ?>

@@ -20,7 +20,7 @@ const paragraph = document.getElementById('paragraph');
 const lightIcon = document.getElementById('theme-icon2');
 const darkIcon = document.getElementById('theme-icon1');
 
-document.addEventListener('DOMContentLoaded', (event) => {   
+/*document.addEventListener('DOMContentLoaded', (event) => {   
   let currentTheme = localStorage.getItem('theme');  
     if (currentTheme === 'light-mode') {
         document.body.classList.add('light-mode');
@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
         localStorage.setItem('theme', theme);
     });
-});
-/*function delayPopup (param){
+});*/
+function delayPopup (param){
   setTimeout(() => {
     param.style.bottom = "0";
   }, 3000);
@@ -58,12 +58,12 @@ function responding(evt) {
   }
 }
 if (cookieContainer) {
-cookieContainer.addEventListener('click', responding);
+    cookieContainer.addEventListener('click', responding);
 }else {
-  alert("The element is not found!");
-}*/
+    alert("The element is not found!");
+}
 //implementing sticky nav bar
-/*const stickyNavFunc = function () {
+const stickyNavFunc = function () {
     const navHeight = header.getBoundingClientRect().height;
     const stickyNav = function (entries) {
         const [entry] = entries;
@@ -80,9 +80,9 @@ cookieContainer.addEventListener('click', responding);
         rootMargin: `-${navHeight}px`,
     });
     headerObs.observe(section1);
-};*/
+};
 
-/*const screenOnlyFuncs = function () {
+const screenOnlyFuncs = function () {
     const onClickOutside = (element) => {
         document.addEventListener('click', e => {
           if (!element.contains(e.target)) {
@@ -140,6 +140,6 @@ function swipe(e, duration) {
 }
 };
 swipefunction();
-}*/;
-//screenOnlyFuncs();
+};
+screenOnlyFuncs();
 

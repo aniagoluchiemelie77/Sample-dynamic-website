@@ -2,7 +2,8 @@
   "require": {
     "mailgun/mailgun-php": "^4.3",
     "nyholm/psr7": "^1.8",
-    "guzzlehttp/guzzle": "^7.9"
+    "guzzlehttp/guzzle": "^7.9",
+    "ezyang/htmlpurifier": "^4.18"
   },
   "config": {
     "allow-plugins": {

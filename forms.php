@@ -1,6 +1,8 @@
 <?php 
     require ('connect.php');
     $query = isset($_POST['query']) ? $_POST['query'] : '';
+    $offset = intval($_POST['offset']);
+    $limit = intval($_POST['limit']);
     $query = $conn->real_escape_string($query);
     $tables = ['paid_posts', 'posts', 'news', 'commentaries', 'press_releases'];
     $results = [];

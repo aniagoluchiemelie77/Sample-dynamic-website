@@ -1,6 +1,14 @@
 <?php
     session_start();
     require('connect.php');
+    $initial_limit = 30;
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $new_value = intval($_POST['new_value']);
+        $initial_limit = $new_value;
+        header('Content-Type: application/json');
+        echo json_encode(array('status' => 'success', 'new_value' => $php_variable));
+        exit;
+    }
     function getDeviceType() {
         $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
         if (strpos($user_agent, 'mobile') !== false) {
@@ -193,7 +201,7 @@
                     <h1>Latest Articles</h1>
                 </div>
                 <?php
-                    $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
+                    $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT $initial_limit";
                     $selectposts_result = $conn->query($selectposts_sql);
                     $author_firstname = "";
                     $author_lastname = "";
@@ -254,7 +262,7 @@
                                 $id_type = "Writer";
                             }
 
-                            echo "<div class='section2__div1__div1 normal-divs'>
+                            echo "<div class='section2__div1__div1 normal-divs' id='posts-container'>
                                     <a class='normal-divs__subdiv' href='pages/view_post.php? id2=".$row["id"]."'>
                                         <img src='$image' alt='article image'>
                                         <div class='normal-divs__subdiv__div'>
@@ -274,13 +282,7 @@
                         }
                     }
                 ?>
-                <a class="section2__div1__link">
-                Load more
-                <svg width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="24" height="24" fill="#FAFAFA"/>
-                    <path d="M9.5 7L14.5 12L9.5 17" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                </a>
+                <button class="section2__div1__link mainheader__signupbtn" id="change-variable">Load more</button>
             </div>
             <div class="body_right border-gradient-leftside--lightdark">
                 <?php include('helpers/emailsubscribeform.php');?>
@@ -298,6 +300,7 @@
         <?php include("includes/footer.php");?>
         <script src="index.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             function submitPost() {
                 const subscribeBox = document.getElementById('susbribe-box');
@@ -419,6 +422,24 @@
             if (currentTheme === 'light-mode') {
                 document.body.classList.add('light-mode');
             }
+            });
+        </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#change-variable').click(function() {
+                    $.ajax({
+                        url: 'index.php',
+                        type: 'POST',
+                        data: { new_value: 100 }, // Change this value as needed
+                        success: function(response) {
+                            alert('PHP variable updated successfully! New value: ' + response.new_value);
+                        },
+                        error: function() {
+                            alert('Failed to update PHP variable.');
+                        }
+                    });
+                });
             });
         </script>
     </body>

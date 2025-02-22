@@ -263,6 +263,7 @@ a, p, li{
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     cursor: pointer;
+    border: none;
     -o-border-radius: 1rem;
 }
 .mainheader__signupbtn:hover{
@@ -738,6 +739,9 @@ a, p, li{
 .section2 div .normal-divs div p{
     width: calc(100% - 4.9rem);
 }
+.section2__div1__link{
+    margin: 1rem;
+}
 .section2 div .normal-divs div img{
     width: 3.8rem;
     height: 3.8rem;
@@ -752,13 +756,7 @@ a, p, li{
 .section2 div .normal-divs div p span{
     font-weight: var(--spanfontweight);
 }
-.section2 div .section2__div1__link{
-    margin-left: 2.3rem;
-    padding: var(--divpadding);
-    color: var(--color30-shade);
-    display: flex;
-    flex-wrap: nowrap;
-}
+
 .section2 div .section2__div2__link{
     margin-left: 2.3rem;
     color: var(--color30-shade);

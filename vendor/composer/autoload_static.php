@@ -12,6 +12,7 @@ class ComposerStaticInit0f13ad499302d4b63808f55c510c47ff
         '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
     );
 
@@ -131,6 +132,16 @@ class ComposerStaticInit0f13ad499302d4b63808f55c510c47ff
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'H' => 
+        array (
+            'HTMLPurifier' => 
+            array (
+                0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -145,6 +156,7 @@ class ComposerStaticInit0f13ad499302d4b63808f55c510c47ff
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit0f13ad499302d4b63808f55c510c47ff::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit0f13ad499302d4b63808f55c510c47ff::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0f13ad499302d4b63808f55c510c47ff::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit0f13ad499302d4b63808f55c510c47ff::$classMap;
 
         }, null, ClassLoader::class);

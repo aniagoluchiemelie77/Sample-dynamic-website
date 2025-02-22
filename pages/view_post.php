@@ -8,6 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
+require_once '../vendor/ezyang\htmlpurifier/library/HTMLPurifier.auto.php';
 $post_id = isset($_GET['id1']) ? intval($_GET['id1']) : 0;
 $post_id2 = isset($_GET['id2']) ? intval($_GET['id2']) : 0;
 $post_id3 = isset($_GET['id3']) ? intval($_GET['id3']) : 0;
@@ -38,22 +39,23 @@ $url = "http://localhost/Sample-dynamic-website";
                 <a href="../">Home</a> > <p>View Post</p>
             </div>
             <?php
+                function calculateReadingTime($content) {
+                    $wordCount = str_word_count(strip_tags($content));
+                    $minutes = floor($wordCount / 200);
+                    return $minutes  . ' mins read ';
+                }
+                function convertToReadable($slug) {
+                    $string = str_replace('-', ' ', $slug);
+                    $string = ucwords($string);
+                    return $string;
+                }
+                function removeHyphen($string) {
+                    $string = str_replace(['-', ' '], '', $string);
+                    return $string;
+                }
                 $getniche_sql = " SELECT name FROM topics ORDER BY id";
                 $getniche_result = $conn->query($getniche_sql);
                 if ($getniche_result->num_rows > 0) {
-                    if (!function_exists('convertToReadable')) {
-                        function convertToReadable($slug) {
-                            $string = str_replace('-', ' ', $slug);
-                            $string = ucwords($string);
-                            return $string;
-                        }
-                    }
-                    if (!function_exists('removeHyphen')) {
-                        function removeHyphen($string) {
-                            $string = str_replace(['-', ' '], '', $string);
-                            return $string;
-                        }
-                    }
                     echo "<div class='body_left_relatedniches'>";
                     while($row = $getniche_result->fetch_assoc()) {
                         $category_name = $row['name'];
@@ -84,14 +86,7 @@ $url = "http://localhost/Sample-dynamic-website";
                         $selectwriter_result = $conn->query($selectwriter);
                         if ($selectwriter_result->num_rows > 0) {
                             $read_count = '';
-                            if (!function_exists('calculateReadingTime')) {
-                                function calculateReadingTime($content) {
-                                    $wordCount = str_word_count(strip_tags($content));
-                                    $minutes = floor($wordCount / 200);
-                                    return $minutes  . ' mins read ';
-                                }
-                                $read_count = calculateReadingTime($content);
-                            }
+                            $read_count = calculateReadingTime($content);
                             while($row = $selectwriter_result->fetch_assoc()) {
                                 $bio = $row["bio"];
                                 $max_length = 250;
@@ -164,13 +159,6 @@ $url = "http://localhost/Sample-dynamic-website";
                         echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
                               <div class='more_posts'>
                         ";
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                        }
                         while ($row = $otherpaidposts_result->fetch_assoc()) {
                             $id = $row["id"];
                             $max_length2 = 120;
@@ -256,14 +244,7 @@ $url = "http://localhost/Sample-dynamic-website";
                         if (strlen($author_bio) > $max_length) {
                             $author_bio = substr($author_bio, 0, $max_length) . '...';
                         }
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                            $read_count = calculateReadingTime($content);
-                        }
+                        $read_count = calculateReadingTime($content);
                         $subtitle = $row['subtitle'];
                         $image = $row['image_path'];
                         $date = $row['formatted_date'];
@@ -333,13 +314,6 @@ $url = "http://localhost/Sample-dynamic-website";
                         echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
                               <div class='more_posts'>
                         ";
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                        }
                         while ($row = $otherposts_result->fetch_assoc()) {
                             $id = $row["id"];
                             $max_length2 = 600;
@@ -438,14 +412,7 @@ $url = "http://localhost/Sample-dynamic-website";
                         if (strlen($author_bio) > $max_length) {
                             $author_bio = substr($author_bio, 0, $max_length) . '...';
                         }
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                            $read_count = calculateReadingTime($content);
-                        }
+                        $read_count = calculateReadingTime($content);
                         $subtitle = $row['subtitle'];
                         $image = $row['image_path'];
                         $date = $row['formatted_date'];
@@ -517,13 +484,6 @@ $url = "http://localhost/Sample-dynamic-website";
                         echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
                               <div class='more_posts'>
                         ";
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                        }
                         while ($row = $otherposts_result->fetch_assoc()) {
                             $id = $row["id"];
                             $max_length2 = 60;
@@ -622,14 +582,7 @@ $url = "http://localhost/Sample-dynamic-website";
                         if (strlen($author_bio) > $max_length) {
                             $author_bio = substr($author_bio, 0, $max_length) . '...';
                         }
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                            $read_count = calculateReadingTime($content);
-                        }
+                        $read_count = calculateReadingTime($content);
                         $subtitle = $row['subtitle'];
                         $image = $row['image_path'];
                         $date = $row['formatted_date'];
@@ -701,13 +654,6 @@ $url = "http://localhost/Sample-dynamic-website";
                         echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
                               <div class='more_posts'>
                         ";
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                        }
                         while ($row = $otherposts_result->fetch_assoc()) {
                             $id = $row["id"];
                             $max_length2 = 60;
@@ -819,14 +765,7 @@ $url = "http://localhost/Sample-dynamic-website";
                         if (strlen($author_bio) > $max_length) {
                             $author_bio = substr($author_bio, 0, $max_length) . '...';
                         }
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                            $read_count = calculateReadingTime($content);
-                        }
+                        $read_count = calculateReadingTime($content);
                         $subtitle = $row['subtitle'];
                         $image = $row['image_path'];
                         $date = $row['formatted_date'];
@@ -897,13 +836,6 @@ $url = "http://localhost/Sample-dynamic-website";
                         echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
                               <div class='more_posts'>
                         ";
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content) {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                        }
                         while ($row = $otherposts_result->fetch_assoc()) {
                             $id = $row["id"];
                             $max_length2 = 120;
@@ -933,92 +865,7 @@ $url = "http://localhost/Sample-dynamic-website";
         </div>
         <div class="body_right border-gradient-leftside--lightdark">
             <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
-            <?php
-                $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
-                $results = [];
-                foreach ($tables as $table) {
-                    $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE is_favourite = 1 ORDER BY id DESC LIMIT 8";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bind_result($id, $title, $niche, $content, $image, $date);
-                    $stmt->execute();
-                    while ($stmt->fetch()) {
-                        $posttype = 0;
-                        if ($table == 'paid_posts') {
-                            $posttype = 1;
-                        } 
-                        elseif ($table == 'posts') {
-                            $posttype = 2;
-                        } 
-                        elseif ($table == 'commentaries') {
-                            $posttype = 4;
-                        } 
-                        elseif ($table == 'news') {
-                            $posttype = 3;
-                        }
-                        elseif ($table == 'press_releases') {
-                            $posttype = 5;
-                        }
-                        $results[] = [
-                            'id' => $id,
-                            'title' => $title,
-                            'niche' => $niche,
-                            'content' => $content,
-                            'image_path' => $image,
-                            'Date' => $date,
-                            'table' => $table,
-                            'posttype' => $posttype
-                        ];
-                    }
-                }
-                foreach ($results as $result) {
-                    if (!function_exists('getOrdinalSuffix')) {
-                        function getOrdinalSuffix($day) {
-                            if (!in_array(($day % 100), [11, 12, 13])) {
-                                switch ($day % 10) {
-                                    case 1: return 'st';
-                                    case 2: return 'nd';
-                                    case 3: return 'rd';
-                                }
-                            }
-                            return 'th';
-                        }
-                    }
-                    if (!function_exists('calculateReadingTime')) {
-                        function calculateReadingTime($content) {
-                            $wordCount = str_word_count(strip_tags($content));
-                            $minutes = floor($wordCount / 200);
-                            return $minutes  . ' mins read ';
-                        }
-                    }
-                    $max_length = 60;
-                    $id = $result['id'];
-                    $title = $result["title"];
-                    $date = $result["Date"];
-                    $content = $result["content"];
-                    if (strlen($title) > $max_length) {
-                        $title = substr($title, 0, $max_length) . '...';
-                    }
-                    $dateTime = new DateTime($date);
-                    $day = $dateTime->format('j');
-                    $month = $dateTime->format('M');
-                    $year = $dateTime->format('Y');
-                    $ordinalSuffix = getOrdinalSuffix($day);
-                    $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
-                    $readingTime = calculateReadingTime($content);
-                    echo "
-                        <a class='posts_div' href='../pages/view_post.php?id".$result['posttype']."=$id'>
-                            <img src='../".$result['image_path']."' alt='Post's Image'/>
-                            <p class='posts_div_niche'>". $result['niche']."</p>
-                            <h1>$title</h1>
-                            <p class='posts_div_otherp'>By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                            <div class='posts_div_subdiv'>
-                                <p>$formattedDate</p>
-                                <p>$readingTime</p>
-                            </div>
-                        </a>
-                    ";
-                }
-            ?>
+            <?php include("../helpers/editorspicks.php");?>
             <?php
                 $userEmail = " ";
                 include('../helpers/emailsubscribeform.php');

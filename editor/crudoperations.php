@@ -1,5 +1,5 @@
 <?php
-    require("connect.php");
+    require("../connect.php");
     function logUpdate($conn, $forUser, $action) {
         date_default_timezone_set('UTC');
         $date = date('Y-m-d');
@@ -22,7 +22,7 @@
         } else {
             die("Unable to create file.");
         }
-        global $conn;
+        global $conn;    
         $stmt = $conn->prepare("INSERT INTO topics (name, description) VALUES (?, ?)");
         $stmt->bind_param("ss", $filename, $description);
         if ($stmt->execute()) {

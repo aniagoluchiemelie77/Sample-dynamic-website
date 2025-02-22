@@ -70,8 +70,7 @@ include("../connect.php");
             <div class="newpost_container_div4 newpost_subdiv">
                 <label class="form__select" for="Post_status">Post Type:</label>
                 <select class="newpost_subdiv2" name="Post_status">      
-                    <option class="newpost_subdiv4-option" value="">-- Please Select --</option>
-                    <option class="newpost_subdiv4-option" value="paid_posts">Paid Post</option>      
+                    <option class="newpost_subdiv4-option" value="">-- Please Select --</option>     
                     <option class="newpost_subdiv4-option" value="posts">Article</option>
                     <option class="newpost_subdiv4-option" value="news">News</option>
                     <option class="newpost_subdiv4-option" value="press_releases">Press Release</option>

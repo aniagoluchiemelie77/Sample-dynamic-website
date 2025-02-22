@@ -19,87 +19,99 @@ include("../connect.php")
 	<title>Edit Profile</title>
 </head>
 <body>
-    <?php require("../extras/header.php");?>
+    <?php require("../extras/header2.php");?>
     <div class="editprofile_container">
-    <form class="create_editor_container" action="../forms.php" method="post">
-        <div class="createeditor_inputgroup">
-            <h1 class="bigheader">Edit Profile</h1>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label rightmargin" for="profile_firstname">Firstname:</label>
-            <input class="createeditor_input" type="text" name="profile_firstname" value='<?php echo $_SESSION['firstname'];?>'required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label rightmargin" for="profile_lastname">Lastname:</label>
-            <input class="createeditor_input" type="text" name="profile_lastname" value='<?php echo $_SESSION['lastname']; ?>'required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label rightmargin" for="profile_username">Username:</label>
-            <input class="createeditor_input" type="text" name="profile_username" value='<?php echo $_SESSION['username']; ?>' required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label rightmargin" for="profile_email">Email:</label>
-            <input class="createeditor_input" type="email" name="profile_email" value='<?php echo $_SESSION['email'];?>'required/>
-        </div>
-        <div class="createeditor_inputgroup flexcolumn">
-            <label class="createeditor_label rightmargin nooutline" for="profile_bio">Bio:</label>
-            <textarea name="profile_bio" class="textarea" id="myTextarea"><?php echo $_SESSION['bio']; ?></textarea>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label rightmargin" for="profile-address1">Address 1:</label>
-            <input class="createeditor_input" type="text" name="profile-address1" value='<?php echo $_SESSION['address'];?>' required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label rightmargin" for="profile-address2">Address 2:</label>
-            <input class="createeditor_input" type="text" name="profile-address2" value='<?php echo $_SESSION['addresstwo'];?>'required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label rightmargin" for="profile-city">City:</label>
-            <input class="createeditor_input" type="text" name="profile-city" value='<?php echo  $_SESSION['city'];?>' required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label rightmargin" for="profile-state">State:</label>
-            <input class="createeditor_input" type="text" name="profile-state" value='<?php
-            echo $_SESSION['state'];
-            ?>'required/>
-        </div>
-        <div class="createeditor_inputgroup">
-            <label class="createeditor_label rightmargin" for="profile-country">Country:</label>
-            <input class="createeditor_input" type="text" name="profile-country" value='<?php echo $_SESSION['country']; ?>'required/>
-        </div>
-        <div class="createeditor_inputgroup">
+        <form class="create_editor_container" action="../forms.php" method="post" enctype="multipart/form-data">
             <div class="createeditor_inputgroup">
-                <label class="createeditor_label rightmargin" for="profile-countrycode">Country Code:</label>
-                <input class="createeditor_input" type="text" name="profile-countrycode" value='<?php echo $_SESSION['country_code']; ?>'required/>
+                <h1 class="bigheader">Edit Profile</h1>
+            </div>
+            <div class='newpost_container_div6 newpost_subdiv'>
+                <div class='newpost_container_div6_subdiv1'>
+                    <img src='../../<?php echo $_SESSION['image']; ?>' alt='Post Image'/>
+                </div>
+                <div class='newpost_container_div6_subdiv2'>
+                    <label class='form__label' for='Img'>Edit Image: </label>
+                    <div class='newpost_subdiv2'>
+                        <input class='form__input' name='Img' type='file' required/>
+                    </div>
+                </div>
             </div>
             <div class="createeditor_inputgroup">
-                <label class="createeditor_label rightmargin" for="profile-mobile">Phone Number:</label>
-                <input class="createeditor_input" type="number" name="profile-mobile" value='<?php echo $_SESSION['mobile']; ?>'required/>
+                <label class="createeditor_label rightmargin" for="profile_firstname">Firstname:</label>
+                <input class="createeditor_input" type="text" name="profile_firstname" value='<?php echo $_SESSION['firstname'];?>'required/>
             </div>
-        </div>
-        <input class="createeditor_input-submit" value="Update" name="profileedit_Submit" type="submit"/>
-    </form>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label rightmargin" for="profile_lastname">Lastname:</label>
+                <input class="createeditor_input" type="text" name="profile_lastname" value='<?php echo $_SESSION['lastname']; ?>'required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label rightmargin" for="profile_username">Username:</label>
+                <input class="createeditor_input" type="text" name="profile_username" value='<?php echo $_SESSION['username']; ?>' required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label rightmargin" for="profile_email">Email:</label>
+                <input class="createeditor_input" type="email" name="profile_email" value='<?php echo $_SESSION['email'];?>'required/>
+            </div>
+            <div class="createeditor_inputgroup flexcolumn">
+                <label class="createeditor_label rightmargin nooutline" for="profile_bio">Bio:</label>
+                <textarea name="profile_bio" class="textarea" id="myTextarea4"><?php echo $_SESSION['bio']; ?></textarea>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label rightmargin" for="profile-address1">Address 1:</label>
+                <input class="createeditor_input" type="text" name="profile-address1" value='<?php echo $_SESSION['address'];?>' required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label rightmargin" for="profile-address2">Address 2:</label>
+                <input class="createeditor_input" type="text" name="profile-address2" value='<?php echo $_SESSION['addresstwo'];?>'required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label rightmargin" for="profile-city">City:</label>
+                <input class="createeditor_input" type="text" name="profile-city" value='<?php echo  $_SESSION['city'];?>' required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label rightmargin" for="profile-state">State:</label>
+                <input class="createeditor_input" type="text" name="profile-state" value='<?php echo $_SESSION['state'];?>'required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <label class="createeditor_label rightmargin" for="profile-country">Country:</label>
+                <input class="createeditor_input" type="text" name="profile-country" value='<?php echo $_SESSION['country']; ?>'required/>
+            </div>
+            <div class="createeditor_inputgroup">
+                <div class="createeditor_inputgroup">
+                    <label class="createeditor_label rightmargin" for="profile-countrycode">Country Code:</label>
+                    <input class="createeditor_input" type="text" name="profile-countrycode" value='<?php echo $_SESSION['country_code']; ?>'required/>
+                </div>
+                <div class="createeditor_inputgroup">
+                    <label class="createeditor_label rightmargin" for="profile-mobile">Phone Number:</label>
+                    <input class="createeditor_input" type="number" name="profile-mobile" value='<?php echo $_SESSION['mobile']; ?>'required/>
+                </div>
+            </div>
+            <input class="createeditor_input-submit" value="Update" name="edit_profile" type="submit"/>
+        </form>
     </div>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../editor.js"></script>
-    <script type="text/javascript">
-        tinymce.init({
-            selector: '#myTextarea',
-            width: 810,
-            height: 900,
-            plugins: [
-                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-                'media', 'table', 'emoticons', 'help'
-            ],toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-                'forecolor backcolor emoticons | help',
-            menu: {
-            favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
-            },
-            menubar: 'favs file edit view insert format tools table help',
-            content_css: 'css/content.css'
-        });
+    <script src="sweetalert2.all.min.js"></script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
+        var messageText = "<?= $_SESSION['status']?? ' '?>";
+        if (messageType == 'Error' && messageText != " "){
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })  
+        }else if (messageType == 'Success' && messageText != " "){
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })  
+        }
+        <?php unset($_SESSION['status_type']);?>
+        <?php unset($_SESSION['status']);?>
     </script>
 </body>
 </html>

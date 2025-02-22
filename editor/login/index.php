@@ -41,7 +41,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $_SESSION['address'] = $address;
         $_SESSION['addresstwo'] = $addresstwo;
         $_SESSION['country_code'] = $country_code;
-        header("location: ../editor_homepage.php");
+        header("location: ../admin_homepage.php");
         exit();
     }else{
         $msg = "Invalid Email or Password";
@@ -72,7 +72,7 @@ if(isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])){
 	<title>Editor Login</title>
 </head>
 <body>
-    <section class="section1">
+    <section class="section1 flexcenter">
         <div class="container" id="signIn">
             <h1 class="form__title">Sign In</h1>
             <form method="post" class="form">
@@ -98,6 +98,6 @@ if(isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])){
         </div>
     </section>
     <?php require("../extras/footer.php");?>
-    <script src="../index.js"></script>
+    <script src="../editor.js"></script>
 </body>
 </html>

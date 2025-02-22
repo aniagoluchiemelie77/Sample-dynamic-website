@@ -17,7 +17,7 @@ $content = "";
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../admin.css"/>
+    <link rel="stylesheet" href="../editor.css"/>
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>Create Category</title>
@@ -26,7 +26,7 @@ $content = "";
     <?php require("../extras/header2.php");?>
     <section class="about_section">
         <div class="page_links">
-            <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <a href="../pages/categories.php">Categories</a> > <p> Create Category</p>
+            <a href="../editor_homepage.php">Home</a> > <p>Pages</p> > <a href="../pages/categories.php">Categories</a> > <p> Create Category</p>
         </div>
         <form class="formcontainer" id="topicForm">
             <div class="head_paragraph">
@@ -52,6 +52,6 @@ $content = "";
             <input class="formcontainer_submit" value="Go" type="submit" onclick="submitForm()"/>
         </form>
     </section>
-    <script src="../admin.js"></script>
+    <script src="../editor.js"></script>
 </body>
 </html>

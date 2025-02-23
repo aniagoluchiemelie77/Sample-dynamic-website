@@ -1,14 +1,7 @@
 <?php
     session_start();
     require('connect.php');
-    $initial_limit = 30;
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $new_value = intval($_POST['new_value']);
-        $initial_limit = $new_value;
-        header('Content-Type: application/json');
-        echo json_encode(array('status' => 'success', 'new_value' => $php_variable));
-        exit;
-    }
+    
     function getDeviceType() {
         $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
         if (strpos($user_agent, 'mobile') !== false) {
@@ -207,7 +200,7 @@
                     <h1>Latest Articles</h1>
                 </div>
                 <?php
-                    $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT $initial_limit";
+                    $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
                     $selectposts_result = $conn->query($selectposts_sql);
                     $author_firstname = "";
                     $author_lastname = "";

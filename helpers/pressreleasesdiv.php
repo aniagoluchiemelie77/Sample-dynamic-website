@@ -28,17 +28,19 @@
                     $title = substr($title, 0, $max_length) . '...';
                 }
                 $readingTime = calculateReadingTime($row['content']);
-                echo "<a class='section3__div2__article1' href='pages/view_post.php?id5=$id'>
-                            <img src='images\Pressreleasesimg.png' alt='article image'>
-                            <div class='section3__subdiv'>
-                                <h1 class='section3__subdiv-h1'>$niche</h1>
-                                <h2 class='section3__subdiv-h2'>$title</h2>
-                                <div class='section3__subdiv_subdiv'>
-                                    <p>$date</p>
-                                    <p>$readingTime</p>
-                                </div>
+                echo "<a class='section3__div2__article1' href='pages/view_post.php?id5=$id'>";
+                if (!empty($image)) {
+                    echo "<img src='$image' alt='article image'>";
+                }
+                echo   "<div class='section3__subdiv'>
+                            <h1 class='section3__subdiv-h1'>$niche</h1>
+                            <h2 class='section3__subdiv-h2'>$title</h2>
+                            <div class='section3__subdiv_subdiv'>
+                                <p>$date</p>
+                                <p>$readingTime</p>
                             </div>
-                        </a>
+                        </div>
+                    </a>
                 ";
             }
             echo"</div></div>";

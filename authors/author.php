@@ -54,9 +54,11 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                     $author_bio = $author['bio'];
                     $author_image = $author['image'];
                     $role = "Editor-in-chief Uniquetechcontentwriter";
-                    echo "<section class='authordiv_container'>
-                            <img src='../$author_image' alt ='Author's Image'/>
-                            <div class = 'authordiv_container_subdiv'>
+                    echo "<section class='authordiv_container'>";
+                    if (!empty($author_image)) {
+                        echo "<img src='../$author_image' alt='article image'>";
+                    }
+                    echo    "<div class = 'authordiv_container_subdiv'>
                                 <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
                                 <p>$author_bio</p>
                             </div>
@@ -137,9 +139,11 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                     $ordinalSuffix = getOrdinalSuffix($day);
                     $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
                     $readingTime = calculateReadingTime($result['content']);
-                    echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id".$result['posttype']."=$id'>
-                            <img src='../".$result['image_path']."' alt = 'Post's Image'/>
-                            <div class='more_posts_subdiv_subdiv'>
+                    echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id".$result['posttype']."=$id'>";
+                    if (!empty($result['image_path'])) {
+                        echo "<img src='../".$result['image_path']."' alt='article image'>";
+                    }
+                    echo    "<div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
                                 <span>$formattedDate</span>
                                 <span>$readingTime</span>
@@ -161,9 +165,11 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                     $author_bio = $author['bio'];
                     $author_image = $author['image'];
                     $role = "Editor at Uniquetechcontentwriter";
-                    echo "<section class='authordiv_container'>
-                            <img src='../$author_image' alt ='Author's Image'/>
-                            <div class = 'authordiv_container_subdiv'>
+                    echo "<section class='authordiv_container'>";
+                    if (!empty($author_image)) {
+                        echo "<img src='../$author_image' alt='article image'>";
+                    }
+                    echo    "<div class = 'authordiv_container_subdiv'>
                                 <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
                                 <p>$author_bio</p>
                             </div>
@@ -241,9 +247,11 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                     $ordinalSuffix = getOrdinalSuffix($day);
                     $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
                     $readingTime = calculateReadingTime($result['content']);
-                    echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id".$result['posttype']."=$id'>
-                            <img src='../".$result['image_path']."' alt = 'Post's Image'/>
-                            <div class='more_posts_subdiv_subdiv'>
+                    echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id".$result['posttype']."=$id'>";
+                    if (!empty($result['image_path'])) {
+                        echo "<img src='../".$result['image_path']."' alt='article image'>";
+                    }
+                    echo    "<div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
                                 <span>$formattedDate</span>
                                 <span>$readingTime</span>
@@ -265,9 +273,11 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                     $author_bio = $author['bio'];
                     $author_image = $author['image'];
                     $role = "Contributing Writer";
-                    echo "<section class='authordiv_container'>
-                            <img src='../$author_image' alt ='Author's Image'/>
-                            <div class = 'authordiv_container_subdiv'>
+                    echo "<section class='authordiv_container'>";
+                    if (!empty($author_image)) {
+                        echo "<img src='../$author_image' alt='article image'>";
+                    }
+                    echo    "<div class = 'authordiv_container_subdiv'>
                                 <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
                                 <p>$author_bio</p>
                             </div>
@@ -345,9 +355,11 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
                     $ordinalSuffix = getOrdinalSuffix($day);
                     $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
                     $readingTime = calculateReadingTime($result['content']);
-                    echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id".$result['posttype']."=$id'>
-                            <img src='../".$result['image_path']."' alt = 'Post's Image'/>
-                            <div class='more_posts_subdiv_subdiv'>
+                    echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id".$result['posttype']."=$id'>";
+                    if (!empty($result['image_path'])) {
+                        echo "<img src='../".$result['image_path']."' alt='article image'>";
+                    }
+                    echo    "<div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
                                 <span>$formattedDate</span>
                                 <span>$readingTime</span>

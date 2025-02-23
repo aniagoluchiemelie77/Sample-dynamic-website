@@ -308,7 +308,7 @@ a, p, li{
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
-    color: var(--themecolor30);
+    color: var(--color30);
 }
   .header__dropdownlinks-6 .header__dropdownlinks-content{
     display: none;
@@ -339,7 +339,7 @@ a, p, li{
 
   }
 .header__dropdownlinks .headerlinks:hover{
-    color: var(--themecolor30);
+    color: var(--color60);
     border-radius: 1rem;
     background-color: var(--themecolor10);
     -webkit-border-radius: 1rem;

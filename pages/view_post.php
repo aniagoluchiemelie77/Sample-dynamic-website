@@ -111,11 +111,15 @@ $url = "http://localhost/Sample-dynamic-website";
                                             <source src='".$link."' type='video/mp4'>
                                             Your browser does not support the video tag.
                                         </video>";
-                                }       
-                                echo"<div class='post_image_div'>
-                                            <img src='../".$image."' alt='Post Image'/>
-                                            <span>Source: Getty Images</span>
-                                        </div>
+                                }   
+                                if (!empty($image)) {
+                                    echo   "<div class='post_image_div'>
+                                                <img src='../$image' alt='Post Image'/>
+                                                <span>Source: Getty Images</span>
+                                            </div>
+                                    ";
+                                }    
+                                echo"
                                         <div class='socialmedia_links'>
                                             <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")'target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                             <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -171,8 +175,11 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $title = substr($title, 0, $max_length2) . '...';
                             }
                             $readingTime = calculateReadingTime($row['content']);
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id1=$id'>
-                                    <img src='../$image' alt = 'Post Image'/>
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id1=$id'>";
+                            if (!empty($image)) {
+                                echo "<img src='../$image' alt='article image'>";
+                            }
+                            echo   "
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$date</span>
@@ -269,10 +276,14 @@ $url = "http://localhost/Sample-dynamic-website";
                                     Your browser does not support the video tag.
                                 </video>";
                         } 
-                        echo"<div class='post_image_div'>
-                                <img src='../$image' alt='Post Image'/>
-                                <span>Source: Getty Images</span>
-                            </div>
+                        if (!empty($image)) {
+                            echo   "<div class='post_image_div'>
+                                        <img src='../$image' alt='Post Image'/>
+                                        <span>Source: Getty Images</span>
+                                    </div>
+                            ";
+                        }
+                        echo "
                             <div class='socialmedia_links'>
                                 <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                 <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -326,8 +337,11 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $title = substr($title, 0, $max_length2) . '...';
                             }
                             $readingTime = calculateReadingTime($row['content']);
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>
-                                    <img src='../$image' alt = 'Post Image'/>
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>";
+                            if (!empty($image)) {
+                                echo "<img src='../$image' alt='article image'>";
+                            }
+                            echo   "
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$date</span>
@@ -438,11 +452,14 @@ $url = "http://localhost/Sample-dynamic-website";
                                         Your browser does not support the video tag.
                                     </video>";
                             } 
+                            if (!empty($image)) {
+                                echo   "<div class='post_image_div'>
+                                            <img src='../$image' alt='Post Image'/>
+                                            <span>Source: Getty Images</span>
+                                        </div>
+                                ";
+                            }
                             echo"
-                                    <div class='post_image_div'>
-                                        <img src='../".$image."' alt='Post Image'/>
-                                        <span>Source: Getty Images</span>
-                                    </div>
                                     <div class='socialmedia_links'>
                                         <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                         <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -496,8 +513,11 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $title = substr($title, 0, $max_length2) . '...';
                             }
                             $readingTime = calculateReadingTime($row['content']);
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>
-                                    <img src='../$image' alt = 'Post Image'/>
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>";
+                            if (!empty($image)) {
+                                echo "<img src='../$image' alt='article image'>";
+                            }
+                            echo   "
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$date</span>
@@ -608,11 +628,14 @@ $url = "http://localhost/Sample-dynamic-website";
                                     Your browser does not support the video tag.
                                 </video>";
                         } 
+                        if (!empty($image)) {
+                            echo   "<div class='post_image_div'>
+                                        <img src='../$image' alt='Post Image'/>
+                                        <span>Source: Getty Images</span>
+                                    </div>
+                            ";
+                        }
                         echo"
-                                <div class='post_image_div'>
-                                    <img src='../".$image."' alt='Post Image'/>
-                                    <span>Source: Getty Images</span>
-                                </div>
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -666,8 +689,11 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $title = substr($title, 0, $max_length2) . '...';
                             }
                             $readingTime = calculateReadingTime($row['content']);
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>
-                                    <img src='../$image' alt = 'Post Image'/>
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>";
+                            if (!empty($image)) {
+                                echo "<img src='../$image' alt='article image'>";
+                            }
+                            echo   "
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$date</span>
@@ -791,10 +817,14 @@ $url = "http://localhost/Sample-dynamic-website";
                                         Your browser does not support the video tag.
                                     </video>";
                             } 
-                            echo"<div class='post_image_div'>
-                                    <img src='../".$image."' alt='Post Image'/>
-                                    <span>Source: Getty Images</span>
-                                </div>
+                            if (!empty($image)) {
+                                echo   "<div class='post_image_div'>
+                                            <img src='../$image' alt='Post Image'/>
+                                            <span>Source: Getty Images</span>
+                                        </div>
+                                ";
+                            }
+                            echo"
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -848,8 +878,11 @@ $url = "http://localhost/Sample-dynamic-website";
                                 $title = substr($title, 0, $max_length2) . '...';
                             }
                             $readingTime = calculateReadingTime($row['content']);
-                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>
-                                    <img src='../images\Pressreleasesimg.png' alt = 'Post Image'/>
+                            echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>";
+                            if (!empty($image)) {
+                                echo "<img src='../$image' alt='article image'>";
+                            }
+                            echo   "
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$date</span>

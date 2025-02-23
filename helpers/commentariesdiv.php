@@ -25,7 +25,6 @@
             $admin_id = $row["admin_id"];
             $authors_firstname = $row["authors_firstname"];
             $authors_lastname = $row["authors_lastname"];
-            $authors_lastname = $row["authors_lastname"];
             $about_author = $row["about_author"];
             $readingTime = calculateReadingTime($row['content']);
             if (strlen($title) > $max_length) {
@@ -35,22 +34,24 @@
                 $about_author = substr($about_author, 0, $max_length2) . '...';
             }
             echo "<a class='commentary_divs' href='pages/view_post.php?id4=$id'>
-                        <div class='commentary_divs_imagediv'>
-                            <img src='images/chibs.jpg' alt='Commentary Image'/>
-                            <div class='commentary_divs_imagediv_subdiv'>
-                                <h2>Aniagolu Chiemelie</h2>
-                                <p>Chief Technologist for Security Research and Innovation, HP Inc. Security Labs.</p>
-                            </div>
-                        </div>
-                        <div class='commentary_divs_body'>
-                            <h2>$niche</h2>
-                            <h3>$title</h3>
-                            <div class='commentary_divs_body_subdiv'>
-                                <p>$date</p>
-                                <p><i class='fa fa-clock' aria-hidden='true'></i>$readingTime</p>
-                            </div>
-                        </div>
-                    </a>
+                        <div class='commentary_divs_imagediv'>";
+            if (!empty($image)) {
+                echo "<img src='$image' alt='article image'>";
+            }
+            echo   "<div class='commentary_divs_imagediv_subdiv'>
+                        <h2>$authors_lastname $authors_firstname</h2>
+                        <p>$about_author</p>
+                    </div>
+                </div>
+                <div class='commentary_divs_body'>
+                    <h2>$niche</h2>
+                    <h3>$title</h3>
+                    <div class='commentary_divs_body_subdiv'>
+                        <p>$date</p>
+                        <p><i class='fa fa-clock' aria-hidden='true'></i>$readingTime</p>
+                    </div>
+                </div>
+            </a>
             ";
         }
         echo"<a href='pages/commentaries.php' class='mainheader__signupbtn'>See More Commentaries</a>

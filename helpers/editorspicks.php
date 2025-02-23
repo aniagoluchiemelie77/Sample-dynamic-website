@@ -2,9 +2,9 @@
     $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
     $results = [];
     foreach ($tables as $table) {
-        $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE is_favourite = 1 ORDER BY id DESC LIMIT 8";
+        $sql = "SELECT id, admin_id, editor_id, title, niche, content, image_path, Date, authors_firstname, authors_lastname FROM $table WHERE is_favourite = 1 ORDER BY id DESC LIMIT 8";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+        $stmt->bind_result($id, $admin_id, $editor_id, $title, $niche, $content, $image, $date, $authors_firstname, $authors_lastname);
         $stmt->execute();
         while ($stmt->fetch()) {
             $posttype = 0;
@@ -25,11 +25,15 @@
             }
             $results[] = [
                 'id' => $id,
+                'admin_id' => $admin_id,
+                'editor_id' => $editor_id,
                 'title' => $title,
                 'niche' => $niche,
                 'content' => $content,
                 'image_path' => $image,
                 'Date' => $date,
+                'authors_firstname' => $authors_firstname,
+                'authors_lastname' => $authors_lastname,
                 'table' => $table,
                 'posttype' => $posttype
             ];
@@ -48,6 +52,36 @@
                 return 'th';
             }
         }
+        $author_firstname = "";
+        $author_lastname = "";
+        $role = "";
+        if (!empty($result["admin_id"])) {
+            $admins_id = $result['admin_id'];
+            $sql_admin = "SELECT id, firstname, lastname FROM admin_login_info WHERE id = $admins_id";
+            $result_admin = $conn->query($sql_admin);
+            if ($result_admin->num_rows > 0) {
+                $admin = $result_admin->fetch_assoc();
+                $author_firstname = $admin['firstname'];
+                $author_lastname = $admin['lastname'];
+                $role = "Editor-in-chief";
+            }
+        }
+        elseif (!empty($result["editor_id"])) {
+            $editors_id = $result['editor_id'];
+            $sql_editor = "SELECT id, firstname, lastname FROM editor WHERE id = $editors_id";
+            $result_editor = $conn->query($sql_editor);
+            if ($result_editor->num_rows > 0) {
+                $editor = $result_editor->fetch_assoc();
+                $author_firstname = $editor['firstname'];
+                $author_lastname = $editor['lastname'];
+                $role = 'Editor';
+            }
+        }
+        else {
+            $author_firstname = $result['authors_firstname'];
+            $author_lastname = $result['authors_lastname'];
+            $role = 'Contributing Writer';
+        }
         $max_length = 60;
         $id = $result['id'];
         $title = $result["title"];
@@ -63,16 +97,17 @@
         $ordinalSuffix = getOrdinalSuffix($day);
         $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
         $readingTime = calculateReadingTime($content);
-        echo    "<a class='posts_div' href='../pages/view_post.php?id".$result['posttype']."=$id'>
-                    <img src='../".$result['image_path']."' alt='Post's Image'/>
-                    <p class='posts_div_niche'>". $result['niche']."</p>
-                    <h1>$title</h1>
-                    <p class='posts_div_otherp'>By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
-                    <div class='posts_div_subdiv'>
-                        <p>$formattedDate</p>
-                        <p>$readingTime</p>
-                    </div>
-                </a>
-        ";
+        echo    "<a class='posts_div' href='../pages/view_post.php?id".$result['posttype']."=$id'>";
+        if (!empty($result['image_path'])) {
+            echo "<img src='../".$result['image_path']."' alt='article image'>";
+        }
+        echo   "<p class='posts_div_niche'>". $result['niche']."</p>
+                <h1>$title</h1>
+                <p class='posts_div_otherp'>By, <span>$author_firstname $author_lastname, $role.</span></p>
+                <div class='posts_div_subdiv'>
+                    <p>$formattedDate</p>
+                    <p>$readingTime</p>
+                </div>
+            </a>";
     }
 ?>

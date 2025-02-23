@@ -25,6 +25,20 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
     <?php require("../includes/header2.php");?>
     <center>
         <?php
+            function calculateReadingTime($content) {
+                $wordCount = str_word_count(strip_tags($content));
+                $minutes = floor($wordCount / 200);
+                return $minutes  . ' mins read ';
+            }
+            function convertToReadable($slug) {
+                $string = str_replace('-', ' ', $slug);
+                $string = ucwords($string);
+                return $string;
+            }
+            function removeHyphen($string) {
+                $string = str_replace(['-', ' '], '', $string);
+                return $string;
+            }
             $author_firstname = "";
             $author_lastname = "";
             $author_image = "";

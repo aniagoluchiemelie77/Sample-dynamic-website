@@ -161,31 +161,37 @@
                 if ($paidpostselection_result->num_rows > 0) {
                     $counter = 0;
                     while($row = $paidpostselection_result->fetch_assoc()) {
-                        $counter++;
+                        $counter++; 
+                        $image = $row['image_path'];
                         if ($counter == 1) {
                             echo "<div class='section1__div1 larger__div'>
                                     <a href='pages/view_post.php?id1=".$row['id']."'>
-                                        <img src='".$row['image_path']."' alt='article image'/>
-                                        <div class='larger__div__subdiv'>
-                                            <h1>". $row['niche'] ."</h1>
-                                            <h2>". $row['title'] ."</h2>
-                                            <p>" . $row["formatted_date"] . "</p>
-                                        </div>
-                                    </a>
-                                </div>";
+                            ";
+                            if (!empty($image)) {
+                                echo "<img src='$image' alt='article image'>";
+                            }
+                            echo    "<div class='larger__div__subdiv'>
+                                        <h1>". $row['niche'] ."</h1>
+                                        <h2>". $row['title'] ."</h2>
+                                        <p>" . $row["formatted_date"] . "</p>
+                                    </div>
+                                </a>
+                            </div>";
                         }else {
                             if ($counter == 2) {
                                 echo "<div class='section1__div2 smallerdivs'>";
                             }
-                            echo "
-                                    <a href='pages/view_post.php?id1=".$row['id']."'>
-                                        <img src='".$row['image_path']."' alt='article image'/>
-                                        <div class='smaller__div__subdiv'>
-                                            <h1>". $row['niche'] ."</h1>
-                                            <h2>". $row['title'] ."</h2>
-                                            <p>" . $row["formatted_date"] . "</p>
-                                        </div>
-                                    </a>";
+                            echo "<a href='pages/view_post.php?id1=".$row['id']."'>";
+                            if (!empty($image)) {
+                                echo "<img src='$image' alt='article image'>";
+                            }
+                            echo   "<div class='smaller__div__subdiv'>
+                                        <h1>". $row['niche'] ."</h1>
+                                        <h2>". $row['title'] ."</h2>
+                                        <p>" . $row["formatted_date"] . "</p>
+                                    </div>
+                                </a>
+                            ";
                         }
                     }if ($counter > 1) {
                         echo "</div>";
@@ -264,7 +270,11 @@
 
                             echo "<div class='section2__div1__div1 normal-divs' id='posts-container'>
                                     <a class='normal-divs__subdiv' href='pages/view_post.php? id2=".$row["id"]."'>
-                                        <img src='$image' alt='article image'>
+                                    ";
+                                    if (!empty($image)) {
+                                        echo "<img src='$image' alt='article image'>";
+                                    }
+                                    echo "
                                         <div class='normal-divs__subdiv__div'>
                                             <h1 class='normal-divs__header'>$niche</h1>
                                             <h2 class='normal-divs__title'>$title</h2>

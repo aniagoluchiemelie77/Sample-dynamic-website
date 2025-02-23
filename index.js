@@ -96,13 +96,13 @@ const removeHiddenClass = function (e) {
     e.stopPropagation();
     sidebar.classList.remove('hidden');
 }
-//menubtn.addEventListener('click', removeHiddenClass);
+menubtn.addEventListener('click', removeHiddenClass);
 //closing sidebar
 const addHiddenClass = function (e) {
     e.stopPropagation();
     sidebar.classList.toggle('hidden');
 }
-//closeMenuBtn.addEventListener('click', addHiddenClass);
+closeMenuBtn.addEventListener('click', addHiddenClass);
 
 //displaying search bar
 const displaySearchBar = function (e) {

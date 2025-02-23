@@ -87,7 +87,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	    <title>Home</title>
     </head>
-    <body id="container" class="<?php echo (isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'light-mode') ? 'light-mode' : ''; ?>">
+    <body id="container">
         <?php require ('includes/header.php'); ?>
         <?php if (!isset($_COOKIE['tracker'])): ?>
             <div class="cookie_container">

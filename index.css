@@ -308,7 +308,7 @@ a, p, li{
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
-    color: var(--color30);
+    color: var(--color60);
 }
   .header__dropdownlinks-6 .header__dropdownlinks-content{
     display: none;
@@ -599,16 +599,6 @@ a, p, li{
     flex-direction: column;
     padding: var(--divpadding);
   }
-  .section1__div1 .larger__div img{
-    height: 80%;
-    object-fit: cover;
-    width: 100%;
-    border-radius: 1rem;
-    -webkit-border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -ms-border-radius: 1rem;
-    -o-border-radius: 1rem;
-}
 .section1__div1 a div h1{
     font-size: var(--header-h7);
     background-color: var(--color10);
@@ -1036,7 +1026,7 @@ a, p, li{
     padding: 1rem;
 }
 .lightp{
-    color: var(--themecolor60);
+    color: var(--color60);
 }
 .darkp{
     color: var(--color30-shade);
@@ -2183,7 +2173,7 @@ a, p, li{
 }
 @media only screen and (max-width: 39rem){
     a, p, li{
-        font-size: var(--pfontsize);
+        font-size: 1.3rem;
     }
     /*Cybersecurity.php*/
     #pagination_div{
@@ -2202,7 +2192,7 @@ a, p, li{
         -moz-border-radius: 1rem;
         -ms-border-radius: 1rem;
         -o-border-radius: 1rem;
-    }
+}
     #pagination_div a:hover{
         color: var(--color60);
         background-color: var(--color10);
@@ -2212,85 +2202,156 @@ a, p, li{
     .cookie_container .cookie_container_subdiv{
         width: 100%;
     }
-
+    .mainheader__header-nav i{
+        font-size: var(--ifontsize-7);
+    }
     .section1{
         grid-template-columns: 1fr;
-        grid-template-rows: .5fr 1fr;
+        grid-template-rows: .3fr 1fr;
+        padding: 0;
+        width: 100svw;
     }
     .section3{
         width: 100vw;
     }
+    .mainheader{
+        padding: 1rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100vw;
+    }
     .header{
-        height: fit-content;
+        min-height: fit-content;
+        max-width: 100svw;
+        padding: 0;
+        border-bottom: none;
+    }
+    .header__menu-sidebar{
+        width: 90vw;
+        height: 100svh;
     }
     .section2{
         flex-wrap: wrap;
         column-gap: 0;
+        width: 100vw;
     }
     .mainheader__header-nav {
         min-height: fit-content;
     }
     .header form{
-    width: 80%;
+        width: 90%;
     }
     .header form button{
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         width: 10%;
     }
     .header form input{
         width: calc(100% - 10%);
     }
     .header__dropdownlinks{
-        width: 100%;
+        padding: 1rem 0;
+        justify-content: space-evenly;
         flex-wrap: wrap;
+        width: 100%;
+    }
+    .header__dropdownlinks .headerlinks{
+        flex-wrap: wrap;
+        padding: 1rem;
+        margin-bottom: .5rem;
     }
     .header__dropdownlinks-6{
-        position: relative;
-        width: fit-content;
-        display: inline-block;
-        margin-top: .5rem;
-        font-weight: 300;
+        margin-top: 0;
+        font-weight: normal;
     }
+    .header__dropdownlinks-6 .header__dropdownlinks-content a{
+        color: var(--color60);
+    }
+    .dropbtn {
+        padding: .3rem;
+        font-size: 1.3rem;
+      }
     .body_left{
         width: 100%;
     }
     .body_right{
         width: 100%;
     }
-    .header__menu-sidebar{
-        width: 80vw;
-    }
     .header__menu-sidebar-div1a .sidebarbtn i{
         font-size: var(--ifontsize-6);
     }
     .header__menu-sidebar-div2 p{
-        max-width: 50%;
+        max-width: 90%;
     }
     .larger__div{
         grid-area: 1 / 1 / 2 / -1;
+        padding: 1rem;
+        max-width: 100vw;
+    }
+    .larger__div a{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     .larger__div img {
-        height: 60vh;
+        height: 20rem;
+        width: 90%;
+        margin-bottom: 1rem;
+        border-radius: 1rem;
+        -webkit-border-radius: 1rem;
+        -moz-border-radius: 1rem;
+        -ms-border-radius: 1rem;
+        -o-border-radius: 1rem;
+    }
+    .larger__div_subdiv{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .section1__div1 a div h1{
+        font-size: var(--header-h8);
+    }
+    .section1__div1 a div h2{
+        font-size: var(--header-h8);
     }
     .smallerdivs{
         grid-area: 2 / 1 / -1 / -1;
+        padding: 1rem;
+        max-width: 100vw;
     }
     .smallerdivs a{
+        width: 100%;
+        display: flex;
         flex-direction: column;
+        align-items: center;
     }
     .section1__div2 a img{
-        height: 30vh;
-        width: 70%;
-        margin-right: 0;
+        height: 20rem;
+        width: 90%;
+        margin-bottom: 1rem;
+        border-radius: 1rem;
+        -webkit-border-radius: 1rem;
+        -moz-border-radius: 1rem;
+        -ms-border-radius: 1rem;
+        -o-border-radius: 1rem;
+    }
+    .section1__div2 a div h1{   
+        width: 100%;
+        font-size: var(--header-h8);
     }
     .section1__div2 a div h2{   
         max-width: 100%;
+        font-size: var(--header-h8);
     }
     .section2 div .headers{
-        font-size: var(--header-h6);
-    }
-    .section2 div{
+        font-size: var(--header-h8);
         padding: 1rem;
+        width: 100%;
+    }
+    .section2_div1{
+        padding: 1rem 0;
     }
     .sidebar_divs_container{
     display: flex;
@@ -2323,35 +2384,52 @@ a, p, li{
     -o-border-radius: 1rem;
     }
     .sidebar_divs_container .webinfo p{
-    padding: 1rem 0;
-    color: #222222c3;
+        padding: 1rem 0;
+        color: #222222c3;
     }
     .section2 div .normal-divs a{
         flex-direction: column;
+        width: 100%;
+        align-items: center;
     }
     .section2 div .normal-divs a img{
-        height: 30vh;
-        width: 70%;
+        height: 15rem;
+        margin-bottom: 1rem;
+        width: 90%;
+    }
+    .section2 div div a div h1{
+        width: 100%;
+        padding: 1rem;
+    }
+    .section2 div div a div h2{
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.6rem;
+    }
+    .section2 div .normal-divs .normal-divs__subdiv2{
+        width: 100%;
+        margin-left: 0;
+        padding: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+    .section2 div .normal-divs div img{
+        width: 3rem;
+        height: 3rem;
+        margin-right: 1rem;
     }
     .section2 div .normal-divs a .normal-divs__subdiv__div{
         width: 100%;
+        align-items: center;
     }
-    .section2 div .normal-divs div{
-        width: 100%;
-        margin-left: .2rem;
+    .normal-divs__subdiv__div div{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
     }
     .section2 div .normal-divs div p{
         width: calc(100% - 6.2rem);
-    }
-    .section2 div .normal-divs div img{
-        width: 5rem;
-        height: 5rem;
-    }
-    .section2 div .normal-divs div p span{
-        font-weight: var(--spanfontweight);
-    }
-    .section2 div div a div h1{
-        width: 90%;
     }
     .normal-divs__releasedate{
         font-size: 1.5rem;
@@ -2477,10 +2555,13 @@ a, p, li{
     .more_posts{
         overflow: scroll;
         flex-wrap: nowrap;
+        width: 100vw;
+        padding: 1rem;
     }
     .more_posts a{
-        height: 50svh;
-        width: 80vw;
+        height: 60svh;
+        margin: 0;
+        width: 25rem;
     }
     .more_posts a img{
         height: 60%;
@@ -2505,7 +2586,7 @@ a, p, li{
         height: 60svh;
     }
     .posts_div img{
-        height: 60%;
+        height: 50%;
     }
     .commentary_divs{
         width: 90%;
@@ -2550,6 +2631,9 @@ a, p, li{
     }
     .posts_div_otherp{
         font-size: var(--pfontsize);
+    }
+    .posts_div_subdiv{
+        padding: 0 1rem;
     }
     .posts_div_subdiv p{
         width: 100%;

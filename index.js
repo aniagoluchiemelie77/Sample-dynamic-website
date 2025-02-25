@@ -87,12 +87,10 @@ const stickyNavFunc = function () {
     headerObs.observe(section1);
 };
 const screenOnlyFuncs = function () {
-// Adding event listeners for touchstart and touchend events
     const swipefunction = function () {
         container.addEventListener("touchstart", touchStart);
         container.addEventListener("touchend", touchEnd);
         function touchStart(e) {
-            //e.preventDefault();
             touchStartTime = Date.now();
             clientY = e.touches[0].clientY;
             clientX = e.touches[0].clientX;

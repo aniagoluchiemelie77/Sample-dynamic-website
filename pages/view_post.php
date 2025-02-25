@@ -129,19 +129,19 @@ $img1 = "";
                                 echo"
                                         <div class='socialmedia_links'>
                                             <a class='twitter-share-button' id='xShareBtn'><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a onclick='window.print() return false;'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                            <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
                                         <div class='socialmedia_links'>
                                             <a id='xShareBtn2' class='twitter-share-button'><i class='fa-brands fa-x-twitter'></i></a>
-                                            <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                            <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                            <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                            <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                            <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                            <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                            <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                            <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                            <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
                                         <h3 class='bodyleft_header3'>About the Author</h3>
                                         <center>
@@ -264,6 +264,9 @@ $img1 = "";
                         $date = $row['formatted_date'];
                         $id = $row['id'];
                         $link = $row['link'];
+                        $title1 = $title;
+                        $subtitle1 = $subtitle;
+                        $img1 = $image;
                         $formatted_time = date("g:i A", strtotime($time));
                         echo "<h1 class='Post_header'>$title</h1>
                                 <h2>$subtitle</h2>
@@ -292,20 +295,20 @@ $img1 = "";
                         }
                         echo "
                             <div class='socialmedia_links'>
-                                <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                <a class='twitter-share-button' id='xShareBtn3'><i class='fa-brands fa-x-twitter'></i></a>
+                                <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                             </div>
                             <div class='socialmedia_links'>
-                                <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                <a class='twitter-share-button' id='xShareBtn4'><i class='fa-brands fa-x-twitter'></i></a>
+                                <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                             </div>
                             <h3 class='bodyleft_header3'>About the Author</h3>
                             <center>
@@ -440,6 +443,9 @@ $img1 = "";
                         $id = $row['id'];
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
+                        $title1 = $title;
+                        $subtitle1 = $subtitle;
+                        $img1 = $image;
                         echo "<h1 class='Post_header'>".$title."</h1>
                                 <h2>".$subtitle."</h2>
                                 <div class='authors_div'>
@@ -468,21 +474,20 @@ $img1 = "";
                             }
                             echo"
                                     <div class='socialmedia_links'>
-                                        <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                        <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                        <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                        <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                        <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                        <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                        <a class='twitter-share-button' id='xShareBtn5'><i class='fa-brands fa-x-twitter'></i></a>
+                                        <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                        <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                        <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                        <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                        <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                     </div>
                                     <div class='socialmedia_links'>
-                                        <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                        <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                        <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                        <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                        <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                        <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
-                                    </div>
+                                        <a class='twitter-share-button' id='xShareBtn6'><i class='fa-brands fa-x-twitter'></i></a>
+                                        <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                        <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                        <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                        <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                        <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                     <h3 class='bodyleft_header3'>About the Author</h3>
                                     <center>
                                         <a href='../authors/author.php?id=$id_admin$id_editor$id_writer&idtype=$id_type' class='aboutauthor_div'>
@@ -645,19 +650,19 @@ $img1 = "";
                         echo"
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                    <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                    <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                    <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                    <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                    <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                    <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                    <a href='mailto:?subject=<?php echo urlencode(".$title."); ?>&body=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                    <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
                                 <h3 class='bodyleft_header3'>About the Author</h3>
                                 <center>
@@ -834,19 +839,19 @@ $img1 = "";
                             echo"
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                    <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                    <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                    <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                    <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
-                                    <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
-                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
-                                    <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
-                                    <a onclick='window.print() return false;' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
-                                    <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                    <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                                    <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                                    <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                                    <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                                    <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
                                 <h3 class='bodyleft_header3'>About the Author</h3>
                                 <center>
@@ -936,22 +941,20 @@ $img1 = "";
         });
     </script>
     <script>
-        document.getElementById("xShareBtn").addEventListener("click", function() {
+        function shareFunction () {
             const postTitle = "<?php echo addslashes($title1); ?>";
             const postSubtitle = "<?php echo addslashes($subtitle1); ?>";
             const postImage = "<?php echo addslashes($img1); ?>";
             const postUrl = window.location.href;
             const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle + ' - ' + postSubtitle)}&url=${encodeURIComponent(postUrl)}&via=yourTwitterHandle&hashtags=yourHashtags`;
             window.open(tweetUrl, "_blank");
-        });
-        document.getElementById("xShareBtn2").addEventListener("click", function() {
-            const postTitle = "<?php echo addslashes($title1); ?>";
-            const postSubtitle = "<?php echo addslashes($subtitle1); ?>";
-            const postImage = "<?php echo addslashes($img1); ?>";
-            const postUrl = window.location.href;
-            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle + ' - ' + postSubtitle)}&url=${encodeURIComponent(postUrl)}&via=yourTwitterHandle&hashtags=yourHashtags`;
-            window.open(tweetUrl, "_blank");
-        });
+        }
+        document.getElementById("xShareBtn").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn2").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn3").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn4").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn5").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn6").addEventListener("click", shareFunction);
     </script>
 </body>
 </html>

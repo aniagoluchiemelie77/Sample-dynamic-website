@@ -196,7 +196,7 @@
         <section class="section2">
             <div class="section2__div1">
                 <div class="search_div suggestions-container" id="suggestions"></div>
-                <div id="results" class="section2__div1__div1 normal-divs" style="display:none;"></div>
+                <div id="results" class="more_posts" style="display:none;"></div>
                 <div class="section2__div1__header headers">
                     <h1>Latest Articles</h1>
                 </div>
@@ -380,21 +380,16 @@
                             suggestions.forEach(function(suggestion) {
                                 if (suggestion.type === 'post') {
                                     resultsDiv.innerHTML = `<h2 class="headers">You searched for: ${query}</h2>
-                                                        <a class='normal-divs__subdiv' href='pages/view_post.php?${suggestion.idtype}=${suggestion.id}'>
-                                                            <img src='${suggestion.image}' alt='article image'>
-                                                            <div class='normal-divs__subdiv__div'>
-                                                                <h1 class='normal-divs__header'>${suggestion.niche}</h1>
-                                                                <h2 class='normal-divs__title'>${suggestion.title}</h2>
-                                                                <div>
-                                                                    <p class='normal-divs__releasedate firstp'>$date</p>
-                                                                    <p class='normal-divs__releasedate'><i class='fa fa-clock' aria-hidden='true'></i> $readingTime</p>
-                                                                </div>
+                                                        <a class='more_posts_subdiv' href='pages/view_post.php?${suggestion.idtype}=${suggestion.id}'>
+                                                            <img src='${suggestion.image_path}' alt='article image'>
+                                                            <div class='more_posts_subdiv_subdiv'>
+                                                                <h1>${suggestion.title}</h1>
+                                                                <span>${suggestion.title}</span>
+                                                                <span>$readingTime</span>
                                                             <div>
+                                                            <p class='posts_div_niche'>${suggestion.niche}</p>
                                                         </a>
-                                                        <div class='normal-divs__subdiv2'>
-                                                            <img src='$author_image' alt='article image'>
-                                                            <p class='normal-divs__subdiv2__p'>By <span>$author_firstname $author_lastname, </span><span>$role</span></p>
-                                                        </div>`;
+                                                        `;
                                 } else if (suggestion.type === 'author') {
                                     resultsDiv.innerHTML = `<h2 class ="headers">You searched for: ${query}</h2>;
                                         <a href='authors/author.php?id=${suggestion.id}&idtype=${suggestion.idtype}' class='aboutauthor_div'>

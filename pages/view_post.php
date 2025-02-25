@@ -15,6 +15,9 @@ $post_id3 = isset($_GET['id3']) ? intval($_GET['id3']) : 0;
 $post_id4 = isset($_GET['id4']) ? intval($_GET['id4']) : 0;
 $post_id5 = isset($_GET['id5']) ? intval($_GET['id5']) : 0;
 $url = "http://localhost/Sample-dynamic-website";
+$title1 = "";
+$subtitle1 = "";
+$img1 = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +32,7 @@ $url = "http://localhost/Sample-dynamic-website";
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie"/>
     <link rel="stylesheet" href="../index.css"/>
+    <script src="../index.js" defer></script>
 	<title>View post</title>
 </head>
 <body>
@@ -82,6 +86,9 @@ $url = "http://localhost/Sample-dynamic-website";
                         $admin_id = $row['admin_id'];
                         $link = $row['link'];
                         $formatted_time = date("g:i A", strtotime($time));
+                        $title1 = $title;
+                        $subtitle1 = $subtitle;
+                        $img1 = $image;
                         $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$admin_id'";
                         $selectwriter_result = $conn->query($selectwriter);
                         if ($selectwriter_result->num_rows > 0) {
@@ -121,7 +128,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                 }    
                                 echo"
                                         <div class='socialmedia_links'>
-                                            <a href='https://twitter.com/intent/tweet?url=urlencode(".$url.")&text=urlencode(".$title.")'target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a class='twitter-share-button' id='xShareBtn'><i class='fa-brands fa-x-twitter'></i></a>
                                             <a href='https://www.facebook.com/sharer/sharer.php?u=urlencode(".$url.")' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
                                             <a href='https://www.linkedin.com/shareArticle?mini=true&url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
                                             <a href='https://www.reddit.com/submit?url=urlencode(".$url.")&title=urlencode(".$title.")' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
@@ -129,7 +136,7 @@ $url = "http://localhost/Sample-dynamic-website";
                                             <a href='mailto:?subject=urlencode(".$title.")&body=urlencode(".$url.")' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
                                         <div class='socialmedia_links'>
-                                            <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(".$url."); ?>&text=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                            <a id='xShareBtn2' class='twitter-share-button'><i class='fa-brands fa-x-twitter'></i></a>
                                             <a href='https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(".$url."); ?>' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
                                             <a href='https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
                                             <a href='https://www.reddit.com/submit?url=<?php echo urlencode(".$url."); ?>&title=<?php echo urlencode(".$title."); ?>' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
@@ -906,6 +913,45 @@ $url = "http://localhost/Sample-dynamic-website";
         </div>
     </div>
     <?php include("../includes/footer2.php");?>
-    <script src="../index.js"></script>
+    <script>
+        const closeMenuBtn = document.querySelector('.sidebarbtn');
+        const sidebar = document.getElementById('sidebar');
+        const menubtn = document.querySelector('.mainheader__header-nav-2');
+        function removeHiddenClass (e) {
+            e.stopPropagation();
+            sidebar.classList.remove('hidden');
+        };
+        function onClickOutside (element) {
+            document.addEventListener('click', e => {
+                if (!element.contains(e.target)) {
+                    element.classList.add('hidden');
+                } else return;
+            });
+        };
+        onClickOutside(sidebar);
+        menubtn.addEventListener('click', removeHiddenClass);
+        closeMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('hidden');
+        });
+    </script>
+    <script>
+        document.getElementById("xShareBtn").addEventListener("click", function() {
+            const postTitle = "<?php echo addslashes($title1); ?>";
+            const postSubtitle = "<?php echo addslashes($subtitle1); ?>";
+            const postImage = "<?php echo addslashes($img1); ?>";
+            const postUrl = window.location.href;
+            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle + ' - ' + postSubtitle)}&url=${encodeURIComponent(postUrl)}&via=yourTwitterHandle&hashtags=yourHashtags`;
+            window.open(tweetUrl, "_blank");
+        });
+        document.getElementById("xShareBtn2").addEventListener("click", function() {
+            const postTitle = "<?php echo addslashes($title1); ?>";
+            const postSubtitle = "<?php echo addslashes($subtitle1); ?>";
+            const postImage = "<?php echo addslashes($img1); ?>";
+            const postUrl = window.location.href;
+            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle + ' - ' + postSubtitle)}&url=${encodeURIComponent(postUrl)}&via=yourTwitterHandle&hashtags=yourHashtags`;
+            window.open(tweetUrl, "_blank");
+        });
+    </script>
 </body>
 </html>

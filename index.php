@@ -85,6 +85,7 @@
         <meta name="author" content="Aniagolu chiemelie"/>
         <link rel="stylesheet" href="index.css"/>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="index.js" async></script>
 	    <title>Home</title>
     </head>
     <body id="container">
@@ -301,7 +302,6 @@
             <?php include("helpers/pressreleasesdiv.php");?>
         </section>
         <?php include("includes/footer.php");?>
-        <script src="index.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
@@ -338,6 +338,11 @@
             }
         </script>
         <script>
+            const sidebar = document.getElementById('sidebar');
+            const menubtn = document.querySelector('.mainheader__header-nav-1');
+            const searchIcon = document.getElementById('searchicon');
+            const searchForm = document.getElementById("search_form");
+            const closeMenuBtn = document.querySelector('.sidebarbtn');
             function submitSearch() {
                 var query = document.getElementById('search').value;
                 if (query) {
@@ -418,32 +423,19 @@
                     this.innerHTML = '';
                 }
             });
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme === 'light-mode') {
-                document.body.classList.add('light-mode');
-            }
+            onClickOutside(sidebar);
+            menubtn.addEventListener('click', removeHiddenClass);
+            searchIcon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                searchForm.classList.remove('hidden');
+                searchForm.style.display = 'flex';
+                searchIcon.classList.add('hidden')
+            });
+            closeMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sidebar.classList.toggle('hidden');
             });
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('#change-variable').click(function() {
-                    $.ajax({
-                        url: 'index.php',
-                        type: 'POST',
-                        data: { new_value: 100 }, // Change this value as needed
-                        success: function(response) {
-                            alert('PHP variable updated successfully! New value: ' + response.new_value);
-                        },
-                        error: function() {
-                            alert('Failed to update PHP variable.');
-                        }
-                    });
-                });
-            });
-        </script>
     </body>
 </html>

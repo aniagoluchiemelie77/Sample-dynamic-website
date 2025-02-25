@@ -19,6 +19,7 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie"/>
     <link rel="stylesheet" href="../index.css"/>
+    <script src="../index.js" defer></script>
 	<title>Author</title>
 </head>
 <body>
@@ -382,6 +383,27 @@ $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
         </div>
     </center>
     <?php require("../includes/footer.php");?>
-    <script src="index.js"></script>
+    <script>
+        const closeMenuBtn = document.querySelector('.sidebarbtn');
+        const sidebar = document.getElementById('sidebar');
+        const menubtn = document.querySelector('.mainheader__header-nav-2');
+        function removeHiddenClass (e) {
+            e.stopPropagation();
+            sidebar.classList.remove('hidden');
+        };
+        function onClickOutside (element) {
+            document.addEventListener('click', e => {
+                if (!element.contains(e.target)) {
+                    element.classList.add('hidden');
+                } else return;
+            });
+        };
+        onClickOutside(sidebar);
+        menubtn.addEventListener('click', removeHiddenClass);
+        closeMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>

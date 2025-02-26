@@ -732,6 +732,34 @@ a, p, li{
 .section2__div1__link{
     margin: 1rem;
 }
+.section2__div1 #results{
+    display: flex;
+    align-items: center;
+    padding: var(--divpadding);
+}
+.section2__div1 #results h2{
+    margin-bottom: 1rem;
+}
+.section2__div1 #results a{
+    height: fit-content;
+    width: 30rem;
+}
+.section2__div1 #results a img{
+    height: 20rem;
+    width: 20rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+.section2__div1 #results a div{
+    float: right;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
 .section2 div .normal-divs div img{
     width: 3.8rem;
     height: 3.8rem;

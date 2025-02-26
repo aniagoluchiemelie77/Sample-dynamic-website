@@ -196,7 +196,7 @@
         <section class="section2">
             <div class="section2__div1">
                 <div class="search_div suggestions-container" id="suggestions"></div>
-                <div id="results" class="more_posts" style="display:none;"></div>
+                <div id="results" style="display:none;"></div>
                 <div class="section2__div1__header headers">
                     <h1>Latest Articles</h1>
                 </div>
@@ -380,15 +380,15 @@
                             suggestions.forEach(function(suggestion) {
                                 if (suggestion.type === 'post') {
                                     resultsDiv.innerHTML = `<h2 class="headers">You searched for: ${query}</h2>
-                                                        <a class='more_posts_subdiv' href='pages/view_post.php?${suggestion.idtype}=${suggestion.id}'>
-                                                            <img src='${suggestion.image_path}' alt='article image'>
-                                                            <div class='more_posts_subdiv_subdiv'>
-                                                                <h1>${suggestion.title}</h1>
-                                                                <span>${suggestion.title}</span>
-                                                                <span>$readingTime</span>
-                                                            <div>
-                                                            <p class='posts_div_niche'>${suggestion.niche}</p>
-                                                        </a>
+                                                            <a href='pages/view_post.php?${suggestion.idtype}=${suggestion.id}'>
+                                                                <img src='${suggestion.image_path}' alt='article image'>
+                                                                <div class='results_subdiv'>
+                                                                    <h1>${suggestion.niche}</h1>
+                                                                    <h1>${suggestion.title}</h1>
+                                                                    <span>${suggestion.title}</span>
+                                                                    <span>$readingTime</span>
+                                                                <div>
+                                                            </a>
                                                         `;
                                 } else if (suggestion.type === 'author') {
                                     resultsDiv.innerHTML = `<h2 class ="headers">You searched for: ${query}</h2>;
@@ -412,10 +412,22 @@
                     document.getElementById('suggestions').innerHTML = '';
                 }
             });
-            document.getElementById('suggestions').addEventListener('click', function(e) {
-                if (e.target && e.target.nodeName === "DIV") {
-                    document.getElementById('search-bar').value = e.target.textContent;
-                    this.innerHTML = '';
+            document.getElementById('search_input').addEventListener('input', function() {
+                var query = this.value;
+                if (query.length > 0) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'search.php', true);
+                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                    xhr.onload = function() {
+                        if (this.status == 200) {
+                            var suggestions = JSON.parse(this.responseText);
+                            var suggestionsDiv = document.getElementById('category_div');
+                            suggestionsDiv.insertAdjacentHTML('afterbegin', '<a>$readableString</a>');
+                        }
+                    };
+                    xhr.send('category_query=' + query);
+                } else {
+                    document.getElementById('suggestions').innerHTML = '';
                 }
             });
             onClickOutside(sidebar);

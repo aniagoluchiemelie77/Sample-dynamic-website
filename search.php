@@ -35,18 +35,5 @@
         echo json_encode($suggestions);
     }else{
         echo "Error: Query parameter not set.";
-    }
-    if (isset($_POST['category_query'])) {
-        $search = $conn->real_escape_string($_POST['query']);
-        $sql = "SELECT * FROM topics WHERE name LIKE '%".$search."%'";
-        $result = $conn->query($sql);
-        $suggestions = array();
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-            }
-        }
-        echo json_encode($suggestions);
-    }else{
-        echo "Error: Query parameter not set.";
-    }
+}
 ?>

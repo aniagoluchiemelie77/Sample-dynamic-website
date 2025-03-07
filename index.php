@@ -412,24 +412,6 @@
                     document.getElementById('suggestions').innerHTML = '';
                 }
             });
-            document.getElementById('search_input').addEventListener('input', function() {
-                var query = this.value;
-                if (query.length > 0) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'search.php', true);
-                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                    xhr.onload = function() {
-                        if (this.status == 200) {
-                            var suggestions = JSON.parse(this.responseText);
-                            var suggestionsDiv = document.getElementById('category_div');
-                            suggestionsDiv.insertAdjacentHTML('afterbegin', '<a>$readableString</a>');
-                        }
-                    };
-                    xhr.send('category_query=' + query);
-                } else {
-                    document.getElementById('suggestions').innerHTML = '';
-                }
-            });
             onClickOutside(sidebar);
             menubtn.addEventListener('click', removeHiddenClass);
             searchIcon.addEventListener('click', (e) => {

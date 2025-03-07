@@ -1,16 +1,34 @@
-<?php 
+<?php
     require 'vendor/autoload.php';
-    use Mailgun\Mailgun;
-	echo getenv('API_KEY');
-    $mg = Mailgun::create(getenv('1654a412-c74c01db') ?: '1654a412-c74c01db');
-    $result = $mg->messages()->send(
-	    'sandbox0946a9b2a201481181d7d3cf49da8cac.mailgun.org',
-	    [
-		    'from' => 'Mailgun Sandbox <postmaster@sandbox0946a9b2a201481181d7d3cf49da8cac.mailgun.org>',
-		    'to' => 'Aniagolu chiemelie <aniagoluchiemelie77@gmail.com>',
-		    'subject' => 'Hello Aniagolu chiemelie',
-		    'text' => 'Congratulations Aniagolu chiemelie, you just sent an email with Mailgun! You are truly awesome!'
-	    ]
-    );
-    print_r($result->getMessage());
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer(true);
+
+try {
+	//Server settings
+	$mail->isSMTP();
+	$mail->Host       = 'smtp.mailgun.org';
+	$mail->SMTPAuth   = true;
+	$mail->Username   = 'chiboy@sandbox67de3d64b109403fba5332138900366d.mailgun.org'; // Replace with your Mailgun SMTP username
+	$mail->Password   = 'fc2f872a41f1365cc4005d8255348530-e298dd8e-f63dda9f';
+	$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+	$mail->Port       = 587;
+
+	//Recipients
+	$mail->setFrom('chiboy@sandbox67de3d64b109403fba5332138900366d.mailgun.org', 'Aniagolu');
+	$mail->addAddress('chiboyaniagolu3@gmail.com', 'Aniagolu Chiemelie');
+
+	//Content
+	$mail->isHTML(true);
+	$mail->Subject = 'Test Email';
+	$mail->Body    = 'This is a test email sent using Mailgun SMTP.';
+
+	$mail->send();
+	echo 'Message has been sent';
+} catch (Exception $e) {
+	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+
 ?>

@@ -1,6 +1,7 @@
 <?php
     require("connect.php");
     function logUpdate($conn, $forUser, $action) {
+    global $conn;
         date_default_timezone_set('UTC');
         $date = date('Y-m-d');
         $time = date("H:iA"); 

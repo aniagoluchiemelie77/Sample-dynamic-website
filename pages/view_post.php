@@ -1,13 +1,6 @@
 <?php
 session_start();
 require("../connect.php");
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-require '../PHPMailer/src/Exception.php';
-require '../PHPMailer/src/PHPMailer.php';
-require '../PHPMailer/src/SMTP.php';
 require_once '../vendor/ezyang\htmlpurifier/library/HTMLPurifier.auto.php';
 $post_id = isset($_GET['id1']) ? intval($_GET['id1']) : 0;
 $post_id2 = isset($_GET['id2']) ? intval($_GET['id2']) : 0;
@@ -913,7 +906,7 @@ $img1 = "";
             <?php include("../helpers/editorspicks.php");?>
             <?php
                 $userEmail = " ";
-                include('../helpers/emailsubscribeform.php');
+                                include('../helpers/emailsubscribeform2.php');
             ?>
         </div>
     </div>

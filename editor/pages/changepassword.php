@@ -17,16 +17,16 @@ if (isset($_POST['change_pwd'])) {
     }
     $hashedNewPassword = password_hash($password1, PASSWORD_DEFAULT);
     $newPassword = md5($password3);
-    $stmt = $conn->prepare("SELECT password FROM admin_login_info WHERE email = ?");
+    $stmt = $conn->prepare("SELECT password FROM editor WHERE email = ?");
     $stmt->bind_param('s', $email);
     $stmt->execute();
     $stmt->bind_result($hashedCurrentPassword);
     $stmt->fetch();
     $stmt->close();
-    $stmt = $conn->prepare("UPDATE admin_login_info SET password = ? WHERE email = ?");
+    $stmt = $conn->prepare("UPDATE editor SET password = ? WHERE email = ?");
     $stmt->bind_param('ss', $newPassword, $email);
     if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " changed his/her password";
+        $content = "Editor " . $_SESSION['firstname'] . " changed his/her password";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
@@ -55,7 +55,7 @@ if (isset($_POST['change_pwd'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../admin.css" />
+    <link rel="stylesheet" href="../editor.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Change Password</title>
 </head>
@@ -65,7 +65,7 @@ if (isset($_POST['change_pwd'])) {
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="changepassword.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">
-                <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <p>Change Password</p>
+                <a href="../editor_homepage.php">Home</a> > <p>Pages</p> > <p>Change Password</p>
             </div>
             <div class="newpost_container_div1 newpost_subdiv">
                 <h1>Change Password</h1>
@@ -96,7 +96,7 @@ if (isset($_POST['change_pwd'])) {
     <script src="sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
-    <script src="../admin.js"></script>
+    <script src="../editor.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";

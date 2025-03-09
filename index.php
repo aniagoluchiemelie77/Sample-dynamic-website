@@ -388,6 +388,9 @@ if (isset($_POST['accept_cookies'])) {
             const thankDiv = document.getElementById('thank-you-message');
             if (thankYouMessage) {
                 document.getElementById('susbribe-box').style.display = "none";
+                thankDiv.scrollIntoView({
+                    behavior: 'smooth'
+                });
                 thankDiv.innerHTML = `<p>${thankYouMessage}</p>`;
                 thankDiv.style.display = "flex";
             }

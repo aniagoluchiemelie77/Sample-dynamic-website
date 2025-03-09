@@ -2,21 +2,18 @@
     session_start();
     require("../connect.php");
     include("../crudoperations.php");
+    $email = $_SESSION['email'];
     if (isset($_REQUEST['resend_otp'])){
-        $msg = "";
-        $email = $_REQUEST['email'];
-    }else{
-        $msg = "Sorry, couldn't find a user with specified email address.";
+    header("Location: forgotpassword.php");
     }
     if (isset($_POST['validate_otp'])) {
-        $email = "chiboyaniagolu@gmail.com";
         $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
         $query = "SELECT * FROM admin_login_info WHERE email='$email' AND token='$otp'";
         $result = mysqli_query($conn, $query);
         if ($result === false) {
-            echo "Error: " . mysqli_error($conn);
+        $msg = "Error: " . mysqli_error($conn);
         }elseif (mysqli_num_rows($result) > 0) {
-            header("Location: resetpassword.php");
+        header("Location: changepassword.php");
             exit();
         }
     }

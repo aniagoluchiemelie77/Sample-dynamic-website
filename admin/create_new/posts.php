@@ -4,9 +4,10 @@ include("../connect.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="Tech News and Articles website" />
     <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
@@ -14,14 +15,15 @@ include("../connect.php");
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka"/>
+    <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../admin.css"/>
+    <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<title>Create New Post</title>
+    <title>Create New Post</title>
 </head>
+
 <body>
-    <?php require("../extras/header2.php");?>
+    <?php require("../extras/header2.php"); ?>
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">
@@ -33,13 +35,13 @@ include("../connect.php");
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="Post_Title">Post Title:</label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="Post_Title" type="text" required/>
+                    <input class="form__input" name="Post_Title" type="text" required />
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="Post_Sub_Title">Sub Title:</label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="Post_Sub_Title" type="text"/>
+                    <input class="form__input" name="Post_Sub_Title" type="text" />
                     <p class="newpost_subdiv2-p leftp"><span>*</span>Text displayed under title (OPTIONAL)</p>
                 </div>
             </div>
@@ -47,31 +49,32 @@ include("../connect.php");
                 <label class="form__select" for="Post_Niche">Category:</label>
                 <select class="newpost_subdiv2" name="Post_Niche">
                     <option class="newpost_subdiv4-option" value="">-- Please Select --</option>
-                    <?php 
-                        $selectcategory = "SELECT name FROM topics ORDER BY id";
-                        $selectcategory_result = $conn->query($selectcategory);
-                        if ($selectcategory_result->num_rows > 0) {
-                            if (!function_exists('convertToReadable')) {
-                                function convertToReadable($slug) {
-                                    $string = str_replace('-', ' ', $slug);
-                                    $string = ucwords($string);
-                                    return $string;
-                                }
-                            }
-                            while($row = $selectcategory_result->fetch_assoc()) {
-                                $category_names = $row['name'];
-                                $readableString = convertToReadable($category_names);
-                                echo "<option class='newpost_subdiv4-option' value='$readableString'>$readableString</option>";
+                    <?php
+                    $selectcategory = "SELECT name FROM topics ORDER BY id";
+                    $selectcategory_result = $conn->query($selectcategory);
+                    if ($selectcategory_result->num_rows > 0) {
+                        if (!function_exists('convertToReadable')) {
+                            function convertToReadable($slug)
+                            {
+                                $string = str_replace('-', ' ', $slug);
+                                $string = ucwords($string);
+                                return $string;
                             }
                         }
+                        while ($row = $selectcategory_result->fetch_assoc()) {
+                            $category_names = $row['name'];
+                            $readableString = convertToReadable($category_names);
+                            echo "<option class='newpost_subdiv4-option' value='$readableString'>$readableString</option>";
+                        }
+                    }
                     ?>
                 </select>
             </div>
             <div class="newpost_container_div4 newpost_subdiv">
                 <label class="form__select" for="Post_status">Post Type:</label>
-                <select class="newpost_subdiv2" name="Post_status">      
+                <select class="newpost_subdiv2" name="Post_status">
                     <option class="newpost_subdiv4-option" value="">-- Please Select --</option>
-                    <option class="newpost_subdiv4-option" value="paid_posts">Paid Post</option>      
+                    <option class="newpost_subdiv4-option" value="paid_posts">Paid Post</option>
                     <option class="newpost_subdiv4-option" value="posts">Article</option>
                     <option class="newpost_subdiv4-option" value="news">News</option>
                     <option class="newpost_subdiv4-option" value="press_releases">Press Release</option>
@@ -81,14 +84,14 @@ include("../connect.php");
             <div class="newpost_container_div5 newpost_subdiv">
                 <label class="form__label" for="Post_featured">Featured Video/Audio:</label>
                 <div class="newpost_container_div5_subdiv2">
-                    <input class="form__input" name="Post_featured" type="text"/>
+                    <input class="form__input" name="Post_featured" type="text" />
                     <p class="newpost_subdiv2-p leftp"><span>*</span>Enter url to video/audio (optional)</p>
                 </div>
             </div>
             <div class="newpost_container_div6 newpost_subdiv">
                 <label class="form__label" for="Post_Image">Post Image</label>
                 <div class="newpost_subdiv2">
-                    <input class="form__input" name="Post_Image" type="file" required/>
+                    <input class="form__input" name="Post_Image" type="file" required />
                     <p class="newpost_subdiv2-p leftp"><span>*</span>Image should be less than 300KB</p>
                 </div>
             </div>
@@ -100,14 +103,14 @@ include("../connect.php");
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="author_firstname">Author's Firstname:</label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="author_firstname" type="text"/>
+                    <input class="form__input" name="author_firstname" type="text" />
                     <p class="newpost_subdiv2-p leftp"><span>*</span> Author's First Name (OPTIONAL)</p>
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="author_lastname">Author's Lastname:</label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="author_lastname" type="text"/>
+                    <input class="form__input" name="author_lastname" type="text" />
                     <p class="newpost_subdiv2-p leftp"><span>*</span> Author's Last Name (OPTIONAL)</p>
                 </div>
             </div>
@@ -118,14 +121,14 @@ include("../connect.php");
                 <p class="newpost_subdiv2-p leftp"><span>*</span> About Author (OPTIONAL)</p>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="Publish" name="create_post"/>
+                <input class="form__submit_input" type="submit" value="Publish" name="create_post" />
             </div>
             <div class="newpost_container_div10 newpost_subdiv">
                 <p class="form__submit_or centerp bold">----------- Or -----------</p>
             </div>
             <div class="newpost_container_div11 newpost_subdiv">
                 <label class="form__label bold" for="schedule">Schedule Post Publish</label>
-                <input class="" type="datetime-local" name="schedule" />
+                <input class="" type="date" name="schedule" />
             </div>
         </form>
     </section>
@@ -134,25 +137,26 @@ include("../connect.php");
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="../admin.js"></script>
     <script>
-        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
-        var messageText = "<?= $_SESSION['status']?? ' '?>";
-        if (messageType == 'Error' && messageText != " "){
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',
                 text: messageText,
                 icon: 'error',
                 confirmButtonText: 'Ok'
-            })  
-        }else if (messageType == 'Success' && messageText != " "){
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
             Swal.fire({
                 title: 'Success',
                 text: messageText,
                 icon: 'success',
                 confirmButtonText: 'Ok'
-            })  
+            })
         }
-        <?php unset($_SESSION['status_type']);?>
-        <?php unset($_SESSION['status']);?>
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
     </script>
 </body>
+
 </html>

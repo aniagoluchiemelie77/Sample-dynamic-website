@@ -134,13 +134,14 @@ if (isset($_POST['accept_cookies'])) {
     </div>
     <section class="section1">
         <?php
-        $selectpaidposts = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts ORDER BY date DESC LIMIT 4";
+                                    $selectpaidposts = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM paid_posts ORDER BY date DESC LIMIT 4";
         $paidpostselection_result = $conn->query($selectpaidposts);
         if ($paidpostselection_result->num_rows > 0) {
             $counter = 0;
             while ($row = $paidpostselection_result->fetch_assoc()) {
                 $counter++;
                 $image = $row['image_path'];
+                $publishDate = !empty($row['formatted_date2']) ? $row['formatted_date2'] : $row['formatted_date'];
                 if ($counter == 1) {
                     echo "<div class='section1__div1 larger__div'>
                                     <a href='pages/view_post.php?id1=" . $row['id'] . "'>
@@ -166,7 +167,7 @@ if (isset($_POST['accept_cookies'])) {
                     echo   "<div class='smaller__div__subdiv'>
                                         <h1>" . $row['niche'] . "</h1>
                                         <h2>" . $row['title'] . "</h2>
-                                        <p>" . $row["formatted_date"] . "</p>
+                                        <p>$publishDate</p>
                                     </div>
                                 </a>
                             ";
@@ -186,7 +187,7 @@ if (isset($_POST['accept_cookies'])) {
                 <h1>Latest Articles</h1>
             </div>
             <?php
-            $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts ORDER BY id DESC LIMIT 30";
+                                    $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM posts ORDER BY id DESC LIMIT 30";
             $selectposts_result = $conn->query($selectposts_sql);
             $author_firstname = "";
             $author_lastname = "";
@@ -211,7 +212,9 @@ if (isset($_POST['accept_cookies'])) {
                     $niche = $row["niche"];
                     $image = $row["image_path"];
                     $date = $row["formatted_date"];
+                    $date2 = $row["formatted_date2"];
                     $content = $row["content"];
+                    $publishDate = !empty($date2) ? $date2 : $date;
                     $readingTime = calculateReadingTime($row['content']);
                     if (!empty($row['admin_id'])) {
                         $admin_id = $row['admin_id'];
@@ -259,7 +262,7 @@ if (isset($_POST['accept_cookies'])) {
                                             <h1 class='normal-divs__header'>$niche</h1>
                                             <h2 class='normal-divs__title'>$title</h2>
                                             <div>
-                                                <p class='normal-divs__releasedate firstp'>$date</p>
+                                                <p class='normal-divs__releasedate firstp'>$publishDate</p>
                                                 <p class='normal-divs__releasedate'><i class='fa fa-clock' aria-hidden='true'></i> $readingTime</p>
                                             </div>
                                         </div>

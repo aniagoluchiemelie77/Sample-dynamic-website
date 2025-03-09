@@ -1,5 +1,6 @@
 <?php
     session_start();
+$admin_id = "";
     $_SESSION['id'] = $admin_id; 
     $_SESSION['status_type'] = "";
     $_SESSION['status'] = "";
@@ -262,7 +263,7 @@
             $imagePath = $target;
             $convertedPath = convertPath($imagePath);
             if( !empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)){
-                $admin_id = 0;
+            $admin_id = '';
             }
             savePost($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type);
         }

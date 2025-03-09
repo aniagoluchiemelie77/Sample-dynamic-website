@@ -1487,7 +1487,7 @@ a, td,span, p, label{
 .centerp{
     text-align: center;
 }
-input[type="datetime-local"] {
+input[type="date"] {
     width: 60%;
     padding: 1rem;
     border-radius: .5rem;

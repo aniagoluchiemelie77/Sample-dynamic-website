@@ -869,6 +869,9 @@ a, p, li{
     justify-content: center;
     align-items: center;
   }
+  .sec2__susbribe-box-darker .sec2__susbribe-box-input-light:active {
+      border: none;
+  }
   .sec2__susbribe-box-darker button{
     min-width: 79%;
     padding: 1.5rem 1rem;
@@ -877,6 +880,7 @@ a, p, li{
     background-color: var(--color10);
     color: var(--color60);
     border: none;
+    cursor: pointer;
   }
   .sec2__susbribe-box-darker button:hover{
     background-color: var(--color10-shade);

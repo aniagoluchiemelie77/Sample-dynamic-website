@@ -81,6 +81,36 @@ function confirmDeleteP(postId) {
       }
   })
 };
+function confirmDeleteSubscriber(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#F93404',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href =  '../delete.php?id=' + postId + '&usertype=Subscriber';
+        }
+    })
+};
+function confirmDeleteNewslSubscriber(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#F93404',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href =  '../delete.php?id=' + postId + '&usertype=NewsletterSubscriber';
+        }
+    })
+};
 function confirmDeleteEditor(Id) {
   Swal.fire({
       title: 'Are you sure?',

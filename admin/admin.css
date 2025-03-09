@@ -975,7 +975,7 @@ a, td,span, p, label{
     align-items: center;
  }
  .postsdiv2 .subscribers_subdiv i{
-    font-size: var(--ifontsize-2);
+    font-size: var(--ifontsize-1);
     margin-right: 1.5rem;
  }
  .postsdiv2 .subscribers_subdiv div p span{
@@ -996,9 +996,19 @@ a, td,span, p, label{
  .postsdiv .posts_divcontainer{
     padding: .5rem;
  }
- .posts_divcontainer .posts_divcontainer_subdiv{
+.posts_divcontainer .posts_divcontainer_subdiv {
     padding: .5rem 1rem;
-    border-bottom: 1px solid var(--color30)43;
+    border-bottom: 1px solid var(--color30);
+    }
+    
+    .posts_divcontainer .posts_divcontainer_subdiv_body2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .posts_divcontainer_subdiv_body2 .posts_delete_edit p {
+        margin-right: 1.5rem;
  }
  .editor_div{
     display: flex;

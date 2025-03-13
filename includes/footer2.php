@@ -1,9 +1,9 @@
 <section class="footer">
     <div class="footer__div1">
         <div class="footer__div1__logobox"></div>
-        <form class="footer__subscribebox">
+        <form class="footer__subscribebox" id="subscribe_box2">
             <div class="sec2__susbribe-box-darker">
-                <input class="sec2__susbribe-box-input-light" type="email" placeholder="Your email address..."/>
+                <input class="sec2__susbribe-box-input-light" type="email" placeholder="Your email address..." />
                 <button class="sec2__susbribe-box-btn-light" type="submit">Subscribe</button>
             </div>
         </form>
@@ -21,7 +21,7 @@
         <a class="footer__link lightp" href="ourterms.php">Terms of Services</a>
     </div>
     <div class="footer__div3">
-        <p class="footer__div3-p lightp"> 	&copy; Chiboy Aniagolu 2024. All rights reserved.</p>
+        <p class="footer__div3-p lightp"> &copy; Chiboy Aniagolu 2024. All rights reserved.</p>
         <div class="footer__div3__subdiv">
             <h1 class="footer__header lightp">Follow Us</h1>
             <div class="footer__div3__smedialinks">

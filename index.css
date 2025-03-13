@@ -660,8 +660,8 @@ a, p, li{
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding: 1rem;
 }
-
 .subscribe_container #thank-you-message {
     padding: var(--sectionpadding-medium);
     box-shadow: 16px 15px 18px -14px rgba(0, 0, 0, 0.63);

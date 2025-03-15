@@ -2,7 +2,7 @@
     $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
     $results = [];
     foreach ($tables as $table) {
-        $sql = "SELECT id, admin_id, editor_id, title, niche, content, image_path, Date, authors_firstname, authors_lastname FROM $table WHERE is_favourite = 1 ORDER BY id DESC LIMIT 8";
+    $sql = "SELECT id, admin_id, editor_id, title, niche, content, image_path, Date, authors_firstname, authors_lastname FROM $table WHERE is_favourite = 1 ORDER BY id DESC LIMIT 2";
         $stmt = $conn->prepare($sql);
         $stmt->bind_result($id, $admin_id, $editor_id, $title, $niche, $content, $image, $date, $authors_firstname, $authors_lastname);
         $stmt->execute();
@@ -92,14 +92,15 @@
         }
         $dateTime = new DateTime($date);
         $day = $dateTime->format('j');
+    $image = $result['image_path'];
         $month = $dateTime->format('M');
         $year = $dateTime->format('Y');
         $ordinalSuffix = getOrdinalSuffix($day);
         $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
         $readingTime = calculateReadingTime($content);
         echo    "<a class='posts_div' href='../pages/view_post.php?id".$result['posttype']."=$id'>";
-        if (!empty($result['image_path'])) {
-            echo "<img src='../".$result['image_path']."' alt='article image'>";
+    if (!empty($image)) {
+        echo "<img src='../$image' alt='article image'>";
         }
         echo   "<p class='posts_div_niche'>". $result['niche']."</p>
                 <h1>$title</h1>

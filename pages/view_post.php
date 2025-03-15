@@ -143,6 +143,7 @@ if (isset($_POST['submit_btn'])) {
                     $title1 = $title;
                     $subtitle1 = $subtitle;
                     $img1 = $image;
+                    $content = strip_tags($content, '<span><p><a><i>');
                     $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$admin_id'";
                     $selectwriter_result = $conn->query($selectwriter);
                     if ($selectwriter_result->num_rows > 0) {
@@ -189,6 +190,7 @@ if (isset($_POST['submit_btn'])) {
                                             <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                             <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                         </div>
+                                        <p class='content'>$content</p>
                                         <div class='socialmedia_links'>
                                             <a id='xShareBtn2' class='twitter-share-button'><i class='fa-brands fa-x-twitter'></i></a>
                                             <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -320,6 +322,7 @@ if (isset($_POST['submit_btn'])) {
                     $title1 = $title;
                     $subtitle1 = $subtitle;
                     $img1 = $image;
+                    $content = strip_tags($content, '<span><p><a><i><div>');
                     $formatted_time = date("g:i A", strtotime($time));
                     echo "<h1 class='Post_header'>$title</h1>
                                 <h2>$subtitle</h2>
@@ -355,6 +358,7 @@ if (isset($_POST['submit_btn'])) {
                                 <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                 <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                             </div>
+                            <p class='content'>$content</p>
                             <div class='socialmedia_links'>
                                 <a class='twitter-share-button' id='xShareBtn4'><i class='fa-brands fa-x-twitter'></i></a>
                                 <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -488,6 +492,7 @@ if (isset($_POST['submit_btn'])) {
                     if (strlen($author_bio) > $max_length) {
                         $author_bio = substr($author_bio, 0, $max_length) . '...';
                     }
+                    $content = strip_tags($content, '<span><p><a><i><div>');
                     $read_count = calculateReadingTime($content);
                     $subtitle = $row['subtitle'];
                     $image = $row['image_path'];
@@ -533,6 +538,7 @@ if (isset($_POST['submit_btn'])) {
                                         <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                         <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                     </div>
+                                    <p class='content'>$content</p>
                                     <div class='socialmedia_links'>
                                         <a class='twitter-share-button' id='xShareBtn6'><i class='fa-brands fa-x-twitter'></i></a>
                                         <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -665,6 +671,7 @@ if (isset($_POST['submit_btn'])) {
                     if (strlen($author_bio) > $max_length) {
                         $author_bio = substr($author_bio, 0, $max_length) . '...';
                     }
+                    $content = strip_tags($content, '<span><p><a><i><div>');
                     $read_count = calculateReadingTime($content);
                     $subtitle = $row['subtitle'];
                     $image = $row['image_path'];
@@ -707,6 +714,7 @@ if (isset($_POST['submit_btn'])) {
                                     <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                     <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
+                                <p class='content'>$content</p>
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(" . $url . "); ?>&text=<?php echo urlencode(" . $title . "); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
@@ -852,6 +860,7 @@ if (isset($_POST['submit_btn'])) {
                     if (strlen($author_bio) > $max_length) {
                         $author_bio = substr($author_bio, 0, $max_length) . '...';
                     }
+                    $content = strip_tags($content, '<span><p><a><i><div>');
                     $read_count = calculateReadingTime($content);
                     $subtitle = $row['subtitle'];
                     $image = $row['image_path'];
@@ -894,6 +903,7 @@ if (isset($_POST['submit_btn'])) {
                                     <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                     <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
                                 </div>
+                                <p class='content'>$content</p>
                                 <div class='socialmedia_links'>
                                     <a href='https://twitter.com/intent/tweet?url=urlencode(" . $url . ")&text=urlencode(" . $title . ")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>

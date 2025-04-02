@@ -1367,6 +1367,38 @@ a, td,span, p, label{
     display: flex;
     flex-wrap: nowrap;
 }
+.newpost_container_divnew{
+    display: flex;
+    flex-direction: column;
+}
+.newpost_subdiv_subdiv2{
+    display: flex;
+    padding: 2rem;
+    align-items: center;
+}
+.newpost_subdiv_subdiv2 label{
+    width: fit-content;
+    font-weight: 750;
+}
+.newpost_subdiv_subdiv2 select{
+    width: 60%;
+    padding: 1rem;
+    border-radius: .5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 1px solid var(--color10);
+    outline: none;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+}
+.newpost_container_divnew input{
+    width: 20%;
+    border: none;
+    outline: none;
+    align-self: center;
+}
 .newpost_container_div3 input{
     padding: 1rem;
     outline: none;

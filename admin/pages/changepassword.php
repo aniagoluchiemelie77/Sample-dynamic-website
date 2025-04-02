@@ -9,33 +9,30 @@ if (isset($_POST['change_pwd'])) {
     $password2 = $_POST['password2'];
     $password3 = $_POST['password3'];
     $email = $_SESSION['email'];
-    if ($password2 !== $password3) {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "New passwords do not match.";
-        header("Location: changepassword.php");
-        exit();
-    }
-    $hashedNewPassword = password_hash($password1, PASSWORD_DEFAULT);
-    $newPassword = md5($password3);
-    $stmt = $conn->prepare("SELECT password FROM admin_login_info WHERE email = ?");
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $stmt->bind_result($hashedCurrentPassword);
-    $stmt->fetch();
-    $stmt->close();
-    $stmt = $conn->prepare("UPDATE admin_login_info SET password = ? WHERE email = ?");
-    $stmt->bind_param('ss', $newPassword, $email);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " changed his/her password";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Password Updated Successfully";
-        header("Location: changepassword.php");
+    $select_query = mysqli_query($conn, "SELECT * FROM admin_login_info WHERE email='$email' AND password = '$password1'");
+    $result = mysqli_num_rows($select_query);
+    if ($result > 0) {
+        if ($password2 !== $password3) {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "New passwords do not match.";
+            exit();
+        }
+        $newPassword = md5($password3);
+        $stmt = $conn->prepare("UPDATE admin_login_info SET password = ? WHERE email = ?");
+        $stmt->bind_param('ss', $newPassword, $email);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " changed his/her password";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Password Updated Successfully";
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error updating password. Please try again.";
+        }
     } else {
         $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error updating password. Please try again.";
-        header("Location: changepassword.php");
+        $_SESSION['status'] = "Incorrect password, Please try again.";
     }
     $stmt->close();
 }

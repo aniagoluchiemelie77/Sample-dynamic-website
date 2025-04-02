@@ -86,8 +86,11 @@ require ("../connect.php");
                             $total_posts += $row['count'];
                             $stmt->close();
                         }
-                        echo"<div class='about_section_topicsdiv_subdiv'>
-                                <img src='../../$img' alt='Topic Image'/>
+                    echo "<div class='about_section_topicsdiv_subdiv'>";
+                    if (!empty($img)) {
+                        echo "<img src='../../$img' alt='article image'>";
+                    }
+                    echo "
                                 <div class='about_section_topicsdiv_subdiv_subdiv'>
                                     <h1><span>$readableString</h1>
                                     <p>Total Number of Posts for this Category: <span>$total_posts</span></p>

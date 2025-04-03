@@ -40,7 +40,7 @@
                     </a>
                 ";
             }
-            echo "<a href='pages/news.php' class='mainheader__signupbtn'>See More News</a>
-            </div>";
-        }
+        //echo "<a href='pages/news.php' class='mainheader__signupbtn'>See More News</a>
+        //</div>";
+    }
     ?>

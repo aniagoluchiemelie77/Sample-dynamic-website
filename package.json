@@ -9,7 +9,6 @@
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
   }
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

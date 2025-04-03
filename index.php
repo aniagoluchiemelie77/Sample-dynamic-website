@@ -82,59 +82,9 @@ if (isset($_POST['accept_cookies'])) {
             </form>
         </div>
     <?php endif; ?>
-    <div class="header__menu-sidebar hidden" id="sidebar">
-        <div class="header__menu-sidebar-div1a sidebar-input">
-            <a class="sidebarbtn">
-                <i class="fa fa-times popup_close1" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="header__menu-sidebar-div1 border-gradient-top-dark">
-            <div class="sidebar__logobox">
-                <img src="images\chibs.jpg" alt="companylogo">
-            </div>
-            <div class="header__menu-sidebar-div1-subdiv2">
-                <h1 class="sidebar__col-header">More</h1>
-                <a href="pages\aboutus.php" class="sidebar__links">About Us</a>
-                <a href="#" class="sidebar__links">Pitch to Us</a>
-                <a href="pages/advertisewithus.php">Advertise with Us</a>
-                <a href="pages/sharenewstips.php">Share News tip</a>
-                <a href="pages/ourterms.php">Terms of Service</a>
-                <a href="pages/workwithus.php">Work With Us</a>
-            </div>
-            <div class="header__menu-sidebar-div1-subdiv3">
-                <h1 class="sidebar__col-header">Sources</h1>
-                <a href="pages/pressreleases.php" class="sidebar__links">Press Releases</a>
-                <a href="pages/commentaries.php" class="sidebar__links">Commentaries</a>
-                <a href="pages/news.php" class="sidebar__links">News</a>
-                <a href="#" class="sidebar__links">White Papers</a>
-                <a href="#" class="sidebar__links">Videoscripts</a>
-                <a href="#" class="sidebar__links">Ebooks</a>
-            </div>
-        </div>
-        <div class="header__menu-sidebar-div2 border-gradient-top-dark">
-            <p class="paragraph">&copy; Aniagolu Chiemelie 2024. All rights reserved</p>
-            <div class="header__menu-sidebar-div2-subdiv1">
-                <h1 class="sidebar__col-header">Follow Us</h1>
-                <div class="header__menu-sidebar-div2-subdiv1-subdiv">
-                    <a class="sidebar__links" href="#">
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </a>
-                    <a class="sidebar__links" href="#">
-                        <i class="fab fa-linkedin" aria-hidden="true"></i>
-                    </a>
-                    <a class="sidebar__links" href="#">
-                        <i class="fab fa-facebook" aria-hidden="true"></i>
-                    </a>
-                    <a class="sidebar__links" href="#">
-                        <i class="fa fa-rss" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
     <section class="section1">
         <?php
-                                    $selectpaidposts = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM paid_posts ORDER BY date DESC LIMIT 4";
+        $selectpaidposts = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM paid_posts ORDER BY date DESC LIMIT 4";
         $paidpostselection_result = $conn->query($selectpaidposts);
         if ($paidpostselection_result->num_rows > 0) {
             $counter = 0;
@@ -187,7 +137,7 @@ if (isset($_POST['accept_cookies'])) {
                 <h1>Latest Articles</h1>
             </div>
             <?php
-                                    $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM posts ORDER BY id DESC LIMIT 30";
+            $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM posts ORDER BY id DESC LIMIT 30";
             $selectposts_result = $conn->query($selectposts_sql);
             $author_firstname = "";
             $author_lastname = "";
@@ -227,7 +177,7 @@ if (isset($_POST['accept_cookies'])) {
                             $author_image = $admin['image'];
                             $id_type = "Admin";
                             $author_bio = $admin['bio'];
-                            $role = "Editor-in-chief Uniquetechcontentwriter.com";
+                            $role = "Editor-in-chief";
                         }
                     } elseif (!empty($row['editor_id'])) {
                         $editor_id = $row['editor_id'];
@@ -240,7 +190,7 @@ if (isset($_POST['accept_cookies'])) {
                             $author_lastname = $editor['lastname'];
                             $author_bio = $editor['bio'];
                             $id_type = "Editor";
-                            $role = 'Editor At Uniquetechcontentwriter.com';
+                            $role = 'Editor at uniquetechcontentwriter.com';
                         }
                     } else {
                         $author_firstname = $row['authors_firstname'];
@@ -275,16 +225,12 @@ if (isset($_POST['accept_cookies'])) {
                 }
             }
             ?>
-            <button class="section2__div1__link mainheader__signupbtn" id="change-variable">Load more</button>
+            <!--<button class="section2__div1__link mainheader__signupbtn" id="change-variable">Load more</button>-->
         </div>
         <div class="body_right border-gradient-leftside--lightdark">
             <?php include('helpers/emailsubscribeform.php'); ?>
             <?php include('helpers/newsdiv.php'); ?>
             <?php include('helpers/commentariesdiv.php'); ?>
-            <?php include('helpers/searchcategories.php'); ?>
-            <?php include('helpers/whitepapersdiv.php'); ?>
-            <?php include('helpers/ebooksdiv.php'); ?>
-            <?php include('helpers/videoscripts.php'); ?>
         </div>
     </section>
     <section class="section3">

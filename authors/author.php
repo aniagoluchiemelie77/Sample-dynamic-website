@@ -114,7 +114,7 @@ if (isset($_POST['submit_btn'])) {
                 $author_lastname = $author['lastname'];
                 $author_bio = $author['bio'];
                 $author_image = $author['image'];
-                $role = "Editor-in-chief Uniquetechcontentwriter";
+                $role = "Editor-in-chief";
                 echo "<section class='authordiv_container'>";
                 if (!empty($author_image)) {
                     echo "<img src='../$author_image' alt='article image'>";

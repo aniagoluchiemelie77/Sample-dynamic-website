@@ -56,7 +56,7 @@ $selectcommentaries = "SELECT id, content, admin_id, editor_id, authors_firstnam
             </a>
             ";
         }
-        echo"<a href='pages/commentaries.php' class='mainheader__signupbtn'>See More Commentaries</a>
-                </div>";
-    }
+    //echo"<a href='pages/commentaries.php' class='mainheader__signupbtn'>See More Commentaries</a>
+    // </div>";
+}
 ?>

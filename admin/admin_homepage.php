@@ -1011,9 +1011,9 @@ include("init.php");
                         </a>
                     </div>
                     <div class="pages_container_subdiv ">
-                        <a class='pages_container_subdiv-links' href="pages\changepassword.php">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                            <p>Change Password</p>
+                        <a class='pages_container_subdiv-links' href="pages\create_metatitles.php">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <p>Manage Meta Tiles</p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv ">

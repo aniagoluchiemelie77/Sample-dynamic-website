@@ -10,3 +10,8 @@ if (file_exists($translationFile)) {
 } else {
     $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
+
+$timezone = $_SESSION['timezone'] ?? 'UTC'; // Retrieve from session or use default
+date_default_timezone_set($timezone);
+
+?>

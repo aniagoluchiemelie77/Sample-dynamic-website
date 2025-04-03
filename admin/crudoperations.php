@@ -1,6 +1,7 @@
 <?php
     require("connect.php");
-    function logUpdate($conn, $forUser, $action) {
+function logUpdate($conn, $forUser, $action)
+{
     global $conn;
         date_default_timezone_set('UTC');
         $date = date('Y-m-d');
@@ -34,4 +35,17 @@
         $stmt->close();
         $conn->close();
     }
+function encryptPassword($password, $encryptionKey)
+{
+    $cipher = "AES-128-CBC"; // Encryption method
+    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)); // Generate a random IV
+    $encryptedPassword = openssl_encrypt($password, $cipher, $encryptionKey, 0, $iv);
+    return base64_encode($iv . "::" . $encryptedPassword); // Combine IV and encrypted password
+}
+function decryptPassword($encryptedData, $encryptionKey)
+{
+    $cipher = "AES-128-CBC";
+    list($iv, $encryptedPassword) = explode("::", base64_decode($encryptedData), 2); // Split IV and encrypted data
+    return openssl_decrypt($encryptedPassword, $cipher, $encryptionKey, 0, $iv);
+}
 ?>

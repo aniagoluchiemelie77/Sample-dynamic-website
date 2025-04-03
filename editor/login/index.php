@@ -1,15 +1,20 @@
 <?php
-require ("../connect.php");
+require("../connect.php");
+$admin_email = "";
+$admin_password = "";
+$admin_email = isset($_GET['email']) ? $_GET['email'] : null;
+$admin_password = isset($_GET['password']) ? $_GET['password'] : null;
+
 if (isset($_REQUEST['Sign_In'])) {
     $email = $_REQUEST['Email'];
     $password = $_REQUEST['Password'];
-    if(isset($_REQUEST['remember'])){
+    if (isset($_REQUEST['remember'])) {
         setcookie("emailid", $_REQUEST['Email'], time() + 60 * 60);
         setcookie("passwordid", $_REQUEST['Password'], time() + 60 * 60);
     }
     $select_query = mysqli_query($conn, "SELECT * FROM editor WHERE email='$email' OR password = '$password'");
     $result = mysqli_num_rows($select_query);
-    if($result>0){
+    if ($result > 0) {
         session_start();
         $data = mysqli_fetch_array($select_query);
         $id = $data['id'];
@@ -43,23 +48,24 @@ if (isset($_REQUEST['Sign_In'])) {
         $_SESSION['country_code'] = $country_code;
         header("location: ../editor_homepage.php");
         exit();
-    }else{
+    } else {
         $msg = "Invalid Email or Password";
     }
 }
 
-if(isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])){
+if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
     $emailid = $_COOKIE['emailid'];
     $passwordid = $_COOKIE['passwordid'];
-}else{
+} else {
     $emailid = $passwordid = " ";
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="Tech News and Articles website" />
     <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
@@ -67,25 +73,28 @@ if(isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka"/>
-    <link rel="stylesheet" href="../editor.css"/>
-	<title>Editor Login</title>
+    <meta name="author" content="Aniagolu Diamaka" />
+    <link rel="stylesheet" href="../editor.css" />
+    <title>Editor Login</title>
 </head>
+
 <body>
     <section class="section1 flexcenter">
         <div class="container" id="signIn">
             <h1 class="form__title">Sign In</h1>
             <form method="post" class="form">
-                <p class="error_div"><?php if(!empty($msg)){ echo $msg;}?>
+                <p class="error_div"><?php if (!empty($msg)) {
+                                            echo $msg;
+                                        } ?>
                 </p>
                 <div class="input_group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid;?>" required/>
+                    <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid; ?><?php echo $admin_email; ?>" required />
                     <label for="Email">Email</label>
                 </div>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" name="Password" id="form_input" placeholder="Password" value="<?php echo $passwordid;?>" required/>
+                    <input type="password" name="Password" id="form_input" placeholder="Password" value="<?php echo $passwordid; ?><?php echo $admin_password; ?>" required />
                     <label for="Password">Password</label>
                 </div>
                 <div class="checkbox_group">
@@ -93,11 +102,12 @@ if(isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])){
                     <p>Remember me</p>
                 </div>
                 <p class="recover"><a href="forgotpassword.php">Forgot password?</a></p>
-                <input type="submit" value="Sign In" class="btn_main" name="Sign_In"/>
+                <input type="submit" value="Sign In" class="btn_main" name="Sign_In" />
             </form>
         </div>
     </section>
-    <?php require("../extras/footer.php");?>
+    <?php require("../extras/footer.php"); ?>
     <script src="../editor.js"></script>
 </body>
+
 </html>

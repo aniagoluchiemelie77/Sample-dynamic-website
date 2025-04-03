@@ -6,6 +6,8 @@ if (!isset($_SESSION['email'])) {
 };
 require("connect.php");
 include("init.php");
+        require('crudoperations.php');
+        $encryptionKey = "mySecretKey12345";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -635,7 +637,7 @@ include("init.php");
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-                        $selectthreeeditors = "SELECT id, email, image, firstname, lastname FROM editor ORDER BY id DESC LIMIT 3";
+        $selectthreeeditors = "SELECT id, email, image, firstname, lastname, password FROM editor ORDER BY id DESC LIMIT 3";
                         $selectthreeeditors_result = $conn->query($selectthreeeditors);
                         if ($selectthreeeditors_result->num_rows > 0) {
                             $sn = 0;
@@ -645,7 +647,9 @@ include("init.php");
                                 $firstname = $row['firstname'];
                                 $lastname = $row['lastname'];
                                 $email = $row['email'];
+                                $password = $row['password'];
                                 $total_posts = 0;
+                                //$password = decryptPassword($password, $encryptionKey);
                                 $tables = ['posts', 'news', 'press_releases', 'commentaries'];
                                 foreach ($tables as $table) {
                                     $sql = "SELECT COUNT(*) AS count FROM $table WHERE editor_id = ?";
@@ -667,8 +671,9 @@ include("init.php");
                                                 <p class='users_div_subdiv_p'><span>$translations[contributions]: </span>$total_posts</p>
                                                 <center>
                                                     <div class='users_delete_edit'>
-                                                        <a class='users_edit' href='edit/user.php?id=$id&usertype=Editor'><i class='fa fa-eye' aria-hidden='true'></i></a>
+                                                        <a class='users_edit' href='edit/user.php?id=$id&usertype=Editor'><i class='fa fa-pencil' aria-hidden='true'></i></a>
                                                         <a class='users_delete' onclick='confirmDeleteEditor($id)'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                                                        <a class='users_edit' href='../editor/login/index.php?email=$email&password=$password' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i></a>
                                                     </div>
                                                 </center>
                                             </div>

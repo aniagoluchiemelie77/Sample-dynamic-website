@@ -828,6 +828,7 @@ a, p, li{
 }
 .other_width{
     width: 100%;
+    text-align: center;
 }
 .sec2__susbribe-box-darker{
     padding: var(--divpadding);

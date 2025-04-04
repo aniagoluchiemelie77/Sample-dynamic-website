@@ -185,19 +185,34 @@
         $niche = $_POST['Post_Niche'];
         $post_type = $_POST['Post_status'];
         $link = $_POST['Post_featured'];
+    $image2 = $_POST['Post_Image2'];
         $schedule = $_POST['schedule'];
         $author_firstname = $_POST['author_firstname'];
         $author_lastname = $_POST['author_lastname'];
         $author_bio = $_POST['about_author'];
-        $image = $_FILES['Post_Image']['name'];
+    $image1 = $_FILES['Post_Image1']['name'];
         $target = "../images/" . basename($image);
-        if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
+    if (move_uploaded_file($_FILES['Post_Image1']['tmp_name'], $target)) {
             $imagePath = $target;
             $convertedPath = convertPath($imagePath);
+        $real_imagePath = "";
+        if (empty($image2) && !empty($image1)) {
+            $real_imagePath = $convertedPath;
+        }
+        if (!empty($image2) && empty($image1)) {
+            $real_imagePath = $image2;
+        }
+        if (empty($image2) && empty($image1)) {
+            $real_imagePath = "";
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Please ensure the post's image is selected or it's url provided and not both.";
+            header('location: create_new/posts.php');
+        }
             if( !empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)){
                 $editor_id = 0;
             }
-            savePost($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $editor_id, $author_firstname, $author_lastname, $author_bio, $post_type);
+        savePost($title, $subtitle, $real_imagePath, $content, $niche, $link, $schedule, $editor_id, $author_firstname, $author_lastname, $author_bio, $post_type);
         }
     }
     if (isset($_POST['edit_profile'])) {

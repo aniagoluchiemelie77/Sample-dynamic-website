@@ -88,11 +88,20 @@ include("../connect.php");
                     <p class="newpost_subdiv2-p leftp"><span>*</span>Enter url to video/audio (optional)</p>
                 </div>
             </div>
-            <div class="newpost_container_div6 newpost_subdiv">
-                <label class="form__label" for="Post_Image">Post Image</label>
-                <div class="newpost_subdiv2">
-                    <input class="form__input" name="Post_Image" type="file" required />
-                    <p class="newpost_subdiv2-p leftp"><span>*</span>Image should be less than 300KB</p>
+            <div class="newpost_container_div6">
+                <div class="newpost_container_div6_subdiv">
+                    <label class="form__label" for="Post_Image1">Post Image</label>
+                    <div class="newpost_subdiv2">
+                        <input class="form__input" name="Post_Image1" type="file" />
+                        <p class="newpost_subdiv2-p leftp"><span>*</span>Image should be less than 300KB</p>
+                    </div>
+                </div>
+                <p>------ or ------</p>
+                <div class="newpost_container_div6_subdiv">
+                    <label class="form__label" for="Post_Image2">Image Url:</label>
+                    <div class="newpost_container_div5_subdiv2">
+                        <input class="form__input" name="Post_Image2" type="text" placeholder="Enter Image Url..." />
+                    </div>
                 </div>
             </div>
             <div class="newpost_container_div7 newpost_subdiv">

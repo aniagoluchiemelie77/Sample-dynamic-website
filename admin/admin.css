@@ -1311,6 +1311,11 @@ a, td,span, p, label{
     padding: 1rem;
     margin-bottom: 1rem;
 }
+.newpost_container .newpost_subdivb{
+    width: 45%;
+    text-align: center;
+    padding: 1rem 0;
+}
 .newpost_container_div6_subdiv1{
     display: flex;
     width: 30%;
@@ -1446,6 +1451,23 @@ a, td,span, p, label{
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
+}
+.newpost_container_div6{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+}
+.newpost_container_div6 .newpost_container_div6_subdiv{
+    display: flex;
+    padding: var(--divpadding);
+    width: 100%;
+}
+.newpost_container_div6 p{
+    font-size: 1.5rem;
+    align-self: center;
+    padding: var(--divpadding);
 }
 .newpost_container_div5 label{
     width: 19%;

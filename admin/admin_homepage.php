@@ -6,8 +6,7 @@ if (!isset($_SESSION['email'])) {
 };
 require("connect.php");
 include("init.php");
-        require('crudoperations.php');
-        $encryptionKey = "mySecretKey12345";
+require('crudoperations.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -649,7 +648,7 @@ include("init.php");
                                 $email = $row['email'];
                                 $password = $row['password'];
                                 $total_posts = 0;
-                                //$password = decryptPassword($password, $encryptionKey);
+                                $password = decryptPassword($password);
                                 $tables = ['posts', 'news', 'press_releases', 'commentaries'];
                                 foreach ($tables as $table) {
                                     $sql = "SELECT COUNT(*) AS count FROM $table WHERE editor_id = ?";

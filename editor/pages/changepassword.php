@@ -9,14 +9,21 @@ if (isset($_POST['change_pwd'])) {
     $password2 = $_POST['password2'];
     $password3 = $_POST['password3'];
     $email = $_SESSION['email'];
-    $select_query = mysqli_query($conn, "SELECT * FROM editor WHERE email='$email' AND password = '$password1'");
-    $result = mysqli_num_rows($select_query);
-    if ($result > 0) {
+    $sql_editor = "SELECT * FROM editor WHERE email='$email'";
+    $result_editor = $conn->query($sql_editor);
+    if ($result_editor->num_rows > 0) {
+        $editor = $result_editor->fetch_assoc();
+        $old_password = $editor['password'];
+        $decrypted_password = decryptPassword($old_password);
+        if ($decrypted_password !== $password1) {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Incorrect old password, Please try again.";
+        }
         if ($password2 !== $password3) {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "New passwords do not match.";
         }
-        $newPassword = md5($password3);
+        $newPassword = encryptPassword($password3);
         $stmt = $conn->prepare("UPDATE editor SET password = ? WHERE email = ?");
         $stmt->bind_param('ss', $newPassword, $email);
         if ($stmt->execute()) {
@@ -31,7 +38,7 @@ if (isset($_POST['change_pwd'])) {
         }
     } else {
         $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Incorrect password, Please try again.";
+        $_SESSION['status'] = "Editor not found.";
     }
     $stmt->close();
 }

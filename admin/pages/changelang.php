@@ -16,14 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_lng'])) {
         $_SESSION['status'] = "Language changed successfully.";
     }
 }
-$userId = $_SESSION['id']; 
-$result = $conn->query("SELECT language FROM admin_login_info WHERE id = $userId");
-$language = $result->fetch_assoc()['language'] ?? 'en';
-$translationFile = "../translation_files/lang/{$language}.php";
+        $stmt = $conn->prepare("SELECT language FROM admin_login_info WHERE id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result && $result->num_rows > 0) {
+            $language = $result->fetch_assoc()['language'] ?? 'en';
+        } else {
+            $language = 'en'; // Default language fallback
+        }
+        $translationFile = "translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {
-    die("Translation file not found!");
+    $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
 
 ?>

@@ -49,16 +49,16 @@
             <div class="header__menu-sidebar-div2-subdiv1">
                 <h1 class="sidebar__col-header">Follow Us</h1>
                 <div class="header__menu-sidebar-div2-subdiv1-subdiv">
-                    <a class="sidebar__links follow_btns ">
+                    <a class="sidebar__links follow_btns" href="#">
                         <i class="fa-brands fa-x-twitter"></i>
                     </a>
-                    <a class="sidebar__links follow_btns ">
+                    <a class="sidebar__links follow_btns" href="#">
                         <i class="fab fa-linkedin" aria-hidden="true"></i>
                     </a>
-                    <a class="sidebar__links follow_btns">
+                    <a class="sidebar__links follow_btns" href="#">
                         <i class="fab fa-facebook" aria-hidden="true"></i>
                     </a>
-                    <a class="sidebar__links follow_btns">
+                    <a class="sidebar__links follow_btns" href="#">
                         <i class="fa fa-rss" aria-hidden="true"></i>
                     </a>
                 </div>

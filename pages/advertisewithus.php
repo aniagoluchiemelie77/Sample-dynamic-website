@@ -16,6 +16,7 @@ require("../connect.php");
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie" />
     <link rel="stylesheet" href="../index.css" />
+    <script src="../index.js" defer></script>
     <title>Advertise With Us</title>
 </head>
 
@@ -50,7 +51,30 @@ require("../connect.php");
         </div>
     </div>
     <?php include("../includes/footer2.php"); ?>
-    <script src="../index.js"></script>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const menubtn = document.getElementById('searchicon');
+        const closeMenuBtn = document.querySelector('.sidebarbtn');
+
+        function onClickOutside(element) {
+            document.addEventListener('click', e => {
+                if (!element.contains(e.target)) {
+                    element.classList.add('hidden');
+                } else return;
+            });
+        };
+
+        function removeHiddenClass(e) {
+            e.stopPropagation();
+            sidebar.classList.remove('hidden');
+        };
+        onClickOutside(sidebar);
+        menubtn.addEventListener('click', removeHiddenClass);
+        closeMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('hidden');
+        });
+    </script>
 </body>
 
 </html>

@@ -397,7 +397,7 @@ a, p, li{
 .header__menu-sidebar .header__menu-sidebar-div1 {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     width: 100%;
     padding: var(--divpadding);
     align-items: center;
@@ -426,6 +426,10 @@ a, p, li{
     color: var(--color10);
 }
 .header__menu-sidebar-div1a .sidebarbtn i{
+    color: var(--color60);
+    font-size: 2rem;
+}
+.header__menu-sidebar-div1 .sidebarbtn i{
     color: var(--color60);
     font-size: 2rem;
 }

@@ -40,6 +40,14 @@
         }
     }
     foreach ($results as $result) {
+    if (!function_exists('calculateReadingTime')) {
+        function calculateReadingTime($content)
+        {
+            $wordCount = str_word_count(strip_tags($content));
+            $minutes = floor($wordCount / 200);
+            return $minutes  . ' mins read ';
+        }
+    }
         if (!function_exists('getOrdinalSuffix')) {
             function getOrdinalSuffix($day) {
                 if (!in_array(($day % 100), [11, 12, 13])) {

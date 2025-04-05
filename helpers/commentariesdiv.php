@@ -14,7 +14,7 @@ $selectcommentaries = "SELECT id, content, admin_id, editor_id, authors_firstnam
                         <h2>Latest Commentaries</h2>
                     </div>";
         while($row = $selectcommentaries_result->fetch_assoc()) {
-            $max_length = 60;
+        $max_length = 40;
             $max_length2 = 60;
             $id = $row["id"];
             $title = $row["title"];

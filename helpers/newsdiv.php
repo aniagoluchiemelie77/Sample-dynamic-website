@@ -16,7 +16,7 @@
                     </div>
                 ";
             while($row = $selectnews_result->fetch_assoc()) {
-                $max_length = 150;
+            $max_length = 40;
                 $id = $row["id"];
                 $title = $row["title"];
                 $niche = $row["niche"];

@@ -356,6 +356,9 @@ a, p, li{
     align-items: center;
     min-height: fit-content;
 }
+.body_left center{
+    width: 100%;
+}
 .body_right{
     width: 25%;
     display: flex;
@@ -563,7 +566,7 @@ a, p, li{
     grid-area: 1 / 1 / -1 / 2;
 }
 .larger__div img {
-    height: 58vh;
+    height: 66vh;
     width: 100%;
 }
 .smallerdivs{
@@ -1313,6 +1316,7 @@ a, p, li{
     display: flex;
     border: 1px solid #2222222a;
     cursor: pointer;
+    align-items: center;
     flex-wrap: nowrap;
 }
 .aboutauthor_div .aboutauthor_div_subdiv1{
@@ -1352,7 +1356,8 @@ a, p, li{
     display: flex;
     width: calc(100% - 13rem);
     flex-direction: column;
-    align-items: center;
+    margin-left: 2rem;
+    align-items: flex-start;
 }
 .p--bold{
     font-weight: var(--spanfontweight);
@@ -1496,6 +1501,7 @@ a, p, li{
     position: absolute;
     top: 1rem;
     left: 1rem;
+    right: 1rem;
     padding: var(--divpadding);
     text-transform: uppercase;
     background-color: rgba(0,0,0,.6);
@@ -2480,17 +2486,21 @@ a, p, li{
         align-items: center;
         flex-wrap: wrap;
     }
-    .section2 div .normal-divs div p{
+    .section2 div .normal-divs div p span{
         width: calc(100% - 6.2rem);
+        font-size: 1.3rem;
+    }
+    .section2 div .normal-divs div .phonewidth_block{
+        display: block;
     }
     .normal-divs__releasedate{
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
     .specified_width{
         width: 35vw;
     }
     .other_width{
-        width: 80%;
+        display: none;
     }
     .sec2__susbribe-box-darker{
         width: 60vw;
@@ -2519,14 +2529,26 @@ a, p, li{
         font-size: var(--header-h7);
     }
     .section3 a div p{
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+    }
+    .footer .footer__div1 .footer_div1_logobox{
+        display: none;
+    }
+    .footer .footer__div1 form{
+        width: 90%;
+        align-self: center;
+    }
+    .footer .footer__div1 form .sec2__susbribe-box-darker{
+        width: 100%;
+        padding: var(--divpadding);
     }
     .footer .footer__newpagelinks{
         flex-wrap: wrap;
         width: 100%;
+        padding: 1rem 0;
     }
     .footer .footer__newpagelinks a{
-        font-size: var(--pfontsize);
+        font-size: 1.3rem;
         padding: var(--divpadding);
     }
     .footer .footer__div3{
@@ -2578,7 +2600,11 @@ a, p, li{
         width: 90%;
     }
     .socialmedia_links{
-        width: 95%;
+        width: 90%;
+        flex-wrap: wrap;
+    }
+    .socialmedia_links a{
+        margin: 1rem;
     }
     .aboutauthor_div{
         width: 90%;
@@ -2592,6 +2618,8 @@ a, p, li{
     .aboutauthor_div .aboutauthor_div_subdiv2{
         display: flex;
         width: 100%;
+        margin-left: 0;
+        text-align: center;
     }
     .p--bold{
         font-weight: var(--spanfontweight);
@@ -2605,15 +2633,15 @@ a, p, li{
         max-width: 100%;
     }
     .more_posts{
-        overflow: scroll;
-        flex-wrap: nowrap;
-        width: 100vw;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
         padding: 1rem;
     }
     .more_posts a{
-        height: 60svh;
-        margin: 0;
-        width: 25rem;
+        height: 47svh;
+        margin: 1rem 0;
+        width: 90%;
     }
     .more_posts a img{
         height: 60%;
@@ -2623,11 +2651,11 @@ a, p, li{
         padding: 0 1rem;
     }
     .more_posts a div h1{
-        font-size: var(--header-h7);
+        font-size: 1.5rem;
         margin: 1rem 0;
     }
     .more_posts a div span{
-        font-size: var(--pfontsize);
+        font-size: 1.3rem;
         color: #222222a0;
     }
     .body_right .bodyleft_header3{
@@ -2635,7 +2663,7 @@ a, p, li{
     }
     .posts_div{
         width: 80%;
-        height: 60svh;
+        height: 50svh;
     }
     .posts_div img{
         height: 50%;
@@ -2679,17 +2707,17 @@ a, p, li{
         font-size: var(--pfontsize);
     }
     .posts_div h1{
-        font-size: var(--header-h7);
+        font-size: 1.6rem;
     }
-    .posts_div_otherp{
-        font-size: var(--pfontsize);
+    .posts_div_otherp span{
+        font-size: 1.4rem;
     }
     .posts_div_subdiv{
         padding: 0 1rem;
     }
     .posts_div_subdiv p{
         width: 100%;
-        font-size: var(--pfontsize);
+        font-size: 1.3rem;
         padding: 1rem 0;
     }
 

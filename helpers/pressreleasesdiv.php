@@ -18,7 +18,7 @@
             ";
 
             while($row = $selectpressreleases_result->fetch_assoc()) {
-                $max_length = 60;
+            $max_length = 40;
                 $id = $row["id"];
                 $title = $row["title"];
                 $niche = $row["niche"];
@@ -31,9 +31,7 @@
                 }
                 $readingTime = calculateReadingTime($row['content']);
                 echo "<a class='section3__div2__article1' href='pages/view_post.php?id5=$id'>";
-                if (!empty($image)) {
-                    echo "<img src='$image' alt='article image'>";
-                }
+            echo "<img src='images/Pressreleasesimg.png' alt='article image'>";
                 echo   "<div class='section3__subdiv'>
                             <h1 class='section3__subdiv-h1'>$niche</h1>
                             <h2 class='section3__subdiv-h2'>$title</h2>

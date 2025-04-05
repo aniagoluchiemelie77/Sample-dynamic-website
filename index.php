@@ -219,7 +219,7 @@ if (isset($_POST['accept_cookies'])) {
                                     </a>
                                     <div class='normal-divs__subdiv2'>
                                         <img src='$author_image' alt='article image'>
-                                        <p class='normal-divs__subdiv2__p'>By <span>$author_firstname $author_lastname, </span><span>$role</span></p>
+                                        <p class='normal-divs__subdiv2__p'>By <span>$author_firstname $author_lastname, </span><span class='phonewidth_block'>$role</span></p>
                                     </div>
                             </div>";
                 }

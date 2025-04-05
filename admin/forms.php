@@ -31,7 +31,7 @@ function savePost($title, $subtitle, $convertedPath, $content, $niche, $link, $s
     $is_favourite = 0;
     $sql = "INSERT INTO $post_type (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     if ($query = $conn->prepare($sql)) {
-        $query->bind_param("sssssssisssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+        $query->bind_param("issssssisssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
         if ($query->execute()) {
             $content = "Admin " . $_SESSION['firstname'] . " added a new post (" . $post_type . ")";
             $forUser = 1;
@@ -271,15 +271,30 @@ if (isset($_POST['create_post'])) {
     $author_firstname = $_POST['author_firstname'];
     $author_lastname = $_POST['author_lastname'];
     $author_bio = $_POST['about_author'];
-    $image = $_FILES['Post_Image']['name'];
+    $image2 = $_POST['Post_Image2'];
+    $image1 = $_FILES['Post_Image1']['name'];
     $target = "../images/" . basename($image);
-    if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
+    if (move_uploaded_file($_FILES['Post_Image1']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
+        $real_imagePath = "";
+        if (empty($image2) && !empty($image1)) {
+            $real_imagePath = $convertedPath;
+        }
+        if (!empty($image2) && empty($image1)) {
+            $real_imagePath = $image2;
+        }
+        if (empty($image2) && empty($image1)) {
+            $real_imagePath = "";
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Please ensure the post's image is selected or it's url provided and not both.";
+            header('location: create_new/posts.php');
+        }
         if (!empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)) {
             $admin_id = '';
         }
-        savePost($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type);
+        savePost($title, $subtitle, $real_imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type);
     }
 }
 if (isset($_POST['edit_profile'])) {
@@ -471,7 +486,7 @@ if (isset($_POST['contactus_editbtn'])) {
     $tablename = "contact_us";
     updatePages($content, $tablename);
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profilePicture'])) {
+if (isset($_FILES['profilePicture'])) {
     $targetDir = "../images/";
     $targetFile = $targetDir . basename($_FILES['profilePicture']['name']);
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));

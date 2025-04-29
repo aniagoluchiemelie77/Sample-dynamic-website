@@ -39,6 +39,7 @@ function createcategory($filename, $content, $description)
 }
 function encryptPassword($password)
 {
+    $iv = openssl_random_pseudo_bytes(16); // Ensures it's 16 bytes
     $encryptionKey = "mySecretKey12345";
     $cipher = "AES-128-CBC"; // Encryption method
     $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)); // Generate a random IV
@@ -47,9 +48,10 @@ function encryptPassword($password)
 }
 function decryptPassword($encryptedData)
 {
+    $iv = openssl_random_pseudo_bytes(16);
     $encryptionKey = "mySecretKey12345";
     $cipher = "AES-128-CBC";
-    list($iv, $encryptedPassword) = explode("::", base64_decode($encryptedData), 2); // Split IV and encrypted data
-    return openssl_decrypt($encryptedPassword, $cipher, $encryptionKey, 0, $iv);
+    list($iv, $encryptedData) = explode("::", base64_decode($encryptedData), 2); // Split IV and encrypted data
+    return openssl_decrypt($encryptedData, $cipher, $encryptionKey, 0, $iv);
 }
 ?>

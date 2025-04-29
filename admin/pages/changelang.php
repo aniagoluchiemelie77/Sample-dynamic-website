@@ -4,13 +4,12 @@ include("../connect.php");
 include("../crudoperations.php");
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
-$language = $_SESSION['language'] ?? 'en';
+$userId = $_SESSION['id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_lng'])) {
     $language = $_POST['language'];
-    $userId = $_SESSION['id'];
     $stmt = $conn->prepare("UPDATE admin_login_info SET language = ? WHERE id = ?");
     $stmt->bind_param("si", $language, $userId);
-    if($stmt->execute()){
+    if ($stmt->execute()) {
         $_SESSION['language'] = $language;
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Language changed successfully.";

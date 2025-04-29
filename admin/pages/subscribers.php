@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../connect.php");
+require("../init.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,7 @@ include("../connect.php");
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../admin.js" defer></script>
-    <title>Email Subscribers</title>
+    <title><?php echo $translations['subscribers']; ?></title>
 </head>
 
 <body>
@@ -28,7 +29,7 @@ include("../connect.php");
     <section class="middle_centering">
         <div class="posts width80">
             <div class="page_links">
-                <a href="../admin_homepage.php">Home</a> > <p>Subscribers</p>
+                <a href="../admin_homepage.php">Home</a> > <p><?php echo $translations['welcome']; ?></p>
             </div>
             <div class="posts_div2 postsdiv2">
                 <div class="posts_header">

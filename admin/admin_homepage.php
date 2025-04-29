@@ -3,10 +3,11 @@ session_start();
 session_regenerate_id();
 if (!isset($_SESSION['email'])) {
     header("Location: login/index.php");
-};
+}
 require("connect.php");
 include("init.php");
 require('crudoperations.php');
+$encryptionKey = "mySecretKey12345";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -648,7 +649,7 @@ require('crudoperations.php');
                                 $email = $row['email'];
                                 $password = $row['password'];
                                 $total_posts = 0;
-                                $password = decryptPassword($password);
+                                // $password = decryptPassword($password);
                                 $tables = ['posts', 'news', 'press_releases', 'commentaries'];
                                 foreach ($tables as $table) {
                                     $sql = "SELECT COUNT(*) AS count FROM $table WHERE editor_id = ?";

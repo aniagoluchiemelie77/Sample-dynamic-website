@@ -79,5 +79,11 @@ $translations = [
     'logout_alert' => 'Êtes-vous sûr de vouloir vous déconnecter',
     'logout_alert_affirm' => 'Oui',
     'logout_alert_decline' => 'Non',
+    'home' => 'Accueil',
+    'time' => 'Heure',
+    'email_subscribers' => 'Abonnés par e-mail',
+    'newsletter_signups' => 'Inscriptions à la newsletter',
+    'company_name' => "Nom de l\'entreprise",
+    'job_title' => 'Titre du poste',
 ];
 ?>

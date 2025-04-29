@@ -1,6 +1,13 @@
 <?php
 session_start();
 include("../connect.php");
+require("../init.php");
+$translationFile = "../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
+    include $translationFile;
+} else {
+    $translations = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +27,7 @@ include("../connect.php");
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../admin.js" defer></script>
-    <title>Newsletter Signups</title>
+    <title><?php echo $translations['newsletter_signups']; ?></title>
 </head>
 
 <body>
@@ -28,11 +35,11 @@ include("../connect.php");
     <section class="middle_centering">
         <div class="posts width80">
             <div class="page_links">
-                <a href="../admin_homepage.php">Home</a> > <p>Newsletter Signups</p>
+                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['newsletter_signups']; ?></p>
             </div>
             <div class="posts_div2 postsdiv2">
                 <div class="posts_header">
-                    <h1>Newsletter Signups</h1>
+                    <h1><?php echo $translations['newsletter_signups']; ?></h1>
                 </div>
                 <div class="posts_divcontainer border-gradient-side-dark">
                     <?php
@@ -49,13 +56,13 @@ include("../connect.php");
                                                 <div class='subscribers_subdiv'>
                                                     <i class='fa fa-user-circle' aria-hidden='true'></i>
                                                     <div class='posts_delete_edit'>
-                                                        <p><span>Firstname: </span> " . $row['firstname'] . "</p>
-                                                        <p><span>Lastname: </span> " . $row['lastname'] . "</p>
-                                                        <p><span>Email: </span> " . $row['email'] . "</p>
-                                                        <p><span>Company Name: </span> " . $row['company_name'] . "</p>
-                                                        <p><span>Job Title: </span> " . $row['job_title'] . "</p>
-                                                        <p><span>Date: </span> " . $row['formatted_date'] . "</p>
-                                                        <p><span>Time: </span> " . $formatted_time . "</p>
+                                                        <p><span>$translations[firstname]: </span> " . $row['firstname'] . "</p>
+                                                        <p><span>$translations[lastname]: </span> " . $row['lastname'] . "</p>
+                                                        <p><span>$translations[email]: </span> " . $row['email'] . "</p>
+                                                        <p><span>$translations[company_name]: </span> " . $row['company_name'] . "</p>
+                                                        <p><span>$translations[job_title]: </span> " . $row['job_title'] . "</p>
+                                                        <p><span>$translations[date]: </span> " . $row['formatted_date'] . "</p>
+                                                        <p><span>$translations[time]: </span> " . $formatted_time . "</p>
                                                     </div>
                                                 </div>
                                                 <a class='users_delete' onclick='confirmDeleteNewslSubscriber(" . $row['id'] . ")'>

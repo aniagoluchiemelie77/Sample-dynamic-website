@@ -78,5 +78,12 @@ $translations = [
     'logout_alert' => 'Are you sure you want to logout',
     'logout_alert_affirm' => 'Yes',
     'logout_alert_decline' => 'No',
+    'home' => 'Home',
+    'time' => 'Time',
+    'email_subscribers' => 'Email Subscribers',
+    'newsletter_signups' => 'Newsletter Signups',
+    'company_name' => 'Company Name',
+    'job_title' => 'Job Title',
+    'newsletter_signups' => 'Newsletter Signups',
 ];
 ?>

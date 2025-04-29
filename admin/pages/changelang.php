@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_lng'])) {
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result && $result->num_rows > 0) {
-            $language = $result->fetch_assoc()['language'] ?? 'en';
+    $language = $result->fetch_assoc()['language'];
         } else {
             $language = 'en'; // Default language fallback
         }

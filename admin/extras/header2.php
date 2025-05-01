@@ -5,7 +5,7 @@
         </a>
     </div>
     <form class="header_searchbar" action="script.php" method="get">
-        <input type="text" name="search" placeholder="Search.." />
+        <input type="text" name="search" placeholder="<?php echo $translations['search']; ?>.." />
         <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
     </form>
     <div class="header_logobox">

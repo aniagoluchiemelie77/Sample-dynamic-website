@@ -150,5 +150,15 @@ $translations = [
     'view_writers' => "View Writers",
     'nationality' => "Nationality",
     'promote_message' => "Promote to Editor",
+    'view_paid_posts' => "View Paid Posts",
+    'date_created' => "Date Created",
+    'categories_p' => "Total Number of Posts for this Category",
+    'create_category' => "Create Category",
+    'category_name' => "Category Name",
+    'category_description' => "Short Description",
+    'category_image' => "Category Image",
+    'save' => "Save",
+    'search' => "Search",
+    'edit' => "Edit",
 ];
 ?>

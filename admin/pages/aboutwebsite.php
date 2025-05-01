@@ -54,7 +54,7 @@ if (file_exists($translationFile)) {
         </button>
         <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv1">
             <textarea class="about_editdiv-input" name="about_website" id="myTextarea6"></textarea>
-            <input type="submit" value="Update" name="edit_aboutwebsite_btn" />
+            <input type="submit" value="<?php echo $translations['save']; ?>" name="edit_aboutwebsite_btn" />
         </form>
     </section>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>

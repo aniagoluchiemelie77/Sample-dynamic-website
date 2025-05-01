@@ -160,5 +160,9 @@ $translations = [
     'save' => "Enregistrer",
     'search' => "Rechercher",
     'edit' => "Modifier",
+    'customise_frontend' => "Personnaliser le frontend",
+    'actions' => "Actions",
+    'change_theme' => "Changer de thème",
+    'customise_frontend_p' => "Personnaliser l'interface (Logo, messages de consentement aux cookies...)",
 ];
 ?>

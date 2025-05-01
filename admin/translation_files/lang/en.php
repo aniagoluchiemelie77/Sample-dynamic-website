@@ -145,5 +145,10 @@ $translations = [
     'country_code' => "Country Code",
     'mobile' => "Mobile Number",
     'update' => "Update",
+    'user_activities' => "User Activities",
+    'view_editors' => "View Editors",
+    'view_writers' => "View Writers",
+    'nationality' => "Nationality",
+    'promote_message' => "Promote to Editor",
 ];
 ?>

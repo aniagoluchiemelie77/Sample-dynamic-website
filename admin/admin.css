@@ -1044,9 +1044,14 @@ a, td,span, p, label{
     align-items: center;
  }
  .posts_divcontainer_subdiv .posts_delete_edit .btn{
-    color: var(--color60);
+    color: var(--color30);
+    border: 1px solid var(--color30);
     cursor: pointer;
-    border: none;
+ }
+ .posts_divcontainer_subdiv .posts_delete_edit .btn:hover{
+    background-color: var(--color10);
+    color: var(--color60);
+    border: 1px solid var(--color60);
  }
  .posts_divcontainer_subdiv .users_delete2, .users_delete, .users_edit{
     cursor: pointer;

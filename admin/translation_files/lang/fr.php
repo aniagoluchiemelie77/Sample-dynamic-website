@@ -143,5 +143,10 @@ $translations = [
     'country_code' => "Code pays",
     'mobile' => "Numéro de mobile",
     'update' => "Mettre à jour",
+    'user_activities' => "Activités des utilisateurs",
+    'view_editors' => "Voir les éditeurs",
+    'view_writers' => "Voir les écrivains",
+    'nationality' => "Nationalité",
+    'promote_message' => "Êtes-vous sûr de vouloir promouvoir cet écrivain au statut d'éditeur ?",
 ];
 ?>

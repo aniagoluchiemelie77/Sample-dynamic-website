@@ -1,6 +1,13 @@
 <?php
 session_start();
 include("../connect.php");
+require("../init.php");
+$translationFile = "../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
+    include $translationFile;
+} else {
+    $translations = [];
+}
 include("../crudoperations.php");
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
@@ -15,21 +22,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_lng'])) {
         $_SESSION['status'] = "Language changed successfully.";
     }
 }
-        $stmt = $conn->prepare("SELECT language FROM admin_login_info WHERE id = ?");
-        $stmt->bind_param("i", $userId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result && $result->num_rows > 0) {
+$stmt = $conn->prepare("SELECT language FROM admin_login_info WHERE id = ?");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result && $result->num_rows > 0) {
     $language = $result->fetch_assoc()['language'];
-        } else {
-            $language = 'en'; // Default language fallback
-        }
-        $translationFile = "translation_files/lang/{$language}.php";
-if (file_exists($translationFile)) {
-    include $translationFile;
 } else {
-    $translations = []; // Initialize as empty array to avoid undefined variable errors
+    $language = 'en'; // Default language fallback
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +51,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Change Language</title>
+    <title><?php echo $translations['change_language']; ?></title>
 </head>
 
 <body>
@@ -57,19 +59,23 @@ if (file_exists($translationFile)) {
     <section class="newpost_body">
         <form method="POST" action="changelang.php" enctype="multipart/form-data" id="postForm" class="newpost_container">
             <div class="page_links">
-                <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <p>Change Language</p>
+                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['change_language']; ?></p>
             </div>
             <div class="newpost_container_divnew newpost_subdiv">
                 <div class='newpost_subdiv_subdiv2'>
-                    <label class="form__label" for="language">Select Language:</i></label>
+                    <label class="form__label" for="language"><?php echo $translations['select_language']; ?>:</i></label>
                     <select name="language" id="language">
                         <option value="en" <?php if ($language === 'en') echo 'selected'; ?>>English</option>
                         <option value="fr" <?php if ($language === 'fr') echo 'selected'; ?>>French</option>
                         <option value="es" <?php if ($language === 'es') echo 'selected'; ?>>Spanish</option>
+                        <option value="ger" <?php if ($language === 'ger') echo 'selected'; ?>>German</option>
+                        <option value="arb" <?php if ($language === 'arb') echo 'selected'; ?>>Arabic</option>
+                        <option value="mdn" <?php if ($language === 'mdn') echo 'selected'; ?>>Chinese</option>
+                        <option value="rsn" <?php if ($language === 'rsn') echo 'selected'; ?>>Russian</option>
                         <!-- Add more languages as needed -->
                     </select>
                 </div>
-                <input type="submit" class="btn" name="change_lng">
+                <input type="submit" class="btn" name="change_lng" value="<?php echo $translations['save']; ?>" id="submit" />
             </div>
         </form>
     </section>

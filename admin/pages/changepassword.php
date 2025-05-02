@@ -2,6 +2,13 @@
 session_start();
 include("../connect.php");
 include("../crudoperations.php");
+require("../init.php");
+$translationFile = "../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
+    include $translationFile;
+} else {
+    $translations = [];
+}
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 if (isset($_POST['change_pwd'])) {
@@ -54,7 +61,7 @@ if (isset($_POST['change_pwd'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Change Password</title>
+    <title><?php echo $translations['change_password']; ?></title>
 </head>
 
 <body>
@@ -62,31 +69,31 @@ if (isset($_POST['change_pwd'])) {
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="changepassword.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">
-                <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <p>Change Password</p>
+                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['change_password']; ?></p>
             </div>
             <div class="newpost_container_div1 newpost_subdiv">
-                <h1>Change Password</h1>
+                <h1><?php echo $translations['change_password']; ?></h1>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="password1"><i class="fas fa-lock"></i></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password1" type="password" placeholder="Enter Old Password..." required />
+                    <input class="form__input" name="password1" type="password" placeholder="<?php echo $translations['change_password1']; ?>..." required />
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="password2"><i class="fas fa-lock"></i></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password2" type="password" placeholder="Enter New Password..." required />
+                    <input class="form__input" name="password2" type="password" placeholder="<?php echo $translations['change_password2']; ?>..." required />
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="password3"><i class="fas fa-lock"></i></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password3" type="password" placeholder="Confirm New Password..." required />
+                    <input class="form__input" name="password3" type="password" placeholder="<?php echo $translations['change_password3']; ?>..." required />
                 </div>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="Update" name="change_pwd" />
+                <input class="form__submit_input" type="submit" value="<?php echo $translations['save']; ?>" name="change_pwd" />
             </div>
         </form>
     </section>

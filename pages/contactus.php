@@ -1,6 +1,10 @@
 <?php
 session_start();
 require("../connect.php");
+require('../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +19,7 @@ require("../connect.php");
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../index.css" />
     <script src="../index.js" defer></script>
+    <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <title>Contact Us</title>
 </head>
 

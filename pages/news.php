@@ -1,6 +1,10 @@
 <?php
 session_start();
 require('../connect.php');
+require('../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 require('..\admin/crudoperations.php');
 require('..\vendor\phpmailer\phpmailer\src\SMTP.php');
 require('..\vendor\phpmailer\phpmailer\src\Exception.php');
@@ -80,6 +84,7 @@ if (!function_exists('calculateReadingTime')) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie" />
     <link rel="stylesheet" href="../index.css" />
+    <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="../index.js" defer></script>
     <title>News</title>
 </head>

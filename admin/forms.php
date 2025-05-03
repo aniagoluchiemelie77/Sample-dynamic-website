@@ -70,6 +70,7 @@ function saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $admi
     }
     $stmt->close();
 }
+//Review the below function
 function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename)
 {
     global $conn;

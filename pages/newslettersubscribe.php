@@ -1,6 +1,10 @@
 <?php
 session_start();
 require('../connect.php');
+require('../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +20,7 @@ require('../connect.php');
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie" />
     <link rel="stylesheet" href="../index.css" />
+    <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <title>Newsletter Subscription</title>
 </head>
 

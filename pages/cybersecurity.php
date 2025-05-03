@@ -1,6 +1,10 @@
 <?php
 session_start();
 require('../connect.php');
+require('../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 require('..\admin/crudoperations.php');
 require('..\vendor\phpmailer\phpmailer\src\SMTP.php');
 require('..\vendor\phpmailer\phpmailer\src\Exception.php');
@@ -73,6 +77,7 @@ if (isset($_POST['submit_btn'])) {
     <meta name="author" content="Aniagolu chiemelie" />
     <link rel="stylesheet" href="../index.css" />
     <script src="../index.js" defer></script>
+    <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <title>Cybersecurity</title>
 </head>
 

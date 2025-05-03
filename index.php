@@ -1,6 +1,10 @@
 <?php
 session_start();
 require('connect.php');
+require('init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 function getDeviceType()
 {
     $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
@@ -67,6 +71,7 @@ if (isset($_POST['accept_cookies'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu chiemelie" />
     <link rel="stylesheet" href="index.css" />
+    <link rel="icon" href="<?php echo $favicon; ?>" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="index.js" async></script>
     <title>Home</title>

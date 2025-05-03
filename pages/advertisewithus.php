@@ -1,6 +1,10 @@
 <?php
 session_start();
 require("../connect.php");
+require('../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +21,7 @@ require("../connect.php");
     <meta name="author" content="Aniagolu chiemelie" />
     <link rel="stylesheet" href="../index.css" />
     <script src="../index.js" defer></script>
+    <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <title>Advertise With Us</title>
 </head>
 

@@ -1,7 +1,9 @@
 <?php
 session_start();
 require("../connect.php");
+require("../crudoperations.php");
 require("../init.php");
+$_SESSION['logo_id'] = '';
 function convertToReadable($slug)
 {
     $string = str_replace('_', ' ', $slug);
@@ -27,7 +29,8 @@ if (file_exists($translationFile)) {
 }
 function convertPath($path)
 {
-    return basename($path);
+    $cleaned = str_replace("../../", " ", $path);
+    return basename($cleaned);
 }
 function addResources($resource_type)
 {
@@ -42,6 +45,66 @@ function addResources($resource_type)
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Resource type Created Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function addLogo($imagePath1, $imagePath2)
+{
+    $id = $_SESSION['logo_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("INSERT INTO website_logo ( logo_imagepath, favicon_imagepath, Date, time) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $imagePath1, $imagePath2, $date, $time);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " added new Website Logo and Favicon";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Website Logo and Favicon Created Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function updateFavicon($imagePath2)
+{
+    $id = $_SESSION['logo_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("UPDATE website_logo SET favicon_imagepath = ?, Date = ?, time = ?  WHERE id = ?");
+    $stmt->bind_param("sssi", $imagePath2, $date, $time, $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " added new Website Favicon";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Website Favicon Created Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function updateLogo($imagePath1)
+{
+    $id = $_SESSION['logo_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("UPDATE website_logo SET logo_imagepath = ?, Date = ?, time = ?  WHERE id = ?");
+    $stmt->bind_param("sssi", $imagePath1, $date, $time, $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " added new Website Logo";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Website Logo Created Successfully";
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
@@ -71,12 +134,56 @@ if (isset($_POST['add_resource'])) {
     $resource_type = $_POST['resource_type'];
     $resource_url = $_POST['resource_url'];
     $resource_image = $_FILES['resource_image']['name'];
-    $target = "../images/" . basename($resource_image);
-    if (move_uploaded_file($_FILES['resource_image']['tmp_name'], $target)) {
-        $imagePath = $target;
+    $resource_tmp_name = $_FILES['resource_image']['tmp_name'];
+    $resource_folder = "../../images/" . $resource_image;
+    if (move_uploaded_file($resource_tmp_name, $resource_folder)) {
+        $imagePath = $resource_folder;
         $convertedPath = convertPath($imagePath);
         $resource_type = convertToUnreadable($resource_type);
         addResources($resource_type);
+    } else {
+        echo "No image uploaded.";
+    }
+}
+if (isset($_POST['change_logo'])) {
+    $website_logo = $_FILES['website_logo']['name'];
+    $logo_tmp_name = $_FILES['website_logo']['tmp_name'];
+    $website_favicon = $_FILES['website_favicon']['name'];
+    $favicon_tmp_name = $_FILES['website_favicon']['tmp_name'];
+    $resource_folder1 = "../../images/" . $website_logo;
+    $resource_folder2 = "../../images/" . $website_favicon;
+    if (!empty($website_logo) && empty($website_favicon)) {
+        if (move_uploaded_file($logo_tmp_name, $resource_folder1)) {
+            $imagePath1 = $resource_folder1;
+            $convertedPath1 = convertPath($imagePath1);
+            UpdateLogo($convertedPath1);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+        }
+    } else if (empty($website_logo) && !empty($website_favicon)) {
+        if (move_uploaded_file($favicon_tmp_name,  $resource_folder2)) {
+            $imagePath2 = $resource_folder2;
+            $convertedPath2 = convertPath($imagePath2);
+            UpdateFavicon($convertedPath2);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+        }
+    } else if (empty($website_logo) && empty($website_favicon)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "No Image File Uploaded";
+    } else {
+        if (move_uploaded_file($logo_tmp_name, $resource_folder1) && move_uploaded_file($favicon_tmp_name,  $resource_folder2)) {
+            $imagePath2 = $resource_folder2;
+            $imagePath1 = $resource_folder1;
+            $convertedPath1 = convertPath($imagePath1);
+            $convertedPath2 = convertPath($imagePath2);
+            addLogo($imagePath1, $imagePath2);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+        }
     }
 }
 if (isset($_POST['add_page'])) {
@@ -110,7 +217,7 @@ if (isset($_POST['add_page'])) {
 
 <body>
     <div class="logout_alert" id="logout_alert">
-        <form class="newpost_container" method="post" action="" id="postForm">
+        <form class="newpost_container" method="POST" action=" " id="postForm" enctype="multipart/form-data">
             <a class="logout_alert_cancel" onclick="cancelExit()">
                 <i class="fa fa-times popup_close1" aria-hidden="true"></i>
             </a>
@@ -164,42 +271,88 @@ if (isset($_POST['add_page'])) {
     </div>
     <?php require("../extras/header2.php"); ?>
     <section class="sectioneer">
-        <form class="frontend_div sectioneer_form" action="" method="POST">
+        <form class="frontend_div sectioneer_form" action=" " method="POST" enctype="multipart/form-data">
             <div class="sectioneer_form_container">
-                <div class="sectioneer_form_container_subdiv2">
-                    <h1 class="sectioneer_form_header">Edit Website Logo</h1>
-                    <div class="sectioneer_form_container_subdiv2_subdiv">
-                        <img src="#" class="" alt="Website's Logo">
-                        <a class="add_div" onclick="document.getElementById('fileInput').click();">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                            <p>Edit Logo</p>
-                        </a>
-                        <input type="file" id="fileInput" name="website_logo" style="display: none;">
-                    </div>
-                </div>
-                <div class="sectioneer_form_container_subdiv2">
-                    <h1 class="sectioneer_form_header">Edit Favicon</h1>
-                    <div class='sectioneer_form_container_subdiv2_subdiv'>
-                        <img src="#">
-                        <a class="add_div" onclick="document.getElementById('fileInput2').click();">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                            <p>Edit Favicon</p>
-                        </a>
-                        <input type="file" id="fileInput2" name="website_favicon" style="display: none;">
-                    </div>
-                </div>
+                <?php
+                $selectwebsite_logo = "SELECT id, logo_imagepath, favicon_imagepath FROM website_logo ORDER BY id DESC LIMIT 1";
+                $selectwebsite_logo_result = $conn->query($selectwebsite_logo);
+                if ($selectwebsite_logo_result->num_rows > 0) {
+                    while ($row = $selectwebsite_logo_result->fetch_assoc()) {
+                        $logo_image = $row['logo_imagepath'];
+                        $favicon_image = $row['favicon_imagepath'];
+                        $_SESSION['logo_id'] = $row['id'];
+                        echo "  <div class='sectioneer_form_container_subdiv2'>
+                                            <h1 class='sectioneer_form_header'>Edit Website Logo</h1>
+                                            <div class='sectioneer_form_container_subdiv2_subdiv'>
+                                                <img src='../../$logo_image' alt='Website Logo'>
+                                                <a class='add_div' onclick='document.getElementById('fileInput').click();'>
+                                                    <i class='fa fa-plus' aria-hidden='true'></i>
+                                                    <p>Edit Logo</p>
+                                                </a>
+                                                <input type='file' id='fileInput' name='website_logo' style='display: none;'>
+                                            </div>
+                                        </div>
+                                        <div class='sectioneer_form_container_subdiv2'>
+                                            <h1 class='sectioneer_form_header'>Edit Favicon</h1>
+                                            <div class='sectioneer_form_container_subdiv2_subdiv'>
+                                                <img src='../../$favicon_image' alt='Favicon Image'>
+                                                <a class='add_div' onclick='document.getElementById('fileInput2').click();'>
+                                                    <i class='fa fa-plus' aria-hidden='true'></i>
+                                                    <p>Edit Favicon</p>
+                                                </a>
+                                                <input type='file' id='fileInput2' name='website_favicon' style='display: none;'>
+                                            </div>
+                                        </div>
+                                ";
+                    }
+                }
+                ?>
             </div>
             <input class="btn" type="submit" value="<?php echo $translations['save']; ?>" name="change_logo" />
         </form>
         <form class="frontend_div sectioneer_form" action="" method="POST">
             <div class="sectioneer_form_container">
+                <?php
+                $selectwebsite_logo = "SELECT id, logo_imagepath, favicon_imagepath FROM website_logo ORDER BY id DESC LIMIT 1";
+                $selectwebsite_logo_result = $conn->query($selectwebsite_logo);
+                if ($selectwebsite_logo_result->num_rows > 0) {
+                    while ($row = $selectwebsite_logo_result->fetch_assoc()) {
+                        $logo_image = $row['logo_imagepath'];
+                        $favicon_image = $row['favicon_imagepath'];
+                        $_SESSION['logo_id'] = $row['id'];
+                        echo "  <div class='sectioneer_form_container_subdiv2'>
+                                            <h1 class='sectioneer_form_header'>Edit Website Logo</h1>
+                                            <div class='sectioneer_form_container_subdiv2_subdiv'>
+                                                <img src='../../$logo_image' alt='Website Logo'>
+                                                <a class='add_div' onclick='document.getElementById('fileInput').click();'>
+                                                    <i class='fa fa-plus' aria-hidden='true'></i>
+                                                    <p>Edit Logo</p>
+                                                </a>
+                                                <input type='file' id='fileInput' name='website_logo' style='display: none;'>
+                                            </div>
+                                        </div>
+                                        <div class='sectioneer_form_container_subdiv2'>
+                                            <h1 class='sectioneer_form_header'>Edit Favicon</h1>
+                                            <div class='sectioneer_form_container_subdiv2_subdiv'>
+                                                <img src='../../$favicon_image' alt='Favicon Image'>
+                                                <a class='add_div' onclick='document.getElementById('fileInput2').click();'>
+                                                    <i class='fa fa-plus' aria-hidden='true'></i>
+                                                    <p>Edit Favicon</p>
+                                                </a>
+                                                <input type='file' id='fileInput2' name='website_favicon' style='display: none;'>
+                                            </div>
+                                        </div>
+                                ";
+                    }
+                }
+                ?>
                 <div class="sectioneer_form_container_subdiv2">
                     <h1 class="sectioneer_form_header">Edit cookie consent message</h1>
-                    <textarea name='cookie_consent' id=''></textarea>
+                    <textarea name='cookie_consent' id="myTextarea6c"></textarea>
                 </div>
                 <div class="sectioneer_form_container_subdiv2">
                     <h1 class="sectioneer_form_header">Edit Website Description</h1>
-                    <textarea name='description' id=''></textarea>
+                    <textarea name='description' id="myTextarea6b"></textarea>
                 </div>
             </div>
             <input class="btn" type="submit" value="<?php echo $translations['save']; ?>" name="change_frontend_messages" />
@@ -278,6 +431,7 @@ if (isset($_POST['add_page'])) {
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>
     </script>
+    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
 </body>
 
 </html>

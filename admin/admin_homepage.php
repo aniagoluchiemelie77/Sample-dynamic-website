@@ -35,7 +35,7 @@ $encryptionKey = "mySecretKey12345";
 <body>
     <div class="logout_alert" id="logout_alert">
         <h1 class="logout_alert_header"><?php echo $translations['logout_alert']; ?>?</h1>
-        <div>
+        <div class="logout_alert_subdiv">
             <a class="btn" href="extras/logout.php"><?php echo $translations['logout_alert_affirm']; ?></a>
             <a class="btn cancellogout" id="dismiss-popup-btn" onclick="cancelExit()"><?php echo $translations['logout_alert_decline']; ?></a>
         </div>
@@ -637,7 +637,7 @@ $encryptionKey = "mySecretKey12345";
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-        $selectthreeeditors = "SELECT id, email, image, firstname, lastname, password FROM editor ORDER BY id DESC LIMIT 3";
+                        $selectthreeeditors = "SELECT id, email, image, firstname, lastname, password FROM editor ORDER BY id DESC LIMIT 3";
                         $selectthreeeditors_result = $conn->query($selectthreeeditors);
                         if ($selectthreeeditors_result->num_rows > 0) {
                             $sn = 0;

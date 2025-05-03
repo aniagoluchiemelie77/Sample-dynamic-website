@@ -1275,13 +1275,21 @@ a, td,span, p, label{
     position: fixed;
     padding: 1.5rem 0;
 }
-.logout_alert h1{
+.logout_alert_container{
+    display: flex;
+    background-color: var(--color60);
+    padding: var(--divpadding-high);
+    flex-direction: column;
+    height: fit-content;
+    width: 80%;
+}
+.logout_alert .logout_alert_header{
     color: var(--color60-shade);
     font-size: var(--header-h2);
     padding: 1.5rem 0;
     margin-bottom: 1rem;
 }
-.logout_alert div{
+.logout_alert .logout_alert_subdiv{
     width: 40vw;
     padding: 0 1rem;
     display: flex;
@@ -1301,8 +1309,9 @@ a, td,span, p, label{
     padding: 2rem 0;
     background-color: var(--color60-shade);
 }
-.newpost_body .newpost_container{
+.newpost_container{
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     width: 80%;
@@ -2120,6 +2129,137 @@ input[type="date"] {
 }
 .categorygroup textarea:focus{
     outline: 1px solid var(--color10);
+}
+/*For edit/frontend_features.php*/
+.frontend_div{
+    display: flex;
+    flex-direction: column;
+    padding: var(--divpadding-highest);
+    background-color: var(--color60);
+    width: 100%;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.sectioneer_form_container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin-bottom: 1rem;
+}
+.sectioneer_form_container .sectioneer_form_container_subdiv2{
+    display: flex;
+    flex-direction: column;
+    padding: var(--divpadding-high);
+    width: 50%;
+}
+.sectioneer_form_container .sectioneer_form_container_subdiv2:nth-child(2){
+    border-left: 1px solid var(--color30);
+}
+.sectioneer_form_header{
+    width: 100%;
+    text-decoration: underline;
+    padding: var(--divpadding-high);
+    text-align: center;
+    font-size: var(--header-h4);
+}
+.sectioneer_form_container_subdiv2_subdiv{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: var(--divpadding);
+    justify-content: flex-start;
+}
+.sectioneer_form_container_subdiv2_subdiv img{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: .7px solid var(--color10);
+    margin-right: 1.5rem;
+    object-fit: cover;
+}
+.sectioneer_form input{
+    border: none;
+    width: 10%;
+}
+.add_div{
+    border: 1px solid var(--color30);
+    padding: var(--divpadding);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: fit-content;
+    width: fit-content;
+    cursor: pointer;
+}
+.add_div:hover{
+    border: 1px solid var(--color10);
+    color: var(--color60);
+    background-color: var(--color10);
+}
+.sectioneer_div{
+    display: flex;
+    flex-direction: column;
+    padding: var(--divpadding);
+    align-items: center;
+}
+.sectioneer_div .sectioneer_div_subdiv{
+    display: flex;
+    flex-wrap: wrap;
+    padding: var(--divpadding-high);
+    width: 80%;
+    align-items: flex-start;
+}
+.sectioneer_div .sectioneer_div_subdiv div{
+    width: 10rem;
+    height: 10rem;
+    padding: var(--divpadding);
+    border: 1px solid var(--color30);
+    margin: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s ease-in;
+    -webkit-transition: all .3s ease-in;
+    -moz-transition: all .3s ease-in;
+    -ms-transition: all .3s ease-in;
+    -o-transition: all .3s ease-in;
+    position: relative;
+}
+.sectioneer_div .sectioneer_div_subdiv div a{
+    margin-top: .5rem;
+}
+.sectioneer_div .sectioneer_div_subdiv div:hover{
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+.sectioneer_div .sectioneer_div_subdiv div a:hover{
+    cursor: pointer;
+    color: var(--color10);
+}
+.newpost_container .logout_alert_cancel{
+    position: absolute;
+    padding: var(--divpadding);
+    border: 1px solid var(--color30);
+    top: 0;
+    right: 0;
+    margin: 1rem;
+    cursor: pointer;
+}
+.newpost_container .logout_alert_cancel i{
+    font-size: var(--ifontsize-4);
+}
+.newpost_container .logout_alert_cancel:hover{
+    background-color: var(--color10);
+    border: 1px solid var(--color60);
+    color: var(--color60);
 }
 @media only screen and (min-width: 39rem) and (max-width: 64rem){
     a, td,span, p, label{

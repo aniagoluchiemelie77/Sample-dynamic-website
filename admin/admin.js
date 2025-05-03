@@ -5,6 +5,7 @@ const inputs = document.querySelectorAll('.otp-input');
 const sideBtns = document.querySelectorAll('.sidebarbtn');
 const tabComponents = document.querySelectorAll('.tab_content');
 const logoutDiv = document.getElementById('logout_alert');
+const logoutDiv2 = document.getElementById('logout_alert2');
 const exitLogout = document.getElementById('dismiss-popup-btn');
 
 sideBtns.forEach((tab, index) =>{
@@ -22,9 +23,15 @@ sideBtns.forEach((tab, index) =>{
 function displayExit () {
   logoutDiv.style.display = 'flex';
 };
+function displayExit2() {
+    logoutDiv2.style.display = 'flex';
+  };
 function cancelExit () {
   logoutDiv.style.display = 'none';
 };
+function cancelExit2 () {
+    logoutDiv2.style.display = 'none';
+  };
 const editAction = function (btn, txtEditor) {
   btn.addEventListener("click", () => {
     txtEditor.style.display = "block";
@@ -66,6 +73,36 @@ function confirmDeleteC(postId) {
       }
   })
 };
+function confirmDeleteResource(Id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#F93404',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id=' + Id + '&type=Resource';
+        }
+    })
+  };
+  function confirmDeletePage(Id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#F93404',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id=' + Id + '&type=Page';
+        }
+    })
+  };
 function confirmDeleteP(postId) {
   Swal.fire({
       title: 'Are you sure?',

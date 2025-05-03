@@ -4,31 +4,32 @@ require('../connect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="Article website" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu chiemelie"/>
-    <link rel="stylesheet" href="../index.css"/>
-	<title>Newsletter Subscription</title>
+    <meta name="author" content="Aniagolu chiemelie" />
+    <link rel="stylesheet" href="../index.css" />
+    <title>Newsletter Subscription</title>
 </head>
+
 <body>
-    <?php require("../includes/header2.php");?>
+    <?php require("../includes/header2.php"); ?>
     <div class="body_container">
         <div class="body_right">
             <div class="sidebar_divs_container">
                 <div class="webinfo">
                     <h1>Uniquecontentwriter</h1>
-                    <img src="../images\image1.jpeg" alt="Blog's Coverphoto"/>
+                    <img src="../images\image1.jpeg" alt="Blog's Coverphoto" />
                     <p>Here at Uniquecontentwriter.com, we give you the latest news and updates on Cybersecurity, Artificial Intelligence and lots more.</p>
                 </div>
             </div>
-            <?php include("../helpers/emailsubscribeform.php");?>    
         </div>
         <div class="body_left border-gradient-leftside--lightdark">
             <div class="page_links">
@@ -36,7 +37,7 @@ require('../connect.php');
             </div>
             <h1 class="Post_header">DARK READING NEWSLETTER</h1>
             <h2>Register for Your Free Newsletter Now:</h2>
-            <div class = "subscribe_div">
+            <div class="subscribe_div">
                 <p>Your keyhole into the chaos and mystery of network and data security. Delivered daily or weekly, our newsletters are chock-full of product and industry news, threat reports, vulnerability discoveries, compliance issues, and user experiences. In addition, there's also our enlightened and insightful commentary.</p>
             </div>
             <h2>Offered Free by: Dark Reading</h2>
@@ -46,28 +47,28 @@ require('../connect.php');
                 </div>
                 <div class="formcontainer_subdiv">
                     <div class="input_group">
-                    <label for ="email">Email</label>
-                    <input type="email" name="email" required/>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" required />
                     </div>
                     <div class="input_group">
-                        <label for ="firstname">First Name</label>
-                        <input type="text" name="firstname" required/>
+                        <label for="firstname">First Name</label>
+                        <input type="text" name="firstname" required />
                     </div>
                     <div class="input_group">
-                    <label for ="lastname">Last Name</label>
-                    <input type="text" name="lastname" required/>
+                        <label for="lastname">Last Name</label>
+                        <input type="text" name="lastname" required />
                     </div>
                     <div class="input_group">
-                    <label for ="companyname">Company Name</label>
-                    <input type="text" name="companyname" required/>
+                        <label for="companyname">Company Name</label>
+                        <input type="text" name="companyname" required />
                     </div>
                     <div class="input_group">
-                    <label for ="jobtitle">Job Title</label>
-                    <input type="text" name="jobtitle" required/>
+                        <label for="jobtitle">Job Title</label>
+                        <input type="text" name="jobtitle" required />
                     </div>
                     <div class="input_group">
-                    <label for ="mobile">Mobile</label>
-                    <input type="text" name="mobile" required/>
+                        <label for="mobile">Mobile</label>
+                        <input type="text" name="mobile" required />
                     </div>
                 </div>
                 <div class="formcontainer_subdiv">
@@ -76,11 +77,12 @@ require('../connect.php');
                 <div class="formcontainer_subdiv">
                     <p>Checkboxes</p>
                 </div>
-                <input class="formcontainer_submit" value="Submit" type="submit"/>
+                <input class="formcontainer_submit" value="Submit" type="submit" />
             </form>
         </div>
     </div>
-    <?php include("../includes/footer2.php");?>
+    <?php include("../includes/footer2.php"); ?>
     <script src="../index.js"></script>
 </body>
+
 </html>

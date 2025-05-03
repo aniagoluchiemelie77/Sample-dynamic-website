@@ -2,6 +2,7 @@
 session_start();
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
+$type = isset($_GET['type']) ? $_GET['type'] : null;
 include('connect.php');
 include('crudoperations.php');
 $_SESSION['status_type'] = "";
@@ -135,6 +136,42 @@ if ($usertype == "Editor") {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
+    }
+    $stmt->close();
+}
+if ($type == "Resource") {
+    $sql = "DELETE FROM resources WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . "  deleted a Resource type";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Resource Deleted Successfully";
+        header('location: edit/frontend_features.php');
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+        header('location: edit/frontend_features.php');
+    }
+    $stmt->close();
+}
+if ($type == "Page") {
+    $sql = "DELETE FROM pages WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . "  deleted a Page type";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Page Deleted Successfully";
+        header('location: edit/frontend_features.php');
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+        header('location: edit/frontend_features.php');
     }
     $stmt->close();
 }

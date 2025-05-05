@@ -5,6 +5,9 @@ require('init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
+$website_messages = cookieMessageAndVision();
+$cookie_message = $website_messages['cookie_message'];
+$website_vision = $website_messages['website_vision'];
 function getDeviceType()
 {
     $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
@@ -81,7 +84,7 @@ if (isset($_POST['accept_cookies'])) {
     <?php require('includes/header.php'); ?>
     <?php if (!isset($_COOKIE['tracker'])): ?>
         <div class="cookie_container">
-            <p class="cookie_container_p">This website uses cookies and similar technologies to operate the site, analyze data, improve user experience. By using this site, you agree to our use of cookies to enhance your experience. Check our <a href="pages/privacypolicy.php">Privacy Policy</a> for more details.</p>
+            <p class="cookie_container_p"><?php echo $cookie_message; ?></p>
             <form class="cookie_container_subdiv" method="post">
                 <button class="cookie_container_subdiv-btns" type="submit" name="accept_cookies">Accept</button>
             </form>

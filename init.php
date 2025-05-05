@@ -13,4 +13,17 @@ function getFaviconAndLogo()
         }
     }
 }
+function cookieMessageAndVision()
+{
+    global $conn;
+    $getmessages_sql = "SELECT cookie_consent, website_vision FROM website_messages ORDER BY id DESC LIMIT 1";
+    $getmessages_result = $conn->query($getmessages_sql);
+    if ($getmessages_result->num_rows > 0) {
+        while ($row = $getmessages_result->fetch_assoc()) {
+            $cookie_message = $row['cookie_consent'];
+            $vision_message = $row['website_vision'];
+            return ["cookie_message" => $cookie_message, "website_vision" => $vision_message];
+        }
+    }
+}
 ?>

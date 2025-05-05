@@ -4,6 +4,7 @@ require("../connect.php");
 require("../crudoperations.php");
 require("../init.php");
 $_SESSION['logo_id'] = '';
+$_SESSION['message_id'] = "";
 function convertToReadable($slug)
 {
     $string = str_replace('_', ' ', $slug);
@@ -129,6 +130,79 @@ function addPage($page_name)
         $_SESSION['status'] = "Error, Please retry";
     }
     $stmt->close();
+}
+function AddWebsiteMessages($cookie_message, $description)
+{
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("INSERT INTO website_messages ( cookie_consent, website_vision, Date, time) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $cookie_message, $description, $date, $time);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " added new cookie consent message and website description";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Cookie consent message and Website description created successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function updateCookie($cookie_message)
+{
+    $id = $_SESSION['message_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("UPDATE website_messages SET cookie_consent = ?, Date = ?, time = ?  WHERE id = ?");
+    $stmt->bind_param("sssi", $cookie_message, $date, $time, $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " updated cookie consent message";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Cookie Consent Message Created Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function updateDescription($website_description)
+{
+    $id = $_SESSION['message_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("UPDATE website_messages SET website_vision = ?, Date = ?, time = ?  WHERE id = ?");
+    $stmt->bind_param("sssi", $website_description, $date, $time, $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " updated website desciption";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Website Description Updated Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+if (isset($_POST['change_frontend_messages'])) {
+    $cookie_consent = $_POST['cookie_consent'];
+    $description = $_POST['description'];
+    if (!empty($cookie_consent) && empty($description)) {
+        updateCookie($cookie_consent);
+    } else if (empty($cookie_consent) && !empty($description)) {
+        updateDescription($description);
+    } else if (!empty($cookie_consent) && !empty($description)) {
+        AddWebsiteMessages($cookie_consent, $description);
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "No Changes Made";
+    }
 }
 if (isset($_POST['add_resource'])) {
     $resource_type = $_POST['resource_type'];
@@ -271,7 +345,7 @@ if (isset($_POST['add_page'])) {
     </div>
     <?php require("../extras/header2.php"); ?>
     <section class="sectioneer">
-        <form class="frontend_div sectioneer_form" action=" " method="POST" enctype="multipart/form-data">
+        <form class="frontend_div sectioneer_form" action="" method="POST" enctype="multipart/form-data">
             <div class="sectioneer_form_container">
                 <?php
                 $selectwebsite_logo = "SELECT id, logo_imagepath, favicon_imagepath FROM website_logo ORDER BY id DESC LIMIT 1";
@@ -310,50 +384,28 @@ if (isset($_POST['add_page'])) {
             </div>
             <input class="btn" type="submit" value="<?php echo $translations['save']; ?>" name="change_logo" />
         </form>
-        <form class="frontend_div sectioneer_form" action="" method="POST">
+        <form class="frontend_div sectioneer_form" action="" method="POST" enctype="multipart/form-data">
             <div class="sectioneer_form_container">
                 <?php
-                $selectwebsite_logo = "SELECT id, logo_imagepath, favicon_imagepath FROM website_logo ORDER BY id DESC LIMIT 1";
-                $selectwebsite_logo_result = $conn->query($selectwebsite_logo);
-                if ($selectwebsite_logo_result->num_rows > 0) {
-                    while ($row = $selectwebsite_logo_result->fetch_assoc()) {
-                        $logo_image = $row['logo_imagepath'];
-                        $favicon_image = $row['favicon_imagepath'];
-                        $_SESSION['logo_id'] = $row['id'];
+                $website_messages_sql = "SELECT id, cookie_consent, website_vision FROM website_messages ORDER BY id DESC LIMIT 1";
+                $website_messages_result = $conn->query($website_messages_sql);
+                if ($website_messages_result->num_rows > 0) {
+                    while ($row = $website_messages_result->fetch_assoc()) {
+                        $cookie_message = $row['cookie_consent'];
+                        $website_vision_message = $row['website_vision'];
+                        $_SESSION['message_id'] = $row['id'];
                         echo "  <div class='sectioneer_form_container_subdiv2'>
-                                            <h1 class='sectioneer_form_header'>Edit Website Logo</h1>
-                                            <div class='sectioneer_form_container_subdiv2_subdiv'>
-                                                <img src='../../$logo_image' alt='Website Logo'>
-                                                <a class='add_div' onclick='document.getElementById('fileInput').click();'>
-                                                    <i class='fa fa-plus' aria-hidden='true'></i>
-                                                    <p>Edit Logo</p>
-                                                </a>
-                                                <input type='file' id='fileInput' name='website_logo' style='display: none;'>
-                                            </div>
-                                        </div>
-                                        <div class='sectioneer_form_container_subdiv2'>
-                                            <h1 class='sectioneer_form_header'>Edit Favicon</h1>
-                                            <div class='sectioneer_form_container_subdiv2_subdiv'>
-                                                <img src='../../$favicon_image' alt='Favicon Image'>
-                                                <a class='add_div' onclick='document.getElementById('fileInput2').click();'>
-                                                    <i class='fa fa-plus' aria-hidden='true'></i>
-                                                    <p>Edit Favicon</p>
-                                                </a>
-                                                <input type='file' id='fileInput2' name='website_favicon' style='display: none;'>
-                                            </div>
-                                        </div>
+                                    <h1 class='sectioneer_form_header'>Edit cookie consent message</h1>
+                                    <textarea name='cookie_consent' id='myTextarea6c'>$cookie_message</textarea>
+                                </div>
+                                <div class='sectioneer_form_container_subdiv2'>
+                                    <h1 class='sectioneer_form_header'>Edit Website Description</h1>
+                                    <textarea name='description' id='myTextarea6b'>$website_vision_message</textarea>
+                                </div>
                                 ";
                     }
                 }
                 ?>
-                <div class="sectioneer_form_container_subdiv2">
-                    <h1 class="sectioneer_form_header">Edit cookie consent message</h1>
-                    <textarea name='cookie_consent' id="myTextarea6c"></textarea>
-                </div>
-                <div class="sectioneer_form_container_subdiv2">
-                    <h1 class="sectioneer_form_header">Edit Website Description</h1>
-                    <textarea name='description' id="myTextarea6b"></textarea>
-                </div>
             </div>
             <input class="btn" type="submit" value="<?php echo $translations['save']; ?>" name="change_frontend_messages" />
         </form>

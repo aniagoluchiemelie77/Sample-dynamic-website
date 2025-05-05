@@ -10,7 +10,7 @@
                 </a>
             </div>
             <div class="mainheader__logobox">
-                <img src="#" alt="companylogo">
+                <img src="<?php echo $logo; ?>" alt="Website logo">
             </div>
             <a class="mainheader__signupbtn" href="pages/newslettersubscribe.php">Newsletter Signup</a>
         </div>

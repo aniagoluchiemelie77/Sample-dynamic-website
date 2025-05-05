@@ -234,8 +234,13 @@ a, p, li{
     margin-left: 2rem;
 }
 .mainheader__logobox{
-    width: fit-content;
-    height: fit-content;
+    height: 4.5rem;
+    width: 5rem;
+}
+.mainheader__logobox img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 .mainheader__signupbtn{
     background-color: var(--color10);
@@ -695,7 +700,7 @@ a, p, li{
 }
 .sidebar_divs_container .webinfo img{
     width: 27rem;
-    margin-bottom: 1rem;
+    margin: 1.2rem 0;
     border-radius: 1rem;
     object-fit: cover;
     -webkit-border-radius: 1rem;
@@ -704,7 +709,7 @@ a, p, li{
     -o-border-radius: 1rem;
 }
 .sidebar_divs_container .webinfo p{
-    padding: 1rem 0;
+    padding: .5rem 0;
     color: #222222c3;
 }
 .section2 div .normal-divs{

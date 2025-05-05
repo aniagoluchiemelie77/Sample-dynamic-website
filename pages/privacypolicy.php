@@ -5,6 +5,9 @@ require('../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
+$website_messages = cookieMessageAndVision();
+$cookie_message = $website_messages['cookie_message'];
+$website_vision = $website_messages['website_vision'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,8 +33,8 @@ $favicon = $details['favicon'];
             <div class="sidebar_divs_container">
                 <div class="webinfo">
                     <h1>Uniquecontentwriter</h1>
-                    <img src="../images\image1.jpeg" alt="Blog's Coverphoto" />
-                    <p>Here at Uniquecontentwriter.com, we give you the latest news and updates on Cybersecurity, Artificial Intelligence and lots more.</p>
+                    <img src="../<?php echo $logo; ?>" alt="Blog Logo" />
+                    <p><?php echo $website_vision; ?></p>
                 </div>
             </div>
         </div>

@@ -352,7 +352,7 @@ $encryptionKey = "mySecretKey12345";
                         ?>
                     </div>
                 </div>
-                <div class="addtionalinfo">
+                <!--<div class="addtionalinfo">
                     <div class="addtionalinfo_header">
                         <h1><?php echo $translations['collections']; ?></h1>
                     </div>
@@ -395,7 +395,7 @@ $encryptionKey = "mySecretKey12345";
                             <p><?php echo $translations['add_collection']; ?></p>
                         </a>
                     </div>
-                </div>
+                </div>-->
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
                         <h1><?php echo $translations['top_visits']; ?></h1>

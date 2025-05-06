@@ -183,5 +183,12 @@ $translations = [
     'writers_image' => "صورة الكاتب",
     'writers_email' => "البريد الإلكتروني للكاتب",
     'delete' => "حذف",
+    'add_resource' => "إضافة مورد",
+    'resource_type' => "نوع المورد",
+    'upload_resource' => "تحميل المورد",
+    'resource_url' => "رابط المورد",
+    'resource_url_p' => "رابط المورد (اختياري)",
+    'add_page' => "إضافة صفحة",
+    'page_name' => "اسم الصفحة",
 ];
 ?>

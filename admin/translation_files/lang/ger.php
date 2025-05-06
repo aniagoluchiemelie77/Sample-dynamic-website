@@ -174,6 +174,13 @@ $translations = [
     'writers_image' => "Bild des Autors",
     'writers_email' => "E-Mail des Autors",
     'delete' => "Löschen",
+    'add_resource' => "Ressource hinzufügen",
+    'resource_type' => "Ressourcentyp",
+    'upload_resource' => "Ressource hochladen",
+    'resource_url' => "Ressourcen-URL",
+    'resource_url_p' => "Ressourcen-URL (optional)",
+    'add_page' => "Seite hinzufügen",
+    'page_name' => "Seitenname",
 
 ];
 ?>

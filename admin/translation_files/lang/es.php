@@ -177,7 +177,14 @@ $translations = [
     'writers_firstname' => "Nombre del Escritor",
     'writers_lastname' => "Apellido del Escritor",
     'writers_image' => "Imagen del Escritor",
-    'writer_email' => "Correo Electrónico del Escritor",
+    'writers_email' => "Correo Electrónico del Escritor",
     'delete' => "Eliminar",
+    'add_resource' => "Agregar Recurso",
+    'resource_type' => "Tipo de Recurso",
+    'upload_resource' => "Subir Recurso",
+    'resource_url' => "URL del Recurso",
+    'resource_url_p' => "URL del Recurso (opcional)",
+    'add_page' => "Agregar Página",
+    'page_name' => "Nombre de la Página",
 ];
 ?>

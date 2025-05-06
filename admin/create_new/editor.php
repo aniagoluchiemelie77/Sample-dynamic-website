@@ -37,7 +37,7 @@ if (file_exists($translationFile)) {
         </div>
         <form class="formcontainer" id="topicForm" method="post" action="../forms.php" enctype="multipart/form-data">
             <div class="head_paragraph">
-                <h3><?php echo $translations['change_language']; ?></h3>
+                <h3><?php echo $translations['create_editor']; ?></h3>
             </div>
             <div class="formcontainer_subdiv">
                 <div class="input_group">

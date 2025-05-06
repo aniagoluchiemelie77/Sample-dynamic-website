@@ -179,7 +179,13 @@ $translations = [
     'writers_firstname' => "Writer's Firstname",
     'writers_lastname' => "Writer's Lastname",
     'writers_image' => "Writer's Image",
-    'writer_email' => "Writer's Email",
-    'delete' => "Delete",
+    'writers_email' => "Writer's Email",
+    'add_resource' => "Add Resource",
+    'resource_type' => "Resource Type",
+    'upload_resource' => "Upload Resource",
+    'resource_url' => "Resource URL",
+    'resource_url_p' => "Resource URL (optional)",
+    'add_page' => "Add Page",
+    'page_name' => "Page Name",
 ];
 ?>

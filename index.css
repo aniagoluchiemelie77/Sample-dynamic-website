@@ -2307,7 +2307,7 @@ a, p, li{
         min-height: fit-content;
     }
     .header form{
-        width: 90%;
+        width: 60%;
     }
     .header form button{
         font-size: 1.6rem;
@@ -2576,10 +2576,10 @@ a, p, li{
 
     /*For view_post.php*/
     .page_links a{
-        font-size: var(--pfontsize);
+        font-size: 1.4rem;
     }
     .page_links p{
-        font-size: var(--pfontsize);
+        font-size: 1.4rem;
     }
     .body_left_relatedniches a{
         margin: 1rem 0;

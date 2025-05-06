@@ -181,5 +181,12 @@ $translations = [
     'writers_image' => "作家的图片",
     'writers_email' => "作家的电子邮件",
     'delete' => "删除",
+    'add_resource' => "添加资源",
+    'resource_type' => "资源类型",
+    'upload_resource' => "上传资源",
+    'resource_url' => "资源URL",
+    'resource_url_p' => "资源URL（可选）",
+    'add_page' => "添加页面",
+    'page_name' => "页面名称",
 ];
 ?>

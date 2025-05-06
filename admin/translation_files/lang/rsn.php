@@ -179,8 +179,15 @@ $translations = [
     'writers_firstname' => "Имя писателя",
     'writers_lastname' => "Фамилия писателя",
     'writers_image' => "Изображение писателя",
-    'writer_email' => "Электронная почта писателя",
+    'writers_email' => "Электронная почта писателя",
     'delete' => "Удалить",
+    'add_resource' => "Добавить ресурс",
+    'resource_type' => "Тип ресурса",
+    'upload_resource' => "Загрузить ресурс",
+    'resource_url' => "URL ресурса",
+    'resource_url_p' => "URL ресурса (необязательно)",
+    'add_page' => "Добавить страницу",
+    'page_name' => "Название страницы",
 ];
 
 ?>

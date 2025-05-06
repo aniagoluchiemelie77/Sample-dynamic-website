@@ -296,31 +296,31 @@ if (isset($_POST['add_page'])) {
                 <i class="fa fa-times popup_close1" aria-hidden="true"></i>
             </a>
             <div class="newpost_container_div1 newpost_subdiv">
-                <h1 class="sectioneer_form_header">Add Resource</h1>
+                <h1 class="sectioneer_form_header"><?php echo $translations['add_resource']; ?></h1>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
-                <label class="form__label" for="resource_type">Resource Type</label>
+                <label class="form__label" for="resource_type"><?php echo $translations['resource_type']; ?></label>
                 <div class="newpost_container_div3_subdiv2">
                     <input class="form__input" name="resource_type" type="text" required />
                 </div>
             </div>
             <div class="newpost_container_div6">
                 <div class="newpost_container_div6_subdiv">
-                    <label class="form__label" for="resource_image">Upload Resource</label>
+                    <label class="form__label" for="resource_image"><?php echo $translations['upload_resource']; ?></label>
                     <div class="newpost_subdiv2">
                         <input class="form__input" name="resource_image" type="file" />
-                        <p class="newpost_subdiv2-p leftp"><span>*</span>Optional</p>
+                        <p class="newpost_subdiv2-p leftp"><span>*</span><?php echo $translations['message_title_i']; ?></p>
                     </div>
                 </div>
                 <div class="newpost_container_div6_subdiv">
-                    <label class="form__label" for="resource_url">Resource URL:</label>
+                    <label class="form__label" for="resource_url"><?php echo $translations['resource_url']; ?>:</label>
                     <div class="newpost_container_div5_subdiv2">
-                        <input class="form__input" name="resource_url" type="text" placeholder="Enter Resource URL..." />
+                        <input class="form__input" name="resource_url" type="text" placeholder="<?php echo $translations['resource_url_p']; ?>..." />
                     </div>
                 </div>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="Save" name="add_resource" />
+                <input class="form__submit_input" type="submit" value="<?php echo $translations['save']; ?>" name="add_resource" />
             </div>
         </form>
     </div>
@@ -330,16 +330,16 @@ if (isset($_POST['add_page'])) {
                 <i class="fa fa-times popup_close1" aria-hidden="true"></i>
             </a>
             <div class="newpost_container_div1 newpost_subdiv">
-                <h1 class="sectioneer_form_header">Add Page</h1>
+                <h1 class="sectioneer_form_header"><?php echo $translations['add_page']; ?></h1>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
-                <label class="form__label" for="page_name">Page Name</label>
+                <label class="form__label" for="page_name"><?php echo $translations['page_name']; ?></label>
                 <div class="newpost_container_div3_subdiv2">
                     <input class="form__input" name="page_name" type="text" required />
                 </div>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="Save" name="add_page" />
+                <input class="form__submit_input" type="submit" value="<?php echo $translations['save']; ?>" name="add_page" />
             </div>
         </form>
     </div>

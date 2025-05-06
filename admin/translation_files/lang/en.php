@@ -187,5 +187,9 @@ $translations = [
     'resource_url_p' => "Resource URL (optional)",
     'add_page' => "Add Page",
     'page_name' => "Page Name",
+    'edit_cookie' => "Edit cookie consent message",
+    'edit_webdescription' => "Edit Website Description",
+    'resources' => "Resources",
+    'delete' => "Delete",
 ];
 ?>

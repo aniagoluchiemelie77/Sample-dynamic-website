@@ -188,5 +188,8 @@ $translations = [
     'resource_url_p' => "资源URL（可选）",
     'add_page' => "添加页面",
     'page_name' => "页面名称",
+    'edit_cookie' => "编辑Cookie同意消息",
+    'edit_webdescription' => "编辑网站描述",
+    'resources' => "资源",
 ];
 ?>

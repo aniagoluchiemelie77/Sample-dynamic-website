@@ -395,11 +395,11 @@ if (isset($_POST['add_page'])) {
                         $website_vision_message = $row['website_vision'];
                         $_SESSION['message_id'] = $row['id'];
                         echo "  <div class='sectioneer_form_container_subdiv2'>
-                                    <h1 class='sectioneer_form_header'>Edit cookie consent message</h1>
+                                    <h1 class='sectioneer_form_header'>$translations[edit_cookie]</h1>
                                     <textarea name='cookie_consent' id='myTextarea6c'>$cookie_message</textarea>
                                 </div>
                                 <div class='sectioneer_form_container_subdiv2'>
-                                    <h1 class='sectioneer_form_header'>Edit Website Description</h1>
+                                    <h1 class='sectioneer_form_header'>$translations[edit_webdescription]</h1>
                                     <textarea name='description' id='myTextarea6b'>$website_vision_message</textarea>
                                 </div>
                                 ";
@@ -410,7 +410,7 @@ if (isset($_POST['add_page'])) {
             <input class="btn" type="submit" value="<?php echo $translations['save']; ?>" name="change_frontend_messages" />
         </form>
         <div class="frontend_div sectioneer_div">
-            <h1 class="sectioneer_form_header">Resources</h1>
+            <h1 class="sectioneer_form_header"><?php echo $translations['resources']; ?></h1>
             <?php
             $getresource_sql = " SELECT id, resource_name FROM resources ORDER BY id";
             $getresource_result = $conn->query($getresource_sql);
@@ -429,14 +429,14 @@ if (isset($_POST['add_page'])) {
                 }
                 echo "  <a class='add_div' onclick='displayExit()'>
                                     <i class='fa fa-plus' aria-hidden='true'></i>
-                                    <p>Add Resource</p>
+                                    <p>$translations[add_resource]</p>
                                 </a>
                             </div>";
             }
             ?>
         </div>
         <div class="frontend_div sectioneer_div">
-            <h1 class="sectioneer_form_header">Pages</h1>
+            <h1 class="sectioneer_form_header"><?php echo $translations['pages']; ?></h1>
             <?php
             $getpages_sql = " SELECT id, page_name FROM pages ORDER BY id";
             $getpages_result = $conn->query($getpages_sql);
@@ -455,7 +455,7 @@ if (isset($_POST['add_page'])) {
                 }
                 echo "  <a class='add_div' onclick='displayExit2()'>
                             <i class='fa fa-plus' aria-hidden='true'></i>
-                            <p>Add Page</p>
+                            <p>$translations[add_page]</p>
                         </a>
                     </div>";
             }

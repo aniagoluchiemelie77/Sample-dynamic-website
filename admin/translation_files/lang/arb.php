@@ -190,5 +190,8 @@ $translations = [
     'resource_url_p' => "رابط المورد (اختياري)",
     'add_page' => "إضافة صفحة",
     'page_name' => "اسم الصفحة",
+    'edit_cookie' => "تعديل رسالة موافقة ملفات تعريف الارتباط",
+    'edit_webdescription' => "تعديل وصف الموقع",
+    'resources' => "الموارد",
 ];
 ?>

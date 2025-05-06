@@ -186,5 +186,8 @@ $translations = [
     'resource_url_p' => "URL del Recurso (opcional)",
     'add_page' => "Agregar Página",
     'page_name' => "Nombre de la Página",
+    'edit_cookie' => "Editar Mensaje de Consentimiento de Cookies",
+    'edit_webdescription' => "Editar Descripción del Sitio Web",
+    'resources' => "Recursos",
 ];
 ?>

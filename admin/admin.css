@@ -340,6 +340,15 @@ a, td,span, p, label{
     background-color: inherit;
     font-size: 2rem;
 }
+.header_logobox{
+    width: 5rem;
+    height: 5rem;
+}
+.header_logobox img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .header_img{
     display: flex;
     align-items: center;

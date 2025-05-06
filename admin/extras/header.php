@@ -1,6 +1,6 @@
 <header class="header">
     <div class="header_logobox">
-        <img src="#" alt="Website Logo">
+        <img src="../<?php echo $logo; ?>" alt="Website Logo">
     </div>
     <div class="header_img">
         <a class="notification" href="pages/updates.php">

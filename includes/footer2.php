@@ -12,13 +12,27 @@
         <div class="footer__div1__logobox"></div>
     </div>
     <div class="footer__newpagelinks">
-        <a class="footer__link lightp" href="workwithus.php">Work with Us</a>
-        <a class="footer__link lightp" href="aboutus.php">About Us</a>
-        <a class="footer__link lightp" href="advertisewithus.php">Advertise</a>
-        <a class="footer__link lightp" href="sharenewstips.php">Share News tip</a>
-        <a class="footer__link lightp" href="contactus.php">Contact Us</a>
-        <a class="footer__link lightp" href="privacypolicy.php">Privacy Policy</a>
-        <a class="footer__link lightp" href="ourterms.php">Terms of Services</a>
+        <?php
+        $selectallpages = "SELECT page_name FROM pages ORDER BY id";
+        $selectallpages_result = $conn->query($selectallpages);
+        if ($selectallpages_result->num_rows > 0) {
+            $i = 0;
+            if (!function_exists('removeHyphen')) {
+                function removeHyphen($string)
+                {
+                    $string = str_replace(['_', ' '], '', $string);
+                    return $string;
+                }
+            }
+            while ($row = $selectallpages_result->fetch_assoc()) {
+                $i++;
+                $category_names = $row['page_name'];
+                $cleanString = removeHyphen($category_names);
+                $readableString = convertToReadable($category_names);
+                echo    "<a class='footer__link lightp' href='$cleanString.php'>$readableString</a>";
+            }
+        }
+        ?>
     </div>
     <div class="footer__div3">
         <p class="footer__div3-p lightp"> &copy; Chiboy Aniagolu 2024. All rights reserved.</p>

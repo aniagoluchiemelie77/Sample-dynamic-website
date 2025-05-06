@@ -191,6 +191,14 @@ $translations = [
     'edit_cookie' => "Редактировать сообщение о согласии на использование файлов cookie",
     'edit_webdescription' => "Редактировать описание сайта",
     'resources' => "Ресурсы",
+    'create_user' => "Создать пользователя",
+    'users_lastname' => "Фамилия пользователя",
+    'users_firstname' => "Имя пользователя",
+    'users_email' => "Электронная почта пользователя",
+    'users_role' => "Роль пользователя",
+    'users_linkedin_url' => "URL LinkedIn пользователя",
+    'users_linkedin_url_p' => "Введите URL LinkedIn пользователя (необязательно)",
+    'users_photo' => "Изображение пользователя",
 ];
 
 ?>

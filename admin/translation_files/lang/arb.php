@@ -193,5 +193,13 @@ $translations = [
     'edit_cookie' => "تعديل رسالة موافقة ملفات تعريف الارتباط",
     'edit_webdescription' => "تعديل وصف الموقع",
     'resources' => "الموارد",
+    'create_user' => "إنشاء مستخدم",
+    'users_firstname' => "اسم المستخدم الأول",
+    'users_lastname' => "اسم المستخدم الأخير",
+    'users_email' => "البريد الإلكتروني للمستخدم",
+    'users_role' => "دور المستخدم",
+    'users_linkedin_url' => "رابط لينكد إن للمستخدم",
+    'users_linkedin_url_p' => "أدخل رابط لينكد إن للمستخدم (اختياري)",
+    'users_photo' => "صورة المستخدم",
 ];
 ?>

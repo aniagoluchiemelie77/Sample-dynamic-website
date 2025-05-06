@@ -191,5 +191,13 @@ $translations = [
     'edit_cookie' => "Modifier le message de consentement aux cookies",
     'edit_webdescription' => "Modifier la description du site Web",
     'resources' => "Ressources",
+    'create_user' => "Créer un utilisateur",
+    'users_lastname' => "Nom de famille de l'utilisateur",
+    'users_firstname' => "Prénom de l'utilisateur",
+    'users_email' => "Email de l'utilisateur",
+    'users_role' => "Rôle de l'utilisateur",
+    'users_linkedin_url' => "URL LinkedIn de l'utilisateur",
+    'users_linkedin_url_p' => "Entrez l'URL LinkedIn de l'utilisateur (facultatif)",
+    'users_photo' => "Photo de l'utilisateur",
 ];
 ?>

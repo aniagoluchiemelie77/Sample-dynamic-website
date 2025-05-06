@@ -191,5 +191,13 @@ $translations = [
     'edit_webdescription' => "Edit Website Description",
     'resources' => "Resources",
     'delete' => "Delete",
+    'create_user' => "Create User",
+    'users_lastname' => "User's Lastname",
+    'users_firstname' => "User's Firstname",
+    'users_email' => "User's Email",
+    'users_role' => "User's Role",
+    'users_linkedin_url' => "User's LinkedIn URL",
+    'users_linkedin_url_p' => "Enter User's LinkedIn URL (optional)",
+    'users_photo' => "User's Photo",
 ];
 ?>

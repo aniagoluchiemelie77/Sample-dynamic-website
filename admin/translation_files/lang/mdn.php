@@ -191,5 +191,13 @@ $translations = [
     'edit_cookie' => "编辑Cookie同意消息",
     'edit_webdescription' => "编辑网站描述",
     'resources' => "资源",
+    'create_user' => "创建用户",
+    'users_lastname' => "用户的姓氏",
+    'users_firstname' => "用户的名字",
+    'users_email' => "用户的电子邮件",
+    'users_role' => "用户的角色",
+    'users_linkedin_url' => "用户的LinkedIn URL",
+    'users_linkedin_url_p' => "输入用户的LinkedIn URL（可选）",
+    'users_photo' => "用户的照片",
 ];
 ?>

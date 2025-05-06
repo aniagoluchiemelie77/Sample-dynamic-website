@@ -2,6 +2,10 @@
 session_start();
 include("../connect.php");
 include("../crudoperations.php");
+require('../../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 if (isset($_POST['change_tz'])) {
@@ -36,6 +40,7 @@ if (isset($_POST['change_tz'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title>Change Timezone</title>
 </head>
 

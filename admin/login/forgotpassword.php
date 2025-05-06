@@ -2,6 +2,10 @@
 session_start();
 require("../connect.php");
 include("../crudoperations.php");
+require('../../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 require '../../vendor\phpmailer\phpmailer\src\SMTP.php';
 require '../../vendor\phpmailer\phpmailer\src\Exception.php';
 require '../../vendor\phpmailer\phpmailer\src\PHPMailer.php';
@@ -63,6 +67,7 @@ if (isset($_REQUEST['fgtpswd'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka" />
+    <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../admin.css" />
     <title>Forgot Password</title>
 </head>

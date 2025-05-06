@@ -2,6 +2,10 @@
 session_start();
 require("../connect.php");
 include("../crudoperations.php");
+require('../../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 $msg = " ";
@@ -9,12 +13,12 @@ if (isset($_POST['change_password'])) {
     $password1 = $_POST['pwd'];
     $password2 = $_POST['cfpwd'];
     $email = $_SESSION['email'];
-    if ($password1 === $password2){
+    if ($password1 === $password2) {
         $final_password = MD5($password1);
         $stmt = $conn->prepare("UPDATE admin_login_info SET password = ? WHERE email = ?");
         $stmt->bind_param('ss',  $final_password, $email);
         if ($stmt->execute()) {
-            $content = "Admin ".$_SESSION['firstname']." changed his/her password";
+            $content = "Admin " . $_SESSION['firstname'] . " changed his/her password";
             $forUser = 0;
             logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
@@ -24,7 +28,7 @@ if (isset($_POST['change_password'])) {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Error, Please retry";
         }
-    }else{
+    } else {
         $msg = "Passwords do not match";
     }
 }
@@ -44,17 +48,21 @@ if (isset($_POST['change_password'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="../admin.css" />
+    <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Forgot Password</title>
 </head>
+
 <body>
     <section class="section1 flexcenter">
         <div class="container" id="signIn">
             <form method="post" class="form" id="validate_form" action="changepassword.php">
                 <h1>Change Password</h1>
                 <p class="error_div">
-                    <?php 
-                        if (!empty($msg)) { echo $msg;}
+                    <?php
+                    if (!empty($msg)) {
+                        echo $msg;
+                    }
                     ?>
                 </p>
                 <div class="input_group">
@@ -74,25 +82,26 @@ if (isset($_POST['change_password'])) {
     <?php require("../extras/footer.php"); ?>
     <script src="../index.js"></script>
     <script>
-        var messageType = "<?= $_SESSION['status_type']?? ' '?>";
-        var messageText = "<?= $_SESSION['status']?? ' '?>";
-        if (messageType == 'Error' && messageText != " "){
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',
                 text: messageText,
                 icon: 'error',
                 confirmButtonText: 'Ok'
-            })  
-        }else if (messageType == 'Success' && messageText != " "){
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
             Swal.fire({
                 title: 'Success',
                 text: messageText,
                 icon: 'success',
                 confirmButtonText: 'Ok'
-            })  
+            })
         }
-        <?php unset($_SESSION['status_type']);?>
-        <?php unset($_SESSION['status']);?>
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
     </script>
 </body>
+
 </html>

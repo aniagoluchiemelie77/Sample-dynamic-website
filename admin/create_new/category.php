@@ -2,6 +2,10 @@
 session_start();
 require("../connect.php");
 include('../crudoperations.php');
+require('../../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 $content = "";
 require("../init.php");
 $translationFile = "../translation_files/lang/{$language}.php";
@@ -28,6 +32,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="../admin.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['create_category']; ?></title>
 </head>
 

@@ -7,6 +7,10 @@ if (!isset($_SESSION['email'])) {
 require("connect.php");
 include("init.php");
 require('crudoperations.php');
+require('../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 $encryptionKey = "mySecretKey12345";
 ?>
 <!DOCTYPE html>
@@ -29,6 +33,7 @@ $encryptionKey = "mySecretKey12345";
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="admin.js" defer></script>
+    <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['admin_homepage']; ?></title>
 </head>
 

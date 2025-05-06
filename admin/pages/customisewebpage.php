@@ -2,6 +2,10 @@
 session_start();
 require("../connect.php");
 require("../init.php");
+require('../../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 $translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
@@ -26,8 +30,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="../../index.css" />
     <link id="themeStylesheet" rel="stylesheet" href="../admin.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+    <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['customise_frontend']; ?></title>
 </head>
 

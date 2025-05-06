@@ -2,6 +2,10 @@
 session_start();
 include("../connect.php");
 require("../init.php");
+require('../../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 $translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
@@ -51,6 +55,7 @@ if ($result && $result->num_rows > 0) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['change_language']; ?></title>
 </head>
 

@@ -2,6 +2,10 @@
 session_start();
 include("../connect.php");
 require("../init.php");
+require('../../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 $translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
@@ -26,6 +30,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../admin.js" defer></script>
+    <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['view_press_releases']; ?></title>
 </head>
 

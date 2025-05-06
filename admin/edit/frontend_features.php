@@ -3,6 +3,10 @@ session_start();
 require("../connect.php");
 require("../crudoperations.php");
 require("../init.php");
+require('../../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 $_SESSION['logo_id'] = '';
 $_SESSION['message_id'] = "";
 function convertToReadable($slug)
@@ -285,6 +289,7 @@ if (isset($_POST['add_page'])) {
     <link id="themeStylesheet" rel="stylesheet" href="../admin.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="../admin.js" defer></script>
+    <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title><?php echo $translations['customise_frontend']; ?></title>
 </head>

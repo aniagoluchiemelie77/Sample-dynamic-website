@@ -1,9 +1,16 @@
 <?php
 session_start();
 include("../connect.php");
+require("../init.php");
 include("../crudoperations.php");
 require('../../init.php');
 $details = getFaviconAndLogo();
+$translationFile = "../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
+    include $translationFile;
+} else {
+    $translations = []; // Initialize as empty array to avoid undefined variable errors
+}
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $_SESSION['status_type'] = "";
@@ -59,27 +66,6 @@ $metaTitles = $result->fetch_all(MYSQLI_ASSOC);
             </div>
             <div class="newpost_container_divnew newpost_subdiv">
                 <h1>Manage Meta Titles</h1>
-                <div class='newpost_subdiv_subdiv2'>
-                    <label class="form__label" for="page_name">Page Name:</i></label>
-                    <input type="text" name="page_name" id="page_name" required>
-                </div>
-                <div class='newpost_subdiv_subdiv2'>
-                    <label class="form__label" for="meta_title">Meta Title:</i></label>
-                    <input type="text" name="meta_title" id="page_name" required>
-                </div>
-                <div class='newpost_subdiv_subdiv2'>
-                    <label class="form__label" for="meta_content">Meta Content:</i></label>
-                    <input type="text" name="meta_content" id="page_name" required>
-                </div>
-                <input type="submit" class="btn" name="change_meta_title">
-            </div>
-            <div class="newpost_container_divnew newpost_subdiv">
-                <h1>Existing Meta Titles</h1>
-                <ul>
-                    <?php foreach ($metaTitles as $meta) : ?>
-                        <li><strong><?= htmlspecialchars($meta['page_name']) ?>:</strong> <?= htmlspecialchars($meta['meta_title']) ?></li>
-                    <?php endforeach; ?>
-                </ul>
             </div>
         </form>
     </section>

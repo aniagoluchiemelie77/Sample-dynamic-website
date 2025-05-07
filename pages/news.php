@@ -2,6 +2,7 @@
 session_start();
 require('../connect.php');
 require('../init.php');
+$page_name = "news";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -75,14 +76,23 @@ if (!function_exists('calculateReadingTime')) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <?php
+    if (isset($meta_titles[$page_name])) {
+        $meta_data = $meta_titles[$page_name];
+        for ($i = 1; $i <= 5; $i++) {
+            $meta_name = $meta_data["meta_name$i"];
+            $meta_content = $meta_data["meta_content$i"];
+            if (!empty($meta_name) && !empty($meta_content)) {
+                echo "<meta name='$meta_name' content='$meta_content' />";
+            }
+        }
+    }
+    ?>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Article website" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu chiemelie" />
     <link rel="stylesheet" href="../index.css" />
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="../index.js" defer></script>

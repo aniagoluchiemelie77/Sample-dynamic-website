@@ -2,6 +2,7 @@
 session_start();
 require("../connect.php");
 require('../init.php');
+$page_name = "share-news-tips";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -11,7 +12,18 @@ $favicon = $details['favicon'];
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <?php
+    if (isset($meta_titles[$page_name])) {
+        $meta_data = $meta_titles[$page_name];
+        for ($i = 1; $i <= 5; $i++) {
+            $meta_name = $meta_data["meta_name$i"];
+            $meta_content = $meta_data["meta_content$i"];
+            if (!empty($meta_name) && !empty($meta_content)) {
+                echo "<meta name='$meta_name' content='$meta_content' />";
+            }
+        }
+    }
+    ?>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

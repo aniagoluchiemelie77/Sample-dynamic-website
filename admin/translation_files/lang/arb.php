@@ -201,5 +201,6 @@ $translations = [
     'users_linkedin_url' => "رابط لينكد إن للمستخدم",
     'users_linkedin_url_p' => "أدخل رابط لينكد إن للمستخدم (اختياري)",
     'users_photo' => "صورة المستخدم",
+    'edit_frontend_title' => "تعديل عنوان الواجهة",
 ];
 ?>

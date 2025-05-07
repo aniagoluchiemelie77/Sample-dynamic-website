@@ -199,5 +199,6 @@ $translations = [
     'users_linkedin_url' => "用户的LinkedIn URL",
     'users_linkedin_url_p' => "输入用户的LinkedIn URL（可选）",
     'users_photo' => "用户的照片",
+    'edit_frontend_title' => "编辑前端标题",
 ];
 ?>

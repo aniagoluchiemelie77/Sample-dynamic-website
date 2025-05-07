@@ -4,6 +4,23 @@ include("../connect.php");
 require("../init.php");
 include("../crudoperations.php");
 require('../../init.php');
+function convertToReadable($slug)
+{
+    $string = str_replace('-', ' ', $slug);
+    $string = ucwords($string);
+    return $string;
+}
+function convertToUnreadable($slug)
+{
+    $string = strtolower($slug);
+    $string = str_replace(' ', '-', $string);
+    return $string;
+}
+function removeHyphen($string)
+{
+    $string = str_replace(['-', ' '], '', $string);
+    return $string;
+}
 $details = getFaviconAndLogo();
 $translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
@@ -53,25 +70,48 @@ $metaTitles = $result->fetch_all(MYSQLI_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title>Meta Titles Management</title>
 </head>
 
 <body>
     <?php require("../extras/header2.php"); ?>
+
     <section class="newpost_body">
         <form method="POST" action="changelang.php" enctype="multipart/form-data" id="postForm" class="newpost_container">
             <div class="page_links">
-                <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <p>Meta Titles Management</p>
+                <a href="../admin_homepage.php">Home</a> > <p>Settings</p> > <p>Meta Titles Management</p>
             </div>
             <div class="newpost_container_divnew newpost_subdiv">
-                <h1>Manage Meta Titles</h1>
+                <h1 class="sectioneer_form_header">Manage Meta Titles</h1>
+            </div>
+            <div class="frontend_div sectioneer_div">
+                <?php
+                $getpage_sql = " SELECT id, page_name FROM meta_titles ORDER BY id";
+                $getpage_result = $conn->query($getpage_sql);
+                if ($getpage_result->num_rows > 0) {
+                    echo "<div class='sectioneer_div_subdiv'>";
+                    while ($row = $getpage_result->fetch_assoc()) {
+                        $page_name = $row['page_name'];
+                        $page_id = $row['id'];
+                        $readableString = convertToReadable($page_name);
+                        echo "<div>
+                                        <p>$readableString</p>
+                                        <a class='viewMeta' data-id='$page_id'>
+                                            <i class='fa fa-eye' aria-hidden='true'></i>
+                                        </a>
+                                    </div>";
+                    }
+                    echo "</div>";
+                }
+                ?>
             </div>
         </form>
     </section>
     <script src="sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="../admin.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
@@ -93,6 +133,34 @@ $metaTitles = $result->fetch_all(MYSQLI_ASSOC);
         }
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>
+    </script>
+    <script>
+        $(document).ready(function() {
+            $(".viewMeta").click(function() {
+                var pageId = $(this).data("id");
+                $.ajax({
+                    url: "fetch_meta.php",
+                    type: "POST",
+                    data: {
+                        page_id: pageId
+                    },
+                    success: function(response) {
+                        var data = JSON.parse(response);
+                        if (data.success) {
+                            let queryString = `../edit/editmetatitles.php?page_name=${encodeURIComponent(data.page_name)}`;
+
+                            for (let i = 1; i <= 5; i++) {
+                                queryString += `&meta_name${i}=${encodeURIComponent(data["meta_name" + i])}`;
+                                queryString += `&meta_content${i}=${encodeURIComponent(data["meta_content" + i])}`;
+                            }
+                            window.location.href = queryString;
+                        } else {
+                            alert("No metadata found.");
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

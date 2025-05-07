@@ -199,6 +199,7 @@ $translations = [
     'users_linkedin_url' => "URL LinkedIn пользователя",
     'users_linkedin_url_p' => "Введите URL LinkedIn пользователя (необязательно)",
     'users_photo' => "Изображение пользователя",
+    'edit_frontend_title' => "Редактировать заголовок интерфейса",
 ];
 
 ?>

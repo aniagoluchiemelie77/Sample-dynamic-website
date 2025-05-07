@@ -197,5 +197,6 @@ $translations = [
     'users_linkedin_url' => "URL de LinkedIn del Usuario",
     'users_linkedin_url_p' => "Ingresa la URL de LinkedIn del Usuario (opcional)",
     'users_photo' => "Foto del Usuario",
+    'edit_frontend_title' => "Editar Títulos de Interfaz",
 ];
 ?>

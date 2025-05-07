@@ -181,6 +181,7 @@ $translations = [
     'writers_image' => "Writer's Image",
     'writers_email' => "Writer's Email",
     'add_resource' => "Add Resource",
+    'edit_frontend_title' => "Edit Frontend Features",
     'resource_type' => "Resource Type",
     'upload_resource' => "Upload Resource",
     'resource_url' => "Resource URL",

@@ -52,13 +52,16 @@ $usertype = " ";
                     while ($row = $selectalleditors_result->fetch_assoc()) {
                         $sn++;
                         $usertype = "Editor";
+                        $editor_firstname = $row['firstname'];
+                        $editor_lastname = $row['lastname'];
+                        $id = $row['id'];
                         echo "<div class='users_div_subdiv_subdiv divimages' style=background-image:url('../" . $row['image'] . "')>
                                     <div class='divimages_side--back'>
-                                        <p class='users_div_subdiv_p'><span>" . $row['firstname'] . "</span></p>
-                                        <p class='users_div_subdiv_p'><span>" . $row['lastname'] . "</span></p> 
+                                        <p class='users_div_subdiv_p'><span>$editor_firstname</span></p>
+                                        <p class='users_div_subdiv_p'><span>$editor_lastname</span></p> 
                                         <center>
                                             <div class='users_delete_edit'>
-                                                <a class='users_edit' href='create_new/message.php?usertype=$usertype&id=" . $row['id'] . "'>$translations[send_message]</a>
+                                                <a class='users_edit' href='create_new/message.php?usertype=$usertype&id=$id&firstname=$editor_firstname'>$translations[send_message]</a>
                                             </div>
                                         </center>
                                     </div>

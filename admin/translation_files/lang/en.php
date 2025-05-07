@@ -207,5 +207,8 @@ $translations = [
     'edit_metatitles_p' => "Edit Meta Titles for",
     'meta_name' => "Meta Name",
     'meta_content' => "Meta Content",
+    'edit_user' => "Edit User",
+    'edit_user_image' => "Edit User's Image",
+    'password' => "Password",
 ];
 ?>

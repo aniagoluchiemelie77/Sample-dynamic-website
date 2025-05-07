@@ -207,5 +207,8 @@ $translations = [
     'meta_name' => "nom méta",
     'meta_content' => "contenu méta",
     'demote_message' => "Êtes-vous sûr de vouloir rétrograder cet éditeur au statut d'écrivain ?",
+    'edit_user' => "Modifier l'utilisateur",
+    'edit_user_image' => "Modifier l'image de l'utilisateur",
+    'password' => "Mot de passe",
 ];
 ?>

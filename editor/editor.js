@@ -5,7 +5,18 @@ const inputs = document.querySelectorAll('.otp-input');
 const sideBtns = document.querySelectorAll('.sidebarbtn');
 const tabComponents = document.querySelectorAll('.tab_content');
 const logoutDiv = document.getElementById('logout_alert');
+const logoutDiv2 = document.getElementById('logout_alert2');
 const exitLogout = document.getElementById('dismiss-popup-btn');
+
+window.addEventListener("resize", function() {
+    if (tinymce.activeEditor) {
+        let newWidth = window.innerWidth * 0.8; // Adjust width dynamically
+        let newHeight = window.innerHeight * 0.7; // Adjust height dynamically
+        
+        tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
+        tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
+    }
+});
 
 sideBtns.forEach((tab, index) =>{
     tab.addEventListener('click', () => {
@@ -22,9 +33,15 @@ sideBtns.forEach((tab, index) =>{
 function displayExit () {
   logoutDiv.style.display = 'flex';
 };
+function displayExit2() {
+    logoutDiv2.style.display = 'flex';
+  };
 function cancelExit () {
   logoutDiv.style.display = 'none';
 };
+function cancelExit2 () {
+    logoutDiv2.style.display = 'none';
+  };
 const editAction = function (btn, txtEditor) {
   btn.addEventListener("click", () => {
     txtEditor.style.display = "block";
@@ -57,27 +74,147 @@ function confirmDeleteC(postId) {
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#F93404',
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id5=' + postId;
+          window.location.href = 'delete.php?id5=' + postId;
       }
   })
 };
+function confirmDeleteC2(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id5=' + postId;
+        }
+    })
+  };
+function confirmDeleteResource(Id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id=' + Id + '&type=Resource';
+        }
+    })
+};
+  function confirmDeletePage(Id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id=' + Id + '&type=Page';
+        }
+    })
+  };
+function confirmDeleteCategory(Id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id=' + Id + '&type=Category';
+        }
+    })
+  };
 function confirmDeleteP(postId) {
   Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#F93404',
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id2=' + postId;
+          window.location.href = 'delete.php?id2=' + postId;
+      }
+  })
+};
+function confirmDeleteP2(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id2=' + postId;
+        }
+    })
+  };
+function confirmDeleteSubscriber(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href =  '../delete.php?id=' + postId + '&usertype=Subscriber';
+        }
+    })
+};
+function confirmDeleteNewslSubscriber(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href =  '../delete.php?id=' + postId + '&usertype=NewsletterSubscriber';
+        }
+    })
+};
+function confirmDeleteEditor(Id) {
+  Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete!'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          window.location.href = 'delete.php?id=' + Id + '&usertype=Editor';
       }
   })
 };
@@ -87,27 +224,42 @@ function confirmDeleteN(postId) {
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#F93404',
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id4=' + postId;
+          window.location.href = 'delete.php?id4=' + postId;
       }
   })
 };
+function confirmDeleteN2(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id4=' + postId;
+        }
+    })
+  };
 function confirmDeleteOtheruser(Id) {
   Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#F93404',
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id=' + Id + '&usertype=Otheruser';
+          window.location.href = 'delete.php?id=' + Id + '&usertype=Otheruser';
       }
   })
 };
@@ -117,64 +269,114 @@ function confirmDeletePP(postId) {
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#F93404',
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id1=' + postId;
+          window.location.href = 'delete.php?id1=' + postId;
       }
   })
 };
+function confirmDeletePP2(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id1=' + postId;
+        }
+    })
+  };
 function confirmDeletePR(postId) {
   Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#F93404',
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id6=' + postId;
+          window.location.href = 'delete.php?id6=' + postId;
       }
   })
 };
+function confirmDeletePR2(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id6=' + postId;
+        }
+    })
+  };
 function confirmDeleteD(postId) {
   Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#F93404',
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id3=' + postId;
+          window.location.href = 'delete.php?id3=' + postId;
       }
   })
 };
+function confirmDeleteD2(postId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id3=' + postId;
+        }
+    })
+  };
 function confirmDeleteWriter(Id) {
   Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#F93404',
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id=' + Id + '&usertype=Writer';
+          window.location.href = 'delete.php?id=' + Id + '&usertype=Writer';
       }
   })
 };
 tinymce.init({
   selector: '#myTextarea',
-  width: 810,
-  height: 900,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+},
+  resize: true,
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -190,8 +392,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea2',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -207,8 +414,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea3',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -224,8 +436,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea4',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+},
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -241,8 +458,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea5',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -258,8 +480,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea6',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -274,9 +501,58 @@ tinymce.init({
   content_css: 'css/content.css'
 });
 tinymce.init({
+    selector: '#myTextarea6b',
+    resize: true,
+    setup: function(editor) {
+        editor.on('init', function() {
+            editor.editorContainer.style.width = "90%";
+            editor.editorContainer.style.height = "50vh";
+        });
+    },
+    plugins: [
+        'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+        'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+        'media', 'table', 'emoticons', 'help'
+    ],toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+        'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+        'forecolor backcolor emoticons | help',
+    menu: {
+    favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+    },
+    menubar: 'favs file edit view insert format tools table help',
+    content_css: 'css/content.css'
+});
+  tinymce.init({
+    selector: '#myTextarea6c',
+    resize: true,
+    setup: function(editor) {
+        editor.on('init', function() {
+            editor.editorContainer.style.width = "90%";
+            editor.editorContainer.style.height = "50vh";
+        });
+    },
+    plugins: [
+        'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+        'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+        'media', 'table', 'emoticons', 'help'
+    ],toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+        'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+        'forecolor backcolor emoticons | help',
+    menu: {
+    favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+    },
+    menubar: 'favs file edit view insert format tools table help',
+    content_css: 'css/content.css'
+  });
+tinymce.init({
   selector: '#myTextarea7',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -292,8 +568,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea8',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -309,8 +590,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea9',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -326,8 +612,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea10',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -341,14 +632,14 @@ tinymce.init({
   menubar: 'favs file edit view insert format tools table help',
   content_css: 'css/content.css'
 });
-function disableInputs() {
+function disableInputs(){
   inputs.forEach(function(input) {
       input.disabled = true;
       input.value = " ";
   });
   verifyButton.disabled = true;
 };
-function startCountdown() {
+function startCountdown(){
   var timeLeft = 60;
   var interval = setInterval(function() {
       if (timeLeft <= 0) {

@@ -6,6 +6,22 @@ if (!isset($_SESSION['email'])) {
 };
 require("connect.php");
 include("init.php");
+require('../init.php');
+$_SESSION['status_type'] = "";
+$_SESSION['status'] = "";
+$user_firstname = $_SESSION['firstname'];
+$query = "SELECT * FROM messages WHERE user_firstname = ? AND status = 'unread'";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $user_firstname);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    $_SESSION['status_type'] = "info";
+    $_SESSION['status'] = "You have a new message!";
+}
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,16 +30,14 @@ include("init.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Tech News and Articles website" />
-    <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="editor.css" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="editor.js" defer></script>
     <title>Editor Homepage</title>
 </head>
@@ -916,14 +930,16 @@ include("init.php");
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
-        if (messageType == 'Error' && messageText != " ") {
+        if (messageType == 'info' && messageText != " ") {
             Swal.fire({
-                title: 'Error!',
+                title: 'New Message!',
                 text: messageText,
-                icon: 'error',
-                confirmButtonText: 'Ok'
+                showConfirmButton: false,
+                timer: 10000,
+                icon: 'info',
+                footer: '<a href="view_all/message.php">View Message</a>'
             })
-        } else if (messageType == 'Success' && messageText != " ") {
+        } else if (messageType == 'success' && messageText != " ") {
             Swal.fire({
                 title: 'Success',
                 text: messageText,

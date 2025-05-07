@@ -202,5 +202,11 @@ $translations = [
     'users_linkedin_url_p' => "أدخل رابط لينكد إن للمستخدم (اختياري)",
     'users_photo' => "صورة المستخدم",
     'edit_frontend_title' => "تعديل عنوان الواجهة",
+    'meta_titles_management' => "إدارة عناوين التعريف",
+    'meta_titles_management_title' => "إدارة عناوين التعريف",
+    'edit_metatitles' => "تعديل عناوين التعريف",
+    'edit_metatitles_p' => "تعديل عناوين التعريف لـ",
+    'meta_name' => "اسم التعريف",
+    'meta_content' => "محتوى التعريف",
 ];
 ?>

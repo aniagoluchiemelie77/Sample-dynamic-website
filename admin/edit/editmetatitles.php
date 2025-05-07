@@ -29,8 +29,7 @@ function updateMetatitle($meta1, $meta2, $meta3, $meta4, $meta5, $content1, $con
     }
     $stmt->close();
 }
-if (isset($_POST['edit_metatitle']))
-{
+if (isset($_POST['edit_metatitle'])) {
     $meta_name1 = $_POST['meta_name1'];
     $meta_name2 = $_POST['meta_name2'];
     $meta_name3 = $_POST['meta_name3'];
@@ -69,32 +68,32 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <title>Edit Meta Titles</title>
+    <title><?php echo $translations['edit_metatitles']; ?></title>
 </head>
 
 <body>
     <?php require("../extras/header2.php"); ?>
     <div class="editprofile_container">
         <form class="newpost_container modal-content" method="POST" action=" " id="postForm" enctype="multipart/form-data">
-            <?php echo "<h2 class='sectioneer_form_header'>Edit Meta Titles for $page_name</h2>"; ?>
-            <?php 
-                for ($i = 1; $i <= 5; $i++) {
-                    $meta_name = isset($_GET["meta_name$i"]) ? $_GET["meta_name$i"] : "";
-                    $meta_content = isset($_GET["meta_content$i"]) ? $_GET["meta_content$i"] : "";
-                
-                    echo "<div class='newpost_container_div3 newpost_subdiv'>
+            <?php echo "<h2 class='sectioneer_form_header'>$translations[edit_metatitles_p] $page_name</h2>"; ?>
+            <?php
+            for ($i = 1; $i <= 5; $i++) {
+                $meta_name = isset($_GET["meta_name$i"]) ? $_GET["meta_name$i"] : "";
+                $meta_content = isset($_GET["meta_content$i"]) ? $_GET["meta_content$i"] : "";
+
+                echo "<div class='newpost_container_div3 newpost_subdiv'>
                             <label class='form__label'>Meta Name ($i)</label>
                             <div class='newpost_container_div3_subdiv2'>
                                 <input class='form__input' type='text' name='meta_name$i' value='$meta_name'/>
                             </div>
                           </div>";
-                    echo "<div class='newpost_container_div3 newpost_subdiv'>
+                echo "<div class='newpost_container_div3 newpost_subdiv'>
                             <label class='form__label'>Meta Content ($i)</label>
                             <div class='newpost_container_div3_subdiv2'>
                                 <input class='form__input' type='text' name='meta_content$i' value='$meta_content'/>
                             </div>
                           </div>";
-                }
+            }
             ?>
             <div class="newpost_container_div9 newpost_subdiv">
                 <input class="form__submit_input" type="submit" value="<?php echo $translations['save']; ?>" name="edit_metatitle" />
@@ -125,4 +124,5 @@ if (file_exists($translationFile)) {
         <?php unset($_SESSION['status']); ?>
     </script>
 </body>
+
 </html>

@@ -1409,6 +1409,10 @@ a, td,span, p, label{
     padding: 1rem;
     border: 1px solid var(--color10);
     border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
 }
 .newpost_subdiv_subdiv2 input:focus{
     border: 1px solid var(--color10);
@@ -1528,7 +1532,7 @@ a, td,span, p, label{
     font-weight: 750;
 }
 .newpost_container_div7 .newpost_container_div7_subdiv2{
-    min-width: 100%;
+    width: 50%;
     height: 90vh;
     padding: .8rem;
 }

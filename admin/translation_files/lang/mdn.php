@@ -200,5 +200,11 @@ $translations = [
     'users_linkedin_url_p' => "输入用户的LinkedIn URL（可选）",
     'users_photo' => "用户的照片",
     'edit_frontend_title' => "编辑前端标题",
+    'meta_titles_management' => "元标题管理",
+    'meta_titles_management_title' => "元标题管理",
+    'edit_metatitles' => "编辑元标题",
+    'edit_metatitles_p' => "编辑元标题",
+    'meta_name' => "Meta名称",
+    'meta_content' => "Meta内容",
 ];
 ?>

@@ -193,6 +193,12 @@ $translations = [
     'users_linkedin_url_p' => "Benutzer LinkedIn-URL eingeben (optional)",
     'users_photo' => "Benutzerfoto",
     'edit_frontend_title' => "Frontend-Titel bearbeiten",
+    'meta_titles_management' => "Meta-Titelverwaltung",
+    'meta_titles_management_title' => "Meta-Titelverwaltung",
+    'edit_metatitles' => "Meta-Titel bearbeiten",
+    'edit_metatitles_p' => "Meta-Titel bearbeiten",
+    'meta_name' => "Meta-Name",
+    'meta_content' => "Meta-Inhalt",
 
 ];
 ?>

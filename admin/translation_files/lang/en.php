@@ -200,5 +200,11 @@ $translations = [
     'users_linkedin_url' => "User's LinkedIn URL",
     'users_linkedin_url_p' => "Enter User's LinkedIn URL (optional)",
     'users_photo' => "User's Photo",
+    'meta_titles_management' => "Meta Titles Management",
+    'meta_titles_management_title' => "Manage Meta Titles",
+    'edit_metatitles' => "Edit Meta Titles",
+    'edit_metatitles_p' => "Edit Meta Titles for",
+    'meta_name' => "Meta Name",
+    'meta_content' => "Meta Content",
 ];
 ?>

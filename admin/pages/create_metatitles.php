@@ -72,7 +72,7 @@ $metaTitles = $result->fetch_all(MYSQLI_ASSOC);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <title>Meta Titles Management</title>
+    <title><?php echo $translations['meta_titles_management']; ?></title>
 </head>
 
 <body>
@@ -81,10 +81,10 @@ $metaTitles = $result->fetch_all(MYSQLI_ASSOC);
     <section class="newpost_body">
         <form method="POST" action="changelang.php" enctype="multipart/form-data" id="postForm" class="newpost_container">
             <div class="page_links">
-                <a href="../admin_homepage.php">Home</a> > <p>Settings</p> > <p>Meta Titles Management</p>
+                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['meta_titles_management']; ?></p>
             </div>
             <div class="newpost_container_divnew newpost_subdiv">
-                <h1 class="sectioneer_form_header">Manage Meta Titles</h1>
+                <h1 class="sectioneer_form_header"><?php echo $translations['meta_titles_management_title']; ?></h1>
             </div>
             <div class="frontend_div sectioneer_div">
                 <?php

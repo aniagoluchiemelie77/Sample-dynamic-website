@@ -8,6 +8,16 @@ const logoutDiv = document.getElementById('logout_alert');
 const logoutDiv2 = document.getElementById('logout_alert2');
 const exitLogout = document.getElementById('dismiss-popup-btn');
 
+window.addEventListener("resize", function() {
+    if (tinymce.activeEditor) {
+        let newWidth = window.innerWidth * 0.8; // Adjust width dynamically
+        let newHeight = window.innerHeight * 0.7; // Adjust height dynamically
+        
+        tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
+        tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
+    }
+});
+
 sideBtns.forEach((tab, index) =>{
     tab.addEventListener('click', () => {
         sideBtns.forEach((tab) => tab.classList.remove('active'));
@@ -255,8 +265,13 @@ function confirmDeleteWriter(Id) {
 };
 tinymce.init({
   selector: '#myTextarea',
-  width: 810,
-  height: 900,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+},
+  resize: true,
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -272,8 +287,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea2',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -289,8 +309,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea3',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -306,8 +331,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea4',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+},
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -323,8 +353,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea5',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -340,8 +375,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea6',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -357,8 +397,13 @@ tinymce.init({
 });
 tinymce.init({
     selector: '#myTextarea6b',
-    width: 450,
-    height: 350,
+    resize: true,
+    setup: function(editor) {
+        editor.on('init', function() {
+            editor.editorContainer.style.width = "90%";
+            editor.editorContainer.style.height = "50vh";
+        });
+    },
     plugins: [
         'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
         'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -371,11 +416,16 @@ tinymce.init({
     },
     menubar: 'favs file edit view insert format tools table help',
     content_css: 'css/content.css'
-  });
+});
   tinymce.init({
     selector: '#myTextarea6c',
-    width: 450,
-    height: 350,
+    resize: true,
+    setup: function(editor) {
+        editor.on('init', function() {
+            editor.editorContainer.style.width = "90%";
+            editor.editorContainer.style.height = "50vh";
+        });
+    },
     plugins: [
         'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
         'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -391,8 +441,13 @@ tinymce.init({
   });
 tinymce.init({
   selector: '#myTextarea7',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -408,8 +463,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea8',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -425,8 +485,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea9',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -442,8 +507,13 @@ tinymce.init({
 });
 tinymce.init({
   selector: '#myTextarea10',
-  width: 810,
-  height: 900,
+  resize: true,
+  setup: function(editor) {
+    editor.on('init', function() {
+        editor.editorContainer.style.width = "90%";
+        editor.editorContainer.style.height = "50vh";
+    });
+  },
   plugins: [
       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
       'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
@@ -457,14 +527,14 @@ tinymce.init({
   menubar: 'favs file edit view insert format tools table help',
   content_css: 'css/content.css'
 });
-function disableInputs() {
+function disableInputs(){
   inputs.forEach(function(input) {
       input.disabled = true;
       input.value = " ";
   });
   verifyButton.disabled = true;
 };
-function startCountdown() {
+function startCountdown(){
   var timeLeft = 60;
   var interval = setInterval(function() {
       if (timeLeft <= 0) {

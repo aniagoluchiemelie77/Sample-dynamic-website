@@ -20,12 +20,9 @@ if (file_exists($translationFile)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Tech News and Articles website" />
-    <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -93,7 +90,7 @@ if (file_exists($translationFile)) {
                                         <a class='users_edit' href='../edit/post.php?id5=" . $row["id"] . "&title=" . $row["title"] . "'>
                                             <i class='fa fa-pencil' aria-hidden='true'></i>
                                         </a>
-                                        <a class='users_delete' onclick='confirmDeleteC(" . $row['id'] . ")'>
+                                        <a class='users_delete' onclick='confirmDeleteC2(" . $row['id'] . ")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
                                         </a>
                                     </div>

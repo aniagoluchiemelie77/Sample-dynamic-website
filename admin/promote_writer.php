@@ -26,7 +26,7 @@
                 $forUser = 0;
                 logUpdate($conn, $forUser, $content);
                 $_SESSION['status_type'] = "Success";
-                $_SESSION['status'] = "Writed Promoted Successfully";
+            $_SESSION['status'] = "Writer Promoted Successfully";
                 header('location: view_all/writers.php');
             }else{
                 $_SESSION['status_type'] = "Error";

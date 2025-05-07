@@ -208,5 +208,6 @@ $translations = [
     'edit_metatitles_p' => "تعديل عناوين التعريف لـ",
     'meta_name' => "اسم التعريف",
     'meta_content' => "محتوى التعريف",
+    'demote_message' => "تخفيض المحرر",
 ];
 ?>

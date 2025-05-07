@@ -206,5 +206,6 @@ $translations = [
     'edit_metatitles_p' => "Modifier les titres méta pour",
     'meta_name' => "nom méta",
     'meta_content' => "contenu méta",
+    'demote_message' => "Êtes-vous sûr de vouloir rétrograder cet éditeur au statut d'écrivain ?",
 ];
 ?>

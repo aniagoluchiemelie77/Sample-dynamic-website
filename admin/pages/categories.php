@@ -21,16 +21,15 @@ if (file_exists($translationFile)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Tech News and Articles website" />
-    <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../admin.js" defer></script>
     <title><?php echo $translations['categories']; ?></title>
 </head>
 
@@ -45,7 +44,7 @@ if (file_exists($translationFile)) {
                 <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['categories']; ?></p>
             </div>
             <?php
-            $getcategories_sql = " SELECT name, image_path, Date, time FROM topics ORDER BY id";
+            $getcategories_sql = " SELECT id, name, image_path, Date, time FROM topics ORDER BY id";
             $getcategories_result = $conn->query($getcategories_sql);
             if ($getcategories_result->num_rows > 0) {
                 if (!function_exists('convertToReadable')) {
@@ -83,6 +82,7 @@ if (file_exists($translationFile)) {
                     $time = $row['time'];
                     $date = $row['Date'];
                     $name = $row['name'];
+                    $id = $row['id'];
                     $img = $row['image_path'];
                     $dateTime = new DateTime($date);
                     $day = $dateTime->format('j');
@@ -116,7 +116,7 @@ if (file_exists($translationFile)) {
                                     <p>$translations[categories_p]: <span>$total_posts</span></p>
                                     <p> $translations[date_created]: <span>$formattedDate</span></p>
                                     <p>$translations[time]: <span>$formatted_time</span></p>
-                                    <a class='topics_actions'>
+                                    <a class='topics_actions' onclick='confirmDeleteCategory($id)'>
                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                     </a>
                                 </div>
@@ -133,7 +133,27 @@ if (file_exists($translationFile)) {
             </a>
         </div>
     </section>
-    <script src="../admin.js"></script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        }
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
+    </script>
 </body>
 
 </html>

@@ -204,5 +204,6 @@ $translations = [
     'edit_metatitles_p' => "Editar Títulos Meta para",
     'meta_name' => "Nombre Meta",
     'meta_content' => "Contenido Meta",
+    'demote_message' => "¿Estás seguro de que deseas degradar a este editor al estado de escritor?",
 ];
 ?>

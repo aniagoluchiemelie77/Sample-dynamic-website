@@ -199,6 +199,7 @@ $translations = [
     'edit_metatitles_p' => "Meta-Titel bearbeiten",
     'meta_name' => "Meta-Name",
     'meta_content' => "Meta-Inhalt",
+    'demote_message' => "Redakteur erfolgreich herabgestuft",
 
 ];
 ?>

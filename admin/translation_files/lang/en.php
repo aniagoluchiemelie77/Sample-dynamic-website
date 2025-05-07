@@ -150,6 +150,7 @@ $translations = [
     'view_writers' => "View Writers",
     'nationality' => "Nationality",
     'promote_message' => "Promote to Editor",
+    'demote_message' => "Demote Editor",
     'view_paid_posts' => "View Paid Posts",
     'date_created' => "Date Created",
     'categories_p' => "Total Number of Posts for this Category",

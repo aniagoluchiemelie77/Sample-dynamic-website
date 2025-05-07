@@ -79,7 +79,7 @@ function confirmDeleteC(postId) {
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id5=' + postId;
+          window.location.href = 'delete.php?id5=' + postId;
       }
   })
 };
@@ -97,7 +97,7 @@ function confirmDeleteResource(Id) {
             window.location.href = '../delete.php?id=' + Id + '&type=Resource';
         }
     })
-  };
+};
   function confirmDeletePage(Id) {
     Swal.fire({
         title: 'Are you sure?',
@@ -113,6 +113,21 @@ function confirmDeleteResource(Id) {
         }
     })
   };
+function confirmDeleteCategory(Id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#F93404',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../delete.php?id=' + Id + '&type=Category';
+        }
+    })
+  };
 function confirmDeleteP(postId) {
   Swal.fire({
       title: 'Are you sure?',
@@ -124,7 +139,7 @@ function confirmDeleteP(postId) {
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id2=' + postId;
+          window.location.href = 'delete.php?id2=' + postId;
       }
   })
 };
@@ -169,7 +184,7 @@ function confirmDeleteEditor(Id) {
       confirmButtonText: 'Yes, delete!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id=' + Id + '&usertype=Editor';
+          window.location.href = 'delete.php?id=' + Id + '&usertype=Editor';
       }
   })
 };
@@ -184,7 +199,7 @@ function confirmDeleteN(postId) {
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id4=' + postId;
+          window.location.href = 'delete.php?id4=' + postId;
       }
   })
 };
@@ -199,7 +214,7 @@ function confirmDeleteOtheruser(Id) {
       confirmButtonText: 'Yes, delete!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id=' + Id + '&usertype=Otheruser';
+          window.location.href = 'delete.php?id=' + Id + '&usertype=Otheruser';
       }
   })
 };
@@ -214,7 +229,7 @@ function confirmDeletePP(postId) {
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id1=' + postId;
+          window.location.href = 'delete.php?id1=' + postId;
       }
   })
 };
@@ -229,7 +244,7 @@ function confirmDeletePR(postId) {
       confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id6=' + postId;
+          window.location.href = 'delete.php?id6=' + postId;
       }
   })
 };
@@ -259,7 +274,7 @@ function confirmDeleteWriter(Id) {
       confirmButtonText: 'Yes, delete!'
   }).then((result) => {
       if (result.isConfirmed) {
-          window.location.href = '../delete.php?id=' + Id + '&usertype=Writer';
+          window.location.href = 'delete.php?id=' + Id + '&usertype=Writer';
       }
   })
 };

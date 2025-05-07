@@ -206,5 +206,6 @@ $translations = [
     'edit_metatitles_p' => "编辑元标题",
     'meta_name' => "Meta名称",
     'meta_content' => "Meta内容",
+    'demote_message' => "降级为作家",
 ];
 ?>

@@ -2202,6 +2202,7 @@ input[type="date"] {
     border: 1px solid var(--color30);
     padding: var(--divpadding);
     display: flex;
+    margin: 1rem;
     align-items: center;
     flex-direction: column;
     height: fit-content;

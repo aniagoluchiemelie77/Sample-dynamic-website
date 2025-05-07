@@ -139,6 +139,24 @@ if ($usertype == "Editor") {
     }
     $stmt->close();
 }
+if ($type == "Category") {
+    $sql = "DELETE FROM topics WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . "  deleted a Category type";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Category Deleted Successfully";
+        header('location: pages/categories.php');
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+        header('location: pages/categories.php');
+    }
+    $stmt->close();
+}
 if ($type == "Resource") {
     $sql = "DELETE FROM resources WHERE id = ?";
     $stmt = $conn->prepare($sql);
@@ -184,7 +202,7 @@ if ($usertype == "Writer") {
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "User Deleted Successfully";
+        $_SESSION['status'] = "Writer Deleted Successfully";
         header('location: admin_homepage.php');
     } else {
         $_SESSION['status_type'] = "Error";

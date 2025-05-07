@@ -206,6 +206,7 @@ $translations = [
     'edit_metatitles_p' => "Редактировать мета-заголовки для",
     'meta_name' => "Мета имя",
     'meta_content' => "Мета содержание",
+    'demote_message' => "Понизить редактора",
 ];
 
 ?>

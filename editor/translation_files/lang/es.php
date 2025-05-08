@@ -208,5 +208,15 @@ $translations = [
     'edit_user' => "Editar Usuario",
     'edit_user_image' => "Editar Imagen del Usuario",
     'password' => "Contraseña",
+    'forgot_password' => "Olvidé mi Contraseña",
+    'confirm_password' => "Confirmar Contraseña",
+    'enter_your_email' => "Ingresa tu Correo Electrónico",
+    'send_otp' => "Enviar OTP",
+    'admin_login' => "Inicio de Sesión del Administrador",
+    'sign_in' => "Iniciar Sesión",
+    'remember_me' => "Recuérdame",
+    'enter_otp' => "Ingresa el OTP de 5 dígitos enviado a tu correo electrónico",
+    'verify' => "Verificar",
+    'editor_login' => "Inicio de Sesión del Editor",
 ];
 ?>

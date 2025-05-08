@@ -210,6 +210,15 @@ $translations = [
     'edit_user' => "Редактировать пользователя",
     'edit_user_image' => "Редактировать изображение пользователя",
     'password' => "Пароль",
+    'forgot_password' => "Забыли пароль",
+    'confirm_password' => "Подтвердите пароль",
+    'enter_your_email' => "Введите ваш адрес электронной почты",
+    'send_otp' => "Отправить OTP",
+    'admin_login' => "Вход администратора",
+    'sign_in' => "Войти",
+    'remember_me' => "Запомнить меня",
+    'enter_otp' => "Введите OTP",
+    'verify' => "Проверить",
 ];
 
 ?>

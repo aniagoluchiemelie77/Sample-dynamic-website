@@ -3,10 +3,17 @@ session_start();
 require("../connect.php");
 include("../crudoperations.php");
 require('../../init.php');
+require("../init.php");
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $email = $_SESSION['email'];
+$translationFile = "../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
+    include $translationFile;
+} else {
+    $translations = [];
+}
 if (isset($_REQUEST['resend_otp'])) {
     header("Location: forgotpassword.php");
 }
@@ -29,23 +36,20 @@ if (isset($_POST['validate_otp'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Tech News and Articles website" />
-    <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka" />
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../admin.css" />
-    <title>Forgot Password</title>
+    <title><?php echo $translations['forgot_password']; ?></title>
 </head>
 
 <body>
     <section class="section1 flexcenter">
         <div class="container flexcenter" id="signIn">
             <form method="post" class="form otp_form" id="validate_otp" action="verifyotp.php">
-                <h1>Enter 5 Digit OTP</h1>
+                <h1><?php echo $translations['enter_otp']; ?></h1>
                 <!--<p class="error_div"><?php if (!empty($msg)) {
                                                 echo $msg;
                                             } ?></p>-->
@@ -58,7 +62,7 @@ if (isset($_POST['validate_otp'])) {
                     <input type="number" class="otp-input" maxlength="1" name="otp5" />
                 </div>
                 <p id="countdown" class="timer"></p>
-                <button id="btn" class="verifyButton" name="validate_otp">Verify</button>
+                <button id="btn" class="verifyButton" name="validate_otp"><?php echo $translations['verify']; ?></button>
             </form>
         </div>
     </section>

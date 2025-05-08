@@ -212,5 +212,14 @@ $translations = [
     'edit_user' => "تعديل المستخدم",
     'edit_user_image' => "تعديل صورة المستخدم",
     'password' => "كلمة المرور",
+    'forgot_password' => "نسيت كلمة المرور",
+    'confirm_password' => "تأكيد كلمة المرور",
+    'enter_your_email' => "أدخل بريدك الإلكتروني",
+    'send_otp' => "إرسال OTP",
+    'admin_login' => "تسجيل دخول المسؤول",
+    'sign_in' => "تسجيل الدخول",
+    'remember_me' => "تذكرني",
+    'enter_otp' => "أدخل OTP",
+    'verify' => "تحقق",
 ];
 ?>

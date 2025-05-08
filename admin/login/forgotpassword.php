@@ -3,6 +3,7 @@ session_start();
 require("../connect.php");
 include("../crudoperations.php");
 require('../../init.php');
+require("../init.php");
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -13,6 +14,12 @@ require '../../vendor\phpmailer\phpmailer\src\PHPMailer.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+$translationFile = "../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
+    include $translationFile;
+} else {
+    $translations = [];
+}
 $msg = " ";
 if (isset($_REQUEST['fgtpswd'])) {
     $email = $_REQUEST['email'];
@@ -60,32 +67,29 @@ if (isset($_REQUEST['fgtpswd'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Tech News and Articles website" />
-    <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka" />
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../admin.css" />
-    <title>Forgot Password</title>
+    <title><?php echo $translations['forgot_password']; ?></title>
 </head>
 
 <body>
     <section class="section1 flexcenter">
         <div class="container" id="signIn">
             <form method="post" class="form" id="validate_form" action="forgotpassword.php">
-                <h1>Enter Your Email</h1>
+                <h1><?php echo $translations['enter_your_email']; ?></h1>
                 <p class="error_div"><?php if (!empty($msg)) {
                                             echo $msg;
                                         } ?></p>
                 <div class="input_group">
                     <i class="fas fa-envelope"></i>
                     <input type="email" name="email" id="form_input" placeholder="Enter your email.." data-parsley-type="email" data-parsley-trigger="keyup" required />
-                    <label for="email">Email</label>
+                    <label for="email"><?php echo $translations['email']; ?></label>
                 </div>
-                <input type="submit" value="Send OTP" class="btn_main" name="fgtpswd" />
+                <input type="submit" value="<?php echo $translations['send_otp']; ?>" class="btn_main" name="fgtpswd" />
             </form>
         </div>
     </section>

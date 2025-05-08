@@ -210,5 +210,14 @@ $translations = [
     'edit_user' => "编辑用户",
     'edit_user_image' => "编辑用户的图片",
     'password' => "密码",
+    'forgot_password' => "忘记密码",
+    'confirm_password' => "确认密码",
+    'enter_your_email' => "输入您的电子邮件",
+    'send_otp' => "发送OTP",
+    'admin_login' => "管理员登录",
+    'sign_in' => "登录",
+    'remember_me' => "记住我",
+    'enter_otp' => "输入OTP",
+    'verify' => "验证",
 ];
 ?>

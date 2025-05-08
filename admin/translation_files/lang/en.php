@@ -210,5 +210,14 @@ $translations = [
     'edit_user' => "Edit User",
     'edit_user_image' => "Edit User's Image",
     'password' => "Password",
+    'forgot_password' => "Forgot Password",
+    'confirm_password' => "Confirm Password",
+    'enter_your_email' => "Enter your email",
+    'send_otp' => "Send OTP",
+    'admin_login' => "Admin Login",
+    'sign_in' => "Sign In",
+    'remember_me' => "Remember Me",
+    'enter_otp' => "Enter 5 digit OTP sent to your email",
+    'verify' => "Verify",
 ];
 ?>

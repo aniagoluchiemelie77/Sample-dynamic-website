@@ -9,6 +9,6 @@
         <button class="fa fa-search" id="tutorial_name" aria-hidden="true" name="search_btn" type="submit" formenctype="text/plain"></button>
     </form>
     <div class="header_logobox">
-        <img src="#" alt="Website Logo">
+        <img src="../../<?php echo $logo; ?>" alt="Website Logo">
     </div>
 </header>

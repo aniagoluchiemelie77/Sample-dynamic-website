@@ -30,8 +30,8 @@
     z-index: 50;
     background-color: var(--color10);
 }
-.website_info_div .message_box i, p{
-    color: var(--color60);
+.website_info_div .message_box i p{
+    color: var(--color30);
 }
 @keyframes slide{
     0%{

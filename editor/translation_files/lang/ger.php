@@ -203,6 +203,15 @@ $translations = [
     'edit_user' => "Benutzer bearbeiten",
     'edit_user_image' => "Benutzerbild bearbeiten",
     'password' => "Passwort",
-
+    'forgot_password' => "Passwort vergessen",
+    'confirm_password' => "Passwort bestätigen",
+    'enter_your_email' => "Gib deine E-Mail-Adresse ein",
+    'send_otp' => "OTP senden",
+    'admin_login' => "Admin-Login",
+    'sign_in' => "Anmelden",
+    'remember_me' => "Erinnere dich an mich",
+    'enter_otp' => "Gib die 5-stellige OTP ein, die an deine E-Mail gesendet wurde",
+    'verify' => "Überprüfen",
+    'editor_login' => "Redakteur-Login",
 ];
 ?>

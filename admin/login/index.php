@@ -1,6 +1,13 @@
 <?php
 require("../connect.php");
 require('../../init.php');
+require("../init.php");
+$translationFile = "../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
+    include $translationFile;
+} else {
+    $translations = [];
+}
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -11,7 +18,7 @@ if (isset($_REQUEST['Sign_In'])) {
         setcookie("emailid", $_REQUEST['Email'], time() + 60 * 60);
         setcookie("passwordid", $_REQUEST['Password'], time() + 60 * 60);
     }
-    $select_query = mysqli_query($conn, "SELECT * FROM admin_login_info WHERE email='$email' OR password = '$password'");
+    $select_query = mysqli_query($conn, "SELECT * FROM admin_login_info WHERE email='$email' AND password = '$password'");
     $result = mysqli_num_rows($select_query);
     if ($result > 0) {
         session_start();
@@ -67,22 +74,19 @@ if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Tech News and Articles website" />
-    <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka" />
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../admin.css" />
-    <title>Admin Login</title>
+    <title><?php echo $translations['admin_login']; ?></title>
 </head>
 
 <body>
     <section class="section1 flexcenter">
         <div class="container" id="signIn">
-            <h1 class="form__title">Sign In</h1>
+            <h1 class="form__title"><?php echo $translations['sign_in']; ?></h1>
             <form method="post" class="form">
                 <p class="error_div"><?php if (!empty($msg)) {
                                             echo $msg;
@@ -91,19 +95,19 @@ if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
                 <div class="input_group">
                     <i class="fas fa-envelope"></i>
                     <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid; ?>" required />
-                    <label for="Email">Email</label>
+                    <label for="Email"><?php echo $translations['email']; ?></label>
                 </div>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="Password" id="form_input" placeholder="Password" value="<?php echo $passwordid; ?>" required />
-                    <label for="Password">Password</label>
+                    <label for="Password"><?php echo $translations['password']; ?></label>
                 </div>
                 <div class="checkbox_group">
                     <input type="checkbox" name="remember" id="remember_me" />
-                    <p>Remember me</p>
+                    <p><?php echo $translations['remember_me']; ?></p>
                 </div>
-                <p class="recover"><a href="forgotpassword.php">Forgot password?</a></p>
-                <input type="submit" value="Sign In" class="btn_main" name="Sign_In" />
+                <p class="recover"><a href="forgotpassword.php"><?php echo $translations['forgot_password']; ?>?</a></p>
+                <input type="submit" value="<?php echo $translations['sign_in']; ?>" class="btn_main" name="Sign_In" />
             </form>
         </div>
     </section>

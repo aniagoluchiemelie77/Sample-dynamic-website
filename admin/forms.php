@@ -71,24 +71,24 @@ function saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $admi
     $stmt->close();
 }
 //Review the below function
-function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename)
+function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id)
 {
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, admin_id = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ?");
-    $stmt->bind_param("ssssssssssss", $title, $subtitle, $imagePath, $content, $niche, $link, $admin_id, $date, $time, $author_firstname, $author_bio, $author_lastname);
+    $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, admin_id = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
+    $stmt->bind_param("ssssssssssssi", $title, $subtitle, $imagePath, $content, $niche, $link, $admin_id, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
     if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated a $tablename post";
+        $content = "Admin " . $_SESSION['firstname'] . " updated a post";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Post Created Successfully";
-        header('location: create_new/posts.php');
+        $_SESSION['status'] = "Post Updated Successfully";
+        header('location: edit/post.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
-        header('location: create_new/posts.php');
+        header('location: edit/post.php');
     }
     $stmt->close();
 }
@@ -393,6 +393,7 @@ if (isset($_POST['update_post'])) {
     $content = $_POST['Post_content'];
     $link = $_POST['Post_featured'];
     $tablename = $_POST['table_type'];
+    $post_id = $_POST['post_id'];
     $subtitle = $_POST['Post_Sub_Title'];
     $author_firstname = $_POST['author_firstname'];
     $author_lastname = $_POST['author_lastname'];
@@ -405,7 +406,7 @@ if (isset($_POST['update_post'])) {
         if (!empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)) {
             $admin_id = " ";
         }
-        updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename);
+        updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
     }
 }
 if (isset($_POST['create_editor'])) {

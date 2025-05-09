@@ -221,5 +221,7 @@ $translations = [
     'verify' => "验证",
     'editor_login' => "编辑器登录",
     'editor_homepage' => "编辑器主页",
+    'edit_post' => "编辑帖子",
+    'subtitle' => "副标题",
 ];
 ?>

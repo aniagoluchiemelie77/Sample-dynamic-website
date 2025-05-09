@@ -214,5 +214,7 @@ $translations = [
     'verify' => "Überprüfen",
     'editor_login' => "Redakteur-Login",
     'editor_homepage' => "Redakteur-Startseite",
+    'edit_post' => "Beitrag bearbeiten",
+    'subtitle' => "Untertitel",
 ];
 ?>

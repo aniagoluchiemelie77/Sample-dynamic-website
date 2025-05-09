@@ -219,5 +219,7 @@ $translations = [
     'remember_me' => "Remember Me",
     'enter_otp' => "Enter 5 digit OTP sent to your email",
     'verify' => "Verify",
+    'edit_post' => "Edit Post",
+    'subtitle' => "Subtitle",
 ];
 ?>

@@ -83,7 +83,6 @@ if (file_exists($translationFile)) {
                 <label class="form__select" for="Post_status"><?php echo $translations['post_type']; ?>:</label>
                 <select class="newpost_subdiv2" name="Post_status">
                     <option class="newpost_subdiv4-option" value="">-- <?php echo $translations['post_type_option']; ?> --</option>
-                    <option class="newpost_subdiv4-option" value="paid_posts"><?php echo $translations['paid_post']; ?></option>
                     <option class="newpost_subdiv4-option" value="posts"><?php echo $translations['article']; ?></option>
                     <option class="newpost_subdiv4-option" value="news"><?php echo $translations['news']; ?></option>
                     <option class="newpost_subdiv4-option" value="press_releases"><?php echo $translations['press_release']; ?></option>

@@ -69,19 +69,19 @@ function saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $edit
     $stmt->close();
 }
 //Review the below function
-function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $editor_id, $author_firstname, $author_lastname, $author_bio, $tablename)
+function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $editor_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id)
 {
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, editor_id = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ?");
-    $stmt->bind_param("ssssssisssss", $title, $subtitle, $imagePath, $content, $niche, $link, $editor_id, $date, $time, $author_firstname, $author_bio, $author_lastname);
+    $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, editor_id = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
+    $stmt->bind_param("ssssssissssssi", $title, $subtitle, $imagePath, $content, $niche, $link, $editor_id, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
     if ($stmt->execute()) {
-        $content = "Editor " . $_SESSION['firstname'] . " updated a $tablename post";
+        $content = "Editor " . $_SESSION['firstname'] . " updated a post";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Post Created Successfully";
+        $_SESSION['status'] = "Post Updated Successfully";
         header('location: edit/posts.php');
     } else {
         $_SESSION['status_type'] = "Error";
@@ -327,6 +327,7 @@ if (isset($_POST['update_post'])) {
     $content = $_POST['Post_content'];
     $link = $_POST['Post_featured'];
     $tablename = $_POST['table_type'];
+    $post_id = $_POST['post_id'];
     $subtitle = $_POST['Post_Sub_Title'];
     $author_firstname = $_POST['author_firstname'];
     $author_lastname = $_POST['author_lastname'];
@@ -339,7 +340,7 @@ if (isset($_POST['update_post'])) {
         if (!empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)) {
             $editor_id = " ";
         }
-        updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $editor_id, $author_firstname, $author_lastname, $author_bio, $tablename);
+        updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $editor_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
     }
 }
 if (isset($_POST['create_writer'])) {

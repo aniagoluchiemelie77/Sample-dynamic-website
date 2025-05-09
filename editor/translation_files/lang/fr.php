@@ -221,4 +221,6 @@ $translations = [
     'verify' => "Vérifier",
     'editor_login' => "Connexion éditeur",
     'editor_homepage' => "Page d'accueil de l'éditeur",
+    'edit_post' => "Modifier le message",
+    'subtitle' => "Sous-titre",
 ];

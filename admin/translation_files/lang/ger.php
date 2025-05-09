@@ -212,6 +212,8 @@ $translations = [
     'remember_me' => "Erinnere dich an mich",
     'enter_otp' => "Gib die 5-stellige OTP ein, die an deine E-Mail gesendet wurde",
     'verify' => "Überprüfen",
+    'edit_post' => "Beitrag bearbeiten",
+    'subtitle' => "Untertitel",
 
 ];
 ?>

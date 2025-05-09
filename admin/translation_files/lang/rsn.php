@@ -219,6 +219,8 @@ $translations = [
     'remember_me' => "Запомнить меня",
     'enter_otp' => "Введите OTP",
     'verify' => "Проверить",
+    'edit_post' => "Редактировать пост",
+    'subtitle' => "Подзаголовок",
 ];
 
 ?>

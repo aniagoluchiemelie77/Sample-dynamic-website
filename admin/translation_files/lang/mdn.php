@@ -219,5 +219,7 @@ $translations = [
     'remember_me' => "记住我",
     'enter_otp' => "输入OTP",
     'verify' => "验证",
+    'edit_post' => "编辑帖子",
+    'subtitle' => "副标题",
 ];
 ?>

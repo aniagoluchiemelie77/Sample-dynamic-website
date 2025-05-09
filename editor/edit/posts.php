@@ -2,10 +2,16 @@
 session_start();
 include("../connect.php");
 require('../../init.php');
+require("../init.php");
+$translationFile = "../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
+    include $translationFile;
+} else {
+    $translations = [];
+}
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-$post_id1 = isset($_GET['id1']) ? intval($_GET['id1']) : 0;
 $post_id2 = isset($_GET['id2']) ? intval($_GET['id2']) : 0;
 $post_id3 = isset($_GET['id3']) ? intval($_GET['id3']) : 0;
 $post_id4 = isset($_GET['id4']) ? intval($_GET['id4']) : 0;
@@ -26,7 +32,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../editor.css" />
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <title>Edit Post</title>
+    <title><?php echo $translations['edit_post']; ?></title>
 </head>
 
 <body>
@@ -34,103 +40,38 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">
-                <a href="../editor_homepage.php">Home</a> > <p>Edit Post</p>
+                <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['edit_post']; ?></p>
             </div>
             <div class="newpost_container_div1 newpost_subdiv">
-                <h1>Edit Post</h1>
+                <h1><?php echo $translations['edit_post']; ?></h1>
             </div>
             <?php
-            if ($post_id1 > 0) {
-                $getpaidpost_sql = " SELECT * FROM paid_posts WHERE id = $post_id1";
-                $getpaidpost_result = $conn->query($getpaidpost_sql);
-                if ($getpaidpost_result->num_rows > 0) {
-                    $row = $getpaidpost_result->fetch_assoc();
-                    echo "<div class='newpost_container_div2 newpost_subdiv'>
-                                <input class='form__input input1' name='Post_Title' type='text' value='" . $row['title'] . "'required/>
-                                <div class='newpost_container_div2_subdiv2'>
-                                    <input class='form__input' name='Post_Niche' type='text' value='" . $row['niche'] . "'required/>
-                                </div>
-                            </div>
-                            <input type='hidden' name='table_type' value='paid_posts'/>
-                            <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='Post_Sub_Title'>Sub Title:</label>
-                                <div class='newpost_container_div3_subdiv2'>
-                                    <input class='form__input' name='Post_Sub_Title' type='text' value='" . $row['subtitle'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div5 newpost_subdiv'>
-                                <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
-                                <div class='newpost_container_div5_subdiv2'>
-                                    <input class='form__input' name='Post_featured' type='text' value='" . $row['link'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Enter url to video/audio (optional)</p>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div6 newpost_subdiv'>
-                                <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../" . $row['image_path'] . "' alt='Post Image'/>
-                                </div>
-                                <div class='newpost_container_div6_subdiv2'>
-                                    <label class='form__label' for='Post_Image'>Edit Image: </label>
-                                    <div class='newpost_subdiv2'>
-                                        <input class='form__input' name='Post_Image' type='file' required/>
-                                        <p class='newpost_subdiv2-p leftp'><span>*</span>Image should be less than 300KB</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='Post_Content'>Post Content:</label>
-                                <textarea class='newpost_container_div7_subdiv2' name='Post_content' id='myTextarea3'>
-                                    " . $row['content'] . "
-                                </textarea>
-                            </div>
-                            <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_firstname'>Author's Firstname:</label>
-                                <div class='newpost_container_div3_subdiv2'>
-                                    <input class='form__input' name='author_firstname' type='text' value='" . $row['authors_firstname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's First Name (OPTIONAL)</p>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_lastname'>Author's Lastname:</label>
-                                <div class='newpost_container_div3_subdiv2'>
-                                    <input class='form__input' name='author_lastname' type='text' value='" . $row['authors_lastname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's Last Name (OPTIONAL)</p>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='about_author'>About Author:</label>
-                                <textarea class='newpost_container_div7_subdiv2b' name='about_author'>
-                                    " . $row['about_author'] . "
-                                </textarea>
-                                <p class='newpost_subdiv2-p leftp'><span>*</span> About Author (OPTIONAL)</p>
-                        </div>";
-                }
-            }
             if ($post_id2 > 0) {
                 $getpost_sql = " SELECT * FROM posts WHERE id = $post_id2";
                 $getpost_result = $conn->query($getpost_sql);
                 if ($getpost_result->num_rows > 0) {
                     $row = $getpost_result->fetch_assoc();
-                    echo "<div class='newpost_container_div2 newpost_subdiv'>
+                    echo "
+                            <div class='newpost_container_div2 newpost_subdiv'>
                                 <input class='form__input input1' name='Post_Title' type='text' value='" . $row['title'] . "'required/>
                                 <div class='newpost_container_div2_subdiv2'>
                                     <input class='form__input' name='Post_Niche' type='text' value='" . $row['niche'] . "'required/>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='Post_Sub_Title'>Sub Title:</label>
+                                <label class='form__label' for='Post_Sub_Title'>$translations[subtitle]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='Post_Sub_Title' type='text' value='" . $row['subtitle'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_subtitle_p]</p>
                                 </div>
                             </div>
-                            <input type='hidden' name='table_type' value='posts'/>
+                            <input type='hidden' name='table_type' value='posts' type='text'/>
+                            <input type='hidden' name='post_id' value='$post_id2' type='text'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
-                                <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
+                                <label class='form__label' for='Post_featured'>$translations[featured_audio_video]:</label>
                                 <div class='newpost_container_div5_subdiv2'>
                                     <input class='form__input' name='Post_featured' type='text' value='" . $row['link'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Enter url to video/audio (optional)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[featured_audio_video_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
@@ -138,66 +79,68 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                                     <img src='../../" . $row['image_path'] . "' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
-                                    <label class='form__label' for='Post_Image'>Edit Image: </label>
+                                    <label class='form__label' for='Post_Image'>$translations[post_image]: </label>
                                     <div class='newpost_subdiv2'>
                                         <input class='form__input' name='Post_Image' type='file' required/>
-                                        <p class='newpost_subdiv2-p leftp'><span>*</span>Image should be less than 300KB</p>
+                                        <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_image_p]</p>
                                     </div>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='Post_Content'>Post Content:</label>
+                                <label class='form__label' for='Post_Content'>$translations[post_content]:</label>
                                 <textarea class='newpost_container_div7_subdiv2' name='Post_content' id='myTextarea3'>
                                     " . $row['content'] . "
                                 </textarea>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_firstname'>Author's Firstname:</label>
+                                <label class='form__label' for='author_firstname'>$translations[author_firstname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_firstname' type='text' value='" . $row['authors_firstname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's First Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_firstname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_lastname'>Author's Lastname:</label>
+                                <label class='form__label' for='author_lastname'>$translations[author_lastname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_lastname' type='text' value='" . $row['authors_lastname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's Last Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_lastname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='about_author'>About Author:</label>
+                                <label class='form__label' for='about_author'>$translations[about_author]:</label>
                                 <textarea class='newpost_container_div7_subdiv2b' name='about_author'>
                                     " . $row['about_author'] . "
                                 </textarea>
-                                <p class='newpost_subdiv2-p leftp'><span>*</span> About Author (OPTIONAL)</p>
-                        </div>";
+                                <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[about_author_p]</p>
+                            </div>
+                        ";
                 }
-            }
-            if ($post_id3 > 0) {
+            } else if ($post_id3 > 0) {
                 $getdrafts_sql = " SELECT * FROM unpublished_articles WHERE id = $post_id3";
                 $getdrafts_result = $conn->query($getdrafts_sql);
                 if ($getdrafts_result->num_rows > 0) {
                     $row = $getdrafts_result->fetch_assoc();
-                    echo "<div class='newpost_container_div2 newpost_subdiv'>
+                    echo "
+                            <div class='newpost_container_div2 newpost_subdiv'>
                                 <input class='form__input input1' name='Post_Title' type='text' value='" . $row['title'] . "'required/>
                                 <div class='newpost_container_div2_subdiv2'>
                                     <input class='form__input' name='Post_Niche' type='text' value='" . $row['niche'] . "'required/>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='Post_Sub_Title'>Sub Title:</label>
+                                <label class='form__label' for='Post_Sub_Title'>$translations[subtitle]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='Post_Sub_Title' type='text' value='" . $row['subtitle'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_subtitle_p]</p>
                                 </div>
                             </div>
-                            <input type='hidden' name='table_type' value='unpublished_articles'/>
+                            <input type='hidden' name='table_type' value='unpublished_articles' type='text'/>
+                            <input type='hidden' name='post_id' value='$post_id3' type='text'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
-                                <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
+                                <label class='form__label' for='Post_featured'>$translations[featured_audio_video]:</label>
                                 <div class='newpost_container_div5_subdiv2'>
                                     <input class='form__input' name='Post_featured' type='text' value='" . $row['link'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Enter url to video/audio (optional)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[featured_audio_video_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
@@ -205,66 +148,68 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                                     <img src='../../" . $row['image_path'] . "' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
-                                    <label class='form__label' for='Post_Image'>Edit Image: </label>
+                                    <label class='form__label' for='Post_Image'>$translations[post_image]: </label>
                                     <div class='newpost_subdiv2'>
                                         <input class='form__input' name='Post_Image' type='file' required/>
-                                        <p class='newpost_subdiv2-p leftp'><span>*</span>Image should be less than 300KB</p>
+                                        <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_image_p]</p>
                                     </div>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='Post_Content'>Post Content:</label>
+                                <label class='form__label' for='Post_Content'>$translations[post_content]:</label>
                                 <textarea class='newpost_container_div7_subdiv2' name='Post_content' id='myTextarea3'>
                                     " . $row['content'] . "
                                 </textarea>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_firstname'>Author's Firstname:</label>
+                                <label class='form__label' for='author_firstname'>$translations[author_firstname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_firstname' type='text' value='" . $row['authors_firstname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's First Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_firstname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_lastname'>Author's Lastname:</label>
+                                <label class='form__label' for='author_lastname'>$translations[author_lastname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_lastname' type='text' value='" . $row['authors_lastname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's Last Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_lastname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='about_author'>About Author:</label>
+                                <label class='form__label' for='about_author'>$translations[about_author]:</label>
                                 <textarea class='newpost_container_div7_subdiv2b' name='about_author'>
                                     " . $row['about_author'] . "
                                 </textarea>
-                                <p class='newpost_subdiv2-p leftp'><span>*</span> About Author (OPTIONAL)</p>
-                        </div>";
+                                <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[about_author_p]</p>
+                            </div>
+                        ";
                 }
-            }
-            if ($post_id4 > 0) {
+            } else if ($post_id4 > 0) {
                 $getnews_sql = " SELECT * FROM news WHERE id = $post_id4";
                 $getnews_result = $conn->query($getnews_sql);
                 if ($getnews_result->num_rows > 0) {
                     $row = $getnews_result->fetch_assoc();
-                    echo "<div class='newpost_container_div2 newpost_subdiv'>
+                    echo "
+                            <div class='newpost_container_div2 newpost_subdiv'>
                                 <input class='form__input input1' name='Post_Title' type='text' value='" . $row['title'] . "'required/>
                                 <div class='newpost_container_div2_subdiv2'>
                                     <input class='form__input' name='Post_Niche' type='text' value='" . $row['niche'] . "'required/>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='Post_Sub_Title'>Sub Title:</label>
+                                <label class='form__label' for='Post_Sub_Title'>$translations[subtitle]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='Post_Sub_Title' type='text' value='" . $row['subtitle'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_subtitle_p]</p>
                                 </div>
                             </div>
-                            <input type='hidden' name='table_type' value='news'/>
+                            <input type='hidden' name='table_type' value='news' type='text'/>
+                            <input type='hidden' name='post_id' value='$post_id4' type='text'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
-                                <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
+                                <label class='form__label' for='Post_featured'>$translations[featured_audio_video]:</label>
                                 <div class='newpost_container_div5_subdiv2'>
                                     <input class='form__input' name='Post_featured' type='text' value='" . $row['link'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Enter url to video/audio (optional)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[featured_audio_video_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
@@ -272,66 +217,68 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                                     <img src='../../" . $row['image_path'] . "' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
-                                    <label class='form__label' for='Post_Image'>Edit Image: </label>
+                                    <label class='form__label' for='Post_Image'>$translations[post_image]: </label>
                                     <div class='newpost_subdiv2'>
                                         <input class='form__input' name='Post_Image' type='file' required/>
-                                        <p class='newpost_subdiv2-p leftp'><span>*</span>Image should be less than 300KB</p>
+                                        <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_image_p]</p>
                                     </div>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='Post_Content'>Post Content:</label>
+                                <label class='form__label' for='Post_Content'>$translations[post_content]:</label>
                                 <textarea class='newpost_container_div7_subdiv2' name='Post_content' id='myTextarea3'>
                                     " . $row['content'] . "
                                 </textarea>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_firstname'>Author's Firstname:</label>
+                                <label class='form__label' for='author_firstname'>$translations[author_firstname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_firstname' type='text' value='" . $row['authors_firstname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's First Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_firstname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_lastname'>Author's Lastname:</label>
+                                <label class='form__label' for='author_lastname'>$translations[author_lastname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_lastname' type='text' value='" . $row['authors_lastname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's Last Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_lastname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='about_author'>About Author:</label>
+                                <label class='form__label' for='about_author'>$translations[about_author]:</label>
                                 <textarea class='newpost_container_div7_subdiv2b' name='about_author'>
                                     " . $row['about_author'] . "
                                 </textarea>
-                                <p class='newpost_subdiv2-p leftp'><span>*</span> About Author (OPTIONAL)</p>
-                        </div>";
+                                <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[about_author_p]</p>
+                            </div>
+                        ";
                 }
-            }
-            if ($post_id5 > 0) {
+            } else if ($post_id5 > 0) {
                 $getcommentary_sql = " SELECT * FROM commentaries WHERE id = $post_id5";
                 $getcommentary_result = $conn->query($getcommentary_sql);
                 if ($getcommentary_result->num_rows > 0) {
                     $row = $getcommentary_result->fetch_assoc();
-                    echo "<div class='newpost_container_div2 newpost_subdiv'>
+                    echo "
+                            <div class='newpost_container_div2 newpost_subdiv'>
                                 <input class='form__input input1' name='Post_Title' type='text' value='" . $row['title'] . "'required/>
                                 <div class='newpost_container_div2_subdiv2'>
                                     <input class='form__input' name='Post_Niche' type='text' value='" . $row['niche'] . "'required/>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='Post_Sub_Title'>Sub Title:</label>
+                                <label class='form__label' for='Post_Sub_Title'>$translations[subtitle]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='Post_Sub_Title' type='text' value='" . $row['subtitle'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_subtitle_p]</p>
                                 </div>
                             </div>
-                            <input type='hidden' name='table_type' value='commentaries'/>
+                            <input type='hidden' name='table_type' value='commentaries' type='text'/>
+                            <input type='hidden' name='post_id' value='$post_id5' type='text'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
-                                <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
+                                <label class='form__label' for='Post_featured'>$translations[featured_audio_video]:</label>
                                 <div class='newpost_container_div5_subdiv2'>
                                     <input class='form__input' name='Post_featured' type='text' value='" . $row['link'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Enter url to video/audio (optional)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[featured_audio_video_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
@@ -339,66 +286,68 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                                     <img src='../../" . $row['image_path'] . "' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
-                                    <label class='form__label' for='Post_Image'>Edit Image: </label>
+                                    <label class='form__label' for='Post_Image'>$translations[post_image]: </label>
                                     <div class='newpost_subdiv2'>
                                         <input class='form__input' name='Post_Image' type='file' required/>
-                                        <p class='newpost_subdiv2-p leftp'><span>*</span>Image should be less than 300KB</p>
+                                        <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_image_p]</p>
                                     </div>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='Post_Content'>Post Content:</label>
+                                <label class='form__label' for='Post_Content'>$translations[post_content]:</label>
                                 <textarea class='newpost_container_div7_subdiv2' name='Post_content' id='myTextarea3'>
                                     " . $row['content'] . "
                                 </textarea>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_firstname'>Author's Firstname:</label>
+                                <label class='form__label' for='author_firstname'>$translations[author_firstname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_firstname' type='text' value='" . $row['authors_firstname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's First Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_firstname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_lastname'>Author's Lastname:</label>
+                                <label class='form__label' for='author_lastname'>$translations[author_lastname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_lastname' type='text' value='" . $row['authors_lastname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's Last Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_lastname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='about_author'>About Author:</label>
+                                <label class='form__label' for='about_author'>$translations[about_author]:</label>
                                 <textarea class='newpost_container_div7_subdiv2b' name='about_author'>
                                     " . $row['about_author'] . "
                                 </textarea>
-                                <p class='newpost_subdiv2-p leftp'><span>*</span> About Author (OPTIONAL)</p>
-                        </div>";
+                                <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[about_author_p]</p>
+                            </div>
+                        ";
                 }
-            }
-            if ($post_id6 > 0) {
+            } else {
                 $getpressrelease_sql = " SELECT * FROM press_releases WHERE id = $post_id6";
                 $getpressrelease_result = $conn->query($getpressrelease_sql);
                 if ($getpressrelease_result->num_rows > 0) {
                     $row = $getpressrelease_result->fetch_assoc();
-                    echo "<div class='newpost_container_div2 newpost_subdiv'>
+                    echo "
+                            <div class='newpost_container_div2 newpost_subdiv'>
                                 <input class='form__input input1' name='Post_Title' type='text' value='" . $row['title'] . "'required/>
                                 <div class='newpost_container_div2_subdiv2'>
                                     <input class='form__input' name='Post_Niche' type='text' value='" . $row['niche'] . "'required/>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='Post_Sub_Title'>Sub Title:</label>
+                                <label class='form__label' for='Post_Sub_Title'>$translations[subtitle]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='Post_Sub_Title' type='text' value='" . $row['subtitle'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Text displayed under title (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_subtitle_p]</p>
                                 </div>
                             </div>
-                            <input type='hidden' name='table_type' value='press_releases'/>
+                            <input type='hidden' name='table_type' value='press_releases' type='text'/>
+                            <input type='hidden' name='post_id' value='$post_id6' type='text'/>
                             <div class='newpost_container_div5 newpost_subdiv'>
-                                <label class='form__label' for='Post_featured'>Featured Video/Audio:</label>
+                                <label class='form__label' for='Post_featured'>$translations[featured_audio_video]:</label>
                                 <div class='newpost_container_div5_subdiv2'>
                                     <input class='form__input' name='Post_featured' type='text' value='" . $row['link'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>Enter url to video/audio (optional)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[featured_audio_video_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
@@ -406,45 +355,46 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                                     <img src='../../" . $row['image_path'] . "' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
-                                    <label class='form__label' for='Post_Image'>Edit Image: </label>
+                                    <label class='form__label' for='Post_Image'>$translations[post_image]: </label>
                                     <div class='newpost_subdiv2'>
                                         <input class='form__input' name='Post_Image' type='file' required/>
-                                        <p class='newpost_subdiv2-p leftp'><span>*</span>Image should be less than 300KB</p>
+                                        <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_image_p]</p>
                                     </div>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='Post_Content'>Post Content:</label>
+                                <label class='form__label' for='Post_Content'>$translations[post_content]:</label>
                                 <textarea class='newpost_container_div7_subdiv2' name='Post_content' id='myTextarea3'>
                                     " . $row['content'] . "
                                 </textarea>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_firstname'>Author's Firstname:</label>
+                                <label class='form__label' for='author_firstname'>$translations[author_firstname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_firstname' type='text' value='" . $row['authors_firstname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's First Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_firstname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_lastname'>Author's Lastname:</label>
+                                <label class='form__label' for='author_lastname'>$translations[author_lastname]:</label>
                                 <div class='newpost_container_div3_subdiv2'>
                                     <input class='form__input' name='author_lastname' type='text' value='" . $row['authors_lastname'] . "'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> Author's Last Name (OPTIONAL)</p>
+                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_lastname_p]</p>
                                 </div>
                             </div>
                             <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='about_author'>About Author:</label>
+                                <label class='form__label' for='about_author'>$translations[about_author]:</label>
                                 <textarea class='newpost_container_div7_subdiv2b' name='about_author'>
                                     " . $row['about_author'] . "
                                 </textarea>
-                                <p class='newpost_subdiv2-p leftp'><span>*</span> About Author (OPTIONAL)</p>
-                        </div>";
+                                <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[about_author_p]</p>
+                            </div>
+                        ";
                 }
             }
             ?>
             <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="Update" name="update_post" />
+                <input class="form__submit_input" type="submit" value="<?php echo $translations['update']; ?>" name="update_post" />
             </div>
         </form>
     </section>
@@ -473,40 +423,6 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
         }
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>
-        document.getElementById('updateForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var formData = new FormData(this);
-            fetch('message.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Table values updated successfully.',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = '../admin_homepage.php';
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'There was an error updating the table.',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                }).catch(error => {
-                    Swal.fire({
-                        title
-                    })
-                })
-        })
     </script>
 </body>
 

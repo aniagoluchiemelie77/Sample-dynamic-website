@@ -221,5 +221,7 @@ $translations = [
     'remember_me' => "تذكرني",
     'enter_otp' => "أدخل OTP",
     'verify' => "تحقق",
+    'edit_post' => "تعديل المنشور",
+    'subtitle' => "العنوان الفرعي",
 ];
 ?>

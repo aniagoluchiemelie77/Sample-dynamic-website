@@ -219,5 +219,7 @@ $translations = [
     'verify' => "Verificar",
     'editor_login' => "Inicio de Sesión del Editor",
     'editor_homepage' => "Página de Inicio del Editor",
+    'edit_post' => "Editar Publicación",
+    'subtitle' => "Subtítulo",
 ];
 ?>

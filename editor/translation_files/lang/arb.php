@@ -223,5 +223,7 @@ $translations = [
     'verify' => "تحقق",
     'editor_login' => "تسجيل دخول المحرر",
     'editor_homepage' => "الصفحة الرئيسية للمحرر",
+    'edit_post' => "تعديل المنشور",
+    'subtitle' => "العنوان الفرعي",
 ];
 ?>

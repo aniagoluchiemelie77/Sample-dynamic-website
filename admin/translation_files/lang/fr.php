@@ -219,5 +219,7 @@ $translations = [
     'remember_me' => "Se souvenir de moi",
     'enter_otp' => "Entrez OTP",
     'verify' => "Vérifier",
+    'edit_post' => "Modifier le message",
+    'subtitle' => "Sous-titre",
 ];
 ?>

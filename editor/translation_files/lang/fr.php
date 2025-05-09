@@ -220,4 +220,5 @@ $translations = [
     'enter_otp' => "Entrez OTP",
     'verify' => "Vérifier",
     'editor_login' => "Connexion éditeur",
+    'editor_homepage' => "Page d'accueil de l'éditeur",
 ];

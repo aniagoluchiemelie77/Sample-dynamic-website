@@ -3,18 +3,11 @@ session_start();
 require("../connect.php");
 include("../crudoperations.php");
 require('../../init.php');
-require("../init.php");
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
-$translationFile = "../translation_files/lang/{$language}.php";
-if (file_exists($translationFile)) {
-    include $translationFile;
-} else {
-    $translations = [];
-}
 $msg = " ";
 if (isset($_POST['change_password'])) {
     $password1 = $_POST['pwd'];
@@ -54,14 +47,14 @@ if (isset($_POST['change_password'])) {
     <link rel="stylesheet" href="../admin.css" />
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title><?php echo $translations['forgot_password']; ?></title>
+    <title>Forgot Password</title>
 </head>
 
 <body>
     <section class="section1 flexcenter">
         <div class="container" id="signIn">
             <form method="post" class="form" id="validate_form" action="changepassword.php">
-                <h1><?php echo $translations['change_password']; ?></h1>
+                <h1>Change Password</h1>
                 <p class="error_div">
                     <?php
                     if (!empty($msg)) {
@@ -72,14 +65,14 @@ if (isset($_POST['change_password'])) {
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="pwd" id="form_input" placeholder="Enter your password.." data-parsley-type="password" data-parsley-trigger="keyup" required />
-                    <label for="pwd"><?php echo $translations['password']; ?></label>
+                    <label for="pwd">Password</label>
                 </div>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="cfpwd" id="form_input" placeholder="Enter your password.." data-parsley-type="password" data-parsley-trigger="keyup" required />
-                    <label for="cfpwd"><?php echo $translations['confirm_password']; ?></label>
+                    <label for="cfpwd">Confirm Password</label>
                 </div>
-                <input type="submit" value="<?php echo $translations['update']; ?>" class="btn_main" name="change_password" />
+                <input type="submit" value="Update" class="btn_main" name="change_password" />
             </form>
         </div>
     </section>

@@ -12,6 +12,16 @@ $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $encryptionKey = "mySecretKey12345";
+function formatDate($dateString)
+{
+    $timestamp = strtotime($dateString);
+    $day = date('j', $timestamp);
+    $month = date('F', $timestamp);
+    $year = date('Y', $timestamp);
+    $daySuffix = date('jS', $timestamp);
+    return "$month $daySuffix $year";
+}
+$date = formatDate($_SESSION['date_joined']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -536,7 +546,7 @@ $encryptionKey = "mySecretKey12345";
                     <div class="profile_body_subdiv_subdiv profilesubdiv">
                         <div>
                             <i class="fa fa-hourglass-start" aria-hidden="true"></i>
-                            <p><?php echo $translations['date_joined']; ?>: <span>25th July 2024</span></p>
+                            <p><?php echo $translations['date_joined']; ?>: <span><?php echo $date; ?></span></p>
                         </div>
                     </div>
                     <div class="profile_body_subdiv_subdiv profilesubdiv">

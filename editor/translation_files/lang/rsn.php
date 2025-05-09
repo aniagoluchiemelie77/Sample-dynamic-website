@@ -220,6 +220,7 @@ $translations = [
     'enter_otp' => "Введите OTP",
     'verify' => "Проверить",
     'editor_login' => "Вход редактора",
+    'editor_homepage' => "Домашняя страница редактора",
 ];
 
 ?>

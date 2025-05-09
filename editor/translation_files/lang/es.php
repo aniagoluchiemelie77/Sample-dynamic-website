@@ -218,5 +218,6 @@ $translations = [
     'enter_otp' => "Ingresa el OTP de 5 dígitos enviado a tu correo electrónico",
     'verify' => "Verificar",
     'editor_login' => "Inicio de Sesión del Editor",
+    'editor_homepage' => "Página de Inicio del Editor",
 ];
 ?>

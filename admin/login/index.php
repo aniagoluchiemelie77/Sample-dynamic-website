@@ -1,13 +1,6 @@
 <?php
 require("../connect.php");
 require('../../init.php');
-require("../init.php");
-$translationFile = "../translation_files/lang/{$language}.php";
-if (file_exists($translationFile)) {
-    include $translationFile;
-} else {
-    $translations = [];
-}
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -18,7 +11,7 @@ if (isset($_REQUEST['Sign_In'])) {
         setcookie("emailid", $_REQUEST['Email'], time() + 60 * 60);
         setcookie("passwordid", $_REQUEST['Password'], time() + 60 * 60);
     }
-    $select_query = mysqli_query($conn, "SELECT * FROM admin_login_info WHERE email='$email' AND password = '$password'");
+    $select_query = mysqli_query($conn, "SELECT * FROM admin_login_info WHERE email='$email' OR password = '$password'");
     $result = mysqli_num_rows($select_query);
     if ($result > 0) {
         session_start();
@@ -37,6 +30,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $address = $data['address1'];
         $addresstwo = $data['address2'];
         $country_code = $data['country_code'];
+        $date_joined = $data['date_joined'];
         //declaring session variables
         $_SESSION['email'] = $email;
         $_SESSION['id'] = $id;
@@ -52,6 +46,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $_SESSION['address'] = $address;
         $_SESSION['addresstwo'] = $addresstwo;
         $_SESSION['country_code'] = $country_code;
+        $_SESSION['date_joined'] = $date_joined;
         $_SESSION['language'] = 'en';
         header("location: ../admin_homepage.php");
         exit();
@@ -80,13 +75,13 @@ if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../admin.css" />
-    <title><?php echo $translations['admin_login']; ?></title>
+    <title>Admin Login</title>
 </head>
 
 <body>
     <section class="section1 flexcenter">
         <div class="container" id="signIn">
-            <h1 class="form__title"><?php echo $translations['sign_in']; ?></h1>
+            <h1 class="form__title">Sign In</h1>
             <form method="post" class="form">
                 <p class="error_div"><?php if (!empty($msg)) {
                                             echo $msg;
@@ -95,19 +90,19 @@ if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
                 <div class="input_group">
                     <i class="fas fa-envelope"></i>
                     <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid; ?>" required />
-                    <label for="Email"><?php echo $translations['email']; ?></label>
+                    <label for="Email">Email</label>
                 </div>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="Password" id="form_input" placeholder="Password" value="<?php echo $passwordid; ?>" required />
-                    <label for="Password"><?php echo $translations['password']; ?></label>
+                    <label for="Password">Password</label>
                 </div>
                 <div class="checkbox_group">
                     <input type="checkbox" name="remember" id="remember_me" />
-                    <p><?php echo $translations['remember_me']; ?></p>
+                    <p>Remember Me</p>
                 </div>
-                <p class="recover"><a href="forgotpassword.php"><?php echo $translations['forgot_password']; ?>?</a></p>
-                <input type="submit" value="<?php echo $translations['sign_in']; ?>" class="btn_main" name="Sign_In" />
+                <p class="recover"><a href="forgotpassword.php">Forgot Password?</a></p>
+                <input type="submit" value="Sign In" class="btn_main" name="Sign_In" />
             </form>
         </div>
     </section>

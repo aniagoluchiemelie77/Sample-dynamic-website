@@ -173,51 +173,6 @@ function confirmDeleteP2(postId) {
         }
     })
   };
-function confirmDeleteSubscriber(postId) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href =  '../delete.php?id=' + postId + '&usertype=Subscriber';
-        }
-    })
-};
-function confirmDeleteNewslSubscriber(postId) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href =  '../delete.php?id=' + postId + '&usertype=NewsletterSubscriber';
-        }
-    })
-};
-function confirmDeleteEditor(Id) {
-  Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete!'
-  }).then((result) => {
-      if (result.isConfirmed) {
-          window.location.href = 'delete.php?id=' + Id + '&usertype=Editor';
-      }
-  })
-};
 function confirmDeleteN(postId) {
   Swal.fire({
       title: 'Are you sure?',
@@ -263,36 +218,6 @@ function confirmDeleteOtheruser(Id) {
       }
   })
 };
-function confirmDeletePP(postId) {
-  Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-      if (result.isConfirmed) {
-          window.location.href = 'delete.php?id1=' + postId;
-      }
-  })
-};
-function confirmDeletePP2(postId) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = '../delete.php?id1=' + postId;
-        }
-    })
-  };
 function confirmDeletePR(postId) {
   Swal.fire({
       title: 'Are you sure?',

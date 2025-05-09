@@ -45,7 +45,7 @@ $userId = $_SESSION['id'];
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../admin.css" />
+    <link rel="stylesheet" href="../editor.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
@@ -56,9 +56,9 @@ $userId = $_SESSION['id'];
     <?php require("../extras/header2.php"); ?>
 
     <section class="newpost_body">
-        <form method="POST" action=" " enctype="multipart/form-data" id="postForm" class="newpost_container">
+        <form method="POST" action="" enctype="multipart/form-data" id="postForm" class="newpost_container">
             <div class="page_links">
-                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['meta_titles_management']; ?></p>
+                <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['meta_titles_management']; ?></p>
             </div>
             <div class="newpost_container_divnew newpost_subdiv">
                 <h1 class="sectioneer_form_header"><?php echo $translations['meta_titles_management_title']; ?></h1>
@@ -89,7 +89,7 @@ $userId = $_SESSION['id'];
     <script src="sweetalert2.all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
-    <script src="../admin.js"></script>
+    <script src="../editor.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";

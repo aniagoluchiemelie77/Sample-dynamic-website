@@ -3,17 +3,10 @@ session_start();
 require("../connect.php");
 include("../crudoperations.php");
 require('../../init.php');
-require("../init.php");
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $email = $_SESSION['email'];
-$translationFile = "../translation_files/lang/{$language}.php";
-if (file_exists($translationFile)) {
-    include $translationFile;
-} else {
-    $translations = [];
-}
 if (isset($_REQUEST['resend_otp'])) {
     header("Location: forgotpassword.php");
 }
@@ -42,7 +35,7 @@ if (isset($_POST['validate_otp'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../admin.css" />
-    <title><?php echo $translations['forgot_password']; ?></title>
+    <title>Forgot Password</title>
 </head>
 
 <body>
@@ -50,9 +43,9 @@ if (isset($_POST['validate_otp'])) {
         <div class="container flexcenter" id="signIn">
             <form method="post" class="form otp_form" id="validate_otp" action="verifyotp.php">
                 <h1><?php echo $translations['enter_otp']; ?></h1>
-                <!--<p class="error_div"><?php if (!empty($msg)) {
-                                                echo $msg;
-                                            } ?></p>-->
+                <p class="error_div"><?php if (!empty($msg)) {
+                                            echo $msg;
+                                        } ?></p>
                 <div class="input-field">
                     <input type="hidden" name="email" />
                     <input type="number" class="otp-input" maxlength="1" name="otp1" />
@@ -62,7 +55,7 @@ if (isset($_POST['validate_otp'])) {
                     <input type="number" class="otp-input" maxlength="1" name="otp5" />
                 </div>
                 <p id="countdown" class="timer"></p>
-                <button id="btn" class="verifyButton" name="validate_otp"><?php echo $translations['verify']; ?></button>
+                <button id="btn" class="verifyButton" name="validate_otp">Verify</button>
             </form>
         </div>
     </section>

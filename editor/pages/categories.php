@@ -41,7 +41,7 @@ if (file_exists($translationFile)) {
         </div>
         <div class="about_section_topicsdiv">
             <div class="page_links">
-                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['categories']; ?></p>
+                <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['categories']; ?></p>
             </div>
             <?php
             $getcategories_sql = " SELECT id, name, image_path, Date, time FROM topics ORDER BY id";

@@ -222,5 +222,6 @@ $translations = [
     'enter_otp' => "أدخل OTP",
     'verify' => "تحقق",
     'editor_login' => "تسجيل دخول المحرر",
+    'editor_homepage' => "الصفحة الرئيسية للمحرر",
 ];
 ?>

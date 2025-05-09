@@ -219,6 +219,6 @@ $translations = [
     'remember_me' => "Remember Me",
     'enter_otp' => "Enter 5 digit OTP sent to your email",
     'verify' => "Verify",
-    'editor_login' => "Editor Login",
+    'editor_homepage' => "Editor Homepage",
 ];
 ?>

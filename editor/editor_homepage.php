@@ -22,6 +22,16 @@ if ($result->num_rows > 0) {
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
+function formatDate($dateString)
+{
+    $timestamp = strtotime($dateString);
+    $day = date('j', $timestamp);
+    $month = date('F', $timestamp);
+    $year = date('Y', $timestamp);
+    $daySuffix = date('jS', $timestamp);
+    return "$month $daySuffix $year";
+}
+$date = formatDate($_SESSION['date_joined']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,15 +49,15 @@ $favicon = $details['favicon'];
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="editor.js" defer></script>
-    <title>Editor Homepage</title>
+    <title><?php echo $translations['editor_homepage']; ?></title>
 </head>
 
 <body>
     <div class="logout_alert" id="logout_alert">
-        <h1 class="logout_alert_header">Are You Sure You Want To Logout?</h1>
-        <div>
-            <a class="btn" href="extras/logout.php">Yes</a>
-            <a class="btn cancellogout" id="dismiss-popup-btn" onclick="cancelExit()">No</a>
+        <h1 class="logout_alert_header"><?php echo $translations['logout_alert']; ?>?</h1>
+        <div class="logout_alert_subdiv">
+            <a class="btn" href="extras/logout.php"><?php echo $translations['logout_alert_affirm']; ?></a>
+            <a class="btn cancellogout" id="dismiss-popup-btn" onclick="cancelExit()"><?php echo $translations['logout_alert_decline']; ?></a>
         </div>
     </div>
     <?php require("extras/header.php"); ?>
@@ -56,55 +66,55 @@ $favicon = $details['favicon'];
             <button class="sidebarbtn active" id="tab">
                 <i class="fa fa-tachometer" aria-hidden="true"></i>
                 <p class="paragraph">
-                    Dashboard
+                    <?php echo $translations['dashboard']; ?>
                 </p>
             </button>
             <button class="sidebarbtn" id="tab">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <p class="paragraph">
-                    Profile
+                    <?php echo $translations['profile']; ?>
                 </p>
             </button>
             <button class="sidebarbtn" id="tab">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <p class="paragraph">
-                    Users
+                    <?php echo $translations['users']; ?>
                 </p>
             </button>
             <button class="sidebarbtn" id="tab">
                 <i class="fa fa-newspaper" aria-hidden="true"></i>
                 <p class="paragraph">
-                    Posts
+                    <?php echo $translations['posts']; ?>
                 </p>
             </button>
             <button class="sidebarbtn" id="tab">
                 <i class="fa fa-sticky-note" aria-hidden="true"></i>
                 <p class="paragraph">
-                    Pages
+                    <?php echo $translations['pages']; ?>
                 </p>
             </button>
             <button class="sidebarbtn" id="tab">
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 <p class="paragraph">
-                    Settings
+                    <?php echo $translations['settings']; ?>
                 </p>
             </button>
             <button class="sidebarbtn" id="tab">
                 <i class="fa fa-phone" aria-hidden="true"></i>
                 <p class="paragraph">
-                    Contact Developer
+                    <?php echo $translations['contact_developer']; ?>
                 </p>
             </button>
             <button class="sidebarbtn2" onclick="displayExit()">
                 <i class="fa-solid fa-door-open"></i>
                 <p class="paragraph">
-                    Logout
+                    <?php echo $translations['logout']; ?>
                 </p>
             </button>
         </div>
         <div class="aside_sidebar">
             <div class="website_info_div tab_content active2" id="tab1">
-                <h1 class="aside_sidebar_header">Welcome Back, <?php echo $_SESSION['username'] ?> </h1>
+                <h1 class="aside_sidebar_header"><?php echo $translations['welcome_back']; ?>, <?php echo $_SESSION['username'] ?> </h1>
                 <div class="webinfo_container">
                     <?php
                     $sql1 = "SELECT COUNT(*) as total1 FROM paid_posts";
@@ -121,7 +131,7 @@ $favicon = $details['favicon'];
                                 <i class="fa fa-check-square" aria-hidden="true"></i>
                                 <p class="website_info_p1"><?php echo $totalRows; ?></p>
                             </div>
-                            <p class="website_info_p2">Published</p>
+                            <p class="website_info_p2"><?php echo $translations['published']; ?></p>
                         </div>
                     <?php
                     };
@@ -135,7 +145,7 @@ $favicon = $details['favicon'];
                                 <i class="fa fa-check-square" aria-hidden="true"></i>
                                 <p class="website_info_p1"><?php echo $row["total"]; ?></p>
                             </div>
-                            <p class="website_info_p2">Subscribers</p>
+                            <p class="website_info_p2"><?php echo $translations['subscribers']; ?></p>
                         </div>
                     <?php
                     };
@@ -149,32 +159,32 @@ $favicon = $details['favicon'];
                                 <i class="fa fa-check-square" aria-hidden="true"></i>
                                 <p class="website_info_p1"><?php echo $row["total"]; ?></p>
                             </div>
-                            <p class="website_info_p2">Signups</p>
+                            <p class="website_info_p2"><?php echo $translations['signups']; ?></p>
                         </div>
                     <?php }; ?>
                     <a class="website_info" href="create_new/posts.php" target="_blank">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
-                        <p class="website_info_p2">New Post</p>
+                        <p class="website_info_p2"><?php echo $translations['new_post']; ?></p>
                     </a>
                     <a class="website_info" href="../index.php" target="_blank">
                         <div class="website_info_subdiv">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </div>
-                        <p class="website_info_p2">View Website</p>
+                        <p class="website_info_p2"><?php echo $translations['view_website']; ?></p>
                     </a>
                     <a class="website_info" href="create_new/workspace.php">
                         <div class="website_info_subdiv">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
-                        <p class="website_info_p2">Add Draft</p>
+                        <p class="website_info_p2"><?php echo $translations['add_draft']; ?></p>
                     </a>
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
-                        <h1>Recent Posts</h1>
-                        <a class="btn" href="view_all/posts.php">View All</a>
+                        <h1><?php echo $translations['recent_posts']; ?></h1>
+                        <a class="btn" href="view_all/posts.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <?php
@@ -185,9 +195,9 @@ $favicon = $details['favicon'];
                             echo "<table>
                                         <tr>
                                             <th>S/n</th>
-                                            <th>Title</th>
-                                            <th>Date</th>
-                                            <th>Actions</th>
+                                            <th>$translations[title]</th>
+                                            <th>$translations[date]</th>
+                                            <th>$translations[actions]</th>
                                         </tr>";
                             while ($row = $selectposts_result->fetch_assoc()) {
                                 $sn++;
@@ -200,7 +210,7 @@ $favicon = $details['favicon'];
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id2=" . $row["id"] . "' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeleteP(" . $row['id'] . ")'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id2=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteP(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -210,8 +220,8 @@ $favicon = $details['favicon'];
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
-                        <h1>Recent Drafts</h1>
-                        <a class="btn" href="view_all/unpublished_articles.php">View All</a>
+                        <h1><?php echo $translations['recent_drafts']; ?></h1>
+                        <a class="btn" href="view_all/unpublished_articles.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <?php
@@ -222,9 +232,9 @@ $favicon = $details['favicon'];
                             echo "<table>
                                         <tr>
                                             <th>S/n</th>
-                                            <th>Title</th>
-                                            <th>Date</th>
-                                            <th>Actions</th>
+                                            <th>$translations[title]</th>
+                                            <th>$translations[date]</th>
+                                            <th>$translations[actions]</th>
                                         </tr>";
                             while ($row = $selectdrafts_result->fetch_assoc()) {
                                 $sn++;
@@ -237,7 +247,7 @@ $favicon = $details['favicon'];
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id3=" . $row["id"] . "' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeleteD(" . $row['id'] . ")'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id3=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteD(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -247,8 +257,8 @@ $favicon = $details['favicon'];
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
-                        <h1>Recent Press Releases</h1>
-                        <a class="btn" href="view_all\pressreleases.php">View All</a>
+                        <h1><?php echo $translations['recent_pressrel']; ?></h1>
+                        <a class="btn" href="view_all\pressreleases.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <?php
@@ -259,9 +269,9 @@ $favicon = $details['favicon'];
                             echo "<table>
                                         <tr>
                                             <th>S/n</th>
-                                            <th>Title</th>
-                                            <th>Date</th>
-                                            <th>Actions</th>
+                                            <th>$translations[title]</th>
+                                            <th>$translations[date]</th>
+                                            <th>$translations[actions]</th>
                                         </tr>";
                             while ($row = $selectpressreleases_result->fetch_assoc()) {
                                 $max_length = 60;
@@ -274,7 +284,7 @@ $favicon = $details['favicon'];
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id6=" . $row["id"] . "' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeletePR(" . $row['id'] . ")'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id6=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeletePR(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -284,8 +294,8 @@ $favicon = $details['favicon'];
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
-                        <h1>Recent News Posts</h1>
-                        <a class="btn" href="view_all\news.php">View All</a>
+                        <h1><?php echo $translations['recent_news']; ?></h1>
+                        <a class="btn" href="view_all\news.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <?php
@@ -296,9 +306,9 @@ $favicon = $details['favicon'];
                             echo "<table>
                                         <tr>
                                             <th>S/n</th>
-                                            <th>Title</th>
-                                            <th>Date</th>
-                                            <th>Actions</th>
+                                            <th>$translations[title]</th>
+                                            <th>$translations[date]</th>
+                                            <th>$translations[actions]</th>
                                         </tr>";
                             while ($row = $selectnews_result->fetch_assoc()) {
                                 $max_length = 60;
@@ -311,7 +321,7 @@ $favicon = $details['favicon'];
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id4=" . $row["id"] . "' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeleteN(" . $row['id'] . ")'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id4=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteN(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -321,8 +331,8 @@ $favicon = $details['favicon'];
                 </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
-                        <h1>Recent Commentaries</h1>
-                        <a class="btn" href="view_all\commentaries.php">View All</a>
+                        <h1><?php echo $translations['recent_commentaries']; ?></h1>
+                        <a class="btn" href="view_all\commentaries.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark">
                         <?php
@@ -333,9 +343,9 @@ $favicon = $details['favicon'];
                             echo "<table>
                                         <tr>
                                             <th>S/n</th>
-                                            <th>Title</th>
-                                            <th>Date</th>
-                                            <th>Actions</th>
+                                            <th>$translations[title]</th>
+                                            <th>$translations[date]</th>
+                                            <th>$translations[actions]</th>
                                         </tr>";
                             while ($row = $selectcommentaries_result->fetch_assoc()) {
                                 $max_length = 60;
@@ -348,7 +358,7 @@ $favicon = $details['favicon'];
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id5=" . $row["id"] . "' target='_blank'>Edit</a> / <a class='delete' onclick='confirmDeleteC(" . $row['id'] . ")'>Delete</a></td>
+                                            <td><a class='edit' href='edit/post.php?id5=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteC(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -436,23 +446,23 @@ $favicon = $details['favicon'];
                                 $stmt->close();
                             }
                             ?>
-                            <p>Posts Published: <span><?php echo $total_posts; ?></span></p>
+                            <p><?php echo $translations['posts_published']; ?>: <span><?php echo $total_posts; ?></span></p>
                         </div>
                     </div>
                     <div class="profile_body_subdiv_subdiv profilesubdiv">
                         <div>
                             <i class="fa fa-hourglass-start" aria-hidden="true"></i>
-                            <p>Date Joined: <span>25th July 2024</span></p>
+                            <p><?php echo $translations['date_joined']; ?>: <span><?php echo $date; ?></span></p>
                         </div>
                     </div>
                     <div class="profile_body_subdiv_subdiv profilesubdiv">
-                        <a class="btn" href="edit/profile.php">Edit Profile</a>
+                        <a class="btn" href="edit/profile.php"><?php echo $translations['edit_profile']; ?></a>
                     </div>
                 </div>
                 <div class="profile_body-activities">
                     <div class="profile_body-activities_subdiv">
-                        <h1>Recent Activities</h1>
-                        <a class="btn" href="pages/updates.php">View All</a>
+                        <h1><?php echo $translations['recent_activities']; ?></h1>
+                        <a class="btn" href="pages/updates.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <?php
                     $getuseractivities_sql = " SELECT content, Date, time FROM updates ORDER BY id DESC LIMIT 7";
@@ -505,7 +515,7 @@ $favicon = $details['favicon'];
             <div class="users tab_content" id="tab3">
                 <div class="users_admin_div userdiv">
                     <div class="user_header">
-                        <h2>Admin</h2>
+                        <h2><?php echo $translations['admin']; ?></h2>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
@@ -534,11 +544,11 @@ $favicon = $details['favicon'];
                                 $sn++;
                                 echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
-                                                <p class='users_div_subdiv_p'><span>Firstname: </span>$firstname</p>
-                                                <p class='users_div_subdiv_p'><span>Lastname: </span>$lastname</p> 
-                                                <p class='users_div_subdiv_p'><span>Role: </span>Editor</p>
-                                                <p class='users_div_subdiv_p'><span>Email: </span>$email</p>
-                                                <p class='users_div_subdiv_p'><span>Contributions: </span>$total_posts</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>$firstname</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>$lastname</p> 
+                                                <p class='users_div_subdiv_p'><span>$translations[role]: </span>Admin</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[email]: </span>$email</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[contributions]: </span>$total_posts</p>
                                             </div>
                                     </div>";
                             };
@@ -548,17 +558,17 @@ $favicon = $details['favicon'];
                 </div>
                 <div class="users_editor_div userdiv">
                     <div class="user_header">
-                        <h2>Editors</h2>
-                        <a class="btn" href="view_all/editors.php">View All</a>
+                        <h2><?php echo $translations['editors']; ?></h2>
+                        <a class="btn" href="view_all/editors.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
                         echo    "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../" . $_SESSION['image'] . ")'>
                                         <div class='divimages_side--back'>
-                                            <p class='users_div_subdiv_p'><span>Firstname: </span>" . $_SESSION['firstname'] . "</p>
-                                            <p class='users_div_subdiv_p'><span>Lastname: </span>" . $_SESSION['lastname'] . "</p> 
-                                            <p class='users_div_subdiv_p'><span>Role: </span>Editor</p>
-                                            <p class='users_div_subdiv_p'><span>Email: </span>" . $_SESSION['email'] . "</p>
+                                            <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>" . $_SESSION['firstname'] . "</p>
+                                            <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>" . $_SESSION['lastname'] . "</p> 
+                                            <p class='users_div_subdiv_p'><span>$translations[role]: </span>Editor</p>
+                                            <p class='users_div_subdiv_p'><span>$translations[email]: </span>" . $_SESSION['email'] . "</p>
                                         </div>
                                     </div>";
                         $idEditor = $_SESSION['id'];
@@ -587,11 +597,11 @@ $favicon = $details['favicon'];
                                 $sn++;
                                 echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
-                                                <p class='users_div_subdiv_p'><span>Firstname: </span>$firstname</p>
-                                                <p class='users_div_subdiv_p'><span>Lastname: </span>$lastname</p> 
-                                                <p class='users_div_subdiv_p'><span>Role: </span>Editor</p>
-                                                <p class='users_div_subdiv_p'><span>Email: </span>$email</p>
-                                                <p class='users_div_subdiv_p'><span>Contributions: </span>$total_posts</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>$firstname</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>$lastname</p> 
+                                                <p class='users_div_subdiv_p'><span>$translations[role]: </span>Editor</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[email]: </span>$email</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[contributions]: </span>$total_posts</p>
                                             </div>
                                     </div>";
                             };
@@ -601,8 +611,8 @@ $favicon = $details['favicon'];
                 </div>
                 <div class="users_writer_div userdiv">
                     <div class="user_header">
-                        <h2>Writers</h2>
-                        <a class="btn" href="view_all/writers.php">View All</a>
+                        <h2><?php echo $translations['writers']; ?></h2>
+                        <a class="btn" href="view_all/writers.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
@@ -631,11 +641,11 @@ $favicon = $details['favicon'];
                                 $sn++;
                                 echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
-                                                <p class='users_div_subdiv_p'><span>Firstname: </span>$firstname</p>
-                                                <p class='users_div_subdiv_p'><span>Lastname: </span>$lastname</p> 
-                                                <p class='users_div_subdiv_p'><span>Role: </span>Writer</p>
-                                                <p class='users_div_subdiv_p'><span>Email: </span>$email</p>
-                                                <p class='users_div_subdiv_p'><span>Contributions: </span>$total_posts</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>$firstname</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>$lastname</p> 
+                                                <p class='users_div_subdiv_p'><span>$translations[role]: </span>Writer</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[email]: </span>$email</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[contributions]: </span>$total_posts</p>
                                                 <center>
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit' href='edit/user.php?id=$id&usertype=Writer'><i class='fa fa-eye' aria-hidden='true'></i></a>
@@ -650,15 +660,15 @@ $favicon = $details['favicon'];
                         <div class="users_div_subdiv_subdiv">
                             <a class="users_create" href="create_new/writer.php">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
-                                <h3> New Writer</h3>
+                                <h3><?php echo $translations['new_writer']; ?></h3>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="users_writer_div userdiv">
                     <div class="user_header">
-                        <h2>Others Website Users</h2>
-                        <a class="btn" href="view_all/otherusers.php">View All</a>
+                        <h2><?php echo $translations['other_website_users']; ?></h2>
+                        <a class="btn" href="view_all/otherusers.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
@@ -671,11 +681,10 @@ $favicon = $details['favicon'];
                                 $image = $row['image'];
                                 echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
-                                                <p class='users_div_subdiv_p'><span>Firstname: </span>" . $row['firstname'] . "</p>
-                                                <p class='users_div_subdiv_p'><span>Lastname: </span>" . $row['lastname'] . "</p> 
-                                                <p class='users_div_subdiv_p'><span>Role: </span>" . $row['role'] . "</p>
-                                                <p class='users_div_subdiv_p'><span>Email: </span>" . $row['email'] . "</p>
-                                                <p class='users_div_subdiv_p'><span>Contributions: </span>Plenty</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>" . $row['firstname'] . "</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>" . $row['lastname'] . "</p> 
+                                                <p class='users_div_subdiv_p'><span>$translations[role]: </span>" . $row['role'] . "</p>
+                                                <p class='users_div_subdiv_p'><span>$translations[email]: </span>" . $row['email'] . "</p>
                                                 <center>
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit'href='edit/user.php?id=" . $row['id'] . "&usertype=Other_user'><i class='fa fa-eye' aria-hidden='true'></i></a>
@@ -690,7 +699,7 @@ $favicon = $details['favicon'];
                         <div class="users_div_subdiv_subdiv">
                             <a class="users_create" href="create_new/user.php">
                                 <center><i class="fa fa-plus" aria-hidden="true"></i></center>
-                                <h3> New User</h3>
+                                <h3> <?php echo $translations['new_user']; ?></h3>
                             </a>
                         </div>
                     </div>
@@ -699,8 +708,8 @@ $favicon = $details['favicon'];
             <div class="posts tab_content" id="tab4">
                 <div class="posts_div1 postsdiv">
                     <div class="posts_header">
-                        <h1> Recently Published Posts</h1>
-                        <a class="btn" href="view_all/posts.php">View All</a>
+                        <h1> <?php echo $translations['recent_posts']; ?></h1>
+                        <a class="btn" href="view_all/posts.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <?php
@@ -747,10 +756,10 @@ $favicon = $details['favicon'];
                                             </div>
                                             <div class='posts_divcontainer_subdiv3'>
                                                 <p class='posts_divcontainer_subdiv_p'>
-                                                    <span> Publish Date: </span>" . $row['formatted_date'] . "
+                                                    <span> $translations[published_date]: </span>" . $row['formatted_date'] . "
                                                 </p> 
                                                 <p class='posts_divcontainer_subdiv_p'>
-                                                    <span> Publish Time:</span> " . $formatted_time . "
+                                                    <span>$translations[published_time]:</span> " . $formatted_time . "
                                                 </p> 
                                             </div>
                                             <div class='posts_delete_edit'>
@@ -769,8 +778,8 @@ $favicon = $details['favicon'];
                 </div>
                 <div class="posts_div2 postsdiv">
                     <div class="posts_header">
-                        <h1> Unpublished Articles</h1>
-                        <a class="btn" href="view_all/unpublished_articles.php">View All</a>
+                        <h1><?php echo $translations['recent_drafts']; ?></h1>
+                        <a class="btn" href="view_all/unpublished_articles.php"><?php echo $translations['view_all']; ?></a>
                     </div>
                     <div class="posts_divcontainer border-gradient-side-dark">
                         <?php
@@ -793,10 +802,10 @@ $favicon = $details['favicon'];
                                             </div>
                                             <div class='posts_divcontainer_subdiv3'>
                                                 <p class='posts_divcontainer_subdiv_p'>
-                                                    <span> Publish Date: </span>" . $row['formatted_date'] . "
+                                                    <span> $translations[published_date]: </span>" . $row['formatted_date'] . "
                                                 </p> 
                                                 <p class='posts_divcontainer_subdiv_p'>
-                                                    <span> Publish Time:</span> " . $formatted_time . "
+                                                    <span> $translations[published_time]:</span> " . $formatted_time . "
                                                 </p> 
                                             </div>
                                             <div class='posts_delete_edit'>
@@ -819,63 +828,69 @@ $favicon = $details['favicon'];
             </div>
             <div class="pages tab_content" id="tab5">
                 <div class='pages_container'>
-                    <h1>Pages</h1>
+                    <h1><?php echo $translations['pages']; ?></h1>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/categories.php">
-                            <p>Categories</p>
+                            <p><?php echo $translations['categories']; ?></p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv ">
                         <a class='pages_container_subdiv-links' href="pages/aboutwebsite.php">
-                            <p>About Website</p>
+                            <p><?php echo $translations['about_website']; ?></p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/advertisewithus.php">
-                            <p>Advertise With Us</p>
+                            <p><?php echo $translations['advertise_with_us']; ?></p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/contactus.php">
-                            <p>Contact Us</p>
+                            <p><?php echo $translations['contact_us']; ?></p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/privacypolicy.php">
-                            <p>Privacy Policy</p>
+                            <p><?php echo $translations['privacy_policy']; ?></p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/termsofservice.php">
-                            <p>Terms of Services</p>
+                            <p><?php echo $translations['terms_of_services']; ?></p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv">
                         <a class='pages_container_subdiv-links' href="pages/workwithus.php">
-                            <p>Work with Us</p>
+                            <p><?php echo $translations['work_with_us']; ?></p>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="settings tab_content" id="tab6">
                 <div class='pages_container'>
-                    <h1>Settings</h1>
+                    <h1><?php echo $translations['settings']; ?></h1>
                     <div class="pages_container_subdiv ">
                         <a class='pages_container_subdiv-links' href="pages\changepassword.php">
                             <i class="fa fa-lock" aria-hidden="true"></i>
-                            <p>Change Password</p>
+                            <p><?php echo $translations['change_password']; ?></p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv ">
                         <a class='pages_container_subdiv-links' href="pages\changelang.php">
                             <i class="fa fa-globe" aria-hidden="true"></i>
-                            <p>Change Language</p>
+                            <p><?php echo $translations['change_language']; ?></p>
                         </a>
                     </div>
                     <div class="pages_container_subdiv ">
                         <a class='pages_container_subdiv-links' href="pages\changepassword.php">
                             <i class="fa fa-clock" aria-hidden="true"></i>
-                            <p>Update Timezone Settings</p>
+                            <p><?php echo $translations['update_timezone_settings']; ?></p>
+                        </a>
+                    </div>
+                    <div class="pages_container_subdiv ">
+                        <a class='pages_container_subdiv-links' href="pages\create_metatitles.php">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <p><?php echo $translations['manage_meta']; ?></p>
                         </a>
                     </div>
                 </div>
@@ -883,11 +898,11 @@ $favicon = $details['favicon'];
             <div class="developer_contact tab_content" id="tab7">
                 <div class="developer_contact_container">
                     <div class="developer_contact_header">
-                        <h1>Contact Website Developer</h1>
+                        <h1><?php echo $translations['contact_developer']; ?></h1>
                     </div>
                     <div class="developer_contact_container_body">
                         <div class="developer_contact_subdiv">
-                            <h3>Developed And Managed By:</h3>
+                            <h3><?php echo $translations['contact_developer_h3']; ?>:</h3>
                             <span>Leventis Tech Services</span>
                         </div>
                         <div class="developer_contact_subdiv">
@@ -903,7 +918,7 @@ $favicon = $details['favicon'];
                             <p>+234 9122312493</p>
                         </div>
                         <div class="developer_contact_followlinks">
-                            <h2>Connect With Us On Social Media</h2>
+                            <h2><?php echo $translations['contact_developer_h2']; ?></h2>
                             <div>
                                 <a href="https://wa.me/2349054223480"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                                 <a href="https://www.linkedin.com/in/chiemelie-aniagolu-7799b32b0/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></i></a>
@@ -913,9 +928,9 @@ $favicon = $details['favicon'];
                         </div>
                         <div class="developer_contact_subdiv">
                             <a class="btn">
-                                <i class="fa fa-info-circle" aria-hidden="true"></i>Report an Issue
+                                <i class="fa fa-info-circle" aria-hidden="true"></i><?php echo $translations['contact_developer_issue']; ?>
                             </a>
-                            <a class="btn" href="mailto:chiboyaniagolu3@gmail.com">Contact Us</a>
+                            <a class="btn" href="mailto:chiboyaniagolu3@gmail.com"><?php echo $translations['contact_us']; ?></a>
                         </div>
                     </div>
                 </div>

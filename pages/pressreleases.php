@@ -6,61 +6,9 @@ $page_name = "press-releases";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-require('..\admin/crudoperations.php');
-require('..\vendor\phpmailer\phpmailer\src\SMTP.php');
-require('..\vendor\phpmailer\phpmailer\src\Exception.php');
-require('..\vendor\phpmailer\phpmailer\src\PHPMailer.php');
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-$thankYouMessage = "";
-$msg = "";
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $date = date("Y-m-d");
-        $time = date("H:i:s");
-        $checkStmt = $conn->prepare("SELECT * FROM subscribers WHERE email = ?");
-        $checkStmt->bind_param("s", $email);
-        $checkStmt->execute();
-        $result = $checkStmt->get_result();
-        if ($result->num_rows > 0) {
-            $msg = "You are already subscribed with us!";
-        } else {
-            $stmt = $conn->prepare("INSERT INTO subscribers (email, date, time) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $email, $date, $time);
-            if ($stmt->execute()) {
-                $forUser = 0;
-                $action = 'New Email Subscription alert';
-                logUpdate($conn, $forUser, $action);
-                $mail = new PHPMailer(true);
-                try {
-                    $mail->isSMTP();
-                    $mail->Host       = 'smtp.gmail.com';
-                    $mail->SMTPAuth   = true;
-                    $mail->Username   = 'aniagoluchiemelie77@gmail.com';
-                    $mail->Password   = 'ozmsoscaivmkrbuu';
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                    $mail->Port       = 587;
-                    $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
-                    $mail->addAddress($email, 'Chiboy');
-                    $mail->isHTML(true);
-                    $mail->Subject = 'Welcome to Our Newsletter';
-                    $mail->Body    = 'Thank you for subscribing to our newsletter! We are excited to have you with us.';
-                    $mail->send();
-                    $thankYouMessage = "Thank You For Subscribing With Us!";
-                } catch (Exception $e) {
-                    $thankYouMessage = "Subscription successful, but the welcome email could not be sent.";
-                }
-            } else {
-                $msg = "Error: " . $stmt->error;
-            }
-        }
-    } else {
-        $msg = "Invalid email address. Please try again.";
-    }
+    sendEmail($email);
 }
 ?>
 <!DOCTYPE html>
@@ -86,6 +34,7 @@ if (isset($_POST['submit_btn'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="../index.js" defer></script>
     <title>Press Releases</title>
@@ -152,9 +101,6 @@ if (isset($_POST['submit_btn'])) {
                     </div>
                     <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
                     <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
-                    <p class="error_div" id="error_message"><?php if (!empty($msg)) {
-                                                                echo $msg;
-                                                            } ?></p>
                     <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required />
                     <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" onclick="submitPost()" />
                 </form>
@@ -174,30 +120,60 @@ if (isset($_POST['submit_btn'])) {
         </div>
     </section>
     <?php include("../includes/footer2.php"); ?>
-</body>
-<script>
-    const sidebar = document.getElementById('sidebar');
-    const menubtn = document.getElementById('searchicon');
-    const closeMenuBtn = document.querySelector('.sidebarbtn');
+    <script src="sweetalert2.all.min.js"></script>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const menubtn = document.getElementById('searchicon');
+        const closeMenuBtn = document.querySelector('.sidebarbtn');
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
 
-    function onClickOutside(element) {
-        document.addEventListener('click', e => {
-            if (!element.contains(e.target)) {
-                element.classList.add('hidden');
-            } else return;
+        function onClickOutside(element) {
+            document.addEventListener('click', e => {
+                if (!element.contains(e.target)) {
+                    element.classList.add('hidden');
+                } else return;
+            });
+        };
+
+        function removeHiddenClass(e) {
+            e.stopPropagation();
+            sidebar.classList.remove('hidden');
+        };
+        onClickOutside(sidebar);
+        menubtn.addEventListener('click', removeHiddenClass);
+        closeMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('hidden');
         });
-    };
-
-    function removeHiddenClass(e) {
-        e.stopPropagation();
-        sidebar.classList.remove('hidden');
-    };
-    onClickOutside(sidebar);
-    menubtn.addEventListener('click', removeHiddenClass);
-    closeMenuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        sidebar.classList.toggle('hidden');
-    });
-</script>
+    </script>
+    <script>
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Info' && messageText != " ") {
+            Swal.fire({
+                title: 'Info!',
+                text: messageText,
+                showConfirmButton: true,
+                confirmButtonText: 'Ok',
+                icon: 'info'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        }
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
+    </script>
+</body>
 
 </html>

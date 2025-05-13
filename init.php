@@ -1,5 +1,13 @@
 <?php
 require("connect.php");
+require('admin/crudoperations.php');
+require('vendor\phpmailer\phpmailer\src\SMTP.php');
+require('vendor\phpmailer\phpmailer\src\Exception.php');
+require('vendor\phpmailer\phpmailer\src\PHPMailer.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 function getFaviconAndLogo()
 {
     global $conn;
@@ -52,4 +60,56 @@ function metaTitles()
     return $meta_data;
 }
 $meta_titles = metaTitles();
+function sendEmail($email)
+{
+    global $conn;
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $date = date("Y-m-d");
+        $time = date("H:i:s");
+        $checkStmt = $conn->prepare("SELECT * FROM subscribers WHERE email = ?");
+        $checkStmt->bind_param("s", $email);
+        $checkStmt->execute();
+        $result = $checkStmt->get_result();
+        if ($result->num_rows > 0) {
+            $_SESSION['status_type'] = "Info";
+            $_SESSION['status'] = "You are already subscribed with us!";
+        } else {
+            $stmt = $conn->prepare("INSERT INTO subscribers (email, date, time) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $email, $date, $time);
+            if ($stmt->execute()) {
+                $forUser = 0;
+                $action = 'New Email Subscription alert';
+                logUpdate($conn, $forUser, $action);
+                $mail = new PHPMailer(true);
+                try {
+                    $mail->isSMTP();
+                    $mail->Host       = 'smtp.gmail.com';
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = 'aniagoluchiemelie77@gmail.com';
+                    $mail->Password   = 'ozmsoscaivmkrbuu';
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port       = 587;
+                    $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
+                    $mail->addAddress($email, 'Chiboy');
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Welcome to Our Newsletter';
+                    $mail->Body    = 'Thank you for subscribing to our newsletter! We are excited to have you with us.';
+                    $mail->send();
+                    $_SESSION['status_type'] = "Success";
+                    $_SESSION['status'] = "Email Subscription Added Successfully";
+                } catch (Exception $e) {
+                    $_SESSION['status_type'] = "Info";
+                    $_SESSION['status'] = "Subscription successful, but welcome email could not be sent.";
+                }
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Email Subscription Failed";
+            }
+        }
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Invalid email address. Please try again.";
+    }
+}
 ?>

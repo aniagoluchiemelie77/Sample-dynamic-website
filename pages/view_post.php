@@ -7,14 +7,6 @@ $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 require_once '../vendor/ezyang\htmlpurifier/library/HTMLPurifier.auto.php';
-require('..\admin/crudoperations.php');
-require('..\vendor\phpmailer\phpmailer\src\SMTP.php');
-require('..\vendor\phpmailer\phpmailer\src\Exception.php');
-require('..\vendor\phpmailer\phpmailer\src\PHPMailer.php');
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 $post_id = isset($_GET['id1']) ? intval($_GET['id1']) : 0;
 $post_id2 = isset($_GET['id2']) ? intval($_GET['id2']) : 0;
 $post_id3 = isset($_GET['id3']) ? intval($_GET['id3']) : 0;
@@ -24,53 +16,9 @@ $url = "http://localhost/Sample-dynamic-website";
 $title1 = "";
 $subtitle1 = "";
 $img1 = "";
-$thankYouMessage = "";
-$msg = "";
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $date = date("Y-m-d");
-        $time = date("H:i:s");
-        $checkStmt = $conn->prepare("SELECT * FROM subscribers WHERE email = ?");
-        $checkStmt->bind_param("s", $email);
-        $checkStmt->execute();
-        $result = $checkStmt->get_result();
-        if ($result->num_rows > 0) {
-            $msg = "You are already subscribed with us!";
-        } else {
-            $stmt = $conn->prepare("INSERT INTO subscribers (email, date, time) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $email, $date, $time);
-            if ($stmt->execute()) {
-                $forUser = 0;
-                $action = 'New Email Subscription alert';
-                logUpdate($conn, $forUser, $action);
-                $mail = new PHPMailer(true);
-                try {
-                    $mail->isSMTP();
-                    $mail->Host       = 'smtp.gmail.com';
-                    $mail->SMTPAuth   = true;
-                    $mail->Username   = 'aniagoluchiemelie77@gmail.com';
-                    $mail->Password   = 'ozmsoscaivmkrbuu';
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                    $mail->Port       = 587;
-                    $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
-                    $mail->addAddress($email, 'Chiboy');
-                    $mail->isHTML(true);
-                    $mail->Subject = 'Welcome to Our Newsletter';
-                    $mail->Body    = 'Thank you for subscribing to our newsletter! We are excited to have you with us.';
-                    $mail->send();
-                    $thankYouMessage = "Thank You For Subscribing With Us!";
-                } catch (Exception $e) {
-                    $thankYouMessage = "Subscription successful, but the welcome email could not be sent.";
-                }
-            } else {
-                $msg = "Error: " . $stmt->error;
-            }
-        }
-    } else {
-        $msg = "Invalid email address. Please try again.";
-    }
+    sendEmail($email);
 }
 ?>
 <!DOCTYPE html>
@@ -97,6 +45,7 @@ if (isset($_POST['submit_btn'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../index.css" />
     <script src="../index.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <title>View post</title>
 </head>
@@ -970,9 +919,6 @@ if (isset($_POST['submit_btn'])) {
                     </div>
                     <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
                     <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
-                    <p class="error_div" id="error_message"><?php if (!empty($msg)) {
-                                                                echo $msg;
-                                                            } ?></p>
                     <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required />
                     <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" onclick="submitPost()" />
                 </form>
@@ -983,6 +929,7 @@ if (isset($_POST['submit_btn'])) {
         </div>
     </div>
     <?php include("../includes/footer2.php"); ?>
+    <script src="sweetalert2.all.min.js"></script>
     <script>
         const closeMenuBtn = document.querySelector('.sidebarbtn');
         const sidebar = document.getElementById('sidebar');
@@ -1000,14 +947,7 @@ if (isset($_POST['submit_btn'])) {
                 } else return;
             });
         };
-        onClickOutside(sidebar);
-        menubtn.addEventListener('click', removeHiddenClass);
-        closeMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebar.classList.toggle('hidden');
-        });
-    </script>
-    <script>
+
         function shareFunction() {
             const postTitle = "<?php echo addslashes($title1); ?>";
             const postSubtitle = "<?php echo addslashes($subtitle1); ?>";
@@ -1015,15 +955,8 @@ if (isset($_POST['submit_btn'])) {
             const postUrl = window.location.href;
             const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle + ' - ' + postSubtitle)}&url=${encodeURIComponent(postUrl)}&via=yourTwitterHandle&hashtags=yourHashtags`;
             window.open(tweetUrl, "_blank");
-        }
-        document.getElementById("xShareBtn").addEventListener("click", shareFunction);
-        document.getElementById("xShareBtn2").addEventListener("click", shareFunction);
-        document.getElementById("xShareBtn3").addEventListener("click", shareFunction);
-        document.getElementById("xShareBtn4").addEventListener("click", shareFunction);
-        document.getElementById("xShareBtn5").addEventListener("click", shareFunction);
-        document.getElementById("xShareBtn6").addEventListener("click", shareFunction);
-    </script>
-    <script>
+        };
+
         function displayThankYouMessage() {
             var thankYouMessage = "<?php echo $thankYouMessage; ?>";
             const thankDiv = document.getElementById('thank-you-message');
@@ -1036,7 +969,50 @@ if (isset($_POST['submit_btn'])) {
                 thankDiv.innerHTML = `<p>${thankYouMessage}</p>`;
                 thankDiv.style.display = "flex";
             }
+        };
+        onClickOutside(sidebar);
+        menubtn.addEventListener('click', removeHiddenClass);
+        closeMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('hidden');
+        });
+    </script>
+    <script>
+        document.getElementById("xShareBtn").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn2").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn3").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn4").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn5").addEventListener("click", shareFunction);
+        document.getElementById("xShareBtn6").addEventListener("click", shareFunction);
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+    </script>
+    <script>
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Info' && messageText != " ") {
+            Swal.fire({
+                title: 'Info!',
+                text: messageText,
+                showConfirmButton: true,
+                confirmButtonText: 'Ok',
+                icon: 'info'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
         }
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
     </script>
 </body>
 

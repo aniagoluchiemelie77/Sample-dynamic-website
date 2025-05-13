@@ -1,0 +1,21 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [NC,L]
+RewriteRule ^pages/About-Us$ pages/aboutus.php [NC,L]
+RewriteRule ^pages/Advertise-With-Us$ pages/advertisewithus.php [NC,L]
+RewriteRule ^pages/Artificial-Intelligence$ pages/artificialintelligence.php [NC,L]
+RewriteRule ^pages/Cloud-Computing$ pages/cloudcomputing.php [NC,L]
+RewriteRule ^pages/Commentaries$ pages/commentaries.php [NC,L]
+RewriteRule ^pages/Contact-Us$ pages/contactus.php [NC,L]
+RewriteRule ^pages/Cybersecurity$ pages/cybersecurity.php [NC,L]
+RewriteRule ^pages/Data-Analytics$ pages/dataanalytics.php [NC,L]
+RewriteRule ^pages/News$ pages/news.php [NC,L]
+RewriteRule ^pages/Press-Releases$ pages/pressreleases.php [NC,L]
+RewriteRule ^pages/Privacy-Policy$ pages/privacypolicy.php [NC,L]
+RewriteRule ^pages/Share-News-Tips$ pages/sharenewstips.php [NC,L]
+RewriteRule ^pages/Terms-Of-Service$ pages/termsofservice.php [NC,L]
+RewriteRule ^pages/View-Post$ pages/view_post.php [NC,L]
+RewriteRule ^pages/Vulnerabilities-And-Threats$ pages/vulnerabilitiesandthreats.php [NC,L]
+RewriteRule ^pages/Work-With-Us$ pages/workwithus.php [NC,L]
+RewriteRule ^authors/Author$ authors/author.php [NC,L]
+

@@ -88,7 +88,7 @@ if (isset($_POST['submit_btn'])) {
                 echo "</div>";
             }
             if ($post_id > 0) {
-                $getposts_sql = " SELECT id, admin_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM paid_posts WHERE id = '$post_id' LIMIT 1";
+                $getposts_sql = " SELECT id, admin_id, title, niche, content, subtitle, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM paid_posts WHERE id = '$post_id' LIMIT 1";
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
@@ -99,6 +99,7 @@ if (isset($_POST['submit_btn'])) {
                     $content = $row['content'];
                     $subtitle = $row['subtitle'];
                     $image = $row['image_path'];
+                    $foreign_imagePath = $row["post_image_url"];
                     $date = $row['formatted_date'];
                     $id = $row['id'];
                     $admin_id = $row['admin_id'];
@@ -107,7 +108,6 @@ if (isset($_POST['submit_btn'])) {
                     $title1 = $title;
                     $subtitle1 = $subtitle;
                     $img1 = $image;
-                    $content = strip_tags($content, '<span><p><a><i>');
                     $selectwriter = "SELECT id, firstname, lastname, bio, image FROM admin_login_info WHERE id = '$admin_id'";
                     $selectwriter_result = $conn->query($selectwriter);
                     if ($selectwriter_result->num_rows > 0) {
@@ -140,10 +140,13 @@ if (isset($_POST['submit_btn'])) {
                             }
                             if (!empty($image)) {
                                 echo   "<div class='post_image_div'>
-                                                <img src='../$image' alt='Post Image'/>
-                                                <span>Source: Getty Images</span>
-                                            </div>
+                                            <img src='../$image' alt='Post Image'/>
+                                        </div>
                                     ";
+                            } elseif (!empty($foreign_imagePath)) {
+                                echo   "<div class='post_image_div'>
+                                            <img src='$foreign_imagePath' alt='Post Image'/>
+                                        </div>";
                             }
                             echo "
                                         <div class='socialmedia_links'>
@@ -180,7 +183,7 @@ if (isset($_POST['submit_btn'])) {
                         }
                     }
                 }
-                $otherpaidposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts WHERE id != '$post_id' ORDER BY date DESC";
+                $otherpaidposts_sql = "SELECT id, title, niche, content, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM paid_posts WHERE id != '$post_id' ORDER BY date DESC";
                 $otherpaidposts_result = $conn->query($otherpaidposts_sql);
                 if ($otherpaidposts_result->num_rows > 0) {
                     echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
@@ -192,6 +195,7 @@ if (isset($_POST['submit_btn'])) {
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
+                        $foreign_imagePath = $row["post_image_url"];
                         $date = $row["formatted_date"];
                         $content = $row["content"];
                         if (strlen($title) > $max_length2) {
@@ -201,6 +205,8 @@ if (isset($_POST['submit_btn'])) {
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id1=$id'>";
                         if (!empty($image)) {
                             echo "<img src='../$image' alt='article image'>";
+                        } elseif (!empty($foreign_imagePath)) {
+                            echo "<img src='$foreign_imagePath' alt='article image'>";
                         }
                         echo   "
                                     <div class='more_posts_subdiv_subdiv'>
@@ -215,7 +221,7 @@ if (isset($_POST['submit_btn'])) {
                 }
             }
             if ($post_id2 > 0) {
-                $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM posts WHERE id = '$post_id2'";
+                $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, post_image_url, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM posts WHERE id = '$post_id2'";
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
@@ -276,13 +282,13 @@ if (isset($_POST['submit_btn'])) {
                     $read_count = calculateReadingTime($content);
                     $subtitle = $row['subtitle'];
                     $image = $row['image_path'];
+                    $foreign_imagePath = $row["post_image_url"];
                     $date = $row['formatted_date'];
                     $id = $row['id'];
                     $link = $row['link'];
                     $title1 = $title;
                     $subtitle1 = $subtitle;
                     $img1 = $image;
-                    $content = strip_tags($content, '<span><p><a><i><div>');
                     $formatted_time = date("g:i A", strtotime($time));
                     echo "<h1 class='Post_header'>$title</h1>
                                 <h2>$subtitle</h2>
@@ -303,10 +309,14 @@ if (isset($_POST['submit_btn'])) {
                                 </video>";
                     }
                     if (!empty($image)) {
-                        echo   "<div class='post_image_div'>
-                                        <img src='../$image' alt='Post Image'/>
-                                        <span>Source: Getty Images</span>
-                                    </div>
+                        echo "   <div class='post_image_div'>
+                                    <img src='../$image' alt='Post Image'/>
+                                </div>
+                            ";
+                    } elseif (!empty($foreign_imagePath)) {
+                        echo "   <div class='post_image_div'>
+                                    <img src='$foreign_imagePath' alt='Post Image'/>
+                                </div>
                             ";
                     }
                     echo "
@@ -342,7 +352,7 @@ if (isset($_POST['submit_btn'])) {
                             </center>
                         ";
                 }
-                $otherposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts WHERE id != '$post_id2' ORDER BY date DESC LIMIT 8";
+                $otherposts_sql = "SELECT id, title, niche, content, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM posts WHERE id != '$post_id2' ORDER BY date DESC LIMIT 8";
                 $otherposts_result = $conn->query($otherposts_sql);
                 if ($otherposts_result->num_rows > 0) {
                     echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
@@ -354,6 +364,7 @@ if (isset($_POST['submit_btn'])) {
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
+                        $foreign_imagePath = $row["post_image_url"];
                         $date = $row["formatted_date"];
                         $content = $row["content"];
                         if (strlen($title) > $max_length2) {
@@ -363,6 +374,8 @@ if (isset($_POST['submit_btn'])) {
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>";
                         if (!empty($image)) {
                             echo "<img src='../$image' alt='article image'>";
+                        } elseif (!empty($foreign_imagePath)) {
+                            echo "<img src='$foreign_imagePath' alt='article image'>";
                         }
                         echo   "
                                     <div class='more_posts_subdiv_subdiv'>
@@ -377,7 +390,7 @@ if (isset($_POST['submit_btn'])) {
                 }
             }
             if ($post_id3 > 0) {
-                $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM news WHERE id = '$post_id3'";
+                $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM news WHERE id = '$post_id3'";
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
@@ -448,10 +461,10 @@ if (isset($_POST['submit_btn'])) {
                     if (strlen($author_bio) > $max_length) {
                         $author_bio = substr($author_bio, 0, $max_length) . '...';
                     }
-                    $content = strip_tags($content, '<span><p><a><i><div>');
                     $read_count = calculateReadingTime($content);
                     $subtitle = $row['subtitle'];
                     $image = $row['image_path'];
+                    $foreign_imagePath = $row["post_image_url"];
                     $date = $row['formatted_date'];
                     $id = $row['id'];
                     $link = $row['link'];
@@ -479,11 +492,15 @@ if (isset($_POST['submit_btn'])) {
                                     </video>";
                     }
                     if (!empty($image)) {
-                        echo   "<div class='post_image_div'>
-                                            <img src='../$image' alt='Post Image'/>
-                                            <span>Source: Getty Images</span>
-                                        </div>
-                                ";
+                        echo "   <div class='post_image_div'>
+                                    <img src='../$image' alt='Post Image'/>
+                                </div>
+                            ";
+                    } elseif (!empty($foreign_imagePath)) {
+                        echo "   <div class='post_image_div'>
+                                    <img src='$foreign_imagePath' alt='Post Image'/>
+                                </div>
+                            ";
                     }
                     echo "
                                     <div class='socialmedia_links'>
@@ -517,7 +534,7 @@ if (isset($_POST['submit_btn'])) {
                                     </center>
                                 ";
                 }
-                $otherposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM news WHERE id != '$post_id3' ORDER BY date DESC LIMIT 8";
+                $otherposts_sql = "SELECT id, title, niche, content, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM news WHERE id != '$post_id3' ORDER BY date DESC LIMIT 8";
                 $otherposts_result = $conn->query($otherposts_sql);
                 if ($otherposts_result->num_rows > 0) {
                     echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
@@ -529,6 +546,7 @@ if (isset($_POST['submit_btn'])) {
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
+                        $foreign_imagePath = $row["post_image_url"];
                         $date = $row["formatted_date"];
                         $content = $row["content"];
                         if (strlen($title) > $max_length2) {
@@ -538,6 +556,8 @@ if (isset($_POST['submit_btn'])) {
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>";
                         if (!empty($image)) {
                             echo "<img src='../$image' alt='article image'>";
+                        } elseif (!empty($foreign_imagePath)) {
+                            echo "<img src='$foreign_imagePath' alt='article image'>";
                         }
                         echo   "
                                     <div class='more_posts_subdiv_subdiv'>
@@ -552,7 +572,7 @@ if (isset($_POST['submit_btn'])) {
                 }
             }
             if ($post_id4 > 0) {
-                $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM commentaries WHERE id = '$post_id4'";
+                $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, post_image_url, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM commentaries WHERE id = '$post_id4'";
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
@@ -623,10 +643,10 @@ if (isset($_POST['submit_btn'])) {
                     if (strlen($author_bio) > $max_length) {
                         $author_bio = substr($author_bio, 0, $max_length) . '...';
                     }
-                    $content = strip_tags($content, '<span><p><a><i><div>');
                     $read_count = calculateReadingTime($content);
                     $subtitle = $row['subtitle'];
                     $image = $row['image_path'];
+                    $foreign_imagePath = $row["post_image_url"];
                     $date = $row['formatted_date'];
                     $id = $row['id'];
                     $link = $row['link'];
@@ -651,10 +671,14 @@ if (isset($_POST['submit_btn'])) {
                                 </video>";
                     }
                     if (!empty($image)) {
-                        echo   "<div class='post_image_div'>
-                                        <img src='../$image' alt='Post Image'/>
-                                        <span>Source: Getty Images</span>
-                                    </div>
+                        echo "   <div class='post_image_div'>
+                                    <img src='../$image' alt='Post Image'/>
+                                </div>
+                            ";
+                    } elseif (!empty($foreign_imagePath)) {
+                        echo "   <div class='post_image_div'>
+                                    <img src='$foreign_imagePath' alt='Post Image'/>
+                                </div>
                             ";
                     }
                     echo "
@@ -690,7 +714,7 @@ if (isset($_POST['submit_btn'])) {
                                 </center>
                                 ";
                 }
-                $otherposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM commentaries WHERE id != '$post_id4' ORDER BY date DESC LIMIT 8";
+                $otherposts_sql = "SELECT id, title, niche, content, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM commentaries WHERE id != '$post_id4' ORDER BY date DESC LIMIT 8";
                 $otherposts_result = $conn->query($otherposts_sql);
                 if ($otherposts_result->num_rows > 0) {
                     echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
@@ -702,6 +726,7 @@ if (isset($_POST['submit_btn'])) {
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
+                        $foreign_imagePath = $row["post_image_url"];
                         $date = $row["formatted_date"];
                         $content = $row["content"];
                         if (strlen($title) > $max_length2) {
@@ -711,6 +736,8 @@ if (isset($_POST['submit_btn'])) {
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>";
                         if (!empty($image)) {
                             echo "<img src='../$image' alt='article image'>";
+                        } elseif (!empty($foreign_imagePath)) {
+                            echo "<img src='$foreign_imagePath' alt='article image'>";
                         }
                         echo   "
                                     <div class='more_posts_subdiv_subdiv'>
@@ -733,7 +760,7 @@ if (isset($_POST['submit_btn'])) {
                 }
             }
             if ($post_id5 > 0) {
-                $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = '$post_id5'";
+                $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = '$post_id5'";
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
@@ -808,10 +835,10 @@ if (isset($_POST['submit_btn'])) {
                     if (strlen($author_bio) > $max_length) {
                         $author_bio = substr($author_bio, 0, $max_length) . '...';
                     }
-                    $content = strip_tags($content, '<span><p><a><i><div>');
                     $read_count = calculateReadingTime($content);
                     $subtitle = $row['subtitle'];
                     $image = $row['image_path'];
+                    $foreign_imagePath = $row["post_image_url"];
                     $date = $row['formatted_date'];
                     $id = $row['id'];
                     $link = $row['link'];
@@ -836,11 +863,15 @@ if (isset($_POST['submit_btn'])) {
                                     </video>";
                     }
                     if (!empty($image)) {
-                        echo   "<div class='post_image_div'>
-                                            <img src='../$image' alt='Post Image'/>
-                                            <span>Source: Getty Images</span>
-                                        </div>
-                                ";
+                        echo "   <div class='post_image_div'>
+                                    <img src='../$image' alt='Post Image'/>
+                                </div>
+                            ";
+                    } elseif (!empty($foreign_imagePath)) {
+                        echo "   <div class='post_image_div'>
+                                    <img src='$foreign_imagePath' alt='Post Image'/>
+                                </div>
+                            ";
                     }
                     echo "
                                 <div class='socialmedia_links'>
@@ -875,7 +906,7 @@ if (isset($_POST['submit_btn'])) {
                                 </center>
                             ";
                 }
-                $otherposts_sql = "SELECT id, title, niche, content, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases WHERE id != '$post_id5' ORDER BY date DESC LIMIT 8";
+                $otherposts_sql = "SELECT id, title, niche, content, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM press_releases WHERE id != '$post_id5' ORDER BY date DESC LIMIT 8";
                 $otherposts_result = $conn->query($otherposts_sql);
                 if ($otherposts_result->num_rows > 0) {
                     echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
@@ -887,6 +918,7 @@ if (isset($_POST['submit_btn'])) {
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
+                        $foreign_imagePath = $row["post_image_url"];
                         $date = $row["formatted_date"];
                         $content = $row["content"];
                         if (strlen($title) > $max_length2) {
@@ -896,6 +928,8 @@ if (isset($_POST['submit_btn'])) {
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>";
                         if (!empty($image)) {
                             echo "<img src='../$image' alt='article image'>";
+                        } elseif (!empty($foreign_imagePath)) {
+                            echo "<img src='$foreign_imagePath' alt='article image'>";
                         }
                         echo   "
                                     <div class='more_posts_subdiv_subdiv'>
@@ -920,7 +954,7 @@ if (isset($_POST['submit_btn'])) {
                     <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
                     <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
                     <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required />
-                    <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" onclick="submitPost()" />
+                    <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" />
                 </form>
                 <div id="thank-you-message"></div>
             </div>

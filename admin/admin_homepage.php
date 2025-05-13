@@ -6,7 +6,6 @@ if (!isset($_SESSION['email'])) {
 }
 require("connect.php");
 include("init.php");
-require('crudoperations.php');
 require('../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];

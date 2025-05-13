@@ -96,10 +96,10 @@ if (isset($_POST['submit_btn'])) {
             $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
             $results = [];
             foreach ($tables as $table) {
-                $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
+                $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("s", $id);
-                $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+                $stmt->bind_result($id, $title, $niche, $content, $image, $image2, $date);
                 $stmt->execute();
                 while ($stmt->fetch()) {
                     $posttype = 0;
@@ -120,6 +120,7 @@ if (isset($_POST['submit_btn'])) {
                         'niche' => $niche,
                         'content' => $content,
                         'image_path' => $image,
+                        'foreign_image_path' => $image2,
                         'Date' => $date,
                         'table' => $table,
                         'posttype' => $posttype
@@ -168,6 +169,8 @@ if (isset($_POST['submit_btn'])) {
                 echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
                 if (!empty($result['image_path'])) {
                     echo "<img src='../" . $result['image_path'] . "' alt='article image'>";
+                } elseif (!empty($result['foreign_image_path'])) {
+                    echo "<img src='" . $result['foreign_image_path'] . "' alt='article image'>";
                 }
                 echo    "<div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
@@ -208,10 +211,10 @@ if (isset($_POST['submit_btn'])) {
             $tables = ['posts', 'commentaries', 'news', 'press_releases'];
             $results = [];
             foreach ($tables as $table) {
-                $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE editor_id = ? ORDER BY id DESC LIMIT 12";
+                $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date FROM $table WHERE editor_id = ? ORDER BY id DESC LIMIT 12";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("s", $id);
-                $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+                $stmt->bind_result($id, $title, $niche, $content, $image, $image2, $date);
                 $stmt->execute();
                 while ($stmt->fetch()) {
                     $posttype = 0;
@@ -230,6 +233,7 @@ if (isset($_POST['submit_btn'])) {
                         'niche' => $niche,
                         'content' => $content,
                         'image_path' => $image,
+                        'foreign_image_path' => $image2,
                         'Date' => $date,
                         'table' => $table,
                         'posttype' => $posttype
@@ -278,6 +282,8 @@ if (isset($_POST['submit_btn'])) {
                 echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
                 if (!empty($result['image_path'])) {
                     echo "<img src='../" . $result['image_path'] . "' alt='article image'>";
+                } else if (!empty($result['foreign_image_path'])) {
+                    echo "<img src='" . $result['foreign_image_path'] . "' alt='article image'>";
                 }
                 echo    "<div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
@@ -318,10 +324,10 @@ if (isset($_POST['submit_btn'])) {
             $tables = ['posts', 'commentaries', 'news', 'press_releases'];
             $results = [];
             foreach ($tables as $table) {
-                $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE authors_firstname like ? ORDER BY id DESC LIMIT 12";
+                $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date FROM $table WHERE authors_firstname like ? ORDER BY id DESC LIMIT 12";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("s", $author_firstname);
-                $stmt->bind_result($author_firstname, $title, $niche, $content, $image, $date);
+                $stmt->bind_result($author_firstname, $title, $niche, $content, $image, $image2, $date);
                 $stmt->execute();
                 while ($stmt->fetch()) {
                     $posttype = 0;
@@ -340,6 +346,7 @@ if (isset($_POST['submit_btn'])) {
                         'niche' => $niche,
                         'content' => $content,
                         'image_path' => $image,
+                        'foreign_image_path' => $image2,
                         'Date' => $date,
                         'table' => $table,
                         'posttype' => $posttype
@@ -388,6 +395,8 @@ if (isset($_POST['submit_btn'])) {
                 echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
                 if (!empty($result['image_path'])) {
                     echo "<img src='../" . $result['image_path'] . "' alt='article image'>";
+                } else if (!empty($result['foreign_image_path'])) {
+                    echo "<img src='" . $result['foreign_image_path'] . "' alt='article image'>";
                 }
                 echo    "<div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>

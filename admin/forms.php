@@ -11,7 +11,7 @@ function convertPath($path)
 {
     return basename($path);
 }
-function savePost($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type)
+function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type)
 {
     global $conn;
     $date = date('y-m-d');
@@ -30,6 +30,44 @@ function savePost($title, $subtitle, $convertedPath, $content, $niche, $link, $s
     }
     $is_favourite = 0;
     $sql = "INSERT INTO $post_type (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    if ($query = $conn->prepare($sql)) {
+        $query->bind_param("issssssisssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+        if ($query->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " added a new post (" . $post_type . ")";
+            $forUser = 1;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Created Successfully";
+            header('location: create_new/posts.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: create_new/posts.php');
+        }
+    } else {
+        $error = $conn->errno . ' ' . $conn->error;
+        echo $error;
+    }
+}
+function savePost2($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type)
+{
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $idtype = "";
+    if ($post_type === "paid_posts") {
+        $idtype = "id1";
+    } elseif ($post_type === "posts") {
+        $idtype = "id2";
+    } elseif ($post_type === "news") {
+        $idtype = "id3";
+    } elseif ($post_type === "commentaries") {
+        $idtype = "id4";
+    } else {
+        $idtype = "id5";
+    }
+    $is_favourite = 0;
+    $sql = "INSERT INTO $post_type (admin_id, title, niche, post_image_url, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     if ($query = $conn->prepare($sql)) {
         $query->bind_param("issssssisssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
         if ($query->execute()) {
@@ -275,27 +313,22 @@ if (isset($_POST['create_post'])) {
     $image2 = $_POST['Post_Image2'];
     $image1 = $_FILES['Post_Image1']['name'];
     $target = "../images/" . basename($image);
-    if (move_uploaded_file($_FILES['Post_Image1']['tmp_name'], $target)) {
-        $imagePath = $target;
-        $convertedPath = convertPath($imagePath);
-        $real_imagePath = "";
-        if (empty($image2) && !empty($image1)) {
-            $real_imagePath = $convertedPath;
+    if (empty($image1) && !empty($image2)) {
+        $imagePath = $image2;
+        savePost2($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type);
+    } elseif (!empty($image1) && empty($image2)) {
+        if (move_uploaded_file($_FILES['Post_Image1']['tmp_name'], $target)) {
+            $imagePath = $target;
+            $convertedPath = convertPath($imagePath);
+            if (!empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)) {
+                $admin_id = '';
+            }
+            savePost1($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type);
         }
-        if (!empty($image2) && empty($image1)) {
-            $real_imagePath = $image2;
-        }
-        if (empty($image2) && empty($image1)) {
-            $real_imagePath = "";
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Please ensure the post's image is selected or it's url provided and not both.";
-            header('location: create_new/posts.php');
-        }
-        if (!empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)) {
-            $admin_id = '';
-        }
-        savePost($title, $subtitle, $real_imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type);
+    } else if (!empty($image1) && !empty($image2)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Please ensure the post's image is selected or it's url provided and not both.";
+        header('location: create_new/posts.php');
     }
 }
 if (isset($_POST['edit_profile'])) {

@@ -1,5 +1,5 @@
 <?php
-$selectcommentaries = "SELECT id, content, admin_id, editor_id, authors_firstname, authors_lastname, authors_image, about_author, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM commentaries ORDER BY id DESC LIMIT 8";
+$selectcommentaries = "SELECT id, content, admin_id, editor_id, authors_firstname, authors_lastname, authors_image, about_author, title, niche, image_path, post_image_url, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM commentaries ORDER BY id DESC LIMIT 8";
     $selectcommentaries_result = $conn->query($selectcommentaries);
     if ($selectcommentaries_result->num_rows > 0) {
         if (!function_exists('calculateReadingTime')) {
@@ -20,6 +20,7 @@ $selectcommentaries = "SELECT id, content, admin_id, editor_id, authors_firstnam
             $title = $row["title"];
             $niche = $row["niche"];
             $image = $row["image_path"];
+        $foreign_imagePath = $row["post_image_url"];
             $date = $row["formatted_date"];
         $date2 = $row["formatted_date2"];
             $editor_id = $row["editor_id"];
@@ -39,6 +40,8 @@ $selectcommentaries = "SELECT id, content, admin_id, editor_id, authors_firstnam
                         <div class='commentary_divs_imagediv'>";
             if (!empty($image)) {
                 echo "<img src='$image' alt='article image'>";
+        } elseif (!empty($foreign_imagePath)) {
+            echo "<img src='$foreign_imagePath' alt='article image'>";
             }
             echo   "<div class='commentary_divs_imagediv_subdiv'>
                         <h2>$authors_lastname $authors_firstname</h2>

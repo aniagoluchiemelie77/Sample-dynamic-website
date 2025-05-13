@@ -96,13 +96,14 @@ if (isset($_POST['accept_cookies'])) {
     <?php endif; ?>
     <section class="section1">
         <?php
-        $selectpaidposts = "SELECT id, title, niche, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM paid_posts ORDER BY date DESC LIMIT 4";
+        $selectpaidposts = "SELECT id, title, niche, image_path, post_image_url, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM paid_posts ORDER BY date DESC LIMIT 4";
         $paidpostselection_result = $conn->query($selectpaidposts);
         if ($paidpostselection_result->num_rows > 0) {
             $counter = 0;
             while ($row = $paidpostselection_result->fetch_assoc()) {
                 $counter++;
-                $image = $row['image_path'];
+                $image = $row["image_path"];
+                $foreign_imagePath = $row["post_image_url"];
                 $publishDate = !empty($row['formatted_date2']) ? $row['formatted_date2'] : $row['formatted_date'];
                 if ($counter == 1) {
                     echo "<div class='section1__div1 larger__div'>
@@ -110,6 +111,8 @@ if (isset($_POST['accept_cookies'])) {
                             ";
                     if (!empty($image)) {
                         echo "<img src='$image' alt='article image'>";
+                    } elseif (!empty($foreign_imagePath)) {
+                        echo "<img src='$foreign_imagePath' alt='article image'>";
                     }
                     echo    "<div class='larger__div__subdiv'>
                                         <h1>" . $row['niche'] . "</h1>
@@ -149,7 +152,7 @@ if (isset($_POST['accept_cookies'])) {
                 <h1>Latest Articles</h1>
             </div>
             <?php
-            $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM posts ORDER BY id DESC LIMIT 30";
+            $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, post_image_url, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM posts ORDER BY id DESC LIMIT 30";
             $selectposts_result = $conn->query($selectposts_sql);
             $author_firstname = "";
             $author_lastname = "";
@@ -173,6 +176,7 @@ if (isset($_POST['accept_cookies'])) {
                     $title = $row["title"];
                     $niche = $row["niche"];
                     $image = $row["image_path"];
+                    $foreign_imagePath = $row["post_image_url"];
                     $date = $row["formatted_date"];
                     $date2 = $row["formatted_date2"];
                     $content = $row["content"];
@@ -218,6 +222,8 @@ if (isset($_POST['accept_cookies'])) {
                                     ";
                     if (!empty($image)) {
                         echo "<img src='$image' alt='article image'>";
+                    } elseif (!empty($foreign_imagePath)) {
+                        echo "<img src='$foreign_imagePath' alt='article image'>";
                     }
                     echo "
                                         <div class='normal-divs__subdiv__div'>
@@ -249,7 +255,7 @@ if (isset($_POST['accept_cookies'])) {
         <?php include("helpers/pressreleasesdiv.php"); ?>
     </section>
     <?php include("includes/footer.php"); ?>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const sidebar = document.getElementById('sidebar');
@@ -257,6 +263,8 @@ if (isset($_POST['accept_cookies'])) {
         const searchIcon = document.getElementById('searchicon');
         const searchForm = document.getElementById("search_form");
         const closeMenuBtn = document.querySelector('.sidebarbtn');
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
 
         function submitSearch() {
             var query = document.getElementById('search').value;
@@ -357,6 +365,33 @@ if (isset($_POST['accept_cookies'])) {
                 thankDiv.style.display = "flex";
             }
         }
+    </script>
+    <script>
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Info' && messageText != " ") {
+            Swal.fire({
+                title: 'Info!',
+                text: messageText,
+                showConfirmButton: true,
+                confirmButtonText: 'Ok',
+                icon: 'info'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        }
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
     </script>
 </body>
 

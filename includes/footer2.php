@@ -17,10 +17,18 @@
         $selectallpages_result = $conn->query($selectallpages);
         if ($selectallpages_result->num_rows > 0) {
             $i = 0;
+            if (!function_exists('convertToReadable')) {
+                function convertToReadable($slug)
+                {
+                    $string = str_replace('-', ' ', $slug);
+                    $string = ucwords($string);
+                    return $string;
+                }
+            }
             if (!function_exists('removeHyphen')) {
                 function removeHyphen($string)
                 {
-                    $string = str_replace(['_', ' '], '', $string);
+                    $string = str_replace(['-', ' '], '', $string);
                     return $string;
                 }
             }

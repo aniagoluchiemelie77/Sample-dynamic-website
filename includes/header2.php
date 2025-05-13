@@ -22,16 +22,40 @@
         </div>
         <div class="header__menu-sidebar-div1 border-gradient-top-dark">
             <div class="sidebar__logobox">
-                <img src="#" alt="companylogo">
+                <img src="<?php echo $logo; ?>" alt="companylogo">
             </div>
             <div class="header__menu-sidebar-div1-subdiv2">
                 <h1 class="sidebar__col-header">More</h1>
-                <a href="aboutus.php" class="sidebar__links">About Us</a>
+                <?php
+                $selectallpages = "SELECT page_name FROM pages ORDER BY id";
+                $selectallpages_result = $conn->query($selectallpages);
+                if ($selectallpages_result->num_rows > 0) {
+                    $i = 0;
+                    if (!function_exists('convertToReadable')) {
+                        function convertToReadable($slug)
+                        {
+                            $string = str_replace('-', ' ', $slug);
+                            $string = ucwords($string);
+                            return $string;
+                        }
+                    }
+                    if (!function_exists('removeHyphen')) {
+                        function removeHyphen($string)
+                        {
+                            $string = str_replace(['-', ' '], '', $string);
+                            return $string;
+                        }
+                    }
+                    while ($row = $selectallpages_result->fetch_assoc()) {
+                        $i++;
+                        $category_names = $row['page_name'];
+                        $cleanString = removeHyphen($category_names);
+                        $readableString = convertToReadable($category_names);
+                        echo    "<a class='sidebar__links' href='$cleanString.php'>$readableString</a>";
+                    }
+                }
+                ?>
                 <a href="#" class="sidebar__links">Pitch to Us</a>
-                <a href="advertisewithus.php">Advertise with Us</a>
-                <a href="sharenewstips.php">Share News tip</a>
-                <a href="ourterms.php">Terms of Service</a>
-                <a href="workwithus.php">Work With Us</a>
             </div>
             <div class="header__menu-sidebar-div1-subdiv3">
                 <h1 class="sidebar__col-header">Sources</h1>

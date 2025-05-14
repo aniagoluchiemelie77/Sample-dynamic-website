@@ -5,6 +5,8 @@ require('../init.php');
 $page_name = "news";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
+        $_SESSION['status_type'] = "";
+        $_SESSION['status'] = "";
 $favicon = $details['favicon'];
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];

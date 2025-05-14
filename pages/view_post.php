@@ -16,6 +16,8 @@ $url = "http://localhost/Sample-dynamic-website";
 $title1 = "";
 $subtitle1 = "";
 $img1 = "";
+$_SESSION['status_type'] = "";
+$_SESSION['status'] = "";
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
     sendEmail($email);
@@ -989,20 +991,6 @@ if (isset($_POST['submit_btn'])) {
             const postUrl = window.location.href;
             const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle + ' - ' + postSubtitle)}&url=${encodeURIComponent(postUrl)}&via=yourTwitterHandle&hashtags=yourHashtags`;
             window.open(tweetUrl, "_blank");
-        };
-
-        function displayThankYouMessage() {
-            var thankYouMessage = "<?php echo $thankYouMessage; ?>";
-            const thankDiv = document.getElementById('thank-you-message');
-            if (thankYouMessage) {
-                document.getElementById('susbribe-box').style.display = "none";
-                document.getElementById('subscribe_box2').style.display = "none";
-                thankDiv.scrollIntoView({
-                    behavior: 'smooth'
-                });
-                thankDiv.innerHTML = `<p>${thankYouMessage}</p>`;
-                thankDiv.style.display = "flex";
-            }
         };
         onClickOutside(sidebar);
         menubtn.addEventListener('click', removeHiddenClass);

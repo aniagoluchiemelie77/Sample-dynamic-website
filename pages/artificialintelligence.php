@@ -2,6 +2,8 @@
 session_start();
 require('../connect.php');
 require('../init.php');
+        $_SESSION['status_type'] = "";
+        $_SESSION['status'] = "";
 $page_name = "artificial-intelligence";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];

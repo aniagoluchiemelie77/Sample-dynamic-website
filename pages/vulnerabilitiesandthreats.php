@@ -6,6 +6,8 @@ $page_name = "vulnerabilities-and-threats";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
+        $_SESSION['status_type'] = "";
+        $_SESSION['status'] = "";
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
     sendEmail($email);

@@ -3,6 +3,8 @@ session_start();
 require('../connect.php');
 require('../init.php');
 $page_name = "cybersecurity";
+$_SESSION['status_type'] = "";
+$_SESSION['status'] = "";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -190,20 +192,6 @@ if (isset($_POST['submit_btn'])) {
             e.stopPropagation();
             sidebar.classList.toggle('hidden');
         });
-
-        function displayThankYouMessage() {
-            var thankYouMessage = "<?php echo $thankYouMessage; ?>";
-            const thankDiv = document.getElementById('thank-you-message');
-            if (thankYouMessage) {
-                document.getElementById('susbribe-box').style.display = "none";
-                document.getElementById('subscribe_box2').style.display = "none";
-                thankDiv.scrollIntoView({
-                    behavior: 'smooth'
-                });
-                thankDiv.innerHTML = `<p>${thankYouMessage}</p>`;
-                thankDiv.style.display = "flex";
-            }
-        }
     </script>
     <script>
         if (messageType == 'Error' && messageText != " ") {

@@ -2,7 +2,6 @@
 session_start();
 $page_name = isset($_GET['page_name']) ? $_GET['page_name'] : "Unknown Page";
 include("../connect.php");
-include("../crudoperations.php");
 require("../init.php");
 require('../../init.php');
 function removeHyphen($string)

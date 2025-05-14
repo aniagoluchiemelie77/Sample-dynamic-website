@@ -12,7 +12,6 @@ if (file_exists($translationFile)) {
 } else {
     $translations = [];
 }
-include("../crudoperations.php");
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 $userId = $_SESSION['id'];

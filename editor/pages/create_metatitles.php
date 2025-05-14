@@ -2,7 +2,6 @@
 session_start();
 include("../connect.php");
 require("../init.php");
-include("../crudoperations.php");
 require('../../init.php');
 function convertToReadable($slug)
 {

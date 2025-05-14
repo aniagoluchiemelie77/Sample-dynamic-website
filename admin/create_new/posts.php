@@ -10,7 +10,7 @@ $translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {
-    $translations = []; // Initialize as empty array to avoid undefined variable errors
+    $translations = [];
 }
 ?>
 <!DOCTYPE html>

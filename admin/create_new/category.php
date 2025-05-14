@@ -1,7 +1,6 @@
 <?php
 session_start();
 require("../connect.php");
-include('../crudoperations.php');
 require('../../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];

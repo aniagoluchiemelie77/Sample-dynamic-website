@@ -2905,6 +2905,9 @@ input[type="date"] {
     .visits_subdiv2_header {
         font-size: var(--header-h7);
     }
+    .profile_body {
+        margin: 1rem;
+    }
     .profile_body-activities {
         width: 98%;
     }
@@ -2954,6 +2957,9 @@ input[type="date"] {
     .pages_container {
         width: 95%;
     }
+    .developer_contact {
+        padding: var(--divpadding);
+    }
     .developer_contact_container_body {
         width: 100%;
     }
@@ -2966,6 +2972,9 @@ input[type="date"] {
     }
     .developer_contact_header h1 {
         font-size: var(--header-h7);
+    }
+    .developer_contact_subdiv a {
+        margin: 1rem;
     }
     .logout_alert {
         padding: var(--divpadding-highest);
@@ -2988,6 +2997,7 @@ input[type="date"] {
     }
     .posts_divcontainer_subdiv .posts_delete_edit {
         align-items: flex-start;
+        flex-wrap: wrap;
         padding: 0 1rem;
     }
     .postsdiv2 .subscribers_subdiv {

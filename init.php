@@ -145,5 +145,4 @@ function sendOTP($email, $firstname, $token)
         return ["status" => $status, "status_type" => $status_type];
     }
 }
-function sendThankyouMessage() {}
 ?>

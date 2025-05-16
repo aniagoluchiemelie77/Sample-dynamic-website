@@ -84,7 +84,7 @@ if (isset($_POST['accept_cookies'])) {
     <title>Home</title>
 </head>
 
-<body id="container" onload="displayThankYouMessage()">
+<body id="container">
     <?php require('includes/header.php'); ?>
     <?php if (!isset($_COOKIE['tracker'])): ?>
         <div class="cookie_container">
@@ -255,8 +255,6 @@ if (isset($_POST['accept_cookies'])) {
         <?php include("helpers/pressreleasesdiv.php"); ?>
     </section>
     <?php include("includes/footer.php"); ?>
-    <script src="sweetalert2.all.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const sidebar = document.getElementById('sidebar');
         const menubtn = document.querySelector('.mainheader__header-nav-1');
@@ -266,28 +264,18 @@ if (isset($_POST['accept_cookies'])) {
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
 
-        function submitSearch() {
-            var query = document.getElementById('search').value;
-            if (query) {
-                fetch('forms.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: 'query=' + encodeURIComponent(query)
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('results').style.display = 'block';
-                        document.getElementById('resultsContent').innerHTML = data;
-                    })
-                    .catch(error => {
-                        Swal.fire('Error', 'Something went wrong!', 'error');
-                    });
-            } else {
-                Swal.fire('Error', 'Please enter a search term', 'error');
-            }
-        }
+        function removeHiddenClass(e) {
+            e.stopPropagation();
+            sidebar.classList.remove('hidden');
+        };
+
+        function onClickOutside(element) {
+            document.addEventListener('click', e => {
+                if (!element.contains(e.target)) {
+                    element.classList.add('hidden');
+                } else return;
+            });
+        };
         document.getElementById('search-bar').addEventListener('input', function() {
             var query = this.value;
             if (query.length > 0) {
@@ -303,26 +291,24 @@ if (isset($_POST['accept_cookies'])) {
                         suggestions.forEach(function(suggestion) {
                             if (suggestion.type === 'post') {
                                 resultsDiv.innerHTML = `<h2 class="headers">You searched for: ${query}</h2>
-                                                            <a href='pages/view_post.php?${suggestion.idtype}=${suggestion.id}'>
-                                                                <img src='${suggestion.image_path}' alt='article image'>
-                                                                <div class='results_subdiv'>
-                                                                    <h1>${suggestion.niche}</h1>
-                                                                    <h1>${suggestion.title}</h1>
-                                                                    <span>${suggestion.title}</span>
-                                                                    <span>$readingTime</span>
-                                                                <div>
-                                                            </a>
-                                                        `;
+                                                        <a href='pages/view_post.php?${suggestion.idtype}=${suggestion.id}'>
+                                                            <img src='${suggestion.image_path}' alt='article image' class="results__image">
+                                                            <div class='searchresults'>
+                                                                <h1>${suggestion.niche}</h1>
+                                                                <h2>${suggestion.title}</h1>
+                                                                <span>${suggestion.subtitle}</span>
+                                                            <div>
+                                                        </a>`;
                             } else if (suggestion.type === 'author') {
-                                resultsDiv.innerHTML = `<h2 class ="headers">You searched for: ${query}</h2>;
-                                        <a href='authors/author.php?id=${suggestion.id}&idtype=${suggestion.idtype}' class='aboutauthor_div'>
-                                            <div class='aboutauthor_div_subdiv1'>
+                                resultsDiv.innerHTML = `<h2 class ="headers">You searched for: ${query}</h2>
+                                        <a href='authors/author.php?id=${suggestion.id}&idtype=${suggestion.idtype}'>
+                                            <div>
                                                 <img src='${suggestion.image}' alt ='Author's Image'/>
                                             </div>
-                                            <div class='aboutauthor_div_subdiv2'>
-                                                <p class='normal-divs__title'>${suggestion.firstname}, ${suggestion.lastname}</p>
-                                                <p>${suggestion.bio}</p>
-                                                <p>Email: ${suggestion.email}</p>
+                                            <div>
+                                                <p class='top_header'>${suggestion.firstname} ${suggestion.lastname}</p>
+                                                <p class='top_header2'>${suggestion.bio}</p>
+                                                <p class='top_header3'><i class="fa fa-envelope" aria-hidden="true"></i> ${suggestion.email}</p>
                                             </div>
                                         </a>`;
                             }
@@ -330,6 +316,9 @@ if (isset($_POST['accept_cookies'])) {
                         resultsDiv.scrollIntoView({
                             behavior: 'smooth'
                         });
+                    } else {
+                        <?php $_SESSION['status_type'] = 'Error'; ?>
+                        <?php $_SESSION['status'] = 'Search result not found'; ?>
                     }
                 };
                 xhr.send('query=' + query);
@@ -350,7 +339,6 @@ if (isset($_POST['accept_cookies'])) {
             sidebar.classList.toggle('hidden');
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
@@ -378,6 +366,8 @@ if (isset($_POST['accept_cookies'])) {
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>
     </script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

@@ -33,7 +33,7 @@
             }
         }
         echo json_encode($suggestions);
-    }else{
+} else {
         echo "Error: Query parameter not set.";
 }
 ?>

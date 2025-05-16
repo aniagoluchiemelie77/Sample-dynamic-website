@@ -441,8 +441,8 @@ if (isset($_POST['submit_btn'])) {
                             $role = 'Editor At Uniquetechcontentwriter.com';
                         }
                     } else {
-                        $author_firstname = $row['author_firstname'];
-                        $author_lastname = $row['author_lastname'];
+                        $author_firstname = $row['authors_firstname'];
+                        $author_lastname = $row['authors_lastname'];
                         $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname AND lastname = $author_lastname";
                         $result_writer = $conn->query($sql_writer);
                         if ($result_writer->num_rows > 0) {
@@ -502,7 +502,7 @@ if (isset($_POST['submit_btn'])) {
                             ";
                     } elseif (!empty($foreign_imagePath)) {
                         echo "   <div class='post_image_div'>
-                                    <img src='$foreign_imagePath' alt='Post Image'/>
+                                    <img src='$foreign_imagePath.jpg' alt='Post Image'/>
                                 </div>
                             ";
                     }
@@ -523,6 +523,7 @@ if (isset($_POST['submit_btn'])) {
                                         <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
                                         <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
                                         <a href='mailto:?subject=$title&body=$subtitle' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                                    </div>
                                     <h3 class='bodyleft_header3'>About the Author</h3>
                                     <center>
                                         <a href='../authors/author.php?id=$id_admin$id_editor$id_writer&idtype=$id_type' class='aboutauthor_div'>

@@ -32,7 +32,7 @@
             if (!empty($image)) {
                 echo "<img src='$image' alt='article image'>";
             } elseif (!empty($foreign_imagePath)) {
-                echo "<img src='$foreign_imagePath' alt='article image'>";
+                echo "<img src='$foreign_imagePath.jpg' alt='article image'>";
             }
             echo    "<p class='posts_div_niche'>$niche</p>
                         <h1>$title</h1>

@@ -69,7 +69,7 @@ function savePost2($title, $subtitle, $convertedPath, $content, $niche, $link, $
     $is_favourite = 0;
     $sql = "INSERT INTO $post_type (admin_id, title, niche, post_image_url, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     if ($query = $conn->prepare($sql)) {
-        $query->bind_param("issssssisssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+        $query->bind_param("issssssisssssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
         if ($query->execute()) {
             $content = "Admin " . $_SESSION['firstname'] . " added a new post (" . $post_type . ")";
             $forUser = 1;
@@ -312,7 +312,7 @@ if (isset($_POST['create_post'])) {
     $author_bio = $_POST['about_author'];
     $image2 = $_POST['Post_Image2'];
     $image1 = $_FILES['Post_Image1']['name'];
-    $target = "../images/" . basename($image);
+    $target = "../images/" . basename($image1);
     if (empty($image1) && !empty($image2)) {
         $imagePath = $image2;
         savePost2($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type);
@@ -571,8 +571,4 @@ if (isset($_FILES['profilePicture'])) {
         $_SESSION['status'] = "Submitted File is not an image.";
         header('location: admin_homepage.php');
     }
-} else {
-    $_SESSION['status_type'] = "Error";
-    $_SESSION['status'] = "No file uploaded.";
-    header('location: admin_homepage.php');
 }

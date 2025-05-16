@@ -2,6 +2,7 @@
 session_start();
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
+$topicName = isset($_GET['topicName']) ? $_GET['topicName'] : null;
 $type = isset($_GET['type']) ? $_GET['type'] : null;
 include('connect.php');
 include('crudoperations.php');
@@ -144,12 +145,17 @@ if ($type == "Category") {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
     if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . "  deleted a Category type";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Category Deleted Successfully";
-        header('location: pages/categories.php');
+        $sql = "DELETE FROM meta_titles WHERE page_name = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $topicName);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . "  deleted a Category type";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Category Deleted Successfully";
+            header('location: pages/categories.php');
+        }
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";

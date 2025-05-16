@@ -128,7 +128,7 @@ function confirmDeleteResource(Id) {
         }
     })
   };
-function confirmDeleteCategory(Id) {
+function confirmDeleteCategory(Id, topicName) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -139,7 +139,7 @@ function confirmDeleteCategory(Id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = '../delete.php?id=' + Id + '&type=Category';
+            window.location.href = '../delete.php?id=' + Id + '&type=Category&topicName=' + topicName + '';
         }
     })
   };

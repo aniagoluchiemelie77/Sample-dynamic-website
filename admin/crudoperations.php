@@ -17,26 +17,6 @@ function logUpdate($conn, $forUser, $action)
     }
     $stmt->close();
 }
-function createcategory($filename, $content, $description)
-{
-    $file = fopen('../../pages/' . $filename, 'w');
-    if ($file) {
-        fwrite($file, $content);
-        fclose($file);
-    } else {
-        die("Unable to create file.");
-    }
-    global $conn;
-    $stmt = $conn->prepare("INSERT INTO topics (name, description) VALUES (?, ?)");
-    $stmt->bind_param("ss", $filename, $description);
-    if ($stmt->execute()) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-    $stmt->close();
-    $conn->close();
-}
 function encryptPassword($password)
 {
     $iv = openssl_random_pseudo_bytes(16); // Ensures it's 16 bytes

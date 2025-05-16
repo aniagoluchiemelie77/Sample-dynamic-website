@@ -41,7 +41,7 @@ if (file_exists($translationFile)) {
         <div class="page_links">
             <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <a href="../pages/categories.php"><?php echo $translations['categories']; ?></a> > <p><?php echo $translations['create_category']; ?></p>
         </div>
-        <form class="formcontainer" id="topicForm">
+        <form class="formcontainer" id="topicForm" action="../forms.php" method="POST" enctype="multipart/form-data">
             <div class="head_paragraph">
                 <h3><?php echo $translations['create_category']; ?></h3>
             </div>
@@ -49,10 +49,6 @@ if (file_exists($translationFile)) {
                 <div class="input_group">
                     <label for="name"><?php echo $translations['category_name']; ?>:</label>
                     <input type="text" name="topicName" id="topicName" required />
-                </div>
-                <div class="input_group categorygroup">
-                    <label for="desc"><?php echo $translations['category_description']; ?>:</label>
-                    <textarea class="newpost_container_div7_subdiv2" name="topicDesc" id="myTextarea"></textarea>
                 </div>
                 <div class="newpost_container_div6 newpost_subdiv">
                     <label class="form__label" for="topicImg"><?php echo $translations['category_image']; ?>:</label>
@@ -62,10 +58,32 @@ if (file_exists($translationFile)) {
                     </div>
                 </div>
             </div>
-            <input class="formcontainer_submit" value="<?php echo $translations['save']; ?>" type="submit" onclick="submitForm()" />
+            <input class="formcontainer_submit" name='create_page' value="<?php echo $translations['save']; ?>" type="submit" />
         </form>
     </section>
     <script src="../admin.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        }
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
+    </script>
 </body>
 
 </html>

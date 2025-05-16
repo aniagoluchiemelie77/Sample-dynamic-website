@@ -116,7 +116,7 @@ if (file_exists($translationFile)) {
                                     <p>$translations[categories_p]: <span>$total_posts</span></p>
                                     <p> $translations[date_created]: <span>$formattedDate</span></p>
                                     <p>$translations[time]: <span>$formatted_time</span></p>
-                                    <a class='topics_actions' onclick='confirmDeleteCategory($id)'>
+                                    <a class='topics_actions' onclick='confirmDeleteCategory($id, $name)'>
                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                     </a>
                                 </div>

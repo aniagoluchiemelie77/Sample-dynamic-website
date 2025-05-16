@@ -6,6 +6,22 @@ $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 require("connect.php");
 include('crudoperations.php');
+function noHyphenUppercase($string)
+{
+    $string = str_replace('-', ' ', $string);
+    return ucwords($string);
+}
+function noHyphenLowercase($string)
+{
+    $string = str_replace('-', '', $string);
+    $string = strtolower($string);
+    return $string;
+}
+function removeHyphenNoSpace($string)
+{
+    $string = str_replace(['-', ' '], '', $string);
+    return $string;
+}
 
 function convertPath($path)
 {
@@ -47,6 +63,269 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
     } else {
         $error = $conn->errno . ' ' . $conn->error;
         echo $error;
+    }
+}
+function createCategory($category_name, $category_image)
+{
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $meta_name = "viewport";
+    $meta_content = "width=device-width,initial-scale=1.0";
+    $formattedTopicName = strtolower(str_replace(' ', '-', $category_name));
+    $filename = removeHyphenNoSpace($category_name) . '.php';
+    $uc_category_name = noHyphenUppercase($category_name);
+    $sqlTopics = "INSERT INTO topics (name, image_path, Date, time) VALUES (?,?,?,?)";
+    $fileContent = <<<PHP
+        <?php
+            session_start();
+            require('../connect.php');
+            require('../init.php');
+           \$_SESSION['status_type'] = "";
+           \$_SESSION['status'] = "";
+           \$page_name = "$formattedTopicName";
+           \$details = getFaviconAndLogo();
+           \$logo = \$details['logo'];
+           \$favicon = \$details['favicon'];
+           if (isset(\$_POST['submit_btn'])) {
+                \$email = \$_POST["email"];
+                \$sendEmail = sendEmail(\$email);
+                \$_SESSION['status_type'] = \$sendEmail['status_type'];
+                \$_SESSION['status'] = \$sendEmail['status'];
+            }
+            if (!function_exists('calculateReadingTime')) {
+                function calculateReadingTime(\$content)
+                {
+                    \$wordCount = str_word_count(strip_tags(\$content));
+                    \$minutes = floor(\$wordCount / 200);
+                    return \$minutes . ' mins read ';
+                }
+            }
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <?php if (isset(\$meta_titles[\$page_name])) {
+                \$meta_data = \$meta_titles[\$page_name];
+                for (\$i = 1; \$i <= 5; \$i++) {
+                    \$meta_name = \$meta_data['meta_name{\$i}'];
+                    \$meta_content = \$meta_data['meta_content{\$i}'];
+                    if (!empty(\$meta_name) && !empty(\$meta_content)) {
+                        echo "<meta name='\$meta_name' content='\$meta_content' />";
+                    }
+                }
+            }?>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="../index.css" />
+            <meta charset="UTF-8">
+            <title>$uc_category_name</title>
+        </head>
+        <body id="container">
+            <?php require("../includes/header2.php"); ?>
+            <div class="body_container">
+                <div class="body_left">
+                    <div class="page_links">
+                        <a href="../">Home</a> > <p>$uc_category_name</p>
+                    </div>
+                    <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest On $uc_category_name</h1>
+                    <div class='more_posts'>;
+                        <?php
+                            \$tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                            \$results = [];
+                            foreach (\$tables as \$table) {
+                                \$sql = "SELECT id, title, niche, content, image_path, Date FROM \$table WHERE niche LIKE ? ORDER BY id DESC LIMIT 2";
+                                \$stmt = \$conn->prepare(\$sql);
+                                \$nicheq = '$uc_category_name';
+                                \$searchTerm = "%" . \$nicheq . "%";
+                                \$stmt->bind_param("s", \$searchTerm);
+                                \$stmt->execute();
+                                \$stmt->bind_result(\$id, \$title, \$niche, \$content, \$image, \$date);
+                                while (\$stmt->fetch()) {
+                                    \$posttype = 0;
+                                    if (\$table == 'paid_posts') {
+                                        \$posttype = 1;
+                                    } elseif (\$table == 'posts') {
+                                        \$posttype = 2;
+                                    } elseif (\$table == 'commentaries') {
+                                        \$posttype = 4;
+                                    } elseif (\$table == 'news') {
+                                        \$posttype = 3;
+                                    } elseif (\$table == 'press_releases') {
+                                        \$posttype = 5;
+                                    }
+                                    \$results[] = [
+                                        'id' => \$id,
+                                        'title' => \$title,
+                                        'niche' => \$niche,
+                                        'content' => \$content,
+                                        'image_path' => \$image,
+                                        'Date' => \$date,
+                                        'table' => \$table,
+                                        'posttype' => \$posttype
+                                    ];
+                                }
+                            }
+                            foreach (\$results as \$result) {
+                                if (!function_exists('getOrdinalSuffix')) {
+                                    function getOrdinalSuffix(\$day)
+                                    {
+                                        if (!in_array((\$day % 100), [11, 12, 13])) {
+                                            switch (\$day % 10) {
+                                                case 1:
+                                                    return 'st';
+                                                case 2:
+                                                    return 'nd';
+                                                case 3:
+                                                    return 'rd';
+                                            }
+                                        }
+                                    return 'th';
+                                }
+                            }
+                            if (!function_exists('calculateReadingTime')) {
+                                function calculateReadingTime(\$content)
+                                {
+                                    \$wordCount = str_word_count(strip_tags(\$content));
+                                    \$minutes = floor(\$wordCount / 200);
+                                    return \$minutes  . ' mins read ';
+                                }
+                            }
+                            \$max_length = 60;
+                            \$id = \$result['id'];
+                            \$title = \$result['title'];
+                            \$date = \$result['Date'];
+                            \$image = \$result['image_path'];
+                            if (strlen(\$title) > \$max_length) {
+                                \$title = substr(\$title, 0, \$max_length) . '...';
+                            }
+                            \$dateTime = new DateTime(\$date);
+                            \$day = \$dateTime->format('j');
+                            \$month = \$dateTime->format('M');
+                            \$year = \$dateTime->format('Y');
+                            \$ordinalSuffix = getOrdinalSuffix(\$day);
+                            \$formattedDate = \$month . ' ' . \$day . \$ordinalSuffix . ', ' . \$year;
+                            \$readingTime = calculateReadingTime(\$result['content']);
+                            echo "<a class='more_posts_subdiv' href='view_post.php?id" . \$result['posttype'] . "=\$id'>";
+                            if (!empty(\$image)) {
+                                echo "<img src='../\$image' alt = 'Post's Image'/>";
+                            }
+                            echo"<div class='more_posts_subdiv_subdiv'>
+                                    <h1>\$title</h1>
+                                    <span>\$formattedDate</span>
+                                    <span>\$readingTime</span>
+                                </div>
+                                <p class='posts_div_niche'>" . \$result['niche'] . "</p>
+                            </a>";}
+                        ?>
+                    </div>
+                </div>
+                <div class="body_right border-gradient-leftside--lightdark">
+                    <div class="subscribe_container">
+                        <form class="sec2__susbribe-box other_width" method="POST" action="" id="susbribe-box">
+                            <div class="icon">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                            </div>
+                            <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
+                            <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
+                            <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required />
+                            <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" />
+                        </form>
+                    </div>
+                    <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
+                    <?php include("../helpers/editorspicks.php"); ?>
+                </div>
+            </div>
+            <section class="section2">
+                <div class="section2__div1">
+                    <div class="search_div" id="result"></div>
+                    <div class="section2__div1__header headers">
+                        <h1>For You</h1>
+                    </div>
+                    <?php include('../includes/pagination.php'); ?>
+                </div>
+            </section>
+            <?php include("../includes/footer2.php"); ?>
+            <script src="sweetalert2.all.min.js"></script>
+            <script>
+                const closeMenuBtn = document.querySelector('.sidebarbtn');
+                const sidebar = document.getElementById('sidebar');
+                const menubtn = document.querySelector('.mainheader__header-nav-2');
+                var messageType = "<?= \$_SESSION['status_type'] ?? '' ?>";
+                var messageText = "<?= \$_SESSION['status'] ?? '' ?>";
+                function removeHiddenClass(e) {
+                    e.stopPropagation();
+                    sidebar.classList.remove('hidden');
+                };
+                function onClickOutside(element) {
+                    document.addEventListener('click', e => {
+                        if (!element.contains(e.target)) {
+                            element.classList.add('hidden');
+                        } else return;
+                    });
+                };
+                onClickOutside(sidebar);
+                menubtn.addEventListener('click', removeHiddenClass);
+                closeMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    sidebar.classList.toggle('hidden');
+                });
+            </script>
+            <script>
+                if (messageType == 'Error' && messageText != " ") {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: messageText,
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    })
+                } else if (messageType == 'Info' && messageText != " ") {
+                    Swal.fire({
+                        title: 'Info!',
+                        text: messageText,
+                        showConfirmButton: true,
+                        confirmButtonText: 'Ok',
+                        icon: 'info'
+                    })
+                } else if (messageType == 'Success' && messageText != " ") {
+                    Swal.fire({
+                        title: 'Success',
+                        text: messageText,
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+                <?php unset(\$_SESSION['status_type']); ?>
+                <?php unset(\$_SESSION['status']); ?>
+            </script>
+        </body>
+        </html>
+    PHP;
+    $filePath = '../pages/' . $filename;
+    if ($query = $conn->prepare($sqlTopics)) {
+        $query->bind_param("ssss", $formattedTopicName, $category_image, $date, $time);
+        if ($query->execute()) {
+            $sqlMetaTitles = "INSERT INTO meta_titles (page_name, meta_name1, meta_content1) VALUES (?, ?, ?)";
+            if ($query = $conn->prepare($sqlMetaTitles)) {
+                $query->bind_param("sss", $formattedTopicName, $meta_name, $meta_content);
+                if ($query->execute()) {
+                    if (file_put_contents($filePath, $fileContent)) {
+                        $content = "Admin " . $_SESSION['firstname'] . " added a new category";
+                        $forUser = 0;
+                        logUpdate($conn, $forUser, $content);
+                        $_SESSION['status_type'] = "Success";
+                        $_SESSION['status'] = "Category Created Successfully";
+                        header('location: create_new/category.php');
+                    } else {
+                        $_SESSION['status_type'] = "Error";
+                        $_SESSION['status'] = "Error, Please retry";
+                        header('location: create_new/category.php');
+                    }
+                }
+            }
+        }
     }
 }
 function savePost2($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type)
@@ -440,6 +719,16 @@ if (isset($_POST['update_post'])) {
             $admin_id = " ";
         }
         updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
+    }
+}
+if (isset($_POST['create_page'])) {
+    $topic_name = $_POST['topicName'];
+    $image = $_FILES['topicImg']['name'];
+    $target = "../images/" . basename($image);
+    if (move_uploaded_file($_FILES['topicImg']['tmp_name'], $target)) {
+        $imagePath = $target;
+        $convertedPath = convertPath($imagePath);
+        createCategory($topic_name, $convertedPath);
     }
 }
 if (isset($_POST['create_editor'])) {

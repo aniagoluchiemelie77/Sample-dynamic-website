@@ -7,7 +7,6 @@ $logo = $details['logo'];
 $favicon = $details['favicon'];
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
-$msg = " ";
 if (isset($_POST['change_password'])) {
     $password1 = $_POST['pwd'];
     $password2 = $_POST['cfpwd'];
@@ -28,7 +27,8 @@ if (isset($_POST['change_password'])) {
             $_SESSION['status'] = "Error, Please retry";
         }
     } else {
-        $msg = "Passwords do not match";
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Passwords do not match";
     }
 }
 ?>
@@ -54,13 +54,6 @@ if (isset($_POST['change_password'])) {
         <div class="container" id="signIn">
             <form method="post" class="form" id="validate_form" action="changepassword.php">
                 <h1>Change Password</h1>
-                <p class="error_div">
-                    <?php
-                    if (!empty($msg)) {
-                        echo $msg;
-                    }
-                    ?>
-                </p>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="pwd" id="form_input" placeholder="Enter your password.." data-parsley-type="password" data-parsley-trigger="keyup" required />
@@ -76,6 +69,7 @@ if (isset($_POST['change_password'])) {
         </div>
     </section>
     <?php require("../extras/footer.php"); ?>
+    <script src="sweetalert2.all.min.js"></script>
     <script src="../index.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

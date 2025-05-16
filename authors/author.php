@@ -13,7 +13,9 @@ $idtype = isset($_GET['idtype']) ? $_GET['idtype'] : null;
 $author_fname = isset($_GET['author_fname']) ? $_GET['author_fname'] : null;
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
-    sendEmail($email);
+    $sendEmail = sendEmail($email);
+    $_SESSION['status_type'] = $sendEmail['status_type'];
+    $_SESSION['status'] = $sendEmail['status'];
 }
 ?>
 <!DOCTYPE html>

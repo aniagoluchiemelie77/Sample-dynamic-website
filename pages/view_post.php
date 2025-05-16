@@ -20,7 +20,9 @@ $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
-    sendEmail($email);
+    $sendEmail = sendEmail($email);
+    $_SESSION['status_type'] = $sendEmail['status_type'];
+    $_SESSION['status'] = $sendEmail['status'];
 }
 ?>
 <!DOCTYPE html>

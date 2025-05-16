@@ -72,8 +72,9 @@ function sendEmail($email)
         $checkStmt->execute();
         $result = $checkStmt->get_result();
         if ($result->num_rows > 0) {
-            $_SESSION['status_type'] = "Info";
-            $_SESSION['status'] = "You are already subscribed with us!";
+            $status_type = "Info";
+            $status = "You are already subscribed with us!";
+            return ["status" => $status, "status_type" => $status_type];
         } else {
             $stmt = $conn->prepare("INSERT INTO subscribers (email, date, time) VALUES (?, ?, ?)");
             $stmt->bind_param("sss", $email, $date, $time);
@@ -96,20 +97,53 @@ function sendEmail($email)
                     $mail->Subject = 'Welcome to Our Newsletter';
                     $mail->Body    = 'Thank you for subscribing to our newsletter! We are excited to have you with us.';
                     $mail->send();
-                    $_SESSION['status_type'] = "Success";
-                    $_SESSION['status'] = "Email Subscription Added Successfully";
+                    $status_type = "Success";
+                    $status = "Email Subscription Added Successfully";
+                    return ["status" => $status, "status_type" => $status_type];
                 } catch (Exception $e) {
-                    $_SESSION['status_type'] = "Info";
-                    $_SESSION['status'] = "Subscription successful, but welcome email could not be sent.";
+                    $status_type = "Info";
+                    $status = "Subscription successful, but welcome email could not be sent.";
+                    return ["status" => $status, "status_type" => $status_type];
                 }
             } else {
-                $_SESSION['status_type'] = "Error";
-                $_SESSION['status'] = "Email Subscription Failed";
+                $status_type = "Error";
+                $status = "Email Subscription Failed";
+                return ["status" => $status, "status_type" => $status_type];
             }
         }
     } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Invalid email address. Please try again.";
+        $status_type = "Error";
+        $status = "Invalid email address. Please try again.";
+        return ["status" => $status, "status_type" => $status_type];
     }
 }
+function sendOTP($email, $firstname, $token)
+{
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->SMTPDebug = 2;
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'aniagoluchiemelie77@gmail.com';
+        $mail->Password   = 'ozmsoscaivmkrbuu';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+        $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
+        $mail->addAddress($email, 'Chiboy');
+        $mail->isHTML(true);
+        $mail->Subject = 'Password Change Request';
+        $mail->Body = "<h1>Hi $firstname,</h1>You are required to enter the following code in order to complete a password change action requested by you. Please enter this code in 1 minute. <center><h1>$token</h1></center>";
+        $mail->send();
+        $status_type = "Success";
+        $status = "Password Reset OTP sent!";
+        return ["status" => $status, "status_type" => $status_type];
+        header("Location: verifyotp.php");
+    } catch (Exception $e) {
+        $status_type = "Error";
+        $status = "Error, OTP could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        return ["status" => $status, "status_type" => $status_type];
+    }
+}
+function sendThankyouMessage() {}
 ?>

@@ -2,20 +2,13 @@
 session_start();
 require("../connect.php");
 require('../../init.php');
+$_SESSION['status_type'] = "";
+$_SESSION['status'] = "";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-require '../../vendor\phpmailer\phpmailer\src\SMTP.php';
-require '../../vendor\phpmailer\phpmailer\src\Exception.php';
-require '../../vendor\phpmailer\phpmailer\src\PHPMailer.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-$msg = " ";
-if (isset($_REQUEST['fgtpswd'])) {
-    $email = $_REQUEST['email'];
-    $_SESSION['email'] = $email;
+if (isset($_POST['fgtpswd'])) {
+    $email = $_POST['email'];
     $check_email = mysqli_query($conn, "SELECT firstname, email FROM admin_login_info WHERE email = '$email'");
     $res = mysqli_num_rows($check_email);
     if ($res > 0) {
@@ -25,30 +18,13 @@ if (isset($_REQUEST['fgtpswd'])) {
         $stmt = $conn->prepare("UPDATE admin_login_info SET token = ? WHERE email = ?");
         $stmt->bind_param('ss', $token, $email);
         if ($stmt->execute()) {
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->SMTPDebug = 2;
-                $mail->Host       = 'smtp.gmail.com';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'aniagoluchiemelie77@gmail.com';
-                $mail->Password   = 'ozmsoscaivmkrbuu';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port       = 587;
-                $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
-                $mail->addAddress($email, 'Chiboy');
-                $mail->isHTML(true);
-                $mail->Subject = 'Password Change Request';
-                $mail->Body = "<h1>Hi $firstname,</h1>You are required to enter the following code in order to complete a password change action requested by you. Please enter this code in 1 minute. <center><h1>$token</h1></center>";
-                $mail->send();
-                $msg = "Password Reset OTP sent!";
-                header("Location: verifyotp.php");
-            } catch (Exception $e) {
-                $msg = "OTP could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            }
+            $sendOtp = sendOTP($email, $firstname, $token);
+            $_SESSION['status_type'] = $sendOtp['status_type'];
+            $_SESSION['status'] = $sendOtp['status'];
         }
     } else {
-        $msg = "Sorry, could't find user with specified email.";
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Sorry, could't find user with specified email.";
     }
 }
 ?>
@@ -65,6 +41,7 @@ if (isset($_REQUEST['fgtpswd'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../admin.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Forgot Password</title>
 </head>
 
@@ -73,9 +50,6 @@ if (isset($_REQUEST['fgtpswd'])) {
         <div class="container" id="signIn">
             <form method="post" class="form" id="validate_form" action="forgotpassword.php">
                 <h1>Enter Your Email</h1>
-                <p class="error_div"><?php if (!empty($msg)) {
-                                            echo $msg;
-                                        } ?></p>
                 <div class="input_group">
                     <i class="fas fa-envelope"></i>
                     <input type="email" name="email" id="form_input" placeholder="Enter your email.." data-parsley-type="email" data-parsley-trigger="keyup" required />
@@ -87,6 +61,36 @@ if (isset($_REQUEST['fgtpswd'])) {
     </section>
     <?php require("../extras/footer.php"); ?>
     <script src="../index.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Info' && messageText != " ") {
+            Swal.fire({
+                title: 'Info!',
+                text: messageText,
+                showConfirmButton: true,
+                confirmButtonText: 'Ok',
+                icon: 'info'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        }
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
+    </script>
 </body>
 
 </html>

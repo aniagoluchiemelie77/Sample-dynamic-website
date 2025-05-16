@@ -352,21 +352,6 @@ if (isset($_POST['accept_cookies'])) {
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function displayThankYouMessage() {
-            var thankYouMessage = "<?php echo $thankYouMessage; ?>";
-            const thankDiv = document.getElementById('thank-you-message');
-            if (thankYouMessage) {
-                document.getElementById('susbribe-box').style.display = "none";
-                document.getElementById('subscribe_box2').style.display = "none";
-                thankDiv.scrollIntoView({
-                    behavior: 'smooth'
-                });
-                thankDiv.innerHTML = `<p>${thankYouMessage}</p>`;
-                thankDiv.style.display = "flex";
-            }
-        }
-    </script>
-    <script>
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

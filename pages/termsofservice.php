@@ -4,7 +4,9 @@ require("../connect.php");
 require('../init.php');
 $page_name = "terms-of-service";
 $details = getFaviconAndLogo();
+$details2 = cookieMessageAndVision();
 $logo = $details['logo'];
+$website_description = $details2['website_vision'];
 $favicon = $details['favicon'];
 ?>
 <!DOCTYPE html>
@@ -42,8 +44,8 @@ $favicon = $details['favicon'];
             <div class="sidebar_divs_container">
                 <div class="webinfo">
                     <h1>Uniquecontentwriter</h1>
-                    <img src="../images\image1.jpeg" alt="Blog's Coverphoto" />
-                    <p>Here at Uniquecontentwriter.com, we give you the latest news and updates on Cybersecurity, Artificial Intelligence and lots more.</p>
+                    <img src="../<?php echo $logo; ?>" alt="Blog's Coverphoto" />
+                    <p><?php echo $website_description; ?></p>
                 </div>
             </div>
         </div>

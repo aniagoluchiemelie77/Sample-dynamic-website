@@ -3,11 +3,30 @@ session_start();
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
 $topicName = isset($_GET['topicName']) ? $_GET['topicName'] : null;
+$pageName = isset($_GET['pageName']) ? $_GET['pageName'] : null;
 $type = isset($_GET['type']) ? $_GET['type'] : null;
 include('connect.php');
 include('crudoperations.php');
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
+function deleteFile($file_path)
+{
+    if (file_exists($file_path)) {
+        if (unlink($file_path)) {
+            $status = "Page Deleted Successfully";
+            $status_type = "Success";
+            return ["status" => $status, "status_type" => $status_type];
+        } else {
+            $status = "Error Deleting Files!";
+            $status_type = "Error";
+            return ["status" => $status, "status_type" => $status_type];
+        }
+    } else {
+        $status = "File does not exist: " . basename($file_path);
+        $status_type = "Error";
+        return ["status" => $status, "status_type" => $status_type];
+    }
+}
 if (isset($_GET['id1'])) {
     $postId = $_GET['id1'];
     $sql = "DELETE FROM paid_posts WHERE id = ?";
@@ -141,6 +160,8 @@ if ($usertype == "Editor") {
     $stmt->close();
 }
 if ($type == "Category") {
+    $page_name = removeHyphenNoSpace($topicName);
+    $two_folders_above_file = dirname(__DIR__, 1) . "pages/$page_name.php";
     $sql = "DELETE FROM topics WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
@@ -149,11 +170,12 @@ if ($type == "Category") {
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $topicName);
         if ($stmt->execute()) {
+            $deleteAction2 = deleteFile($two_folders_above_file);
+            $_SESSION['status_type'] = $deleteAction2['status_type'];
+            $_SESSION['status'] = $deleteAction2['status'];
             $content = "Admin " . $_SESSION['firstname'] . "  deleted a Category type";
             $forUser = 0;
             logUpdate($conn, $forUser, $content);
-            $_SESSION['status_type'] = "Success";
-            $_SESSION['status'] = "Category Deleted Successfully";
             header('location: pages/categories.php');
         }
     } else {
@@ -182,16 +204,32 @@ if ($type == "Resource") {
     $stmt->close();
 }
 if ($type == "Page") {
+    $page_name = removeHyphenNoSpace($pageName);
+    $current_folder_file = __DIR__ . "pages/$page_name.php";
+    $two_folders_above_file = dirname(__DIR__, 1) . "pages/$page_name.php";
     $sql = "DELETE FROM pages WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
     if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . "  deleted a Page type";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Page Deleted Successfully";
-        header('location: edit/frontend_features.php');
+        $deleteAction1 = deleteFile($current_folder_file);
+        $_SESSION['status_type'] = $deleteAction1['status_type'];
+        $_SESSION['status'] = $deleteAction1['status'];
+        $sql = "DELETE FROM meta_titles WHERE page_name = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $pageName);
+        if ($stmt->execute()) {
+            $deleteAction2 = deleteFile($two_folders_above_file);
+            $_SESSION['status_type'] = $deleteAction2['status_type'];
+            $_SESSION['status'] = $deleteAction2['status'];
+            $content = "Admin " . $_SESSION['firstname'] . "  deleted a Page type";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            header('location: edit/frontend_features.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: edit/frontend_features.php');
+        }
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";

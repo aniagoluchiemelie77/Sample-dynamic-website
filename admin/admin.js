@@ -113,7 +113,7 @@ function confirmDeleteResource(Id) {
         }
     })
 };
-  function confirmDeletePage(Id) {
+  function confirmDeletePage(Id, pageName) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -124,7 +124,7 @@ function confirmDeleteResource(Id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = '../delete.php?id=' + Id + '&type=Page';
+            window.location.href = '../delete.php?id=' + Id + '&type=Page&pageName=' + pageName + '';
         }
     })
   };

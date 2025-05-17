@@ -6,23 +6,411 @@ $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 require("connect.php");
 include('crudoperations.php');
-function noHyphenUppercase($string)
-{
-    $string = str_replace('-', ' ', $string);
-    return ucwords($string);
-}
 function noHyphenLowercase($string)
 {
     $string = str_replace('-', '', $string);
     $string = strtolower($string);
     return $string;
 }
-function removeHyphenNoSpace($string)
+function addWebsiteMessages($cookie_message, $description)
 {
-    $string = str_replace(['-', ' '], '', $string);
-    return $string;
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("INSERT INTO website_messages ( cookie_consent, website_vision, Date, time) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $cookie_message, $description, $date, $time);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " added new cookie consent message and website description";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Cookie consent message and Website description created successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
 }
-
+function updateCookie($cookie_message)
+{
+    $id = $_SESSION['message_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("UPDATE website_messages SET cookie_consent = ?, Date = ?, time = ?  WHERE id = ?");
+    $stmt->bind_param("sssi", $cookie_message, $date, $time, $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " updated cookie consent message";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Cookie Consent Message Created Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function updateDescription($website_description)
+{
+    $id = $_SESSION['message_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("UPDATE website_messages SET website_vision = ?, Date = ?, time = ?  WHERE id = ?");
+    $stmt->bind_param("sssi", $website_description, $date, $time, $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " updated website desciption";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Website Description Updated Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function addLogo($imagePath1, $imagePath2)
+{
+    $id = $_SESSION['logo_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("INSERT INTO website_logo ( logo_imagepath, favicon_imagepath, Date, time) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $imagePath1, $imagePath2, $date, $time);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " added new Website Logo and Favicon";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Website Logo and Favicon Created Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function updateFavicon($imagePath2)
+{
+    $id = $_SESSION['logo_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("UPDATE website_logo SET favicon_imagepath = ?, Date = ?, time = ?  WHERE id = ?");
+    $stmt->bind_param("sssi", $imagePath2, $date, $time, $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " updated this Website's Favicon";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Website Favicon Created Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function updateLogo($imagePath1)
+{
+    $id = $_SESSION['logo_id'];
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("UPDATE website_logo SET logo_imagepath = ?, Date = ?, time = ?  WHERE id = ?");
+    $stmt->bind_param("sssi", $imagePath1, $date, $time, $id);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " added new Website Logo";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Website Logo Created Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function addResources($resource_type)
+{
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $stmt = $conn->prepare("INSERT INTO resources ( resource_name, Date, time) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $resource_type, $date, $time);
+    if ($stmt->execute()) {
+        $content = "Admin " . $_SESSION['firstname'] . " added a new Resource type";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Resource type Created Successfully";
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+    }
+    $stmt->close();
+}
+function addPage($page_name)
+{
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    $meta_name = "viewport";
+    $meta_content = "width=device-width,initial-scale=1.0";
+    $formattedPageName = strtolower(str_replace(' ', '-', $page_name));
+    $filename = removeHyphenNoSpace($page_name) . '.php';
+    $uc_page_name = noHyphenUppercase($page_name);
+    $fileContent = <<<PHP
+        <?php
+            session_start();
+            require("../connect.php");
+            require('../init.php');
+            \$page_name = "$formattedPageName";
+            \$details = getFaviconAndLogo();
+            \$details2 = cookieMessageAndVision();
+            \$logo = \$details['logo'];
+            \$favicon = \$details['favicon'];
+            \$website_description = \$details2['website_vision'];
+        ?>
+        <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <?php
+                        if (isset(\$meta_titles[\$page_name])) {
+                            \$meta_data = \$meta_titles[\$page_name];
+                            for (\$i = 1; \$i <= 5; \$i++) {
+                                \$meta_name = \$meta_data["meta_name{\$i}"];
+                                \$meta_content = \$meta_data["meta_content{\$i}"];
+                                if (!empty(\$meta_name) && !empty(\$meta_content)) {
+                                    echo "<meta name='\$meta_name' content='\$meta_content' />";
+                                }
+                            }
+                        }
+                    ?>
+                    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+                    <link rel="stylesheet" href="../index.css" />
+                    <link rel="icon" href="../<?php echo \$favicon; ?>" type="image/x-icon">
+                    <script src="../index.js" defer></script>
+                    <title>$uc_page_name</title>
+                </head>
+                <body>
+                    <?php require("../includes/header2b.php"); ?>
+                    <div class="body_container">
+                        <div class="body_right">
+                            <div class="sidebar_divs_container">
+                                <div class="webinfo">
+                                    <h1>Uniquecontentwriter</h1>
+                                    <img src="../<?php echo \$logo; ?>" alt="Blog's Coverphoto" />
+                                    <p><?php echo \$website_description; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body_left border-gradient-leftside--lightdark">
+                            <div class="page_links">
+                                <a href="../">Home</a> > <p>$uc_page_name</p>
+                            </div>
+                            <h3 class="bodyleft_main">$uc_page_name</h3>
+                            <div class="sidebar_divs_container thickdiv">
+                                <?php
+                                    \$selectpage = "SELECT content FROM $formattedPageName ORDER BY id DESC LIMIT 1";
+                                    \$selectpage_result = \$conn->query(\$selectpage);
+                                    if (\$selectpage_result->num_rows > 0) {
+                                        while (\$row = \$selectpage_result->fetch_assoc()) {
+                                            \$content = \$row['content'];
+                                            echo "<p>\$content</p>";
+                                        }
+                                    }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php include("../includes/footer2.php"); ?>
+                    <script>
+                        const sidebar = document.getElementById('sidebar');
+                        const menubtn = document.getElementById('searchicon');
+                        const closeMenuBtn = document.querySelector('.sidebarbtn');
+                        function onClickOutside(element) {
+                            document.addEventListener('click', e => {
+                                if (!element.contains(e.target)) {
+                                    element.classList.add('hidden');
+                                } else return;
+                            });
+                        };
+                        function removeHiddenClass(e) {
+                            e.stopPropagation();
+                            sidebar.classList.remove('hidden');
+                        };
+                        onClickOutside(sidebar);
+                        menubtn.addEventListener('click', removeHiddenClass);
+                        closeMenuBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            sidebar.classList.toggle('hidden');
+                        });
+                    </script>
+                </body>
+            </html>
+    PHP;
+    $fileContent2 = <<<PHP
+        <?php
+            session_start();
+            require("../connect.php");
+            require("../init.php");
+            require("../../init.php");
+            \$details = getFaviconAndLogo();
+            \$logo = \$details['logo'];
+            \$favicon = \$details['favicon'];
+            \$translationFile = "../translation_files/lang/{\$language}.php";
+            if (file_exists(\$translationFile)) {
+                include \$translationFile;
+            } else {
+                \$translations = [];
+            }
+            function updatePages(\$content, \$tablename)
+            {
+                global \$conn;
+                \$date = date('y-m-d');
+                \$time = date('H:i:s');
+                \$string = str_replace('-', ' ', \$tablename);
+                \$stmt = "INSERT INTO \$tablename (content, date, time) VALUES (?, ?, ?)";
+                if (\$query = \$conn->prepare(\$stmt)) {
+                    \$query->bind_param("sss", \$content, \$date, \$time);
+                    if (\$query->execute()) {
+                        \$content = "Admin " . \$_SESSION['firstname'] . " updated this website's '" . \$string . "'";
+                        \$forUser = 0;
+                        logUpdate(\$conn, \$forUser, \$content);
+                        \$_SESSION['status_type'] = "Success";
+                        \$_SESSION['status'] = "" . \$string . " Updated Successfully";
+                        header('location: admin_homepage.php');
+                    } else {
+                        \$_SESSION['status_type'] = "Error";
+                        \$_SESSION['status'] = "Error, Please retry";
+                        header('location: admin_homepage.php');
+                    }
+                } else {
+                    \$error = \$conn->errno . ' ' . \$conn->error;
+                    echo \$error;
+                    header('location: admin_homepage.php');
+                }
+            }
+            if (isset(\$_POST['edit_aboutwebsite_btn'])) {
+                \$content = \$_POST['$formattedPageName'];
+                \$tablename = "$formattedPageName";
+                updatePages(\$content, \$tablename);
+            }
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                <link rel="stylesheet" href="../admin.css" />
+                <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <link rel="icon" href="../../<?php echo \$favicon; ?>" type="image/x-icon">
+                <title>$uc_page_name</title>
+            </head>
+            <body>
+                <?php require("../extras/header2.php"); ?>
+                <section class="about_section">
+                    <div class="page_links">
+                        <a href="../admin_homepage.php"><?php echo \$translations['home']; ?></a> > <p><?php echo \$translations['pages']; ?></p> > <p>$uc_page_name</p>
+                    </div>
+                    <div class="about_header">
+                        <h1>$uc_page_name</h1>
+                    </div>
+                    <div class="about_contents">
+                        <?php
+                            \$selectpage = "SELECT content FROM $formattedPageName ORDER BY id DESC LIMIT 1";
+                            \$selectpage_result = \$conn->query(\$selectpage);
+                            if (\$selectpage_result->num_rows > 0) {
+                                while (\$row = \$selectpage_result->fetch_assoc()) {
+                                    \$content = \$row['content'];
+                                    echo "<span>\$content</span>";
+                                }
+                            }
+                        ?>
+                    </div>
+                    <button class="about_section_btn" id="Edit_about1"><?php echo \$translations['edit']; ?>
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                    <form class="about_editdiv" action=" " method="post" id="hidden_aboutdiv1">
+                        <textarea class="about_editdiv-input" name="$formattedPageName" id="myTextarea6"></textarea>
+                        <input type="submit" value="<?php echo \$translations['save']; ?>" name="edit_aboutwebsite_btn" />
+                    </form>
+                </section>
+                <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
+                <script src="../admin.js"></script>
+                <script>
+                    var messageType = "<?= \$_SESSION['status_type'] ?? ' ' ?>";
+                    var messageText = "<?= \$_SESSION['status'] ?? ' ' ?>";
+                    if (messageType == 'Error' && messageText != " ") {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: messageText,
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    } else if (messageType == 'Success' && messageText != " ") {
+                        Swal.fire({
+                            title: 'Success',
+                            text: messageText,
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
+                    <?php unset(\$_SESSION['status_type']); ?>
+                    <?php unset(\$_SESSION['status']); ?>
+                </script>
+                <script>
+                    const editAboutBtn = document.getElementById("Edit_about1");
+                    const editTextEditor = document.getElementById("hidden_aboutdiv1");
+                    editAction(editAboutBtn, editTextEditor);
+                </script>
+                <script src="sweetalert2.all.min.js"></script>
+            </body>
+        </html>
+    PHP;
+    $filePath = '../../pages/' . $filename;
+    $filePath2 = '../pages/' . $filename;
+    $sql = "CREATE TABLE IF NOT EXISTS $formattedPageName (id INT AUTO_INCREMENT PRIMARY KEY, content TEXT NOT NULL, date DATE NOT NULL, time TIME NOT NULL)";
+    if ($conn->query($sql) === TRUE) {
+        $sqlPages = "INSERT INTO pages (page_name, Date, time) VALUES (?,?,?)";
+        if ($query = $conn->prepare($sqlPages)) {
+            $query->bind_param("sss", $formattedPageName, $date, $time);
+            if ($query->execute()) {
+                $sqlMetaTitles = "INSERT INTO meta_titles (page_name, meta_name1, meta_content1) VALUES (?, ?, ?)";
+                if ($query = $conn->prepare($sqlMetaTitles)) {
+                    $query->bind_param("sss", $formattedPageName, $meta_name, $meta_content);
+                    if ($query->execute()) {
+                        if (file_put_contents($filePath, $fileContent)) {
+                            if (file_put_contents($filePath2, $fileContent2)) {
+                                $content = "Admin " . $_SESSION['firstname'] . " created a new page type";
+                                $forUser = 0;
+                                logUpdate($conn, $forUser, $content);
+                                $_SESSION['status_type'] = "Success";
+                                $_SESSION['status'] = "Page type Created Successfully";
+                            } else {
+                                $_SESSION['status_type'] = "Error";
+                                $_SESSION['status'] = "Error, Please retry";
+                            }
+                        } else {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 function convertPath($path)
 {
     return basename($path);
@@ -860,4 +1248,79 @@ if (isset($_FILES['profilePicture'])) {
         $_SESSION['status'] = "Submitted File is not an image.";
         header('location: admin_homepage.php');
     }
+}
+if (isset($_POST['change_frontend_messages'])) {
+    $cookie_consent = $_POST['cookie_consent'];
+    $description = $_POST['description'];
+    if (!empty($cookie_consent) && empty($description)) {
+        updateCookie($cookie_consent);
+    } else if (empty($cookie_consent) && !empty($description)) {
+        updateDescription($description);
+    } else if (!empty($cookie_consent) && !empty($description)) {
+        AddWebsiteMessages($cookie_consent, $description);
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "No Changes Made";
+    }
+}
+if (isset($_POST['change_logo'])) {
+    $website_logo = $_FILES['website_logo']['name'];
+    $logo_tmp_name = $_FILES['website_logo']['tmp_name'];
+    $website_favicon = $_FILES['website_favicon']['name'];
+    $favicon_tmp_name = $_FILES['website_favicon']['tmp_name'];
+    $resource_folder1 = "../../images/" . $website_logo;
+    $resource_folder2 = "../../images/" . $website_favicon;
+    if (!empty($website_logo) && empty($website_favicon)) {
+        if (move_uploaded_file($logo_tmp_name, $resource_folder1)) {
+            $imagePath1 = $resource_folder1;
+            $convertedPath1 = convertPath($imagePath1);
+            UpdateLogo($convertedPath1);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+        }
+    } else if (empty($website_logo) && !empty($website_favicon)) {
+        if (move_uploaded_file($favicon_tmp_name,  $resource_folder2)) {
+            $imagePath2 = $resource_folder2;
+            $convertedPath2 = convertPath($imagePath2);
+            UpdateFavicon($convertedPath2);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+        }
+    } else if (empty($website_logo) && empty($website_favicon)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "No Image File Uploaded";
+    } else {
+        if (move_uploaded_file($logo_tmp_name, $resource_folder1) && move_uploaded_file($favicon_tmp_name,  $resource_folder2)) {
+            $imagePath2 = $resource_folder2;
+            $imagePath1 = $resource_folder1;
+            $convertedPath1 = convertPath($imagePath1);
+            $convertedPath2 = convertPath($imagePath2);
+            addLogo($imagePath1, $imagePath2);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+        }
+    }
+}
+if (isset($_POST['add_resource'])) {
+    $resource_type = $_POST['resource_type'];
+    $resource_url = $_POST['resource_url'];
+    $resource_image = $_FILES['resource_image']['name'];
+    $resource_tmp_name = $_FILES['resource_image']['tmp_name'];
+    $resource_folder = "../../images/" . $resource_image;
+    if (move_uploaded_file($resource_tmp_name, $resource_folder)) {
+        $imagePath = $resource_folder;
+        $convertedPath = convertPath($imagePath);
+        $resource_type = convertToUnreadable($resource_type);
+        addResources($resource_type);
+    } else {
+        echo "No image uploaded.";
+    }
+}
+if (isset($_POST['add_page'])) {
+    $page_name = $_POST['page_name'];
+    $page_name = convertToUnreadable($page_name);
+    addPage($page_name);
 }

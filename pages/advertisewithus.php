@@ -3,9 +3,11 @@ session_start();
 require("../connect.php");
 require('../init.php');
 $details = getFaviconAndLogo();
+$details2 = cookieMessageAndVision();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $page_name = "advertise-with-us";
+$website_description = $details2['website_vision'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +44,8 @@ $page_name = "advertise-with-us";
             <div class="sidebar_divs_container">
                 <div class="webinfo">
                     <h1>Uniquecontentwriter</h1>
-                    <img src="../images\image1.jpeg" alt="Blog's Coverphoto" />
-                    <p>Here at Uniquecontentwriter.com, we give you the latest news and updates on Cybersecurity, Artificial Intelligence and lots more.</p>
+                    <img src="../<?php echo $logo; ?>" alt="Blog's Coverphoto" />
+                    <p><?php echo $website_description; ?></p>
                 </div>
             </div>
         </div>

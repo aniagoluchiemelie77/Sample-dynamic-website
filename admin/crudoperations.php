@@ -34,4 +34,37 @@ function decryptPassword($encryptedData)
     list($iv, $encryptedData) = explode("::", base64_decode($encryptedData), 2); // Split IV and encrypted data
     return openssl_decrypt($encryptedData, $cipher, $encryptionKey, 0, $iv);
 }
+function noHyphenUppercase($string)
+{
+    $string = str_replace('-', ' ', $string);
+    return ucwords($string);
+}
+function removeHyphenNoSpace($string)
+{
+    $string = str_replace(['-', ' '], '', $string);
+    $string = strtolower($string);
+    return $string;
+}
+function convertToReadable($slug)
+{
+    $string = str_replace('-', ' ', $slug);
+    $string = ucwords($string);
+    return $string;
+}
+function convertToUnreadable($slug)
+{
+    $string = strtolower($slug);
+    $string = str_replace(' ', '_', $string);
+    return $string;
+}
+function removeHyphen($string)
+{
+    $string = str_replace(['-', ' '], '', $string);
+    return $string;
+}
+function convertPath($path)
+{
+    $cleaned = str_replace("../../", " ", $path);
+    return basename($cleaned);
+}
 ?>

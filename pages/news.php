@@ -14,13 +14,11 @@ if (isset($_POST['submit_btn'])) {
     $_SESSION['status_type'] = $sendEmail['status_type'];
     $_SESSION['status'] = $sendEmail['status'];
 }
-if (!function_exists('calculateReadingTime')) {
-    function calculateReadingTime($content)
-    {
-        $wordCount = str_word_count(strip_tags($content));
-        $minutes = floor($wordCount / 200);
-        return $minutes  . ' mins read ';
-    }
+if (isset($_POST['subscribe_btn2'])) {
+    $email = $_POST["email"];
+    $sendEmail = sendEmail($email);
+    $_SESSION['status_type'] = $sendEmail['status_type'];
+    $_SESSION['status'] = $sendEmail['status'];
 }
 ?>
 <!DOCTYPE html>
@@ -66,14 +64,6 @@ if (!function_exists('calculateReadingTime')) {
                 $selectnewsposts_result = $conn->query($selectnewsposts_sql);
                 if ($selectnewsposts_result->num_rows > 0) {
                     $i = 0;
-                    if (!function_exists('calculateReadingTime')) {
-                        function calculateReadingTime($content)
-                        {
-                            $wordCount = str_word_count(strip_tags($content));
-                            $minutes = floor($wordCount / 200);
-                            return $minutes  . ' mins read ';
-                        }
-                    }
                     while ($row = $selectnewsposts_result->fetch_assoc()) {
                         $id = $row["id"];
                         $i++;
@@ -83,14 +73,6 @@ if (!function_exists('calculateReadingTime')) {
                         $date = $row["formatted_date"];
                         $content = $row["content"];
                         $readingTime = calculateReadingTime($row['content']);
-                        if (!function_exists('calculateReadingTime')) {
-                            function calculateReadingTime($content)
-                            {
-                                $wordCount = str_word_count(strip_tags($content));
-                                $minutes = floor($wordCount / 200);
-                                return $minutes  . ' mins read ';
-                            }
-                        }
                         echo "<a class='more_posts_subdiv' href='view_post.php?id3=$id'>";
                         if (!empty($image)) {
                             echo "<img src='../$image' alt = 'Post's Image'/>";

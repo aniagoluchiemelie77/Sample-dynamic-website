@@ -116,6 +116,8 @@ function sendEmail($email)
         $status = "Invalid email address. Please try again.";
         return ["status" => $status, "status_type" => $status_type];
     }
+    $stmt->close();
+    $conn->close();
 }
 function sendOTP($email, $firstname, $token)
 {
@@ -144,5 +146,11 @@ function sendOTP($email, $firstname, $token)
         $status = "Error, OTP could not be sent. Mailer Error: {$mail->ErrorInfo}";
         return ["status" => $status, "status_type" => $status_type];
     }
+}
+function calculateReadingTime($content)
+{
+    $wordCount = str_word_count(strip_tags($content));
+    $minutes = floor($wordCount / 200);
+    return $minutes  . ' mins read ';
 }
 ?>

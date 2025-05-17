@@ -14,13 +14,11 @@ if (isset($_POST['submit_btn'])) {
     $_SESSION['status_type'] = $sendEmail['status_type'];
     $_SESSION['status'] = $sendEmail['status'];
 }
-if (!function_exists('calculateReadingTime')) {
-    function calculateReadingTime($content)
-    {
-        $wordCount = str_word_count(strip_tags($content));
-        $minutes = floor($wordCount / 200);
-        return $minutes  . ' mins read ';
-    }
+if (isset($_POST['subscribe_btn2'])) {
+    $email = $_POST["email"];
+    $sendEmail = sendEmail($email);
+    $_SESSION['status_type'] = $sendEmail['status_type'];
+    $_SESSION['status'] = $sendEmail['status'];
 }
 ?>
 <!DOCTYPE html>
@@ -112,14 +110,6 @@ if (!function_exists('calculateReadingTime')) {
                                 }
                             }
                             return 'th';
-                        }
-                    }
-                    if (!function_exists('calculateReadingTime')) {
-                        function calculateReadingTime($content)
-                        {
-                            $wordCount = str_word_count(strip_tags($content));
-                            $minutes = floor($wordCount / 200);
-                            return $minutes  . ' mins read ';
                         }
                     }
                     $max_length = 60;

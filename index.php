@@ -32,6 +32,8 @@ function getVisitorIP()
 $device_type = getDeviceType();
 $ip_address = getVisitorIP();
 $visit_type = "";
+        $_SESSION['status_type'] = "";
+        $_SESSION['status'] = "";
 $api_url = "http://www.geoplugin.net/json.gp?ip=" . $ip_address;
 $response = file_get_contents($api_url);
 $data = json_decode($response);
@@ -58,6 +60,18 @@ if (isset($_POST['accept_cookies'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
+        if (isset($_POST['submit_btn'])) {
+            $email = $_POST["email"];
+            $sendEmail = sendEmail($email);
+            $_SESSION['status_type'] = $sendEmail['status_type'];
+            $_SESSION['status'] = $sendEmail['status'];
+        }
+        if (isset($_POST['subscribe_btn2'])) {
+            $email = $_POST["email"];
+            $sendEmail = sendEmail($email);
+            $_SESSION['status_type'] = $sendEmail['status_type'];
+            $_SESSION['status'] = $sendEmail['status'];
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">

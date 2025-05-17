@@ -24,6 +24,12 @@ if (isset($_POST['submit_btn'])) {
     $_SESSION['status_type'] = $sendEmail['status_type'];
     $_SESSION['status'] = $sendEmail['status'];
 }
+if (isset($_POST['subscribe_btn2'])) {
+    $email = $_POST["email"];
+    $sendEmail = sendEmail($email);
+    $_SESSION['status_type'] = $sendEmail['status_type'];
+    $_SESSION['status'] = $sendEmail['status'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,12 +68,6 @@ if (isset($_POST['submit_btn'])) {
                 <a href="../">Home</a> > <p>View Post</p>
             </div>
             <?php
-            function calculateReadingTime($content)
-            {
-                $wordCount = str_word_count(strip_tags($content));
-                $minutes = floor($wordCount / 200);
-                return $minutes  . ' mins read ';
-            }
             function convertToReadable($slug)
             {
                 $string = str_replace('-', ' ', $slug);

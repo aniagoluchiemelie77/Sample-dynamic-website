@@ -914,12 +914,10 @@ a, p, li{
     width: 79%;
     padding: var(--divpadding);
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .sec2__susbribe-box-darker .sec2__susbribe-box-input-light:active {
     border: none;
+    outline: none;
 }
 .sec2__susbribe-box-darker button{
     min-width: 79%;

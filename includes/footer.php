@@ -1,10 +1,10 @@
 <section class="footer">
     <div class="footer__div1">
         <div class="footer__div1__logobox"></div>
-        <form class="footer__subscribebox" id="subscribe_box2">
+        <form class="footer__subscribebox" id="subscribe_box2" action=" ">
             <div class="sec2__susbribe-box-darker">
-                <input class="sec2__susbribe-box-input-light" type="email" placeholder="Your email address..." />
-                <button class="sec2__susbribe-box-btn-light" type="submit">Subscribe</button>
+                <input class="sec2__susbribe-box-input-light" name="email" type="email" placeholder="Your email address..." />
+                <button class="sec2__susbribe-box-btn-light" type="submit" name="subscribe_btn2">Subscribe</button>
             </div>
         </form>
     </div>

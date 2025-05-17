@@ -967,7 +967,7 @@ $date = formatDate($_SESSION['date_joined']);
                         </a>
                     </div>
                     <div class="pages_container_subdiv ">
-                        <a class='pages_container_subdiv-links' href="pages/aboutwebsite.php">
+                        <a class='pages_container_subdiv-links' href="pages/aboutus.php">
                             <p><?php echo $translations['about_website']; ?></p>
                         </a>
                     </div>

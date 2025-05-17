@@ -55,7 +55,16 @@ $website_description = $details2['website_vision'];
             </div>
             <h3 class="bodyleft_main">Share Newstips</h3>
             <div class="sidebar_divs_container thickdiv">
-                <p>Hullo.</p>
+                <?php
+                $selectpage = "SELECT content FROM share_news_tips ORDER BY id DESC LIMIT 1";
+                $selectpage_result = $conn->query($selectpage);
+                if ($selectpage_result->num_rows > 0) {
+                    while ($row = $selectpage_result->fetch_assoc()) {
+                        $content = $row['content'];
+                        echo " <p>$content</p>";
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>

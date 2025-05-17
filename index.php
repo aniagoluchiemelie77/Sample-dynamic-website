@@ -29,12 +29,6 @@ function getVisitorIP()
         return $_SERVER['REMOTE_ADDR'];
     }
 }
-function convertToReadable($slug)
-{
-    $string = str_replace('-', ' ', $slug);
-    $string = ucwords($string);
-    return $string;
-}
 $device_type = getDeviceType();
 $ip_address = getVisitorIP();
 $visit_type = "";

@@ -61,7 +61,8 @@ $website_description = $details2['website_vision'];
                 $selectpage_result = $conn->query($selectpage);
                 if ($selectpage_result->num_rows > 0) {
                     while ($row = $selectpage_result->fetch_assoc()) {
-                        echo " <p>" . $row['content'] . "</p>";
+                        $content = $row['content'];
+                        echo " <p>$content</p>";
                     }
                 }
                 ?>

@@ -153,4 +153,17 @@ function calculateReadingTime($content)
     $minutes = floor($wordCount / 200);
     return $minutes  . ' mins read ';
 }
-?>
+function getOrdinalSuffix($day)
+{
+    if (!in_array(($day % 100), [11, 12, 13])) {
+        switch ($day % 10) {
+            case 1:
+                return 'st';
+            case 2:
+                return 'nd';
+            case 3:
+                return 'rd';
+        }
+    }
+    return 'th';
+}

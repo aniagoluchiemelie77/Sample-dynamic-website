@@ -170,14 +170,6 @@ if (isset($_POST['accept_cookies'])) {
             $role = "";
             if ($selectposts_result->num_rows > 0) {
                 $i = 0;
-                if (!function_exists('calculateReadingTime')) {
-                    function calculateReadingTime($content)
-                    {
-                        $wordCount = str_word_count(strip_tags($content));
-                        $minutes = floor($wordCount / 200);
-                        return $minutes  . ' mins read ';
-                    }
-                }
                 while ($row = $selectposts_result->fetch_assoc()) {
                     $id = $row["id"];
                     $i++;

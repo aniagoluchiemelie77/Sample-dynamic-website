@@ -57,17 +57,6 @@ if (isset($_POST['subscribe_btn2'])) {
     <?php require("../includes/header2.php"); ?>
     <center>
         <?php
-        function convertToReadable($slug)
-        {
-            $string = str_replace('-', ' ', $slug);
-            $string = ucwords($string);
-            return $string;
-        }
-        function removeHyphen($string)
-        {
-            $string = str_replace(['-', ' '], '', $string);
-            return $string;
-        }
         $author_firstname = "";
         $author_lastname = "";
         $author_image = "";
@@ -132,22 +121,6 @@ if (isset($_POST['subscribe_btn2'])) {
                 }
             }
             foreach ($results as $result) {
-                if (!function_exists('getOrdinalSuffix')) {
-                    function getOrdinalSuffix($day)
-                    {
-                        if (!in_array(($day % 100), [11, 12, 13])) {
-                            switch ($day % 10) {
-                                case 1:
-                                    return 'st';
-                                case 2:
-                                    return 'nd';
-                                case 3:
-                                    return 'rd';
-                            }
-                        }
-                        return 'th';
-                    }
-                }
                 $max_length = 60;
                 $id = $result['id'];
                 $title = $result["title"];
@@ -237,22 +210,6 @@ if (isset($_POST['subscribe_btn2'])) {
                 }
             }
             foreach ($results as $result) {
-                if (!function_exists('getOrdinalSuffix')) {
-                    function getOrdinalSuffix($day)
-                    {
-                        if (!in_array(($day % 100), [11, 12, 13])) {
-                            switch ($day % 10) {
-                                case 1:
-                                    return 'st';
-                                case 2:
-                                    return 'nd';
-                                case 3:
-                                    return 'rd';
-                            }
-                        }
-                        return 'th';
-                    }
-                }
                 $max_length = 60;
                 $id = $result['id'];
                 $title = $result["title"];
@@ -342,22 +299,6 @@ if (isset($_POST['subscribe_btn2'])) {
                 }
             }
             foreach ($results as $result) {
-                if (!function_exists('getOrdinalSuffix')) {
-                    function getOrdinalSuffix($day)
-                    {
-                        if (!in_array(($day % 100), [11, 12, 13])) {
-                            switch ($day % 10) {
-                                case 1:
-                                    return 'st';
-                                case 2:
-                                    return 'nd';
-                                case 3:
-                                    return 'rd';
-                            }
-                        }
-                        return 'th';
-                    }
-                }
                 $max_length = 60;
                 $id = $result['id'];
                 $title = $result["title"];

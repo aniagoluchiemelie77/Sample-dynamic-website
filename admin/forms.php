@@ -482,14 +482,6 @@ function createCategory($category_name, $category_image)
                 \$_SESSION['status_type'] = \$sendEmail['status_type'];
                 \$_SESSION['status'] = \$sendEmail['status'];
             }
-            if (!function_exists('calculateReadingTime')) {
-                function calculateReadingTime(\$content)
-                {
-                    \$wordCount = str_word_count(strip_tags(\$content));
-                    \$minutes = floor(\$wordCount / 200);
-                    return \$minutes . ' mins read ';
-                }
-            }
         ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -558,30 +550,6 @@ function createCategory($category_name, $category_image)
                                 }
                             }
                             foreach (\$results as \$result) {
-                                if (!function_exists('getOrdinalSuffix')) {
-                                    function getOrdinalSuffix(\$day)
-                                    {
-                                        if (!in_array((\$day % 100), [11, 12, 13])) {
-                                            switch (\$day % 10) {
-                                                case 1:
-                                                    return 'st';
-                                                case 2:
-                                                    return 'nd';
-                                                case 3:
-                                                    return 'rd';
-                                            }
-                                        }
-                                    return 'th';
-                                }
-                            }
-                            if (!function_exists('calculateReadingTime')) {
-                                function calculateReadingTime(\$content)
-                                {
-                                    \$wordCount = str_word_count(strip_tags(\$content));
-                                    \$minutes = floor(\$wordCount / 200);
-                                    return \$minutes  . ' mins read ';
-                                }
-                            }
                             \$max_length = 60;
                             \$id = \$result['id'];
                             \$title = \$result['title'];

@@ -696,25 +696,6 @@ a, p, li{
     flex-direction: column;
     padding: 1rem;
 }
-.subscribe_container #thank-you-message {
-    padding: var(--sectionpadding-medium);
-    box-shadow: 16px 15px 18px -14px rgba(0, 0, 0, 0.63);
-    -webkit-box-shadow: 16px 15px 18px -14px rgba(0, 0, 0, 0.63);
-    -moz-box-shadow: 16px 15px 18px -14px rgba(0, 0, 0, 0.63);
-    height: fit-content;
-    display: none;
-    margin: 1rem 0;
-    flex-direction: column;
-    align-items: center;
-    background: var(--color60);
-    border: #FF8333 10px solid;
-    border-image-slice: 1;
-    border-width: 1px;
-}
-.subscribe_container #thank-you-message p {
-    font-size: var(--pfontsize);
-    color: var(--color10);
-}
 .sidebar_divs_container{
     display: flex;
     flex-direction: column;
@@ -1680,8 +1661,8 @@ a, p, li{
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    transition: all ease-in-out .5s;
     padding: .2rem;
+    transition: all ease-in-out .5s;
     -webkit-transition: all ease-in-out .5s;
     -moz-transition: all ease-in-out .5s;
     -ms-transition: all ease-in-out .5s;
@@ -1710,7 +1691,7 @@ a, p, li{
     display: flex;
     flex-direction: column;
 }
-@media only screen and (min-width: 39rem) and (max-width: 64rem) {
+@media only screen and (min-width: 48rem) and (max-width: 64rem) {
     a, p, li{
         font-size: 2rem;
     }
@@ -1775,10 +1756,8 @@ a, p, li{
     .cookie_container .cookie_container_subdiv button:hover{
         background-color: var(--color10);
     }
-    .section1{
-        grid-template-columns:  1fr;
-        grid-template-rows: .5fr 1fr;
-        row-gap: 1rem;
+    .header {
+
     }
     .section2{
         column-gap: 0;
@@ -1830,15 +1809,8 @@ a, p, li{
       .header__menu-sidebar-div2-subdiv1 h1{
         padding-bottom: 1.9rem;
       }
-      .larger__div{
-        grid-area: 1 / 1 / 2 / -1;
-      }
       .larger__div img {
-        height: 65vh;
         object-fit: cover;
-      }
-      .smallerdivs{
-        grid-area: 2 / 1 / -1 / -1;
       }
     .section1__div1 a div h1{
         font-size: var(--header-h6);
@@ -2289,7 +2261,7 @@ a, p, li{
         flex-direction: column;
     }
 }
-@media only screen and (max-width: 39rem){
+@media only screen and (max-width: 47rem){
     a, p, li{
         font-size: 1.3rem;
     }

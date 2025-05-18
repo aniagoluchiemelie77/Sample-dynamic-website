@@ -68,17 +68,6 @@ if (isset($_POST['subscribe_btn2'])) {
                 <a href="../">Home</a> > <p>View Post</p>
             </div>
             <?php
-            function convertToReadable($slug)
-            {
-                $string = str_replace('-', ' ', $slug);
-                $string = ucwords($string);
-                return $string;
-            }
-            function removeHyphen($string)
-            {
-                $string = str_replace(['-', ' '], '', $string);
-                return $string;
-            }
             $getniche_sql = " SELECT name FROM topics ORDER BY id";
             $getniche_result = $conn->query($getniche_sql);
             if ($getniche_result->num_rows > 0) {

@@ -167,3 +167,35 @@ function getOrdinalSuffix($day)
     }
     return 'th';
 }
+function sendNewpostNotification($post_title, $post_link)
+{
+    global $conn;
+    $sql = "SELECT email FROM subscribers";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $email = $row['email'];
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->SMTPDebug = 2;
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'aniagoluchiemelie77@gmail.com';
+                $mail->Password = 'ozmsoscaivmkrbuu';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+                $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->Subject = "New Post Alert: $post_title";
+                $mail->Body = "Hey there! Check out our latest post: <h1>$post_title</h1>.<br>By clicking this link <a href='$post_link'>here</a>";
+                $mail->send();
+            } catch (Exception $e) {
+                echo "Message could not be sent to $email. Error: {$mail->ErrorInfo}<br>";
+            }
+        }
+    } else {
+        echo "No subscribers found.";
+    }
+}

@@ -6,6 +6,7 @@ $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 require("connect.php");
 include('crudoperations.php');
+require('../init.php');
 function noHyphenLowercase($string)
 {
     $string = str_replace('-', '', $string);
@@ -438,11 +439,14 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
     if ($query = $conn->prepare($sql)) {
         $query->bind_param("issssssisssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
         if ($query->execute()) {
+            $post_id = $conn->insert_id;
+            $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
             $content = "Admin " . $_SESSION['firstname'] . " added a new post (" . $post_type . ")";
             $forUser = 1;
             logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
             $_SESSION['status'] = "Post Created Successfully";
+            sendNewpostNotification($title, $post_link);
             header('location: create_new/posts.php');
         } else {
             $_SESSION['status_type'] = "Error";
@@ -707,11 +711,14 @@ function savePost2($title, $subtitle, $convertedPath, $content, $niche, $link, $
     if ($query = $conn->prepare($sql)) {
         $query->bind_param("issssssisssssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
         if ($query->execute()) {
+            $post_id = $conn->insert_id;
+            $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
             $content = "Admin " . $_SESSION['firstname'] . " added a new post (" . $post_type . ")";
             $forUser = 1;
             logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
             $_SESSION['status'] = "Post Created Successfully";
+            sendNewpostNotification($title, $post_link);
             header('location: create_new/posts.php');
         } else {
             $_SESSION['status_type'] = "Error";

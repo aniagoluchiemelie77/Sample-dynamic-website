@@ -51,43 +51,8 @@ if (file_exists($translationFile)) {
             }
             ?>
         </div>
-        <button class="about_section_btn" id="Edit_about6"><?php echo $translations['edit']; ?>
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-        </button>
-        <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv6">
-            <textarea class="about_editdiv-input" name="work_withus" id="myTextarea10"></textarea>
-            <input type="submit" value="<?php echo $translations['save']; ?>" name="workwithus_editbtn" />
-        </form>
     </section>
-    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../editor.js"></script>
-    <script>
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
-        if (messageType == 'Error' && messageText != " ") {
-            Swal.fire({
-                title: 'Error!',
-                text: messageText,
-                icon: 'error',
-                confirmButtonText: 'Ok'
-            })
-        } else if (messageType == 'Success' && messageText != " ") {
-            Swal.fire({
-                title: 'Success',
-                text: messageText,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            })
-        }
-        <?php unset($_SESSION['status_type']); ?>
-        <?php unset($_SESSION['status']); ?>
-    </script>
-    <script>
-        const editAboutBtn6 = document.getElementById("Edit_about6");
-        const editTextEditor6 = document.getElementById("hidden_aboutdiv6")
-        editAction(editAboutBtn6, editTextEditor6);
-    </script>
-    <script src="sweetalert2.all.min.js"></script>
 </body>
 
 </html>

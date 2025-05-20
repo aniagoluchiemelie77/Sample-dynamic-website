@@ -1705,35 +1705,13 @@ a, p, li{
     }
     #pagination_div a{
         padding: 1rem;
-        color: var(--color30-shade);
-        border: .2rem solid #22222240;
-        cursor: pointer;
-        border-radius: 1rem;
-        -webkit-border-radius: 1rem;
-        -moz-border-radius: 1rem;
-        -ms-border-radius: 1rem;
-        -o-border-radius: 1rem;
-}
-    #pagination_div a:hover{
-        color: var(--color60);
-        background-color: var(--color10);
-        border: .2rem solid var(--color10);
     }
-    
     /*For Cookie consent popup*/
     .cookie_container{
         padding: var(--sectionpadding-medium);
     }
     .cookie_container p{
-        color: var(--color60-shade);
         padding: 1rem 0;
-    }
-    .cookie_container p a{
-        color: var(--color10);
-        cursor: pointer;
-    }
-    .cookie_container p a:hover{
-        text-decoration: underline;
     }
     .cookie_container .cookie_container_subdiv{
         display: flex;
@@ -1743,21 +1721,11 @@ a, p, li{
     }
     .cookie_container .cookie_container_subdiv button{
         padding: 1rem;
-        background-color: var(--color10);
-        color: var(--color60-shade);
-        border-radius: .5rem;
-        cursor: pointer;
-        -webkit-border-radius: .5rem;
-        -moz-border-radius: .5rem;
-        -ms-border-radius: .5rem;
-        -o-border-radius: .5rem;
-        border: none;
-}
-    .cookie_container .cookie_container_subdiv button:hover{
-        background-color: var(--color10);
     }
-    .header {
-
+    .section1{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, .8fr);
+        width: 100svw;
     }
     .section2{
         column-gap: 0;
@@ -1774,7 +1742,17 @@ a, p, li{
         font-size: var(--ifontsize-3);
     }
     .header__dropdownlinks{
-        width: 95%;
+        width: 100%;
+        margin-top: .5rem;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    .header__dropdownlinks a{ 
+        margin: 1rem 0;
+    }
+    .dropbtn {
+        font-size: 2rem;
+        margin-top: 1rem;
     }
     .sidebarbtn i{
         font-size: var(--ifontsize-3);
@@ -1801,7 +1779,7 @@ a, p, li{
         justify-content: center;
     }
     .header__menu-sidebar{
-        width: 79vw;
+        width: 65vw;
     }
       .header__menu-sidebar-div2 p{
         max-width: 40%;
@@ -1809,12 +1787,10 @@ a, p, li{
       .header__menu-sidebar-div2-subdiv1 h1{
         padding-bottom: 1.9rem;
       }
-      .larger__div img {
-        object-fit: cover;
-      }
     .section1__div1 a div h1{
         font-size: var(--header-h6);
         margin-top: 1rem;
+        width: 75%;
     }
     .section1__div1 a div h2{
         font-size: var(--header-h6);
@@ -1823,18 +1799,14 @@ a, p, li{
     .section1__div1 a div p{
         color: rgba(0, 0, 0, 0.769);
     }
-    .section1__div2 a img{
-        height: 25vh;
-        width: 38%;
-        object-fit: cover;
-    }
     .section1__div2 a div h1{
         font-size: var(--header-h6);
+        width: 75%;
     }
     .section1__div2 a div h2{
         font-size: var(--header-h6);
         margin-top: 1rem;
-        max-width: 80%;
+        max-width: 85%;
     }
     .section1__div2 a div p{
         color: rgba(0, 0, 0, 0.721);
@@ -1859,10 +1831,28 @@ a, p, li{
         padding: 1rem 0;
         color: #222222cf;
     }
+    .larger__div {
+        grid-area: 1 / 1 / 2 / -1;
+        width: 100vw;
+        height: 70svh;
+    }
+    .larger__div img {
+        object-fit: cover;
+        height: 60%;
+        width: 100%;
+    }
+    .smallerdivs {
+        grid-area: 2 / 1 / -1 / -1;
+    }
+    .section1__div2 a img{
+        height: 20rem;
+        width: 20rem;
+        object-fit: cover;
+    }
     .section2 div .normal-divs a img{
         object-fit: cover;
-        height: 25rem;
-        width: 25rem;
+        height: 20rem;
+        width: 20rem;
     }
     .section2 div .normal-divs a .normal-divs__subdiv__div{
         display: flex;
@@ -1871,7 +1861,7 @@ a, p, li{
     }
     .section2 div .normal-divs div{
         width: 100%;
-        margin-top: 1rem;
+        margin-left: 1rem;
     }
     .section2 div .normal-divs div p{
         width: calc(100% - 7rem);
@@ -1901,7 +1891,7 @@ a, p, li{
         width: 40vw;
     }
     .other_width{
-        width: 60%;
+        width: 65%;
     }
       .sec2__susbribe-box-darker{
         padding: var(--divpadding);
@@ -1910,7 +1900,7 @@ a, p, li{
         flex-direction: column;
         align-items: center;
         background: var(--color30);
-        width: 30vw;
+        width: 100%;
       }
       .sec2__susbribe-box-darker h1{
         padding: 1rem 0 2.5rem 0;
@@ -1964,13 +1954,15 @@ a, p, li{
         font-size: var( --header-h4);
     }
     .section3__div2{
-        overflow-x: scroll;
+        overflow: scroll;
+        margin: 1rem 0;
+        width: 100%;
         padding: 1rem;
     }
     .section3__div2 a{
         margin: 0 .5rem;
-        width: 39vw;
-        height: 40vh;
+        width: 46vw;
+        height: fit-content;
     }
     .section3 .section3__div2 a img{
         height: 50%;
@@ -1995,22 +1987,28 @@ a, p, li{
         align-items: center;
         padding: 1rem;
     }
+    .footer .footer__div1 form{
+        width: 40vw;
+    }
     .footer .footer__newpagelinks{
         width: 100%;
+        flex-wrap: wrap;
         font-size: 2rem;
     }
     .footer .footer__newpagelinks a{
+        padding: 1rem;
         font-size: 2rem;
     }
     .footer .footer__div3{
         width: 100%;
+        flex-wrap: wrap;
     }
     .footer .footer__div3__subdiv h1{
         font-size: var(--header-h5);
         padding: 1rem;
     }
     .follow_btns{
-        padding: .5rem;
+        padding: 1rem;
         margin-right: 1rem;
     }
     .follow_btns i{
@@ -2085,7 +2083,7 @@ a, p, li{
         margin: 1rem 0;
     }
     .post_image_div img{
-        height: 60vh;
+        height: 50svh;
         object-fit: cover;
     }
     .post_image_div span{
@@ -2103,6 +2101,9 @@ a, p, li{
         width: 80%;
     }
     .bodyleft_header3{
+        font-size: var(--header-h3);
+    }
+    .bodyleft_header3 span{
         font-size: var(--header-h3);
     }
     .aboutauthor_div{
@@ -2136,16 +2137,18 @@ a, p, li{
         overflow: scroll;
     }
     .more_posts{
-        padding: var(--divpadding-highest);
-        width: fit-content;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
         display: flex;
-        padding: 0 1rem;
+        padding: 1rem;
+        overflow: scroll;
         flex-wrap: nowrap;
     }
     .more_posts a{
         position: relative;
-        height: 40vh;
-        width: 37vw;
+        height: 90%;
+        width: 54vw;
     }
     .more_posts a img{
         height: 60%;
@@ -2166,9 +2169,14 @@ a, p, li{
     .body_right .bodyleft_header3{
         width: 80%;
     }
+    .subscribe_container {
+        justify-content: center;
+        align-items: center;
+    }
+
     .posts_div{
-        width: 50%;
-        height: 40vh;
+        width: 65%;
+        height: 60svh;
     }
     .posts_div img{
         height: 60%;
@@ -2247,8 +2255,9 @@ a, p, li{
     }
     .authordiv_container_subdiv{
         width: calc(100% - 28rem);
+        margin-left: 0;
     }
-    .authordiv_container_subdiv h1,span{
+    .authordiv_container_subdiv h1{
         font-size: var(--header-h2);
         font-weight: 750;
         padding: 1.5rem 0;

@@ -59,7 +59,6 @@ if (file_exists($translationFile)) {
             <input type="submit" value="<?php echo $translations['save']; ?>" name="websiteterms_editbtn" />
         </form>
     </section>
-    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../admin.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

@@ -10,13 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_lng'])) {
     $userId = $_SESSION['id'];
     $stmt = $conn->prepare("UPDATE editor SET language = ? WHERE id = ?");
     $stmt->bind_param("si", $language, $userId);
-    if($stmt->execute()){
+    if ($stmt->execute()) {
         $_SESSION['language'] = $language;
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Language changed successfully.";
     }
 }
-$userId = $_SESSION['id']; 
+$userId = $_SESSION['id'];
 $result = $conn->query("SELECT language FROM editor WHERE id = $userId");
 $language = $result->fetch_assoc()['language'] ?? 'en';
 $translationFile = "../translation_files/lang/{$language}.php";
@@ -69,7 +69,6 @@ if (file_exists($translationFile)) {
         </form>
     </section>
     <script src="sweetalert2.all.min.js"></script>
-    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="../editor.js"></script>
     <script>

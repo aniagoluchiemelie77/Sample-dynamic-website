@@ -10,9 +10,8 @@ const exitLogout = document.getElementById('dismiss-popup-btn');
 
 window.addEventListener("resize", function() {
     if (tinymce.activeEditor) {
-        let newWidth = window.innerWidth * 0.8; // Adjust width dynamically
-        let newHeight = window.innerHeight * 0.7; // Adjust height dynamically
-        
+        let newWidth = window.innerWidth * 0.8;
+        let newHeight = window.innerHeight * 0.7;
         tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
         tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
     }

@@ -26,7 +26,6 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../editor.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['terms_of_services']; ?></title>
 </head>
@@ -51,43 +50,8 @@ if (file_exists($translationFile)) {
             }
             ?>
         </div>
-        <button class="about_section_btn" id="Edit_about5"><?php echo $translations['edit']; ?>
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-        </button>
-        <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv5">
-            <textarea class="about_editdiv-input" name="website_terms" id="myTextarea9"></textarea>
-            <input type="submit" value="<?php echo $translations['save']; ?>" name="websiteterms_editbtn" />
-        </form>
     </section>
-    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="../editor.js"></script>
-    <script>
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
-        if (messageType == 'Error' && messageText != " ") {
-            Swal.fire({
-                title: 'Error!',
-                text: messageText,
-                icon: 'error',
-                confirmButtonText: 'Ok'
-            })
-        } else if (messageType == 'Success' && messageText != " ") {
-            Swal.fire({
-                title: 'Success',
-                text: messageText,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            })
-        }
-        <?php unset($_SESSION['status_type']); ?>
-        <?php unset($_SESSION['status']); ?>
-    </script>
-    <script>
-        const editAboutBtn5 = document.getElementById("Edit_about5");
-        const editTextEditor5 = document.getElementById("hidden_aboutdiv5")
-        editAction(editAboutBtn5, editTextEditor5);
-    </script>
-    <script src="sweetalert2.all.min.js"></script>
 </body>
 
 </html>

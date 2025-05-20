@@ -102,7 +102,6 @@ if (isset($_POST['change_pwd'])) {
         </form>
     </section>
     <script src="sweetalert2.all.min.js"></script>
-    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="../admin.js"></script>
     <script>

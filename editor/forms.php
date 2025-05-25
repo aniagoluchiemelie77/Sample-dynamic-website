@@ -10,7 +10,47 @@ function convertPath($path)
 {
     return basename($path);
 }
-function savePost($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $editor_id, $author_firstname, $author_lastname, $author_bio, $post_type)
+function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $editor_id, $author_firstname, $author_lastname, $author_bio, $post_type)
+{
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    if ($post_type === "posts") {
+        $idtype = "id2";
+    } elseif ($post_type === "news") {
+        $idtype = "id3";
+    } elseif ($post_type === "commentaries") {
+        $idtype = "id4";
+    } else {
+        $idtype = "id5";
+    }
+    $is_favourite = 0;
+    $sql = "INSERT INTO $post_type (editor_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    if ($query = $conn->prepare($sql)) {
+        $query->bind_param("issssssisssssss", $editor_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+        if ($query->execute()) {
+            $post_id = $conn->insert_id;
+            $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
+            $content = "Editor " . $_SESSION['firstname'] . " added a new post (" . $post_type . ")";
+            $forUser = 1;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Created Successfully";
+            sendNewpostNotification($title, $post_link);
+            header('location: editor_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: editor_homepage.php');
+        }
+    } else {
+        $error = $conn->errno . ' ' . $conn->error;
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = $error;
+        header('location: create_new/posts.php');
+    }
+}
+function savePost2($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $editor_id, $author_firstname, $author_lastname, $author_bio, $post_type)
 {
     global $conn;
     $date = date('y-m-d');
@@ -26,20 +66,23 @@ function savePost($title, $subtitle, $convertedPath, $content, $niche, $link, $s
         $idtype = "id5";
     }
     $is_favourite = 0;
-    $sql = "INSERT INTO $post_type (editor_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO $post_type (editor_id, title, niche, post_image_url, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     if ($query = $conn->prepare($sql)) {
-        $query->bind_param("issssssisssss", $editor_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+        $query->bind_param("issssssisssssss", $editor_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
         if ($query->execute()) {
+            $post_id = $conn->insert_id;
+            $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
             $content = "Editor " . $_SESSION['firstname'] . " added a new post (" . $post_type . ")";
             $forUser = 1;
             logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
             $_SESSION['status'] = "Post Created Successfully";
-            header('location: create_new/posts.php');
+            sendNewpostNotification($title, $post_link);
+            header('location: editor_homepage.php');
         } else {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Error, Please retry";
-            header('location: create_new/posts.php');
+            header('location: editor_homepage.php');
         }
     } else {
         $error = $conn->errno . ' ' . $conn->error;
@@ -59,33 +102,32 @@ function saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $edit
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Draft Created Successfully";
-        header('location: create_new/workspace.php');
+        header('location: editor_homepage.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
-        header('location: create_new/workspace.php');
+        header('location: editor_homepage.php');
     }
     $stmt->close();
 }
-//Review the below function
-function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $editor_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id)
+function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id)
 {
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, editor_id = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
-    $stmt->bind_param("ssssssissssssi", $title, $subtitle, $imagePath, $content, $niche, $link, $editor_id, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
+    $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
+    $stmt->bind_param("sssssssssssi", $title, $subtitle, $imagePath, $content, $niche, $link, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
     if ($stmt->execute()) {
         $content = "Editor " . $_SESSION['firstname'] . " updated a post";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Post Updated Successfully";
-        header('location: edit/posts.php');
+        header('location: editor_homepage.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/posts.php');
+        header('location: editor_homepage.php');
     }
     $stmt->close();
 }
@@ -230,28 +272,20 @@ if (isset($_POST['create_post'])) {
     $author_bio = $_POST['about_author'];
     $image2 = $_POST['Post_Image2'];
     $image1 = $_FILES['Post_Image1']['name'];
-    $target = "../images/" . basename($image);
-    if (move_uploaded_file($_FILES['Post_Image1']['tmp_name'], $target)) {
-        $imagePath = $target;
-        $convertedPath = convertPath($imagePath);
-        $real_imagePath = "";
-        if (empty($image2) && !empty($image1)) {
-            $real_imagePath = $convertedPath;
+    $target = "../images/" . basename($image1);
+    if (empty($image1) && !empty($image2)) {
+        $imagePath = $image2;
+        savePost2($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $editor_id, $author_firstname, $author_lastname, $author_bio, $post_type);
+    } elseif (!empty($image1) && empty($image2)) {
+        if (move_uploaded_file($_FILES['Post_Image1']['tmp_name'], $target)) {
+            $imagePath = $target;
+            $convertedPath = convertPath($imagePath);
+            savePost1($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $editor_id, $author_firstname, $author_lastname, $author_bio, $post_type);
         }
-        if (!empty($image2) && empty($image1)) {
-            $real_imagePath = $image2;
-        }
-        if (empty($image2) && empty($image1)) {
-            $real_imagePath = "";
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Please ensure the post's image is selected or it's url provided and not both.";
-            header('location: create_new/posts.php');
-        }
-        if (!empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)) {
-            $editor_id = '';
-        }
-        savePost($title, $subtitle, $real_imagePath, $content, $niche, $link, $schedule, $editor_id, $author_firstname, $author_lastname, $author_bio, $post_type);
+    } else if (!empty($image1) && !empty($image2)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Please ensure the post's image is selected or it's url provided and not both.";
+        header('location: create_new/posts.php');
     }
 }
 if (isset($_POST['edit_profile'])) {
@@ -320,7 +354,7 @@ if (isset($_POST['create_draft'])) {
         saveDraft($title, $subtitle, $convertedPath, $content, $niche, $link, $editor_id);
     }
 }
-if (isset($_POST['update_post'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_post'])) {
     $title = $_POST['Post_Title'];
     $niche = $_POST['Post_Niche'];
     $content = $_POST['Post_content'];
@@ -336,10 +370,7 @@ if (isset($_POST['update_post'])) {
     if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
-        if (!empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)) {
-            $editor_id = " ";
-        }
-        updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $editor_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
+        updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
     }
 }
 if (isset($_POST['create_writer'])) {

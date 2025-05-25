@@ -343,7 +343,7 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
         } else {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Error, Please retry";
-            header('location: admin_momepage.php');
+            header('location: admin_homepage.php');
         }
     } else {
         $error = $conn->errno . ' ' . $conn->error;
@@ -637,33 +637,32 @@ function saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $admi
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Draft Created Successfully";
-        header('location: create_new/workspace.php');
+        header('location: admin_homepage.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
-        header('location: create_new/workspace.php');
+        header('location: admin_homepage.php');
     }
     $stmt->close();
 }
-//Review the below function
 function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id)
 {
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, admin_id = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
-    $stmt->bind_param("ssssssssssssi", $title, $subtitle, $imagePath, $content, $niche, $link, $admin_id, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
+    $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
+    $stmt->bind_param("sssssssssssi", $title, $subtitle, $imagePath, $content, $niche, $link, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
     if ($stmt->execute()) {
         $content = "Admin " . $_SESSION['firstname'] . " updated a post";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Post Updated Successfully";
-        header('location: edit/post.php');
+        header('location: admin_homepage.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/post.php');
+        header('location: admin_homepage.php');
     }
     $stmt->close();
 }
@@ -954,7 +953,7 @@ if (isset($_POST['create_draft'])) {
         saveDraft($title, $subtitle, $convertedPath, $content, $niche, $link, $admin_id);
     }
 }
-if (isset($_POST['update_post'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_post'])) {
     $title = $_POST['Post_Title'];
     $niche = $_POST['Post_Niche'];
     $content = $_POST['Post_content'];

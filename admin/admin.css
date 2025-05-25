@@ -1328,6 +1328,11 @@ a, td,span, p, label{
     padding: 1rem;
     background-color: var(--color60);
 }
+.newpost_container .btn{
+    width: fit-content;
+    border: none;
+    outline: none;
+}
 .newpost_container .newpost_subdiv{
     width: 80%;
     text-align: center;

@@ -87,4 +87,20 @@ if (!function_exists('convertPath')) {
         return $finalPath;
     }
 }
-?>
+if (!function_exists('convertPath2')) {
+    function convertPath2($path)
+    {
+        $cleaned = str_replace("../", " ", $path);
+        $base = basename($cleaned);
+        $finalPath = 'files/' . $base;
+        return $finalPath;
+    }
+}
+if (!function_exists('noHyphenLowercase')) {
+    function noHyphenLowercase($string)
+    {
+        $string = str_replace('-', '', $string);
+        $string = strtolower($string);
+        return $string;
+    }
+}

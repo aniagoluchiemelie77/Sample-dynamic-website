@@ -6,12 +6,6 @@ $_SESSION['status'] = "";
 require("connect.php");
 include('crudoperations.php');
 require('../init.php');
-function noHyphenLowercase($string)
-{
-    $string = str_replace('-', '', $string);
-    $string = strtolower($string);
-    return $string;
-}
 function addWebsiteMessages($cookie_message, $description)
 {
     global $conn;
@@ -33,22 +27,24 @@ function addWebsiteMessages($cookie_message, $description)
     }
     $stmt->close();
 }
-function addResources($resource_type)
+function addResources($resource_type, $resource_path)
 {
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $stmt = $conn->prepare("INSERT INTO resources ( resource_name, Date, time) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $resource_type, $date, $time);
+    $stmt = $conn->prepare("INSERT INTO resources (resource_name, resource_path, Date, time) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $resource_type, $resource_path, $date, $time);
     if ($stmt->execute()) {
         $content = "Admin " . $_SESSION['firstname'] . " added a new Resource type";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Resource type Created Successfully";
+        header('location: edit/frontend_features.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
+        header('location: edit/frontend_features.php');
     }
     $stmt->close();
 }
@@ -1081,14 +1077,16 @@ if (isset($_POST['add_resource'])) {
     $resource_url = $_POST['resource_url'];
     $resource_image = $_FILES['resource_image']['name'];
     $resource_tmp_name = $_FILES['resource_image']['tmp_name'];
-    $resource_folder = "../../images/" . $resource_image;
+    $resource_folder = "../files/" . $resource_image;
     if (move_uploaded_file($resource_tmp_name, $resource_folder)) {
         $imagePath = $resource_folder;
-        $convertedPath = convertPath($imagePath);
+        $convertedPath = convertPath2($imagePath);
         $resource_type = convertToUnreadable($resource_type);
-        addResources($resource_type);
+        addResources($resource_type, $convertedPath);
     } else {
-        echo "No image uploaded.";
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
+        header('location: edit/frontend_features.php');
     }
 }
 if (isset($_POST['add_page'])) {

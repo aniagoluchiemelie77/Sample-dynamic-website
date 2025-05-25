@@ -1201,7 +1201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         } else {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Error Moving Uploaded Files";
-            header('location: edit/frontend_features.php');
+            header('location: admin_homepage.php');
         }
     }
 }

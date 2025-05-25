@@ -1,6 +1,8 @@
 <?php
 session_start();
-session_regenerate_id();
+$tempSession = $_SESSION;
+session_regenerate_id(true);
+$_SESSION = $tempSession;
 if (!isset($_SESSION['email'])) {
     header("Location: login/index.php");
 };
@@ -368,14 +370,11 @@ $date = formatDate($_SESSION['date_joined']);
                 </div>
             </div>
             <div class="profile tab_content" id="tab2">
-                <figure class="profile_imgbox">
+                <figure class="profile_imgbox" id="consent-data" data-id="<?php echo $_SESSION['id']; ?>">
                     <img src="../<?php echo $_SESSION['image']; ?>" alt="Authors Profile Picture" class="profile_imgbox_img" />
-                    <a class="profile_imgbox_edit" id="profileuploads" onclick="document.getElementById('fileInput').click();">
+                    <a class="profile_imgbox_edit" id="profileuploads" onclick="selectImage('profile_pic', '<?php echo $_SESSION['id']; ?>')" name="profile_pic">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
-                    <form id="profileForm" action="forms.php" method="POST" enctype="multipart/form-data">
-                        <input type="file" id="fileInput" name="profilePicture" style="display: none;" onchange="document.getElementById('profileForm').submit();">
-                    </form>
                 </figure>
                 <div class="profile_body">
                     <p class="profile_firstp">
@@ -941,6 +940,56 @@ $date = formatDate($_SESSION['date_joined']);
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementsByClassName("sidebarbtn")[0].click();
         });
+    </script>
+    <script>
+        async function selectImage(inputType, recordId) {
+            const {
+                value: file
+            } = await Swal.fire({
+                title: "Select image",
+                input: "file",
+                inputAttributes: {
+                    accept: "image/*",
+                    "aria-label": "Upload your image"
+                }
+            });
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    Swal.fire({
+                        title: "Your uploaded Image",
+                        imageUrl: e.target.result,
+                        imageAlt: "The uploaded Image",
+                        confirmButtonText: "Upload"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            uploadImage(file, inputType, recordId);
+                        }
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function uploadImage(file, inputType, recordId) {
+            let formData = new FormData();
+            formData.append(inputType, file);
+            formData.append("id", recordId);
+
+            fetch("forms.php?id=" + encodeURIComponent(recordId), {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log("Server Response:", data);
+                    Swal.fire("Success!", "Profile Picture Updated Successfully!", "success");
+                })
+                .catch(error => {
+                    Swal.fire("Error!", "Image upload failed!", "error");
+                });
+        }
     </script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

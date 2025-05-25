@@ -3,9 +3,6 @@ session_start();
 $tempSession = $_SESSION;
 session_regenerate_id(true);
 $_SESSION = $tempSession;
-file_put_contents("log.txt", "Session ID before update: " . ($_SESSION['id'] ?? 'Not set') . "\n", FILE_APPEND);
-$id = $_SESSION['id'];
-var_dump($id);
 if (!isset($_SESSION['email'])) {
     header("Location: login/index.php");
 }

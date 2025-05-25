@@ -1,7 +1,6 @@
 <?php
 session_start();
-$editor_id = "";
-$_SESSION['id'] = $editor_id;
+$editor_id = $_SESSION['id'];
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 require("connect.php");
@@ -373,58 +372,42 @@ if (isset($_POST['create_user'])) {
         }
     }
 }
-if (isset($_FILES['profilePicture'])) {
-    $targetDir = "../images/";
-    $targetFile = $targetDir . basename($_FILES['profilePicture']['name']);
-    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-    $check = getimagesize($_FILES['profilePicture']['tmp_name']);
-    if ($check !== false) {
-        if (!file_exists($targetFile)) {
-            if ($_FILES['profilePicture']['size'] <= 9000000) {
-                if (in_array($imageFileType, ['jpg', 'png', 'jpeg', 'gif'])) {
-                    if (move_uploaded_file($_FILES['profilePicture']['tmp_name'], $targetFile)) {
-                        $convertedPath = convertPath($targetFile);
-                        $stmt = $conn->prepare("UPDATE editor SET image = ? WHERE id = ?");
-                        $stmt->bind_param("si", $convertedPath, $_SESSION['id']);
-                        if ($stmt->execute()) {
-                            $content = "Editor " . $_SESSION['firstname'] . " changed his/her profile picture";
-                            $forUser = 0;
-                            logUpdate($conn, $forUser, $content);
-                            $_SESSION['status_type'] = "Success";
-                            $_SESSION['status'] = "Profile Picture Updated Successfully";
-                            header('location: editor_homepage.php');
-                        } else {
-                            $_SESSION['status_type'] = "Error";
-                            $_SESSION['status'] = "Error, Please retry";
-                            header('location: editor_homepage.php');
-                        }
-                    } else {
-                        $_SESSION['status_type'] = "Error";
-                        $_SESSION['status'] = "Error, Please retry";
-                        header('location: editor_homepage.php');
-                    }
-                } else {
-                    $_SESSION['status_type'] = "Error";
-                    $_SESSION['status'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                    header('location: editor_homepage.php');
-                }
-            } else {
-                $_SESSION['status_type'] = "Error";
-                $_SESSION['status'] = "Sorry, your image file is too large.";
-                header('location: editor_homepage.php');
-            }
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
+    $recordId = intval($_GET["id"]);
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    file_put_contents("log.txt", "POST request received\n", FILE_APPEND);
+    function updateProfilePic($imagePath1)
+    {
+        global $conn;
+        global $recordId;
+        $stmt = $conn->prepare("UPDATE editor SET image = ? WHERE id = ?");
+        $stmt->bind_param("si", $imagePath1, $recordId);
+        if ($stmt->execute()) {
+            $content = "Editor " . $_SESSION['firstname'] . " updated his/her Profile Picture";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            header('location: editor_homepage.php');
         } else {
             $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Sorry, Image already exists.";
+            $_SESSION['status'] = "Error, Please retry";
             header('location: editor_homepage.php');
         }
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Submitted File is not an image.";
-        header('location: editor_homepage.php');
+        $stmt->close();
     }
-} else {
-    $_SESSION['status_type'] = "Error";
-    $_SESSION['status'] = "No file uploaded.";
-    header('location: editor_homepage.php');
+    if (isset($_FILES["profile_pic"])) {
+        $profile_pic = $_FILES["profile_pic"]["name"];
+        $profile_tmp_name = $_FILES["profile_pic"]["tmp_name"];
+        $resource_folder1 = "../images/" . $profile_pic;
+
+        if (move_uploaded_file($profile_tmp_name, $resource_folder1)) {
+            $convertedPath = convertPath($resource_folder1);
+            file_put_contents("log.txt", "Profile Image file moved successfully! Date: " . $date . ", Time: " . $time . ", Path: " . $convertedPath . " \n", FILE_APPEND);
+            updateProfilePic($convertedPath);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+            header('location: editor_homepage.php');
+        }
+    }
 }

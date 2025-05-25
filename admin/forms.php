@@ -315,7 +315,6 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $idtype = "";
     if ($post_type === "paid_posts") {
         $idtype = "id1";
     } elseif ($post_type === "posts") {
@@ -330,7 +329,7 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
     $is_favourite = 0;
     $sql = "INSERT INTO $post_type (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     if ($query = $conn->prepare($sql)) {
-        $query->bind_param("issssssisssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+        $query->bind_param("issssssisssssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
         if ($query->execute()) {
             $post_id = $conn->insert_id;
             $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
@@ -340,15 +339,17 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
             $_SESSION['status_type'] = "Success";
             $_SESSION['status'] = "Post Created Successfully";
             sendNewpostNotification($title, $post_link);
-            header('location: create_new/posts.php');
+            header('location: admin_homepage.php');
         } else {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Error, Please retry";
-            header('location: create_new/posts.php');
+            header('location: admin_momepage.php');
         }
     } else {
         $error = $conn->errno . ' ' . $conn->error;
-        echo $error;
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = $error;
+        header('location: create_new/posts.php');
     }
 }
 function createCategory($category_name, $category_image)

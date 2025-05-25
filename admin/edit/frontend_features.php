@@ -167,7 +167,7 @@ if (file_exists($translationFile)) {
                 while ($row = $getresource_result->fetch_assoc()) {
                     $resource_name = $row['resource_name'];
                     $resource_id = $row['id'];
-                    $readableString = convertToReadable($resource_name);
+                    $readableString = convertToReadable2($resource_name);
                     echo "<div>
                                         <p>$readableString</p>
                                         <a class='' onclick='confirmDeleteResource($resource_id)'>

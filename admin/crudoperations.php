@@ -63,6 +63,14 @@ if (!function_exists('convertToReadable')) {
         return $string;
     }
 }
+if (!function_exists('convertToReadable2')) {
+    function convertToReadable2($slug)
+    {
+        $string = str_replace('_', ' ', $slug);
+        $string = ucwords($string);
+        return $string;
+    }
+}
 if (!function_exists('convertToUnreadable')) {
     function convertToUnreadable($slug)
     {

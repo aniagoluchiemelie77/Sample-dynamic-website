@@ -124,7 +124,7 @@ function sendOTP($email, $firstname, $token)
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->SMTPDebug = 2;
+        $mail->SMTPKeepAlive = true;
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'aniagoluchiemelie77@gmail.com';
@@ -178,7 +178,7 @@ function sendNewpostNotification($post_title, $post_link)
             $mail = new PHPMailer(true);
             try {
                 $mail->isSMTP();
-                $mail->SMTPDebug = 2;
+                $mail->SMTPKeepAlive = true;
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'aniagoluchiemelie77@gmail.com';

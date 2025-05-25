@@ -1,0 +1,9 @@
+Session ID before update: 1
+Session ID before update: 1
+Session ID before update: 1
+POST request received
+Profile Image file moved successfully! Date: 25-05-25, Time: 13:49:42, Path: images/20240128_054428.jpg 
+Record ID: 1
+Image Path: images/20240128_054428.jpg
+Session ID before update: 1
+Session ID before update: 1

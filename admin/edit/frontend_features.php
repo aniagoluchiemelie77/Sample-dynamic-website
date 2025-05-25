@@ -95,42 +95,40 @@ if (file_exists($translationFile)) {
             <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['edit_frontend_title']; ?></p>
         </div>
         <form class="frontend_div sectioneer_form" action="../forms.php" method="POST" enctype="multipart/form-data">
-            <div class="sectioneer_form_container">
-                <?php
-                $selectwebsite_logo = "SELECT id, logo_imagepath, favicon_imagepath FROM website_logo ORDER BY id DESC LIMIT 1";
-                $selectwebsite_logo_result = $conn->query($selectwebsite_logo);
-                if ($selectwebsite_logo_result->num_rows > 0) {
-                    while ($row = $selectwebsite_logo_result->fetch_assoc()) {
-                        $logo_image = $row['logo_imagepath'];
-                        $favicon_image = $row['favicon_imagepath'];
-                        $_SESSION['logo_id'] = $row['id'];
-                        echo "  <div class='sectioneer_form_container_subdiv2'>
-                                            <h1 class='sectioneer_form_header'>Edit Website Logo</h1>
-                                            <div class='sectioneer_form_container_subdiv2_subdiv'>
-                                                <img src='../../$logo_image' alt='Website Logo'>
-                                                <a class='add_div' onclick='document.getElementById('fileInput').click();'>
-                                                    <i class='fa fa-plus' aria-hidden='true'></i>
-                                                    <p>Edit Logo</p>
-                                                </a>
-                                                <input type='file' id='fileInput' name='website_logo' style='display: none;'>
-                                            </div>
+            <?php
+            $selectwebsite_logo = "SELECT id, logo_imagepath, favicon_imagepath FROM website_logo ORDER BY id DESC LIMIT 1";
+            $selectwebsite_logo_result = $conn->query($selectwebsite_logo);
+            if ($selectwebsite_logo_result->num_rows > 0) {
+                while ($row = $selectwebsite_logo_result->fetch_assoc()) {
+                    $logo_image = $row['logo_imagepath'];
+                    $favicon_image = $row['favicon_imagepath'];
+                    $id = $row['id'];
+                    $_SESSION['logo_id'] = $row['id'];
+                    echo '<div class="sectioneer_form_container" id="consent-data" data-id="' . $id . '">
+                                <div class="sectioneer_form_container_subdiv2">
+                                    <h1 class="sectioneer_form_header">Edit Website Logo</h1>
+                                    <div class="sectioneer_form_container_subdiv2_subdiv">
+                                        <img src="../../' . $logo_image . '" alt="Website Logo">
+                                        <a class="add_div" name="website_logo" onclick="selectImage(\'website_logo\', ' . $id . ')">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                            <p>Edit Logo</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sectioneer_form_container_subdiv2">
+                                    <h1 class="sectioneer_form_header">Edit Favicon</h1>
+                                        <div class="sectioneer_form_container_subdiv2_subdiv">
+                                            <img src="../../' . $favicon_image . '" alt="Favicon Image">
+                                            <a class="add_div" name="website_favicon" onclick="selectImage(\'website_favicon\', ' . $id . ')">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                <p>Edit Favicon</p>
+                                            </a>
                                         </div>
-                                        <div class='sectioneer_form_container_subdiv2'>
-                                            <h1 class='sectioneer_form_header'>Edit Favicon</h1>
-                                            <div class='sectioneer_form_container_subdiv2_subdiv'>
-                                                <img src='../../$favicon_image' alt='Favicon Image'>
-                                                <a class='add_div' onclick='document.getElementById('fileInput2').click();'>
-                                                    <i class='fa fa-plus' aria-hidden='true'></i>
-                                                    <p>Edit Favicon</p>
-                                                </a>
-                                                <input type='file' id='fileInput2' name='website_favicon' style='display: none;'>
-                                            </div>
-                                        </div>
-                                ";
-                    }
+                                </div>
+                                </div>';
                 }
-                ?>
-            </div>
+            }
+            ?>
             <input class="btn" type="submit" value="<?php echo $translations['save']; ?>" name="change_logo" />
         </form>
         <form class="frontend_div sectioneer_form" action="../forms.php" method="POST" enctype="multipart/form-data">
@@ -142,12 +140,13 @@ if (file_exists($translationFile)) {
                     while ($row = $website_messages_result->fetch_assoc()) {
                         $cookie_message = $row['cookie_consent'];
                         $website_vision_message = $row['website_vision'];
+                        $id = $row['id'];
                         $_SESSION['message_id'] = $row['id'];
                         echo "  <div class='sectioneer_form_container_subdiv2'>
                                     <h1 class='sectioneer_form_header'>$translations[edit_cookie]</h1>
                                     <textarea name='cookie_consent' id='myTextarea6c'>$cookie_message</textarea>
                                 </div>
-                                <div class='sectioneer_form_container_subdiv2'>
+                                <div class='sectioneer_form_container_subdiv2' id='consent-data' data-id='$id'>
                                     <h1 class='sectioneer_form_header'>$translations[edit_webdescription]</h1>
                                     <textarea name='description' id='myTextarea6b'>$website_vision_message</textarea>
                                 </div>
@@ -211,6 +210,57 @@ if (file_exists($translationFile)) {
             ?>
         </div>
     </section>
+    <script>
+        async function selectImage(inputType, recordId) {
+            const {
+                value: file
+            } = await Swal.fire({
+                title: "Select image",
+                input: "file",
+                inputAttributes: {
+                    accept: "image/*",
+                    "aria-label": "Upload your image"
+                }
+            });
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    Swal.fire({
+                        title: "Your uploaded Image",
+                        imageUrl: e.target.result,
+                        imageAlt: "The uploaded Image",
+                        confirmButtonText: "Upload"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            uploadImage(file, inputType, recordId);
+                        }
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function uploadImage(file, inputType, recordId) {
+            let formData = new FormData();
+            formData.append(inputType, file);
+            formData.append("id", recordId);
+
+            fetch("../forms.php?id=" + encodeURIComponent(recordId), {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log("Server Response:", data);
+                    Swal.fire("Success!", "Image uploaded successfully!", "success");
+                })
+                .catch(error => {
+                    Swal.fire("Error!", "Image upload failed!", "error");
+                });
+        }
+    </script>
+
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";

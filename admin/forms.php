@@ -1,7 +1,6 @@
 <?php
 session_start();
-$admin_id = "";
-$_SESSION['id'] = $admin_id;
+$admin_id = $_SESSION['id'];
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 require("connect.php");
@@ -21,114 +20,16 @@ function addWebsiteMessages($cookie_message, $description)
     $stmt = $conn->prepare("INSERT INTO website_messages ( cookie_consent, website_vision, Date, time) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssss", $cookie_message, $description, $date, $time);
     if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " added new cookie consent message and website description";
+        $content = "Admin " . $_SESSION['firstname'] . " updated cookie consent message and website description";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Cookie consent message and Website description created successfully";
+        $_SESSION['status'] = "Cookie consent message and Website description updated successfully";
+        header('location: edit/frontend_features.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
-    }
-    $stmt->close();
-}
-function updateCookie($cookie_message)
-{
-    $id = $_SESSION['message_id'];
-    global $conn;
-    $date = date('y-m-d');
-    $time = date('H:i:s');
-    $stmt = $conn->prepare("UPDATE website_messages SET cookie_consent = ?, Date = ?, time = ?  WHERE id = ?");
-    $stmt->bind_param("sssi", $cookie_message, $date, $time, $id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated cookie consent message";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Cookie Consent Message Created Successfully";
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-    }
-    $stmt->close();
-}
-function updateDescription($website_description)
-{
-    $id = $_SESSION['message_id'];
-    global $conn;
-    $date = date('y-m-d');
-    $time = date('H:i:s');
-    $stmt = $conn->prepare("UPDATE website_messages SET website_vision = ?, Date = ?, time = ?  WHERE id = ?");
-    $stmt->bind_param("sssi", $website_description, $date, $time, $id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated website desciption";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Website Description Updated Successfully";
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-    }
-    $stmt->close();
-}
-function addLogo($imagePath1, $imagePath2)
-{
-    $id = $_SESSION['logo_id'];
-    global $conn;
-    $date = date('y-m-d');
-    $time = date('H:i:s');
-    $stmt = $conn->prepare("INSERT INTO website_logo ( logo_imagepath, favicon_imagepath, Date, time) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $imagePath1, $imagePath2, $date, $time);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " added new Website Logo and Favicon";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Website Logo and Favicon Created Successfully";
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-    }
-    $stmt->close();
-}
-function updateFavicon($imagePath2)
-{
-    $id = $_SESSION['logo_id'];
-    global $conn;
-    $date = date('y-m-d');
-    $time = date('H:i:s');
-    $stmt = $conn->prepare("UPDATE website_logo SET favicon_imagepath = ?, Date = ?, time = ?  WHERE id = ?");
-    $stmt->bind_param("sssi", $imagePath2, $date, $time, $id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated this Website's Favicon";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Website Favicon Created Successfully";
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-    }
-    $stmt->close();
-}
-function updateLogo($imagePath1)
-{
-    $id = $_SESSION['logo_id'];
-    global $conn;
-    $date = date('y-m-d');
-    $time = date('H:i:s');
-    $stmt = $conn->prepare("UPDATE website_logo SET logo_imagepath = ?, Date = ?, time = ?  WHERE id = ?");
-    $stmt->bind_param("sssi", $imagePath1, $date, $time, $id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " added new Website Logo";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Website Logo Created Successfully";
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
+        header('location: edit/frontend_features.php');
     }
     $stmt->close();
 }
@@ -412,10 +313,6 @@ function addPage($page_name)
             }
         }
     }
-}
-function convertPath($path)
-{
-    return basename($path);
 }
 function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type)
 {
@@ -963,9 +860,6 @@ if (isset($_POST['create_post'])) {
         if (move_uploaded_file($_FILES['Post_Image1']['tmp_name'], $target)) {
             $imagePath = $target;
             $convertedPath = convertPath($imagePath);
-            if (!empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)) {
-                $admin_id = '';
-            }
             savePost1($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $admin_id, $author_firstname, $author_lastname, $author_bio, $post_type);
         }
     } else if (!empty($image1) && !empty($image2)) {
@@ -1079,9 +973,6 @@ if (isset($_POST['update_post'])) {
     if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
-        if (!empty($author_firstname) || !empty($author_lastname) || !empty($author_bio)) {
-            $admin_id = " ";
-        }
         updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
     }
 }
@@ -1174,110 +1065,15 @@ if (isset($_POST['contactus_editbtn'])) {
     $tablename = "contact_us";
     updatePages($content, $tablename);
 }
-if (isset($_FILES['profilePicture'])) {
-    $targetDir = "../images/";
-    $targetFile = $targetDir . basename($_FILES['profilePicture']['name']);
-    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-    $check = getimagesize($_FILES['profilePicture']['tmp_name']);
-    if ($check !== false) {
-        if (!file_exists($targetFile)) {
-            if ($_FILES['profilePicture']['size'] <= 9000000) {
-                if (in_array($imageFileType, ['jpg', 'png', 'jpeg', 'gif'])) {
-                    if (move_uploaded_file($_FILES['profilePicture']['tmp_name'], $targetFile)) {
-                        $convertedPath = convertPath($targetFile);
-                        $stmt = $conn->prepare("UPDATE admin_login_info SET image = ? ");
-                        $stmt->bind_param("s", $convertedPath);
-                        if ($stmt->execute()) {
-                            $content = "Admin " . $_SESSION['firstname'] . " changed her profile picture";
-                            $forUser = 0;
-                            logUpdate($conn, $forUser, $content);
-                            $_SESSION['status_type'] = "Success";
-                            $_SESSION['status'] = "Profile Picture Updated Successfully";
-                            header('location: admin_homepage.php');
-                        } else {
-                            $_SESSION['status_type'] = "Error";
-                            $_SESSION['status'] = "Error, Please retry";
-                            header('location: admin_homepage.php');
-                        }
-                    } else {
-                        $_SESSION['status_type'] = "Error";
-                        $_SESSION['status'] = "Error, Please retry";
-                        header('location: admin_homepage.php');
-                    }
-                } else {
-                    $_SESSION['status_type'] = "Error";
-                    $_SESSION['status'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                    header('location: admin_homepage.php');
-                }
-            } else {
-                $_SESSION['status_type'] = "Error";
-                $_SESSION['status'] = "Sorry, your image file is too large.";
-                header('location: admin_homepage.php');
-            }
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Sorry, Image already exists.";
-            header('location: admin_homepage.php');
-        }
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Submitted File is not an image.";
-        header('location: admin_homepage.php');
-    }
-}
 if (isset($_POST['change_frontend_messages'])) {
     $cookie_consent = $_POST['cookie_consent'];
     $description = $_POST['description'];
-    if (!empty($cookie_consent) && empty($description)) {
-        updateCookie($cookie_consent);
-    } else if (empty($cookie_consent) && !empty($description)) {
-        updateDescription($description);
-    } else if (!empty($cookie_consent) && !empty($description)) {
+    if (!empty($cookie_consent) && !empty($description)) {
         AddWebsiteMessages($cookie_consent, $description);
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "No Changes Made";
-    }
-}
-if (isset($_POST['change_logo'])) {
-    $website_logo = $_FILES['website_logo']['name'];
-    $logo_tmp_name = $_FILES['website_logo']['tmp_name'];
-    $website_favicon = $_FILES['website_favicon']['name'];
-    $favicon_tmp_name = $_FILES['website_favicon']['tmp_name'];
-    $resource_folder1 = "../../images/" . $website_logo;
-    $resource_folder2 = "../../images/" . $website_favicon;
-    if (!empty($website_logo) && empty($website_favicon)) {
-        if (move_uploaded_file($logo_tmp_name, $resource_folder1)) {
-            $imagePath1 = $resource_folder1;
-            $convertedPath1 = convertPath($imagePath1);
-            UpdateLogo($convertedPath1);
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error Moving Uploaded Files";
-        }
-    } else if (empty($website_logo) && !empty($website_favicon)) {
-        if (move_uploaded_file($favicon_tmp_name,  $resource_folder2)) {
-            $imagePath2 = $resource_folder2;
-            $convertedPath2 = convertPath($imagePath2);
-            UpdateFavicon($convertedPath2);
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error Moving Uploaded Files";
-        }
-    } else if (empty($website_logo) && empty($website_favicon)) {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "No Image File Uploaded";
-    } else {
-        if (move_uploaded_file($logo_tmp_name, $resource_folder1) && move_uploaded_file($favicon_tmp_name,  $resource_folder2)) {
-            $imagePath2 = $resource_folder2;
-            $imagePath1 = $resource_folder1;
-            $convertedPath1 = convertPath($imagePath1);
-            $convertedPath2 = convertPath($imagePath2);
-            addLogo($imagePath1, $imagePath2);
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error Moving Uploaded Files";
-        }
+        header('location: edit/frontend_features.php');
     }
 }
 if (isset($_POST['add_resource'])) {
@@ -1299,4 +1095,113 @@ if (isset($_POST['add_page'])) {
     $page_name = $_POST['page_name'];
     $page_name = convertToUnreadable($page_name);
     addPage($page_name);
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
+    $recordId = intval($_GET["id"]);
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    file_put_contents("log.txt", "POST request received\n", FILE_APPEND);
+    function updateFavicon($imagePath2)
+    {
+        global $conn;
+        global $recordId;
+        global $date;
+        global $time;
+        $stmt = $conn->prepare("UPDATE website_logo SET favicon_imagepath = ?, Date = ?, time = ?  WHERE id = ?");
+        $stmt->bind_param("sssi", $imagePath2, $date, $time, $recordId);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated this Website's Favicon";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            header('location: edit/frontend_features.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: edit/frontend_features.php');
+        }
+        $stmt->close();
+    }
+    function updateLogo($imagePath1)
+    {
+        global $conn;
+        global $recordId;
+        global $date;
+        global $time;
+        $stmt = $conn->prepare("UPDATE website_logo SET logo_imagepath = ?, Date = ?, time = ?  WHERE id = ?");
+        $stmt->bind_param("sssi", $imagePath1, $date, $time, $recordId);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated this Website's Logo";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            header('location: edit/frontend_features.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: edit/frontend_features.php');
+        }
+        $stmt->close();
+    }
+    function updateProfilePic($imagePath1)
+    {
+        global $conn;
+        global $recordId;
+        $stmt = $conn->prepare("UPDATE admin_login_info SET image = ? WHERE id = ?");
+        $stmt->bind_param("si", $imagePath1, $recordId);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated his/her Profile Picture";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
+    }
+    if (isset($_FILES["website_logo"])) {
+        $website_logo = $_FILES["website_logo"]["name"];
+        $logo_tmp_name = $_FILES["website_logo"]["tmp_name"];
+        $resource_folder1 = "../images/" . $website_logo;
+
+        if (move_uploaded_file($logo_tmp_name, $resource_folder1)) {
+            file_put_contents("log.txt", "Logo file moved successfully! Date: " . $date . ", Time: " . $time . "\n", FILE_APPEND);
+            $convertedPath = convertPath($resource_folder1);
+            updateLogo($convertedPath);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+            header('location: edit/frontend_features.php');
+        }
+    }
+    if (isset($_FILES["website_favicon"])) {
+        $website_favicon = $_FILES["website_favicon"]["name"];
+        $favicon_tmp_name = $_FILES["website_favicon"]["tmp_name"];
+        $resource_folder2 = "../images/" . $website_favicon;
+
+        if (move_uploaded_file($favicon_tmp_name, $resource_folder2)) {
+            file_put_contents("log.txt", "Favicon file moved successfully! Date: " . $date . ", Time: " . $time . "\n", FILE_APPEND);
+            $convertedPath = convertPath($resource_folder2);
+            updateFavicon($convertedPath);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+            header('location: edit/frontend_features.php');
+        }
+    }
+    if (isset($_FILES["profile_pic"])) {
+        $profile_pic = $_FILES["profile_pic"]["name"];
+        $profile_tmp_name = $_FILES["profile_pic"]["tmp_name"];
+        $resource_folder1 = "../images/" . $profile_pic;
+
+        if (move_uploaded_file($profile_tmp_name, $resource_folder1)) {
+            $convertedPath = convertPath($resource_folder1);
+            file_put_contents("log.txt", "Profile Image file moved successfully! Date: " . $date . ", Time: " . $time . ", Path: " . $convertedPath . " \n", FILE_APPEND);
+            updateProfilePic($convertedPath);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error Moving Uploaded Files";
+            header('location: edit/frontend_features.php');
+        }
+    }
 }

@@ -158,23 +158,22 @@ function updatePages($content, $tablename)
         header('location: editor_homepage.php');
     }
 }
-function updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath)
+function updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $editor_id)
 {
     global $conn;
-    $id = $_SESSION['id'];
-    $stmt = $conn->prepare("UPDATE editor SET firstname = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
-    $stmt->bind_param("sssssssssssssi", $firstname, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
+    $stmt = $conn->prepare("UPDATE editor SET firstname = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id=?");
+    $stmt->bind_param("sssssssssssssi", $firstname, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $editor_id);
     if ($stmt->execute()) {
         $content = "Editor " . $_SESSION['firstname'] . " updated his/her profile";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Profile Updated Successfully";
-        header('location: edit/profile.php');
+        header('location: editor_homepage.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/profile.php');
+        header('location: editor_homepage.php');
     }
     $stmt->close();
 }
@@ -306,7 +305,7 @@ if (isset($_POST['edit_profile'])) {
     if ($password === $confirm_pasword) {
         if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
             $imagePath = $target;
-            updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath);
+            updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $editor_id);
         }
     }
 }
@@ -370,8 +369,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_post'])) {
     if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
-        updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
     }
+    updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
 }
 if (isset($_POST['create_writer'])) {
     $firstname = $_POST['writer_firstname'];

@@ -693,22 +693,22 @@ function updatePages($content, $tablename)
         header('location: admin_homepage.php');
     }
 }
-function updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath)
+function updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $admin_id)
 {
     global $conn;
-    $stmt = $conn->prepare("UPDATE admin_login_info SET firstname = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ?");
-    $stmt->bind_param("sssssssssssss", $firstname, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode);
+    $stmt = $conn->prepare("UPDATE admin_login_info SET firstname = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
+    $stmt->bind_param("sssssssssssssi", $firstname, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $admin_id);
     if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated his profile";
+        $content = "Admin " . $_SESSION['firstname'] . " updated his/her profile";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Profile Updated Successfully";
-        header('location: edit/profile.php');
+        header('location: admin_homepage.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/profile.php');
+        header('location: admin_homepage.php');
     }
     $stmt->close();
 }
@@ -879,12 +879,10 @@ if (isset($_POST['edit_profile'])) {
     $mobile = $_POST['profile-mobile'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
-    if ($password === $confirm_pasword) {
-        if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
-            $imagePath = $target;
-            updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath);
-        }
+    if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
+        $imagePath = $target;
     }
+    updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $admin_id);
 }
 if (isset($_POST['edit_profile_editor'])) {
     $id = $_POST['profile-id'];
@@ -969,8 +967,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_post'])) {
     if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
-        updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
     }
+    updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $admin_id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id);
 }
 if (isset($_POST['create_page'])) {
     $topic_name = $_POST['topicName'];

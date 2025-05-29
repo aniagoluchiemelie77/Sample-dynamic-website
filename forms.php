@@ -1,7 +1,9 @@
 <?php
 require('connect.php');
+require('init.php');
 $query = isset($_POST['query']) ? $_POST['query'] : '';
 $offset = intval($_POST['offset']);
+$email = isset($_GET['email']) ? $_GET['email'] : null;
 $limit = intval($_POST['limit']);
 $query = $conn->real_escape_string($query);
 $tables = ['paid_posts', 'posts', 'news', 'commentaries', 'press_releases'];
@@ -46,4 +48,9 @@ if (!empty($results)) {
 } else {
     echo "No results found.";
 };
+if ($email) {
+    $unsubscribe = unsubscribe($email);
+    $_SESSION['status_type'] = $unsubscribe['status_type'];
+    $_SESSION['status'] = $unsubscribe['status'];
+}
 ?>

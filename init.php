@@ -167,6 +167,24 @@ function getOrdinalSuffix($day)
     }
     return 'th';
 }
+function unsubscribe($email)
+{
+    global $conn;
+    $sql = "DELETE FROM subscribers WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    if ($stmt->execute()) {
+        $status = "Newsletter Subscription Cancelled Successfully";
+        $status_type = "Success";
+        return ["status" => $status, "status_type" => $status_type];
+        header('location: http://localhost/Sample-dynamic-website/');
+    } else {
+        $status = "Newsletter Subscription Cancellation Failed";
+        $status_type = "Error";
+        return ["status" => $status, "status_type" => $status_type];
+        header('location: http://localhost/Sample-dynamic-website/');
+    }
+}
 function sendNewpostNotification($post_title, $post_link, $post_image, $post_subtitle)
 {
     global $conn;
@@ -193,7 +211,10 @@ function sendNewpostNotification($post_title, $post_link, $post_image, $post_sub
                                     <img src='$post_image' alt='Post Image' style='width:40rem;object-fit:cover;height:40rem;'/>
                                     <h1 style='font-size:3.0rem;color: #FAFAFA;padding:1rem;'>$post_title</h1>
                                     <h2 style='font-size:2.4rem;color: #FAFAFA;padding:1rem;'>$post_subtitle</h2>
-                                    <a href='$post_link' style='font-size:1.5rem;color: #FAFAFA;padding:1rem;border-radius:1rem;background-color:inherit;border:none;margin-top:1rem;cursor:pointer;'>Read Post</a>
+                                    <div style='display:flex;justify-content:space-between;flex-wrap:wrap;'>
+                                        <a href='$post_link' style='font-size:1.5rem;color: #FAFAFA;padding:1rem;border-radius:1rem;background-color:inherit;border:none;cursor:pointer;'>Read Post</a>
+                                        <a href='http://localhost/Sample-dynamic-website/forms.php?email=$email' style='font-size:1.5rem;color: #FAFAFA;padding:1rem;border-radius:1rem;background-color:inherit;border:none;cursor:pointer;'>Unsubscribe</a>
+                                    </div>
                                 </div>";
                 $mail->send();
             } catch (Exception $e) {

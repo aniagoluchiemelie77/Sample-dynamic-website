@@ -24,21 +24,7 @@
             $selectallcategory_result = $conn->query($selectallcategory);
             if ($selectallcategory_result->num_rows > 0) {
                 $i = 0;
-                if (!function_exists('convertToReadable')) {
-                    function convertToReadable($slug)
-                    {
-                        $string = str_replace('-', ' ', $slug);
-                        $string = ucwords($string);
-                        return $string;
-                    }
-                }
-                if (!function_exists('removeHyphen')) {
-                    function removeHyphen($string)
-                    {
-                        $string = str_replace(['-', ' '], '', $string);
-                        return $string;
-                    }
-                }
+                $extraLinks = "";
                 while ($row = $selectallcategory_result->fetch_assoc()) {
                     $i++;
                     $category_names = $row['name'];
@@ -47,14 +33,14 @@
                     if ($i <= 5) {
                         echo "<a class='header__dropdownlinks-1 headerlinks lightp' href='pages/$cleanString.php'>$readableString</a>";
                     } else {
-                        echo "<div class='header__dropdownlinks-6  lightp'>
-                                    <button class='dropbtn'>More</button>
-                                    <div class='header__dropdownlinks-content'>
-                                        <a class='header__dropdownlinks-link1 lightp' href='pages/$cleanString.php'>$readableString</a>
-                                    </div>
-                                </div>
-                            ";
+                        $extraLinks .= "<a class='header__dropdownlinks-link1 lightp' href='pages/$cleanString.php'>$readableString</a>";
                     }
+                }
+                if (!empty($extraLinks)) {
+                    echo "<div class='header__dropdownlinks-6 lightp'>
+                            <button class='dropbtn'>More</button>
+                            <div class='header__dropdownlinks-content'>$extraLinks</div>
+                        </div>";
                 }
             }
             ?>

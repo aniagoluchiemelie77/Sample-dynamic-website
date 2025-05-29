@@ -86,6 +86,13 @@ if (!function_exists('removeHyphen')) {
         return $string;
     }
 }
+if (!function_exists('removeHyphen2')) {
+    function removeHyphen2($string)
+    {
+        return str_replace('-', ' ', $string); // Replace hyphens, KEEP spaces
+    }
+}
+
 if (!function_exists('convertPath')) {
     function convertPath($path)
     {

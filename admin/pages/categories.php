@@ -29,7 +29,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../admin.js" defer></script>
+    <script src="../admin.js" async></script>
     <title><?php echo $translations['categories']; ?></title>
 </head>
 
@@ -47,41 +47,11 @@ if (file_exists($translationFile)) {
             $getcategories_sql = " SELECT id, name, image_path, Date, time FROM topics ORDER BY id";
             $getcategories_result = $conn->query($getcategories_sql);
             if ($getcategories_result->num_rows > 0) {
-                if (!function_exists('convertToReadable')) {
-                    function convertToReadable($slug)
-                    {
-                        $string = str_replace('-', ' ', $slug);
-                        $string = ucwords($string);
-                        return $string;
-                    }
-                }
-                if (!function_exists('removeHyphen')) {
-                    function removeHyphen($string)
-                    {
-                        $string = str_replace(['-', ' '], '', $string);
-                        return $string;
-                    }
-                }
-                if (!function_exists('getOrdinalSuffix')) {
-                    function getOrdinalSuffix($day)
-                    {
-                        if (!in_array(($day % 100), [11, 12, 13])) {
-                            switch ($day % 10) {
-                                case 1:
-                                    return 'st';
-                                case 2:
-                                    return 'nd';
-                                case 3:
-                                    return 'rd';
-                            }
-                        }
-                        return 'th';
-                    }
-                }
                 while ($row = $getcategories_result->fetch_assoc()) {
                     $time = $row['time'];
                     $date = $row['Date'];
                     $name = $row['name'];
+                    $name = htmlspecialchars($name, ENT_QUOTES);
                     $id = $row['id'];
                     $img = $row['image_path'];
                     $dateTime = new DateTime($date);
@@ -91,7 +61,7 @@ if (file_exists($translationFile)) {
                     $ordinalSuffix = getOrdinalSuffix($day);
                     $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
                     $formatted_time = date("g:i A", strtotime($time));
-                    $cleanString = removeHyphen($name);
+                    $cleanString = removeHyphen2($name);
                     $readableString = convertToReadable($name);
                     $total_posts = 0;
                     $tables = ['paid_posts', 'posts', 'news', 'press_releases', 'commentaries'];
@@ -116,7 +86,7 @@ if (file_exists($translationFile)) {
                                     <p>$translations[categories_p]: <span>$total_posts</span></p>
                                     <p> $translations[date_created]: <span>$formattedDate</span></p>
                                     <p>$translations[time]: <span>$formatted_time</span></p>
-                                    <a class='topics_actions' onclick='confirmDeleteCategory($id, $name)'>
+                                    <a class='topics_actions' onclick='confirmDeleteCategory($id, \"" . htmlspecialchars($cleanString, ENT_QUOTES) . "\")')>
                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                     </a>
                                 </div>

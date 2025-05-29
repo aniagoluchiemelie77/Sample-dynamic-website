@@ -327,29 +327,32 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
         $idtype = "id5";
     }
     $is_favourite = 0;
-    $sql = "INSERT INTO $post_type (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    if ($query = $conn->prepare($sql)) {
-        $query->bind_param("issssssisssssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
-        if ($query->execute()) {
-            $post_id = $conn->insert_id;
-            $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
-            $content = "Admin " . $_SESSION['firstname'] . " added a new post (" . $post_type . ")";
-            $forUser = 1;
-            logUpdate($conn, $forUser, $content);
-            $_SESSION['status_type'] = "Success";
-            $_SESSION['status'] = "Post Created Successfully";
-            sendNewpostNotification($title, $post_link, $convertedPath, $subtitle);
-            header('location: admin_homepage.php');
+    if ($convertedPath !== null) {
+        $sql = "INSERT INTO $post_type (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        if ($query = $conn->prepare($sql)) {
+            $query->bind_param("issssssisssssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+            if ($query->execute()) {
+                $post_id = $conn->insert_id;
+                $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
+                $content = "Admin " . $_SESSION['firstname'] . " added a new post (" . $post_type . ")";
+                $forUser = 1;
+                logUpdate($conn, $forUser, $content);
+                $_SESSION['status_type'] = "Success";
+                $_SESSION['status'] = "Post Created Successfully";
+                sendNewpostNotification($title, $post_link, $convertedPath, $subtitle);
+                header('location: admin_homepage.php');
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                header('location: admin_homepage.php');
+            }
         } else {
+            $error = $conn->errno . ' ' . $conn->error;
             $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error, Please retry";
-            header('location: admin_homepage.php');
+            $_SESSION['status'] = $error;
+            header('location: create_new/posts.php');
         }
     } else {
-        $error = $conn->errno . ' ' . $conn->error;
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = $error;
-        header('location: create_new/posts.php');
     }
 }
 function createCategory($category_name, $category_image)
@@ -362,7 +365,6 @@ function createCategory($category_name, $category_image)
     $formattedTopicName = strtolower(str_replace(' ', '-', $category_name));
     $filename = removeHyphenNoSpace($category_name) . '.php';
     $uc_category_name = noHyphenUppercase($category_name);
-    $sqlTopics = "INSERT INTO topics (name, image_path, Date, time) VALUES (?,?,?,?)";
     $fileContent = <<<PHP
         <?php
             session_start();
@@ -387,8 +389,8 @@ function createCategory($category_name, $category_image)
             <?php if (isset(\$meta_titles[\$page_name])) {
                 \$meta_data = \$meta_titles[\$page_name];
                 for (\$i = 1; \$i <= 5; \$i++) {
-                    \$meta_name = \$meta_data['meta_name{\$i}'];
-                    \$meta_content = \$meta_data['meta_content{\$i}'];
+                    \$meta_name = \$meta_data["meta_name\$i"];
+                    \$meta_content = \$meta_data["meta_content\$i"];
                     if (!empty(\$meta_name) && !empty(\$meta_content)) {
                         echo "<meta name='\$meta_name' content='\$meta_content' />";
                     }
@@ -558,25 +560,54 @@ function createCategory($category_name, $category_image)
         </body>
         </html>
     PHP;
-    $filePath = '../pages/' . $filename;
-    if ($query = $conn->prepare($sqlTopics)) {
-        $query->bind_param("ssss", $formattedTopicName, $category_image, $date, $time);
-        if ($query->execute()) {
-            $sqlMetaTitles = "INSERT INTO meta_titles (page_name, meta_name1, meta_content1) VALUES (?, ?, ?)";
-            if ($query = $conn->prepare($sqlMetaTitles)) {
-                $query->bind_param("sss", $formattedTopicName, $meta_name, $meta_content);
-                if ($query->execute()) {
-                    if (file_put_contents($filePath, $fileContent)) {
-                        $content = "Admin " . $_SESSION['firstname'] . " added a new category";
-                        $forUser = 0;
-                        logUpdate($conn, $forUser, $content);
-                        $_SESSION['status_type'] = "Success";
-                        $_SESSION['status'] = "Category Created Successfully";
-                        header('location: create_new/category.php');
-                    } else {
-                        $_SESSION['status_type'] = "Error";
-                        $_SESSION['status'] = "Error, Please retry";
-                        header('location: create_new/category.php');
+    if ($category_image !== null) {
+        $sqlTopics = "INSERT INTO topics (name, image_path, Date, time) VALUES (?,?,?,?)";
+        $filePath = '../pages/' . $filename;
+        if ($query = $conn->prepare($sqlTopics)) {
+            $query->bind_param("ssss", $formattedTopicName, $category_image, $date, $time);
+            if ($query->execute()) {
+                $sqlMetaTitles = "INSERT INTO meta_titles (page_name, meta_name1, meta_content1) VALUES (?, ?, ?)";
+                if ($query = $conn->prepare($sqlMetaTitles)) {
+                    $query->bind_param("sss", $formattedTopicName, $meta_name, $meta_content);
+                    if ($query->execute()) {
+                        if (file_put_contents($filePath, $fileContent)) {
+                            $content = "Admin " . $_SESSION['firstname'] . " added a new category";
+                            $forUser = 0;
+                            logUpdate($conn, $forUser, $content);
+                            $_SESSION['status_type'] = "Success";
+                            $_SESSION['status'] = "Category Created Successfully";
+                            header('location: create_new/category.php');
+                        } else {
+                            $_SESSION['status_type'] = "Error";
+                            $_SESSION['status'] = "Error, Please retry";
+                            header('location: create_new/category.php');
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        $sqlTopics = "INSERT INTO topics (name, Date, time) VALUES (?,?,?)";
+        $filePath = '../pages/' . $filename;
+        if ($query = $conn->prepare($sqlTopics)) {
+            $query->bind_param("sss", $formattedTopicName, $date, $time);
+            if ($query->execute()) {
+                $sqlMetaTitles = "INSERT INTO meta_titles (page_name, meta_name1, meta_content1) VALUES (?, ?, ?)";
+                if ($query = $conn->prepare($sqlMetaTitles)) {
+                    $query->bind_param("sss", $formattedTopicName, $meta_name, $meta_content);
+                    if ($query->execute()) {
+                        if (file_put_contents($filePath, $fileContent)) {
+                            $content = "Admin " . $_SESSION['firstname'] . " added a new category";
+                            $forUser = 0;
+                            logUpdate($conn, $forUser, $content);
+                            $_SESSION['status_type'] = "Success";
+                            $_SESSION['status'] = "Category Created Successfully";
+                            header('location: create_new/category.php');
+                        } else {
+                            $_SESSION['status_type'] = "Error";
+                            $_SESSION['status'] = "Error, Please retry";
+                            header('location: create_new/category.php');
+                        }
                     }
                 }
             }
@@ -650,21 +681,39 @@ function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $adm
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
-    $stmt->bind_param("sssssssssssi", $title, $subtitle, $imagePath, $content, $niche, $link, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated a post";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Post Updated Successfully";
-        header('location: admin_homepage.php');
+    if ($imagePath !== null) {
+        $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
+        $stmt->bind_param("sssssssssssi", $title, $subtitle, $imagePath, $content, $niche, $link, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated a post";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: admin_homepage.php');
+        $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, content = ?, niche = ?, link = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
+        $stmt->bind_param("ssssssssssi", $title, $subtitle, $content, $niche, $link, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated a post";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 function updatePages($content, $tablename)
 {
@@ -696,78 +745,150 @@ function updatePages($content, $tablename)
 function updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $admin_id)
 {
     global $conn;
-    $stmt = $conn->prepare("UPDATE admin_login_info SET firstname = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
-    $stmt->bind_param("sssssssssssssi", $firstname, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $admin_id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated his/her profile";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Profile Updated Successfully";
-        header('location: admin_homepage.php');
+    if ($imagePath !== null) {
+        $stmt = $conn->prepare("UPDATE admin_login_info SET firstname = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
+        $stmt->bind_param("sssssssssssssi", $firstname, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $admin_id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated his/her profile";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Profile Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: admin_homepage.php');
+        $stmt = $conn->prepare("UPDATE admin_login_info SET firstname = ?, lastname = ?, username = ?, email = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
+        $stmt->bind_param("ssssssssssssi", $firstname, $lastname, $username, $email, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $admin_id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated his/her profile";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Profile Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 function updateEditorProfile($firstname, $password, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $id)
 {
     global $conn;
-    $stmt = $conn->prepare("UPDATE editor SET firstname = ?, password = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
-    $stmt->bind_param("ssssssssssssssi", $firstname, $password, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated $username's profile";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Profile Updated Successfully";
-        header('location: edit/user.php');
+    if ($imagePath !== null) {
+        $stmt = $conn->prepare("UPDATE editor SET firstname = ?, password = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
+        $stmt->bind_param("ssssssssssssssi", $firstname, $password, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated $username's profile";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Profile Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/user.php');
+        $stmt = $conn->prepare("UPDATE editor SET firstname = ?, password = ?, lastname = ?, username = ?, email = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
+        $stmt->bind_param("sssssssssssssi", $firstname, $password, $lastname, $username, $email, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated $username's profile";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Profile Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 function updateUserProfile($firstname, $lastname, $email, $role, $url, $bio, $imagePath, $id)
 {
     global $conn;
-    $stmt = $conn->prepare("UPDATE otherwebsite_users SET firstname = ?, lastname = ?, email = ?, role = ?, image = ?, bio = ?, linkedin_url = ? WHERE id = ?");
-    $stmt->bind_param("sssssssi", $firstname, $lastname, $email, $role, $imagePath, $bio, $url, $id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated $firstname's profile";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Profile Updated Successfully";
-        header('location: edit/user.php');
+    if ($imagePath !== null) {
+        $stmt = $conn->prepare("UPDATE otherwebsite_users SET firstname = ?, lastname = ?, email = ?, role = ?, image = ?, bio = ?, linkedin_url = ? WHERE id = ?");
+        $stmt->bind_param("sssssssi", $firstname, $lastname, $email, $role, $imagePath, $bio, $url, $id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated $firstname's profile";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Profile Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/user.php');
+        $stmt = $conn->prepare("UPDATE otherwebsite_users SET firstname = ?, lastname = ?, email = ?, role = ?, bio = ?, linkedin_url = ? WHERE id = ?");
+        $stmt->bind_param("ssssssi", $firstname, $lastname, $email, $role, $bio, $url, $id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated $firstname's profile";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Profile Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 function updateWriterProfile($firstname, $lastname, $email, $bio, $imagePath, $id)
 {
     global $conn;
-    $stmt = $conn->prepare("UPDATE writer SET firstname = ?, lastname = ?, email = ?, image = ?, bio = ? WHERE id = ?");
-    $stmt->bind_param("sssssi", $firstname, $lastname, $email, $imagePath, $bio, $id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " updated $firstname's profile";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Profile Updated Successfully";
-        header('location: edit/user.php');
+    if ($imagePath !== null) {
+        $stmt = $conn->prepare("UPDATE writer SET firstname = ?, lastname = ?, email = ?, image = ?, bio = ? WHERE id = ?");
+        $stmt->bind_param("sssssi", $firstname, $lastname, $email, $imagePath, $bio, $id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated $firstname's profile";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Profile Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/user.php');
+        $stmt = $conn->prepare("UPDATE writer SET firstname = ?, lastname = ?, email = ?, bio = ? WHERE id = ?");
+        $stmt->bind_param("ssssi", $firstname, $lastname, $email, $bio, $id);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " updated $firstname's profile";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Profile Updated Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 function addEditor($firstname, $lastname, $email, $img, $password, $admin_id)
 {
@@ -916,11 +1037,13 @@ if (isset($_POST['edit_profile_writer'])) {
     $email = $_POST['profile_email'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
+    file_put_contents("log.txt", "POST request received\n", FILE_APPEND);
     if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
+        file_put_contents("log.txt", "\n", FILE_APPEND);
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
-        updateWriterProfile($firstname, $lastname, $email, $bio, $convertedPath, $id);
     }
+    updateWriterProfile($firstname, $lastname, $email, $bio, $convertedPath, $id);
 }
 if (isset($_POST['edit_profile_otheruser'])) {
     $id = $_POST['profile-id'];
@@ -935,8 +1058,8 @@ if (isset($_POST['edit_profile_otheruser'])) {
     if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
-        updateUserProfile($firstname, $lastname, $email, $role, $url, $bio, $convertedPath, $id);
     }
+    updateUserProfile($firstname, $lastname, $email, $role, $url, $bio, $convertedPath, $id);
 }
 if (isset($_POST['create_draft'])) {
     $title = $_POST['Post_Title'];

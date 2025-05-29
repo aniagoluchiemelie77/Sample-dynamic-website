@@ -4,7 +4,7 @@
         require('../init.php');
        $_SESSION['status_type'] = "";
        $_SESSION['status'] = "";
-       $page_name = "artificial-intelligence";
+       $page_name = "naija-latest";
        $details = getFaviconAndLogo();
        $logo = $details['logo'];
        $favicon = $details['favicon'];
@@ -34,16 +34,16 @@
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../index.css" />
         <meta charset="UTF-8">
-        <title>Artificial Intelligence</title>
+        <title>Naija Latest</title>
     </head>
     <body id="container">
         <?php require("../includes/header2.php"); ?>
         <div class="body_container">
             <div class="body_left">
                 <div class="page_links">
-                    <a href="../">Home</a> > <p>Artificial Intelligence</p>
+                    <a href="../">Home</a> > <p>Naija Latest</p>
                 </div>
-                <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest On Artificial Intelligence</h1>
+                <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest On Naija Latest</h1>
                 <div class='more_posts'>;
                     <?php
                         $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
@@ -51,7 +51,7 @@
                         foreach ($tables as $table) {
                             $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE niche LIKE ? ORDER BY id DESC LIMIT 2";
                             $stmt = $conn->prepare($sql);
-                            $nicheq = 'Artificial Intelligence';
+                            $nicheq = 'Naija Latest';
                             $searchTerm = "%" . $nicheq . "%";
                             $stmt->bind_param("s", $searchTerm);
                             $stmt->execute();

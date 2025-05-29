@@ -217,22 +217,19 @@ if (isset($_POST['subscribe_btn2'])) {
                 $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, post_image_url, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM posts WHERE id = '$post_id2'";
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
-                    $row = $getposts_result->fetch_assoc();
-                    $author_firstname = "";
-                    $author_lastname = "";
-                    $author_image = "";
-                    $author_bio = "";
-                    $id_type = '';
-                    $role = "";
-                    $id_admin = "";
+                    $id_admin = '';
                     $id_editor = "";
                     $id_writer = "";
+                    $row = $getposts_result->fetch_assoc();
+                    $author1 = $row['authors_firstname'];
+                    $author2 = $row['editor_id'];
+                    $author3 = $row['admin_id'];
                     $time = $row['time'];
                     $title = $row['title'];
                     $niche = $row['niche'];
                     $content = $row['content'];
                     $read_count = '';
-                    if (!empty($row['admin_id'])) {
+                    if (!empty($author3) && empty($author2) && empty($author1)) {
                         $admin_id = $row['admin_id'];
                         $sql_admin = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $admin_id";
                         $result_admin = $conn->query($sql_admin);
@@ -246,7 +243,7 @@ if (isset($_POST['subscribe_btn2'])) {
                             $author_bio = $admin['bio'];
                             $role = "Editor-in-chief Uniquetechcontentwriter.com";
                         }
-                    } elseif (!empty($row['editor_id'])) {
+                    } elseif (!empty($author2) && empty($author3) && empty($author1)) {
                         $editor_id = $row['editor_id'];
                         $sql_editor = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $editor_id";
                         $result_editor = $conn->query($sql_editor);
@@ -260,13 +257,21 @@ if (isset($_POST['subscribe_btn2'])) {
                             $id_type = "Editor";
                             $role = 'Editor At Uniquetechcontentwriter.com';
                         }
-                    } else {
-                        $author_firstname = $row['author_firstname'];
-                        $author_lastname = $row['author_lastname'];
-                        $author_bio = $row['author_bio'];
-                        $role = 'Contributing Writer';
-                        $id_writer = 4;
-                        $id_type = "Writer";
+                    } elseif (!empty($author1) && !empty($author3) && empty($author2)) {
+                        $author_firstname = $row['authors_firstname'];
+                        $author_lastname = $row['authors_lastname'];
+                        $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = '$author_firstname'";
+                        $result_writer = $conn->query($sql_writer);
+                        if ($result_writer->num_rows > 0) {
+                            $writer = $result_writer->fetch_assoc();
+                            $author_firstname = $writer['firstname'];
+                            $author_lastname = $writer['lastname'];
+                            $author_image = $writer['image'];
+                            $id_type = "Writer";
+                            $id_writer = $writer['id'];
+                            $author_bio = $writer['bio'];
+                            $role = "Contributing Writer";
+                        }
                     }
                     $max_length = 200;
                     if (strlen($author_bio) > $max_length) {
@@ -387,21 +392,18 @@ if (isset($_POST['subscribe_btn2'])) {
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
-                    $author_firstname = "";
-                    $author_lastname = "";
-                    $author_image = "";
-                    $author_bio = "";
-                    $id_type = '';
-                    $role = "";
-                    $id_admin = "";
-                    $id_editor = "";
-                    $id_writer = "";
+                    $author1 = $row['authors_firstname'];
+                    $author2 = $row['editor_id'];
+                    $author3 = $row['admin_id'];
                     $time = $row['time'];
                     $title = $row['title'];
                     $niche = $row['niche'];
                     $content = $row['content'];
                     $read_count = '';
-                    if (!empty($row['admin_id'])) {
+                    $id_admin = "";
+                    $id_editor = "";
+                    $id_writer = "";
+                    if (!empty($author3) && empty($author2) && empty($author1)) {
                         $admin_id = $row['admin_id'];
                         $sql_admin = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $admin_id";
                         $result_admin = $conn->query($sql_admin);
@@ -415,7 +417,7 @@ if (isset($_POST['subscribe_btn2'])) {
                             $author_bio = $admin['bio'];
                             $role = "Editor-in-chief Uniquetechcontentwriter.com";
                         }
-                    } elseif (!empty($row['editor_id'])) {
+                    } elseif (!empty($author2) && empty($author3) && empty($author1)) {
                         $editor_id = $row['editor_id'];
                         $sql_editor = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $editor_id";
                         $result_editor = $conn->query($sql_editor);
@@ -429,10 +431,10 @@ if (isset($_POST['subscribe_btn2'])) {
                             $id_type = "Editor";
                             $role = 'Editor At Uniquetechcontentwriter.com';
                         }
-                    } else {
+                    } elseif (!empty($author1) && !empty($author3) && empty($author2)) {
                         $author_firstname = $row['authors_firstname'];
                         $author_lastname = $row['authors_lastname'];
-                        $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname AND lastname = $author_lastname";
+                        $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = '$author_firstname'";
                         $result_writer = $conn->query($sql_writer);
                         if ($result_writer->num_rows > 0) {
                             $writer = $result_writer->fetch_assoc();
@@ -443,11 +445,6 @@ if (isset($_POST['subscribe_btn2'])) {
                             $id_writer = $writer['id'];
                             $author_bio = $writer['bio'];
                             $role = "Contributing Writer";
-                        } else {
-                            $author_bio = $row['author_bio'];
-                            $role = 'Contributing Writer';
-                            $id_writer = '';
-                            $id_type = "Writer";
                         }
                     }
                     $max_length = 200;
@@ -570,21 +567,18 @@ if (isset($_POST['subscribe_btn2'])) {
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
-                    $author_firstname = "";
-                    $author_lastname = "";
-                    $author_image = "";
-                    $author_bio = "";
-                    $id_type = '';
-                    $role = "";
-                    $id_admin = "";
-                    $id_editor = "";
-                    $id_writer = "";
+                    $author1 = $row['authors_firstname'];
+                    $author2 = $row['editor_id'];
+                    $author3 = $row['admin_id'];
                     $time = $row['time'];
                     $title = $row['title'];
                     $niche = $row['niche'];
                     $content = $row['content'];
                     $read_count = '';
-                    if (!empty($row['admin_id'])) {
+                    $id_admin = "";
+                    $id_editor = "";
+                    $id_writer = "";
+                    if (!empty($author3) && empty($author2) && empty($author1)) {
                         $admin_id = $row['admin_id'];
                         $sql_admin = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $admin_id";
                         $result_admin = $conn->query($sql_admin);
@@ -598,7 +592,7 @@ if (isset($_POST['subscribe_btn2'])) {
                             $author_bio = $admin['bio'];
                             $role = "Editor-in-chief Uniquetechcontentwriter.com";
                         }
-                    } elseif (!empty($row['editor_id'])) {
+                    } elseif (!empty($author2) && empty($author3) && empty($author1)) {
                         $editor_id = $row['editor_id'];
                         $sql_editor = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $editor_id";
                         $result_editor = $conn->query($sql_editor);
@@ -612,10 +606,10 @@ if (isset($_POST['subscribe_btn2'])) {
                             $id_type = "Editor";
                             $role = 'Editor At Uniquetechcontentwriter.com';
                         }
-                    } else {
-                        $author_firstname = $row['author_firstname'];
-                        $author_lastname = $row['author_lastname'];
-                        $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname AND lastname = $author_lastname";
+                    } elseif (!empty($author1) && !empty($author3) && empty($author2)) {
+                        $author_firstname = $row['authors_firstname'];
+                        $author_lastname = $row['authors_lastname'];
+                        $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = '$author_firstname'";
                         $result_writer = $conn->query($sql_writer);
                         if ($result_writer->num_rows > 0) {
                             $writer = $result_writer->fetch_assoc();
@@ -626,11 +620,6 @@ if (isset($_POST['subscribe_btn2'])) {
                             $id_writer = $writer['id'];
                             $author_bio = $writer['bio'];
                             $role = "Contributing Writer";
-                        } else {
-                            $author_bio = $row['author_bio'];
-                            $role = 'Contributing Writer';
-                            $id_writer = '';
-                            $id_type = "Writer";
                         }
                     }
                     $max_length = 200;
@@ -677,7 +666,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     }
                     echo "
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(" . $url . "); ?>&text=<?php echo urlencode(" . $title . "); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . ")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
                                     <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
                                     <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
@@ -686,7 +675,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 </div>
                                 <p class='content'>$content</p>
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=<?php echo urlencode(" . $url . "); ?>&text=<?php echo urlencode(" . $title . "); ?>' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . "' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
                                     <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
                                     <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
@@ -758,21 +747,33 @@ if (isset($_POST['subscribe_btn2'])) {
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
-                    $author_firstname = "";
-                    $author_lastname = "";
-                    $author_image = "";
-                    $author_bio = "";
-                    $id_type = '';
-                    $role = "";
-                    $id_admin = "";
-                    $id_editor = "";
-                    $id_writer = "";
+                    $author1 = $row['authors_firstname'];
+                    $author2 = $row['editor_id'];
+                    $author3 = $row['admin_id'];
                     $time = $row['time'];
                     $title = $row['title'];
                     $niche = $row['niche'];
                     $content = $row['content'];
                     $read_count = '';
-                    if (!empty($row['admin_id'])) {
+                    $id_admin = "";
+                    $id_editor = "";
+                    $id_writer = "";
+                    if (!empty($author1) && !empty($author3)) {
+                        $author_firstname = $row['author_firstname'];
+                        $author_lastname = $row['author_lastname'];
+                        $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname OR lastname = $author_lastname";
+                        $result_writer = $conn->query($sql_writer);
+                        if ($result_writer->num_rows > 0) {
+                            $writer = $result_writer->fetch_assoc();
+                            $author_firstname = $writer['firstname'];
+                            $author_lastname = $writer['lastname'];
+                            $author_image = $writer['image'];
+                            $id_type = "Writer";
+                            $id_writer = $writer['id'];
+                            $author_bio = $writer['bio'];
+                            $role = "Contributing Writer";
+                        }
+                    } else if (!empty($author3) && empty($author2) && empty($author1)) {
                         $admin_id = $row['admin_id'];
                         $sql_admin = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $admin_id";
                         $result_admin = $conn->query($sql_admin);
@@ -786,24 +787,10 @@ if (isset($_POST['subscribe_btn2'])) {
                             $author_bio = $admin['bio'];
                             $role = "Editor-in-chief Uniquetechcontentwriter.com";
                         }
-                    } elseif (!empty($row['editor_id'])) {
-                        $editor_id = $row['editor_id'];
-                        $sql_editor = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $editor_id";
-                        $result_editor = $conn->query($sql_editor);
-                        if ($result_editor->num_rows > 0) {
-                            $editor = $result_editor->fetch_assoc();
-                            $author_firstname = $editor['firstname'];
-                            $author_image = $editor['image'];
-                            $author_lastname = $editor['lastname'];
-                            $author_bio = $editor['bio'];
-                            $id_editor = $editor['id'];
-                            $id_type = "Editor";
-                            $role = 'Editor At Uniquetechcontentwriter.com';
-                        }
-                    } else {
-                        $author_firstname = $row['author_firstname'];
-                        $author_lastname = $row['author_lastname'];
-                        $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = $author_firstname AND lastname = $author_lastname";
+                    } elseif (!empty($author1) && !empty($author3) && empty($author2)) {
+                        $author_firstname = $row['authors_firstname'];
+                        $author_lastname = $row['authors_lastname'];
+                        $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = '$author_firstname'";
                         $result_writer = $conn->query($sql_writer);
                         if ($result_writer->num_rows > 0) {
                             $writer = $result_writer->fetch_assoc();
@@ -814,16 +801,7 @@ if (isset($_POST['subscribe_btn2'])) {
                             $id_writer = $writer['id'];
                             $author_bio = $writer['bio'];
                             $role = "Contributing Writer";
-                        } else {
-                            $author_bio = $row['author_bio'];
-                            $role = 'Contributing Writer';
-                            $id_writer = '';
-                            $id_type = "Writer";
                         }
-                        $author_bio = $row['author_bio'];
-                        $role = 'Contributing Writer';
-                        $id_writer = 4;
-                        $id_type = "Writer";
                     }
                     $max_length = 200;
                     if (strlen($author_bio) > $max_length) {
@@ -878,7 +856,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 </div>
                                 <p class='content'>$content</p>
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=urlencode(" . $url . ")&text=urlencode(" . $title . ")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . "' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
                                     <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
                                     <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>

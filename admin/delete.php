@@ -161,7 +161,7 @@ if ($usertype == "Editor") {
 }
 if ($type == "Category") {
     $page_name = removeHyphenNoSpace($topicName);
-    $two_folders_above_file = dirname(__DIR__, 1) . "pages/$page_name.php";
+    $two_folders_above_file = "../pages/$page_name.php";
     $sql = "DELETE FROM topics WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);

@@ -1202,3 +1202,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         }
     }
 }
+if (isset($_POST['send_message_subscriber'])) {
+    $id = $_POST['user_id'];
+    $message = $_POST['message'];
+    $title = $_POST['subject'];
+    $sendEmail = sendMessageToSubscriber($id, $title, $message);
+    $_SESSION['status_type'] = $sendEmail['status_type'];
+    $_SESSION['status'] = $sendEmail['status'];
+    header('location: admin_homepage.php');
+}
+if (isset($_POST['send_message_user'])) {
+    $id = $_POST['user_id'];
+    $message = $_POST['message'];
+    $title = $_POST['subject'];
+    $sendEmail = sendMessageToUser($id, $title, $message);
+    $_SESSION['status_type'] = $sendEmail['status_type'];
+    $_SESSION['status'] = $sendEmail['status'];
+    header('location: admin_homepage.php');
+}
+if (isset($_POST['send_message_writer'])) {
+    $id = $_POST['user_id'];
+    $message = $_POST['message'];
+    $title = $_POST['subject'];
+    $sendEmail = sendMessageToWriter($id, $title, $message);
+    $_SESSION['status_type'] = $sendEmail['status_type'];
+    $_SESSION['status'] = $sendEmail['status'];
+    header('location: admin_homepage.php');
+}

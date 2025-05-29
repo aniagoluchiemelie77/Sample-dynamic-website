@@ -83,13 +83,15 @@ $usertype = " ";
                     $sn = 0;
                     while ($row = $selectallwriters_result->fetch_assoc()) {
                         $sn++;
+                        $id = $row['id'];
+                        $usertype = 'Writer';
                         echo "<div class='users_div_subdiv_subdiv divimages'style=background-image:url('../" . $row['image'] . ">
                                     <div class='divimages_side--back'>
                                         <p class='users_div_subdiv_p'><span>" . $row['firstname'] . "</span></p>
                                         <p class='users_div_subdiv_p'><span>" . $row['lastname'] . "</span></p> 
                                         <center>
                                             <div class='users_delete_edit'>
-                                                <a class='users_edit' href='mailto:" . $row['email'] . "' target='_blank'>$translations[send_message]</a>
+                                                <a class='users_edit' href='create_new/message.php?usertype=$usertype&id=$id'>$translations[send_message]</a>
                                             </div>
                                         </center>
                                     </div>
@@ -111,14 +113,47 @@ $usertype = " ";
                     $sn = 0;
                     while ($row = $selectallotherusers_result->fetch_assoc()) {
                         $sn++;
+                        $id = $row['id'];
+                        $firstname = $row['firstname'];
+                        $usertype = 'Website User';
                         echo "<div class='users_div_subdiv_subdiv divimages' style=background-image:url('../" . $row['image'] . ">
                                             <div class='divimages_side--back'>
-                                                <p class='users_div_subdiv_p'><span>" . $row['firstname'] . "</span></p>
+                                                <p class='users_div_subdiv_p'><span>$firstname</span></p>
                                                 <p class='users_div_subdiv_p'><span>" . $row['lastname'] . "</span></p> 
                                                 <p class='users_div_subdiv_p'><span>" . $row['role'] . "</span></p> 
                                                 <center>
                                                     <div class='users_delete_edit'>
-                                                        <a class='users_edit' href='mailto:" . $row['email'] . "' target='_blank'>$translations[send_message]</a>
+                                                        <a class='users_edit' href='create_new/message.php?usertype=$usertype&id=$id'>$translations[send_message]</a>
+                                                    </div>
+                                                </center>
+                                            </div>
+                                    </div>";
+                    };
+                };
+                ?>
+            </div>
+        </div>
+        <div class="users_writer_div userdiv">
+            <div class="user_header">
+                <h2><?php echo $translations['subscribers']; ?></h2>
+            </div>
+            <div class="users_div_subdiv border-gradient-side-dark">
+                <?php
+                $selectallotherusers = "SELECT id, email FROM subscribers ORDER BY id DESC";
+                $selectallotherusers_result = $conn->query($selectallotherusers);
+                if ($selectallotherusers_result->num_rows > 0) {
+                    $sn = 0;
+                    while ($row = $selectallotherusers_result->fetch_assoc()) {
+                        $sn++;
+                        $usertype = 'Subscriber';
+                        $id = $row['id'];
+                        $email = $row['email'];
+                        echo "<div class='users_div_subdiv_subdiv divimages'>
+                                            <div class='divimages_side--back'>
+                                                <p class='users_div_subdiv_p'><span>$email</span></p>
+                                                <center>
+                                                    <div class='users_delete_edit'>
+                                                        <a class='users_edit' href='create_new/message.php?usertype=$usertype&id=$id'>$translations[send_message]</a>
                                                     </div>
                                                 </center>
                                             </div>

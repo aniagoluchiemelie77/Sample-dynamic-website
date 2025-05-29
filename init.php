@@ -95,7 +95,8 @@ function sendEmail($email)
                     $mail->addAddress($email, 'Chiboy');
                     $mail->isHTML(true);
                     $mail->Subject = 'Welcome to Our Newsletter';
-                    $mail->Body    = 'Thank you for subscribing to our newsletter! We are excited to have you with us.';
+                    $mail->Body    = "<h1>Thank you for subscribing to our newsletter! We are excited to have you with us.</h1>
+                    <a href='http://localhost/Sample-dynamic-website/forms.php?email=$email' style='text-decoration:none;padding:10px 16px;margin:8px auto;border-radius:1rem;color:white;background-color:#222;cursor:pointer;'>unsubscribe</a>";
                     $mail->send();
                     $status_type = "Success";
                     $status = "Email Subscription Added Successfully";
@@ -174,6 +175,9 @@ function unsubscribe($email)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     if ($stmt->execute()) {
+        $forUser = 0;
+        $action = 'Cancelled Email Subscription alert';
+        logUpdate($conn, $forUser, $action);
         $status = "Newsletter Subscription Cancelled Successfully";
         $status_type = "Success";
         return ["status" => $status, "status_type" => $status_type];
@@ -207,14 +211,13 @@ function sendNewpostNotification($post_title, $post_link, $post_image, $post_sub
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->Subject = "$post_title";
-                $mail->Body = "<div style='font-family: Arial, sans-serif; color: #222; width: 80%; height: fit-content; display:flex; flex-direction: column; padding: 1rem; align-items: center;'>
-                                    <img src='$post_image' alt='Post Image' style='width:40rem;object-fit:cover;height:40rem;'/>
-                                    <h1 style='font-size:3.0rem;color: #FAFAFA;padding:1rem;'>$post_title</h1>
-                                    <h2 style='font-size:2.4rem;color: #FAFAFA;padding:1rem;'>$post_subtitle</h2>
-                                    <div style='display:flex;justify-content:space-between;flex-wrap:wrap;'>
-                                        <a href='$post_link' style='font-size:1.5rem;color: #FAFAFA;padding:1rem;border-radius:1rem;background-color:inherit;border:none;cursor:pointer;'>Read Post</a>
-                                        <a href='http://localhost/Sample-dynamic-website/forms.php?email=$email' style='font-size:1.5rem;color: #FAFAFA;padding:1rem;border-radius:1rem;background-color:inherit;border:none;cursor:pointer;'>Unsubscribe</a>
-                                    </div>
+                $mail->Body = "<div style='font-family: Arial, sans-serif;width: 80%; padding: 1rem;'>
+                                    <img src='$post_image' alt='Post Image' style='width:600px;height:400px;'/>
+                                    <h1 style='padding:1rem;display:block;'>$post_title</h1>
+                                    <h2 style='padding:1rem;display:block'>$post_subtitle</h2>
+                                    <a href='$post_link' style='text-decoration:none;padding:10px 16px;border-radius:16pz;color: white;background-color:#222;cursor:pointer;margin-right:16px;'>Read Post</a>
+                                    <a href='http://localhost/Sample-dynamic-website/forms.php?email=$email' style='text-decoration:none;padding:10px 16px;border-radius:16px;color: white;background-color:#222;cursor:pointer;'>Unsubscribe</a>
+                                    
                                 </div>";
                 $mail->send();
             } catch (Exception $e) {
@@ -223,5 +226,141 @@ function sendNewpostNotification($post_title, $post_link, $post_image, $post_sub
         }
     } else {
         echo "No subscribers found.";
+    }
+}
+function sendMessageToSubscriber($id, $message_title = null, $message_body = null)
+{
+    global $conn;
+    $getSubscriber = "SELECT email FROM subscribers WHERE id = $id";
+    $getSubscriber_result = $conn->query($getSubscriber);
+    if ($getSubscriber_result->num_rows > 0) {
+        while ($row = $getSubscriber_result->fetch_assoc()) {
+            $email = $row['email'];
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->SMTPKeepAlive = true;
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'aniagoluchiemelie77@gmail.com';
+                $mail->Password = 'ozmsoscaivmkrbuu';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+                $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->Subject = "$message_title";
+                $mail->Body = "<div style='font-family: Arial, sans-serif;color:#222;width: 80%;padding:16px;'>
+                                    $message_body
+                                    <a href='http://localhost/Sample-dynamic-website/forms.php?email=$email' style='text-decoration:none;padding:10px 16px;margin:8px auto;border-radius:1rem;color:white;background-color:#222;cursor:pointer;'>unsubscribe</a>
+                                </div>";
+                if ($mail->send()) {
+                    $forUser = 0;
+                    $action = 'Email Sucessfully sent to ' . $email;
+                    logUpdate($conn, $forUser, $action);
+                    $status = "Message Delivered Successfully";
+                    $status_type = "Success";
+                    return ["status" => $status, "status_type" => $status_type];
+                };
+            } catch (Exception $e) {
+                $status = "Message could not be sent to $email. Error: {$mail->ErrorInfo}";
+                $status_type = "Success";
+                return ["status" => $status, "status_type" => $status_type];
+            }
+        }
+    } else {
+        $status = "No subscribers found.";
+        $status_type = "Error";
+        return ["status" => $status, "status_type" => $status_type];
+    }
+}
+function sendMessageToUser($id, $message_title = null, $message_body = null)
+{
+    global $conn;
+    $getSubscriber = "SELECT email FROM otherwebsite_users WHERE id = $id";
+    $getSubscriber_result = $conn->query($getSubscriber);
+    if ($getSubscriber_result->num_rows > 0) {
+        while ($row = $getSubscriber_result->fetch_assoc()) {
+            $email = $row['email'];
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->SMTPKeepAlive = true;
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'aniagoluchiemelie77@gmail.com';
+                $mail->Password = 'ozmsoscaivmkrbuu';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+                $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->Subject = "$message_title";
+                $mail->Body = "<div style='font-family: Arial, sans-serif;color:#222;width: 80%;padding:16px;'>
+                                    $message_body
+                                </div>";
+                if ($mail->send()) {
+                    $forUser = 0;
+                    $action = 'Email Sucessfully sent to ' . $email;
+                    logUpdate($conn, $forUser, $action);
+                    $status = "Message Delivered Successfully";
+                    $status_type = "Success";
+                    return ["status" => $status, "status_type" => $status_type];
+                };
+            } catch (Exception $e) {
+                $status = "Message could not be sent to $email. Error: {$mail->ErrorInfo}";
+                $status_type = "Success";
+                return ["status" => $status, "status_type" => $status_type];
+            }
+        }
+    } else {
+        $status = "No subscribers found.";
+        $status_type = "Error";
+        return ["status" => $status, "status_type" => $status_type];
+    }
+}
+function sendMessageToWriter($id, $message_title = null, $message_body = null)
+{
+    global $conn;
+    $getSubscriber = "SELECT email FROM writer WHERE id = $id";
+    $getSubscriber_result = $conn->query($getSubscriber);
+    if ($getSubscriber_result->num_rows > 0) {
+        while ($row = $getSubscriber_result->fetch_assoc()) {
+            $email = $row['email'];
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->SMTPKeepAlive = true;
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'aniagoluchiemelie77@gmail.com';
+                $mail->Password = 'ozmsoscaivmkrbuu';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+                $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->Subject = "$message_title";
+                $mail->Body = "<div style='font-family: Arial, sans-serif;color:#222;width: 80%;padding:16px;'>
+                                    $message_body
+                                </div>";
+                if ($mail->send()) {
+                    $forUser = 0;
+                    $action = 'Email Sucessfully sent to ' . $email;
+                    logUpdate($conn, $forUser, $action);
+                    $status = "Message Delivered Successfully";
+                    $status_type = "Success";
+                    return ["status" => $status, "status_type" => $status_type];
+                };
+            } catch (Exception $e) {
+                $status = "Message could not be sent to $email. Error: {$mail->ErrorInfo}";
+                $status_type = "Success";
+                return ["status" => $status, "status_type" => $status_type];
+            }
+        }
+    } else {
+        $status = "No subscribers found.";
+        $status_type = "Error";
+        return ["status" => $status, "status_type" => $status_type];
     }
 }

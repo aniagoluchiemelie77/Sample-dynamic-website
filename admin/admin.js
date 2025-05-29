@@ -8,14 +8,14 @@ const logoutDiv = document.getElementById('logout_alert');
 const logoutDiv2 = document.getElementById('logout_alert2');
 const exitLogout = document.getElementById('dismiss-popup-btn');
 
-window.addEventListener("resize", function() {
+/*window.addEventListener("resize", function() {
     if (tinymce.activeEditor) {
         let newWidth = window.innerWidth * 0.8;
         let newHeight = window.innerHeight * 0.7;
         tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
         tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
     }
-});
+});*/
 
 sideBtns.forEach((tab, index) =>{
     tab.addEventListener('click', () => {

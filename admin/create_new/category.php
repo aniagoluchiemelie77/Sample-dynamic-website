@@ -48,12 +48,12 @@ if (file_exists($translationFile)) {
             <div class="formcontainer_subdiv">
                 <div class="input_group">
                     <label for="name"><?php echo $translations['category_name']; ?>:</label>
-                    <input type="text" name="topicName" id="topicName" required />
+                    <input type="text" name="topicName" id="topicName" />
                 </div>
                 <div class="newpost_container_div6 newpost_subdiv">
                     <label class="form__label" for="topicImg"><?php echo $translations['category_image']; ?>:</label>
                     <div class="newpost_subdiv2">
-                        <input class="form__input" name="topicImg" type="file" required />
+                        <input class="form__input" name="topicImg" type="file" />
                         <p class="newpost_subdiv2-p leftp"><span>*</span><?php echo $translations['message_title_i']; ?></p>
                     </div>
                 </div>

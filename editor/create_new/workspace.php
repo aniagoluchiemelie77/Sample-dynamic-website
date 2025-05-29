@@ -44,7 +44,7 @@ if (file_exists($translationFile)) {
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="Post_Title"><?php echo $translations['post_title']; ?>:</label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="Post_Title" type="text" required />
+                    <input class="form__input" name="Post_Title" type="text" />
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
@@ -89,7 +89,7 @@ if (file_exists($translationFile)) {
             <div class="newpost_container_div6 newpost_subdiv">
                 <label class="form__label" for="Post_Image"><?php echo $translations['post_image']; ?></label>
                 <div class="newpost_subdiv2">
-                    <input class="form__input" name="Post_Image" type="file" required />
+                    <input class="form__input" name="Post_Image" type="file" />
                     <p class="newpost_subdiv2-p leftp"><span>*</span><?php echo $translations['post_image_p']; ?></p>
                 </div>
             </div>

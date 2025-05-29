@@ -47,7 +47,7 @@ if (file_exists($translationFile)) {
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="resource_type"><?php echo $translations['resource_type']; ?></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="resource_type" type="text" required />
+                    <input class="form__input" name="resource_type" type="text" />
                 </div>
             </div>
             <div class="newpost_container_div6">
@@ -81,7 +81,7 @@ if (file_exists($translationFile)) {
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="page_name"><?php echo $translations['page_name']; ?></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="page_name" type="text" required />
+                    <input class="form__input" name="page_name" type="text" />
                 </div>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">

@@ -34,7 +34,7 @@ $content = "";
             <div class="formcontainer_subdiv">
                 <div class="input_group">
                     <label for="name">Category Name:</label>
-                    <input type="text" name="topicName" id="topicName" required />
+                    <input type="text" name="topicName" id="topicName" />
                 </div>
                 <div class="input_group categorygroup">
                     <label for="desc">Short Description:</label>
@@ -43,7 +43,7 @@ $content = "";
                 <div class="newpost_container_div6 newpost_subdiv">
                     <label class="form__label" for="topicImg">Category Image:</label>
                     <div class="newpost_subdiv2">
-                        <input class="form__input" name="topicImg" type="file" required />
+                        <input class="form__input" name="topicImg" type="file" />
                         <p class="newpost_subdiv2-p leftp"><span>*</span>Optional</p>
                     </div>
                 </div>

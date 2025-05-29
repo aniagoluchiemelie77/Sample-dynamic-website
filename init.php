@@ -167,7 +167,7 @@ function getOrdinalSuffix($day)
     }
     return 'th';
 }
-function sendNewpostNotification($post_title, $post_link)
+function sendNewpostNotification($post_title, $post_link, $post_image, $post_subtitle)
 {
     global $conn;
     $sql = "SELECT email FROM subscribers";
@@ -188,8 +188,13 @@ function sendNewpostNotification($post_title, $post_link)
                 $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
                 $mail->addAddress($email);
                 $mail->isHTML(true);
-                $mail->Subject = "New Post Alert: $post_title";
-                $mail->Body = "Hey there! Check out our latest post: <h1>$post_title</h1>.<br>By clicking this link <a href='$post_link'>here</a>";
+                $mail->Subject = "$post_title";
+                $mail->Body = "<div style='font-family: Arial, sans-serif; color: #222; width: 80%; height: fit-content; display:flex; flex-direction: column; padding: 1rem; align-items: center;'>
+                                    <img src='$post_image' alt='Post Image' style='width:40rem;object-fit:cover;height:40rem;'/>
+                                    <h1 style='font-size:3.0rem;color: #FAFAFA;padding:1rem;'>$post_title</h1>
+                                    <h2 style='font-size:2.4rem;color: #FAFAFA;padding:1rem;'>$post_subtitle</h2>
+                                    <a href='$post_link' style='font-size:1.5rem;color: #FAFAFA;padding:1rem;border-radius:1rem;background-color:inherit;border:none;margin-top:1rem;cursor:pointer;'>Read Post</a>
+                                </div>";
                 $mail->send();
             } catch (Exception $e) {
                 echo "Message could not be sent to $email. Error: {$mail->ErrorInfo}<br>";

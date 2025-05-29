@@ -44,20 +44,20 @@ if (file_exists($translationFile)) {
             <div class="formcontainer_subdiv">
                 <div class="input_group">
                     <label for="writer_firstname"><?php echo $translations['writers_firstname']; ?>:</label>
-                    <input type="text" name="writer_firstname" id="topicName" required />
+                    <input type="text" name="writer_firstname" id="topicName" />
                 </div>
                 <div class="input_group">
                     <label for="writer_lastname"><?php echo $translations['writers_lastname']; ?>:</label>
-                    <input type="text" name="writer_lastname" id="topicName" required />
+                    <input type="text" name="writer_lastname" id="topicName" />
                 </div>
                 <div class="input_group">
                     <label for="writer_email"><?php echo $translations['writers_email']; ?>:</label>
-                    <input type="email" name="writer_email" id="topicName" required />
+                    <input type="email" name="writer_email" id="topicName" />
                 </div>
                 <div class="newpost_container_div6 newpost_subdiv">
                     <label class="form__label" for="Img"><?php echo $translations['writers_image']; ?>:</label>
                     <div class="newpost_subdiv2">
-                        <input class="form__input" name="Img" type="file" required />
+                        <input class="form__input" name="Img" type="file" />
                     </div>
                 </div>
             </div>

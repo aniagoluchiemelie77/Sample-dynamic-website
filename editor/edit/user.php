@@ -57,22 +57,22 @@ if (file_exists($translationFile)) {
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Img'>$translations[edit_user_image]: </label>
                                     <div class='newpost_subdiv2'>
-                                        <input class='form__input' name='Img' type='file' required/>
+                                        <input class='form__input' name='Img' type='file'/>
                                     </div>
                                 </div>
                             </div>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_firstname'>$translations[firstname]:</label>
-                                <input class='createeditor_input' type='text' name='profile_firstname' value='$firstname' required/>
+                                <input class='createeditor_input' type='text' name='profile_firstname' value='$firstname'/>
                             </div>
-                            <input class='createeditor_input' type='hidden' name='profile-id' value='$id' required/>
+                            <input class='createeditor_input' type='hidden' name='profile-id' value='$id'/>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_lastname'>$translations[lastname]:</label>
-                                <input class='createeditor_input' type='text' name='profile_lastname' value='$lastname' required/>
+                                <input class='createeditor_input' type='text' name='profile_lastname' value='$lastname'/>
                             </div>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_email'>$translations[email]:</label>
-                                <input class='createeditor_input' type='email' name='profile_email' value='$email' required/>
+                                <input class='createeditor_input' type='email' name='profile_email' value='$email'/>
                             </div>
                             <div class='createeditor_inputgroup flexcolumn'>
                                 <label class='createeditor_label rightmargin nooutline' for='profile_bio'>$translations[bio]:</label>
@@ -106,22 +106,22 @@ if (file_exists($translationFile)) {
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Img'>$translations[edit_user_image]: </label>
                                     <div class='newpost_subdiv2'>
-                                        <input class='form__input' name='Img' type='file' required/>
+                                        <input class='form__input' name='Img' type='file'/>
                                     </div>
                                 </div>
                             </div>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_firstname'>$translations[firstname]:</label>
-                                <input class='createeditor_input' type='text' name='profile_firstname' value='$firstname' required/>
+                                <input class='createeditor_input' type='text' name='profile_firstname' value='$firstname'/>
                             </div>
-                            <input class='createeditor_input' type='hidden' name='profile-id' value='$id' required/>
+                            <input class='createeditor_input' type='hidden' name='profile-id' value='$id'/>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_lastname'>$translations[lastname]:</label>
-                                <input class='createeditor_input' type='text' name='profile_lastname' value='$lastname' required/>
+                                <input class='createeditor_input' type='text' name='profile_lastname' value='$lastname'/>
                             </div>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_email'>$translations[email]:</label>
-                                <input class='createeditor_input' type='email' name='profile_email' value='$email' required/>
+                                <input class='createeditor_input' type='email' name='profile_email' value='$email'/>
                             </div>
                             <div class='createeditor_inputgroup flexcolumn'>
                                 <label class='createeditor_label rightmargin nooutline' for='profile_bio'>$translations[bio]:</label>
@@ -129,11 +129,11 @@ if (file_exists($translationFile)) {
                             </div>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_role'>$translations[role]:</label>
-                                <input class='createeditor_input' type='text' name='profile_role' value='$role' required/>
+                                <input class='createeditor_input' type='text' name='profile_role' value='$role'/>
                             </div>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_url'>$translations[users_linkedin_url]:</label>
-                                <input class='createeditor_input' type='text' name='profile_url' value='$linkedin_url' required/>
+                                <input class='createeditor_input' type='text' name='profile_url' value='$linkedin_url'/>
                             </div>
                             <input class='createeditor_input-submit' value='$translations[save]' name='edit_profile_otheruser' type='submit'/>
                         </form>

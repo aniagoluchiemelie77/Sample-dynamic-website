@@ -47,29 +47,29 @@ if (file_exists($translationFile)) {
             <div class="formcontainer_subdiv">
                 <div class="input_group">
                     <label for="editor_firstname"><?php echo $translations['editors_firstname']; ?>:</label>
-                    <input type="text" name="editor_firstname" id="topicName" required />
+                    <input type="text" name="editor_firstname" id="topicName" />
                 </div>
                 <div class="input_group">
                     <label for="editor_lastname"><?php echo $translations['editors_lastname']; ?>:</label>
-                    <input type="text" name="editor_lastname" id="topicName" required />
+                    <input type="text" name="editor_lastname" id="topicName" />
                 </div>
                 <div class="input_group">
                     <label for="editor_email"><?php echo $translations['editors_email']; ?>:</label>
-                    <input type="email" name="editor_email" id="topicName" required />
+                    <input type="email" name="editor_email" id="topicName" />
                 </div>
                 <div class="newpost_container_div6 newpost_subdiv">
                     <label class="form__label" for="Img"><?php echo $translations['editors_image']; ?>:</label>
                     <div class="newpost_subdiv2">
-                        <input class="form__input" name="Img" type="file" required />
+                        <input class="form__input" name="Img" type="file" />
                     </div>
                 </div>
                 <div class="input_group">
                     <label for="editor_password"><?php echo $translations['editors_password']; ?>:</label>
-                    <input type="password" name="editor_password" id="topicName" required />
+                    <input type="password" name="editor_password" id="topicName" />
                 </div>
                 <div class="input_group">
                     <label for="editor_password-confirm"><?php echo $translations['confirm_editors_password']; ?>:</label>
-                    <input type="password" name="editor_password-confirm" id="topicName" required />
+                    <input type="password" name="editor_password-confirm" id="topicName" />
                 </div>
             </div>
             <input class="formcontainer_submit" value="<?php echo $translations['save']; ?>" type="submit" name="create_editor" />

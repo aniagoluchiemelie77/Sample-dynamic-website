@@ -44,19 +44,19 @@ if (file_exists($translationFile)) {
             <div class="formcontainer_subdiv">
                 <div class="input_group">
                     <label for="user_firstname"><?php echo $translations['users_firstname']; ?>:</label>
-                    <input type="text" name="user_firstname" id="topicName" required />
+                    <input type="text" name="user_firstname" id="topicName" />
                 </div>
                 <div class="input_group">
                     <label for="user_lastname"><?php echo $translations['users_lastname']; ?>:</label>
-                    <input type="text" name="user_lastname" id="topicName" required />
+                    <input type="text" name="user_lastname" id="topicName" />
                 </div>
                 <div class="input_group">
                     <label for="user_email"><?php echo $translations['users_email']; ?>:</label>
-                    <input type="email" name="user_email" id="topicName" required />
+                    <input type="email" name="user_email" id="topicName" />
                 </div>
                 <div class="input_group">
                     <label for="user_role"><?php echo $translations['users_role']; ?>:</label>
-                    <input type="email" name="user_role" id="topicName" required />
+                    <input type="email" name="user_role" id="topicName" />
                 </div>
                 <div class="newpost_container_div5 newpost_subdiv">
                     <label class="form__label" for="user_linkedin_url"><?php echo $translations['users_linkedin_url']; ?>:</label>
@@ -68,7 +68,7 @@ if (file_exists($translationFile)) {
                 <div class="newpost_container_div6 newpost_subdiv">
                     <label class="form__label" for="Img"><?php echo $translations['users_photo']; ?>:</label>
                     <div class="newpost_subdiv2">
-                        <input class="form__input" name="Img" type="file" required />
+                        <input class="form__input" name="Img" type="file" />
                     </div>
                 </div>
             </div>

@@ -338,7 +338,7 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
             logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
             $_SESSION['status'] = "Post Created Successfully";
-            sendNewpostNotification($title, $post_link);
+            sendNewpostNotification($title, $post_link, $convertedPath, $subtitle);
             header('location: admin_homepage.php');
         } else {
             $_SESSION['status_type'] = "Error";
@@ -612,7 +612,7 @@ function savePost2($title, $subtitle, $convertedPath, $content, $niche, $link, $
             logUpdate($conn, $forUser, $content);
             $_SESSION['status_type'] = "Success";
             $_SESSION['status'] = "Post Created Successfully";
-            sendNewpostNotification($title, $post_link);
+            sendNewpostNotification($title, $post_link, $convertedPath, $subtitle);
             header('location: create_new/posts.php');
         } else {
             $_SESSION['status_type'] = "Error";

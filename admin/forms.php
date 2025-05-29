@@ -885,6 +885,7 @@ if (isset($_POST['edit_profile'])) {
     updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $admin_id);
 }
 if (isset($_POST['edit_profile_editor'])) {
+    file_put_contents("log.txt", "POST request received\n", FILE_APPEND);
     $id = $_POST['profile-id'];
     $firstname = $_POST['profile_firstname'];
     $password = $_POST['profile_password'];
@@ -904,8 +905,8 @@ if (isset($_POST['edit_profile_editor'])) {
     if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
-        updateEditorProfile($firstname, $password, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $convertedPath, $id);
     }
+    updateEditorProfile($firstname, $password, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $convertedPath, $id);
 }
 if (isset($_POST['edit_profile_writer'])) {
     $id = $_POST['profile-id'];

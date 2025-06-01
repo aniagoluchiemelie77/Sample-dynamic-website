@@ -198,19 +198,11 @@ a, p, li{
 .mainheader__header-nav i:hover{
     color: var(--color10);
 }
-.header form{
-    width: 80%;
+.header_searchbar{
     margin: .5rem 0;
-    background-color: var(--color10);
-    border-radius: 2rem;
-    overflow: hidden;
-    -webkit-border-radius: 2rem;
-    -moz-border-radius: 2rem;
-    -ms-border-radius: 2rem;
-    -o-border-radius: 2rem;
 }
-.header form button{
-    background-color: inherit;
+.header_searchbar button{
+    background-color: var(--color10);
     padding: var(--divpadding);
     border: none;
     font-size: 1.8rem;
@@ -219,7 +211,7 @@ a, p, li{
     color: #FAFAFA;
     width: 10%;
 }
-.header form input{
+.header_searchbar input{
     width: calc(100% - 10%);
     height: 100%;
     padding: var(--divpadding);
@@ -228,7 +220,41 @@ a, p, li{
     border: none;
     border-bottom: 1px solid var(--color10);
     outline: none;
-    background-color: var(--color30);
+    background-color: inherit;
+}
+.search_input{
+    width: 80%;
+    background-color: inherit;
+    border-radius: 1rem;
+    overflow: hidden;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+.header_searchbar2{
+    background-color: var(--themecolor30);
+    display: flex;
+}
+.header_searchbar2 button{
+    background-color: var(--color10);
+    padding: var(--divpadding-high);
+    border: none;
+    font-size: 1.8rem;
+    outline: none;
+    cursor: pointer;
+    color: #FAFAFA;
+    width: 10%;
+}
+.header_searchbar2 input{
+    width: calc(100% - 10%);
+    height: 100%;
+    padding: var(--divpadding-high);
+    font-size: var(--pfontsize);
+    color: var(--color60);
+    border: none;
+    outline: none;
+    background-color: inherit;
 }
 .mainheader__header-nav a:nth-child(2){
     margin-left: 2rem;
@@ -1434,7 +1460,7 @@ a, p, li{
     display: flex;
     flex-wrap: wrap;
 }
-.more_posts a{
+.more_posts .more_posts_subdiv{
     position: relative;
     height: 60vh;
     width: 20vw;
@@ -1443,20 +1469,20 @@ a, p, li{
     margin: 1rem;
     cursor: pointer;
 }
-.more_posts a img{
+.more_posts .more_posts_subdiv img{
     height: 70%;
     object-fit: cover;
     width: 100%;
 }
-.more_posts a div{
+.more_posts .more_posts_subdiv div{
     padding: 0 1rem;
 }
-.more_posts a div h1{
+.more_posts .more_posts_subdiv div h1{
     font-size: var(--header-h8);
     width: 100%;
     font-weight: 600;
 }
-.more_posts a div span{
+.more_posts .more_posts_subdiv div span{
     font-size: 1rem;
     color: #222222a0;
 }
@@ -1548,6 +1574,20 @@ a, p, li{
     background-color: rgba(0,0,0,.6);
     backdrop-filter: blur(10px);
     color: var(--color60-shade);
+}
+.posts_btn{
+    padding: 1rem;
+    cursor: pointer;
+}
+.posts_btn:hover{
+    color: var(--color10);
+}
+.view_whitepaper{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 90%;
+    justify-content: space-between;
 }
 .posts_div h1{
     font-size: var(--header-h8);

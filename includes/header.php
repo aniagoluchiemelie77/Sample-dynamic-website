@@ -14,7 +14,7 @@
             </div>
             <a class="mainheader__signupbtn" href="pages/newslettersubscribe.php">Newsletter Signup</a>
         </div>
-        <form class="header_searchbar hidden" id="search_form">
+        <form class="header_searchbar search_input hidden" id="search_form">
             <input type="text" name="query" id="search-bar" placeholder="Search.." />
             <button class="fa fa-search" aria-hidden="true" type="button" onclick="submitSearch()"></button>
         </form>
@@ -95,7 +95,7 @@
                 <a href="pages/commentaries.php" class="sidebar__links">Commentaries</a>
                 <a href="pages/news.php" class="sidebar__links">News</a>
                 <h1 class="sidebar__col-header top_space">Resources</h1>
-                <a href="#" class="sidebar__links">White Papers</a>
+                <a href="pages/whitepapers.php" class="sidebar__links">White Papers</a>
                 <a href="#" class="sidebar__links">Videoscripts</a>
                 <a href="#" class="sidebar__links">Ebooks</a>
             </div>

@@ -32,6 +32,7 @@ function addResources($resource_type, $resource_path)
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
+    $fileId = uploadToGoogleDrive($resource_path, 'Whitepaper.docx');
     $stmt = $conn->prepare("INSERT INTO resources (resource_name, resource_path, Date, time) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssss", $resource_type, $resource_path, $date, $time);
     if ($stmt->execute()) {

@@ -378,5 +378,4 @@ function uploadToGoogleDrive($filePath, $fileName)
         'mimeType' => mime_content_type($filePath),
         'uploadType' => 'multipart'
     ]);
-    return $result->id; // Returns the uploaded file's ID
 }

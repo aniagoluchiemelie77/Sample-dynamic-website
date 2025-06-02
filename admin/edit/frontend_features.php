@@ -273,7 +273,6 @@ if (file_exists($translationFile)) {
                 });
         }
     </script>
-
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";

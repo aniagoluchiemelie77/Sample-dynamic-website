@@ -64,11 +64,11 @@ $translations = [
     'published_time' => 'وقت النشر',
     'categories' => 'الفئات',
     'categories_p' => 'إجمالي عدد المشاركات لهذه الفئة',
-    'about_website' => 'حول الموقع',
+    'about_us' => 'حول الموقع',
     'advertise_with_us' => 'الإعلان معنا',
     'contact_us' => 'اتصل بنا',
     'privacy_policy' => 'سياسة الخصوصية',
-    'terms_of_services' => 'شروط الخدمة',
+    'terms_of_service' => 'شروط الخدمة',
     'work_with_us' => 'العمل معنا',
     'customise_website' => 'تخصيص الموقع',
     'change_password' => 'تغيير كلمة المرور',
@@ -228,5 +228,6 @@ $translations = [
     'resource_niche' => " نوع المورد",
     'resource_title_p' => " عنوان المورد (اختياري)",
     'resource_niche_p' => " نوع المورد (اختياري)",
+    'share_news_tips' => 'عنوان الموقع',
 ];
 ?>

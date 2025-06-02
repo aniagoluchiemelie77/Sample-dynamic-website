@@ -297,11 +297,12 @@ function addPage($page_name)
                     if ($query->execute()) {
                         if (file_put_contents($filePath, $fileContent)) {
                             if (file_put_contents($filePath2, $fileContent2)) {
+                                $createTranslationInstance = updateTranslations($uc_page_name);
+                                $_SESSION['status_type'] = $createTranslationInstance['status_type'];
+                                $_SESSION['status'] = $createTranslationInstance['status'];
                                 $content = "Admin " . $_SESSION['firstname'] . " created a new page type";
                                 $forUser = 0;
                                 logUpdate($conn, $forUser, $content);
-                                $_SESSION['status_type'] = "Success";
-                                $_SESSION['status'] = "Page type Created Successfully";
                                 header('location: admin_homepage.php');
                             } else {
                                 $_SESSION['status_type'] = "Error";

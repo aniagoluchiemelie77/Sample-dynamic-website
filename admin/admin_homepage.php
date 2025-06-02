@@ -965,36 +965,26 @@ $date = formatDate($_SESSION['date_joined']);
                             <p><?php echo $translations['categories']; ?></p>
                         </a>
                     </div>
-                    <div class="pages_container_subdiv ">
-                        <a class='pages_container_subdiv-links' href="pages/aboutus.php">
-                            <p><?php echo $translations['about_website']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/advertisewithus.php">
-                            <p><?php echo $translations['advertise_with_us']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/contactus.php">
-                            <p><?php echo $translations['contact_us']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/privacypolicy.php">
-                            <p><?php echo $translations['privacy_policy']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/termsofservice.php">
-                            <p><?php echo $translations['terms_of_services']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/workwithus.php">
-                            <p><?php echo $translations['work_with_us']; ?></p>
-                        </a>
-                    </div>
+                    <?php ?>
+                    <?php
+                    $getpages_sql = " SELECT id, page_name FROM pages ORDER BY id";
+                    $getpages_result = $conn->query($getpages_sql);
+                    if ($getpages_result->num_rows > 0) {
+                        while ($row = $getpages_result->fetch_assoc()) {
+                            $page_name = $row['page_name'];
+                            $page_name1 = convertToUnreadable2($page_name);
+                            $page_name2 = removeHyphen2($page_name);
+                            $page_name2 = lowercaseNoSpace($page_name2);
+                            $page_id = $row['id'];
+                            echo "
+                                <div class='pages_container_subdiv '>
+                                    <a class='pages_container_subdiv-links' href='pages/$page_name2.php'>
+                                        <p>$translations[$page_name1]</p>
+                                    </a>
+                                </div>";
+                        }
+                    }
+                    ?>
                 </div>
             </div>
             <div class="settings tab_content" id="tab6">

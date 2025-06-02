@@ -79,6 +79,14 @@ if (!function_exists('convertToUnreadable')) {
         return $string;
     }
 }
+if (!function_exists('convertToUnreadable2')) {
+    function convertToUnreadable2($slug)
+    {
+        $string = strtolower($slug);
+        $string = str_replace('-', '_', $string);
+        return $string;
+    }
+}
 if (!function_exists('removeHyphen')) {
     function removeHyphen($string)
     {
@@ -136,5 +144,49 @@ if (!function_exists('pluralizeTableName')) {
             "pdffile" => "pdffiles",
         ];
         return $pluralRules[$name] ?? ($name . 's');
+    }
+}
+if (!function_exists('updateTranslations')) {
+    function updateTranslations($string)
+    {
+        $key = strtolower(str_replace(' ', '_', $string));
+        $languageTranslations = [
+            'arb' => 'عنوان الموقع',
+            'en'  => 'About Website',
+            'es'  => 'Acerca del sitio web',
+            'fr'  => 'À propos du site Web',
+            'ger' => 'Über die Website',
+            'mdn' => '关于网站',
+            'rsn' => 'О сайте'
+        ];
+        $folder = "translation_files";
+        foreach ($languageTranslations as $lang => $translation) {
+            $filePath = "$folder/lang/$lang.php";
+            if (!file_exists($filePath)) {
+                echo "Skipping: $filePath does not exist.\n";
+                continue;
+            }
+            $fileContent = file_get_contents($filePath);
+            if (preg_match('/\$translations\s*=\s*\[(.*?)\];/s', $fileContent, $matches)) {
+                $translationsArrayContent = $matches[1];
+                if (strpos($translationsArrayContent, "'$key'") === false) {
+                    $newEntry = "    '$key' => '$translation',\n";
+                    $updatedArrayContent = $translationsArrayContent . "\n" . $newEntry;
+                    $updatedContent = str_replace($matches[0], "\$translations = [$updatedArrayContent];", $fileContent);
+                    file_put_contents($filePath, $updatedContent);
+                    $status = "Page Created Successfully";
+                    $status_type = "Success";
+                    return ["status" => $status, "status_type" => $status_type];
+                } else {
+                    $status = "'$key' already exists in $filePath";
+                    $status_type = "Error";
+                    return ["status" => $status, "status_type" => $status_type];
+                }
+            } else {
+                $status = "Could not locate \$translations array in $filePath";
+                $status_type = "Error";
+                return ["status" => $status, "status_type" => $status_type];
+            }
+        }
     }
 }

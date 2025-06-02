@@ -42,7 +42,7 @@ if (file_exists($translationFile)) {
         </div>
         <div class="about_contents">
             <?php
-            $selectpage = "SELECT content FROM advert_info ORDER BY id DESC LIMIT 1";
+        $selectpage = "SELECT content FROM advertise_with_us ORDER BY id DESC LIMIT 1";
             $selectpage_result = $conn->query($selectpage);
             if ($selectpage_result->num_rows > 0) {
                 while ($row = $selectpage_result->fetch_assoc()) {

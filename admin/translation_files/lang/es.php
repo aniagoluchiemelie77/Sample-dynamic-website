@@ -219,5 +219,6 @@ $translations = [
     'verify' => "Verificar",
     'edit_post' => "Editar Publicación",
     'subtitle' => "Subtítulo",
+    'require' => "Requerido",
 ];
 ?>

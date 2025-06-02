@@ -221,5 +221,6 @@ $translations = [
     'verify' => "Vérifier",
     'edit_post' => "Modifier le message",
     'subtitle' => "Sous-titre",
+    'require' => "Requis",
 ];
 ?>

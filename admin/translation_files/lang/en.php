@@ -221,5 +221,10 @@ $translations = [
     'verify' => "Verify",
     'edit_post' => "Edit Post",
     'subtitle' => "Subtitle",
+    'require' => "Required",
+    'resource_title' => "Resource Title",
+    'resource_niche' => "Resource Niche",
+    'resource_title_p' => "Resource Title (optional)",
+    'resource_niche_p' => "Resource Niche (optional)",
 ];
 ?>

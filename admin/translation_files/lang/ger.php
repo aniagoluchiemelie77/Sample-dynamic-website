@@ -214,6 +214,6 @@ $translations = [
     'verify' => "Überprüfen",
     'edit_post' => "Beitrag bearbeiten",
     'subtitle' => "Untertitel",
-
+    'require' => "Erforderlich",
 ];
 ?>

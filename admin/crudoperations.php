@@ -92,7 +92,6 @@ if (!function_exists('removeHyphen2')) {
         return str_replace('-', ' ', $string); // Replace hyphens, KEEP spaces
     }
 }
-
 if (!function_exists('convertPath')) {
     function convertPath($path)
     {
@@ -117,5 +116,25 @@ if (!function_exists('noHyphenLowercase')) {
         $string = str_replace('-', '', $string);
         $string = strtolower($string);
         return $string;
+    }
+}
+if (!function_exists('lowercaseNoSpace')) {
+    function lowercaseNoSpace($text)
+    {
+        return strtolower(str_replace(' ', '', $text));
+    }
+}
+if (!function_exists('pluralizeTableName')) {
+    function pluralizeTableName($name)
+    {
+        $name = strtolower(str_replace(' ', '', $name));
+        $pluralRules = [
+            "whitepaper" => "whitepapers",
+            "resource" => "resources",
+            "videoscript" => "videoscripts",
+            "ebook" => "ebooks",
+            "pdffile" => "pdffiles",
+        ];
+        return $pluralRules[$name] ?? ($name . 's');
     }
 }

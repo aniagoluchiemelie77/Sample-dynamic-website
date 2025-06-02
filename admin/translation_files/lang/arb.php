@@ -223,5 +223,6 @@ $translations = [
     'verify' => "تحقق",
     'edit_post' => "تعديل المنشور",
     'subtitle' => "العنوان الفرعي",
+    'require' => "مطلوب",
 ];
 ?>

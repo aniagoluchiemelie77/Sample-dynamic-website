@@ -27,27 +27,30 @@ function addWebsiteMessages($cookie_message, $description)
     }
     $stmt->close();
 }
-function addResources($resource_type, $resource_path)
+function addResources($tableName, $convertedPath, $resource_type, $resource_niche, $resource_title, $resource_url)
 {
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $fileId = uploadToGoogleDrive($resource_path, 'Whitepaper.docx');
-    $stmt = $conn->prepare("INSERT INTO resources (resource_name, resource_path, Date, time) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $resource_type, $resource_path, $date, $time);
+    $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $tableName, $resource_path, $date, $time, $resource_niche, $resource_title);
     if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " added a new Resource type";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Resource type Created Successfully";
-        header('location: edit/frontend_features.php');
+        $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $resource_type, $date, $time);
+        if ($stmt->execute()) {
+            $uploadFile = uploadToGoogleDrive($convertedPath, $tableName);
+            $_SESSION['status_type'] = $uploadFile['status_type'];
+            $_SESSION['status'] = $uploadFile['status'];
+            $content = "Admin " . $_SESSION['firstname'] . " added a new Resource type";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            header('location: edit/frontend_features.php');
+        }
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: edit/frontend_features.php');
     }
-    $stmt->close();
 }
 function addPage($page_name)
 {
@@ -1197,19 +1200,43 @@ if (isset($_POST['change_frontend_messages'])) {
 }
 if (isset($_POST['add_resource'])) {
     $resource_type = $_POST['resource_type'];
+    $resource_niche = $_POST['resource_niche'];
+    $resource_title = $_POST['resource_title'];
     $resource_url = $_POST['resource_url'];
     $resource_image = $_FILES['resource_image']['name'];
     $resource_tmp_name = $_FILES['resource_image']['tmp_name'];
     $resource_folder = "../files/" . $resource_image;
-    if (move_uploaded_file($resource_tmp_name, $resource_folder)) {
-        $imagePath = $resource_folder;
-        $convertedPath = convertPath2($imagePath);
-        $resource_type = convertToUnreadable($resource_type);
-        addResources($resource_type, $convertedPath);
+    $tableName = pluralizeTableName($resource_type);
+    $result = $conn->query("SHOW TABLES LIKE '$tableName'");
+    if ($result->num_rows == 0) {
+        $sql = "CREATE TABLE IF NOT EXISTS $tableName (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50) NULL, resource_path VARCHAR(100) NULL, date_added DATE NOT NULL, time_added TIME NOT NULL, niche VARCHAR(50) NULL, title VARCHAR(100) NULL)";
+        if ($conn->query($sql) === TRUE) {
+            if (!empty($resource_image)) {
+                if (move_uploaded_file($resource_tmp_name, $resource_folder)) {
+                    $imagePath = $resource_folder;
+                    $convertedPath = convertPath2($imagePath);
+                    $resource_type = convertToUnreadable($resource_type);
+                    addResources($tableName, $convertedPath, $resource_type, $resource_niche, $resource_title, $resource_url);
+                }
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Please Select The Resource's file to upload";
+                header('location: edit/frontend_features.php');
+            }
+        }
     } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/frontend_features.php');
+        if (!empty($resource_image)) {
+            if (move_uploaded_file($resource_tmp_name, $resource_folder)) {
+                $imagePath = $resource_image;
+                $convertedPath = convertPath2($imagePath);
+                $resource_type = convertToUnreadable($resource_type);
+                addResources($tableName, $convertedPath, $resource_type, $resource_niche, $resource_title, $resource_url);
+            }
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Please Select The Resource's file to upload";
+            header('location: edit/frontend_features.php');
+        }
     }
 }
 if (isset($_POST['add_page'])) {

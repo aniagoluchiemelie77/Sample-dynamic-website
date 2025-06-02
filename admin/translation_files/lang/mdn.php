@@ -221,5 +221,6 @@ $translations = [
     'verify' => "验证",
     'edit_post' => "编辑帖子",
     'subtitle' => "副标题",
+    'require' => "必填",
 ];
 ?>

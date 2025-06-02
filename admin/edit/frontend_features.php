@@ -55,13 +55,25 @@ if (file_exists($translationFile)) {
                     <label class="form__label" for="resource_image"><?php echo $translations['upload_resource']; ?></label>
                     <div class="newpost_subdiv2">
                         <input class="form__input" name="resource_image" type="file" />
-                        <p class="newpost_subdiv2-p leftp"><span>*</span><?php echo $translations['message_title_i']; ?></p>
+                        <p class="newpost_subdiv2-p leftp"><span>*</span><?php echo $translations['require']; ?></p>
                     </div>
                 </div>
                 <div class="newpost_container_div6_subdiv">
                     <label class="form__label" for="resource_url"><?php echo $translations['resource_url']; ?>:</label>
                     <div class="newpost_container_div5_subdiv2">
                         <input class="form__input" name="resource_url" type="text" placeholder="<?php echo $translations['resource_url_p']; ?>..." />
+                    </div>
+                </div>
+                <div class="newpost_container_div6_subdiv">
+                    <label class="form__label" for="resource_url"><?php echo $translations['resource_niche']; ?>:</label>
+                    <div class="newpost_container_div5_subdiv2">
+                        <input class="form__input" name="resource_niche" type="text" placeholder="<?php echo $translations['resource_niche_p']; ?>..." />
+                    </div>
+                </div>
+                <div class="newpost_container_div6_subdiv">
+                    <label class="form__label" for="resource_url"><?php echo $translations['resource_title']; ?>:</label>
+                    <div class="newpost_container_div5_subdiv2">
+                        <input class="form__input" name="resource_title" type="text" placeholder="<?php echo $translations['resource_title_p']; ?>..." />
                     </div>
                 </div>
             </div>

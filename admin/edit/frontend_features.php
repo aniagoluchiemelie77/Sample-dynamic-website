@@ -204,11 +204,12 @@ if (file_exists($translationFile)) {
                 echo "<div class='sectioneer_div_subdiv'>";
                 while ($row = $getpages_result->fetch_assoc()) {
                     $page_name = $row['page_name'];
+                    $page_name2 = removeHyphen2($page_name);
                     $page_id = $row['id'];
                     $readableString = convertToReadable($page_name);
                     echo "<div>
                             <p>$readableString</p>
-                            <a class='' onclick='confirmDeletePage($resource_id, $page_name)'>
+                            <a class='' onclick='confirmDeletePage($page_id, \"" . htmlspecialchars($page_name2, ENT_QUOTES) . "\")'>
                                 <i class='fa fa-trash' aria-hidden='true'></i>
                             </a>
                         </div>";

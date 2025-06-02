@@ -205,8 +205,8 @@ if ($type == "Resource") {
 }
 if ($type == "Page") {
     $page_name = removeHyphenNoSpace($pageName);
-    $current_folder_file = __DIR__ . "pages/$page_name.php";
-    $two_folders_above_file = dirname(__DIR__, 1) . "pages/$page_name.php";
+    $current_folder_file = "pages/$page_name.php";
+    $two_folders_above_file = "../pages/$page_name.php";
     $sql = "DELETE FROM pages WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);

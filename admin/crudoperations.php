@@ -89,7 +89,7 @@ if (!function_exists('removeHyphen')) {
 if (!function_exists('removeHyphen2')) {
     function removeHyphen2($string)
     {
-        return str_replace('-', ' ', $string); // Replace hyphens, KEEP spaces
+        return str_replace('-', ' ', $string);
     }
 }
 if (!function_exists('convertPath')) {

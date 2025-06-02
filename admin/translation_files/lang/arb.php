@@ -224,5 +224,9 @@ $translations = [
     'edit_post' => "تعديل المنشور",
     'subtitle' => "العنوان الفرعي",
     'require' => "مطلوب",
+    'resource_title' => "  عنوان المور",
+    'resource_niche' => " نوع المورد",
+    'resource_title_p' => " عنوان المورد (اختياري)",
+    'resource_niche_p' => " نوع المورد (اختياري)",
 ];
 ?>

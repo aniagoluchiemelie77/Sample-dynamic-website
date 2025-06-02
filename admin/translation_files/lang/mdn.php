@@ -222,5 +222,9 @@ $translations = [
     'edit_post' => "编辑帖子",
     'subtitle' => "副标题",
     'require' => "必填",
+    'resource_title' => "资源标题",
+    'resource_niche' => "资源领域",
+    'resource_title_p' => "资源标题（可选）",
+    'resource_niche_p' => "资源领域（可选）",
 ];
 ?>

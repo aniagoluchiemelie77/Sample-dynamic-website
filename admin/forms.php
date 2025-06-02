@@ -61,8 +61,8 @@ function addPage($page_name)
     $meta_content = "width=device-width,initial-scale=1.0";
     $formattedPageName = strtolower(str_replace(' ', '-', $page_name));
     $formattedPageName2 = strtolower(str_replace(' ', '_', $page_name));
-    $filename = removeHyphenNoSpace($page_name) . '.php';
-    $uc_page_name = noHyphenUppercase($page_name);
+    $filename = lowercaseNoSpace($page_name) . '.php';
+    $uc_page_name = ucwords($page_name);
     $fileContent = <<<PHP
         <?php
             session_start();
@@ -178,7 +178,7 @@ function addPage($page_name)
                 global \$conn;
                 \$date = date('y-m-d');
                 \$time = date('H:i:s');
-                \$string = str_replace('-', ' ', \$tablename);
+                \$string = str_replace('_', ' ', \$tablename);
                 \$stmt = "INSERT INTO \$tablename (content, date, time) VALUES (?, ?, ?)";
                 if (\$query = \$conn->prepare(\$stmt)) {
                     \$query->bind_param("sss", \$content, \$date, \$time);
@@ -202,7 +202,7 @@ function addPage($page_name)
             }
             if (isset(\$_POST['edit_aboutwebsite_btn'])) {
                 \$content = \$_POST['$formattedPageName'];
-                \$tablename = "$formattedPageName";
+                \$tablename = "$formattedPageName2";
                 updatePages(\$content, \$tablename);
             }
         ?>
@@ -233,7 +233,7 @@ function addPage($page_name)
                     </div>
                     <div class="about_contents">
                         <?php
-                            \$selectpage = "SELECT content FROM $formattedPageName ORDER BY id DESC LIMIT 1";
+                            \$selectpage = "SELECT content FROM $formattedPageName2 ORDER BY id DESC LIMIT 1";
                             \$selectpage_result = \$conn->query(\$selectpage);
                             if (\$selectpage_result->num_rows > 0) {
                                 while (\$row = \$selectpage_result->fetch_assoc()) {
@@ -283,8 +283,8 @@ function addPage($page_name)
             </body>
         </html>
     PHP;
-    $filePath = '../../pages/' . $filename;
-    $filePath2 = '../pages/' . $filename;
+    $filePath = '../pages/' . $filename;
+    $filePath2 = 'pages/' . $filename;
     $sql = "CREATE TABLE IF NOT EXISTS $formattedPageName2 (id INT AUTO_INCREMENT PRIMARY KEY, content TEXT NOT NULL, date DATE NOT NULL, time TIME NOT NULL)";
     if ($conn->query($sql) === TRUE) {
         $sqlPages = "INSERT INTO pages (page_name, Date, time) VALUES (?,?,?)";
@@ -302,9 +302,11 @@ function addPage($page_name)
                                 logUpdate($conn, $forUser, $content);
                                 $_SESSION['status_type'] = "Success";
                                 $_SESSION['status'] = "Page type Created Successfully";
+                                header('location: admin_homepage.php');
                             } else {
                                 $_SESSION['status_type'] = "Error";
                                 $_SESSION['status'] = "Error, Please retry";
+                                header('location: admin_homepage.php');
                             }
                         } else {
                         }
@@ -1241,7 +1243,6 @@ if (isset($_POST['add_resource'])) {
 }
 if (isset($_POST['add_page'])) {
     $page_name = $_POST['page_name'];
-    $page_name = convertToUnreadable($page_name);
     addPage($page_name);
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {

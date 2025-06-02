@@ -215,5 +215,9 @@ $translations = [
     'edit_post' => "Beitrag bearbeiten",
     'subtitle' => "Untertitel",
     'require' => "Erforderlich",
+    'resource_title' => "Ressourcentitel",
+    'resource_niche' => "Ressourcen-Nische",
+    'resource_title_p' => "Ressourcentitel (optional)",
+    'resource_niche_p' => "Ressourcen-Nische (optional)",
 ];
 ?>

@@ -20,6 +20,44 @@ if (isset($_POST['subscribe_btn2'])) {
     $_SESSION['status_type'] = $sendEmail['status_type'];
     $_SESSION['status'] = $sendEmail['status'];
 }
+if (isset($_GET['query'])) {
+    $query = $_GET['query'];
+    $sql = "SELECT * FROM whitepapers WHERE title LIKE ? OR niche LIKE ?";
+    $stmt = $conn->prepare($sql);
+    $searchTerm = "%" . $query . "%";
+    $stmt->bind_param("ss", $searchTerm, $searchTerm);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $title = htmlspecialchars($row['title']);
+            $niche = htmlspecialchars($row['niche']);
+            $formattedDate = date("F j, Y", strtotime($row['date_added']));
+            $resourcePath = htmlspecialchars($row['resource_path']);
+
+            echo "
+                    <a class='more_posts_subdiv' href='#'>
+                    <img src='../images/whitepapers-img.png' alt='Whitepaper Image'/>
+                    <div class='more_posts_subdiv_subdiv'>
+                        <h1>$title</h1>
+                        <span>$formattedDate</span>
+                    </div>
+                    <div class='view_whitepaper'>
+                        <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/$resourcePath', '_blank')\">
+                            <i class='fa fa-eye' aria-hidden='true'></i>
+                        </div>
+                        <div class='posts_btn second_btn' onclick=\"window.location.href='../$resourcePath'\">
+                            <i class='fa fa-download' aria-hidden='true'></i>
+                        </div>
+                    </div>
+                    <p class='posts_div_niche'>$niche</p>
+                </a>
+                ";
+        }
+    } else {
+        echo "<p>No whitepapers found matching your search.</p>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +87,7 @@ if (isset($_POST['subscribe_btn2'])) {
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <title>Whitepapers</title>
 </head>
+
 <body id="container">
     <?php require("../includes/header2.php"); ?>
     <div class="body_container">
@@ -56,12 +95,15 @@ if (isset($_POST['subscribe_btn2'])) {
             <div class="page_links">
                 <a href="../">Home</a> > <p>Resources (Whitepapers)</p>
             </div>
-            <h1 class='bodyleft_header3 '>Search Whitepapers</h1>
+            <h1 class='bodyleft_header3'>Search Whitepapers</h1>
             <form class="header_searchbar2 search_input" id="search_form">
                 <input type="text" name="query" id="search-bar" placeholder="Search.." />
                 <button class="fa fa-search" aria-hidden="true" type="button" onclick="submitSearch()"></button>
             </form>
-            <div id="results" style="display:none;"></div>
+            <div id="search-results" style="display: none;">
+                <h1 class='bodyleft_header3'>Search Results</h1>
+                <div id="results-container" class="more_posts"></div>
+            </div>
             <div class='more_posts'>
                 <?php
                 $sql = "SELECT name, resource_path, niche, title, date_added FROM whitepapers ORDER BY id DESC";
@@ -69,6 +111,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $title = $row["title"];
+                        $max_length = 50;
                         $niche = $row["niche"];
                         $date = $row["date_added"];
                         $dateTime = new DateTime($date);
@@ -77,6 +120,9 @@ if (isset($_POST['subscribe_btn2'])) {
                         $year = $dateTime->format('Y');
                         $ordinalSuffix = getOrdinalSuffix($day);
                         $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                        if (strlen($title) > $max_length) {
+                            $title = substr($title, 0, $max_length) . '...';
+                        }
                         echo "  <a class='more_posts_subdiv' href='#'>
                                     <img src='../images/whitepapers-img.png' alt = 'Whitepaper Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
@@ -84,7 +130,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                         <span>$formattedDate</span>
                                     </div>
                                     <div class='view_whitepaper'>
-                                        <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/".$row['resource_path']."', '_blank')\">
+                                        <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/" . $row['resource_path'] . "', '_blank')\">
                                             <i class='fa fa-eye' aria-hidden='true'></i>
                                         </div>
                                         <div class='posts_btn second_btn' onclick=\"window.location.href='../" . htmlspecialchars($row['resource_path']) . "'\">
@@ -97,7 +143,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 } else {
                     echo "<p>No whitepapers found.</p>";
                 }
-            ?>
+                ?>
             </div>
         </div>
         <div class="body_right border-gradient-leftside--lightdark">
@@ -144,6 +190,23 @@ if (isset($_POST['subscribe_btn2'])) {
             e.stopPropagation();
             sidebar.classList.toggle('hidden');
         });
+
+        function submitSearch() {
+            var query = document.getElementById("search-bar").value;
+            if (query.trim() !== "") {
+                fetch("whitepapers.php?query=" + encodeURIComponent(query))
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById("results-container").innerHTML = data;
+                        document.getElementById("search-results").style.display = "block";
+                        document.getElementsByClassName("search_input").style.display = "none";
+                        document.getElementsByClassName("bodyleft_header3").style.display = "none";
+                    })
+                    .catch(error => console.error("Error fetching results:", error));
+            } else {
+                document.getElementById("search-results").style.display = "none"; // Hide if empty search
+            }
+        }
     </script>
     <script>
         if (messageType == 'Error' && messageText != " ") {

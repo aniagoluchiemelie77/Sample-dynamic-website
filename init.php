@@ -1,5 +1,6 @@
 <?php
 require("connect.php");
+require 'vendor/autoload.php';
 require('admin/crudoperations.php');
 require('vendor\phpmailer\phpmailer\src\SMTP.php');
 require('vendor\phpmailer\phpmailer\src\Exception.php');
@@ -363,4 +364,19 @@ function sendMessageToWriter($id, $message_title = null, $message_body = null)
         $status_type = "Error";
         return ["status" => $status, "status_type" => $status_type];
     }
+}
+function uploadToGoogleDrive($filePath, $fileName)
+{
+    $client = new Google\Client();
+    $client->setAuthConfig('files/credentials.json'); // Path to your credentials file
+    $client->addScope(Google\Service\Drive::DRIVE_FILE);
+    $service = new Google\Service\Drive($client);
+    $file = new Google\Service\Drive\DriveFile();
+    $file->setName($fileName);
+    $result = $service->files->create($file, [
+        'data' => file_get_contents($filePath),
+        'mimeType' => mime_content_type($filePath),
+        'uploadType' => 'multipart'
+    ]);
+    return $result->id; // Returns the uploaded file's ID
 }

@@ -8,6 +8,7 @@ $_SESSION['status'] = "";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
+$query = isset($_GET['query']) ? trim($_GET['query']) : "";
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
     $sendEmail = sendEmail($email);
@@ -21,42 +22,42 @@ if (isset($_POST['subscribe_btn2'])) {
     $_SESSION['status'] = $sendEmail['status'];
 }
 if (isset($_GET['query'])) {
-    $query = $_GET['query'];
-    $sql = "SELECT * FROM whitepapers WHERE title LIKE ? OR niche LIKE ?";
-    $stmt = $conn->prepare($sql);
-    $searchTerm = "%" . $query . "%";
-    $stmt->bind_param("ss", $searchTerm, $searchTerm);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $title = htmlspecialchars($row['title']);
-            $niche = htmlspecialchars($row['niche']);
-            $formattedDate = date("F j, Y", strtotime($row['date_added']));
-            $resourcePath = htmlspecialchars($row['resource_path']);
-
-            echo "
-                    <a class='more_posts_subdiv' href='#'>
-                    <img src='../images/whitepapers-img.png' alt='Whitepaper Image'/>
-                    <div class='more_posts_subdiv_subdiv'>
+    $query = trim($_GET['query']);
+    if ($query !== "") {
+        $stmt = $conn->prepare("SELECT * FROM whitepapers WHERE title LIKE ?");
+        $searchTerm = "%" . $query . "%";
+        $stmt->bind_param("s", $searchTerm);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $title = htmlspecialchars($row['title']);
+                    $niche = htmlspecialchars($row['niche']);
+                    $formattedDate = date("F j, Y", strtotime($row['date_added']));
+                    $resourcePath = htmlspecialchars($row['resource_path']);
+                    echo " <a class='more_posts_subdiv'>";
+                    echo "<img src='../images/whitepapers-img.png' alt='Whitepaper Image'/>";
+                    echo "  <div class='more_posts_subdiv_subdiv'>
                         <h1>$title</h1>
                         <span>$formattedDate</span>
-                    </div>
-                    <div class='view_whitepaper'>
+                    </div>";
+                    echo "  <div class='view_whitepaper'>
                         <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/$resourcePath', '_blank')\">
                             <i class='fa fa-eye' aria-hidden='true'></i>
                         </div>
                         <div class='posts_btn second_btn' onclick=\"window.location.href='../$resourcePath'\">
                             <i class='fa fa-download' aria-hidden='true'></i>
                         </div>
-                    </div>
-                    <p class='posts_div_niche'>$niche</p>
-                </a>
-                ";
+                    </div>";
+                    echo "<p class='posts_div_niche'>$niche</p>";
+                    echo "</a>";
+                }
+            } else {
+                echo "<h1 class='bodyleft_header3'>No results found for ' $query '</h1>";
+            }
         }
-    } else {
-        echo "<p>No whitepapers found matching your search.</p>";
     }
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -101,7 +102,6 @@ if (isset($_GET['query'])) {
                 <button class="fa fa-search" aria-hidden="true" type="button" onclick="submitSearch()"></button>
             </form>
             <div id="search-results" style="display: none;">
-                <h1 class='bodyleft_header3'>Search Results</h1>
                 <div id="results-container" class="more_posts"></div>
             </div>
             <div class='more_posts'>
@@ -197,10 +197,9 @@ if (isset($_GET['query'])) {
                 fetch("whitepapers.php?query=" + encodeURIComponent(query))
                     .then(response => response.text())
                     .then(data => {
+                        console.log(data);
                         document.getElementById("results-container").innerHTML = data;
                         document.getElementById("search-results").style.display = "block";
-                        document.getElementsByClassName("search_input").style.display = "none";
-                        document.getElementsByClassName("bodyleft_header3").style.display = "none";
                     })
                     .catch(error => console.error("Error fetching results:", error));
             } else {

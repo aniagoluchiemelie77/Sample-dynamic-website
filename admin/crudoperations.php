@@ -55,6 +55,14 @@ if (!function_exists('removeHyphenNoSpace')) {
         return $string;
     }
 }
+if (!function_exists('removeUnderscoreNoSpace')) {
+    function removeUnderscoreNoSpace($string)
+    {
+        $string = str_replace(['_', ' '], '', $string);
+        $string = strtolower($string);
+        return $string;
+    }
+}
 if (!function_exists('convertToReadable')) {
     function convertToReadable($slug)
     {
@@ -144,5 +152,17 @@ if (!function_exists('pluralizeTableName')) {
             "pdffile" => "pdffiles",
         ];
         return $pluralRules[$name] ?? ($name . 's');
+    }
+}
+if (!function_exists('removeUnderscore2')) {
+    function removeUnderscore2($string)
+    {
+        return str_replace('_', ' ', $string);
+    }
+}
+if (!function_exists('addUnderscore')) {
+    function addUnderscore($string)
+    {
+        return str_replace(' ', '_', $string);
     }
 }

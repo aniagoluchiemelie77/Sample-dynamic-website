@@ -4,20 +4,21 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
 $topicName = isset($_GET['topicName']) ? $_GET['topicName'] : null;
 $pageName = isset($_GET['pageName']) ? $_GET['pageName'] : null;
+$resourceName = isset($_GET['resourceName']) ? $_GET['resourceName'] : null;
 $type = isset($_GET['type']) ? $_GET['type'] : null;
 include('connect.php');
 include('crudoperations.php');
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
-function deleteFile($file_path)
+function deleteFile($file_path, $pagetype)
 {
     if (file_exists($file_path)) {
         if (unlink($file_path)) {
-            $status = "Page Deleted Successfully";
+            $status = "$pagetype Deleted Successfully";
             $status_type = "Success";
             return ["status" => $status, "status_type" => $status_type];
         } else {
-            $status = "Error Deleting Files!";
+            $status = "Error Deleting File ($pagetype)!";
             $status_type = "Error";
             return ["status" => $status, "status_type" => $status_type];
         }
@@ -170,7 +171,8 @@ if ($type == "Category") {
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $topicName);
         if ($stmt->execute()) {
-            $deleteAction2 = deleteFile($two_folders_above_file);
+            $pageType = "Category";
+            $deleteAction2 = deleteFile($two_folders_above_file, $pageType);
             $_SESSION['status_type'] = $deleteAction2['status_type'];
             $_SESSION['status'] = $deleteAction2['status'];
             $content = "Admin " . $_SESSION['firstname'] . "  deleted a Category type";
@@ -186,56 +188,86 @@ if ($type == "Category") {
     $stmt->close();
 }
 if ($type == "Resource") {
-    $sql = "DELETE FROM resources WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . "  deleted a Resource type";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Resource Deleted Successfully";
-        header('location: edit/frontend_features.php');
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/frontend_features.php');
-    }
-    $stmt->close();
-}
-if ($type == "Page") {
-    $page_name = removeHyphenNoSpace($pageName);
-    $current_folder_file = "pages/$page_name.php";
-    $two_folders_above_file = "../pages/$page_name.php";
-    $sql = "DELETE FROM pages WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-    if ($stmt->execute()) {
-        $deleteAction1 = deleteFile($current_folder_file);
-        $_SESSION['status_type'] = $deleteAction1['status_type'];
-        $_SESSION['status'] = $deleteAction1['status'];
-        $sql = "DELETE FROM meta_titles WHERE page_name = ?";
+    $resource_name = removeUnderscoreNoSpace($resourceName);
+    $table_name = removeUnderscoreNoSpace($pageName);
+    $two_folders_above_file = "../pages/$resource_name.php";
+    $sql = "DROP TABLE IF EXISTS `$table_name`";
+    if ($conn->query($sql) === TRUE) {
+        $sql = "DELETE FROM resources WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $pageName);
+        $stmt->bind_param("i", $id);
         if ($stmt->execute()) {
-            $deleteAction2 = deleteFile($two_folders_above_file);
-            $_SESSION['status_type'] = $deleteAction2['status_type'];
-            $_SESSION['status'] = $deleteAction2['status'];
-            $content = "Admin " . $_SESSION['firstname'] . "  deleted a Page type";
-            $forUser = 0;
-            logUpdate($conn, $forUser, $content);
-            header('location: edit/frontend_features.php');
+            $sql = "DELETE FROM meta_titles WHERE page_name like ?";
+            $searchTerm = "%" . $resource_name . "%";
+            $stmt->bind_param("s", $searchTerm);
+            if ($stmt->execute()) {
+                $pageType = "Resource";
+                $deleteAction2 = deleteFile($two_folders_above_file, $pageType);
+                $_SESSION['status_type'] = $deleteAction2['status_type'];
+                $_SESSION['status'] = $deleteAction2['status'];
+                $content = "Admin " . $_SESSION['firstname'] . "  deleted a Resource type";
+                $forUser = 0;
+                logUpdate($conn, $forUser, $content);
+                header('location: edit/frontend_features.php');
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                header('location: edit/frontend_features.php');
+            }
         } else {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Error, Please retry";
             header('location: edit/frontend_features.php');
         }
+        $stmt->close();
     } else {
         $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
+        $_SESSION['status'] = "Error, Deleting table failed!";
         header('location: edit/frontend_features.php');
     }
-    $stmt->close();
+}
+if ($type == "Page") {
+    $page_name = removeHyphenNoSpace($pageName);
+    $table_name = addUnderscore($pageName);
+    $current_folder_file = "pages/$page_name.php";
+    $two_folders_above_file = "../pages/$page_name.php";
+    $sql = "DROP TABLE IF EXISTS `$table_name`";
+    if ($conn->query($sql) === TRUE) {
+        $sql = "DELETE FROM pages WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute()) {
+            $pageType = "Page";
+            $deleteAction1 = deleteFile($current_folder_file, $pageType);
+            $_SESSION['status_type'] = $deleteAction1['status_type'];
+            $_SESSION['status'] = $deleteAction1['status'];
+            $sql = "DELETE FROM meta_titles WHERE page_name = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $pageName);
+            if ($stmt->execute()) {
+                $deleteAction2 = deleteFile($two_folders_above_file, $pageType);
+                $_SESSION['status_type'] = $deleteAction2['status_type'];
+                $_SESSION['status'] = $deleteAction2['status'];
+                $content = "Admin " . $_SESSION['firstname'] . "  deleted a Page type";
+                $forUser = 0;
+                logUpdate($conn, $forUser, $content);
+                header('location: edit/frontend_features.php');
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                header('location: edit/frontend_features.php');
+            }
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: edit/frontend_features.php');
+        }
+        $stmt->close();
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Deleting table failed!";
+        header('location: edit/frontend_features.php');
+    }
 }
 if ($usertype == "Writer") {
     $sql = "DELETE FROM writer WHERE id = ?";

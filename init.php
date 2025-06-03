@@ -419,7 +419,7 @@ function updateTranslations($string)
     $folder = "translation_files";
     $results = [];
     foreach ($languages as $langFile => $langCode) {
-        $filePath = "admin/$folder/lang/$langFile.php";
+        $filePath = "$folder/lang/$langFile.php";
         if (!file_exists($filePath)) {
             $results[] = ["status" => "Skipping: $filePath does not exist.", "status_type" => "Error"];
             continue;
@@ -436,7 +436,7 @@ function updateTranslations($string)
                 $updatedArrayContent = $translationsArrayContent . "\n" . $newEntry;
                 $updatedContent = str_replace($matches[0], "\$translations = [$updatedArrayContent];", $fileContent);
                 file_put_contents($filePath, $updatedContent);
-                $results[] = ["status" => "Updated $filePath successfully.", "status_type" => "Success"];
+                $results[] = ["status" => "Created Page successfully.", "status_type" => "Success"];
             } else {
                 $results[] = ["status" => "'$key' already exists in $filePath", "status_type" => "Error"];
             }

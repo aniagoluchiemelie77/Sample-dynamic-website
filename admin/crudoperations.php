@@ -1,8 +1,5 @@
 <?php
 require("connect.php");
-require '../vendor/autoload.php';
-
-use Stichoza\GoogleTranslate\GoogleTranslate;
 $encryptionKey = "mySecretKey12345";
 if (!function_exists('logUpdate')) {
     function logUpdate($conn, $forUser, $action)

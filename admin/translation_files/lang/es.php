@@ -224,5 +224,7 @@ $translations = [
     'resource_niche' => "nicho de recursos",
     'resource_title_p' => "Título del Recurso (opcional)",
     'resource_niche_p' => "Nicho del Recurso (opcional)",
+    'pitch_to_us' => 'Lanzar a nosotros',
+    'share_news_tips' => 'Compartir consejos de noticias',
 ];
 ?>

@@ -226,5 +226,7 @@ $translations = [
     'resource_niche' => "Resource Niche",
     'resource_title_p' => "Resource Title (optional)",
     'resource_niche_p' => "Resource Niche (optional)",
+    'pitch_to_us' => 'Pitch To Us',
+    'share_news_tips' => 'Share News Tips',
 ];
 ?>

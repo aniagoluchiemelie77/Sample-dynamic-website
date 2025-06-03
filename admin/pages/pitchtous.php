@@ -40,8 +40,8 @@
             }
         }
         if (isset($_POST['edit_aboutwebsite_btn'])) {
-            $content = $_POST['share-news-tips'];
-            $tablename = "share_news_tips";
+            $content = $_POST['pitch-to-us'];
+            $tablename = "pitch_to_us";
             updatePages($content, $tablename);
         }
     ?>
@@ -59,20 +59,20 @@
             <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-            <title>Share News Tips</title>
+            <title>Pitch To Us</title>
         </head>
         <body>
             <?php require("../extras/header2.php"); ?>
             <section class="about_section">
                 <div class="page_links">
-                    <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p>Share News Tips</p>
+                    <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p>Pitch To Us</p>
                 </div>
                 <div class="about_header">
-                    <h1>Share News Tips</h1>
+                    <h1>Pitch To Us</h1>
                 </div>
                 <div class="about_contents">
                     <?php
-                        $selectpage = "SELECT content FROM share_news_tips ORDER BY id DESC LIMIT 1";
+                        $selectpage = "SELECT content FROM pitch_to_us ORDER BY id DESC LIMIT 1";
                         $selectpage_result = $conn->query($selectpage);
                         if ($selectpage_result->num_rows > 0) {
                             while ($row = $selectpage_result->fetch_assoc()) {
@@ -86,7 +86,7 @@
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
                 <form class="about_editdiv" action=" " method="post" id="hidden_aboutdiv1">
-                    <textarea class="about_editdiv-input" name="share-news-tips" id="myTextarea6"></textarea>
+                    <textarea class="about_editdiv-input" name="pitch-to-us" id="myTextarea6"></textarea>
                     <input type="submit" value="<?php echo $translations['save']; ?>" name="edit_aboutwebsite_btn" />
                 </form>
             </section>

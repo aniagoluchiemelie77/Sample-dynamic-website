@@ -1,5 +1,8 @@
 <?php
 require("connect.php");
+require '../vendor/autoload.php';
+
+use Stichoza\GoogleTranslate\GoogleTranslate;
 $encryptionKey = "mySecretKey12345";
 if (!function_exists('logUpdate')) {
     function logUpdate($conn, $forUser, $action)
@@ -144,44 +147,5 @@ if (!function_exists('pluralizeTableName')) {
             "pdffile" => "pdffiles",
         ];
         return $pluralRules[$name] ?? ($name . 's');
-    }
-}
-if (!function_exists('updateTranslations')) {
-    function updateTranslations($string)
-    {
-        $key = strtolower(str_replace(' ', '_', $string));
-        $languageTranslations = [
-            'arb' => 'عنوان الموقع',
-            'en'  => 'About Website',
-            'es'  => 'Acerca del sitio web',
-            'fr'  => 'À propos du site Web',
-            'ger' => 'Über die Website',
-            'mdn' => '关于网站',
-            'rsn' => 'О сайте'
-        ];
-        $folder = "translation_files";
-        foreach ($languageTranslations as $lang => $translation) {
-            $filePath = "$folder/lang/$lang.php";
-            if (!file_exists($filePath)) {
-                $results[] = ["status" => "Skipping: $filePath does not exist.", "status_type" => "Error"];
-                continue;
-            }
-            $fileContent = file_get_contents($filePath);
-            if (preg_match('/\$translations\s*=\s*\[(.*?)\];/s', $fileContent, $matches)) {
-                $translationsArrayContent = $matches[1];
-                if (strpos($translationsArrayContent, "'$key'") === false) {
-                    $newEntry = "    '$key' => '$translation',\n";
-                    $updatedArrayContent = $translationsArrayContent . "\n" . $newEntry;
-                    $updatedContent = str_replace($matches[0], "\$translations = [$updatedArrayContent];", $fileContent);
-                    file_put_contents($filePath, $updatedContent);
-                    $results[] = ["status" => "Updated $filePath successfully.", "status_type" => "Success"];
-                } else {
-                    $results[] = ["status" => "'$key' already exists in $filePath", "status_type" => "Error"];
-                }
-            } else {
-                $results[] = ["status" => "Could not locate \$translations array in $filePath", "status_type" => "Error"];
-            }
-        }
-        return $results;
     }
 }

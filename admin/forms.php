@@ -298,8 +298,10 @@ function addPage($page_name)
                         if (file_put_contents($filePath, $fileContent)) {
                             if (file_put_contents($filePath2, $fileContent2)) {
                                 $createTranslationInstance = updateTranslations($uc_page_name);
-                                $_SESSION['status_type'] = $createTranslationInstance['status_type'];
-                                $_SESSION['status'] = $createTranslationInstance['status'];
+                                if (!empty($createTranslationInstance)) {
+                                    $_SESSION['status_type'] = $createTranslationInstance[0]['status_type'];
+                                    $_SESSION['status'] = $createTranslationInstance[0]['status'];
+                                }
                                 $content = "Admin " . $_SESSION['firstname'] . " created a new page type";
                                 $forUser = 0;
                                 logUpdate($conn, $forUser, $content);

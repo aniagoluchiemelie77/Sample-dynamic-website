@@ -226,5 +226,6 @@ $translations = [
     'resource_niche' => "资源领域",
     'resource_title_p' => "资源标题（可选）",
     'resource_niche_p' => "资源领域（可选）",
+    'share_news_tips' => '关于网站',
 ];
 ?>

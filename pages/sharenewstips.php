@@ -2,7 +2,7 @@
         session_start();
         require("../connect.php");
         require('../init.php');
-        $page_name = "terms-of-service";
+        $page_name = "share-news-tips";
         $details = getFaviconAndLogo();
         $details2 = cookieMessageAndVision();
         $logo = $details['logo'];
@@ -33,7 +33,7 @@
                 <link rel="stylesheet" href="../index.css" />
                 <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
                 <script src="../index.js" defer></script>
-                <title>Terms Of Service</title>
+                <title>Share News Tips</title>
             </head>
             <body>
                 <?php require("../includes/header2b.php"); ?>
@@ -49,12 +49,12 @@
                     </div>
                     <div class="body_left border-gradient-leftside--lightdark">
                         <div class="page_links">
-                            <a href="../">Home</a> > <p>Terms Of Service</p>
+                            <a href="../">Home</a> > <p>Share News Tips</p>
                         </div>
-                        <h3 class="bodyleft_main">Terms Of Service</h3>
+                        <h3 class="bodyleft_main">Share News Tips</h3>
                         <div class="sidebar_divs_container thickdiv">
                             <?php
-                                $selectpage = "SELECT content FROM terms_of_service ORDER BY id DESC LIMIT 1";
+                                $selectpage = "SELECT content FROM share_news_tips ORDER BY id DESC LIMIT 1";
                                 $selectpage_result = $conn->query($selectpage);
                                 if ($selectpage_result->num_rows > 0) {
                                     while ($row = $selectpage_result->fetch_assoc()) {

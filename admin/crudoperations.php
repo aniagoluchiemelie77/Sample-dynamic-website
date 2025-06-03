@@ -163,7 +163,7 @@ if (!function_exists('updateTranslations')) {
         foreach ($languageTranslations as $lang => $translation) {
             $filePath = "$folder/lang/$lang.php";
             if (!file_exists($filePath)) {
-                echo "Skipping: $filePath does not exist.\n";
+                $results[] = ["status" => "Skipping: $filePath does not exist.", "status_type" => "Error"];
                 continue;
             }
             $fileContent = file_get_contents($filePath);
@@ -174,19 +174,14 @@ if (!function_exists('updateTranslations')) {
                     $updatedArrayContent = $translationsArrayContent . "\n" . $newEntry;
                     $updatedContent = str_replace($matches[0], "\$translations = [$updatedArrayContent];", $fileContent);
                     file_put_contents($filePath, $updatedContent);
-                    $status = "Page Created Successfully";
-                    $status_type = "Success";
-                    return ["status" => $status, "status_type" => $status_type];
+                    $results[] = ["status" => "Updated $filePath successfully.", "status_type" => "Success"];
                 } else {
-                    $status = "'$key' already exists in $filePath";
-                    $status_type = "Error";
-                    return ["status" => $status, "status_type" => $status_type];
+                    $results[] = ["status" => "'$key' already exists in $filePath", "status_type" => "Error"];
                 }
             } else {
-                $status = "Could not locate \$translations array in $filePath";
-                $status_type = "Error";
-                return ["status" => $status, "status_type" => $status_type];
+                $results[] = ["status" => "Could not locate \$translations array in $filePath", "status_type" => "Error"];
             }
         }
+        return $results;
     }
 }

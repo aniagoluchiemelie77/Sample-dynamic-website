@@ -151,7 +151,7 @@ if (!function_exists('pluralizeTableName')) {
             "ebook" => "ebooks",
             "pdffile" => "pdffiles",
         ];
-        return $pluralRules[$name] ?? ($name . 's');
+        return $pluralRules[$name] ?? $name;
     }
 }
 if (!function_exists('removeUnderscore2')) {

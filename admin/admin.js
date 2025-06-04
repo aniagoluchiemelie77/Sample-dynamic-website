@@ -108,6 +108,7 @@ function confirmDeleteResource(Id, ResourceName) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
+            console.log('Deleting resource with ID:', Id, 'and name:', ResourceName);
             window.location.href = '../delete.php?id=' + Id + '&type=Resource&resourceName=' + ResourceName + '';
         }
     })

@@ -189,7 +189,7 @@ if ($type == "Category") {
 }
 if ($type == "Resource") {
     $resource_name = removeUnderscoreNoSpace($resourceName);
-    $table_name = removeUnderscoreNoSpace($pageName);
+    $table_name = removeUnderscoreNoSpace($resourceName);
     $two_folders_above_file = "../pages/$resource_name.php";
     $sql = "DROP TABLE IF EXISTS `$table_name`";
     if ($conn->query($sql) === TRUE) {

@@ -368,51 +368,6 @@ function sendMessageToWriter($id, $message_title = null, $message_body = null)
         return ["status" => $status, "status_type" => $status_type];
     }
 }
-function uploadToGoogleDrive($filePath, $fileName)
-{
-    $client = new Google\Client();
-    $client->setAuthConfig('files/credentials.json');
-    $client->addScope(Google\Service\Drive::DRIVE_FILE);
-    $client->setAccessType('offline');
-    $client->setPrompt('consent');
-
-    if ($client->isAccessTokenExpired()) {
-        $refreshToken = $client->getRefreshToken();
-        if ($refreshToken) {
-            $client->fetchAccessTokenWithRefreshToken($refreshToken);
-        } else {
-            $authUrl = $client->createAuthUrl();
-            exit;
-        }
-    }
-    session_start();
-    if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
-        $client->setAccessToken($_SESSION['access_token']);
-    } else {
-        $authUrl = $client->createAuthUrl();
-        echo "Go to this URL to authenticate: <a href='$authUrl'>$authUrl</a>";
-        exit;
-    }
-    $_SESSION['access_token'] = $client->getAccessToken();
-    $service = new Google\Service\Drive($client);
-    $file = new Google\Service\Drive\DriveFile();
-    $file->setName($fileName);
-    $result = $service->files->create($file, [
-        'data' => file_get_contents($filePath),
-        'mimeType' => mime_content_type($filePath),
-        'uploadType' => 'multipart'
-    ]);
-    if ($result) {
-        $status = "File Uploaded Successfully";
-        $status_type = "Success";
-        return ["status" => $status, "status_type" => $status_type];
-    } else {
-        return false;
-        $status = "File Upload Failed";
-        $status_type = "Error";
-        return ["status" => $status, "status_type" => $status_type];
-    }
-}
 function updateTranslations($string)
 {
     $languages = ['arb' => 'ar', 'en' => 'en', 'es' => 'es', 'fr' => 'fr', 'ger' => 'de', 'mdn' => 'zh', 'rsn' => 'ru'];

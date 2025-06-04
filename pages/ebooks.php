@@ -9,6 +9,10 @@ $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $query = isset($_GET['query']) ? trim($_GET['query']) : "";
+function containsFilesPath($string)
+{
+    return strpos($string, 'files/') !== false;
+}
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
     $sendEmail = sendEmail($email);
@@ -35,20 +39,23 @@ if (isset($_GET['query'])) {
                     $niche = htmlspecialchars($row['niche']);
                     $formattedDate = date("F j, Y", strtotime($row['date_added']));
                     $resourcePath = htmlspecialchars($row['resource_path']);
+                    if (containsFilesPath($resourcePath)) {
+                        $resourcePath = '../' . $resourcePath;
+                    }
+                    if (strlen($title) > $max_length) {
+                        $title = substr($title, 0, $max_length) . '...';
+                    }
                     echo " <a class='more_posts_subdiv'>";
-                    echo "<img src='../images/ebook_img.png' alt='Whitepaper Image'/>";
+                    echo "<img src='../images/resurces_img.png' alt='Whitepaper Image'/>";
                     echo "  <div class='more_posts_subdiv_subdiv'>
                         <h1>$title</h1>
                         <span>$formattedDate</span>
                     </div>";
                     echo "  <div class='view_whitepaper'>
-                        <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/$resourcePath', '_blank')\">
-                            <i class='fa fa-eye' aria-hidden='true'></i>
-                        </div>
-                        <div class='posts_btn second_btn' onclick=\"window.location.href='../$resourcePath'\">
-                            <i class='fa fa-download' aria-hidden='true'></i>
-                        </div>
-                    </div>";
+                                <div class='posts_btn' onclick=\"window.location.href='$resourcePath'\" target='_blank'>
+                                    <i class='fa fa-eye' aria-hidden='true'></i>
+                                </div>
+                            </div>";
                     echo "<p class='posts_div_niche'>$niche</p>";
                     echo "</a>";
                 }
@@ -111,6 +118,7 @@ if (isset($_GET['query'])) {
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $title = $row["title"];
+                        $path = $row["resource_path"];
                         $max_length = 50;
                         $niche = $row["niche"];
                         $date = $row["date_added"];
@@ -123,6 +131,9 @@ if (isset($_GET['query'])) {
                         if (strlen($title) > $max_length) {
                             $title = substr($title, 0, $max_length) . '...';
                         }
+                        if (containsFilesPath($path)) {
+                            $path = '../' . $path;
+                        }
                         echo "  <a class='more_posts_subdiv' href='#'>
                                     <img src='../images/ebook_img.png' alt = 'Whitepaper Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
@@ -130,11 +141,8 @@ if (isset($_GET['query'])) {
                                         <span>$formattedDate</span>
                                     </div>
                                     <div class='view_whitepaper'>
-                                        <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/" . $row['resource_path'] . "', '_blank')\">
+                                        <div class='posts_btn' onclick=\"window.location.href='$path'\" target='_blank'>
                                             <i class='fa fa-eye' aria-hidden='true'></i>
-                                        </div>
-                                        <div class='posts_btn second_btn' onclick=\"window.location.href='../" . htmlspecialchars($row['resource_path']) . "'\">
-                                            <i class='fa fa-download' aria-hidden='true'></i>
                                         </div>
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>

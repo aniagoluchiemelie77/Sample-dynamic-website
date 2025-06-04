@@ -9,6 +9,10 @@ $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $query = isset($_GET['query']) ? trim($_GET['query']) : "";
+function containsFilesPath($string)
+{
+    return strpos($string, 'files/') !== false;
+}
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
     $sendEmail = sendEmail($email);
@@ -35,18 +39,18 @@ if (isset($_GET['query'])) {
                     $niche = htmlspecialchars($row['niche']);
                     $formattedDate = date("F j, Y", strtotime($row['date_added']));
                     $resourcePath = htmlspecialchars($row['resource_path']);
+                    if (containsFilesPath($resourcePath)) {
+                        $resourcePath = '../' . $resourcePath;
+                    }
                     echo " <a class='more_posts_subdiv'>";
-                    echo "<img src='../images/whitepapers-img.png' alt='Whitepaper Image'/>";
+                    echo "<img src='../images/resurces_img.png' alt='Whitepaper Image'/>";
                     echo "  <div class='more_posts_subdiv_subdiv'>
                         <h1>$title</h1>
                         <span>$formattedDate</span>
                     </div>";
                     echo "  <div class='view_whitepaper'>
-                        <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/$resourcePath', '_blank')\">
+                        <div class='posts_btn' onclick=\"window.location.href='$resourcePath'\" target='_blank'>
                             <i class='fa fa-eye' aria-hidden='true'></i>
-                        </div>
-                        <div class='posts_btn second_btn' onclick=\"window.location.href='../$resourcePath'\">
-                            <i class='fa fa-download' aria-hidden='true'></i>
                         </div>
                     </div>";
                     echo "<p class='posts_div_niche'>$niche</p>";
@@ -99,7 +103,7 @@ if (isset($_GET['query'])) {
             <h1 class='bodyleft_header3'>Search Whitepapers</h1>
             <form class="header_searchbar2 search_input" id="search_form">
                 <input type="text" name="query" id="search-bar" placeholder="Search.." />
-                <button class="fa fa-search" aria-hidden="true" type="button" onclick="submitSearch()"></button>
+                <button class="fa fa-search" type="button" onclick="submitSearch()"></button>
             </form>
             <div id="search-results" style="display: none;">
                 <div id="results-container" class="more_posts"></div>
@@ -113,6 +117,7 @@ if (isset($_GET['query'])) {
                         $title = $row["title"];
                         $max_length = 50;
                         $niche = $row["niche"];
+                        $path = $row["resource_path"];
                         $date = $row["date_added"];
                         $dateTime = new DateTime($date);
                         $day = $dateTime->format('j');
@@ -120,21 +125,21 @@ if (isset($_GET['query'])) {
                         $year = $dateTime->format('Y');
                         $ordinalSuffix = getOrdinalSuffix($day);
                         $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                        if (containsFilesPath($path)) {
+                            $path = '../' . $path;
+                        }
                         if (strlen($title) > $max_length) {
                             $title = substr($title, 0, $max_length) . '...';
                         }
                         echo "  <a class='more_posts_subdiv' href='#'>
-                                    <img src='../images/whitepapers-img.png' alt = 'Whitepaper Image'/>
+                                    <img src='../images/resurces_img.png' alt = 'Whitepaper Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$formattedDate</span>
                                     </div>
                                     <div class='view_whitepaper'>
-                                        <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/" . $row['resource_path'] . "', '_blank')\">
+                                        <div class='posts_btn' onclick=\"window.location.href='$path'\" target='_blank'>
                                             <i class='fa fa-eye' aria-hidden='true'></i>
-                                        </div>
-                                        <div class='posts_btn second_btn' onclick=\"window.location.href='../" . htmlspecialchars($row['resource_path']) . "'\">
-                                            <i class='fa fa-download' aria-hidden='true'></i>
                                         </div>
                                     </div>
                                     <p class='posts_div_niche'>$niche</p>

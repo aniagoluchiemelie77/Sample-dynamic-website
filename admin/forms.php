@@ -33,6 +33,8 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
     $date = date('y-m-d');
     $time = date('H:i:s');
     $uc_page_name = ucwords($tableName);
+    $filename = lowercaseNoSpace($tableName) . '.php';
+    $filePath = '../pages/' . $filename;
     $fileContent = <<<PHP
         <?php
             session_start();
@@ -44,6 +46,10 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
             \$details = getFaviconAndLogo();
             \$logo = \$details['logo'];
             \$favicon = \$details['favicon'];
+            function containsFilesPath(\$string)
+            {
+                return strpos(\$string, 'files/') !== false;
+            }
             if (isset(\$_POST['submit_btn'])) {
                 \$email = \$_POST["email"];
                 \$sendEmail = sendEmail(\$email);
@@ -67,23 +73,28 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                         if (\$result->num_rows > 0) {
                         while (\$row = \$result->fetch_assoc()) {
                             \$title = htmlspecialchars(\$row['title']);
+                            \$max_length = 50;
                             \$niche = htmlspecialchars(\$row['niche']);
                             \$formattedDate = date("F j, Y", strtotime(\$row['date_added']));
                             \$resourcePath = htmlspecialchars(\$row['resource_path']);
+                            if (strlen(\$title) > \$max_length) {
+                                \$title = substr(\$title, 0, \$max_length) . '...';
+                            }
+                            if (containsFilesPath(\$resourcePath)) {
+                                \$resourcePath = '../' . \$resourcePath;
+                            }
                             echo " <a class='more_posts_subdiv'>";
-                            echo "<img src='../images/ebook_img.png' alt='Whitepaper Image'/>";
+                            echo "<img src='../images/resurces_img.png' alt='Whitepaper Image'/>";
                             echo "  <div class='more_posts_subdiv_subdiv'>
                                         <h1>\$title</h1>
                                         <span>\$formattedDate</span>
                                     </div>";
                             echo "  <div class='view_whitepaper'>
-                                        <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/$resourcePath', '_blank')\">
+                                        <div class='posts_btn' onclick=\"window.location.href='\$resourcePath'\" target='_blank'>
                                             <i class='fa fa-eye' aria-hidden='true'></i>
                                         </div>
-                                        <div class='posts_btn second_btn' onclick=\"window.location.href='../\$resourcePath'\">
-                                            <i class='fa fa-download' aria-hidden='true'></i>
-                                        </div>
-                                    </div>";
+                                    </div>
+                                ";
                             echo "<p class='posts_div_niche'>\$niche</p>";
                             echo "</a>";
                         }
@@ -132,162 +143,200 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                     <h1 class='bodyleft_header3'>Search $uc_page_name</h1>
                     <form class="header_searchbar2 search_input" id="search_form">
                         <input type="text" name="query" id="search-bar" placeholder="Search.." />
-                        <button class="fa fa-search" aria-hidden="true" type="button" onclick="submitSearch()"></button>
+                        <button class="fa fa-search" type="button" onclick="submitSearch()"></button>
                     </form>
                     <div id="search-results" style="display: none;">
-                    <div id="results-container" class="more_posts"></div>
-                </div>
-                <div class='more_posts'>
-                    <?php
-                        \$sql = "SELECT name, resource_path, niche, title, date_added FROM $tableName ORDER BY id DESC";
-                        \$result = \$conn->query(\$sql);
-                        if (\$result->num_rows > 0) {
-                            while (\$row = \$result->fetch_assoc()) {
-                                \$title = \$row["title"];
-                                \$max_length = 50;
-                                \$niche = \$row["niche"];
-                                \$date = \$row["date_added"];
-                                \$dateTime = new DateTime(\$date);
-                                \$day = \$dateTime->format('j');
-                                \$month = \$dateTime->format('M');
-                                \$year = \$dateTime->format('Y');
-                                \$ordinalSuffix = getOrdinalSuffix(\$day);
-                                \$formattedDate = \$month . ' ' . \$day . \$ordinalSuffix . ', ' . \$year;
-                                if (strlen(\$title) > \$max_length) {
-                                    \$title = substr($title, 0, \$max_length) . '...';
-                                }
-                                echo "  <a class='more_posts_subdiv' href='#'>
-                                            <div class='more_posts_subdiv_subdiv'>
-                                                <h1>\$title</h1>
-                                                <span>\$formattedDate</span>
-                                            </div>
-                                            <div class='view_whitepaper'>
-                                                <div class='posts_btn' onclick=\"window.open('https://view.officeapps.live.com/op/view.aspx?src=http://localhost/Sample-dynamic-website/" . \$row['resource_path'] . "', '_blank')\">
-                                                    <i class='fa fa-eye' aria-hidden='true'></i>
-                                                </div>
-                                                <div class='posts_btn second_btn' onclick=\"window.location.href='../" . htmlspecialchars($row['resource_path']) . "'\">
-                                                    <i class='fa fa-download' aria-hidden='true'></i>
-                                                </div>
-                                            </div>
-                                            <p class='posts_div_niche'>\$niche</p>
-                                </a>";
-                           }
-                        } else {
-                            echo "<p>No $uc_page_name Uploaded Yet.</p>";
-                }
-                ?>
-            </div>
-        </div>
-        <div class="body_right border-gradient-leftside--lightdark">
-            <div class="subscribe_container">
-                <form class="sec2__susbribe-box other_width" method="POST" action="" id="susbribe-box">
-                    <div class="icon">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <div id="results-container" class="more_posts"></div>
                     </div>
-                    <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
-                    <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
-                    <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required />
-                    <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" />
-                </form>
-                <div id="thank-you-message"></div>
+                    <div class='more_posts'>
+                        <?php
+                            \$sql = "SELECT name, resource_path, niche, title, date_added FROM $tableName ORDER BY id DESC";
+                            \$result = \$conn->query(\$sql);
+                            if (\$result->num_rows > 0) {
+                                while (\$row = \$result->fetch_assoc()) {
+                                    \$title = \$row["title"];
+                                    \$max_length = 50;
+                                    \$niche = \$row["niche"];
+                                    \$date = \$row["date_added"];
+                                    \$path = \$row["resource_path"];
+                                    \$dateTime = new DateTime(\$date);
+                                    \$day = \$dateTime->format('j');
+                                    \$month = \$dateTime->format('M');
+                                    \$year = \$dateTime->format('Y');
+                                    \$ordinalSuffix = getOrdinalSuffix(\$day);
+                                    \$formattedDate = \$month . ' ' . \$day . \$ordinalSuffix . ', ' . \$year;
+                                    if (strlen(\$title) > \$max_length) {
+                                        \$title = substr(\$title, 0, \$max_length) . '...';
+                                    }
+                                    if (containsFilesPath(\$path)) {
+                                        \$path = '../' . \$path;
+                                    }
+                                    echo "  <a class='more_posts_subdiv'>
+                                                <img src='../images/resurces_img.png' alt='Resource Image' />
+                                                <div class='more_posts_subdiv_subdiv'>
+                                                    <h1>\$title</h1>
+                                                    <span>\$formattedDate</span>
+                                                </div>
+                                                <div class='view_whitepaper'>
+                                                    <div class='posts_btn' onclick=\"window.location.href='\$path'\" target='_blank'>
+                                                        <i class='fa fa-eye' aria-hidden='true'></i>
+                                                    </div>
+                                                </div>
+                                                <p class='posts_div_niche'>\$niche</p>
+                                    </a>";
+                                }
+                            } else {
+                                echo "<p>No $uc_page_name Uploaded Yet.</p>";
+                            }
+                        ?>
+                    </div>
+                </div>
+                <div class="body_right border-gradient-leftside--lightdark">
+                    <div class="subscribe_container">
+                        <form class="sec2__susbribe-box other_width" method="POST" action="" id="susbribe-box">
+                            <div class="icon">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                            </div>
+                            <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
+                            <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
+                            <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required />
+                            <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" />
+                        </form>
+                        <div id="thank-you-message"></div>
+                    </div>
+                    <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
+                    <?php include("../helpers/editorspicks.php"); ?>
+                </div>
             </div>
-            <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
-            <?php include("../helpers/editorspicks.php"); ?>
-        </div>
-    </div>
-    <?php include("../includes/footer2.php"); ?>
-    <script src="sweetalert2.all.min.js"></script>
-    <script>
-        const closeMenuBtn = document.querySelector('.sidebarbtn');
-        const sidebar = document.getElementById('sidebar');
-        const menubtn = document.querySelector('.mainheader__header-nav-2');
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
-
-        function removeHiddenClass(e) {
-            e.stopPropagation();
-            sidebar.classList.remove('hidden');
-        };
-
-        function onClickOutside(element) {
-            document.addEventListener('click', e => {
-                if (!element.contains(e.target)) {
-                    element.classList.add('hidden');
-                } else return;
-            });
-        };
-        onClickOutside(sidebar);
-        menubtn.addEventListener('click', removeHiddenClass);
-        closeMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebar.classList.toggle('hidden');
-        });
-
-        function submitSearch() {
-            var query = document.getElementById("search-bar").value;
-            if (query.trim() !== "") {
-                fetch("ebooks.php?query=" + encodeURIComponent(query))
-                    .then(response => response.text())
-                    .then(data => {
-                        console.log(data);
-                        document.getElementById("results-container").innerHTML = data;
-                        document.getElementById("search-results").style.display = "block";
+            <?php include("../includes/footer2.php"); ?>
+            <script src="sweetalert2.all.min.js"></script>
+            <script>
+                const closeMenuBtn = document.querySelector('.sidebarbtn');
+                const sidebar = document.getElementById('sidebar');
+                const menubtn = document.querySelector('.mainheader__header-nav-2');
+                var messageType = "<?= \$_SESSION['status_type'] ?? ' ' ?>";
+                var messageText = "<?= \$_SESSION['status'] ?? ' ' ?>";
+                function removeHiddenClass(e) {
+                    e.stopPropagation();
+                    sidebar.classList.remove('hidden');
+                };
+                function onClickOutside(element) {
+                    document.addEventListener('click', e => {
+                        if (!element.contains(e.target)) {
+                            element.classList.add('hidden');
+                        } else return;
+                    });
+                };
+                onClickOutside(sidebar);
+                menubtn.addEventListener('click', removeHiddenClass);
+                closeMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    sidebar.classList.toggle('hidden');
+                });
+                function submitSearch() {
+                    var query = document.getElementById("search-bar").value;
+                    if (query.trim() !== "") {
+                        fetch("$filename?query=" + encodeURIComponent(query))
+                            .then(response => response.text())
+                            .then(data => {
+                                document.getElementById("results-container").innerHTML = data;
+                                document.getElementById("search-results").style.display = "block";
+                            })
+                            .catch(error => console.error("Error fetching results:", error));
+                    } else {
+                        document.getElementById("search-results").style.display = "none"; // Hide if empty search
+                    }
+                }
+            </script>
+            <script>
+                if (messageType == 'Error' && messageText != " ") {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: messageText,
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
                     })
-                    .catch(error => console.error("Error fetching results:", error));
+                } else if (messageType == 'Info' && messageText != " ") {
+                    Swal.fire({
+                        title: 'Info!',
+                        text: messageText,
+                        showConfirmButton: true,
+                        confirmButtonText: 'Ok',
+                        icon: 'info'
+                    })
+                } else if (messageType == 'Success' && messageText != " ") {
+                    Swal.fire({
+                        title: 'Success',
+                        text: messageText,
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+                <?php unset(\$_SESSION['status_type']); ?>
+                <?php unset(\$_SESSION['status']); ?>
+            </script>
+        </body>
+        </html>
+    PHP;
+    if (file_put_contents($filePath, $fileContent)) {
+        if (!empty($convertedPath) && empty($resource_url)) {
+            $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $tableName, $convertedPath, $date, $time, $resource_niche, $resource_title);
+            if ($stmt->execute()) {
+                $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
+                $stmt->bind_param("sss", $resource_type, $date, $time);
+                if ($stmt->execute()) {
+                    $_SESSION['status_type'] = "Success";
+                    $_SESSION['status'] = "Resource type added successfully";
+                    $content = "Admin " . $_SESSION['firstname'] . " added a new Resource type";
+                    $forUser = 0;
+                    logUpdate($conn, $forUser, $content);
+                    header('location: edit/frontend_features.php');
+                }
             } else {
-                document.getElementById("search-results").style.display = "none"; // Hide if empty search
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                header('location: edit/frontend_features.php');
+            }
+        } else if (empty($convertedPath) && !empty($resource_url)) {
+            $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $tableName, $resource_url, $date, $time, $resource_niche, $resource_title);
+            if ($stmt->execute()) {
+                $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
+                $stmt->bind_param("sss", $resource_type, $date, $time);
+                if ($stmt->execute()) {
+                    $_SESSION['status_type'] = "Success";
+                    $_SESSION['status'] = "Resource type added successfully";
+                    $content = "Admin " . $_SESSION['firstname'] . " added a new Resource type";
+                    $forUser = 0;
+                    logUpdate($conn, $forUser, $content);
+                    header('location: edit/frontend_features.php');
+                }
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                header('location: edit/frontend_features.php');
+            }
+        } else if (!empty($convertedPath) && !empty($resource_url)) {
+            $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $tableName, $resource_url, $date, $time, $resource_niche, $resource_title);
+            if ($stmt->execute()) {
+                $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
+                $stmt->bind_param("sss", $resource_type, $date, $time);
+                if ($stmt->execute()) {
+                    $_SESSION['status_type'] = "Success";
+                    $_SESSION['status'] = "Resource type added successfully";
+                    $content = "Admin " . $_SESSION['firstname'] . " added a new Resource type";
+                    $forUser = 0;
+                    logUpdate($conn, $forUser, $content);
+                    header('location: edit/frontend_features.php');
+                }
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                header('location: edit/frontend_features.php');
             }
         }
-    </script>
-    <script>
-        if (messageType == 'Error' && messageText != " ") {
-            Swal.fire({
-                title: 'Error!',
-                text: messageText,
-                icon: 'error',
-                confirmButtonText: 'Ok'
-            })
-        } else if (messageType == 'Info' && messageText != " ") {
-            Swal.fire({
-                title: 'Info!',
-                text: messageText,
-                showConfirmButton: true,
-                confirmButtonText: 'Ok',
-                icon: 'info'
-            })
-        } else if (messageType == 'Success' && messageText != " ") {
-            Swal.fire({
-                title: 'Success',
-                text: messageText,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            })
-        }
-        <?php unset($_SESSION['status_type']); ?>
-        <?php unset($_SESSION['status']); ?>
-    </script>
-</body>
-
-</html>
-    PHP;
-    $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $tableName, $resource_path, $date, $time, $resource_niche, $resource_title);
-    if ($stmt->execute()) {
-        $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $resource_type, $date, $time);
-        if ($stmt->execute()) {
-            $uploadFile = uploadToGoogleDrive($convertedPath, $tableName);
-            $_SESSION['status_type'] = $uploadFile['status_type'];
-            $_SESSION['status'] = $uploadFile['status'];
-            $content = "Admin " . $_SESSION['firstname'] . " added a new Resource type";
-            $forUser = 0;
-            logUpdate($conn, $forUser, $content);
-            header('location: edit/frontend_features.php');
-        }
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/frontend_features.php');
     }
 }
 function addPage($page_name)
@@ -659,7 +708,7 @@ function createCategory($category_name, $category_image)
                         <a href="../">Home</a> > <p>$uc_category_name</p>
                     </div>
                     <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest On $uc_category_name</h1>
-                    <div class='more_posts'>;
+                    <div class='more_posts'>
                         <?php
                             \$tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
                             \$results = [];
@@ -1456,30 +1505,19 @@ if (isset($_POST['add_resource'])) {
         if ($conn->query($sql) === TRUE) {
             if (!empty($resource_image)) {
                 if (move_uploaded_file($resource_tmp_name, $resource_folder)) {
-                    $imagePath = $resource_folder;
+                    $imagePath = $resource_image;
                     $convertedPath = convertPath2($imagePath);
                     $resource_type = convertToUnreadable($resource_type);
                     addResources($tableName, $convertedPath, $resource_type, $resource_niche, $resource_title, $resource_url);
                 }
             } else {
-                $_SESSION['status_type'] = "Error";
-                $_SESSION['status'] = "Please Select The Resource's file to upload";
-                header('location: edit/frontend_features.php');
+                addResources($tableName, $resource_image, $resource_type, $resource_niche, $resource_title, $resource_url);
             }
         }
     } else {
-        if (!empty($resource_image)) {
-            if (move_uploaded_file($resource_tmp_name, $resource_folder)) {
-                $imagePath = $resource_image;
-                $convertedPath = convertPath2($imagePath);
-                $resource_type = convertToUnreadable($resource_type);
-                addResources($tableName, $convertedPath, $resource_type, $resource_niche, $resource_title, $resource_url);
-            }
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Please Select The Resource's file to upload";
-            header('location: edit/frontend_features.php');
-        }
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Resource Type Already Exists";
+        header('location: edit/frontend_features.php');
     }
 }
 if (isset($_POST['add_page'])) {

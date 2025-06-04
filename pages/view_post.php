@@ -184,7 +184,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         ";
                     while ($row = $otherpaidposts_result->fetch_assoc()) {
                         $id = $row["id"];
-                        $max_length2 = 120;
+                        $max_length2 = 40;
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
@@ -358,7 +358,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         ";
                     while ($row = $otherposts_result->fetch_assoc()) {
                         $id = $row["id"];
-                        $max_length2 = 600;
+                        $max_length2 = 40;
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
@@ -533,7 +533,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         ";
                     while ($row = $otherposts_result->fetch_assoc()) {
                         $id = $row["id"];
-                        $max_length2 = 60;
+                        $max_length2 = 40;
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
@@ -563,7 +563,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 }
             }
             if ($post_id4 > 0) {
-                $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, post_image_url, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM commentaries WHERE id = '$post_id4'";
+                $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, post_image_url, image_path, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, authors_image, schedule, link FROM commentaries WHERE id = '$post_id4'";
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
@@ -705,7 +705,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         ";
                     while ($row = $otherposts_result->fetch_assoc()) {
                         $id = $row["id"];
-                        $max_length2 = 60;
+                        $max_length2 = 40;
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
@@ -743,7 +743,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 }
             }
             if ($post_id5 > 0) {
-                $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link FROM press_releases WHERE id = '$post_id5'";
+                $getposts_sql = " SELECT id, admin_id, editor_id, title, niche, content, subtitle, image_path, post_image_url, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, about_author, link, schedule, authors_image FROM press_releases WHERE id = '$post_id5'";
                 $getposts_result = $conn->query($getposts_sql);
                 if ($getposts_result->num_rows > 0) {
                     $row = $getposts_result->fetch_assoc();
@@ -787,20 +787,19 @@ if (isset($_POST['subscribe_btn2'])) {
                             $author_bio = $admin['bio'];
                             $role = "Editor-in-chief Uniquetechcontentwriter.com";
                         }
-                    } elseif (!empty($author1) && !empty($author3) && empty($author2)) {
-                        $author_firstname = $row['authors_firstname'];
-                        $author_lastname = $row['authors_lastname'];
-                        $sql_writer = "SELECT id, firstname, lastname, image, bio FROM writer WHERE firstname = '$author_firstname'";
-                        $result_writer = $conn->query($sql_writer);
-                        if ($result_writer->num_rows > 0) {
-                            $writer = $result_writer->fetch_assoc();
-                            $author_firstname = $writer['firstname'];
-                            $author_lastname = $writer['lastname'];
-                            $author_image = $writer['image'];
-                            $id_type = "Writer";
-                            $id_writer = $writer['id'];
-                            $author_bio = $writer['bio'];
-                            $role = "Contributing Writer";
+                    } elseif (empty($author1) && empty($author3) && !empty($author2)) {
+                        $editor_id = $row['editor_id'];
+                        $sql_editor = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $editor_id";
+                        $result_editor = $conn->query($sql_editor);
+                        if ($result_editor->num_rows > 0) {
+                            $editor = $result_editor->fetch_assoc();
+                            $author_firstname = $editor['firstname'];
+                            $author_lastname = $editor['lastname'];
+                            $author_image = $editor['image'];
+                            $id_type = "Editor";
+                            $id_editor = $editor['id'];
+                            $author_bio = $editor['bio'];
+                            $role = "Editor at Uniquetechcontentwriter.com";
                         }
                     }
                     $max_length = 200;
@@ -886,7 +885,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         ";
                     while ($row = $otherposts_result->fetch_assoc()) {
                         $id = $row["id"];
-                        $max_length2 = 120;
+                        $max_length2 = 40;
                         $title = $row["title"];
                         $niche = $row["niche"];
                         $image = $row["image_path"];
@@ -940,6 +939,15 @@ if (isset($_POST['subscribe_btn2'])) {
         const closeMenuBtn = document.querySelector('.sidebarbtn');
         const sidebar = document.getElementById('sidebar');
         const menubtn = document.querySelector('.mainheader__header-nav-2');
+        document.addEventListener("DOMContentLoaded", function() {
+            const scrollContainer = document.querySelector(".more_posts");
+            setTimeout(() => {
+                scrollContainer.scrollBy({
+                    left: 300,
+                    behavior: 'smooth'
+                });
+            }, 1000);
+        });
 
         function removeHiddenClass(e) {
             e.stopPropagation();

@@ -58,7 +58,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 <a href="../">Home</a> > <p>Cybersecurity</p>
             </div>
             <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest On Cybersecurity</h1>
-            <div class='more_posts'>;
+            <div class='more_posts'>
                 <?php
                 $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
                 $results = [];
@@ -95,8 +95,8 @@ if (isset($_POST['subscribe_btn2'])) {
                         ];
                     }
                 }
-        foreach ($results as $result) {
-                    $max_length = 60;
+                foreach ($results as $result) {
+                    $max_length = 50;
                     $id = $result['id'];
                     $title = $result["title"];
                     $date = $result["Date"];

@@ -50,7 +50,7 @@
         </div>
         <div class="header__menu-sidebar-div1 border-gradient-top-dark">
             <div class="sidebar__logobox">
-                <img src="#" alt="companylogo">
+                <img src="../<?php echo $logo; ?>" alt="companylogo">
             </div>
             <div class="header__menu-sidebar-div1-subdiv2">
                 <h1 class="sidebar__col-header">More</h1>
@@ -91,9 +91,35 @@
                 <a href="commentaries.php" class="sidebar__links">Commentaries</a>
                 <a href="news.php" class="sidebar__links">News</a>
                 <h1 class="sidebar__col-header top_space">Resources</h1>
-                <a href="#" class="sidebar__links">White Papers</a>
-                <a href="#" class="sidebar__links">Videoscripts</a>
-                <a href="#" class="sidebar__links">Ebooks</a>
+                <?php
+                $selectallresources = "SELECT resource_name FROM resources ORDER BY id DESC LIMIT 5";
+                $selectallresources_result = $conn->query($selectallresources);
+                if ($selectallresources_result->num_rows > 0) {
+                    $i = 0;
+                    if (!function_exists('convertToReadableUnderscore')) {
+                        function convertToReadableUnderscore($slug)
+                        {
+                            $string = str_replace('_', ' ', $slug);
+                            $string = ucwords($string);
+                            return $string;
+                        }
+                    }
+                    if (!function_exists('removeUnderscore')) {
+                        function removeUnderscore($string)
+                        {
+                            $string = str_replace(['_', ' '], '', $string);
+                            return $string;
+                        }
+                    }
+                    while ($row = $selectallresources_result->fetch_assoc()) {
+                        $i++;
+                        $category_names = $row['resource_name'];
+                        $cleanString = removeUnderscore($category_names);
+                        $readableString = convertToReadableUnderscore($category_names);
+                        echo    "<a class='sidebar__links' href='$cleanString.php'>$readableString</a>";
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="header__menu-sidebar-div2 border-gradient-top-dark">

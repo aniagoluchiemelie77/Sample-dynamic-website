@@ -13,7 +13,6 @@ let touchStartTime, clientX, clientY;
 const paragraph = document.getElementById('paragraph');
 const lightIcon = document.getElementById('theme-icon2');
 const darkIcon = document.getElementById('theme-icon1');
-
 function removeHiddenClass (e) {
   e.stopPropagation();
   sidebar.classList.remove('hidden');

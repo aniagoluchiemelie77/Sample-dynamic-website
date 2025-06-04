@@ -90,7 +90,7 @@
             $author_lastname = $result['authors_lastname'];
             $role = 'Contributing Writer';
         }
-        $max_length = 60;
+    $max_length = 50;
         $id = $result['id'];
         $title = $result["title"];
         $date = $result["Date"];

@@ -121,7 +121,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 }
             }
             foreach ($results as $result) {
-                $max_length = 60;
+                $max_length = 40;
                 $id = $result['id'];
                 $title = $result["title"];
                 $date = $result["Date"];
@@ -357,6 +357,15 @@ if (isset($_POST['subscribe_btn2'])) {
         const menubtn = document.querySelector('.mainheader__header-nav-2');
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        document.addEventListener("DOMContentLoaded", function() {
+            const scrollContainer = document.querySelector(".more_posts");
+            setTimeout(() => {
+                scrollContainer.scrollBy({
+                    left: 300,
+                    behavior: 'smooth'
+                });
+            }, 1000);
+        });
 
         function removeHiddenClass(e) {
             e.stopPropagation();

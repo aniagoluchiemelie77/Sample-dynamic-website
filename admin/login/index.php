@@ -11,47 +11,34 @@ if (isset($_REQUEST['Sign_In'])) {
         setcookie("emailid", $_REQUEST['Email'], time() + 60 * 60);
         setcookie("passwordid", $_REQUEST['Password'], time() + 60 * 60);
     }
-    $select_query = mysqli_query($conn, "SELECT * FROM admin_login_info WHERE email='$email' OR password = '$password'");
-    $result = mysqli_num_rows($select_query);
-    if ($result > 0) {
+    $query = "SELECT * FROM admin_login_info WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $admin = $result->fetch_assoc();
+    if (password_verify($password, $admin['password'])) {
         session_start();
-        $data = mysqli_fetch_array($select_query);
-        $id = $data['id'];
-        $email = $data['email'];
-        $firstname = $data['firstname'];
-        $lastname = $data['lastname'];
-        $username = $data['username'];
-        $image = $data['image'];
-        $bio = $data['bio'];
-        $mobile = $data['mobile'];
-        $country = $data['country'];
-        $city = $data['city'];
-        $state = $data['state'];
-        $address = $data['address1'];
-        $addresstwo = $data['address2'];
-        $country_code = $data['country_code'];
-        $date_joined = $data['date_joined'];
-        //declaring session variables
-        $_SESSION['email'] = $email;
-        $_SESSION['id'] = $id;
-        $_SESSION['firstname'] = $firstname;
-        $_SESSION['lastname'] = $lastname;
-        $_SESSION['username'] = $username;
-        $_SESSION['image'] = $image;
-        $_SESSION['bio'] = $bio;
-        $_SESSION['mobile'] = $mobile;
-        $_SESSION['country'] = $country;
-        $_SESSION['city'] = $city;
-        $_SESSION['state'] = $state;
-        $_SESSION['address'] = $address;
-        $_SESSION['addresstwo'] = $addresstwo;
-        $_SESSION['country_code'] = $country_code;
-        $_SESSION['date_joined'] = $date_joined;
-        $_SESSION['language'] = 'en';
+        $_SESSION['email'] = $admin['email'];
+        $_SESSION['id'] = $admin['id'];
+        $_SESSION['firstname'] = $admin['firstname'];
+        $_SESSION['lastname'] = $admin['lastname'];
+        $_SESSION['username'] = $admin['username'];
+        $_SESSION['image'] = $admin['image'];
+        $_SESSION['bio'] = $admin['bio'];
+        $_SESSION['mobile'] = $admin['mobile'];
+        $_SESSION['country'] = $admin['country'];
+        $_SESSION['city'] = $admin['city'];
+        $_SESSION['state'] = $admin['state'];
+        $_SESSION['address'] = $admin['address1'];
+        $_SESSION['addresstwo'] = $admin['address2'];
+        $_SESSION['country_code'] = $admin['country_code'];
+        $_SESSION['date_joined'] = $admin['date_joined'];
+        $_SESSION['language'] = $admin['language'];
         header("location: ../admin_homepage.php");
         exit();
     } else {
-        $msg = "Invalid Email or Password";
+        $msg = "Invalid Password";
     }
 }
 

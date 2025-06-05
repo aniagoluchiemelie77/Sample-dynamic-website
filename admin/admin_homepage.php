@@ -3,7 +3,7 @@ session_start();
 $tempSession = $_SESSION;
 session_regenerate_id(true);
 $_SESSION = $tempSession;
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['email']) && $_SESSION['email'] !== $tempSession['email']) {
     header("Location: login/index.php");
 }
 require("connect.php");
@@ -647,24 +647,19 @@ $date = formatDate($_SESSION['date_joined']);
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-                        $selectthreeeditors = "SELECT id, email, image, firstname, lastname, password FROM editor ORDER BY id DESC LIMIT 3";
+        $selectthreeeditors = "SELECT * FROM editor ORDER BY id DESC LIMIT 4";
                         $selectthreeeditors_result = $conn->query($selectthreeeditors);
                         if ($selectthreeeditors_result->num_rows > 0) {
                             $sn = 0;
+                            $selected_editor = [];
+                            $session_switched = false;
                             while ($row = $selectthreeeditors_result->fetch_assoc()) {
-                                $id = $row['id'];
-                                $image = $row['image'];
-                                $firstname = $row['firstname'];
-                                $lastname = $row['lastname'];
-                                $email = $row['email'];
-                                $password = $row['password'];
-                                $total_posts = 0;
-                                // $password = decryptPassword($password);
+                                $selected_editor = $row;
                                 $tables = ['posts', 'news', 'press_releases', 'commentaries'];
                                 foreach ($tables as $table) {
                                     $sql = "SELECT COUNT(*) AS count FROM $table WHERE editor_id = ?";
                                     $stmt = $conn->prepare($sql);
-                                    $stmt->bind_param("s", $id);
+                                    $stmt->bind_param("s", $selected_editor['id']);
                                     $stmt->execute();
                                     $result = $stmt->get_result();
                                     $row = $result->fetch_assoc();
@@ -672,6 +667,12 @@ $date = formatDate($_SESSION['date_joined']);
                                     $stmt->close();
                                 }
                                 $sn++;
+                                $id = $selected_editor['id'];
+                                $image = $selected_editor['image'];
+                                $firstname = $selected_editor['firstname'];
+                                $lastname = $selected_editor['lastname'];
+                                $email = $selected_editor['email'];
+                                $password = $selected_editor['password'];
                                 echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
                                             <div class='divimages_side--back'>
                                                 <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>$firstname</p>
@@ -683,11 +684,12 @@ $date = formatDate($_SESSION['date_joined']);
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit' href='edit/user.php?id=$id&usertype=Editor'><i class='fa fa-pencil' aria-hidden='true'></i></a>
                                                         <a class='users_delete' onclick='confirmDeleteEditor($id)'><i class='fa fa-trash' aria-hidden='true'></i></a>
-                                                        <a class='users_edit' href='../editor/login/index.php?email=$email&password=$password' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i></a>
+                                                        <a class='users_edit' href='../editor/login/index.php?emailAdmin=$email&passwordAdmin=$password' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i></a>
                                                     </div>
                                                 </center>
                                             </div>
                                     </div>";
+                                $session_switched = true;
                             };
                         };
                         ?>

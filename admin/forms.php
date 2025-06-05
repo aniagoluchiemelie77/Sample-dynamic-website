@@ -1075,12 +1075,12 @@ function updateProfile($firstname, $lastname, $email, $username, $bio, $address1
         $stmt->close();
     }
 }
-function updateEditorProfile($firstname, $password, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $id)
+function updateEditorProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $id)
 {
     global $conn;
     if ($imagePath !== null) {
-        $stmt = $conn->prepare("UPDATE editor SET firstname = ?, password = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
-        $stmt->bind_param("ssssssssssssssi", $firstname, $password, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
+        $stmt = $conn->prepare("UPDATE editor SET firstname = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
+        $stmt->bind_param("sssssssssssssi", $firstname, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
         if ($stmt->execute()) {
             $content = "Admin " . $_SESSION['firstname'] . " updated $username's profile";
             $forUser = 0;
@@ -1095,8 +1095,8 @@ function updateEditorProfile($firstname, $password, $lastname, $email, $username
         }
         $stmt->close();
     } else {
-        $stmt = $conn->prepare("UPDATE editor SET firstname = ?, password = ?, lastname = ?, username = ?, email = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
-        $stmt->bind_param("sssssssssssssi", $firstname, $password, $lastname, $username, $email, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
+        $stmt = $conn->prepare("UPDATE editor SET firstname = ?, lastname = ?, username = ?, email = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
+        $stmt->bind_param("ssssssssssssi", $firstname, $lastname, $username, $email, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
         if ($stmt->execute()) {
             $content = "Admin " . $_SESSION['firstname'] . " updated $username's profile";
             $forUser = 0;
@@ -1192,7 +1192,7 @@ function addEditor($firstname, $lastname, $email, $img, $password, $admin_id)
     $date = date('y-m-d');
     $time = date('H:i:s');
     $idtype = "Editor";
-    $encrypted_password = encryptPassword($password);
+    $encrypted_password = password_hash($password, PASSWORD_BCRYPT);
     $stmt = $conn->prepare("INSERT INTO editor (admin_id, email, image, password, firstname, lastname, date_joined, time_joined, idtype) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("issssssss", $admin_id, $email, $img, $encrypted_password, $firstname, $lastname, $date, $time, $idtype);
     if ($stmt->execute()) {
@@ -1305,7 +1305,6 @@ if (isset($_POST['edit_profile_editor'])) {
     file_put_contents("log.txt", "POST request received\n", FILE_APPEND);
     $id = $_POST['profile-id'];
     $firstname = $_POST['profile_firstname'];
-    $password = $_POST['profile_password'];
     $lastname = $_POST['profile_lastname'];
     $username = $_POST['profile_username'];
     $bio = $_POST['profile_bio'];
@@ -1323,7 +1322,7 @@ if (isset($_POST['edit_profile_editor'])) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
     }
-    updateEditorProfile($firstname, $password, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $convertedPath, $id);
+    updateEditorProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $convertedPath, $id);
 }
 if (isset($_POST['edit_profile_writer'])) {
     $id = $_POST['profile-id'];

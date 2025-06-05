@@ -4,6 +4,8 @@ require('../../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
+$emailAdmin = isset($_GET['emailAdmin']) ? $_GET['emailAdmin'] : null;
+$passwordAdmin = isset($_GET['passwordAdmin']) ? $_GET['passwordAdmin'] : null;
 if (isset($_REQUEST['Sign_In'])) {
     $email = $_REQUEST['Email'];
     $password = $_REQUEST['Password'];
@@ -89,12 +91,12 @@ if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
                 </p>
                 <div class="input_group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid; ?>" required />
+                    <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid . ' ' . $emailAdmin; ?>" required />
                     <label for="Email">Email</label>
                 </div>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" name="Password" id="form_input" placeholder="Password" value="<?php echo $passwordid; ?>" required />
+                    <input type="password" name="Password" id="form_input" placeholder="Password" value="<?php echo $passwordid . ' ' . $passwordAdmin; ?>" required />
                     <label for="Password">Password</label>
                 </div>
                 <div class="checkbox_group">

@@ -44,7 +44,6 @@ if (file_exists($translationFile)) {
             $username = $user['username'];
             $lastname = $user['lastname'];
             $image = $user['image'];
-            $password = $user['password'];
             $bio = $user['bio'];
             $email = $user['email'];
             $country = $user['country'];
@@ -69,10 +68,6 @@ if (file_exists($translationFile)) {
                                         <input class='form__input' name='Img' type='file'/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin' for='profile_password'>$translations[password]:</label>
-                                <input class='createeditor_input' type='password' name='profile_password' value='$password'/>
                             </div>
                             <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin' for='profile_firstname'>$translations[firstname]:</label>

@@ -6,6 +6,13 @@ $_SESSION = $tempSession;
 if (!isset($_SESSION['email'])) {
     header("Location: login/index.php");
 };
+if (isset($_GET['switch_to_editor'])) {
+    $_SESSION['editor_mode'] = true;
+    $_SESSION['email'] = $selected_editor['email'];
+    $_SESSION['id'] = $selected_editor['id'];
+    $_SESSION['firstname'] = $selected_editor['firstname'];
+    $_SESSION['lastname'] = $selected_editor['lastname'];
+}
 require("connect.php");
 include("init.php");
 require('../init.php');
@@ -562,16 +569,8 @@ $date = formatDate($_SESSION['date_joined']);
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-                        echo    "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../" . $_SESSION['image'] . ")'>
-                                        <div class='divimages_side--back'>
-                                            <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>" . $_SESSION['firstname'] . "</p>
-                                            <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>" . $_SESSION['lastname'] . "</p> 
-                                            <p class='users_div_subdiv_p'><span>$translations[role]: </span>Editor</p>
-                                            <p class='users_div_subdiv_p'><span>$translations[email]: </span>" . $_SESSION['email'] . "</p>
-                                        </div>
-                                    </div>";
                         $idEditor = $_SESSION['id'];
-                        $selecttwoothereditors = "SELECT id, email, image, firstname, lastname FROM editor WHERE id != '$idEditor' ORDER BY id DESC LIMIT 2";
+                        $selecttwoothereditors = "SELECT id, email, image, firstname, lastname FROM editor ORDER BY id DESC LIMIT 3";
                         $selecttwoothereditors_result = $conn->query($selecttwoothereditors);
                         if ($selecttwoothereditors_result->num_rows > 0) {
                             $sn = 0;

@@ -1,22 +1,23 @@
     <?php
-        session_start();
-        require('../connect.php');
-        require('../init.php');
-       $_SESSION['status_type'] = "";
-       $_SESSION['status'] = "";
-       $page_name = "naija-latest";
-       $details = getFaviconAndLogo();
-       $logo = $details['logo'];
-       $favicon = $details['favicon'];
-       if (isset($_POST['submit_btn'])) {
-            $email = $_POST["email"];
-            $sendEmail = sendEmail($email);
-            $_SESSION['status_type'] = $sendEmail['status_type'];
-            $_SESSION['status'] = $sendEmail['status'];
-        }
+    session_start();
+    require('../connect.php');
+    require('../init.php');
+    $_SESSION['status_type'] = "";
+    $_SESSION['status'] = "";
+    $page_name = "naija-latest";
+    $details = getFaviconAndLogo();
+    $logo = $details['logo'];
+    $favicon = $details['favicon'];
+    if (isset($_POST['submit_btn'])) {
+        $email = $_POST["email"];
+        $sendEmail = sendEmail($email);
+        $_SESSION['status_type'] = $sendEmail['status_type'];
+        $_SESSION['status'] = $sendEmail['status'];
+    }
     ?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
         <?php if (isset($meta_titles[$page_name])) {
             $meta_data = $meta_titles[$page_name];
@@ -27,15 +28,17 @@
                     echo "<meta name='$meta_name' content='$meta_content' />";
                 }
             }
-        }?>
+        } ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../index.css" />
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Naija Latest</title>
     </head>
+
     <body id="container">
         <?php require("../includes/header2.php"); ?>
         <div class="body_container">
@@ -46,42 +49,42 @@
                 <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest On Naija Latest</h1>
                 <div class='more_posts'>;
                     <?php
-                        $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
-                        $results = [];
-                        foreach ($tables as $table) {
-                            $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE niche LIKE ? ORDER BY id DESC LIMIT 2";
-                            $stmt = $conn->prepare($sql);
-                            $nicheq = 'Naija Latest';
-                            $searchTerm = "%" . $nicheq . "%";
-                            $stmt->bind_param("s", $searchTerm);
-                            $stmt->execute();
-                            $stmt->bind_result($id, $title, $niche, $content, $image, $date);
-                            while ($stmt->fetch()) {
-                                $posttype = 0;
-                                if ($table == 'paid_posts') {
-                                    $posttype = 1;
-                                } elseif ($table == 'posts') {
-                                    $posttype = 2;
-                                } elseif ($table == 'commentaries') {
-                                    $posttype = 4;
-                                } elseif ($table == 'news') {
-                                    $posttype = 3;
-                                } elseif ($table == 'press_releases') {
-                                    $posttype = 5;
-                                }
-                                $results[] = [
-                                    'id' => $id,
-                                    'title' => $title,
-                                    'niche' => $niche,
-                                    'content' => $content,
-                                    'image_path' => $image,
-                                    'Date' => $date,
-                                    'table' => $table,
-                                    'posttype' => $posttype
-                                ];
+                    $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                    $results = [];
+                    foreach ($tables as $table) {
+                        $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE niche LIKE ? ORDER BY id DESC LIMIT 2";
+                        $stmt = $conn->prepare($sql);
+                        $nicheq = 'Naija Latest';
+                        $searchTerm = "%" . $nicheq . "%";
+                        $stmt->bind_param("s", $searchTerm);
+                        $stmt->execute();
+                        $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+                        while ($stmt->fetch()) {
+                            $posttype = 0;
+                            if ($table == 'paid_posts') {
+                                $posttype = 1;
+                            } elseif ($table == 'posts') {
+                                $posttype = 2;
+                            } elseif ($table == 'commentaries') {
+                                $posttype = 4;
+                            } elseif ($table == 'news') {
+                                $posttype = 3;
+                            } elseif ($table == 'press_releases') {
+                                $posttype = 5;
                             }
+                            $results[] = [
+                                'id' => $id,
+                                'title' => $title,
+                                'niche' => $niche,
+                                'content' => $content,
+                                'image_path' => $image,
+                                'Date' => $date,
+                                'table' => $table,
+                                'posttype' => $posttype
+                            ];
                         }
-                        foreach ($results as $result) {
+                    }
+                    foreach ($results as $result) {
                         $max_length = 60;
                         $id = $result['id'];
                         $title = $result['title'];
@@ -101,13 +104,14 @@
                         if (!empty($image)) {
                             echo "<img src='../$image' alt = 'Post's Image'/>";
                         }
-                        echo"<div class='more_posts_subdiv_subdiv'>
+                        echo "<div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
                                 <span>$formattedDate</span>
                                 <span>$readingTime</span>
                             </div>
                             <p class='posts_div_niche'>" . $result['niche'] . "</p>
-                        </a>";}
+                        </a>";
+                    }
                     ?>
                 </div>
             </div>
@@ -144,10 +148,12 @@
             const menubtn = document.querySelector('.mainheader__header-nav-2');
             var messageType = "<?= $_SESSION['status_type'] ?? '' ?>";
             var messageText = "<?= $_SESSION['status'] ?? '' ?>";
+
             function removeHiddenClass(e) {
                 e.stopPropagation();
                 sidebar.classList.remove('hidden');
             };
+
             function onClickOutside(element) {
                 document.addEventListener('click', e => {
                     if (!element.contains(e.target)) {
@@ -190,4 +196,5 @@
             <?php unset($_SESSION['status']); ?>
         </script>
     </body>
+
     </html>

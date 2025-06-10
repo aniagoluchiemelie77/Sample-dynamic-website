@@ -5,8 +5,8 @@ require('../init.php');
 $page_name = "news";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
-        $_SESSION['status_type'] = "";
-        $_SESSION['status'] = "";
+$_SESSION['status_type'] = "";
+$_SESSION['status'] = "";
 $favicon = $details['favicon'];
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
@@ -26,6 +26,7 @@ if (isset($_POST['subscribe_btn2'])) {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <?php
     if (isset($meta_titles[$page_name])) {
         $meta_data = $meta_titles[$page_name];

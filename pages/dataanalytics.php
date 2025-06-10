@@ -6,8 +6,8 @@ $page_name = "data-analytics";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-        $_SESSION['status_type'] = "";
-        $_SESSION['status'] = "";
+$_SESSION['status_type'] = "";
+$_SESSION['status'] = "";
 if (isset($_POST['submit_btn'])) {
     $email = $_POST["email"];
     $sendEmail = sendEmail($email);
@@ -26,6 +26,7 @@ if (isset($_POST['subscribe_btn2'])) {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <?php
     if (isset($meta_titles[$page_name])) {
         $meta_data = $meta_titles[$page_name];
@@ -95,7 +96,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         ];
                     }
                 }
-        foreach ($results as $result) {
+                foreach ($results as $result) {
                     $max_length = 60;
                     $id = $result['id'];
                     $title = $result["title"];

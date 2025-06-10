@@ -14,6 +14,7 @@ $website_description = $details2['website_vision'];
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <?php
     if (isset($meta_titles[$page_name])) {
         $meta_data = $meta_titles[$page_name];
@@ -57,7 +58,7 @@ $website_description = $details2['website_vision'];
             <h3 class="bodyleft_main">About Us</h3>
             <div class="sidebar_divs_container thickdiv">
                 <?php
-    $selectpage = "SELECT content FROM about_us ORDER BY id DESC LIMIT 1";
+                $selectpage = "SELECT content FROM about_us ORDER BY id DESC LIMIT 1";
                 $selectpage_result = $conn->query($selectpage);
                 if ($selectpage_result->num_rows > 0) {
                     while ($row = $selectpage_result->fetch_assoc()) {

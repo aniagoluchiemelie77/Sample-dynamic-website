@@ -647,7 +647,7 @@ $date = formatDate($_SESSION['date_joined']);
                     </div>
                     <div class="users_div_subdiv border-gradient-side-dark">
                         <?php
-        $selectthreeeditors = "SELECT * FROM editor ORDER BY id DESC LIMIT 4";
+                        $selectthreeeditors = "SELECT * FROM editor ORDER BY id DESC LIMIT 4";
                         $selectthreeeditors_result = $conn->query($selectthreeeditors);
                         if ($selectthreeeditors_result->num_rows > 0) {
                             $sn = 0;
@@ -684,7 +684,7 @@ $date = formatDate($_SESSION['date_joined']);
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit' href='edit/user.php?id=$id&usertype=Editor'><i class='fa fa-pencil' aria-hidden='true'></i></a>
                                                         <a class='users_delete' onclick='confirmDeleteEditor($id)'><i class='fa fa-trash' aria-hidden='true'></i></a>
-                                                        <a class='users_edit' href='../editor/login/index.php?emailAdmin=$email&passwordAdmin=$password' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i></a>
+                                                        <a class='users_edit' href='../editor/login/index.php?emailAdmin=$email&passwordAdmin=$password' target='_blank'>Login</a>
                                                     </div>
                                                 </center>
                                             </div>
@@ -1213,6 +1213,24 @@ $date = formatDate($_SESSION['date_joined']);
                     Swal.fire("Error!", "Image upload failed!", "error");
                 });
         }
+
+        function checkNotifications() {
+            fetch('pages/check_notifications.php')
+                .then(response => response.text())
+                .then(count => {
+                    const notificationCount = document.getElementById('notificationCount');
+                    if (parseInt(count) > 0) {
+                        notificationCount.style.display = 'inline-block';
+                        notificationCount.textContent = count;
+                        notificationCount.classList.add('notification-badge');
+                    } else {
+                        notificationCount.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error fetching notifications:', error));
+        }
+        setInterval(checkNotifications, 7000);
+        window.onload = checkNotifications;
     </script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

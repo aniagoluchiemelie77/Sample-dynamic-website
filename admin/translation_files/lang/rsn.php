@@ -228,6 +228,9 @@ $translations = [
     'resource_niche_p' => "Область ресурса (необязательно)",
     'pitch_to_us' => 'Шаг нам',
     'share_news_tips' => 'Поделиться советами по новостям',
+    'editor_login_verify' => 'Проверка входа редактора',
+    'editor_login_verify_header' => 'Проверка запроса входа редактора',
+    'editor_login_verify_btn' => 'Продолжить вход',
 ];
 
 ?>

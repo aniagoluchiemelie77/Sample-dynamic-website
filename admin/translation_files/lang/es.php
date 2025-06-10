@@ -226,5 +226,8 @@ $translations = [
     'resource_niche_p' => "Nicho del Recurso (opcional)",
     'pitch_to_us' => 'Lanzar a nosotros',
     'share_news_tips' => 'Compartir consejos de noticias',
+    'editor_login_verify' => 'Verificar Inicio de Sesión como Editor',
+    'editor_login_verify_header' => 'Verificación de Solicitud de Inicio de Sesión del Editor',
+    'editor_login_verify_btn' => 'Continuar Inicio de Sesión',
 ];
 ?>

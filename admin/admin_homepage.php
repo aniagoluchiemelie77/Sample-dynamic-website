@@ -684,7 +684,7 @@ $date = formatDate($_SESSION['date_joined']);
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit' href='edit/user.php?id=$id&usertype=Editor'><i class='fa fa-pencil' aria-hidden='true'></i></a>
                                                         <a class='users_delete' onclick='confirmDeleteEditor($id)'><i class='fa fa-trash' aria-hidden='true'></i></a>
-                                                        <a class='users_edit' href='../editor/login/index.php?emailAdmin=$email&passwordAdmin=$password' target='_blank'>Login</a>
+                                                        <a class='users_edit' href='auth_editorlogin.php?email=$email&id=$id' target='_blank'>Login</a>
                                                     </div>
                                                 </center>
                                             </div>

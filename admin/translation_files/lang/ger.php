@@ -221,5 +221,8 @@ $translations = [
     'resource_niche_p' => "Ressourcen-Nische (optional)",
     'pitch_to_us' => 'Pech zu uns',
     'share_news_tips' => 'Teilen Sie Nachrichten -Tipps',
+    'editor_login_verify' => 'Bitte überprüfen Sie Ihre E-Mail, um den Login-Vorgang fortzusetzen.',
+    'editor_login_verify_header' => 'Verifizierung erforderlich',
+    'editor_login_verify_btn' => 'Verifizieren',
 ];
 ?>

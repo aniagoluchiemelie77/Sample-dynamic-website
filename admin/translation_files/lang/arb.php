@@ -230,5 +230,8 @@ $translations = [
     'resource_niche_p' => " نوع المورد (اختياري)",
     'share_news_tips' => 'عنوان الموقع',
     'pitch_to_us' => 'الملعب لنا',
+    'editor_login_verify' => 'تحقق من تسجيل الدخول كمحرر',
+    'editor_login_verify_header' => 'تحقق من طلب تسجيل الدخول للمحرر',
+    'editor_login_verify_btn' => 'متابعة تسجيل الدخول',
 ];
 ?>

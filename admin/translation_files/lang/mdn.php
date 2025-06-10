@@ -228,5 +228,8 @@ $translations = [
     'resource_niche_p' => "资源领域（可选）",
     'pitch_to_us' => '向我们倾斜',
     'share_news_tips' => '分享新闻提示',
+    'editor_login_verify' => '编辑器登录验证',
+    'editor_login_verify_header' => '验证编辑器登录请求',
+    'editor_login_verify_btn' => '继续登录',
 ];
 ?>

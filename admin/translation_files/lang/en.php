@@ -228,5 +228,8 @@ $translations = [
     'resource_niche_p' => "Resource Niche (optional)",
     'pitch_to_us' => 'Pitch To Us',
     'share_news_tips' => 'Share News Tips',
+    'editor_login_verify' => 'Verify Login As Editor',
+    'editor_login_verify_header' => 'Editor Login Request Verification',
+    'editor_login_verify_btn' => 'Continue Login',
 ];
 ?>

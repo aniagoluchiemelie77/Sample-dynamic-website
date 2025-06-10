@@ -321,7 +321,6 @@ a, td,span, p, label{
     border: none;
     padding: 1rem;
     background-color: var(--color30);
-    border-bottom: 1px solid var(--color60-shade);
     outline: none;
     color: var(--color60-shade);
     width: 90%;

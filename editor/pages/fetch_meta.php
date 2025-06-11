@@ -33,4 +33,3 @@ if (isset($_POST['page_id'])) {
     }
     $stmt->close();
 }
-?>

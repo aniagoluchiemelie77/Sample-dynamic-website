@@ -17,7 +17,7 @@ function updateMetatitle($meta1, $meta2, $meta3, $meta4, $meta5, $content1, $con
     $stmt->bind_param("sssssssssss", $meta1, $meta2, $meta3, $meta4, $meta5, $content1, $content2, $content3, $content4, $content5, $page_name);
     if ($stmt->execute()) {
         $page_name = removeHyphen($page_name);
-        $content = "Editor " . $_SESSION['firstname'] . " updated Meta titles and contents for $page_name";
+        $content = "editor " . $_SESSION['firstname'] . " updated Meta titles and contents for $page_name";
         $forUser = 0;
         logUpdate($conn, $forUser, $content);
         $_SESSION['status_type'] = "Success";
@@ -41,8 +41,8 @@ if (isset($_POST['edit_metatitle'])) {
     $meta_content5 = $_POST['meta_content5'];
     updateMetatitle($meta_name1, $meta_name2, $meta_name3, $meta_name4, $meta_name5, $meta_content1, $meta_content2, $meta_content3, $meta_content4, $meta_content5, $page_name);
 }
-$orginalPageName = $page_name;
-$page_name = removeHyphen($page_name);
+        $orginalPageName = $page_name; // Store the original page name for later use
+        $page_name = removeHyphen($page_name);
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -50,7 +50,7 @@ $translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {
-    $translations = [];
+    $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
 ?>
 <!DOCTYPE html>

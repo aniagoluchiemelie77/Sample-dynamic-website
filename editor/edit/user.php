@@ -74,7 +74,7 @@ if (file_exists($translationFile)) {
                                 <label class='createeditor_label rightmargin' for='profile_email'>$translations[email]:</label>
                                 <input class='createeditor_input' type='email' name='profile_email' value='$email'/>
                             </div>
-                            <div class='createeditor_inputgroup flexcolumn'>
+                            <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin nooutline' for='profile_bio'>$translations[bio]:</label>
                                 <textarea name='profile_bio' class='textarea' id='myTextarea5'>$bio</textarea>
                             </div>
@@ -123,7 +123,7 @@ if (file_exists($translationFile)) {
                                 <label class='createeditor_label rightmargin' for='profile_email'>$translations[email]:</label>
                                 <input class='createeditor_input' type='email' name='profile_email' value='$email'/>
                             </div>
-                            <div class='createeditor_inputgroup flexcolumn'>
+                            <div class='createeditor_inputgroup'>
                                 <label class='createeditor_label rightmargin nooutline' for='profile_bio'>$translations[bio]:</label>
                                 <textarea name='profile_bio' class='textarea' id='myTextarea5'>$bio</textarea>
                             </div>

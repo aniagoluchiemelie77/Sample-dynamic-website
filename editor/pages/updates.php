@@ -50,7 +50,7 @@ if (file_exists($translationFile)) {
                     while ($row = $select_commentaries_result->fetch_assoc()) {
                         $time = $row['time'];
                         $formatted_time = date("g:i A", strtotime($time));
-                        $message = str_replace("Editor $user", "You", $row['content']);
+                        $message = str_replace("editor $user", "You", $row['content']);
                         echo "<div class='posts_divcontainer_subdiv'>
                                     <h3 class='posts_divcontainer_header'>$message</h3>
                                     <div class='posts_divcontainer_subdiv3'>

@@ -62,14 +62,6 @@ if (file_exists($translationFile)) {
                     $selectcategory = "SELECT name FROM topics ORDER BY id";
                     $selectcategory_result = $conn->query($selectcategory);
                     if ($selectcategory_result->num_rows > 0) {
-                        if (!function_exists('convertToReadable')) {
-                            function convertToReadable($slug)
-                            {
-                                $string = str_replace('-', ' ', $slug);
-                                $string = ucwords($string);
-                                return $string;
-                            }
-                        }
                         while ($row = $selectcategory_result->fetch_assoc()) {
                             $category_names = $row['name'];
                             $readableString = convertToReadable($category_names);
@@ -108,6 +100,35 @@ if (file_exists($translationFile)) {
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="../editor.js"></script>
     <script src="sweetalert2.all.min.js"></script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Info' && messageText != " ") {
+            Swal.fire({
+                title: 'Info!',
+                text: messageText,
+                showConfirmButton: true,
+                confirmButtonText: 'Ok',
+                icon: 'info'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        }
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
+    </script>
 </body>
 
 </html>

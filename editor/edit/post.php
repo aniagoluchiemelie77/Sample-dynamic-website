@@ -28,11 +28,11 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../editor.css" />
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title><?php echo $translations['edit_post']; ?></title>
 </head>
 
@@ -40,102 +40,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
     <?php require("../extras/header2.php"); ?>
     <section class="newpost_body">
         <?php
-        if ($post_id1 > 0) {
-            $getpost_sql = " SELECT * FROM paid_posts WHERE id = $post_id1";
-            $getpost_result = $conn->query($getpost_sql);
-            if ($getpost_result->num_rows > 0) {
-                $row = $getpost_result->fetch_assoc();
-                $title = $row['title'];
-                $subtitle = $row['subtitle'];
-                $category = $row['niche'];
-                $link = $row['link'];
-                $image = $row['image_path'];
-                $content = $row['content'];
-                $foreign_imagePath = $row['post_image_url'];
-                $author_firstname = $row['authors_firstname'];
-                $author_lastname = $row['authors_lastname'];
-                echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
-                            <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
-                            </div>
-                            <div class='newpost_container_div1 newpost_subdiv'>
-                                <h1>$translations[edit_post]</h1>
-                            </div>
-                            <div class='newpost_container_div2 newpost_subdiv'>
-                                <input class='form__input input1' name='Post_Title' type='text' value='$title'/>
-                                <div class='newpost_container_div2_subdiv2'>
-                                    <input class='form__input' name='Post_Niche' type='text' value='$category'/>
-                                </div>
-                            </div>
-                            <input type='hidden' name='table_type' value='paid_posts' type='text'/>
-                            <input type='hidden' name='post_id' value='$post_id1' type='text'/>
-                            <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='Post_Sub_Title'>$translations[subtitle]:</label>
-                                <div class='newpost_container_div3_subdiv2'>
-                                    <input class='form__input' name='Post_Sub_Title' type='text' value='$subtitle'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_subtitle_p]</p>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div5 newpost_subdiv'>
-                                <label class='form__label' for='Post_featured'>$translations[featured_audio_video]:</label>
-                                <div class='newpost_container_div5_subdiv2'>
-                                    <input class='form__input' name='Post_featured' type='text' value='$link'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[featured_audio_video_p]</p>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div6 newpost_subdiv'>";
-                if (!empty($image)) {
-                    echo "      <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../$image' alt='Post Image'/>
-                                </div>
-                            ";
-                } elseif (!empty($foreign_imagePath)) {
-                    echo "   <div class='newpost_container_div6_subdiv1'>
-                                <img src='$foreign_imagePath' alt='Post Image'/>
-                            </div>
-                        ";
-                }
-                echo "
-                                <div class='newpost_container_div6_subdiv2'>
-                                    <label class='form__label' for='Post_Image'>$translations[post_image]: </label>
-                                    <div class='newpost_subdiv2'>
-                                        <input class='form__input' name='Post_Image' type='file' />
-                                        <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[post_image_p]</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='Post_content'>$translations[post_content]:</label>
-                                <textarea class='newpost_container_div7_subdiv2' name='Post_content' id='myTextarea3'>
-                                    $content
-                                </textarea>
-                            </div>
-                            <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_firstname'>$translations[author_firstname]:</label>
-                                <div class='newpost_container_div3_subdiv2'>
-                                    <input class='form__input' name='author_firstname' type='text' value='$author_firstname'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_firstname_p]</p>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div3 newpost_subdiv'>
-                                <label class='form__label' for='author_lastname'>$translations[author_lastname]:</label>
-                                <div class='newpost_container_div3_subdiv2'>
-                                    <input class='form__input' name='author_lastname' type='text' value='$author_lastname'/>
-                                    <p class='newpost_subdiv2-p leftp'><span>*</span> $translations[author_lastname_p]</p>
-                                </div>
-                            </div>
-                            <div class='newpost_container_div7 newpost_subdiv'>
-                                <label class='form__label' for='about_author'>$translations[about_author]:</label>
-                                <textarea class='newpost_container_div7_subdiv2b' name='about_author'>
-                                    " . $row['about_author'] . "
-                                </textarea>
-                                <p class='newpost_subdiv2-p leftp'><span>*</span>$translations[about_author_p]</p>
-                            </div>
-                            <input class='form__submit_input btn' type='submit' value='$translations[update]' name='update_post' />
-                        </form>
-                        ";
-            }
-        } else if ($post_id2 > 0) {
+         if ($post_id2 > 0) {
             $getpost_sql = " SELECT * FROM posts WHERE id = $post_id2";
             $getpost_result = $conn->query($getpost_sql);
             if ($getpost_result->num_rows > 0) {
@@ -151,7 +56,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href='../editor_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -244,7 +149,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $content = $row['content'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href='../editor_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -318,7 +223,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href='../editor_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -413,7 +318,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href='../editor_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -508,7 +413,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href='../editor_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>

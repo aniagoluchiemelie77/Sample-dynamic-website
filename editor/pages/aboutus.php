@@ -27,21 +27,21 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="../editor.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <title><?php echo $translations['about_website']; ?></title>
+    <title><?php echo $translations['about_us']; ?></title>
 </head>
 
 <body>
     <?php require("../extras/header2.php"); ?>
     <section class="about_section">
         <div class="page_links">
-            <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['about_website']; ?></p>
+            <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['about_us']; ?></p>
         </div>
         <div class="about_header">
-            <h1><?php echo $translations['about_website']; ?></h1>
+            <h1><?php echo $translations['about_us']; ?></h1>
         </div>
         <div class="about_contents">
             <?php
-            $selectpage = "SELECT content FROM about_website ORDER BY id DESC LIMIT 1";
+            $selectpage = "SELECT content FROM about_us ORDER BY id DESC LIMIT 1";
             $selectpage_result = $conn->query($selectpage);
             if ($selectpage_result->num_rows > 0) {
                 while ($row = $selectpage_result->fetch_assoc()) {

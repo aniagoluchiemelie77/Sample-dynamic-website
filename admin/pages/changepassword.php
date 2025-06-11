@@ -19,30 +19,46 @@ if (isset($_POST['change_pwd'])) {
     $password2 = $_POST['password2'];
     $password3 = $_POST['password3'];
     $email = $_SESSION['email'];
-    $select_query = mysqli_query($conn, "SELECT * FROM admin_login_info WHERE email='$email' AND password = '$password1'");
-    $result = mysqli_num_rows($select_query);
-    if ($result > 0) {
+    if (empty($password1) || empty($password2) || empty($password3)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "All fields are required.";
+        exit();
+    }
+    $query = "SELECT * FROM admin_login_info WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $admin = $result->fetch_assoc();
         if ($password2 !== $password3) {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "New passwords do not match.";
             exit();
         }
-        $newPassword = md5($password3);
-        $stmt = $conn->prepare("UPDATE admin_login_info SET password = ? WHERE email = ?");
-        $stmt->bind_param('ss', $newPassword, $email);
-        if ($stmt->execute()) {
-            $content = "Admin " . $_SESSION['firstname'] . " changed his/her password";
-            $forUser = 0;
-            logUpdate($conn, $forUser, $content);
-            $_SESSION['status_type'] = "Success";
-            $_SESSION['status'] = "Password Updated Successfully";
+        if (password_verify($password1, $admin['password'])) {
+            $newPassword = md5($password3);
+            $stmt = $conn->prepare("UPDATE admin_login_info SET password = ? WHERE email = ?");
+            $stmt->bind_param('ss', $newPassword, $email);
+            if ($stmt->execute()) {
+                $content = "Admin " . $_SESSION['firstname'] . " changed password";
+                $forUser = 0;
+                logUpdate($conn, $forUser, $content);
+                $_SESSION['status_type'] = "Success";
+                $_SESSION['status'] = "Password Updated Successfully";
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error updating password. Please try again.";
+            }
         } else {
             $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error updating password. Please try again.";
+            $_SESSION['status'] = "Incorrect old password, Please try again.";
+            exit();
         }
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Incorrect password, Please try again.";
+        exit();
     }
     $stmt->close();
 }
@@ -54,13 +70,10 @@ if (isset($_POST['change_pwd'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Tech News and Articles website" />
-    <meta name="keywords" content="Tech News, Content Writers, Content Strategy" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -81,19 +94,19 @@ if (isset($_POST['change_pwd'])) {
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="password1"><i class="fas fa-lock"></i></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password1" type="password" placeholder="<?php echo $translations['change_password1']; ?>..." required />
+                    <input class="form__input" name="password1" type="password" placeholder="<?php echo $translations['change_password1']; ?>..." />
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="password2"><i class="fas fa-lock"></i></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password2" type="password" placeholder="<?php echo $translations['change_password2']; ?>..." required />
+                    <input class="form__input" name="password2" type="password" placeholder="<?php echo $translations['change_password2']; ?>..." />
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="password3"><i class="fas fa-lock"></i></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password3" type="password" placeholder="<?php echo $translations['change_password3']; ?>..." required />
+                    <input class="form__input" name="password3" type="password" placeholder="<?php echo $translations['change_password3']; ?>..." />
                 </div>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">

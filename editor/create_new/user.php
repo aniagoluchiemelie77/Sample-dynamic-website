@@ -6,7 +6,7 @@ require('../../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-$translationFile = "translation_files/lang/{$language}.php";
+$translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {
@@ -56,7 +56,7 @@ if (file_exists($translationFile)) {
                 </div>
                 <div class="input_group">
                     <label for="user_role"><?php echo $translations['users_role']; ?>:</label>
-                    <input type="email" name="user_role" id="topicName" />
+                    <input type="text" name="user_role" id="topicName" />
                 </div>
                 <div class="newpost_container_div5 newpost_subdiv">
                     <label class="form__label" for="user_linkedin_url"><?php echo $translations['users_linkedin_url']; ?>:</label>

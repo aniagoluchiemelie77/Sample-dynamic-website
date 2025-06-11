@@ -1,7 +1,17 @@
 <?php
 session_start();
 include("../connect.php");
-include("../crudoperations.php");
+require("../init.php");
+require('../../init.php');
+$details = getFaviconAndLogo();
+$logo = $details['logo'];
+$favicon = $details['favicon'];
+$translationFile = "../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
+    include $translationFile;
+} else {
+    $translations = [];
+}
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 if (isset($_POST['change_pwd'])) {
@@ -9,36 +19,46 @@ if (isset($_POST['change_pwd'])) {
     $password2 = $_POST['password2'];
     $password3 = $_POST['password3'];
     $email = $_SESSION['email'];
-    $sql_editor = "SELECT * FROM editor WHERE email='$email'";
-    $result_editor = $conn->query($sql_editor);
-    if ($result_editor->num_rows > 0) {
-        $editor = $result_editor->fetch_assoc();
-        $old_password = $editor['password'];
-        $decrypted_password = decryptPassword($old_password);
-        if ($decrypted_password !== $password1) {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Incorrect old password, Please try again.";
-        }
+    if (empty($password1) || empty($password2) || empty($password3)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "All fields are required.";
+        exit();
+    }
+    $query = "SELECT * FROM editor WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $editor = $result->fetch_assoc();
         if ($password2 !== $password3) {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "New passwords do not match.";
+            exit();
         }
-        $newPassword = encryptPassword($password3);
-        $stmt = $conn->prepare("UPDATE editor SET password = ? WHERE email = ?");
-        $stmt->bind_param('ss', $newPassword, $email);
-        if ($stmt->execute()) {
-            $content = "Editor " . $_SESSION['firstname'] . " changed his/her password";
-            $forUser = 0;
-            logUpdate($conn, $forUser, $content);
-            $_SESSION['status_type'] = "Success";
-            $_SESSION['status'] = "Password Updated Successfully";
+        if (password_verify($password1, $editor['password'])) {
+            $newPassword = md5($password3);
+            $stmt = $conn->prepare("UPDATE editor SET password = ? WHERE email = ?");
+            $stmt->bind_param('ss', $newPassword, $email);
+            if ($stmt->execute()) {
+                $content = "Editor " . $_SESSION['firstname'] . " changed password";
+                $forUser = 0;
+                logUpdate($conn, $forUser, $content);
+                $_SESSION['status_type'] = "Success";
+                $_SESSION['status'] = "Password Updated Successfully";
+            } else {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error updating password. Please try again.";
+            }
         } else {
             $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error updating password. Please try again.";
+            $_SESSION['status'] = "Incorrect old password, Please try again.";
+            exit();
         }
     } else {
         $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Editor not found.";
+        $_SESSION['status'] = "Incorrect password, Please try again.";
+        exit();
     }
     $stmt->close();
 }
@@ -54,11 +74,11 @@ if (isset($_POST['change_pwd'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../editor.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Change Password</title>
+    <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
+    <title><?php echo $translations['change_password']; ?></title>
 </head>
 
 <body>
@@ -66,31 +86,31 @@ if (isset($_POST['change_pwd'])) {
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="changepassword.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">
-                <a href="../editor_homepage.php">Home</a> > <p>Pages</p> > <p>Change Password</p>
+                <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['change_password']; ?></p>
             </div>
             <div class="newpost_container_div1 newpost_subdiv">
-                <h1>Change Password</h1>
+                <h1><?php echo $translations['change_password']; ?></h1>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="password1"><i class="fas fa-lock"></i></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password1" type="password" placeholder="Enter Old Password..." required />
+                    <input class="form__input" name="password1" type="password" placeholder="<?php echo $translations['change_password1']; ?>..." />
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="password2"><i class="fas fa-lock"></i></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password2" type="password" placeholder="Enter New Password..." required />
+                    <input class="form__input" name="password2" type="password" placeholder="<?php echo $translations['change_password2']; ?>..." />
                 </div>
             </div>
             <div class="newpost_container_div3 newpost_subdiv">
                 <label class="form__label" for="password3"><i class="fas fa-lock"></i></label>
                 <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password3" type="password" placeholder="Confirm New Password..." required />
+                    <input class="form__input" name="password3" type="password" placeholder="<?php echo $translations['change_password3']; ?>..." />
                 </div>
             </div>
             <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="Update" name="change_pwd" />
+                <input class="form__submit_input" type="submit" value="<?php echo $translations['save']; ?>" name="change_pwd" />
             </div>
         </form>
     </section>

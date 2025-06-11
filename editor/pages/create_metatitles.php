@@ -55,7 +55,7 @@ $userId = $_SESSION['id'];
     <?php require("../extras/header2.php"); ?>
 
     <section class="newpost_body">
-        <form method="POST" action="" enctype="multipart/form-data" id="postForm" class="newpost_container">
+        <form method="POST" action=" " enctype="multipart/form-data" id="postForm" class="newpost_container">
             <div class="page_links">
                 <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['meta_titles_management']; ?></p>
             </div>
@@ -87,7 +87,7 @@ $userId = $_SESSION['id'];
     </section>
     <script src="sweetalert2.all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="../editor.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

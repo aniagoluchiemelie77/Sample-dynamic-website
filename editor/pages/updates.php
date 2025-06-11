@@ -12,6 +12,9 @@ if (file_exists($translationFile)) {
 } else {
     $translations = [];
 }
+                $user = $_SESSION['firstname'];
+                $read_updates = "UPDATE updates SET status = 'read' WHERE status = 'unread'";
+                $conn->query($read_updates);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,8 +50,9 @@ if (file_exists($translationFile)) {
                     while ($row = $select_commentaries_result->fetch_assoc()) {
                         $time = $row['time'];
                         $formatted_time = date("g:i A", strtotime($time));
+                        $message = str_replace("Editor $user", "You", $row['content']);
                         echo "<div class='posts_divcontainer_subdiv'>
-                                    <h3 class='posts_divcontainer_header'>" . $row["content"] . "</h3>
+                                    <h3 class='posts_divcontainer_header'>$message</h3>
                                     <div class='posts_divcontainer_subdiv3'>
                                         <p class='posts_divcontainer_subdiv_p'><span> $translations[date]: </span>" . $row["formatted_date"] . "</p> 
                                         <p class='posts_divcontainer_subdiv_p'><span> $translations[time]: </span>" . $formatted_time . "</p> 

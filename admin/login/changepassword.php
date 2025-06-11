@@ -70,7 +70,7 @@ if (isset($_POST['change_password'])) {
     </section>
     <?php require("../extras/footer.php"); ?>
     <script src="sweetalert2.all.min.js"></script>
-    <script src="../index.js"></script>
+    <script src="../admin.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";

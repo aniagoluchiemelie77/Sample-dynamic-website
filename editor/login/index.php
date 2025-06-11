@@ -4,8 +4,6 @@ require('../../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-$emailAdmin = isset($_GET['emailAdmin']) ? $_GET['emailAdmin'] : null;
-$passwordAdmin = isset($_GET['passwordAdmin']) ? $_GET['passwordAdmin'] : null;
 if (isset($_REQUEST['Sign_In'])) {
     $email = $_REQUEST['Email'];
     $password = $_REQUEST['Password'];
@@ -13,47 +11,34 @@ if (isset($_REQUEST['Sign_In'])) {
         setcookie("emailid", $_REQUEST['Email'], time() + 60 * 60);
         setcookie("passwordid", $_REQUEST['Password'], time() + 60 * 60);
     }
-    $select_query = mysqli_query($conn, "SELECT * FROM editor WHERE email='$email' OR password = '$password'");
-    $result = mysqli_num_rows($select_query);
-    if ($result > 0) {
+    $query = "SELECT * FROM editor WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $editor = $result->fetch_assoc();
+    if (password_verify($password, $editor['password'])) {
         session_start();
-        $data = mysqli_fetch_array($select_query);
-        $id = $data['id'];
-        $email = $data['email'];
-        $firstname = $data['firstname'];
-        $lastname = $data['lastname'];
-        $username = $data['username'];
-        $image = $data['image'];
-        $bio = $data['bio'];
-        $mobile = $data['mobile'];
-        $country = $data['country'];
-        $city = $data['city'];
-        $state = $data['state'];
-        $address = $data['address1'];
-        $addresstwo = $data['address2'];
-        $country_code = $data['country_code'];
-        $date_joined = $data['date_joined'];
-        //declaring session variables
-        $_SESSION['email'] = $email;
-        $_SESSION['id'] = $id;
-        $_SESSION['firstname'] = $firstname;
-        $_SESSION['lastname'] = $lastname;
-        $_SESSION['username'] = $username;
-        $_SESSION['image'] = $image;
-        $_SESSION['bio'] = $bio;
-        $_SESSION['mobile'] = $mobile;
-        $_SESSION['country'] = $country;
-        $_SESSION['city'] = $city;
-        $_SESSION['state'] = $state;
-        $_SESSION['address'] = $address;
-        $_SESSION['addresstwo'] = $addresstwo;
-        $_SESSION['country_code'] = $country_code;
-        $_SESSION['date_joined'] = $date_joined;
-        $_SESSION['language'] = 'en';
+        $_SESSION['email'] = $editor['email'];
+        $_SESSION['id'] = $editor['id'];
+        $_SESSION['firstname'] = $editor['firstname'];
+        $_SESSION['lastname'] = $editor['lastname'];
+        $_SESSION['username'] = $editor['username'];
+        $_SESSION['image'] = $editor['image'];
+        $_SESSION['bio'] = $editor['bio'];
+        $_SESSION['mobile'] = $editor['mobile'];
+        $_SESSION['country'] = $editor['country'];
+        $_SESSION['city'] = $editor['city'];
+        $_SESSION['state'] = $editor['state'];
+        $_SESSION['address'] = $editor['address1'];
+        $_SESSION['addresstwo'] = $editor['address2'];
+        $_SESSION['country_code'] = $editor['country_code'];
+        $_SESSION['date_joined'] = $editor['date_joined'];
+        $_SESSION['language'] = $editor['language'];
         header("location: ../editor_homepage.php");
         exit();
     } else {
-        $msg = "Invalid Email or Password";
+        $msg = "Invalid Password";
     }
 }
 
@@ -91,12 +76,12 @@ if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
                 </p>
                 <div class="input_group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid . ' ' . $emailAdmin; ?>" required />
+                    <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid; ?>" required />
                     <label for="Email">Email</label>
                 </div>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" name="Password" id="form_input" placeholder="Password" value="<?php echo $passwordid . ' ' . $passwordAdmin; ?>" required />
+                    <input type="password" name="Password" id="form_input" placeholder="Password" value="<?php echo $passwordid; ?>" required />
                     <label for="Password">Password</label>
                 </div>
                 <div class="checkbox_group">

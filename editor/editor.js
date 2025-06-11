@@ -8,15 +8,14 @@ const logoutDiv = document.getElementById('logout_alert');
 const logoutDiv2 = document.getElementById('logout_alert2');
 const exitLogout = document.getElementById('dismiss-popup-btn');
 
-window.addEventListener("resize", function() {
+/*window.addEventListener("resize", function() {
     if (tinymce.activeEditor) {
-        let newWidth = window.innerWidth * 0.8; // Adjust width dynamically
-        let newHeight = window.innerHeight * 0.7; // Adjust height dynamically
-        
+        let newWidth = window.innerWidth * 0.8;
+        let newHeight = window.innerHeight * 0.7;
         tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
         tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
     }
-});
+});*/
 
 sideBtns.forEach((tab, index) =>{
     tab.addEventListener('click', () => {
@@ -98,7 +97,7 @@ function confirmDeleteC2(postId) {
         }
     })
   };
-function confirmDeleteResource(Id) {
+function confirmDeleteResource(Id, ResourceName) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -109,11 +108,12 @@ function confirmDeleteResource(Id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = '../delete.php?id=' + Id + '&type=Resource';
+            console.log('Deleting resource with ID:', Id, 'and name:', ResourceName);
+            window.location.href = '../delete.php?id=' + Id + '&type=Resource&resourceName=' + ResourceName + '';
         }
     })
 };
-  function confirmDeletePage(Id) {
+function confirmDeleteCategory(Id, topicName) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -124,22 +124,7 @@ function confirmDeleteResource(Id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = '../delete.php?id=' + Id + '&type=Page';
-        }
-    })
-  };
-function confirmDeleteCategory(Id) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = '../delete.php?id=' + Id + '&type=Category';
+            window.location.href = '../delete.php?id=' + Id + '&type=Category&topicName=' + topicName + '';
         }
     })
   };

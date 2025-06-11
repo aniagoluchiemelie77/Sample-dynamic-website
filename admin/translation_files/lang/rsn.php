@@ -232,5 +232,4 @@ $translations = [
     'editor_login_verify_header' => 'Проверка запроса входа редактора',
     'editor_login_verify_btn' => 'Продолжить вход',
 ];
-
 ?>

@@ -94,7 +94,7 @@ if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
         </div>
     </section>
     <?php require("../extras/footer.php"); ?>
-    <script src="../index.js"></script>
+    <script src="../admin.js"></script>
 </body>
 
 </html>

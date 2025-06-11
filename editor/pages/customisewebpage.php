@@ -28,7 +28,7 @@ if (file_exists($translationFile)) {
     <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../index.css" />
-    <link id="themeStylesheet" rel="stylesheet" href="../admin.css" />
+    <link id="themeStylesheet" rel="stylesheet" href="../editor.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['customise_frontend']; ?></title>
@@ -39,7 +39,7 @@ if (file_exists($translationFile)) {
     <section class="sectioneer">
         <div class='pages_container'>
             <div class="page_links">
-                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['customise_frontend']; ?></p>
+                <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['customise_frontend']; ?></p>
             </div>
             <h1><?php echo $translations['actions']; ?></h1>
             <div class="pages_container_subdiv theme-switcher" id="theme-icon">
@@ -56,7 +56,7 @@ if (file_exists($translationFile)) {
             </div>
         </div>
     </section>
-    <script src="../admin.js"></script>
+    <script src="../editor.js"></script>
 </body>
 
 </html>

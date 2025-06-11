@@ -956,19 +956,36 @@ function saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $admi
     global $conn;
     $date = date('y-m-d');
     $time = date('H:i:s');
-    $stmt = $conn->prepare("INSERT INTO unpublished_articles (admin_id, title, subtitle, image, link, Date, time, niche, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("issssssss", $admin_id, $title, $subtitle, $imagePath, $link, $date, $time, $niche, $content);
-    if ($stmt->execute()) {
-        $content = "Admin " . $_SESSION['firstname'] . " added a draft";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Draft Created Successfully";
-        header('location: admin_homepage.php');
+    if ($imagePath !== null) {
+        $stmt = $conn->prepare("INSERT INTO unpublished_articles (admin_id, title, subtitle, image, link, Date, time, niche, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("issssssss", $admin_id, $title, $subtitle, $imagePath, $link, $date, $time, $niche, $content);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " added a draft";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Draft Created Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
     } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: admin_homepage.php');
+        $stmt = $conn->prepare("INSERT INTO unpublished_articles (admin_id, title, subtitle, link, Date, time, niche, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssssss", $admin_id, $title, $subtitle, $link, $date, $time, $niche, $content);
+        if ($stmt->execute()) {
+            $content = "Admin " . $_SESSION['firstname'] . " added a draft";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Draft Created Successfully";
+            header('location: admin_homepage.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: admin_homepage.php');
+        }
     }
     $stmt->close();
 }
@@ -1296,6 +1313,7 @@ if (isset($_POST['edit_profile'])) {
     $mobile = $_POST['profile-mobile'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
+    $imagePath;
     if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
         $imagePath = $target;
     }
@@ -1318,6 +1336,7 @@ if (isset($_POST['edit_profile_editor'])) {
     $mobile = $_POST['profile-mobile'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
+    $$convertedPath;
     if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
@@ -1333,6 +1352,7 @@ if (isset($_POST['edit_profile_writer'])) {
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
     file_put_contents("log.txt", "POST request received\n", FILE_APPEND);
+    $$convertedPath;
     if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
         file_put_contents("log.txt", "\n", FILE_APPEND);
         $imagePath = $target;
@@ -1350,6 +1370,7 @@ if (isset($_POST['edit_profile_otheruser'])) {
     $url = $_POST['profile_url'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
+    $$convertedPath;
     if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
@@ -1364,11 +1385,12 @@ if (isset($_POST['create_draft'])) {
     $link = $_POST['Post_featured'];
     $image = $_FILES['Post_Image']['name'];
     $target = "../images/" . basename($image);
+    $convertedPath;
     if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
-        saveDraft($title, $subtitle, $convertedPath, $content, $niche, $link, $admin_id);
     }
+    saveDraft($title, $subtitle, $convertedPath, $content, $niche, $link, $admin_id);
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_post'])) {
     $title = $_POST['Post_Title'];
@@ -1393,11 +1415,12 @@ if (isset($_POST['create_page'])) {
     $topic_name = $_POST['topicName'];
     $image = $_FILES['topicImg']['name'];
     $target = "../images/" . basename($image);
+    $convertedPath;
     if (move_uploaded_file($_FILES['topicImg']['tmp_name'], $target)) {
         $imagePath = $target;
         $convertedPath = convertPath($imagePath);
-        createCategory($topic_name, $convertedPath);
     }
+    createCategory($topic_name, $convertedPath);
 }
 if (isset($_POST['create_editor'])) {
     $firstname = $_POST['editor_firstname'];
@@ -1407,14 +1430,16 @@ if (isset($_POST['create_editor'])) {
     $confirm_pasword = $_POST['editor_password-confirm'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
+    $convertedPath;
     if ($password === $confirm_pasword) {
         if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
             $imagePath = $target;
             $convertedPath = convertPath($imagePath);
-            addEditor($firstname, $lastname, $email, $convertedPath, $password, $admin_id);
         }
+        addEditor($firstname, $lastname, $email, $convertedPath, $password, $admin_id);
     } else {
-        echo "Passwords do not match";
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Passwords do not match";
         header('location: create_new/editor.php');
     }
 }
@@ -1424,12 +1449,13 @@ if (isset($_POST['create_writer'])) {
     $email = $_POST['writer_email'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
+    $convertedPath;
     if ($password === $confirm_pasword) {
         if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
             $imagePath = $target;
             $convertedPath = convertPath($imagePath);
-            addWriter($firstname, $lastname, $email, $convertedPath, $admin_id);
         }
+        addWriter($firstname, $lastname, $email, $convertedPath, $admin_id);
     }
 }
 if (isset($_POST['create_user'])) {
@@ -1440,12 +1466,13 @@ if (isset($_POST['create_user'])) {
     $linkedin_url = $_POST['user_linkedin_url'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
+    $convertedPath;
     if ($password === $confirm_pasword) {
         if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
             $imagePath = $target;
             $convertedPath = convertPath($imagePath);
-            addUser($firstname, $lastname, $email,  $role, $linkedin_url, $convertedPath);
         }
+        addUser($firstname, $lastname, $email,  $role, $linkedin_url, $convertedPath);
     }
 }
 if (isset($_POST['edit_privacypolicy_btn'])) {
@@ -1539,6 +1566,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         if ($stmt->execute()) {
             $content = "Admin " . $_SESSION['firstname'] . " updated this Website's Favicon";
             $forUser = 0;
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Favicon Updated Successfully";
             logUpdate($conn, $forUser, $content);
             header('location: edit/frontend_features.php');
         } else {
@@ -1559,6 +1588,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         if ($stmt->execute()) {
             $content = "Admin " . $_SESSION['firstname'] . " updated this Website's Logo";
             $forUser = 0;
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Logo Updated Successfully";
             logUpdate($conn, $forUser, $content);
             header('location: edit/frontend_features.php');
         } else {
@@ -1578,6 +1609,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
             $content = "Admin " . $_SESSION['firstname'] . " updated his/her Profile Picture";
             $forUser = 0;
             logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Profile Picture Updated Successfully";
             header('location: admin_homepage.php');
         } else {
             $_SESSION['status_type'] = "Error";

@@ -967,7 +967,6 @@ $date = formatDate($_SESSION['date_joined']);
                             <p><?php echo $translations['categories']; ?></p>
                         </a>
                     </div>
-                    <?php ?>
                     <?php
                     $getpages_sql = " SELECT id, page_name FROM pages ORDER BY id";
                     $getpages_result = $conn->query($getpages_sql);

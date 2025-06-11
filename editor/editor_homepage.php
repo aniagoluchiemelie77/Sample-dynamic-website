@@ -1,33 +1,16 @@
 <?php
 session_start();
+require("connect.php");
+include("init.php");
+require('../init.php');
 $tempSession = $_SESSION;
 session_regenerate_id(true);
 $_SESSION = $tempSession;
 if (!isset($_SESSION['email'])) {
     header("Location: login/index.php");
 };
-if (isset($_GET['switch_to_editor'])) {
-    $_SESSION['editor_mode'] = true;
-    $_SESSION['email'] = $selected_editor['email'];
-    $_SESSION['id'] = $selected_editor['id'];
-    $_SESSION['firstname'] = $selected_editor['firstname'];
-    $_SESSION['lastname'] = $selected_editor['lastname'];
-}
-require("connect.php");
-include("init.php");
-require('../init.php');
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
-$user_firstname = $_SESSION['firstname'];
-$query = "SELECT * FROM messages WHERE user_firstname = ? AND status = 'unread'";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $user_firstname);
-$stmt->execute();
-$result = $stmt->get_result();
-if ($result->num_rows > 0) {
-    $_SESSION['status_type'] = "info";
-    $_SESSION['status'] = "You have a new message!";
-}
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -832,36 +815,25 @@ $date = formatDate($_SESSION['date_joined']);
                             <p><?php echo $translations['categories']; ?></p>
                         </a>
                     </div>
-                    <div class="pages_container_subdiv ">
-                        <a class='pages_container_subdiv-links' href="pages/aboutwebsite.php">
-                            <p><?php echo $translations['about_website']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/advertisewithus.php">
-                            <p><?php echo $translations['advertise_with_us']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/contactus.php">
-                            <p><?php echo $translations['contact_us']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/privacypolicy.php">
-                            <p><?php echo $translations['privacy_policy']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/termsofservice.php">
-                            <p><?php echo $translations['terms_of_services']; ?></p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv">
-                        <a class='pages_container_subdiv-links' href="pages/workwithus.php">
-                            <p><?php echo $translations['work_with_us']; ?></p>
-                        </a>
-                    </div>
+                    <?php
+                    $getpages_sql = " SELECT id, page_name FROM pages ORDER BY id";
+                    $getpages_result = $conn->query($getpages_sql);
+                    if ($getpages_result->num_rows > 0) {
+                        while ($row = $getpages_result->fetch_assoc()) {
+                            $page_name = $row['page_name'];
+                            $page_name1 = convertToUnreadable2($page_name);
+                            $page_name2 = removeHyphen2($page_name);
+                            $page_name2 = lowercaseNoSpace($page_name2);
+                            $page_id = $row['id'];
+                            echo "
+                                <div class='pages_container_subdiv '>
+                                    <a class='pages_container_subdiv-links' href='pages/$page_name2.php'>
+                                        <p>$translations[$page_name1]</p>
+                                    </a>
+                                </div>";
+                        }
+                    }
+                    ?>
                 </div>
             </div>
             <div class="settings tab_content" id="tab6">
@@ -989,6 +961,24 @@ $date = formatDate($_SESSION['date_joined']);
                     Swal.fire("Error!", "Image upload failed!", "error");
                 });
         }
+
+        function checkNotifications() {
+            fetch('pages/check_notifications.php')
+                .then(response => response.text())
+                .then(count => {
+                    const notificationCount = document.getElementById('notificationCount');
+                    if (parseInt(count) > 0) {
+                        notificationCount.style.display = 'inline-block';
+                        notificationCount.textContent = count;
+                        notificationCount.classList.add('notification-badge');
+                    } else {
+                        notificationCount.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error fetching notifications:', error));
+        }
+        setInterval(checkNotifications, 7000);
+        window.onload = checkNotifications;
     </script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

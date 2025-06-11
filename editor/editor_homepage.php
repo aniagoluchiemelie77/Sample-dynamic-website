@@ -202,7 +202,7 @@ $date = formatDate($_SESSION['date_joined']);
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/posts.php?id2=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteP(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id2=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteP(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -239,7 +239,7 @@ $date = formatDate($_SESSION['date_joined']);
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/posts.php?id3=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteD(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id3=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteD(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -276,7 +276,7 @@ $date = formatDate($_SESSION['date_joined']);
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/posts.php?id6=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeletePR(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id6=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeletePR(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -313,7 +313,7 @@ $date = formatDate($_SESSION['date_joined']);
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/posts.php?id4=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteN(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id4=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteN(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -350,7 +350,7 @@ $date = formatDate($_SESSION['date_joined']);
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/posts.php?id5=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteC(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id5=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteC(" . $row['id'] . ")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";

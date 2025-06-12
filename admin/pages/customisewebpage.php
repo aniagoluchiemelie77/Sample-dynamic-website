@@ -39,13 +39,6 @@ if (file_exists($translationFile)) {
                 <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['customise_frontend']; ?></p>
             </div>
             <h1><?php echo $translations['actions']; ?></h1>
-            <div class="pages_container_subdiv theme-switcher" id="theme-icon">
-                <i class="fa fa-moon night-icon" aria-hidden="true" id="theme-icon1"></i>
-                <i class="fa fa-sun day-icon" aria-hidden="true" id="theme-icon2"></i>
-                <a class='pages_container_subdiv-links' href="#">
-                    <p id="paragraph"><?php echo $translations['change_theme']; ?></p>
-                </a>
-            </div>
             <div class="pages_container_subdiv">
                 <a class='pages_container_subdiv-links' href="../edit/frontend_features.php">
                     <p><?php echo $translations['customise_frontend_p']; ?></p>

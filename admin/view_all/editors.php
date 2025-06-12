@@ -12,6 +12,7 @@ if (file_exists($translationFile)) {
 } else {
     $translations = [];
 }
+$posttype = 'Editors';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +28,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="../admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <script src="../admin.js" defer></script>
+    <script src="../admin.js" async></script>
     <title><?php echo $translations['view_editors']; ?></title>
 </head>
 
@@ -42,6 +43,51 @@ if (file_exists($translationFile)) {
                 <h1><?php echo $translations['editors']; ?></h1>
             </div>
             <div class="posts_divcontainer border-gradient-side-dark">
+                <div id="search-results">
+                    <?php
+                    if (isset($_GET['query'])) {
+                        $query = trim($_GET['query']);
+                        if ($query !== "") {
+                            $stmt = $conn->prepare("SELECT * FROM editor WHERE firstname LIKE ? OR lastname LIKE ? OR username LIKE ? OR email LIKE ? OR bio LIKE ? ORDER BY id DESC LIMIT 5");
+                            $searchTerm = "%" . $query . "%";
+                            $stmt->bind_param("sssss", $searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+                            if ($stmt->execute()) {
+                                $result = $stmt->get_result();
+                                if ($result->num_rows > 0) {
+                                    echo "<h3 class='posts_divcontainer_header'>You Searched For: $query <h3>";
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<div class='posts_divcontainer_subdiv editor_div'>
+                                            <img src='../../" . $row["image"] . "' alt='Editor Image'/>
+                                            <div class='editor_div-body'>
+                                                <h3 class='posts_divcontainer_header'>" . $row["firstname"] . " " . $row["lastname"] . " ( " . $row["username"] . " )</h3>
+                                                <div class='posts_divcontainer_subdiv2'>
+                                                    <p class='posts_divcontainer_p'><span> $translations[email]: </span>" . $row["email"] . "</p>
+                                                    <p class='posts_divcontainer_p'><span> $translations[nationality]: </span>" . $row["country"] . "</p>
+                                                </div>
+                                                <form action='../demote_editor.php' method='POST' class='posts_delete_edit'>
+                                                    <input type='hidden' name='editor_id' value='" . $row["id"] . "'>
+                                                    <button type='submit' class='promote_button users_delete btn'>$translations[demote_message]</button>
+                                                </form>
+                                                <div class='posts_delete_edit'>
+                                                    <a class='users_edit' href='../edit/user.php?id=" . $row["id"] . "&usertype=Editor'>
+                                                        <i class='fa fa-pencil' aria-hidden='true'></i>
+                                                    </a>
+                                                    <a class='users_delete' onclick='confirmDeleteEditor(" . $row["id"] . ")'>
+                                                        <i class='fa fa-trash' aria-hidden='true'></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>";
+                                    }
+                                } else {
+                                    echo "<h1 class='posts_divcontainer_header'>No results found for ' $query '</h1>";
+                                }
+                            }
+                        }
+                        exit;
+                    }
+                    ?>
+                </div>
                 <?php
                 $select_allposts = "SELECT id, username, email, image, firstname, lastname, country FROM editor ORDER BY id DESC LIMIT 100";
                 $select_allposts_result = $conn->query($select_allposts);
@@ -77,6 +123,20 @@ if (file_exists($translationFile)) {
     </section>
     <script src="sweetalert2.all.min.js"></script>
     <script>
+        function submitSearch() {
+            var query = document.getElementById("search-bar").value;
+            if (query.trim() !== "") {
+                fetch("editors.php?query=" + encodeURIComponent(query))
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById("search-results").innerHTML = data;
+                        document.getElementById("search-results").style.display = "block";
+                    })
+                    .catch(error => console.error("Error fetching results:", error));
+            } else {
+                document.getElementById("search-results").style.display = "none";
+            }
+        }
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

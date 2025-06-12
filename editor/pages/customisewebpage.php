@@ -32,7 +32,7 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header2.php"); ?>
+    <?php require("../extras/header3.php"); ?>
     <section class="sectioneer">
         <div class='pages_container'>
             <div class="page_links">

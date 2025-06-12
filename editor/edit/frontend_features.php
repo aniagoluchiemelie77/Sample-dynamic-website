@@ -82,7 +82,7 @@ if (file_exists($translationFile)) {
             </div>
         </form>
     </div>
-    <?php require("../extras/header2.php"); ?>
+    <?php require("../extras/header3.php"); ?>
     <section class="sectioneer">
         <div class="page_links">
             <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['edit_frontend_title']; ?></p>

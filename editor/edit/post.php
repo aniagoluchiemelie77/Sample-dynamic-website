@@ -37,10 +37,10 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
 </head>
 
 <body>
-    <?php require("../extras/header2.php"); ?>
+    <?php require("../extras/header3.php"); ?>
     <section class="newpost_body">
         <?php
-         if ($post_id2 > 0) {
+        if ($post_id2 > 0) {
             $getpost_sql = " SELECT * FROM posts WHERE id = $post_id2";
             $getpost_result = $conn->query($getpost_sql);
             if ($getpost_result->num_rows > 0) {

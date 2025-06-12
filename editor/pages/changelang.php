@@ -56,7 +56,7 @@ if ($result && $result->num_rows > 0) {
 </head>
 
 <body>
-    <?php require("../extras/header2.php"); ?>
+    <?php require("../extras/header3.php"); ?>
     <section class="newpost_body">
         <form method="POST" action="changelang.php" enctype="multipart/form-data" id="postForm" class="newpost_container">
             <div class="page_links">

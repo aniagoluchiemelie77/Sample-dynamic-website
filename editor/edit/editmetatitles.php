@@ -41,8 +41,8 @@ if (isset($_POST['edit_metatitle'])) {
     $meta_content5 = $_POST['meta_content5'];
     updateMetatitle($meta_name1, $meta_name2, $meta_name3, $meta_name4, $meta_name5, $meta_content1, $meta_content2, $meta_content3, $meta_content4, $meta_content5, $page_name);
 }
-        $orginalPageName = $page_name; // Store the original page name for later use
-        $page_name = removeHyphen($page_name);
+$orginalPageName = $page_name; // Store the original page name for later use
+$page_name = removeHyphen($page_name);
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -71,7 +71,7 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header2.php"); ?>
+    <?php require("../extras/header3.php"); ?>
     <div class="editprofile_container">
         <form class="newpost_container modal-content" method="POST" action=" " id="postForm" enctype="multipart/form-data">
             <?php echo "<h2 class='sectioneer_form_header'>$translations[edit_metatitles_p] $page_name</h2>"; ?>

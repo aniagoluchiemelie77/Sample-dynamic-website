@@ -32,7 +32,7 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header2.php"); ?>
+    <?php require("../extras/header3.php"); ?>
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">

@@ -36,7 +36,7 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header2.php"); ?>
+    <?php require("../extras/header3.php"); ?>
     <section class="middle_centering">
         <div class="posts width80">
             <div class="page_links">

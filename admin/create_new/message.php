@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
 
 <body>
     <?php
-    require("../extras/header2.php");
+require("../extras/header3.php");
     if ($id > 0) {
         if ($user_type == "Editor") {
             $get_subscriber = "SELECT id, image, firstname FROM editor WHERE id = $id";

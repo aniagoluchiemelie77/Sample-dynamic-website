@@ -34,7 +34,7 @@ if (file_exists($translationFile)) {
 
 <body>
     <?php
-    require("../extras/header2.php");
+        require("../extras/header3.php");
     if ($usertype == "Editor") {
         $getuser_sql = "SELECT * FROM editor WHERE id = $id";
         $getuser_result = $conn->query($getuser_sql);

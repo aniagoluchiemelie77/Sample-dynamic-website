@@ -32,7 +32,7 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header2.php"); ?>
+    <?php require("../extras/header3.php"); ?>
     <section class="about_section">
         <div class="page_links">
             <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['advertise_with_us']; ?></p>
@@ -42,7 +42,7 @@ if (file_exists($translationFile)) {
         </div>
         <div class="about_contents">
             <?php
-        $selectpage = "SELECT content FROM advertise_with_us ORDER BY id DESC LIMIT 1";
+            $selectpage = "SELECT content FROM advertise_with_us ORDER BY id DESC LIMIT 1";
             $selectpage_result = $conn->query($selectpage);
             if ($selectpage_result->num_rows > 0) {
                 while ($row = $selectpage_result->fetch_assoc()) {

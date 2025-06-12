@@ -12,9 +12,10 @@ if (file_exists($translationFile)) {
 } else {
     $translations = [];
 }
-                $user = $_SESSION['firstname'];
-                $read_updates = "UPDATE updates SET status = 'read' WHERE status = 'unread'";
-                $conn->query($read_updates);
+$user = $_SESSION['firstname'];
+$read_updates = "UPDATE updates SET status = 'read' WHERE status = 'unread'";
+$conn->query($read_updates);
+$posttype = 'Updates';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +44,41 @@ if (file_exists($translationFile)) {
                 <h1><?php echo $translations['user_activities']; ?></h1>
             </div>
             <div class="posts_divcontainer border-gradient-side-dark">
+                <div id="search-results">
+                    <?php
+                    if (isset($_GET['query'])) {
+                        $query = trim($_GET['query']);
+                        if ($query !== "") {
+                            $stmt = $conn->prepare("SELECT * FROM updates WHERE content LIKE ? ORDER BY id DESC LIMIT 5");
+                            $searchTerm = "%" . $query . "%";
+                            $stmt->bind_param("s", $searchTerm);
+                            if ($stmt->execute()) {
+                                $result = $stmt->get_result();
+                                if ($result->num_rows > 0) {
+                                    echo "<h3 class='posts_divcontainer_header'>You Searched For: $query <h3>";
+                                    while ($row = $result->fetch_assoc()) {
+                                        $time = $row['time'];
+                                        $date = $row['Date'];
+                                        $row['formatted_date'] = date("F j, Y", strtotime($date));
+                                        $formatted_time = date("g:i A", strtotime($time));
+                                        $message = str_replace("Editor $user", "You", $row['content']);
+                                        echo "<div class='posts_divcontainer_subdiv'>
+                                            <h3 class='posts_divcontainer_header'>$message</h3>
+                                            <div class='posts_divcontainer_subdiv3'>
+                                                <p class='posts_divcontainer_subdiv_p'><span> $translations[date]: </span>" . $row["formatted_date"] . "</p> 
+                                                <p class='posts_divcontainer_subdiv_p'><span> $translations[time]: </span>" . $formatted_time . "</p> 
+                                            </div>
+                                        </div>";
+                                    }
+                                } else {
+                                    echo "<h1 class='posts_divcontainer_header'>No results found for ' $query '</h1>";
+                                }
+                            }
+                        }
+                        exit;
+                    }
+                    ?>
+                </div>
                 <?php
                 $select_commentaries = "SELECT id, content, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM updates ORDER BY id DESC LIMIT 100";
                 $select_commentaries_result = $conn->query($select_commentaries);
@@ -65,6 +101,22 @@ if (file_exists($translationFile)) {
             </div>
         </div>
     </section>
+    <script>
+        function submitSearch() {
+            var query = document.getElementById("search-bar").value;
+            if (query.trim() !== "") {
+                fetch("updates.php?query=" + encodeURIComponent(query))
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById("search-results").innerHTML = data;
+                        document.getElementById("search-results").style.display = "block";
+                    })
+                    .catch(error => console.error("Error fetching results:", error));
+            } else {
+                document.getElementById("search-results").style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

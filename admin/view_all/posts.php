@@ -177,7 +177,7 @@ $posttype = 'Posts';
                                         <form id='favouriteForm' action='../script.php' method='POST'>
                                             <input type='hidden' name='post_id' value='" . $row['id'] . "'>
                                             <input type='hidden' name='isfavourite' value='" . $row['is_favourite'] . "'>
-                                            <button type='submit' class='users_delete2 star'>
+                                            <button type='submit' class='users_delete2 star' id='star'>
                                                 <i class='fa fa-star' aria-hidden='true'></i>
                                             </button>
                                         </form>
@@ -185,33 +185,56 @@ $posttype = 'Posts';
                                 </div>";
                     };
                 };
-
                 ?>
             </div>
         </div>
     </section>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('favouriteForm');
-            const starButton = form.querySelector('.star');
-            starButton.addEventListener('click', function(event) {
+        if (document.readyState !== 'loading') {
+            console.log("DOM already loaded, executing script...");
+            initFavouriteButtons();
+        } else {
+            document.addEventListener('DOMContentLoaded', initFavouriteButtons);
+        }
+
+        function initFavouriteButtons() {
+            const forms = document.querySelectorAll('.favouriteForm');
+            console.log('Selected All Forms:', forms); // Debugging line
+
+            forms.forEach(form => {
+                const starButton = form.querySelector('.star');
+                console.log('Selected Button:', starButton); // Debugging line
                 const isFavouriteInput = form.querySelector('input[name="isfavourite"]');
-                isFavouriteInput.value = isFavouriteInput.value === '0' ? '1' : '0';
-                if (isFavouriteInput.value === '1') {
-                    starButton.classList.remove('users_delete2');
-                    starButton.classList.add('favourite');
+
+                if (isFavouriteInput.value === 'True') {
+                    starButton.classList.remove('users_delete2', 'star');
+                    starButton.classList.add('favourite', 'star');
                 } else {
-                    starButton.classList.remove('favourite');
-                    starButton.classList.add('users_delete2');
+                    console.log('Initial value:', isFavouriteInput.value);
+                    starButton.classList.remove('favourite', 'star');
+                    starButton.classList.add('users_delete2', 'star');
                 }
+
+                starButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    console.log('Star button clicked'); // Debugging line
+                    isFavouriteInput.value = isFavouriteInput.value === 'False' ? 'True' : 'False';
+
+                    if (isFavouriteInput.value === 'True') {
+                        console.log('Setting as favourite'); // Debugging line
+                        starButton.classList.remove('users_delete2');
+                        starButton.classList.add('favourite');
+                    } else {
+                        console.log('Removing from favourites'); // Debugging line
+                        starButton.classList.remove('favourite');
+                        starButton.classList.add('users_delete2');
+                    }
+
+                    form.submit(); // Ensure form submission happens
+                });
             });
-            const isFavouriteInput = form.querySelector('input[name="isfavourite"]');
-            if (isFavouriteInput.value === '1') {
-                starButton.classList.add('favourite');
-            } else {
-                starButton.classList.add('users_delete2');
-            }
-        });
+        }
+
 
         function submitSearch() {
             var query = document.getElementById("search-bar").value;

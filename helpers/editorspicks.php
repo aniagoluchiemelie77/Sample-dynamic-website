@@ -2,7 +2,7 @@
     $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
     $results = [];
     foreach ($tables as $table) {
-    $sql = "SELECT id, admin_id, editor_id, title, niche, content, image_path, Date, authors_firstname, authors_lastname FROM $table WHERE is_favourite = 1 ORDER BY id DESC LIMIT 2";
+    $sql = "SELECT id, admin_id, editor_id, title, niche, content, image_path, Date, authors_firstname, authors_lastname FROM $table WHERE is_favourite = 'True' ORDER BY id DESC LIMIT 2";
         $stmt = $conn->prepare($sql);
         $stmt->bind_result($id, $admin_id, $editor_id, $title, $niche, $content, $image, $date, $authors_firstname, $authors_lastname);
         $stmt->execute();

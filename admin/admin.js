@@ -367,7 +367,7 @@ function confirmDeleteWriter(Id) {
           window.location.href = 'delete.php?id=' + Id + '&usertype=Writer';
       }
   })
-};
+};/*
 tinymce.init({
   selector: '#myTextarea',
   setup: function(editor) {
@@ -631,7 +631,7 @@ tinymce.init({
   },
   menubar: 'favs file edit view insert format tools table help',
   content_css: 'css/content.css'
-});
+});*/
 function disableInputs(){
   inputs.forEach(function(input) {
       input.disabled = true;

@@ -622,7 +622,7 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
     } else {
         $idtype = "id5";
     }
-    $is_favourite = 0;
+    $is_favourite = 'False';
     if ($convertedPath !== null) {
         $sql = "INSERT INTO $post_type (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         if ($query = $conn->prepare($sql)) {
@@ -927,7 +927,7 @@ function savePost2($title, $subtitle, $convertedPath, $content, $niche, $link, $
     } else {
         $idtype = "id5";
     }
-    $is_favourite = 0;
+    $is_favourite = 'False';
     $sql = "INSERT INTO $post_type (admin_id, title, niche, post_image_url, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     if ($query = $conn->prepare($sql)) {
         $query->bind_param("issssssisssssss", $admin_id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);

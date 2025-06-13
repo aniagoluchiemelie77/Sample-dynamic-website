@@ -5,6 +5,6 @@
         </a>
     </div>
     <div class="header_logobox">
-        <img src="../../<?php echo $logo; ?>" alt="Website Logo">
+        <img src="<?php echo $logo; ?>" alt="Website Logo">
     </div>
 </header>

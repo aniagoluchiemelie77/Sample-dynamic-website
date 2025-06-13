@@ -86,7 +86,7 @@ $posttype = 'Categories';
                                     }
                                     echo "<div class='about_section_topicsdiv_subdiv'>";
                                     if (!empty($img)) {
-                                        echo "<img src='../../$img' alt='article image'>";
+                                        echo "<img src='$img' alt='article image'>";
                                     }
                                     echo "
                                 <div class='about_section_topicsdiv_subdiv_subdiv'>
@@ -145,7 +145,7 @@ $posttype = 'Categories';
                     }
                     echo "<div class='about_section_topicsdiv_subdiv'>";
                     if (!empty($img)) {
-                        echo "<img src='../../$img' alt='article image'>";
+                        echo "<img src='$img' alt='article image'>";
                     }
                     echo "
                                 <div class='about_section_topicsdiv_subdiv_subdiv'>

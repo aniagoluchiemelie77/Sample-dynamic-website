@@ -118,7 +118,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                         <h2>" . $subtitle . "</h2>
                                         <div class='authors_div'>
                                             <div class='authors_div_imgbox'>
-                                                <img src='../" . $row['image'] . "' alt='Author's Image'/>
+                                                <img src='" . $row['image'] . "' alt='Author's Image'/>
                                                 <p><span class='span1'>" . $row['firstname'] . "  " . $row['lastname'] . ", Editor-in-chief, Uniquetechcontentwriter.</span><span class='span3'>" . $date . "</span><span class='span3'>" . $formatted_time . "</span></p>
                                             </div>
                                             <div class='authors_div_otherdiv'>
@@ -134,7 +134,7 @@ if (isset($_POST['subscribe_btn2'])) {
                             }
                             if (!empty($image)) {
                                 echo   "<div class='post_image_div'>
-                                            <img src='../$image' alt='Post Image'/>
+                                            <img src='$image' alt='Post Image'/>
                                         </div>
                                     ";
                             } elseif (!empty($foreign_imagePath)) {
@@ -164,7 +164,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                         <center>
                                             <a href='../authors/author.php?idtype=$idtype&id=$admin_id' class='aboutauthor_div'>
                                                 <div class='aboutauthor_div_subdiv1'>
-                                                    <img src='../" . $row['image'] . "' alt ='Author's Image'/>
+                                                    <img src='" . $row['image'] . "' alt ='Author's Image'/>
                                                 </div>
                                                 <div class='aboutauthor_div_subdiv2'>
                                                     <p class='p--bold'>" . $row['firstname'] . " " . $row['lastname'] . "</p>
@@ -198,7 +198,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         $readingTime = calculateReadingTime($row['content']);
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id1=$id'>";
                         if (!empty($image)) {
-                            echo "<img src='../$image' alt='article image'>";
+                            echo "<img src='$image' alt='article image'>";
                         } elseif (!empty($foreign_imagePath)) {
                             echo "<img src='$foreign_imagePath' alt='article image'>";
                         }
@@ -293,7 +293,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 <h2>$subtitle</h2>
                                 <div class='authors_div'>
                                     <div class='authors_div_imgbox'>
-                                        <img src='../$author_image' alt='Author's Image'/>
+                                        <img src='$author_image' alt='Author's Image'/>
                                         <p><span class='span1'>$author_firstname $author_lastname, $role.</span><span class='span3'>$date</span><span class='span3'>$formatted_time</span></p>
                                     </div>
                                     <div class='authors_div_otherdiv'>
@@ -309,7 +309,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     }
                     if (!empty($image)) {
                         echo "   <div class='post_image_div'>
-                                    <img src='../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                     } elseif (!empty($foreign_imagePath)) {
@@ -340,7 +340,7 @@ if (isset($_POST['subscribe_btn2'])) {
                             <center>
                                 <a href='../authors/author.php?id=$id_admin$id_editor&idtype=$id_type' class='aboutauthor_div'>
                                     <div class='aboutauthor_div_subdiv1'>
-                                        <img src='../$author_image' alt ='Author's Image'/>
+                                        <img src='$author_image' alt ='Author's Image'/>
                                     </div>
                                     <div class='aboutauthor_div_subdiv2'>
                                         <p class='p--bold'>$author_firstname $author_lastname</p>
@@ -372,7 +372,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         $readingTime = calculateReadingTime($row['content']);
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>";
                         if (!empty($image)) {
-                            echo "<img src='../$image' alt='article image'>";
+                            echo "<img src='$image' alt='article image'>";
                         } elseif (!empty($foreign_imagePath)) {
                             echo "<img src='$foreign_imagePath' alt='article image'>";
                         }
@@ -467,7 +467,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 <h2>" . $subtitle . "</h2>
                                 <div class='authors_div'>
                                     <div class='authors_div_imgbox'>
-                                        <img src='../$author_image' alt='Author's Image'/>
+                                        <img src='$author_image' alt='Author's Image'/>
                                         <p><span class='span1'>$author_firstname $author_lastname, $role.</span><span class='span3'>$date</span><span class='span3'>$formatted_time</span></p>
                                     </div>
                                     <div class='authors_div_otherdiv'>
@@ -484,7 +484,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     }
                     if (!empty($image)) {
                         echo "   <div class='post_image_div'>
-                                    <img src='../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                     } elseif (!empty($foreign_imagePath)) {
@@ -515,7 +515,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                     <center>
                                         <a href='../authors/author.php?id=$id_admin$id_editor$id_writer&idtype=$id_type' class='aboutauthor_div'>
                                             <div class='aboutauthor_div_subdiv1'>
-                                                <img src='../$author_image' alt ='Author's Image'/>
+                                                <img src='$author_image' alt ='Author's Image'/>
                                             </div>
                                             <div class='aboutauthor_div_subdiv2'>
                                                 <p class='p--bold'>$author_firstname $author_lastname</p>
@@ -547,7 +547,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         $readingTime = calculateReadingTime($row['content']);
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>";
                         if (!empty($image)) {
-                            echo "<img src='../$image' alt='article image'>";
+                            echo "<img src='$image' alt='article image'>";
                         } elseif (!empty($foreign_imagePath)) {
                             echo "<img src='$foreign_imagePath' alt='article image'>";
                         }
@@ -639,7 +639,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 <h2>" . $subtitle . "</h2>
                                 <div class='authors_div'>
                                     <div class='authors_div_imgbox'>
-                                        <img src='../$author_image' alt='Author's Image'/>
+                                        <img src='$author_image' alt='Author's Image'/>
                                         <p><span class='span1'>$author_firstname $author_lastname, $role.</span><span class='span3'>$date</span><span class='span3'>$formatted_time</span></p>
                                     </div>
                                     <div class='authors_div_otherdiv'>
@@ -656,7 +656,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     }
                     if (!empty($image)) {
                         echo "   <div class='post_image_div'>
-                                    <img src='../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                     } elseif (!empty($foreign_imagePath)) {
@@ -687,7 +687,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 <center>
                                     <a href='../authors/author.php?id=$id_admin$id_editor$id_writer&idtype=$id_type' class='aboutauthor_div'>
                                         <div class='aboutauthor_div_subdiv1'>
-                                            <img src='../$author_image' alt ='Author's Image'/>
+                                            <img src='$author_image' alt ='Author's Image'/>
                                         </div>
                                         <div class='aboutauthor_div_subdiv2'>
                                             <p class='p--bold'>$author_firstname $author_lastname</p>
@@ -719,7 +719,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         $readingTime = calculateReadingTime($row['content']);
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id3=$id'>";
                         if (!empty($image)) {
-                            echo "<img src='../$image' alt='article image'>";
+                            echo "<img src='$image' alt='article image'>";
                         } elseif (!empty($foreign_imagePath)) {
                             echo "<img src='$foreign_imagePath' alt='article image'>";
                         }
@@ -819,7 +819,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 <h2>" . $subtitle . "</h2>
                                 <div class='authors_div'>
                                     <div class='authors_div_imgbox'>
-                                        <img src='../$author_image' alt='Author's Image'/>
+                                        <img src='$author_image' alt='Author's Image'/>
                                         <p><span class='span1'>$author_firstname $author_lastname, $role.</span><span class='span3'>$date</span><span class='span3'>$formatted_time</span></p>
                                     </div>
                                     <div class='authors_div_otherdiv'>
@@ -836,7 +836,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     }
                     if (!empty($image)) {
                         echo "   <div class='post_image_div'>
-                                    <img src='../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                     } elseif (!empty($foreign_imagePath)) {
@@ -867,7 +867,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 <center>
                                     <a href='../authors/author.php?id=$id_admin$id_editor$id_writer&idtype=$id_type' class='aboutauthor_div'>
                                         <div class='aboutauthor_div_subdiv1'>
-                                            <img src='../$author_image' alt ='Author's Image'/>
+                                            <img src='$author_image' alt ='Author's Image'/>
                                         </div>
                                         <div class='aboutauthor_div_subdiv2'>
                                             <p class='p--bold'>$author_firstname $author_lastname</p>
@@ -899,7 +899,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         $readingTime = calculateReadingTime($row['content']);
                         echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id2=$id'>";
                         if (!empty($image)) {
-                            echo "<img src='../$image' alt='article image'>";
+                            echo "<img src='$image' alt='article image'>";
                         } elseif (!empty($foreign_imagePath)) {
                             echo "<img src='$foreign_imagePath' alt='article image'>";
                         }

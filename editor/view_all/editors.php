@@ -56,7 +56,7 @@ $posttype = 'Editors';
                                     echo "<h3 class='posts_divcontainer_header'>You Searched For: $query <h3>";
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<div class='posts_divcontainer_subdiv editor_div'>
-                                            <img src='../../" . $row["image"] . "' alt='Editor Image'/>
+                                            <img src='" . $row["image"] . "' alt='Editor Image'/>
                                             <div class='editor_div-body'>
                                                 <h3 class='posts_divcontainer_header'>" . $row["firstname"] . " " . $row["lastname"] . " ( " . $row["username"] . " )</h3>
                                                 <div class='posts_divcontainer_subdiv2'>
@@ -81,7 +81,7 @@ $posttype = 'Editors';
                 if ($select_allposts_result->num_rows > 0) {
                     while ($row = $select_allposts_result->fetch_assoc()) {
                         echo "<div class='posts_divcontainer_subdiv editor_div'>
-                                    <img src='../../" . $row["image"] . "' alt='Editor Image'/>
+                                    <img src='" . $row["image"] . "' alt='Editor Image'/>
                                     <div class='editor_div-body'>
                                         <h3 class='posts_divcontainer_header'>" . $row["firstname"] . " " . $row["lastname"] . " ( " . $row["username"] . " )</h3>
                                         <div class='posts_divcontainer_subdiv2'>

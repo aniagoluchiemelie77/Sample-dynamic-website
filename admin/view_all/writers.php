@@ -61,7 +61,7 @@ $posttype = 'Writers';
                                         $formatted_time = date("g:i A", strtotime($time));
                                         $row['formatted_date'] = date("F j, Y", strtotime($date));
                                         echo "<div class='posts_divcontainer_subdiv editor_div'>
-                                                <img src='../../" . $row["image"] . "' alt='Editor Image'/>
+                                                <img src='" . $row["image"] . "' alt='Editor Image'/>
                                                 <div class='editor_div-body'>
                                                     <h3 class='posts_divcontainer_header'>" . $row["firstname"] . " " . $row["lastname"] . "</h3>
                                                     <div class='posts_divcontainer_subdiv2'>
@@ -101,7 +101,7 @@ $posttype = 'Writers';
                         $time = $row['time_joined'];
                         $formatted_time = date("g:i A", strtotime($time));
                         echo "<div class='posts_divcontainer_subdiv editor_div'>
-                                    <img src='../../" . $row["image"] . "' alt='Editor Image'/>
+                                    <img src='" . $row["image"] . "' alt='Editor Image'/>
                                     <div class='editor_div-body'>
                                         <h3 class='posts_divcontainer_header'>" . $row["firstname"] . " " . $row["lastname"] . "</h3>
                                         <div class='posts_divcontainer_subdiv2'>

@@ -361,7 +361,7 @@ $date = formatDate($_SESSION['date_joined']);
             </div>
             <div class="profile tab_content" id="tab2">
                 <figure class="profile_imgbox" id="consent-data" data-id="<?php echo $_SESSION['id']; ?>">
-                    <img src="../<?php echo $_SESSION['image']; ?>" alt="Authors Profile Picture" class="profile_imgbox_img" />
+                    <img src="<?php echo $_SESSION['image']; ?>" alt="Authors Profile Picture" class="profile_imgbox_img" />
                     <a class="profile_imgbox_edit" id="profileuploads" onclick="selectImage('profile_pic', '<?php echo $_SESSION['id']; ?>')" name="profile_pic">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
@@ -531,7 +531,7 @@ $date = formatDate($_SESSION['date_joined']);
                                     $stmt->close();
                                 }
                                 $sn++;
-                                echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
+                                echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url($image)'>
                                             <div class='divimages_side--back'>
                                                 <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>$firstname</p>
                                                 <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>$lastname</p> 
@@ -576,7 +576,7 @@ $date = formatDate($_SESSION['date_joined']);
                                     $stmt->close();
                                 }
                                 $sn++;
-                                echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
+                                echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url($image)'>
                                             <div class='divimages_side--back'>
                                                 <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>$firstname</p>
                                                 <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>$lastname</p> 
@@ -620,7 +620,7 @@ $date = formatDate($_SESSION['date_joined']);
                                     $stmt->close();
                                 }
                                 $sn++;
-                                echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
+                                echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url($image)'>
                                             <div class='divimages_side--back'>
                                                 <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>$firstname</p>
                                                 <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>$lastname</p> 
@@ -660,7 +660,7 @@ $date = formatDate($_SESSION['date_joined']);
                             while ($row = $selectotherusers_result->fetch_assoc()) {
                                 $sn++;
                                 $image = $row['image'];
-                                echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url(../$image)'>
+                                echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url($image)'>
                                             <div class='divimages_side--back'>
                                                 <p class='users_div_subdiv_p'><span>$translations[firstname]: </span>" . $row['firstname'] . "</p>
                                                 <p class='users_div_subdiv_p'><span>$translations[lastname]: </span>" . $row['lastname'] . "</p> 

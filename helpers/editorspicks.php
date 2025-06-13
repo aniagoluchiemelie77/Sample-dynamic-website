@@ -108,7 +108,7 @@
         $readingTime = calculateReadingTime($content);
         echo    "<a class='posts_div' href='../pages/view_post.php?id".$result['posttype']."=$id'>";
     if (!empty($image)) {
-        echo "<img src='../$image' alt='article image'>";
+        echo "<img src='$image' alt='article image'>";
         }
         echo   "<p class='posts_div_niche'>". $result['niche']."</p>
                 <h1>$title</h1>

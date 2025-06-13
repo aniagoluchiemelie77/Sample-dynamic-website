@@ -52,7 +52,7 @@ if (file_exists($translationFile)) {
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
                                 <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Img'>$translations[edit_user_image]: </label>
@@ -101,7 +101,7 @@ if (file_exists($translationFile)) {
                             </div>
                             <div class='newpost_container_div6 newpost_subdiv'>
                                 <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                                 <div class='newpost_container_div6_subdiv2'>
                                     <label class='form__label' for='Img'>$translations[edit_user_image]: </label>

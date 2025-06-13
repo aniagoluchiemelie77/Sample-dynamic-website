@@ -10,7 +10,7 @@
                 </a>
             </div>
             <div class="mainheader__logobox">
-                <img src="../<?php echo $logo; ?>" alt="companylogo" />
+                <img src="<?php echo $logo; ?>" alt="companylogo" />
             </div>
         </div>
     </center>
@@ -22,7 +22,7 @@
         </div>
         <div class="header__menu-sidebar-div1 border-gradient-top-dark">
             <div class="sidebar__logobox">
-                <img src="../<?php echo $logo; ?>" alt="companylogo">
+                <img src="<?php echo $logo; ?>" alt="companylogo">
             </div>
             <div class="header__menu-sidebar-div1-subdiv2">
                 <h1 class="sidebar__col-header">More</h1>

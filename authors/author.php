@@ -75,7 +75,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 $role = "Editor-in-chief";
                 echo "<section class='authordiv_container'>";
                 if (!empty($author_image)) {
-                    echo "<img src='../$author_image' alt='article image'>";
+                    echo "<img src='$author_image' alt='article image'>";
                 }
                 echo    "<div class = 'authordiv_container_subdiv'>
                                 <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
@@ -138,7 +138,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 $readingTime = calculateReadingTime($result['content']);
                 echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
                 if (!empty($result['image_path'])) {
-                    echo "<img src='../" . $result['image_path'] . "' alt='article image'>";
+                    echo "<img src='" . $result['image_path'] . "' alt='article image'>";
                 } elseif (!empty($result['foreign_image_path'])) {
                     echo "<img src='" . $result['foreign_image_path'] . "' alt='article image'>";
                 }

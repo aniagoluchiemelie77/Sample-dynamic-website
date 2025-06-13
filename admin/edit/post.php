@@ -88,7 +88,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                             <div class='newpost_container_div6 newpost_subdiv'>";
                 if (!empty($image)) {
                     echo "      <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                 } elseif (!empty($foreign_imagePath)) {
@@ -183,7 +183,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                             <div class='newpost_container_div6 newpost_subdiv'>";
                 if (!empty($image)) {
                     echo "      <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                 } elseif (!empty($foreign_imagePath)) {
@@ -276,7 +276,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                             <div class='newpost_container_div6 newpost_subdiv'>";
                 if (!empty($image)) {
                     echo "      <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                 } elseif (!empty($foreign_imagePath)) {
@@ -350,7 +350,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                             <div class='newpost_container_div6 newpost_subdiv'>";
                 if (!empty($image)) {
                     echo "      <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                 } elseif (!empty($foreign_imagePath)) {
@@ -445,7 +445,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                             <div class='newpost_container_div6 newpost_subdiv'>";
                 if (!empty($image)) {
                     echo "      <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                 } elseif (!empty($foreign_imagePath)) {
@@ -540,7 +540,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                             <div class='newpost_container_div6 newpost_subdiv'>";
                 if (!empty($image)) {
                     echo "      <div class='newpost_container_div6_subdiv1'>
-                                    <img src='../../$image' alt='Post Image'/>
+                                    <img src='$image' alt='Post Image'/>
                                 </div>
                             ";
                 } elseif (!empty($foreign_imagePath)) {

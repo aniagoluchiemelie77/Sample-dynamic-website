@@ -1,7 +1,7 @@
 <section class="footer">
     <div class="footer__div1">
         <div class="footer__div1__logobox">
-            <img src="../<?php echo $logo; ?>" alt="Logo" class="footer__logo" />
+            <img src="<?php echo $logo; ?>" alt="Logo" class="footer__logo" />
         </div>
         <form class="footer__subscribebox" id="subscribe_box2" action=" ">
             <div class="sec2__susbribe-box-darker">

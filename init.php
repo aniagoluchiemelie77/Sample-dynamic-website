@@ -7,11 +7,30 @@ require('vendor\phpmailer\phpmailer\src\Exception.php');
 require('vendor\phpmailer\phpmailer\src\PHPMailer.php');
 require 'vendor/autoload.php';
 
-use Stichoza\GoogleTranslate\GoogleTranslate;
 
+use Dotenv\Dotenv;
+use Stichoza\GoogleTranslate\GoogleTranslate;
+use Cloudinary\Configuration\Configuration;
+use Cloudinary\Api\Upload\UploadApi;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
+$cloud_name = $_ENV['CLOUDINARY_CLOUD_NAME'];
+$api_key = $_ENV['CLOUDINARY_API_KEY'];
+$api_secret = $_ENV['CLOUDINARY_API_SECRET'];
+Configuration::instance([
+    'cloud' => [
+        'cloud_name' => $cloud_name,
+        'api_key' => $api_key,
+        'api_secret' => $api_secret
+    ],
+    'url' => [
+        'secure' => true
+    ]
+]);
 function getFaviconAndLogo()
 {
     global $conn;
@@ -400,4 +419,17 @@ function updateTranslations($string)
         }
     }
     return $results;
+}
+function uploadToCloudinary($filePath)
+{
+    $upload = new UploadApi();
+    $result = $upload->upload($filePath, [
+        'folder' => 'uploads',
+        'public_id' => pathinfo($filePath, PATHINFO_FILENAME),
+        'crop' => 'fit',
+        'width' => 800, // Resize width
+        'height' => 600,
+        'quality' => 'auto',
+    ]);
+    return $result['secure_url'] ?? null;
 }

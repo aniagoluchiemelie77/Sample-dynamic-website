@@ -5,21 +5,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
     $email = $_POST["email"];
     $filePath = $_FILES["image"]["tmp_name"];
     $imageUrl = uploadToCloudinary($filePath);
-
-    if ($imageUrl) {
-        // Send email with uploaded image link
-        $subject = "Your Uploaded Image";
-        $message = "Here is your uploaded image link: $imageUrl";
-        $headers = "From: no-reply@yourdomain.com\r\n";
-
-        if (mail($email, $subject, $message, $headers)) {
-            echo "Upload successful! Check your email for the image link.";
-        } else {
-            echo "Upload successful, but email failed.";
-        }
-    } else {
-        echo "Upload failed!";
-    }
 }
 ?>
 <!DOCTYPE html>

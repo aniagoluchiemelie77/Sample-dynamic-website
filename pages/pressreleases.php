@@ -75,7 +75,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         $content = $row["content"];
                         $readingTime = calculateReadingTime($row['content']);
                         echo "<a class='more_posts_subdiv' href='view_post.php?id5=$id'>
-                                    <img src='../images\Pressreleasesimg.png' alt = 'Post's Image'/>
+                                    <img src='$image' alt = 'Post's Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$date</span>

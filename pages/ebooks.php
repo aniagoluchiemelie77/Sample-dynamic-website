@@ -136,7 +136,7 @@ if (isset($_GET['query'])) {
                             $path = '../' . $path;
                         }
                         echo "  <a class='more_posts_subdiv' href='#'>
-                                    <img src='../images/ebook_img.png' alt = 'Whitepaper Image'/>
+                                    <img src='../images/resurces_img.png' alt = 'Whitepaper Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$formattedDate</span>

@@ -114,7 +114,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     $readingTime = calculateReadingTime($result['content']);
                     echo "<a class='more_posts_subdiv' href='view_post.php?id" . $result['posttype'] . "=$id'>";
                     if (!empty($image)) {
-                        echo "<img src='../$image' alt = 'Post's Image'/>";
+                        echo "<img src='$image' alt = 'Post's Image'/>";
                     }
                     echo   "<div class='more_posts_subdiv_subdiv'>
                                     <h1>$title</h1>

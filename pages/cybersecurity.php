@@ -112,7 +112,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
                     $readingTime = calculateReadingTime($result['content']);
                     echo "<a class='more_posts_subdiv' href='view_post.php?id" . $result['posttype'] . "=$id'>
-                                    <img src='../" . $result['image_path'] . "' alt = 'Post's Image'/>
+                                    <img src='" . $result['image_path'] . "' alt = 'Post's Image'/>
                                     <div class='more_posts_subdiv_subdiv'>
                                         <h1>$title</h1>
                                         <span>$formattedDate</span>

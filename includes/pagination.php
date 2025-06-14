@@ -81,7 +81,7 @@
             }
             echo "<div class='section2__div1__div1 normal-divs'>
                         <a class='normal-divs__subdiv' href='view_post.php? id2=".$row["id"]."'>
-                            <img src='../$image' alt='article image'>
+                            <img src='$image' alt='article image'>
                             <div class='normal-divs__subdiv__div'>
                                 <h1 class='normal-divs__header'>$niche</h1>
                                 <h2 class='normal-divs__title'>$title</h2>
@@ -92,7 +92,7 @@
                             </div>
                         </a>
                         <div class='normal-divs__subdiv2'>
-                            <img src='../$author_image' alt='article image'>
+                            <img src='$author_image' alt='article image'>
                             <p class='normal-divs__subdiv2__p'>By <span>$author_firstname $author_lastname, </span><span class='phonewidth_block'>$role</span></p>
                         </div>
                     </div>";

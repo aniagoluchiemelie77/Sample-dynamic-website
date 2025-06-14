@@ -45,7 +45,7 @@ $website_description = $details2['website_vision'];
             <div class="sidebar_divs_container">
                 <div class="webinfo">
                     <h1>Uniquecontentwriter</h1>
-                    <img src="../<?php echo $logo; ?>" alt="Blog's Coverphoto" />
+                    <img src="<?php echo $logo; ?>" alt="Blog's Coverphoto" />
                     <p><?php echo $website_description; ?></p>
                 </div>
             </div>

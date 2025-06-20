@@ -47,15 +47,17 @@ if (file_exists($translationFile)) {
             if ($selectpage_result->num_rows > 0) {
                 while ($row = $selectpage_result->fetch_assoc()) {
                     echo " <span>" . $row['content'] . "</span>";
-                }
-            }
             ?>
         </div>
         <button class="about_section_btn" id="Edit_about2"><?php echo $translations['edit']; ?>
             <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
         <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv2">
-            <textarea class="about_editdiv-input" name="advertise_content" id="myTextarea"></textarea>
+            <textarea class="about_editdiv-input" name="advertise_content" id="myTextarea">
+                <?php echo $row['content'];
+                }
+            } ?>
+            </textarea>
             <input type="submit" value="<?php echo $translations['save']; ?>" name="advertedit_btn" />
         </form>
     </section>

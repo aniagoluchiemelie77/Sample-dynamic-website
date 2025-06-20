@@ -123,8 +123,13 @@ if (isset($_POST['subscribe_btn2'])) {
             $counter = 0;
             while ($row = $paidpostselection_result->fetch_assoc()) {
                 $counter++;
+                $max_length = 50;
                 $image = $row["image_path"];
+                $title = $row['title'];
                 $foreign_imagePath = $row["post_image_url"];
+                if (strlen($title) > $max_length) {
+                    $title = substr($title, 0, $max_length) . '...';
+                }
                 $publishDate = !empty($row['formatted_date2']) ? $row['formatted_date2'] : $row['formatted_date'];
                 if ($counter == 1) {
                     echo "<div class='section1__div1 larger__div'>
@@ -137,7 +142,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     }
                     echo    "<div class='larger__div__subdiv'>
                                         <h1>" . $row['niche'] . "</h1>
-                                        <h2>" . $row['title'] . "</h2>
+                                        <h2>$title</h2>
                                         <p>" . $row["formatted_date"] . "</p>
                                     </div>
                                 </a>
@@ -152,7 +157,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     }
                     echo   "<div class='smaller__div__subdiv'>
                                         <h1>" . $row['niche'] . "</h1>
-                                        <h2>" . $row['title'] . "</h2>
+                                        <h2>$title</h2>
                                         <p>$publishDate</p>
                                     </div>
                                 </a>

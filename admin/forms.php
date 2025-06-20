@@ -525,15 +525,15 @@ function addPage($page_name)
                                 while (\$row = \$selectpage_result->fetch_assoc()) {
                                     \$content = \$row['content'];
                                     echo "<span>\$content</span>";
-                                }
-                            }
                         ?>
                     </div>
                     <button class="about_section_btn" id="Edit_about1"><?php echo \$translations['edit']; ?>
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
                     <form class="about_editdiv" action=" " method="post" id="hidden_aboutdiv1">
-                        <textarea class="about_editdiv-input" name="$formattedPageName" id="myTextarea6"></textarea>
+                        <textarea class="about_editdiv-input" name="$formattedPageName" id="myTextarea6">
+                            <?php echo \$content; }} ?>
+                        </textarea>
                         <input type="submit" value="<?php echo \$translations['save']; ?>" name="edit_aboutwebsite_btn" />
                     </form>
                 </section>

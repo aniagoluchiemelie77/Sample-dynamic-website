@@ -2841,6 +2841,9 @@ input[type="date"] {
         flex-direction: column;
         overflow: hidden;
     }
+    .header {
+        height: fit-content;
+    }
     .body .sidebar{
         float: none;
         width: 100svw;
@@ -2987,6 +2990,9 @@ input[type="date"] {
     .posts_divcontainer_subdiv .users_delete2, .users_delete, .users_edit {
         font-size: 1.4rem;
     }
+    .posts_divcontainer_subdiv .posts_divcontainer_subdiv3{
+        flex-direction: column;
+    }
     .pages_container {
         width: 95%;
     }
@@ -3031,14 +3037,27 @@ input[type="date"] {
     .posts_divcontainer_subdiv .posts_delete_edit {
         align-items: flex-start;
         flex-wrap: wrap;
-        padding: 0 1rem;
+        padding: 1rem;
     }
     .postsdiv2 .subscribers_subdiv {
         align-items: flex-start;
     }
     .newpost_container_div7_subdiv2 {
-        width: 100%;
+        width: 100% !important;
         height: 50svh;
+    }
+    .newpost_container_div2 input {
+        width: 100%;
+    }
+    .newpost_container_div2_subdiv2 {
+        margin-top: 1rem;
+        width: 100%;
+    }
+    .newpost_container_div3_subdiv2  {
+        width: 100%;
+    }
+    .newpost_container_div5_subdiv2 {
+        width: 100%;
     }
     .newpost_container .newpost_subdiv h1 {
         font-size: var(--header-h7);
@@ -3087,6 +3106,11 @@ input[type="date"] {
     .header_img i {
         font-size: var(--ifontsize-6);
     }
+    .editor_div img {
+        margin-top: 1rem;
+        width: 5rem;
+        height: 5rem;
+    }
     .header_img a {
         margin-right: 1rem;
         font-size: var(--ifontsize-6);
@@ -3094,5 +3118,53 @@ input[type="date"] {
     .newpost_container {
         width: 95%;
         padding: var(--divpadding-highest);
+    }
+    .about_section_topicsdiv .about_section_topicsdiv_subdiv {
+        width: 67vw;
+        height: 54vh;
+    }
+    .about_section_topicsdiv_subdiv div h1 span {
+        font-size: 1.6rem;
+    }
+    .about_section_topicsdiv_subdiv div p span{
+        font-size: 1.3rem;
+    }
+    .sectioneer_form_header{
+        font-size: 1.6rem;
+        width: 100%;
+    }
+    .sectioneer_form_container_subdiv2_subdiv img {
+        width: 8rem;
+        height: 8rem;
+        margin-right: 0;
+    }
+    .sectioneer_form_container_subdiv2_subdiv{
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .sectioneer_form_container .sectioneer_form_container_subdiv2:nth-child(2){
+        border: none;
+    }
+    .sectioneer_form input {
+        width: fit-content;
+        align-self: center;
+    }
+    .sectioneer_form_container {
+        justify-content: center;
+        width: 100%;
+    }
+    .sectioneer_form_container .sectioneer_form_container_subdiv2 {
+        align-self: center;
+        width: 90%;
+    }
+    .sectioneer_form_container .sectioneer_form_container_subdiv2 textarea{
+        width: 100%;
+        padding: 1rem;
+        height: 50vh;
+    }
+    .about_editdiv textarea{
+        width: 100%;
+        height: 60vh;
     }
   }

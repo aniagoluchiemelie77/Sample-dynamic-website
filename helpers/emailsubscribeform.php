@@ -1,4 +1,4 @@
-<form class="sec2__susbribe-box other_width" method="POST" action="index.php" id="susbribe-box">
+<form class="sec2__susbribe-box" method="POST" action="index.php" id="susbribe-box">
     <div class="icon">
         <i class="fa fa-envelope" aria-hidden="true"></i>
     </div>

@@ -423,6 +423,7 @@ a, p, li{
     flex-direction: column;
     align-items: center;
     min-height: fit-content;
+    padding: 0 !important;
 }
 .body_left .bodyleft_main{
     text-align: center;
@@ -652,7 +653,6 @@ a, p, li{
     display: flex;
     cursor: pointer;
     flex-wrap: nowrap;
-    margin-bottom: 1rem;
 }
 .smallerdivs a div{
     display: flex;
@@ -687,7 +687,7 @@ a, p, li{
     -o-border-radius: 1rem;
 }
 .section1__div2 a div h1{
-    font-size: var(--header-h7);
+    font-size: var(--header-h8);
     background-color: var(--color10);
     color: var(--color60-shade);
     clip-path: polygon(0 0, 100% 0, 98% 100%, 0% 100%);
@@ -887,7 +887,7 @@ a, p, li{
     -moz-box-shadow: 16px 15px 18px -14px rgba(0,0,0,0.63);
     height: fit-content;
     display: flex;
-    margin: 1rem 0;
+    margin: 1rem;
     flex-direction: column;
     align-items: center;
     background: var(--color60);
@@ -1468,17 +1468,12 @@ a, p, li{
     padding: var(--divpadding-highest);
     display: flex;
     width: 100%;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-}
-.more_posts > div {
-    scroll-snap-align: center;
+    flex-wrap: wrap;
 }
 .more_posts .more_posts_subdiv{
     position: relative;
-    max-height: 50vh;
-    min-width: 20vw;
+    height: 50vh;
+    width: 20vw;
     color: var(--color30-shade);
     border: 1px solid #2222224a;
     margin: 1rem;
@@ -2431,10 +2426,11 @@ a, p, li{
     }
     .header form button{
         font-size: 1.6rem;
-        width: 10%;
+        width: 20%;
     }
     .header form input{
-        width: calc(100% - 10%);
+        width: calc(100% - 20%);
+        border-bottom: 1px solid var(--color10);
     }
     .header__dropdownlinks{
         padding: 1rem 0;
@@ -2596,7 +2592,7 @@ a, p, li{
     .section2 div .normal-divs .normal-divs__subdiv2{
         width: 100%;
         margin-left: 0;
-        padding: 1rem;
+        padding: 0 1rem;
         display: flex;
         flex-wrap: wrap;
         align-items: flex-start;
@@ -2613,7 +2609,8 @@ a, p, li{
     .normal-divs__subdiv__div div{
         display: flex;
         align-items: center;
-        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-around;
     }
     .section2 div .normal-divs div p span{
         width: calc(100% - 6.2rem);
@@ -2644,24 +2641,36 @@ a, p, li{
         width: 100%;
     }
     .section3__div2{
-        width: fit-content;
-        overflow: scroll;
-        padding: 0 1rem;
+        width: 100%;
+        padding: 1rem;
         margin-bottom: 1rem;
-        height: fit-content;
+        flex-wrap: wrap;
     }
     .section3__div2 a{
         width: 80vw;
         height: 50vh;
+        margin: 1rem 0;
     }
     .section3 a div h2{
-        font-size: var(--header-h7);
+        font-size: 1.6rem;
     }
     .section3 a div p{
         font-size: 1.3rem;
     }
+    .section3 a div h1 {
+        font-size: 1.3rem;
+    }
     .footer .footer__div1 .footer_div1_logobox{
         display: none;
+    }
+    .footer .footer__div1 {
+        padding: 1rem 0;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    .footer .footer__div1 .footer__div1__logobox {
+        height: 4.5rem;
+        width: 5rem;
     }
     .footer .footer__div1 form{
         width: 90%;
@@ -2669,7 +2678,17 @@ a, p, li{
     }
     .footer .footer__div1 form .sec2__susbribe-box-darker{
         width: 100%;
-        padding: var(--divpadding);
+        padding: 0 var(--divpadding);
+    }
+    .sidebar__logobox {
+        height: 4.5rem;
+        padding-top: 1rem;
+        width: 5rem;
+        margin: 0;
+        margin-right: 1rem;
+    }
+    .header__menu-sidebar .header__menu-sidebar-div1 {
+        padding: 0;
     }
     .footer .footer__newpagelinks{
         flex-wrap: wrap;
@@ -2768,9 +2787,8 @@ a, p, li{
         padding: 1rem;
     }
     .more_posts a{
-        height: 47svh;
         margin: 1rem 0;
-        width: 90%;
+        width: 80% !important;
     }
     .more_posts a img{
         height: 60%;
@@ -2875,5 +2893,8 @@ a, p, li{
     }
     .authordiv_container_subdiv{
         width: 100%;
+    }
+    .sectioneer_form_container{
+        flex-direction: column;
     }
 }

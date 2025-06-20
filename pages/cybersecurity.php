@@ -58,6 +58,86 @@ if (isset($_POST['subscribe_btn2'])) {
             <div class="page_links">
                 <a href="../">Home</a> > <p>Cybersecurity</p>
             </div>
+            <h1 class='bodyleft_header3'>Search Cybersecurity Posts</h1>
+            <form class="header_searchbar2 search_input" id="search_form" action="cybersecurity.php" method="get">
+                <input type="text" name="query" id="search-bar" placeholder="Search.." />
+                <button class="fa fa-search" type="submit" onclick="submitSearch()"></button>
+            </form>
+            <div id="search-results">
+                <div id="results-container" class="more_posts">
+                    <?php
+                    if (isset($_GET['query'])) {
+                        $query = trim($_GET['query']);
+                        $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+                        $results = [];
+                        if ($query !== "") {
+                            foreach ($tables as $table) {
+                                $searchNiche = 'Cybersecurity';
+                                $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE niche = '$searchNiche' AND (title like ? OR subtitle like ? OR content like ?) ORDER BY id DESC LIMIT 3";
+                                $stmt = $conn->prepare($sql);
+                                $searchTerm = "%" . $query . "%";
+                                $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+                                $stmt->execute();
+                                $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+                                while ($stmt->fetch()) {
+                                    $posttype = 0;
+                                    if ($table == 'paid_posts') {
+                                        $posttype = 1;
+                                    } elseif ($table == 'posts') {
+                                        $posttype = 2;
+                                    } elseif ($table == 'commentaries') {
+                                        $posttype = 4;
+                                    } elseif ($table == 'news') {
+                                        $posttype = 3;
+                                    } elseif ($table == 'press_releases') {
+                                        $posttype = 5;
+                                    }
+                                    $results[] = [
+                                        'id' => $id,
+                                        'title' => $title,
+                                        'niche' => $niche,
+                                        'content' => $content,
+                                        'image_path' => $image,
+                                        'Date' => $date,
+                                        'table' => $table,
+                                        'posttype' => $posttype
+                                    ];
+                                }
+                            }
+                            if (empty($results)) {
+                                echo "<h1>No results found for '<strong>" . htmlspecialchars($query) . "</strong>'.</h1>";
+                            } else {
+                                foreach ($results as $result) {
+                                    $max_length = 50;
+                                    $id = $result['id'];
+                                    $title = $result["title"];
+                                    $date = $result["Date"];
+                                    if (strlen($title) > $max_length) {
+                                        $title = substr($title, 0, $max_length) . '...';
+                                    }
+                                    $dateTime = new DateTime($date);
+                                    $day = $dateTime->format('j');
+                                    $month = $dateTime->format('M');
+                                    $year = $dateTime->format('Y');
+                                    $ordinalSuffix = getOrdinalSuffix($day);
+                                    $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                                    $readingTime = calculateReadingTime($result['content']);
+                                    echo "<a class='more_posts_subdiv' href='view_post.php?id" . $result['posttype'] . "=$id'>
+                                            <img src='" . $result['image_path'] . "' alt = 'Post's Image'/>
+                                            <div class='more_posts_subdiv_subdiv'>
+                                                <h1>$title</h1>
+                                                <span>$formattedDate</span>
+                                                <span>$readingTime</span>
+                                            </div>
+                                            <p class='posts_div_niche'>" . $result['niche'] . "</p>
+                                        </a>";
+                                }
+                            }
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
             <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>Latest On Cybersecurity</h1>
             <div class='more_posts'>
                 <?php
@@ -177,6 +257,20 @@ if (isset($_POST['subscribe_btn2'])) {
             e.stopPropagation();
             sidebar.classList.toggle('hidden');
         });
+
+        function submitSearch() {
+            var query = document.getElementById("search-bar").value;
+            if (query.trim() !== "") {
+                fetch("cybersecurity.php?query=" + encodeURIComponent(query))
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById("results-container").innerHTML = data;
+                    })
+                    .catch(error => console.error("Error fetching results:", error));
+            } else {
+                document.getElementById("search-results").style.display = "none";
+            }
+        }
     </script>
     <script>
         if (messageType == 'Error' && messageText != " ") {

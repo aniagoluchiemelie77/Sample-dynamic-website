@@ -105,11 +105,11 @@
                     <a href="../">Home</a> > <p>Resources (Webfiles)</p>
                 </div>
                 <h1 class='bodyleft_header3'>Search Webfiles</h1>
-                <form class="header_searchbar2 search_input" id="search_form">
+                <form class="header_searchbar2 search_input" id="search_form" action='webfiles.php' method="get">
                     <input type="text" name="query" id="search-bar" placeholder="Search.." />
-                    <button class="fa fa-search" type="button" onclick="submitSearch()"></button>
+                    <button class="fa fa-search" type="submit" onclick="submitSearch()"></button>
                 </form>
-                <div id="search-results" style="display: none;">
+                <div id="search-results">
                     <div id="results-container" class="more_posts"></div>
                 </div>
                 <div class='more_posts'>
@@ -208,7 +208,6 @@
                         .then(data => {
                             console.log(data);
                             document.getElementById("results-container").innerHTML = data;
-                            document.getElementById("search-results").style.display = "block";
                         })
                         .catch(error => console.error("Error fetching results:", error));
                 } else {

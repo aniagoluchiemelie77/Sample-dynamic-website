@@ -7,7 +7,7 @@ const tabComponents = document.querySelectorAll('.tab_content');
 const logoutDiv = document.getElementById('logout_alert');
 const logoutDiv2 = document.getElementById('logout_alert2');
 const exitLogout = document.getElementById('dismiss-popup-btn');
-
+/*
 window.addEventListener("resize", function () {
   if (tinymce.activeEditor) {
     let newWidth = window.innerWidth * 0.8;
@@ -16,6 +16,7 @@ window.addEventListener("resize", function () {
     tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
   }
 });
+*/
 
 sideBtns.forEach((tab, index) => {
   tab.addEventListener("click", () => {
@@ -376,7 +377,7 @@ function confirmDeleteWriter(Id) {
       window.location.href = "delete.php?id=" + Id + "&usertype=Writer";
     }
   });
-}
+}/*
 tinymce.init({
   selector: "#myTextarea",
   setup: function (editor) {
@@ -904,7 +905,7 @@ tinymce.init({
   },
   menubar: "favs file edit view insert format tools table help",
   content_css: "css/content.css",
-});
+});*/
 function disableInputs(){
   inputs.forEach(function(input) {
       input.disabled = true;

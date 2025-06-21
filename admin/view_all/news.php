@@ -87,6 +87,7 @@ $posttype = 'News';
                                         }
                                         $time = $row['time'];
                                         $formatted_time = date("g:i A", strtotime($time));
+                                        $formId = "favouriteForm_" . $row["id"];
                                         echo "
                                         <div class='posts_divcontainer_subdiv post' data-post-id='" . $row["id"] . "'>
                                     <h3 class='posts_divcontainer_header'>" . $row["title"] . "</h3>
@@ -104,9 +105,9 @@ $posttype = 'News';
                                         <a class='users_delete' onclick='confirmDeleteN2(" . $row['id'] . ")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
                                         </a>
-                                        <form id='favouriteForm' action='../script.php' method='POST'>
-                                            <input type='hidden' name='post_id' value='" . $row['id'] . "'>
-                                            <input type='hidden' name='isfavourite' value='" . $row['is_favourite'] . "'>
+                                        <form id='$formId' class='favouriteForm' action='../script.php' method='POST' data-id='" . $row['id'] . "'>
+                                            <input type='hidden' name='post_id4' value='" . $row['id'] . "'>
+                                            <input type='hidden' name='isfavourite4' value='" . ($row['is_favourite'] === 'True' ? 'True' : 'False') . "'>
                                             <button type='submit' class='users_delete2 star'>
                                                 <i class='fa fa-star' aria-hidden='true'></i>
                                             </button>
@@ -124,7 +125,7 @@ $posttype = 'News';
                     ?>
                 </div>
                 <?php
-                $select_allnews = "SELECT id, admin_id, editor_id, title, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname FROM news ORDER BY id DESC LIMIT 100";
+                $select_allnews = "SELECT id, admin_id, editor_id, title, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, is_favourite FROM news ORDER BY id DESC LIMIT 100";
                 $select_allnews_result = $conn->query($select_allnews);
                 if ($select_allnews_result->num_rows > 0) {
                     $author_firstname = "";
@@ -158,6 +159,7 @@ $posttype = 'News';
                         }
                         $time = $row['time'];
                         $formatted_time = date("g:i A", strtotime($time));
+                        $formId = "favouriteForm_" . $row["id"];
                         echo "<div class='posts_divcontainer_subdiv'>
                                     <h3 class='posts_divcontainer_header'>" . $row["title"] . "</h3>
                                     <div class='posts_divcontainer_subdiv2'>
@@ -174,6 +176,13 @@ $posttype = 'News';
                                         <a class='users_delete' onclick='confirmDeleteN2(" . $row['id'] . ")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
                                         </a>
+                                        <form id='$formId' class='favouriteForm' action='../script.php' method='POST' data-id='" . $row['id'] . "'>
+                                            <input type='hidden' name='post_id4' value='" . $row['id'] . "'>
+                                            <input type='hidden' name='isfavourite4' value='" . ($row['is_favourite'] === 'True' ? 'True' : 'False') . "'>
+                                            <button type='submit' class='users_delete2 star'>
+                                                <i class='fa fa-star' aria-hidden='true'></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>";
                     };
@@ -184,6 +193,42 @@ $posttype = 'News';
         </div>
     </section>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const allForms = document.querySelectorAll('.favouriteForm');
+
+            allForms.forEach(function(form) {
+                const starButton = form.querySelector('.star');
+                const favInput = form.querySelector('input[name="isfavourite4"]');
+                if (!starButton || !favInput) return;
+                if (favInput.value === 'True') {
+                    starButton.classList.add('favourite');
+                } else {
+                    starButton.classList.add('users_delete2');
+                }
+
+                starButton.addEventListener('click', function(event) {
+                    const isFav = favInput.value === 'True';
+                    favInput.value = isFav ? 'False' : 'True';
+
+                    starButton.classList.toggle('favourite', !isFav);
+                    starButton.classList.toggle('users_delete2', isFav);
+                    Swal.fire({
+                        toast: false,
+                        icon: isFav ? 'info' : 'success',
+                        title: isFav ? 'Removed from Favourites' : 'Added to Favourites',
+                        text: isFav ?
+                            'You just unmarked this post as favourite.' : 'This post is now marked as favourite.',
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        iconColor: isFav ? '#f39c12' : '#2ecc71',
+                        allowOutsideClick: false,
+                        allowEscapeKey: true,
+                        backdrop: true
+                    });
+                });
+            });
+        });
+
         function submitSearch() {
             var query = document.getElementById("search-bar").value;
             if (query.trim() !== "") {
@@ -200,37 +245,35 @@ $posttype = 'News';
         }
     </script>
     <script>
-        const Toast = Swal.mixin({
+        const ToastMessage = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            timer: 4000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            iconColor: '#fff',
             customClass: {
-                popup: 'rounded-xl shadow-lg',
-                title: 'text-lg font-semibold',
-                confirmButton: 'bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700'
+                popup: 'rounded-xl shadow-xl text-white bg-zinc-800 border border-gray-600'
             },
-            buttonsStyling: false,
-            backdrop: `rgba(0,0,0,0.4)`,
             showClass: {
-                popup: 'animate__animated animate__fadeInDown'
+                popup: 'animate__animated animate__fadeInRight'
             },
             hideClass: {
-                popup: 'animate__animated animate__fadeOutUp'
+                popup: 'animate__animated animate__fadeOutRight'
             }
         });
-
-        if (messageType && messageText.trim() !== "") {
-            let iconColors = {
+        if (typeof messageType !== "undefined" && messageText.trim() !== "") {
+            const iconColors = {
                 'Error': '#e74c3c',
                 'Success': '#2ecc71',
                 'Info': '#3498db'
             };
-
-            Toast.fire({
+            ToastMessage.fire({
                 icon: messageType.toLowerCase(),
                 title: messageText,
-                iconColor: iconColors[messageType] || '#3498db',
-                confirmButtonText: 'Got it'
+                iconColor: iconColors[messageType] || '#3498db'
             });
         }
-
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>
     </script>

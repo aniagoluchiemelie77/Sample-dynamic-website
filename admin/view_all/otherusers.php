@@ -122,6 +122,41 @@ $posttype = 'Website Users';
                 ?>
             </div>
     </section>
+    <script>
+        const Toast = Swal.mixin({
+            customClass: {
+                popup: 'rounded-xl shadow-lg',
+                title: 'text-lg font-semibold',
+                confirmButton: 'bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700'
+            },
+            buttonsStyling: false,
+            backdrop: `rgba(0,0,0,0.4)`,
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+        });
+
+        if (messageType && messageText.trim() !== "") {
+            let iconColors = {
+                'Error': '#e74c3c',
+                'Success': '#2ecc71',
+                'Info': '#3498db'
+            };
+
+            Toast.fire({
+                icon: messageType.toLowerCase(),
+                title: messageText,
+                iconColor: iconColors[messageType] || '#3498db',
+                confirmButtonText: 'Got it'
+            });
+        }
+
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
+    </script>
 </body>
 
 </html>

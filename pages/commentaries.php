@@ -181,7 +181,6 @@ if (isset($_POST['subscribe_btn2'])) {
         </div>
     </section>
     <?php include("../includes/footer2.php"); ?>
-    <script src="sweetalert2.all.min.js"></script>
     <script>
         const sidebar = document.getElementById('sidebar');
         const menubtn = document.getElementById('searchicon');
@@ -221,33 +220,6 @@ if (isset($_POST['subscribe_btn2'])) {
                 document.getElementById("search-results").style.display = "none";
             }
         }
-    </script>
-    <script>
-        if (messageType == 'Error' && messageText != " ") {
-            Swal.fire({
-                title: 'Error!',
-                text: messageText,
-                icon: 'error',
-                confirmButtonText: 'Ok'
-            })
-        } else if (messageType == 'Info' && messageText != " ") {
-            Swal.fire({
-                title: 'Info!',
-                text: messageText,
-                showConfirmButton: true,
-                confirmButtonText: 'Ok',
-                icon: 'info'
-            })
-        } else if (messageType == 'Success' && messageText != " ") {
-            Swal.fire({
-                title: 'Success',
-                text: messageText,
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            })
-        }
-        <?php unset($_SESSION['status_type']); ?>
-        <?php unset($_SESSION['status']); ?>
     </script>
 </body>
 

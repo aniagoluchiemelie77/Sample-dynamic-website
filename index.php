@@ -334,9 +334,6 @@ if (isset($_POST['subscribe_btn2'])) {
                         resultsDiv.scrollIntoView({
                             behavior: 'smooth'
                         });
-                    } else {
-                        <?php $_SESSION['status_type'] = 'Error'; ?>
-                        <?php $_SESSION['status'] = 'Search result not found'; ?>
                     }
                 };
                 xhr.send('query=' + query);

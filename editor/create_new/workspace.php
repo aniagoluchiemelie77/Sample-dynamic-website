@@ -99,38 +99,25 @@ if (file_exists($translationFile)) {
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="../editor.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
     <script>
-        const Toast = Swal.mixin({
-            customClass: {
-                popup: 'rounded-xl shadow-lg',
-                title: 'text-lg font-semibold',
-                confirmButton: 'bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700'
-            },
-            buttonsStyling: false,
-            backdrop: `rgba(0,0,0,0.4)`,
-            showClass: {
-                popup: 'animate__animated animate__fadeInDown'
-            },
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutUp'
-            }
-        });
-
-        if (messageType && messageText.trim() !== "") {
-            let iconColors = {
-                'Error': '#e74c3c',
-                'Success': '#2ecc71',
-                'Info': '#3498db'
-            };
-
-            Toast.fire({
-                icon: messageType.toLowerCase(),
-                title: messageText,
-                iconColor: iconColors[messageType] || '#3498db',
-                confirmButtonText: 'Got it'
-            });
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
         }
-
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>
     </script>

@@ -73,7 +73,6 @@ if ($result && $result->num_rows > 0) {
                         <option value="arb" <?php if ($language === 'arb') echo 'selected'; ?>>Arabic</option>
                         <option value="mdn" <?php if ($language === 'mdn') echo 'selected'; ?>>Chinese</option>
                         <option value="rsn" <?php if ($language === 'rsn') echo 'selected'; ?>>Russian</option>
-                        <!-- Add more languages as needed -->
                     </select>
                 </div>
                 <input type="submit" class="btn" name="change_lng" value="<?php echo $translations['save']; ?>" id="submit" />

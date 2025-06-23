@@ -274,6 +274,7 @@ if (file_exists($translationFile)) {
         }
     </script>
     <script src="sweetalert2.all.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
@@ -294,8 +295,101 @@ if (file_exists($translationFile)) {
         }
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>
+        tinymce.init({
+            selector: "#myTextarea6b",
+            resize: true,
+            setup: function(editor) {
+                editor.on("init", function() {
+                    editor.editorContainer.style.width = "90%";
+                    editor.editorContainer.style.height = "50vh";
+                });
+            },
+            plugins: [
+                "advlist",
+                "autolink",
+                "link",
+                "image",
+                "lists",
+                "charmap",
+                "preview",
+                "anchor",
+                "pagebreak",
+                "searchreplace",
+                "wordcount",
+                "visualblocks",
+                "visualchars",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "emoticons",
+                "help",
+            ],
+            toolbar: "undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | " +
+                "bullist numlist outdent indent | link image | print preview media fullscreen | " +
+                "forecolor backcolor emoticons | help",
+            menu: {
+                favs: {
+                    title: "My Favorites",
+                    items: "code visualaid | searchreplace | emoticons",
+                },
+            },
+            menubar: "favs file edit view insert format tools table help",
+            content_css: "css/content.css",
+        });
+        tinymce.init({
+            selector: "#myTextarea6c",
+            resize: true,
+            setup: function(editor) {
+                editor.on("init", function() {
+                    editor.editorContainer.style.width = "90%";
+                    editor.editorContainer.style.height = "50vh";
+                });
+            },
+            plugins: [
+                "advlist",
+                "autolink",
+                "link",
+                "image",
+                "lists",
+                "charmap",
+                "preview",
+                "anchor",
+                "pagebreak",
+                "searchreplace",
+                "wordcount",
+                "visualblocks",
+                "visualchars",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "emoticons",
+                "help",
+            ],
+            toolbar: "undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | " +
+                "bullist numlist outdent indent | link image | print preview media fullscreen | " +
+                "forecolor backcolor emoticons | help",
+            menu: {
+                favs: {
+                    title: "My Favorites",
+                    items: "code visualaid | searchreplace | emoticons",
+                },
+            },
+            menubar: "favs file edit view insert format tools table help",
+            content_css: "css/content.css",
+        });
+        window.addEventListener("resize", function() {
+            if (tinymce.activeEditor) {
+                let newWidth = window.innerWidth * 0.8;
+                let newHeight = window.innerHeight * 0.7;
+                tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
+                tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
+            }
+        });
     </script>
-    <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 </body>
 
 </html>

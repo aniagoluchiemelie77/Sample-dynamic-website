@@ -211,6 +211,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
             menubar: 'favs file edit view insert format tools table help',
             content_css: 'css/content.css'
         });
+        window.addEventListener("resize", function() {
+            if (tinymce.activeEditor) {
+                let newWidth = window.innerWidth * 0.8;
+                let newHeight = window.innerHeight * 0.7;
+                tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
+                tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
+            }
+        });
     </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>

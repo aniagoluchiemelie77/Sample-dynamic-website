@@ -89,6 +89,57 @@ if (file_exists($translationFile)) {
         const editAboutBtn4 = document.getElementById("Edit_about4");
         const editTextEditor4 = document.getElementById("hidden_aboutdiv4")
         editAction(editAboutBtn4, editTextEditor4);
+        tinymce.init({
+            selector: "#myTextarea8",
+            resize: true,
+            setup: function(editor) {
+                editor.on("init", function() {
+                    editor.editorContainer.style.width = "90%";
+                    editor.editorContainer.style.height = "50vh";
+                });
+            },
+            plugins: [
+                "advlist",
+                "autolink",
+                "link",
+                "image",
+                "lists",
+                "charmap",
+                "preview",
+                "anchor",
+                "pagebreak",
+                "searchreplace",
+                "wordcount",
+                "visualblocks",
+                "visualchars",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "emoticons",
+                "help",
+            ],
+            toolbar: "undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | " +
+                "bullist numlist outdent indent | link image | print preview media fullscreen | " +
+                "forecolor backcolor emoticons | help",
+            menu: {
+                favs: {
+                    title: "My Favorites",
+                    items: "code visualaid | searchreplace | emoticons",
+                },
+            },
+            menubar: "favs file edit view insert format tools table help",
+            content_css: "css/content.css",
+        });
+        window.addEventListener("resize", function() {
+            if (tinymce.activeEditor) {
+                let newWidth = window.innerWidth * 0.8;
+                let newHeight = window.innerHeight * 0.7;
+                tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
+                tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
+            }
+        });
     </script>
 </body>
 

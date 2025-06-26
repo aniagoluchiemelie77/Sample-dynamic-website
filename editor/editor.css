@@ -1,79 +1,19 @@
 @import "../admin/admin.css";
-
-.pages_container_subdiv a p{
-    color: var(--color30-shade);
+.pages_container_subdiv a p{color:var(--color30-shade)}
+.developer_contact_container_body .developer_contact_subdiv p{color:var(--color30-shade)}
+.profile_body p{color:var(--color30-shade)}
+.website_info_div .webinfo_container a{cursor:pointer}
+.website_info_div .message_box{display:flex;flex-wrap:nowrap;background-color:#ff4500;width:100%;padding:var(--divpadding);position:relative;align-items:center}
+.website_info_div .message_box::before{position:absolute;content:"";height:100%;width:5%;left:0;z-index:50;background-color:var(--color10)}
+.website_info_div .message_box i p{color:var(--color30)}
+@keyframes slide {
+0%{transform:translateX(0);-webkit-transform:translateX(0);-moz-transform:translateX(0);-ms-transform:translateX(0);-o-transform:translateX(0)}
+100%{transform:translateX(-100%);-webkit-transform:translateX(-100%);-moz-transform:translateX(-100%);-ms-transform:translateX(-100%);-o-transform:translateX(-100%)}
 }
-.developer_contact_container_body .developer_contact_subdiv p{
-    color: var(--color30-shade);
-}
-.profile_body p{
-    color: var(--color30-shade);
-}
-.website_info_div .webinfo_container a{
-    cursor: pointer;
-}
-.website_info_div .message_box{
-    display: flex;
-    flex-wrap: nowrap;
-    background-color: orangered;
-    width: 100%;
-    padding: var(--divpadding);
-    position: relative;
-    align-items: center;
-}
-.website_info_div .message_box::before{
-    position: absolute;
-    content: "";
-    height: 100%;
-    width: 5%;
-    left: 0;
-    z-index: 50;
-    background-color: var(--color10);
-}
-.website_info_div .message_box i p{
-    color: var(--color30);
-}
-@keyframes slide{
-    0%{
-        transform:translateX(0);
-        -webkit-transform:translateX(0);
-        -moz-transform:translateX(0);
-        -ms-transform:translateX(0);
-        -o-transform:translateX(0);
-}
-    100%{ 
-        transform:translateX(-100%); 
-        -webkit-transform:translateX(-100%); 
-        -moz-transform:translateX(-100%); 
-        -ms-transform:translateX(-100%); 
-        -o-transform:translateX(-100%); }}
-.website_info_div .message_box i{
-    font-size: var(--ifontsize-6);
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    z-index: 100;
-}
-.website_info_div .message_box p{
-    display: inline-block; 
-    margin-right: 1rem;
-    animation:20s linear infinite slide; 
-    -webkit-animation:20s linear infinite slide; width:fit-content; 
-}
-.website_info_div .message_box:hover p{
-    animation-play-state:paused;
-}
-.profile_body-activities p{
-    color: var(--color30-shade);
-}
-.posts_divcontainer .posts_divcontainer_subdiv p{
-    color: var(--color30-shade);
-}
-/*from view_all/posts.php */
-.sectioneer p{
-    color: var(--color30-shade);
-}
-.sectioneer span{
-    color: var(--color30-shade);
-    font-weight: var(--spanfontweight);
-}
+.website_info_div .message_box i{font-size:var(--ifontsize-6);position:absolute;left:1rem;top:1rem;z-index:100}
+.website_info_div .message_box p{display:inline-block;margin-right:1rem;animation:20s linear infinite slide;-webkit-animation:20s linear infinite slide;width:fit-content}
+.website_info_div .message_box:hover p{animation-play-state:paused}
+.profile_body-activities p{color:var(--color30-shade)}
+.posts_divcontainer .posts_divcontainer_subdiv p{color:var(--color30-shade)}
+.sectioneer p{color:var(--color30-shade)}
+.sectioneer span{color:var(--color30-shade);font-weight:var(--spanfontweight)}

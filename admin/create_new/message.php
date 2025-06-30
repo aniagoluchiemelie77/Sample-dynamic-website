@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
                             </div>
                             <div class='message_div-container'>
                                 <div class='message_div-container_subdiv'>
-                                    <img src='../../" . $row['image'] . "' alt='Editors Image'/>
+                                    <img src='" . $row['image'] . "' alt='Editors Image'/>
                                     <div class='message_div-container_subdiv-imagebody'>
                                         <form id='updateForm' action='message.php' method='POST'>
                                             <div class='input_group'>
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
                             </div>
                             <div class='message_div-container'>
                                 <div class='message_div-container_subdiv'>
-                                    <img src='../../images/lookmoni.jpg' alt='Editors Image'/>
+                                     <img src='" . $row['image'] . "' alt='Users Image'/>
                                     <div class='message_div-container_subdiv-imagebody'>
                                         <form id='updateForm' action='../forms.php' method='POST'>
                                             <div class='input_group'>
@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
                             </div>
                             <div class='message_div-container'>
                                 <div class='message_div-container_subdiv'>
-                                    <img src='../../images/lookmoni.jpg' alt='Editors Image'/>
+                                     <img src='" . $row['image'] . "' alt='Writers Image'/>
                                     <div class='message_div-container_subdiv-imagebody'>
                                         <form id='updateForm' action='../forms.php' method='POST'>
                                             <div class='input_group'>

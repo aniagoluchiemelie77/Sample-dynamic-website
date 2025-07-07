@@ -667,7 +667,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     }
                     echo "
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . ")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . " target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
                                     <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
                                     <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
@@ -676,7 +676,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 </div>
                                 <p class='content'>$content</p>
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . "' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . " target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
                                     <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
                                     <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
@@ -847,7 +847,7 @@ if (isset($_POST['subscribe_btn2'])) {
                     }
                     echo "
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=urlencode(" . $url . ")&text=urlencode(" . $title . ")' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . " target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
                                     <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
                                     <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
@@ -856,7 +856,7 @@ if (isset($_POST['subscribe_btn2'])) {
                                 </div>
                                 <p class='content'>$content</p>
                                 <div class='socialmedia_links'>
-                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . "' target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
+                                    <a href='https://twitter.com/intent/tweet?url=" . $url . "&text=" . $title . " target='_blank'><i class='fa-brands fa-x-twitter'></i></a>
                                     <a href='https://www.facebook.com/sharer/sharer.php?u=$url' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
                                     <a href='https://www.linkedin.com/shareArticle?mini=true&url={$url}&title={$title}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
                                     <a href='https://www.reddit.com/submit?url=$url&title=$title' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>

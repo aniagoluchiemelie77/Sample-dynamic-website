@@ -180,11 +180,16 @@ if (file_exists($translationFile)) {
                     $resource_id = $row['id'];
                     $readableString = convertToReadable2($resource_name);
                     $resource_name2 = removeUnderscore2($resource_name);
-                    echo "<div>
+                    echo "<div class='div'>
                                         <p>$readableString</p>
-                                        <a class='' onclick='confirmDeleteResource($resource_id, \"" . htmlspecialchars($resource_name2, ENT_QUOTES) . "\")'>
-                                            <i class='fa fa-trash' aria-hidden='true'></i>
-                                        </a>
+                                        <div class='sectioneer_div_subdiv_subdiv'>
+                                            <a class='' onclick='confirmDeleteResource($resource_id, \"" . htmlspecialchars($resource_name2, ENT_QUOTES) . "\")'>
+                                                <i class='fa fa-trash' aria-hidden='true'></i>
+                                            </a>
+                                            <a href='../view_all/resources.php?resource_name=$resource_name'>
+                                                <i class='fa fa-pencil' aria-hidden='true'></i>
+                                            </a>
+                                        </div>
                                     </div>";
                 }
                 echo "  <a class='add_div' onclick='displayExit()'>

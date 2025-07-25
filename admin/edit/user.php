@@ -8,7 +8,7 @@ $logo = $details['logo'];
 $favicon = $details['favicon'];
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
-$translationFile = "../translation_files/lang/{$language}.php";
+$translationFile = "../../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {

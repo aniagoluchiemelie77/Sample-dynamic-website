@@ -6,10 +6,10 @@ $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $_SESSION['status_type'] = "";
-$_SESSION['status'] = "";
-if (isset($_POST['change_tz'])) {
-    $timezone = $_POST['timezone'];
-    if (in_array($timezone, timezone_identifiers_list())) {
+        $_SESSION['status'] = "";
+        if (isset($_POST['change_tz'])) {
+            $timezone = $_POST['timezone'];
+            if (in_array($timezone, timezone_identifiers_list())) {
         date_default_timezone_set($timezone);
         $_SESSION['timezone'] = $timezone; // Save in session for consistency
     } else {

@@ -6,7 +6,7 @@ $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 require("../init.php");
-$translationFile = "../translation_files/lang/{$language}.php";
+$translationFile = "../../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {

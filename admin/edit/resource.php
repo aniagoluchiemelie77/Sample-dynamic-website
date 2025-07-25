@@ -9,7 +9,7 @@ $favicon = $details['favicon'];
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $resource_name = isset($_GET['resource_name']) ? $_GET['resource_name'] : null;
 $resource_name_uc = ucwords($resource_name);
-$translationFile = "../translation_files/lang/{$language}.php";
+$translationFile = "../../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {

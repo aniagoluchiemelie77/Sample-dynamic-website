@@ -7,7 +7,7 @@ $resource_type = isset($_GET['resource_type']) ? $_GET['resource_type'] : null;
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-$translationFile = "../translation_files/lang/{$language}.php";
+$translationFile = "../../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {

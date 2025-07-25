@@ -11,7 +11,7 @@ $logo = $details['logo'];
 $favicon = $details['favicon'];
 $editor_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $editor_email = isset($_GET['email']) ? $_GET['email'] : null;
-$translationFile = "translation_files/lang/{$language}.php";
+$translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {

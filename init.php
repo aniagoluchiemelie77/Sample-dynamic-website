@@ -7,7 +7,6 @@ require('vendor\phpmailer\phpmailer\src\Exception.php');
 require('vendor\phpmailer\phpmailer\src\PHPMailer.php');
 require 'vendor/autoload.php';
 
-
 use Dotenv\Dotenv;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use Cloudinary\Configuration\Configuration;

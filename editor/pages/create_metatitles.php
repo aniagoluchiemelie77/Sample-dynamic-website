@@ -21,7 +21,7 @@ function removeHyphen($string)
     return $string;
 }
 $details = getFaviconAndLogo();
-$translationFile = "../translation_files/lang/{$language}.php";
+$translationFile = "../../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {

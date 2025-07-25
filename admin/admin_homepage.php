@@ -14,6 +14,12 @@ $logo = $details['logo'];
 $favicon = $details['favicon'];
 $encryptionKey = "mySecretKey12345";
 $date = formatDate($_SESSION['date_joined']);
+        $translationFile = "../translation_files/lang/{$language}.php";
+        if (file_exists($translationFile)) {
+            include $translationFile;
+        } else {
+            $translations = []; // Initialize as empty array to avoid undefined variable errors
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">

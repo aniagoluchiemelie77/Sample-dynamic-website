@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('connect.php');
-include('crudoperations.php');
+include('../helpers/crudoperations.php');
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
 $topicName = isset($_GET['topicName']) ? $_GET['topicName'] : null;

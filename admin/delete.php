@@ -8,7 +8,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : null;
 $resourceName = isset($_GET['resourceName']) ? $_GET['resourceName'] : null;
 $type = isset($_GET['type']) ? $_GET['type'] : null;
 include('connect.php');
-include('crudoperations.php');
+include('../helpers/crudoperations.php');
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 function deleteFile($file_path, $pagetype)

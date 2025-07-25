@@ -1,8 +1,8 @@
 <?php
 session_start();
 require("connect.php");
-include("init.php");
-require('../init.php');
+        include("init.php");
+        require('../init.php');
 $tempSession = $_SESSION;
 session_regenerate_id(true);
 $_SESSION = $tempSession;

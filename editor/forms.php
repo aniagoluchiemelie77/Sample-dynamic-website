@@ -4,7 +4,7 @@ $editor_id = $_SESSION['id'];
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 require("connect.php");
-include('crudoperations.php');
+include('../helpers/crudoperations.php');
 require('../init.php');
 
 function addResources($tableName, $convertedPath, $resource_type, $resource_niche, $resource_title, $resource_url)

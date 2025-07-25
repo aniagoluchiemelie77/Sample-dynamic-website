@@ -4,7 +4,7 @@
     $_SESSION['id'] = $admin_id; 
     $_SESSION['status_type'] = "";
     $_SESSION['status'] = "";
-    include ('crudoperations.php');
+include('../helpers/crudoperations.php');
     function promoteWriterToEditor($writer_id, $admin_id) {
         global $conn;
         $select_writer = "SELECT * FROM writer WHERE id = ?";

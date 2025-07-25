@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("connect.php");
-require("crudoperations.php");
+require("../helpers/crudoperations.php");
 $_SESSION['status_type'] = " ";
 $_SESSION['status'] = " ";
 $post_id2 = $_POST['post_id2'] ?? '';

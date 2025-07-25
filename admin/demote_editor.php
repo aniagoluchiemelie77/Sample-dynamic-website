@@ -4,7 +4,7 @@
     $_SESSION['id'] = $admin_id; 
     $_SESSION['status_type'] = "";
     $_SESSION['status'] = "";
-    include ('crudoperations.php');
+    include ('../helpers/crudoperations.php');
     function demoteEditorToWriter($editor_id, $admin_id) {
         global $conn;
         $select_editor = "SELECT * FROM editor WHERE id = ?";

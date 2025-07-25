@@ -1,5 +1,5 @@
 <?php
-require("connect.php");
+require("../connect.php");
 if (!function_exists('logUpdate')) {
     function logUpdate($conn, $forUser, $action)
     {

@@ -54,7 +54,7 @@ if (file_exists($translationFile)) {
             $address2 = $user['address2'];
             $country_code = $user['country_code'];
             echo "<div class='editprofile_container'>
-                        <form class='create_editor_container' action='../forms.php' method='post' enctype='multipart/form-data'>
+                        <form class='create_editor_container' action='../../helpers/forms.php' method='post' enctype='multipart/form-data'>
                             <div class='createeditor_inputgroup'>
                                 <h1 class='bigheader'>$translations[edit_user] (Editor) </h1>
                             </div>
@@ -133,7 +133,7 @@ if (file_exists($translationFile)) {
             $bio = $user['bio'];
             $email = $user['email'];
             echo "<div class='editprofile_container'>
-                        <form class='create_editor_container' action='../forms.php' method='post' enctype='multipart/form-data'>
+                        <form class='create_editor_container' action='../../helpers/forms.php' method='post' enctype='multipart/form-data'>
                             <div class='createeditor_inputgroup'>
                                 <h1 class='bigheader'>$translations[edit_user] (Writer) </h1>
                             </div>
@@ -182,7 +182,7 @@ if (file_exists($translationFile)) {
             $email = $user['email'];
             $linkedin_url = $user['linkedin_url'];
             echo "<div class='editprofile_container'>
-                        <form class='create_editor_container' action='../forms.php' method='post' enctype='multipart/form-data'>
+                        <form class='create_editor_container' action='../../helpers/forms.php' method='post' enctype='multipart/form-data'>
                             <div class='createeditor_inputgroup'>
                                 <h1 class='bigheader'>$translations[edit_user] </h1>
                             </div>

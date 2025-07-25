@@ -56,7 +56,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $foreign_imagePath = $row['post_image_url'];
                 $author_firstname = $row['authors_firstname'];
                 $author_lastname = $row['authors_lastname'];
-                echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
+                echo "<form class='newpost_container' method='post' action='../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
                                 <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
@@ -151,7 +151,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $foreign_imagePath = $row['post_image_url'];
                 $author_firstname = $row['authors_firstname'];
                 $author_lastname = $row['authors_lastname'];
-                echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
+                echo "<form class='newpost_container' method='post' action='../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
                                 <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
@@ -244,7 +244,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $image = $row['image'];
                 $foreign_imagePath = $row['post_image_url'];
                 $content = $row['content'];
-                echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
+                echo "<form class='newpost_container' method='post' action='../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
                                 <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
@@ -318,7 +318,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $foreign_imagePath = $row['post_image_url'];
                 $author_firstname = $row['authors_firstname'];
                 $author_lastname = $row['authors_lastname'];
-                echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
+                echo "<form class='newpost_container' method='post' action='../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
                                 <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
@@ -413,7 +413,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $foreign_imagePath = $row['post_image_url'];
                 $author_firstname = $row['authors_firstname'];
                 $author_lastname = $row['authors_lastname'];
-                echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
+                echo "<form class='newpost_container' method='post' action='../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
                                 <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
@@ -508,7 +508,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $foreign_imagePath = $row['post_image_url'];
                 $author_firstname = $row['authors_firstname'];
                 $author_lastname = $row['authors_lastname'];
-                echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
+                echo "<form class='newpost_container' method='post' action='../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
                                 <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>

@@ -34,7 +34,7 @@ if (file_exists($translationFile)) {
 <body>
     <?php require("../extras/header3.php"); ?>
     <section class="newpost_body">
-        <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data" id="postForm">
+        <form class="newpost_container" method="post" action="../../helpers/forms.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">
                 <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['add_draft']; ?></p>
             </div>

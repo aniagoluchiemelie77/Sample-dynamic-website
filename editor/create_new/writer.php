@@ -37,7 +37,7 @@ if (file_exists($translationFile)) {
         <div class="page_links">
             <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['users']; ?></p> > <p> <?php echo $translations['create_writer']; ?></p>
         </div>
-        <form class="formcontainer" id="topicForm" method="post" action="../forms.php" enctype="multipart/form-data">
+        <form class="formcontainer" id="topicForm" method="post" action="../../helpers/forms.php" enctype="multipart/form-data">
             <div class="head_paragraph">
                 <h3><?php echo $translations['create_writer']; ?></h3>
             </div>

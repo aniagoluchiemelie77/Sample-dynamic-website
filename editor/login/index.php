@@ -35,6 +35,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $_SESSION['country_code'] = $editor['country_code'];
         $_SESSION['date_joined'] = $editor['date_joined'];
         $_SESSION['language'] = $editor['language'];
+        $_SESSION['user'] = 'Editor';
         header("location: ../editor_homepage.php");
         exit();
     } else {

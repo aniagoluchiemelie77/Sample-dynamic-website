@@ -38,7 +38,7 @@ if (file_exists($translationFile)) {
         <div class="page_links">
             <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <a href="../edit/frontend_features.php"> <?php echo $translations['front_end_features']; ?> </a> > <p> <?php echo $translations['create_new_resource_file']; ?></p>
         </div>
-        <form class="formcontainer" id="topicForm" method="post" action="../forms.php" enctype="multipart/form-data">
+        <form class="formcontainer" id="topicForm" method="post" action="../../helpers/forms.php" enctype="multipart/form-data">
             <div class="head_paragraph">
                 <h3><?php echo $translations['create_new_resource_file']; ?></h3>
             </div>

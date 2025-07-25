@@ -32,6 +32,40 @@ function cancelExit () {
 function cancelExit2 () {
     logoutDiv2.style.display = 'none';
   };
+function preventSubmitIfUnchanged(formSelector, inputSelector) {
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(formSelector);
+    if (!form) return;
+
+    const inputs = form.querySelectorAll(inputSelector);
+    const originalValues = Array.from(inputs).map((input) =>
+      input.value.trim()
+    );
+
+    form.addEventListener("submit", (e) => {
+      let hasChanged = false;
+      inputs.forEach((input, index) => {
+        if (input.type === "file") {
+          if (input.files.length > 0) {
+            hasChanged = true;
+          }
+        } else if (input.value.trim() !== originalValues[index]) {
+          hasChanged = true;
+        }
+      });
+
+      if (!hasChanged) {
+        e.preventDefault();
+        Swal.fire({
+          title: "No Changes",
+          text: "No changes made to the form.",
+          icon: "info",
+          confirmButtonText: "Ok",
+        });
+      }
+    });
+  });
+}
 const editAction = function (btn, txtEditor) {
   btn.addEventListener("click", () => {
     txtEditor.style.display = "block";

@@ -6,8 +6,8 @@ require('../../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-        $translationFile = "../../translation_files/lang/{$language}.php";
-        if (file_exists($translationFile)) {
+$translationFile = "../../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
     include $translationFile;
 } else {
     $translations = [];
@@ -34,7 +34,7 @@ $favicon = $details['favicon'];
 <body>
     <?php require("../extras/header3.php"); ?>
     <section class="newpost_body">
-        <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data" id="postForm">
+        <form class="newpost_container" method="post" action="../../helpers/forms.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">
                 <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['create_new_post']; ?></p>
             </div>

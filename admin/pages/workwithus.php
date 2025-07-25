@@ -52,7 +52,7 @@ if (file_exists($translationFile)) {
         <button class="about_section_btn" id="Edit_about6"><?php echo $translations['edit']; ?>
             <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
-        <form class="about_editdiv" action="../forms.php" method="post" id="hidden_aboutdiv6">
+        <form class="about_editdiv" action="../../helpers/forms.php" method="post" id="hidden_aboutdiv6">
             <textarea class="about_editdiv-input" name="work_withus" id="myTextarea10">
                 <?php echo $row['content'];
                 }

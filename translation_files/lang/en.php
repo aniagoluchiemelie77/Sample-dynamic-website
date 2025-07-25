@@ -240,5 +240,6 @@ $translations = [
     'date_added' => 'Date Added',
     'time_added' => 'Time Added',
     'niche' => 'Niche',
+    'view_all_resources' => 'View All Resources',
 ];
 ?>

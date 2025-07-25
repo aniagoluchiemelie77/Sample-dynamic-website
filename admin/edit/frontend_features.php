@@ -36,7 +36,7 @@ if (file_exists($translationFile)) {
 
 <body>
     <div class="logout_alert" id="logout_alert">
-        <form class="newpost_container" method="POST" action="../forms.php" id="postForm" enctype="multipart/form-data">
+        <form class="newpost_container" method="POST" action="../../helpers/forms.php" id="postForm" enctype="multipart/form-data">
             <a class="logout_alert_cancel" onclick="cancelExit()">
                 <i class="fa fa-times popup_close1" aria-hidden="true"></i>
             </a>
@@ -82,7 +82,7 @@ if (file_exists($translationFile)) {
         </form>
     </div>
     <div class="logout_alert" id="logout_alert2">
-        <form class="newpost_container" method="post" action="../forms.php" id="postForm" enctype="multipart/form-data">
+        <form class="newpost_container" method="post" action="../../helpers/forms.php" id="postForm" enctype="multipart/form-data">
             <a class="logout_alert_cancel" onclick="cancelExit2()">
                 <i class="fa fa-times popup_close1" aria-hidden="true"></i>
             </a>
@@ -105,7 +105,7 @@ if (file_exists($translationFile)) {
         <div class="page_links">
             <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['edit_frontend_title']; ?></p>
         </div>
-        <form class="frontend_div sectioneer_form" action="../forms.php" method="POST" enctype="multipart/form-data">
+        <form class="frontend_div sectioneer_form" action="../../helpers/forms.php" method="POST" enctype="multipart/form-data">
             <?php
             $selectwebsite_logo = "SELECT id, logo_imagepath, favicon_imagepath FROM website_logo ORDER BY id DESC LIMIT 1";
             $selectwebsite_logo_result = $conn->query($selectwebsite_logo);
@@ -141,7 +141,7 @@ if (file_exists($translationFile)) {
             }
             ?>
         </form>
-        <form class="frontend_div sectioneer_form div_special" action="../forms.php" method="POST" enctype="multipart/form-data">
+        <form class="frontend_div sectioneer_form div_special" action="../../helpers/forms.php" method="POST" enctype="multipart/form-data">
             <div class="sectioneer_form_container">
                 <?php
                 $website_messages_sql = "SELECT id, cookie_consent, website_vision FROM website_messages ORDER BY id DESC LIMIT 1";
@@ -263,7 +263,7 @@ if (file_exists($translationFile)) {
             formData.append(inputType, file);
             formData.append("id", recordId);
 
-            fetch("../forms.php?id=" + encodeURIComponent(recordId), {
+            fetch("../../helpers/forms.php?id=" + encodeURIComponent(recordId), {
                     method: "POST",
                     body: formData
                 })

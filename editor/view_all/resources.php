@@ -28,9 +28,9 @@ $posttype = $resource_name;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../admin.css" />
+    <link rel="stylesheet" href="../editor.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src='../admin.js' async></script>
+    <script src='../editor.js' async></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['view_all_resources']; ?></title>
 </head>
@@ -40,7 +40,7 @@ $posttype = $resource_name;
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="page_links">
-                <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <a href="../edit/frontend_features.php"> <?php echo $translations['front_end_features']; ?> </a> > <p> <?php echo $translations['view_all_resources']; ?></p>
+                <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <a href="../edit/frontend_features.php"> <?php echo $translations['front_end_features']; ?> </a> > <p> <?php echo $translations['view_all_resources']; ?></p>
             </div>
             <div class="posts_header">
                 <h1> <?php echo ucwords($resource_name); ?></h1>

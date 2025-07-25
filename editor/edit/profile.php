@@ -32,7 +32,7 @@ if (file_exists($translationFile)) {
 <body>
     <?php require("../extras/header3.php"); ?>
     <div class="editprofile_container">
-        <form class="create_editor_container" action="../forms.php" method="post" enctype="multipart/form-data">
+        <form class="create_editor_container" action="../../helpers/forms.php" method="post" enctype="multipart/form-data">
             <div class="createeditor_inputgroup">
                 <h1 class="bigheader"><?php echo $translations['edit_profile']; ?></h1>
             </div>

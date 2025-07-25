@@ -35,6 +35,7 @@ if (isset($_REQUEST['Sign_In'])) {
         $_SESSION['country_code'] = $admin['country_code'];
         $_SESSION['date_joined'] = $admin['date_joined'];
         $_SESSION['language'] = $admin['language'];
+        $_SESSION['user'] = 'Admin';
         header("location: ../admin_homepage.php");
         exit();
     } else {

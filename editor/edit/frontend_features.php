@@ -37,7 +37,7 @@ if (file_exists($translationFile)) {
 
 <body>
     <div class="logout_alert" id="logout_alert">
-        <form class="newpost_container" method="POST" action="../forms.php" id="postForm" enctype="multipart/form-data">
+        <form class="newpost_container" method="POST" action="../../helpers/forms.php" id="postForm" enctype="multipart/form-data">
             <a class="logout_alert_cancel" onclick="cancelExit()">
                 <i class="fa fa-times popup_close1" aria-hidden="true"></i>
             </a>

@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
                                 <div class='message_div-container_subdiv'>
                                     <img src='../../images/lookmoni.jpg' alt='Editors Image'/>
                                     <div class='message_div-container_subdiv-imagebody'>
-                                        <form id='updateForm' action='../forms.php' method='POST'>
+                                        <form id='updateForm' action='../../helpers/forms.php' method='POST'>
                                             <div class='input_group'>
                                                 <input name='subject' placeholder='$translations[message_title]..' class='input_group_input'/>
                                                 <p><span>* </span>$translations[message_title_i]</p>
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
                                 <div class='message_div-container_subdiv'>
                                      <img src='" . $row['image'] . "' alt='Users Image'/>
                                     <div class='message_div-container_subdiv-imagebody'>
-                                        <form id='updateForm' action='../forms.php' method='POST'>
+                                        <form id='updateForm' action='../../helpers/forms.php' method='POST'>
                                             <div class='input_group'>
                                                 <input name='subject' placeholder='$translations[message_title]..' class='input_group_input'/>
                                                 <p><span>* </span>$translations[message_title_i]</p>
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
                                 <div class='message_div-container_subdiv'>
                                      <img src='" . $row['image'] . "' alt='Writers Image'/>
                                     <div class='message_div-container_subdiv-imagebody'>
-                                        <form id='updateForm' action='../forms.php' method='POST'>
+                                        <form id='updateForm' action='../../helpers/forms.php' method='POST'>
                                             <div class='input_group'>
                                                 <input name='subject' placeholder='$translations[message_title]..' class='input_group_input'/>
                                                 <p><span>* </span>$translations[message_title_i]</p>

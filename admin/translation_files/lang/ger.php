@@ -224,5 +224,14 @@ $translations = [
     'editor_login_verify' => 'Bitte überprüfen Sie Ihre E-Mail, um den Login-Vorgang fortzusetzen.',
     'editor_login_verify_header' => 'Verifizierung erforderlich',
     'editor_login_verify_btn' => 'Verifizieren',
+    'create_new_resource_file' => 'Neue Ressourcendatei erstellen',
+    'front_end_features' => 'Frontend-Funktionen',
+    'edit_resource_file' => 'Ressourcendatei bearbeiten',
+    'resource_path' => 'Ressourcenpfad',
+    'edit_resource_path' => 'Ressourcenpfad bearbeiten',
+    'resource_name' => 'Ressourcenname',
+    'date_added' => 'Hinzugefügtes Datum',
+    'time_added' => 'Hinzugefügte Zeit',
+    'niche' => 'Nische',
 ];
 ?>

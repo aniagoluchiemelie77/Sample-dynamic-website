@@ -60,7 +60,7 @@ if ($result && $result->num_rows > 0) {
     <section class="newpost_body">
         <form method="POST" action="changelang.php" enctype="multipart/form-data" id="postForm" class="newpost_container">
             <div class="page_links">
-                <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['change_language']; ?></p>
+                <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['change_language']; ?></p>
             </div>
             <div class="newpost_container_divnew newpost_subdiv">
                 <div class='newpost_subdiv_subdiv2'>

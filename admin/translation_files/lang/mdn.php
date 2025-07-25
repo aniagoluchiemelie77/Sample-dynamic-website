@@ -231,5 +231,14 @@ $translations = [
     'editor_login_verify' => '编辑器登录验证',
     'editor_login_verify_header' => '验证编辑器登录请求',
     'editor_login_verify_btn' => '继续登录',
+    'create_new_resource_file' => '创建新资源文件',
+    'front_end_features' => '前端功能',
+    'edit_resource_file' => '编辑资源文件',
+    'resource_path' => '资源路径',
+    'edit_resource_path' => '编辑资源路径',
+    'resource_name' => '资源名称',
+    'date_added' => '添加日期',
+    'time_added' => '添加时间',
+    'niche' => '领域',
 ];
 ?>

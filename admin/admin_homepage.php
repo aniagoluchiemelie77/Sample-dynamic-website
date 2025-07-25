@@ -13,15 +13,6 @@ $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $encryptionKey = "mySecretKey12345";
-function formatDate($dateString)
-{
-    $timestamp = strtotime($dateString);
-    $day = date('j', $timestamp);
-    $month = date('F', $timestamp);
-    $year = date('Y', $timestamp);
-    $daySuffix = date('jS', $timestamp);
-    return "$month $daySuffix $year";
-}
 $date = formatDate($_SESSION['date_joined']);
 ?>
 <!DOCTYPE html>

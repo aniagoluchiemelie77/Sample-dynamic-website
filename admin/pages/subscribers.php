@@ -40,7 +40,7 @@ if (file_exists($translationFile)) {
     <section class="middle_centering">
         <div class="posts width80">
             <div class="page_links">
-                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['subscribers']; ?></p>
+                <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['subscribers']; ?></p>
             </div>
             <div class="posts_div2 postsdiv2">
                 <div class="posts_header">

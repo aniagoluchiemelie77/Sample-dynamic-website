@@ -338,6 +338,86 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
         }
     }
 }
+function addResourceFile($tableName, $convertedPath, $resource_niche, $resource_title, $resource_url)
+{
+    global $conn;
+    $date = date('y-m-d');
+    $time = date('H:i:s');
+    if (!empty($convertedPath) && empty($resource_url)) {
+        $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $tableName, $convertedPath, $date, $time, $resource_niche, $resource_title);
+        if ($stmt->execute()) {
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Resource File added successfully";
+            $content = "Admin " . $_SESSION['firstname'] . " added a new Resource file in $tableName";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            header('location: view_all/resources.php?resource_name=' . $tableName);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: edit/frontend_features.php');
+        }
+    } else if (empty($convertedPath) && !empty($resource_url)) {
+        $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $tableName, $resource_url, $date, $time, $resource_niche, $resource_title);
+        if ($stmt->execute()) {
+            $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $resource_type, $date, $time);
+            if ($stmt->execute()) {
+                $_SESSION['status_type'] = "Success";
+                $_SESSION['status'] = "Resource File added successfully";
+                $content = "Admin " . $_SESSION['firstname'] . " added a new Resource file in $tableName";
+                $forUser = 0;
+                logUpdate($conn, $forUser, $content);
+                header('location: view_all/resources.php?resource_name=' . $tableName);
+            }
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: edit/frontend_features.php');
+        }
+    } else if (!empty($convertedPath) && !empty($resource_url)) {
+        $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $tableName, $resource_url, $date, $time, $resource_niche, $resource_title);
+        if ($stmt->execute()) {
+            $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $resource_type, $date, $time);
+            if ($stmt->execute()) {
+                $_SESSION['status_type'] = "Success";
+                $_SESSION['status'] = "Resource File added successfully";
+                $content = "Admin " . $_SESSION['firstname'] . " added a new Resource file in $tableName";
+                $forUser = 0;
+                logUpdate($conn, $forUser, $content);
+                header('location: view_all/resources.php?resource_name=' . $tableName);
+            }
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: edit/frontend_features.php');
+        }
+    }
+}
+function editResourceFile($tableName, $convertedPath, $resource_niche, $resource_title, $resource_name, $resource_type_id)
+{
+    global $conn;
+    if (!empty($convertedPath) && empty($resource_url)) {
+        $stmt = $conn->prepare("UPDATE $tableName SET name = ?, resource_path = ?, niche = ?, title = ? WHERE id = ?");
+        $stmt->bind_param("ssssi", $resource_name, $convertedPath, $resource_niche, $resource_title, $resource_type_id);
+        if ($stmt->execute()) {
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Resource File edited successfully";
+            $content = "Admin " . $_SESSION['firstname'] . " edited a Resource file in $tableName";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            header('location: view_all/resources.php?resource_name=' . $tableName);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: edit/frontend_features.php');
+        }
+    }
+}
 function addPage($page_name)
 {
     global $conn;
@@ -1866,4 +1946,44 @@ if (isset($_POST['send_message_writer'])) {
     $_SESSION['status_type'] = $sendEmail['status_type'];
     $_SESSION['status'] = $sendEmail['status'];
     header('location: admin_homepage.php');
+}
+if (isset($_POST['create_new_resource_file'])) {
+    $resource_type = $_POST['resource_type'];
+    $resource_url = $_POST['resource_url'];
+    $resource_niche = $_POST['resource_niche'];
+    $resource_title = $_POST['resource_title'];
+    $resource_type = lowercaseNoSpace($resource_type);
+    $resource_path = $_FILES['File']['name'];
+    $target = "../files/" . basename($resource_path);
+    $convertedPath;
+    if (!empty($resource_path)) {
+        if (move_uploaded_file($_FILES['File']['tmp_name'], $target)) {
+            $filePath = $_FILES["File"]["tmp_name"];
+            $convertedPath = convertPath2($filePath);
+        }
+    } else {
+        $convertedPath = null;
+    }
+    addResourceFile($resource_type, $convertedPath, $resource_niche, $resource_title, $resource_url);
+}
+if (isset($_POST['edit_resource_file'])) {
+    $resource_type = $_POST['resource_type'];
+    $resource_path = $_POST['resource_path'];
+    $resource_type_id = $_POST['resource_type_id'];
+    $resource_niche = $_POST['resource_niche'];
+    $resource_name = $_POST['resource_name'];
+    $resource_title = $_POST['resource_title'];
+    $resource_type = lowercaseNoSpace($resource_type);
+    $resource_path2 = $_FILES['File']['name'];
+    $target = "../files/" . basename($resource_path2);
+    $convertedPath;
+    if (!empty($resource_path2)) {
+        if (move_uploaded_file($_FILES['File']['tmp_name'], $target)) {
+            $filePath = $_FILES["File"]["tmp_name"];
+            $convertedPath = convertPath2($filePath);
+        }
+    } else {
+        $convertedPath = $resource_path;
+    }
+    editResourceFile($resource_type, $convertedPath, $resource_niche, $resource_title, $resource_name, $resource_type_id);
 }

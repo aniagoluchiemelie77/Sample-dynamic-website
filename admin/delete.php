@@ -4,6 +4,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
 $topicName = isset($_GET['topicName']) ? $_GET['topicName'] : null;
 $pageName = isset($_GET['pageName']) ? $_GET['pageName'] : null;
+$action = isset($_GET['action']) ? $_GET['action'] : null;
 $resourceName = isset($_GET['resourceName']) ? $_GET['resourceName'] : null;
 $type = isset($_GET['type']) ? $_GET['type'] : null;
 include('connect.php');
@@ -223,6 +224,23 @@ if ($type == "Resource") {
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Deleting table failed!";
+        header('location: edit/frontend_features.php');
+    }
+}
+if ($action == "deleteResource") {
+    $sql = "DELETE FROM $resourceName WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Resource File Deleted Successfully";
+        $content = "Admin " . $_SESSION['firstname'] . "  deleted a Resource file";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        header('location: edit/frontend_features.php');
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Error, Please retry";
         header('location: edit/frontend_features.php');
     }
 }

@@ -2,6 +2,8 @@
 session_start();
 include("../connect.php");
 require('../../init.php');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $resource_name = isset($_GET['resource_name']) ? $_GET['resource_name'] : null;
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
@@ -11,7 +13,7 @@ $translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
 } else {
-    $translations = []; // Initialize as empty array to avoid undefined variable errors
+    $translations = [];
 }
 $posttype = $resource_name;
 ?>
@@ -30,7 +32,7 @@ $posttype = $resource_name;
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src='../admin.js' async></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <title>Edit Resources (<?php echo $resource_name; ?>)</title>
+    <title>Edit Resources </title>
 </head>
 
 <body>
@@ -38,30 +40,38 @@ $posttype = $resource_name;
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="page_links">
-                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['posts']; ?></p> > <p><?php echo $translations['view_posts2']; ?></p>
+                <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['posts']; ?></p> > <p><?php echo $translations['view_posts2']; ?></p>
             </div>
             <div class="posts_header">
-                <h1> <?php echo $resource_name; ?></h1>
+                <h1> <?php echo ucwords($resource_name); ?></h1>
+                <a class="btn" href="../create_new/resourcefile.php?resource_type=<?php echo $resource_name; ?>">Add New File</a>
             </div>
             <div class="posts_divcontainer border-gradient-side-dark">
                 <div id="search-results">
+                    <input type="hidden" id="resourceName" value="<?php echo htmlspecialchars($posttype, ENT_QUOTES); ?>">
                     <?php
                     if (isset($_GET['query'])) {
+                        $resource_name = isset($_GET['resource_name']) ? $_GET['resource_name'] : null;
                         $query = trim($_GET['query']);
                         if ($query !== "") {
-                            $stmt = $conn->prepare("SELECT * FROM $resource_name WHERE title LIKE ? OR niche LIKE ? OR name LIKE ? ORDER BY id DESC LIMIT 5");
                             $searchTerm = "%" . $query . "%";
+                            var_dump($posttype);
+                            $table_name = lowercaseNoSpace($resource_name);
+                            $stmt = $conn->prepare("SELECT * FROM $table_name WHERE title LIKE ? OR niche LIKE ? OR name LIKE ? ORDER BY id DESC LIMIT 5");
+                            if ($stmt === false) {
+                                die("Prepare failed: " . htmlspecialchars($conn->error));
+                            }
                             $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
                             if ($stmt->execute()) {
                                 $result = $stmt->get_result();
                                 if ($result->num_rows > 0) {
                                     echo "<h3 class='posts_divcontainer_header'>You Searched For: $query <h3>";
                                     while ($row = $result->fetch_assoc()) {
-                                       $formatted_date = date("M d, Y", strtotime($row['date_added']));
-                        $time = $row['time_added'];
-                        $formatted_time = date("g:i A", strtotime($time));
-                        $formId = "favouriteForm_" . $row["id"];
-                        echo "<div class='posts_divcontainer_subdiv post' data-post-id='" . $row["id"] . "'>
+                                        $formatted_date = date("M d, Y", strtotime($row['date_added']));
+                                        $time = $row['time_added'];
+                                        $formatted_time = date("g:i A", strtotime($time));
+                                        $formId = "favouriteForm_" . $row["id"];
+                                        echo "<div class='posts_divcontainer_subdiv post' data-post-id='" . $row["id"] . "'>
                                     <h3 class='posts_divcontainer_header'>" . $row["title"] . "</h3>
                                     <h2 class='posts_divcontainer_header2'>" . $row["niche"] . "</h2>
                                     <h2 class='posts_divcontainer_header2'>" . $row["resource_path"] . "</h2>
@@ -73,7 +83,7 @@ $posttype = $resource_name;
                                         <a class='users_edit' href='../edit/resource.php?id=" . $row["id"] . "&resource_name=$resource_name'>
                                             <i class='fa fa-pencil' aria-hidden='true'></i>
                                         </a>
-                                        <a class='users_delete' onclick='confirmDeleteResource(" . $row['id'] . ", \"" . htmlspecialchars(removeUnderscore2($row['resource_name']), ENT_QUOTES) . "\")'>
+                                        <a class='users_delete' onclick='confirmDeleteResource2(" . $row['id'] . ", \"" . htmlspecialchars($table_name, ENT_QUOTES) . "\")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
                                         </a>
                                     </div>
@@ -89,7 +99,8 @@ $posttype = $resource_name;
                     ?>
                 </div>
                 <?php
-                $selectall_resources = "SELECT * FROM $resource_name ORDER BY id DESC LIMIT 100";
+                $table_name = lowercaseNoSpace($resource_name);
+                $selectall_resources = "SELECT * FROM $table_name ORDER BY id DESC LIMIT 100";
                 $selectall_resources_result = $conn->query($selectall_resources);
                 if ($selectall_resources_result->num_rows > 0) {
                     while ($row = $selectall_resources_result->fetch_assoc()) {
@@ -106,10 +117,10 @@ $posttype = $resource_name;
                                         <p class='posts_divcontainer_subdiv_p'><span> $translations[published_time]: </span>$formatted_time</p> 
                                     </div>
                                     <div class='posts_delete_edit'>
-                                        <a class='users_edit' href='../edit/resource.php?id=" . $row["id"] . "&resource_name=$resource_name'>
+                                        <a class='users_edit' href='../edit/resource.php?id=" . $row["id"] . "&resource_name=$table_name'>
                                             <i class='fa fa-pencil' aria-hidden='true'></i>
                                         </a>
-                                        <a class='users_delete' onclick='confirmDeleteResource(" . $row['id'] . ", \"" . htmlspecialchars(removeUnderscore2($row['resource_path']), ENT_QUOTES) . "\")'>
+                                        <a class='users_delete' onclick='confirmDeleteResource2(" . $row['id'] . ", \"" . htmlspecialchars($table_name, ENT_QUOTES) . "\")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
                                         </a>
                                     </div>
@@ -121,53 +132,45 @@ $posttype = $resource_name;
         </div>
     </section>
     <script>
-        function submitSearch() {
-            var query = document.getElementById("search-bar").value;
-            if (query.trim() !== "") {
-                fetch("posts.php?query=" + encodeURIComponent(query))
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("search-results").innerHTML = data;
-                        document.getElementById("search-results").style.display = "block";
-
-                        // Ensure other sections remain visible
-                        document.querySelector(".posts_divcontainer").style.display = "block";
-                    })
-                    .catch(error => console.error("Error fetching results:", error));
-            } else {
-                document.getElementById("search-results").style.display = "none";
+        window.onload = function() {
+            function submitSearch() {
+                console.log("submitSearch was called");
+                var query = document.getElementById("search-bar").value;
+                var resourceName = document.getElementById('resourceName').value;
+                console.log("Resource Name:", resourceName); // optional, for debugging
+                if (query.trim() !== "") {
+                    fetch("resources.php?query=" + encodeURIComponent(query) + "&resource_name=" + encodeURIComponent(resourceName))
+                        .then(response => response.text())
+                        .then(data => {
+                            document.getElementById("search-results").innerHTML = data;
+                            document.getElementById("search-results").style.display = "block";
+                            document.querySelector(".posts_divcontainer").style.display = "block";
+                        })
+                        .catch(error => console.error("Error fetching results:", error));
+                } else {
+                    document.getElementById("search-results").style.display = "none";
+                }
             }
-        }
+        };
     </script>
+    <script src="sweetalert2.all.min.js"></script>
     <script>
-        const ToastMessage = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            timer: 4000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-            iconColor: '#fff',
-            customClass: {
-                popup: 'rounded-xl shadow-xl text-white bg-zinc-800 border border-gray-600'
-            },
-            showClass: {
-                popup: 'animate__animated animate__fadeInRight'
-            },
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutRight'
-            }
-        });
-        if (typeof messageType !== "undefined" && messageText.trim() !== "") {
-            const iconColors = {
-                'Error': '#e74c3c',
-                'Success': '#2ecc71',
-                'Info': '#3498db'
-            };
-            ToastMessage.fire({
-                icon: messageType.toLowerCase(),
-                title: messageText,
-                iconColor: iconColors[messageType] || '#3498db'
-            });
+        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
+        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
         }
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>

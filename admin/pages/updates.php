@@ -38,7 +38,7 @@ $posttype = 'Updates';
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="page_links">
-                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['profile']; ?></p> > <p><?php echo $translations['user_activities']; ?></p>
+                <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['profile']; ?></p> > <p><?php echo $translations['user_activities']; ?></p>
             </div>
             <div class="posts_header">
                 <h1><?php echo $translations['user_activities']; ?></h1>

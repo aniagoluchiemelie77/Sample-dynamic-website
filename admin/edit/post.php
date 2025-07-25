@@ -58,7 +58,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -153,7 +153,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -246,7 +246,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $content = $row['content'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -320,7 +320,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -415,7 +415,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -510,7 +510,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 echo "<form class='newpost_container' method='post' action='../forms.php' enctype='multipart/form-data' id='postForm'>
                             <div class='page_links'>
-                                <a href='../admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
+                                <a href=" . $base_url . "admin_homepage.php'>$translations[home]</a> > <p>$translations[edit_post]</p>
                             </div>
                             <div class='newpost_container_div1 newpost_subdiv'>
                                 <h1>$translations[edit_post]</h1>
@@ -597,6 +597,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
     <script src="../admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
+        preventSubmitIfUnchanged('.newpost_container', 'input[type="text"], input[type="file"], textarea');
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

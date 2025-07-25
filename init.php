@@ -433,3 +433,4 @@ function uploadToCloudinary($filePath)
     ]);
     return $result['secure_url'] ?? null;
 }
+$base_url = "http://localhost/Sample-dynamic-website/admin/";

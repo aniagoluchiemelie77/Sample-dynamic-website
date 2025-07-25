@@ -48,7 +48,7 @@ if (isset($_POST['change_tz'])) {
     <section class="newpost_body">
         <form method="POST" action="changetz.php" enctype="multipart/form-data" id="postForm" class="newpost_container">
             <div class="page_links">
-                <a href="../admin_homepage.php">Home</a> > <p>Pages</p> > <p>Change Timezone</p>
+                <a href="<?php echo $base_url . 'admin_homepage.php'; ?>">Home</a> > <p>Pages</p> > <p>Change Timezone</p>
             </div>
             <div class="newpost_container_divnew newpost_subdiv">
                 <div class='newpost_subdiv_subdiv2'>

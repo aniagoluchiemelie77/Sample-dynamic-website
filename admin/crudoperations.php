@@ -144,3 +144,22 @@ if (!function_exists('addUnderscore')) {
         return str_replace(' ', '_', $string);
     }
 }
+if (!function_exists('formatDate')) {
+    function formatDate($dateString)
+    {
+        $timestamp = strtotime($dateString);
+        $day = date('j', $timestamp);
+        $month = date('F', $timestamp);
+        $year = date('Y', $timestamp);
+        $daySuffix = date('jS', $timestamp);
+        return "$month $daySuffix $year";
+    }
+}
+if (!function_exists('formatTime')) {
+    function formatTime($timeString)
+    {
+        $time_object = DateTime::createFromFormat('H:i:s', $timeString);
+        $formatted_time = $time_object->format('g:i A');
+        return $formatted_time;
+    }
+}

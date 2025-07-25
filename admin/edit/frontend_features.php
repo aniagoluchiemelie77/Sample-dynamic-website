@@ -28,7 +28,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link id="themeStylesheet" rel="stylesheet" href="../admin.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="../admin.js" defer></script>
+    <script src="../admin.js" async></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title><?php echo $translations['customise_frontend']; ?></title>
@@ -103,7 +103,7 @@ if (file_exists($translationFile)) {
     <?php require("../extras/header3.php"); ?>
     <section class="sectioneer">
         <div class="page_links">
-            <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['edit_frontend_title']; ?></p>
+            <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['edit_frontend_title']; ?></p>
         </div>
         <form class="frontend_div sectioneer_form" action="../forms.php" method="POST" enctype="multipart/form-data">
             <?php
@@ -140,9 +140,8 @@ if (file_exists($translationFile)) {
                 }
             }
             ?>
-            <input class="btn" type="submit" value="<?php echo $translations['save']; ?>" name="change_logo" />
         </form>
-        <form class="frontend_div sectioneer_form" action="../forms.php" method="POST" enctype="multipart/form-data">
+        <form class="frontend_div sectioneer_form div_special" action="../forms.php" method="POST" enctype="multipart/form-data">
             <div class="sectioneer_form_container">
                 <?php
                 $website_messages_sql = "SELECT id, cookie_consent, website_vision FROM website_messages ORDER BY id DESC LIMIT 1";
@@ -212,7 +211,7 @@ if (file_exists($translationFile)) {
                     $page_name2 = removeHyphen2($page_name);
                     $page_id = $row['id'];
                     $readableString = convertToReadable($page_name);
-                    echo "<div>
+                    echo "<div class='page_div'>
                             <p>$readableString</p>
                             <a class='' onclick='confirmDeletePage($page_id, \"" . htmlspecialchars($page_name2, ENT_QUOTES) . "\")'>
                                 <i class='fa fa-trash' aria-hidden='true'></i>
@@ -281,6 +280,7 @@ if (file_exists($translationFile)) {
     <script src="sweetalert2.all.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
+        preventSubmitIfUnchanged('.div_special', 'textarea');
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

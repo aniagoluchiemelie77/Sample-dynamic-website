@@ -231,5 +231,14 @@ $translations = [
     'editor_login_verify' => 'Проверка входа редактора',
     'editor_login_verify_header' => 'Проверка запроса входа редактора',
     'editor_login_verify_btn' => 'Продолжить вход',
+    'create_new_resource_file' => 'Создать новый файл ресурса',
+    'front_end_features' => 'Функции интерфейса',
+    'edit_resource_file' => 'Редактировать файл ресурса',
+    'resource_path' => 'Путь к ресурсу',
+    'edit_resource_path' => 'Редактировать путь к ресурсу',
+    'resource_name' => 'Название ресурса',
+    'date_added' => 'Дата добавления',
+    'time_added' => 'Время добавления',
+    'niche' => 'Область',
 ];
 ?>

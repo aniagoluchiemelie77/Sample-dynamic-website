@@ -233,5 +233,14 @@ $translations = [
     'editor_login_verify' => 'تحقق من تسجيل الدخول كمحرر',
     'editor_login_verify_header' => 'تحقق من طلب تسجيل الدخول للمحرر',
     'editor_login_verify_btn' => 'متابعة تسجيل الدخول',
+    'create_new_resource_file' => 'إنشاء ملف مورد جديد',
+    'front_end_features' => 'ميزات الواجهة الأمامية',
+    'edit_resource_file' => 'تعديل ملف المورد',
+    'resource_path' => 'مسار المورد',
+    'edit_resource_path' => 'تعديل مسار المورد',
+    'resource_name' => 'اسم المورد',
+    'date_added' => 'تاريخ الإضافة',
+    'time_added' => 'وقت الإضافة',
+    'niche' => 'المجال',
 ];
 ?>

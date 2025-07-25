@@ -36,7 +36,7 @@ $posttype = 'Website Users';
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="page_links">
-                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['users']; ?></p> > <p><?php echo $translations['other_website_users']; ?></p>
+                <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['users']; ?></p> > <p><?php echo $translations['other_website_users']; ?></p>
             </div>
             <div class="posts_header">
                 <h1><?php echo $translations['other_website_users']; ?></h1>

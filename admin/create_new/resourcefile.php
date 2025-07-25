@@ -3,6 +3,7 @@ session_start();
 require("../connect.php");
 require("../init.php");
 require('../../init.php');
+$resource_type = isset($_GET['resource_type']) ? $_GET['resource_type'] : null;
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -28,40 +29,42 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <title><?php echo $translations['create_writer']; ?></title>
+    <title><?php echo $translations['create_new_resource_file']; ?></title>
 </head>
 
 <body>
     <?php require("../extras/header3.php"); ?>
     <section class="about_section">
         <div class="page_links">
-            <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['users']; ?></p> > <p> <?php echo $translations['create_writer']; ?></p>
+            <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <a href="../edit/frontend_features.php"> <?php echo $translations['front_end_features']; ?> </a> > <p> <?php echo $translations['create_new_resource_file']; ?></p>
         </div>
         <form class="formcontainer" id="topicForm" method="post" action="../forms.php" enctype="multipart/form-data">
             <div class="head_paragraph">
-                <h3><?php echo $translations['create_writer']; ?></h3>
+                <h3><?php echo $translations['create_new_resource_file']; ?></h3>
             </div>
             <div class="formcontainer_subdiv">
-                <div class="input_group">
-                    <label for="writer_firstname"><?php echo $translations['writers_firstname']; ?>:</label>
-                    <input type="text" name="writer_firstname" id="topicName" />
-                </div>
-                <div class="input_group">
-                    <label for="writer_lastname"><?php echo $translations['writers_lastname']; ?>:</label>
-                    <input type="text" name="writer_lastname" id="topicName" />
-                </div>
-                <div class="input_group">
-                    <label for="writer_email"><?php echo $translations['writers_email']; ?>:</label>
-                    <input type="email" name="writer_email" id="topicName" />
-                </div>
+                <input type="hidden" name="resource_type" id="topicName" value='<?php echo $resource_type; ?>' />
                 <div class="newpost_container_div6 newpost_subdiv">
-                    <label class="form__label" for="Img"><?php echo $translations['writers_image']; ?>:</label>
+                    <label class="form__label" for="File"><?php echo $translations['upload_resource']; ?>:</label>
                     <div class="newpost_subdiv2">
-                        <input class="form__input" name="Img" type="file" />
+                        <input class="form__input" name="File" type="file" />
+                        <p class="newpost_subdiv2-p leftp"><span>*</span><?php echo $translations['message_title_i']; ?></p>
                     </div>
                 </div>
+                <div class="input_group">
+                    <label for="resource_url"><?php echo $translations['resource_url']; ?>:</label>
+                    <input type="text" name="resource_url" id="topicName" />
+                </div>
+                <div class="input_group">
+                    <label for="resource_niche"><?php echo $translations['resource_niche']; ?>:</label>
+                    <input type="text" name="resource_niche" id="topicName" />
+                </div>
+                <div class="input_group">
+                    <label for="resource_title"><?php echo $translations['resource_title']; ?>:</label>
+                    <input type="text" name="resource_title" id="topicName" />
+                </div>
             </div>
-            <input class="formcontainer_submit" value="<?php echo $translations['save']; ?>" type="submit" name="create_writer" />
+            <input class="formcontainer_submit" value="<?php echo $translations['save']; ?>" type="submit" name="create_new_resource_file" />
         </form>
     </section>
     <script src="../admin.js"></script>

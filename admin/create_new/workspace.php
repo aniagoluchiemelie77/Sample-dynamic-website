@@ -36,7 +36,7 @@ if (file_exists($translationFile)) {
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="../forms.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">
-                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['add_draft']; ?></p>
+                <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['add_draft']; ?></p>
             </div>
             <div class="newpost_container_div1 newpost_subdiv">
                 <h1><?php echo $translations['new_draft']; ?></h1>

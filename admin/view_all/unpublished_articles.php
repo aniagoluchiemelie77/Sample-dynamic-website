@@ -37,7 +37,7 @@ $posttype = 'Drafts';
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="page_links">
-                <a href="../admin_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['view_drafts2']; ?></p>
+                <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['view_drafts2']; ?></p>
             </div>
             <div class="posts_header">
                 <h1><?php echo $translations['drafts']; ?></h1>

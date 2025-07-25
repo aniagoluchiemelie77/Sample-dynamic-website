@@ -34,7 +34,7 @@ if (file_exists($translationFile)) {
     <?php require("../extras/header3.php"); ?>
     <section class="about_section">
         <div class="page_links">
-            <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['privacy_policy']; ?></p>
+            <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['privacy_policy']; ?></p>
         </div>
         <div class="about_header">
             <h1><?php echo $translations['privacy_policy']; ?></h1>

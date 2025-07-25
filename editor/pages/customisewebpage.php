@@ -36,7 +36,7 @@ if (file_exists($translationFile)) {
     <section class="sectioneer">
         <div class='pages_container'>
             <div class="page_links">
-                <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['customise_frontend']; ?></p>
+                <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['customise_frontend']; ?></p>
             </div>
             <h1><?php echo $translations['actions']; ?></h1>
             <div class="pages_container_subdiv">

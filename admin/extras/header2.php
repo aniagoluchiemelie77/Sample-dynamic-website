@@ -6,7 +6,7 @@
     </div>
     <form class="header_searchbar" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?> " method="get">
         <input type="text" name="query" id="search-bar" placeholder="Search <?php echo $posttype; ?>..." />
-        <button class="fa fa-search" id="tutorial_name" type="submit"></button>
+        <button class="fa fa-search" id="tutorial_name" type="submit" onclick="submitSearch()"></button>
     </form>
     <div class="header_logobox">
         <img src="<?php echo $logo; ?>" alt="Website Logo">

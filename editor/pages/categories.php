@@ -41,7 +41,7 @@ $posttype = 'Categories';
         </div>
         <div class="about_section_topicsdiv">
             <div class="page_links">
-                <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['categories']; ?></p>
+                <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['categories']; ?></p>
             </div>
             <div id="search-results">
                 <?php

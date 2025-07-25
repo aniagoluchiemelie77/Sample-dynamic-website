@@ -231,5 +231,14 @@ $translations = [
     'editor_login_verify' => 'Veuillez vérifier votre demande de connexion',
     'editor_login_verify_header' => 'Vérification de la connexion de l\'éditeur',
     'editor_login_verify_btn' => 'Vérifier la connexion de l\'éditeur',
+    'create_new_resource_file' => 'Créer un nouveau fichier de ressource',
+    'front_end_features' => 'Fonctionnalités du frontend',
+    'edit_resource_file' => 'Modifier le fichier de ressource',
+    'resource_path' => 'Chemin de la ressource',
+    'edit_resource_path' => 'Modifier le chemin de la ressource',
+    'resource_name' => 'Nom de la ressource',
+    'date_added' => 'Date d\'ajout',
+    'time_added' => 'Heure d\'ajout',
+    'niche' => 'Niche',
 ];
 ?>

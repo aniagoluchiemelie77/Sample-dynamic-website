@@ -231,5 +231,14 @@ $translations = [
     'editor_login_verify' => 'Verify Login As Editor',
     'editor_login_verify_header' => 'Editor Login Request Verification',
     'editor_login_verify_btn' => 'Continue Login',
+    'create_new_resource_file' => 'Create New Resource File',
+    'front_end_features' => 'Front End Features',
+    'edit_resource_file' => 'Edit Resource File',
+    'resource_path' => 'Resource Path',
+    'edit_resource_path' => 'Edit Resource Path',
+    'resource_name' => 'Resource Name',
+    'date_added' => 'Date Added',
+    'time_added' => 'Time Added',
+    'niche' => 'Niche',
 ];
 ?>

@@ -229,5 +229,14 @@ $translations = [
     'editor_login_verify' => 'Verificar Inicio de Sesión como Editor',
     'editor_login_verify_header' => 'Verificación de Solicitud de Inicio de Sesión del Editor',
     'editor_login_verify_btn' => 'Continuar Inicio de Sesión',
+    'create_new_resource_file' => 'Crear Nuevo Archivo de Recurso',
+    'front_end_features' => 'Características del Front End',
+    'edit_resource_file' => 'Editar Archivo de Recurso',
+    'resource_path' => 'Ruta del Recurso',
+    'edit_resource_path' => 'Editar Ruta del Recurso',
+    'resource_name' => 'Nombre del Recurso',
+    'date_added' => 'Fecha Agregada',
+    'time_added' => 'Hora Agregada',
+    'niche' => 'Nicho',
 ];
 ?>

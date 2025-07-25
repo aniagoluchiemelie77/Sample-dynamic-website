@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
                 $row = $get_subscriber_result->fetch_assoc();
                 echo "<div class='newpost_body2'>
                             <div class='nav_quicklinks'>
-                                <a href = '../admin_homepage.php'>$translations[home]</a> > <p>$translations[send_message_i] <span>" . $row['firstname'] . "</span> </p>
+                                <a href=" .$base_url . "admin_homepage.php'; ?>>$translations[home]</a> > <p>$translations[send_message_i] <span>" . $row['firstname'] . "</span> </p>
                             </div>
                             <div class='message_div-container'>
                                 <div class='message_div-container_subdiv'>

@@ -238,5 +238,6 @@ $translations = [
     'date_added' => 'Fecha Agregada',
     'time_added' => 'Hora Agregada',
     'niche' => 'Nicho',
+    'editor_homepage' => 'Página de Inicio del Editor',
 ];
 ?>

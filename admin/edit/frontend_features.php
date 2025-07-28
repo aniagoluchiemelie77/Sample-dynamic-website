@@ -35,7 +35,7 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <div class="logout_alert" id="logout_alert">
+    <div class="logout_alert" id="logoutAlert">
         <form class="newpost_container" method="POST" action="../../helpers/forms.php" id="postForm" enctype="multipart/form-data">
             <a class="logout_alert_cancel" onclick="cancelExit()">
                 <i class="fa fa-times popup_close1" aria-hidden="true"></i>
@@ -81,7 +81,7 @@ if (file_exists($translationFile)) {
             </div>
         </form>
     </div>
-    <div class="logout_alert" id="logout_alert2">
+    <div class="logout_alert" id="logoutAlert2">
         <form class="newpost_container" method="post" action="../../helpers/forms.php" id="postForm" enctype="multipart/form-data">
             <a class="logout_alert_cancel" onclick="cancelExit2()">
                 <i class="fa fa-times popup_close1" aria-hidden="true"></i>
@@ -280,7 +280,16 @@ if (file_exists($translationFile)) {
     <script src="sweetalert2.all.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-        preventSubmitIfUnchanged('.div_special', 'textarea');
+        document.addEventListener('DOMContentLoaded', function() {
+            displayExit();
+            displayExit2();
+            cancelExit();
+            cancelExit2();
+            preventSubmitIfUnchanged('.div_special', 'textarea');
+            preventSubmitIfUnchanged('.newpost_container', 'input');
+        });
+
+
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

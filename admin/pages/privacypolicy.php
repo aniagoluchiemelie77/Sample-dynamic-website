@@ -87,8 +87,10 @@ if (file_exists($translationFile)) {
     </script>
     <script>
         const editAboutBtn4 = document.getElementById("Edit_about4");
-        const editTextEditor4 = document.getElementById("hidden_aboutdiv4")
-        editAction(editAboutBtn4, editTextEditor4);
+        const editTextEditor4 = document.getElementById("hidden_aboutdiv4");
+        document.addEventListener('DOMContentLoaded', function() {
+            editAction(editAboutBtn4, editTextEditor4);
+        });
         tinymce.init({
             selector: "#myTextarea8",
             resize: true,

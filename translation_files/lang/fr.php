@@ -240,5 +240,6 @@ $translations = [
     'date_added' => 'Date d\'ajout',
     'time_added' => 'Heure d\'ajout',
     'niche' => 'Niche',
+    'editor_homepage' => 'Page d\'accueil de l\'éditeur',
 ];
 ?>

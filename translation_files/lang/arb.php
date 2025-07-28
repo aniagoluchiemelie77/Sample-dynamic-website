@@ -242,5 +242,6 @@ $translations = [
     'date_added' => 'تاريخ الإضافة',
     'time_added' => 'وقت الإضافة',
     'niche' => 'المجال',
+    'editor_homepage' => 'الصفحة الرئيسية للمحرر',
 ];
 ?>

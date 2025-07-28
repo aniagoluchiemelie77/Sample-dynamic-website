@@ -102,7 +102,9 @@ if (file_exists($translationFile)) {
     <script src="../admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
-        preventSubmitIfUnchanged('.newpost_container', 'input[type="text"]');
+        document.addEventListener('DOMContentLoaded', function() {
+            preventSubmitIfUnchanged('.newpost_container', 'input[type="text"]');
+        });
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

@@ -118,7 +118,9 @@ if (file_exists($translationFile)) {
         <?php unset($_SESSION['status']); ?>
     </script>
     <script>
-        preventSubmitIfUnchanged('.create_editor_container', 'input[type="text"], input[type="file"]');
+        document.addEventListener('DOMContentLoaded', function() {
+            preventSubmitIfUnchanged('.create_editor_container', 'input[type="text"], input[type="file"]');
+        });
     </script>
 
 </body>

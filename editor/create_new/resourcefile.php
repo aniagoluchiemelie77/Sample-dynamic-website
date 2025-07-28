@@ -36,7 +36,7 @@ if (file_exists($translationFile)) {
     <?php require("../extras/header3.php"); ?>
     <section class="about_section">
         <div class="page_links">
-            <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <a href="../edit/frontend_features.php"> <?php echo $translations['front_end_features']; ?> </a> > <p> <?php echo $translations['create_new_resource_file']; ?></p>
+            <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <a href="../edit/frontend_features.php"> <?php echo $translations['front_end_features']; ?> </a> > <p> <?php echo $translations['create_new_resource_file']; ?></p>
         </div>
         <form class="formcontainer" id="topicForm" method="post" action="../../helpers/forms.php" enctype="multipart/form-data">
             <div class="head_paragraph">
@@ -67,9 +67,44 @@ if (file_exists($translationFile)) {
             <input class="formcontainer_submit" value="<?php echo $translations['save']; ?>" type="submit" name="create_new_resource_file" />
         </form>
     </section>
-    <script src="../editor.js"></script>
     <script src="sweetalert2.all.min.js"></script>
+    <script src="../editor.js"></script>
     <script>
+        function preventSubmitIfEmpty(formSelector, inputSelector) {
+            document.addEventListener("DOMContentLoaded", () => {
+                const form = document.querySelector(formSelector);
+                if (!form) return;
+
+                const inputs = form.querySelectorAll(inputSelector);
+                const originalValues = Array.from(inputs).map((input) =>
+                    input.value.trim()
+                );
+
+                form.addEventListener("submit", (e) => {
+                    let hasChanged = false;
+                    inputs.forEach((input, index) => {
+                        if (input.type === "file") {
+                            if (input.files.length > 0) {
+                                hasChanged = true;
+                            }
+                        } else if (input.value.trim() !== originalValues[index]) {
+                            hasChanged = true;
+                        }
+                    });
+
+                    if (!hasChanged) {
+                        e.preventDefault();
+                        Swal.fire({
+                            title: "Empty Form",
+                            text: "Cannot submit an empty form.",
+                            icon: "info",
+                            confirmButtonText: "Ok",
+                        });
+                    }
+                });
+            });
+        }
+        preventSubmitIfEmpty('.formcontainer', 'input, textarea');
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

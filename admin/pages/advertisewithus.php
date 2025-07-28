@@ -116,7 +116,9 @@ if (file_exists($translationFile)) {
     <script>
         const editAboutBtn2 = document.getElementById("Edit_about2");
         const editTextEditor2 = document.getElementById("hidden_aboutdiv2");
-        editAction(editAboutBtn2, editTextEditor2);
+        document.addEventListener('DOMContentLoaded', function() {
+            editAction(editAboutBtn2, editTextEditor2);
+        });
     </script>
 </body>
 

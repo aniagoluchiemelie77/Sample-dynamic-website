@@ -20,16 +20,15 @@ if (file_exists($translationFile)) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../editor.css" />
     <link id="themeStylesheet" rel="stylesheet" href="../editor.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="../editor.js" defer></script>
+    <script src="../editor.js" async></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title><?php echo $translations['customise_frontend']; ?></title>
@@ -85,7 +84,7 @@ if (file_exists($translationFile)) {
     <?php require("../extras/header3.php"); ?>
     <section class="sectioneer">
         <div class="page_links">
-            <a href="../editor_homepage.php"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['edit_frontend_title']; ?></p>
+            <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['edit_frontend_title']; ?></p>
         </div>
         <div class="frontend_div sectioneer_div">
             <h1 class="sectioneer_form_header"><?php echo $translations['resources']; ?></h1>
@@ -99,11 +98,16 @@ if (file_exists($translationFile)) {
                     $resource_id = $row['id'];
                     $readableString = convertToReadable2($resource_name);
                     $resource_name2 = removeUnderscore2($resource_name);
-                    echo "<div>
+                    echo "<div class='div'>
                                         <p>$readableString</p>
-                                        <a class='' onclick='confirmDeleteResource($resource_id, \"" . htmlspecialchars($resource_name2, ENT_QUOTES) . "\")'>
-                                            <i class='fa fa-trash' aria-hidden='true'></i>
-                                        </a>
+                                        <div class='sectioneer_div_subdiv_subdiv'>
+                                            <a class='' onclick='confirmDeleteResource($resource_id, \"" . htmlspecialchars($resource_name2, ENT_QUOTES) . "\")'>
+                                                <i class='fa fa-trash' aria-hidden='true'></i>
+                                            </a>
+                                            <a href='../view_all/resources.php?resource_name=$resource_name'>
+                                                <i class='fa fa-pencil' aria-hidden='true'></i>
+                                            </a>
+                                        </div>
                                     </div>";
                 }
                 echo "  <a class='add_div' onclick='displayExit()'>
@@ -137,7 +141,6 @@ if (file_exists($translationFile)) {
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>
     </script>
-    <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 </body>
 
 </html>

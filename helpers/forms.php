@@ -2451,6 +2451,13 @@ if (isset($_POST['create_post'])) {
     $image2 = $_POST['Post_Image2'];
     $image1 = $_FILES['Post_Image1']['name'];
     $target = "../images/" . basename($image1);
+    if (empty($title) && empty($subtitle) && empty($link) && empty($image1) && empty($image2) && empty($content) && empty($niche) && empty($author_firstname) && empty($author_lastname) && empty($author_bio)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
+        $base_path = errorPath();
+        header('location: ' . $base_path . 'create_new/posts.php');
+        exit();
+    }
     if (empty($image1) && !empty($image2)) {
         $imagePath = $image2;
         savePost2($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $id, $author_firstname, $author_lastname, $author_bio, $post_type, $userType);
@@ -2546,6 +2553,13 @@ if (isset($_POST['create_draft'])) {
     $image = $_FILES['Post_Image']['name'];
     $target = "../images/" . basename($image);
     $convertedPath;
+    if (empty($title) && empty($subtitle) && empty($link) && empty($image) && empty($content) && empty($niche)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
+        $base_path = errorPath();
+        header('location: ' . $base_path . 'create_new/workspace.php');
+        exit();
+    }
     if (empty($image)) {
         $convertedPath = null;
     }
@@ -2583,6 +2597,13 @@ if (isset($_POST['create_page'])) {
     $image = $_FILES['topicImg']['name'];
     $target = "../images/" . basename($image);
     $convertedPath;
+    if (empty($topic_name) && empty($image)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
+        $base_path = errorPath();
+        header('location: ' . $base_path . 'edit/frontend_features.php');
+        exit();
+    }
     if (empty($image)) {
         $convertedPath = null;
     }
@@ -2599,6 +2620,13 @@ if (isset($_POST['create_writer'])) {
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
     $convertedPath;
+    if (empty($firstname) && empty($lastname) && empty($email) && empty($image)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
+        $base_path = errorPath();
+        header('location: ' . $base_path . 'create_new/writer.php');
+        exit();
+    }
     if (!empty($image)) {
         if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
             $filePath = $_FILES["Img"]["tmp_name"];
@@ -2618,6 +2646,13 @@ if (isset($_POST['create_user'])) {
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
     $convertedPath;
+    if (empty($firstname) && empty($lastname) && empty($email) && empty($role) && empty($linkedin_url) && empty($image)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
+        $base_path = errorPath();
+        header('location: ' . $base_path . 'create_new/user.php');
+        exit();
+    }
     if (empty($image)) {
         $convertedPath = null;
     }
@@ -2636,6 +2671,13 @@ if (isset($_POST['add_resource'])) {
     $resource_tmp_name = $_FILES['resource_image']['tmp_name'];
     $resource_folder = "../files/" . $resource_image;
     $tableName = pluralizeTableName($resource_type);
+    if (empty($resource_type) && empty($resource_niche) && empty($resource_title) && empty($resource_url) && empty($resource_image)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
+        $base_path = errorPath();
+        header('location: ' . $base_path . 'edit/frontend_features.php');
+        exit();
+    }
     $result = $conn->query("SHOW TABLES LIKE '$tableName'");
     if ($result->num_rows == 0) {
         $sql = "CREATE TABLE IF NOT EXISTS $tableName (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50) NULL, resource_path VARCHAR(100) NULL, date_added DATE NOT NULL, time_added TIME NOT NULL, niche VARCHAR(50) NULL, title VARCHAR(100) NULL)";
@@ -2735,6 +2777,13 @@ if (isset($_POST['create_editor'])) {
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
     $convertedPath;
+    if (empty($firstname) && empty($lastname) && empty($email) && empty($password) && empty($confirm_pasword) && empty($image)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
+        $base_path = errorPath();
+        header('location: ' . $base_path . 'create_new/editor.php');
+        exit();
+    }
     if ($password === $confirm_pasword) {
         if (!empty($image)) {
             if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
@@ -2796,6 +2845,13 @@ if (isset($_POST['change_frontend_messages'])) {
 }
 if (isset($_POST['add_page'])) {
     $page_name = $_POST['page_name'];
+    if (empty($page_name)) {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
+        $base_path = errorPath();
+        header('location: ' . $base_path . 'edit/frontend_features.php');
+        exit();
+    }
     addPage($page_name);
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
@@ -2960,6 +3016,14 @@ if (isset($_POST['create_new_resource_file'])) {
     $resource_path = $_FILES['File']['name'];
     $target = "../files/" . basename($resource_path);
     $convertedPath;
+    if (empty($resource_type) && empty($resource_url) && empty($resource_title) && empty($resource_niche) && empty($resource_path)) {
+        $_SESSION['status_type'] = "Error";
+        $isEmpty = True;
+        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
+        $base_path = errorPath();
+        header('location: ' . $base_path . 'edit/frontend_features.php');
+        exit();
+    }
     if (!empty($resource_path)) {
         if (move_uploaded_file($_FILES['File']['tmp_name'], $target)) {
             $filePath = $_FILES["File"]["tmp_name"];

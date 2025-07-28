@@ -241,5 +241,6 @@ $translations = [
     'time_added' => 'Time Added',
     'niche' => 'Niche',
     'view_all_resources' => 'View All Resources',
+    'editor_homepage' => 'Editor Homepage'
 ];
 ?>

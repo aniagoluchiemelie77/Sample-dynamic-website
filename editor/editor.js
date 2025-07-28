@@ -66,6 +66,40 @@ function preventSubmitIfUnchanged(formSelector, inputSelector) {
     });
   });
 }
+function preventSubmitIfEmpty(formSelector, inputSelector) {
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(formSelector);
+    if (!form) return;
+
+    const inputs = form.querySelectorAll(inputSelector);
+    const originalValues = Array.from(inputs).map((input) =>
+      input.value.trim()
+    );
+
+    form.addEventListener("submit", (e) => {
+      let hasChanged = false;
+      inputs.forEach((input, index) => {
+        if (input.type === "file") {
+          if (input.files.length > 0) {
+            hasChanged = true;
+          }
+        } else if (input.value.trim() !== originalValues[index]) {
+          hasChanged = true;
+        }
+      });
+
+      if (!hasChanged) {
+        e.preventDefault();
+        Swal.fire({
+          title: "Empty Form",
+          text: "Cannot submit an empty form.",
+          icon: "info",
+          confirmButtonText: "Ok",
+        });
+      }
+    });
+  });
+}
 const editAction = function (btn, txtEditor) {
   btn.addEventListener("click", () => {
     txtEditor.style.display = "block";

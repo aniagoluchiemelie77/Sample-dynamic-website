@@ -240,5 +240,6 @@ $translations = [
     'date_added' => '添加日期',
     'time_added' => '添加时间',
     'niche' => '领域',
+    'editor_homepage' => '编辑器主页',
 ];
 ?>

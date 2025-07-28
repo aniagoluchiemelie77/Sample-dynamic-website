@@ -845,6 +845,12 @@ if (file_exists($translationFile)) {
             <div class="settings tab_content" id="tab6">
                 <div class='pages_container'>
                     <h1><?php echo $translations['settings']; ?></h1>
+                    <div class="pages_container_subdiv">
+                        <a class='pages_container_subdiv-links' href="pages\customisewebpage.php">
+                            <i class="fa-solid fa-palette"></i>
+                            <p><?php echo $translations['customise_website']; ?></p>
+                        </a>
+                    </div>
                     <div class="pages_container_subdiv ">
                         <a class='pages_container_subdiv-links' href="pages\changepassword.php">
                             <i class="fa fa-lock" aria-hidden="true"></i>

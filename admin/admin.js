@@ -4,8 +4,8 @@ const verifyButton = document.querySelector('.verifyButton');
 const inputs = document.querySelectorAll('.otp-input');
 const sideBtns = document.querySelectorAll('.sidebarbtn');
 const tabComponents = document.querySelectorAll('.tab_content');
-const logoutDiv = document.getElementById('logout_alert');
-const logoutDiv2 = document.getElementById('logout_alert2');
+const logoutDiv = document.getElementById("logoutAlert");
+const logoutDiv2 = document.getElementById("logoutAlert2");
 const exitLogout = document.getElementById("dismiss-popup-btn");
 
 sideBtns.forEach((tab, index) => {
@@ -59,6 +59,40 @@ function preventSubmitIfUnchanged(formSelector, inputSelector) {
         Swal.fire({
           title: "No Changes",
           text: "No changes made to the form.",
+          icon: "info",
+          confirmButtonText: "Ok",
+        });
+      }
+    });
+  });
+}
+function preventSubmitIfEmpty(formSelector, inputSelector) {
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(formSelector);
+    if (!form) return;
+
+    const inputs = form.querySelectorAll(inputSelector);
+    const originalValues = Array.from(inputs).map((input) =>
+      input.value.trim()
+    );
+
+    form.addEventListener("submit", (e) => {
+      let hasChanged = false;
+      inputs.forEach((input, index) => {
+        if (input.type === "file") {
+          if (input.files.length > 0) {
+            hasChanged = true;
+          }
+        } else if (input.value.trim() !== originalValues[index]) {
+          hasChanged = true;
+        }
+      });
+
+      if (!hasChanged) {
+        e.preventDefault();
+        Swal.fire({
+          title: "Empty Form",
+          text: "Cannot submit an empty form.",
           icon: "info",
           confirmButtonText: "Ok",
         });

@@ -72,7 +72,7 @@ $userId = $_SESSION['id'];
                         $page_name = $row['page_name'];
                         $page_id = $row['id'];
                         $readableString = convertToReadable($page_name);
-                        echo "<div>
+                        echo "<div class='metadiv'>
                                         <p>$readableString</p>
                                         <a class='viewMeta' data-id='$page_id'>
                                             <i class='fa fa-eye' aria-hidden='true'></i>
@@ -86,7 +86,6 @@ $userId = $_SESSION['id'];
         </form>
     </section>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="../editor.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>

@@ -52,6 +52,7 @@ if (file_exists($translationFile)) {
 } else {
     $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
+$posttype = "Metatitles";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +74,7 @@ if (file_exists($translationFile)) {
 <body>
     <?php require("../extras/header2.php"); ?>
     <div class="editprofile_container">
-        <form class="newpost_container modal-content" method="POST" action=" " id="postForm" enctype="multipart/form-data">
+        <form class="newpost_container modal-content containerDiv" method="POST" action=" " id="postForm" enctype="multipart/form-data">
             <?php echo "<h2 class='sectioneer_form_header'>$translations[edit_metatitles_p] $page_name</h2>"; ?>
             <?php
             for ($i = 1; $i <= 5; $i++) {
@@ -102,9 +103,41 @@ if (file_exists($translationFile)) {
     <script src="../admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            preventSubmitIfUnchanged('.newpost_container', 'input[type="text"]');
-        });
+        function preventSubmitIfUnchanged(formSelector, inputSelector) {
+            document.addEventListener("DOMContentLoaded", () => {
+                const form = document.querySelector(formSelector);
+                if (!form) return;
+
+                const inputs = form.querySelectorAll(inputSelector);
+                const originalValues = Array.from(inputs).map((input) =>
+                    input.value.trim()
+                );
+
+                form.addEventListener("submit", (e) => {
+                    let hasChanged = false;
+                    inputs.forEach((input, index) => {
+                        if (input.type === "file") {
+                            if (input.files.length > 0) {
+                                hasChanged = true;
+                            }
+                        } else if (input.value.trim() !== originalValues[index]) {
+                            hasChanged = true;
+                        }
+                    });
+
+                    if (!hasChanged) {
+                        e.preventDefault();
+                        Swal.fire({
+                            title: "No Changes",
+                            text: "No changes made to the form.",
+                            icon: "info",
+                            confirmButtonText: "Ok",
+                        });
+                    }
+                });
+            });
+        }
+        preventSubmitIfUnchanged('.newpost_container', 'input');
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

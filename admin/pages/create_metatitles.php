@@ -72,7 +72,7 @@ $userId = $_SESSION['id'];
                         $page_name = $row['page_name'];
                         $page_id = $row['id'];
                         $readableString = convertToReadable($page_name);
-                        echo "<div>
+                        echo "<div class='metadiv'>
                                         <p>$readableString</p>
                                         <a class='viewMeta' data-id='$page_id'>
                                             <i class='fa fa-eye' aria-hidden='true'></i>

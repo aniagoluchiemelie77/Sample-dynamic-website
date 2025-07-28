@@ -154,6 +154,7 @@ if (file_exists($translationFile)) {
     <script src="../editor.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
+        preventSubmitIfEmpty('.newpost_container', 'input, textarea');
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

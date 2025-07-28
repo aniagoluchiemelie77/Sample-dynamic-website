@@ -43,7 +43,7 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <div class="logout_alert" id="logout_alert">
+    <div class="logout_alert" id="logoutAlert">
         <h1 class="logout_alert_header"><?php echo $translations['logout_alert']; ?>?</h1>
         <div class="logout_alert_subdiv">
             <a class="btn" href="extras/logout.php"><?php echo $translations['logout_alert_affirm']; ?></a>
@@ -1018,24 +1018,6 @@ if (file_exists($translationFile)) {
                             <p><?php echo $translations['manage_meta']; ?></p>
                         </a>
                     </div>
-                    <div class="pages_container_subdiv ">
-                        <a class='pages_container_subdiv-links' href="pages\changepassword.php">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                            <p>Change Password</p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv ">
-                        <a class='pages_container_subdiv-links' href="pages\changepassword.php">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                            <p>Change Password</p>
-                        </a>
-                    </div>
-                    <div class="pages_container_subdiv ">
-                        <a class='pages_container_subdiv-links' href="pages\changepassword.php">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                            <p>Change Password</p>
-                        </a>
-                    </div>
                 </div>
             </div>
             <div class="developer_contact tab_content" id="tab7">
@@ -1081,9 +1063,78 @@ if (file_exists($translationFile)) {
         </div>
     </section>
     <script>
+        async function selectImage(inputType, recordId) {
+            const {
+                value: file
+            } = await Swal.fire({
+                title: "Select image",
+                input: "file",
+                inputAttributes: {
+                    accept: "image/*",
+                    "aria-label": "Upload your image"
+                }
+            });
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    Swal.fire({
+                        title: "Your uploaded Image",
+                        imageUrl: e.target.result,
+                        imageAlt: "The uploaded Image",
+                        confirmButtonText: "Upload"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            uploadImage(file, inputType, recordId);
+                        }
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function uploadImage(file, inputType, recordId) {
+            let formData = new FormData();
+            formData.append(inputType, file);
+            formData.append("id", recordId);
+
+            fetch("../helpers/forms.php?id=" + encodeURIComponent(recordId), {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log("Server Response:", data);
+                    Swal.fire("Success!", "Profile Picture Updated Successfully!", "success");
+                })
+                .catch(error => {
+                    Swal.fire("Error!", "Image upload failed!", "error");
+                });
+        }
+
+        function checkNotifications() {
+            fetch('pages/check_notifications.php')
+                .then(response => response.text())
+                .then(count => {
+                    const notificationCount = document.getElementById('notificationCount');
+                    if (parseInt(count) > 0) {
+                        notificationCount.style.display = 'inline-block';
+                        notificationCount.textContent = count;
+                        notificationCount.classList.add('notification-badge');
+                    } else {
+                        notificationCount.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error fetching notifications:', error));
+        }
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementsByClassName("sidebarbtn")[0].click();
+            setInterval(checkNotifications, 7000);
         });
+        displayExit();
+        displayExit2();
+        cancelExit();
+        cancelExit2();
     </script>
     <script>
         <?php
@@ -1161,71 +1212,6 @@ if (file_exists($translationFile)) {
         $conn->close(); ?>
     </script>
     <script>
-        async function selectImage(inputType, recordId) {
-            const {
-                value: file
-            } = await Swal.fire({
-                title: "Select image",
-                input: "file",
-                inputAttributes: {
-                    accept: "image/*",
-                    "aria-label": "Upload your image"
-                }
-            });
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    Swal.fire({
-                        title: "Your uploaded Image",
-                        imageUrl: e.target.result,
-                        imageAlt: "The uploaded Image",
-                        confirmButtonText: "Upload"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            uploadImage(file, inputType, recordId);
-                        }
-                    });
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function uploadImage(file, inputType, recordId) {
-            let formData = new FormData();
-            formData.append(inputType, file);
-            formData.append("id", recordId);
-
-            fetch("../helpers/forms.php?id=" + encodeURIComponent(recordId), {
-                    method: "POST",
-                    body: formData
-                })
-                .then(response => response.text())
-                .then(data => {
-                    console.log("Server Response:", data);
-                    Swal.fire("Success!", "Profile Picture Updated Successfully!", "success");
-                })
-                .catch(error => {
-                    Swal.fire("Error!", "Image upload failed!", "error");
-                });
-        }
-
-        function checkNotifications() {
-            fetch('pages/check_notifications.php')
-                .then(response => response.text())
-                .then(count => {
-                    const notificationCount = document.getElementById('notificationCount');
-                    if (parseInt(count) > 0) {
-                        notificationCount.style.display = 'inline-block';
-                        notificationCount.textContent = count;
-                        notificationCount.classList.add('notification-badge');
-                    } else {
-                        notificationCount.style.display = 'none';
-                    }
-                })
-                .catch(error => console.error('Error fetching notifications:', error));
-        }
-        setInterval(checkNotifications, 7000);
         window.onload = checkNotifications;
     </script>
     <script src="sweetalert2.all.min.js"></script>

@@ -2451,13 +2451,6 @@ if (isset($_POST['create_post'])) {
     $image2 = $_POST['Post_Image2'];
     $image1 = $_FILES['Post_Image1']['name'];
     $target = "../images/" . basename($image1);
-    if (empty($title) && empty($subtitle) && empty($link) && empty($image1) && empty($image2) && empty($content) && empty($niche) && empty($author_firstname) && empty($author_lastname) && empty($author_bio)) {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
-        $base_path = errorPath();
-        header('location: ' . $base_path . 'create_new/posts.php');
-        exit();
-    }
     if (empty($image1) && !empty($image2)) {
         $imagePath = $image2;
         savePost2($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $id, $author_firstname, $author_lastname, $author_bio, $post_type, $userType);

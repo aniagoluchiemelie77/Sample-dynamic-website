@@ -155,6 +155,7 @@ if (file_exists($translationFile)) {
     <script src="../admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
+        preventSubmitIfEmpty('.newpost_container', 'input, textarea');
         tinymce.init({
             selector: "#myTextarea",
             setup: function(editor) {

@@ -4,7 +4,8 @@ require('../../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-if (isset($_REQUEST['Sign_In'])) {
+
+    if (isset($_REQUEST['Sign_In'])) {
     $email = $_REQUEST['Email'];
     $password = $_REQUEST['Password'];
     if (isset($_REQUEST['remember'])) {
@@ -42,7 +43,6 @@ if (isset($_REQUEST['Sign_In'])) {
         $msg = "Invalid Password";
     }
 }
-
 if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
     $emailid = $_COOKIE['emailid'];
     $passwordid = $_COOKIE['passwordid'];

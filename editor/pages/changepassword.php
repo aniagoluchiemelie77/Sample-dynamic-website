@@ -86,7 +86,7 @@ if (isset($_POST['change_pwd'])) {
     <section class="newpost_body">
         <form class="newpost_container" method="post" action="changepassword.php" enctype="multipart/form-data" id="postForm">
             <div class="page_links">
-                <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['change_password']; ?></p>
+                <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['change_password']; ?></p>
             </div>
             <div class="newpost_container_div1 newpost_subdiv">
                 <h1><?php echo $translations['change_password']; ?></h1>

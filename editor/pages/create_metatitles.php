@@ -57,7 +57,7 @@ $userId = $_SESSION['id'];
     <section class="newpost_body">
         <form method="POST" action=" " enctype="multipart/form-data" id="postForm" class="newpost_container">
             <div class="page_links">
-                <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['meta_titles_management']; ?></p>
+                <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['meta_titles_management']; ?></p>
             </div>
             <div class="newpost_container_divnew newpost_subdiv">
                 <h1 class="sectioneer_form_header"><?php echo $translations['meta_titles_management_title']; ?></h1>

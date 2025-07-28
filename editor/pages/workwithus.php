@@ -6,8 +6,8 @@ require('../../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-            $translationFile = "../../translation_files/lang/{$language}.php";
-            if (file_exists($translationFile)) {
+$translationFile = "../../translation_files/lang/{$language}.php";
+if (file_exists($translationFile)) {
     include $translationFile;
 } else {
     $translations = [];
@@ -34,7 +34,7 @@ $favicon = $details['favicon'];
     <?php require("../extras/header3.php"); ?>
     <section class="about_section">
         <div class="page_links">
-            <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['work_with_us']; ?></p>
+            <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['work_with_us']; ?></p>
         </div>
         <div class="about_header">
             <h1><?php echo $translations['work_with_us']; ?></h1>

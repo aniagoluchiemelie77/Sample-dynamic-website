@@ -15,6 +15,7 @@ if (isset($_REQUEST['fgtpswd'])) {
     if ($res > 0) {
         $row = mysqli_fetch_assoc($check_email);
         $firstname = $row['firstname'];
+        $_SESSION['firstname'] = $firstname;
         $token = rand(10000, 99999);
         $stmt = $conn->prepare("UPDATE editor SET token = ? WHERE email = ?");
         $stmt->bind_param('ss', $token, $email);
@@ -22,6 +23,8 @@ if (isset($_REQUEST['fgtpswd'])) {
             $sendOtp = sendOTP($email, $firstname, $token);
             $_SESSION['status_type'] = $sendOtp['status_type'];
             $_SESSION['status'] = $sendOtp['status'];
+            header("location: verifyotp.php");
+            exit();
         }
     } else {
         $_SESSION['status_type'] = "Error";

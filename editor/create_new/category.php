@@ -39,7 +39,7 @@ if (file_exists($translationFile)) {
     <?php require("../extras/header3.php"); ?>
     <section class="about_section">
         <div class="page_links">
-            <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <a href="../pages/categories.php"><?php echo $translations['categories']; ?></a> > <p><?php echo $translations['create_category']; ?></p>
+            <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <a href="../pages/categories.php"><?php echo $translations['categories']; ?></a> > <p><?php echo $translations['create_category']; ?></p>
         </div>
         <form class="formcontainer" id="topicForm" action="../../helpers/forms.php" method="POST" enctype="multipart/form-data">
             <div class="head_paragraph">

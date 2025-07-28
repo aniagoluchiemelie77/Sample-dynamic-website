@@ -14,7 +14,10 @@ if (isset($_POST['validate_otp'])) {
     $query = "SELECT * FROM editor WHERE email='$email' AND token='$otp'";
     $result = mysqli_query($conn, $query);
     if ($result === false) {
-        $msg = "Error: " . mysqli_error($conn);
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = 'Invalid OTP. Please try again.';
+        header("Location: forgotpassword.php");
+        exit();
     } elseif (mysqli_num_rows($result) > 0) {
         header("Location: changepassword.php");
         exit();

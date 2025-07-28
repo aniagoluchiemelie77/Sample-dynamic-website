@@ -163,3 +163,29 @@ if (!function_exists('formatTime')) {
         return $formatted_time;
     }
 }
+if (!function_exists('personalizeMessageEditor')) {
+    function personalizeMessageEditor($content, $user)
+    {
+        // Match and replace: "Editor Munachi" → "You"
+        if (preg_match("/Editor\s+$user\b/i", $content)) {
+            $content = preg_replace("/Editor\s+$user\b/i", "You", $content);
+
+            // After replacement, swap pronouns
+            if (strpos($content, "You") !== false) {
+                $replacements = [
+                    "/\bhis\/her\b/i" => "your", // exact match
+                    "/\bhis\s*\/\s*her\b/i" => "your", // catches variants
+                    "/\bhis\b/i" => "your",
+                    "/\bher\b/i" => "your",
+                    "/\btheir\b/i" => "your",
+                    "/\btheirs\b/i" => "yours",
+                ];
+
+                foreach ($replacements as $pattern => $replacement) {
+                    $content = preg_replace($pattern, $replacement, $content);
+                }
+            }
+        }
+        return $content;
+    }
+}

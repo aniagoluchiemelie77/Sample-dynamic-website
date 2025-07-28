@@ -38,7 +38,7 @@ $posttype = 'Updates';
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="page_links">
-                <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['profile']; ?></p> > <p><?php echo $translations['user_activities']; ?></p>
+                <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['profile']; ?></p> > <p><?php echo $translations['user_activities']; ?></p>
             </div>
             <div class="posts_header">
                 <h1><?php echo $translations['user_activities']; ?></h1>
@@ -60,8 +60,9 @@ $posttype = 'Updates';
                                         $time = $row['time'];
                                         $date = $row['Date'];
                                         $row['formatted_date'] = date("F j, Y", strtotime($date));
+                                        $content = $row['content'];
                                         $formatted_time = date("g:i A", strtotime($time));
-                                        $message = str_replace("Editor $user", "You", $row['content']);
+                                        $message = personalizeMessageEditor($row['content'], $user);
                                         echo "<div class='posts_divcontainer_subdiv'>
                                             <h3 class='posts_divcontainer_header'>$message</h3>
                                             <div class='posts_divcontainer_subdiv3'>

@@ -440,5 +440,26 @@ function uploadToCloudinary($filePath)
     ]);
     return $result['secure_url'] ?? null;
 }
+function getDeviceType()
+{
+    $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+    if (strpos($user_agent, 'mobile') !== false) {
+        return 'Mobile';
+    } elseif (strpos($user_agent, 'tablet') !== false) {
+        return 'Tablet';
+    } else {
+        return 'Desktop';
+    }
+}
+function getVisitorIP()
+{
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        return $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        return $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        return $_SERVER['REMOTE_ADDR'];
+    }
+}
 $base_url = "http://localhost/Sample-dynamic-website/admin/";
 $editor_base_url = "http://localhost/Sample-dynamic-website/editor/";

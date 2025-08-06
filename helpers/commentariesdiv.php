@@ -1,14 +1,7 @@
 <?php
 $selectcommentaries = "SELECT id, content, admin_id, editor_id, authors_firstname, authors_lastname, authors_image, about_author, title, niche, image_path, post_image_url, Date, schedule FROM commentaries ORDER BY id DESC LIMIT 8";
     $selectcommentaries_result = $conn->query($selectcommentaries);
-    if ($selectcommentaries_result->num_rows > 0) {
-        if (!function_exists('calculateReadingTime')) {
-            function calculateReadingTime($content) {
-                $wordCount = str_word_count(strip_tags($content));
-                $minutes = floor($wordCount / 200);
-                return $minutes  . ' mins read ';
-            }
-        }
+if ($selectcommentaries_result->num_rows > 0) {
         echo"<div class='sidebar_divs_container'>
                     <div class='section2__div1__header headers'>
                         <h2>Latest Commentaries</h2>

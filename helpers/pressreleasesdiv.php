@@ -2,14 +2,7 @@
     <?php
     $selectpressreleases_sql = "SELECT id, title, niche, image_path, post_image_url, content, Date, schedule FROM press_releases ORDER BY id DESC LIMIT 5";
         $selectpressreleases_result = $conn->query($selectpressreleases_sql);
-        if ($selectpressreleases_result->num_rows > 0) {
-            if (!function_exists('calculateReadingTime')) {
-                function calculateReadingTime($content) {
-                    $wordCount = str_word_count(strip_tags($content));
-                    $minutes = floor($wordCount / 200);
-                    return $minutes  . ' mins read ';
-                }
-            }
+    if ($selectpressreleases_result->num_rows > 0) {
             echo "<div class='section3__div1 border-gradient-bottom--lightdark'>
                         <h1>Press Releases</h1>
                         <a href='pages/pressreleases.php' class='section2__div2__link mainheader__signupbtn'>View All</a>

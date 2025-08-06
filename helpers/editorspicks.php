@@ -40,27 +40,7 @@
             ];
         }
     }
-    foreach ($results as $result) {
-    if (!function_exists('calculateReadingTime')) {
-        function calculateReadingTime($content)
-        {
-            $wordCount = str_word_count(strip_tags($content));
-            $minutes = floor($wordCount / 200);
-            return $minutes  . ' mins read ';
-        }
-    }
-        if (!function_exists('getOrdinalSuffix')) {
-            function getOrdinalSuffix($day) {
-                if (!in_array(($day % 100), [11, 12, 13])) {
-                    switch ($day % 10) {
-                        case 1: return 'st';
-                        case 2: return 'nd';
-                        case 3: return 'rd';
-                    }
-                }
-                return 'th';
-            }
-        }
+foreach ($results as $result) {
         $author_firstname = "";
         $author_lastname = "";
         $role = "";

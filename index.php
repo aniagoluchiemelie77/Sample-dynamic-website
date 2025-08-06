@@ -9,27 +9,6 @@ $favicon = $details['favicon'];
 $website_messages = cookieMessageAndVision();
 $cookie_message = $website_messages['cookie_message'];
 $website_vision = $website_messages['website_vision'];
-function getDeviceType()
-{
-    $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-    if (strpos($user_agent, 'mobile') !== false) {
-        return 'Mobile';
-    } elseif (strpos($user_agent, 'tablet') !== false) {
-        return 'Tablet';
-    } else {
-        return 'Desktop';
-    }
-}
-function getVisitorIP()
-{
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        return $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        return $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } else {
-        return $_SERVER['REMOTE_ADDR'];
-    }
-}
 $device_type = getDeviceType();
 $ip_address = getVisitorIP();
 $visit_type = "";

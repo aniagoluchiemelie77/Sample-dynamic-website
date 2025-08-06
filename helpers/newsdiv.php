@@ -3,14 +3,6 @@
     $selectnews = "SELECT id, title, niche, image_path, post_image_url, content, Date, schedule FROM news ORDER BY id DESC LIMIT 6";
     $selectnews_result = $conn->query($selectnews);
     if ($selectnews_result->num_rows > 0) {
-        if (!function_exists('calculateReadingTime')) {
-            function calculateReadingTime($content)
-            {
-                $wordCount = str_word_count(strip_tags($content));
-                $minutes = floor($wordCount / 200);
-                return $minutes  . ' mins read ';
-            }
-        }
         echo "<div class='sidebar_divs_container'>
                     <div class='section2__div1__header headers'>
                         <h1>Latest News</h1>

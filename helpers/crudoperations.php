@@ -1,5 +1,5 @@
 <?php
-require("../connect.php");
+require __DIR__ . '/../connect.php';
 if (!function_exists('logUpdate')) {
     function logUpdate($conn, $forUser, $action)
     {
@@ -187,5 +187,22 @@ if (!function_exists('personalizeMessageEditor')) {
             }
         }
         return $content;
+    }
+}
+if (!function_exists('getTimeBasedGreeting')) {
+    function getTimeBasedGreeting($name)
+    {
+        date_default_timezone_set('Africa/Lagos');
+        $hour = (int) date('G');
+        if ($hour >= 5 && $hour < 12) {
+            $greeting = "Good morning";
+        } elseif ($hour >= 12 && $hour < 17) {
+            $greeting = "Good afternoon";
+        } elseif ($hour >= 17 && $hour < 21) {
+            $greeting = "Good evening";
+        } else {
+            $greeting = "Good night";
+        }
+        return $name ? "$greeting, $name" : "$greeting";
     }
 }

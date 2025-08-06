@@ -14,6 +14,7 @@ $logo = $details['logo'];
 $favicon = $details['favicon'];
 $encryptionKey = "mySecretKey12345";
 $date = formatDate($_SESSION['date_joined']);
+$username = $_SESSION['username'];
 $translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
@@ -104,7 +105,7 @@ if (file_exists($translationFile)) {
         </div>
         <div class="aside_sidebar">
             <div class="website_info_div tab_content active2" id="tab1">
-                <h1 class="aside_sidebar_header"><?php echo $translations['welcome_back']; ?>, <?php echo $_SESSION['username'] ?> </h1>
+                <h1 class="aside_sidebar_header"><?php echo getTimeBasedGreeting($_SESSION['username']); ?></h1>
                 <div class="webinfo_container">
                     <?php
                     $sql1 = "SELECT COUNT(*) as total1 FROM paid_posts";

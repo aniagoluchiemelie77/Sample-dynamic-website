@@ -1,6 +1,6 @@
 
     <?php
-    $selectnews = "SELECT id, title, niche, image_path, post_image_url, content, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM news ORDER BY id DESC LIMIT 6";
+    $selectnews = "SELECT id, title, niche, image_path, post_image_url, content, Date, schedule FROM news ORDER BY id DESC LIMIT 6";
     $selectnews_result = $conn->query($selectnews);
     if ($selectnews_result->num_rows > 0) {
         if (!function_exists('calculateReadingTime')) {
@@ -23,7 +23,14 @@
             $niche = $row["niche"];
             $image = $row["image_path"];
             $foreign_imagePath = $row["post_image_url"];
-            $date = $row["formatted_date"];
+            $scheduleDate = formatDateSafely($row['schedule']);
+            $postDate = formatDateSafely($row['Date']);
+            $now = date('Y-m-d H:i:s');
+            if ($scheduleDate && $row['schedule'] <= $now) {
+                $publishDate = $scheduleDate;
+            } else {
+                $publishDate = $postDate;
+            }
             if (strlen($title) > $max_length) {
                 $title = substr($title, 0, $max_length) . '...';
             }
@@ -38,7 +45,7 @@
                         <h1>$title</h1>
                         <p class='posts_div_otherp'>By, <span>Chiemelie Aniagolu, Contributing Writer.</span></p>
                         <div class='posts_div_subdiv'>
-                            <p>$date</p>
+                            <p>$publishDate</p>
                             <p>$readingTime</p>
                         </div>
                     </a>

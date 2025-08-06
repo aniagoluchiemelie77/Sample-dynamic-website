@@ -1,6 +1,6 @@
 
     <?php
-    $selectpressreleases_sql = "SELECT id, title, niche, image_path, post_image_url, content, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM press_releases ORDER BY id DESC LIMIT 5";
+    $selectpressreleases_sql = "SELECT id, title, niche, image_path, post_image_url, content, Date, schedule FROM press_releases ORDER BY id DESC LIMIT 5";
         $selectpressreleases_result = $conn->query($selectpressreleases_sql);
         if ($selectpressreleases_result->num_rows > 0) {
             if (!function_exists('calculateReadingTime')) {
@@ -24,9 +24,14 @@
                 $niche = $row["niche"];
                 $image = $row["image_path"];
             $foreign_imagePath = $row["post_image_url"];
-                $date = $row["formatted_date"];
-            $date2 = $row["formatted_date2"];
-            $publishDate = !empty($date2) ? $date2 : $date;
+            $scheduleDate = formatDateSafely($row['schedule']);
+            $postDate = formatDateSafely($row['Date']);
+            $now = date('Y-m-d H:i:s');
+            if ($scheduleDate && $row['schedule'] <= $now) {
+                $publishDate = $scheduleDate;
+            } else {
+                $publishDate = $postDate;
+            }
                 if (strlen($title) > $max_length) {
                     $title = substr($title, 0, $max_length) . '...';
                 }

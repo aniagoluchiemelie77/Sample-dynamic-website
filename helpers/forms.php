@@ -328,7 +328,7 @@ function addPage($page_name)
             \$details = getFaviconAndLogo();
             \$logo = \$details['logo'];
             \$favicon = \$details['favicon'];
-            \$translationFile = "../translation_files/lang/{\$language}.php";
+            \$translationFile = "../../translation_files/lang/{\$language}.php";
             if (file_exists(\$translationFile)) {
                 include \$translationFile;
             } else {
@@ -405,7 +405,7 @@ function addPage($page_name)
                     <button class="about_section_btn" id="Edit_about1"><?php echo \$translations['edit']; ?>
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                    <form class="about_editdiv" action=" " method="post" id="hidden_aboutdiv1">
+                    <form class="about_editdiv" action="" method="post" id="hidden_aboutdiv1">
                         <textarea class="about_editdiv-input" name="$formattedPageName" id="myTextarea6">
                             <?php echo \$content; }} ?>
                         </textarea>
@@ -1314,7 +1314,7 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
         if ($userType === 'Editor') {
             $sql = "INSERT INTO $post_type (editor_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             if ($query = $conn->prepare($sql)) {
-                $query->bind_param("issssssisssssss", $id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+                $query->bind_param("issssssssssssss", $id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
                 if ($query->execute()) {
                     $post_id = $conn->insert_id;
                     $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
@@ -1342,7 +1342,7 @@ function savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $
         }else{
             $sql = "INSERT INTO $post_type (admin_id, title, niche, image_path, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             if ($query = $conn->prepare($sql)) {
-                $query->bind_param("issssssisssssss", $id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+                $query->bind_param("issssssssssssss", $id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
                 if ($query->execute()) {
                     $post_id = $conn->insert_id;
                     $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
@@ -1881,7 +1881,7 @@ function savePost2($title, $subtitle, $convertedPath, $content, $niche, $link, $
     if($userType === 'Editor'){
         $sql = "INSERT INTO $post_type (editor_id, title, niche, post_image_url, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         if ($query = $conn->prepare($sql)) {
-            $query->bind_param("issssssisssssss", $id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+            $query->bind_param("issssssssssssss", $id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
             if ($query->execute()) {
                 $post_id = $conn->insert_id;
                 $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
@@ -1908,7 +1908,7 @@ function savePost2($title, $subtitle, $convertedPath, $content, $niche, $link, $
     }else{
         $sql = "INSERT INTO $post_type (admin_id, title, niche, post_image_url, Date, time, schedule, subtitle, link, content, authors_firstname, about_author, authors_lastname, idtype, is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         if ($query = $conn->prepare($sql)) {
-            $query->bind_param("issssssisssssss", $id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
+            $query->bind_param("issssssssssssss", $id, $title, $niche, $convertedPath, $date, $time, $schedule, $subtitle, $link, $content, $author_firstname, $author_bio, $author_lastname, $idtype, $is_favourite);
             if ($query->execute()) {
                 $post_id = $conn->insert_id;
                 $post_link = "http://localhost/Sample-dynamic-website/pages/view_post.php?" . $idtype . "=" . $post_id . "";
@@ -2450,29 +2450,35 @@ if (isset($_POST['create_post'])) {
     $author_bio = $_POST['about_author'];
     $image2 = $_POST['Post_Image2'];
     $image1 = $_FILES['Post_Image1']['name'];
+    $tmpPath = $_FILES['Post_Image1']['tmp_name'];
     $target = "../images/" . basename($image1);
+    $base_path = errorPath();
     if (empty($image1) && !empty($image2)) {
         $imagePath = $image2;
         savePost2($title, $subtitle, $imagePath, $content, $niche, $link, $schedule, $id, $author_firstname, $author_lastname, $author_bio, $post_type, $userType);
     } elseif (!empty($image1) && empty($image2)) {
-        if (move_uploaded_file($_FILES['Post_Image1']['tmp_name'], $target)) {
-            $filePath = $_FILES["Post_Image1"]["tmp_name"];
-            $convertedPath = uploadToCloudinary($filePath);
+        if ($_FILES['Post_Image1']['error'] === UPLOAD_ERR_OK && is_uploaded_file($tmpPath)) {
+            $convertedPath = uploadToCloudinary($tmpPath);
             savePost1($title, $subtitle, $convertedPath, $content, $niche, $link, $schedule, $id, $author_firstname, $author_lastname, $author_bio, $post_type, $userType);
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Uploaded file is missing or invalid.";
+            header('location: ' . $base_path . 'create_new/posts.php');
+            exit();
         }
     } elseif (!empty($image1) && !empty($image2)) {
         $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Please ensure the post's image is selected or it's url provided and not both.";
-        $base_path = errorPath();
+        $_SESSION['status'] = "Please select either a file or a URL, not both.";
         header('location: ' . $base_path . 'create_new/posts.php');
         exit();
     } else {
         $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Please provide the post's image or it's url.";
+        $_SESSION['status'] = "Please provide an image file or URL.";
         header('location: ' . $base_path . 'create_new/posts.php');
         exit();
     }
 }
+
 if (isset($_POST['edit_profile'])) {
     $firstname = $_POST['profile_firstname'];
     $lastname = $_POST['profile_lastname'];
@@ -2492,10 +2498,8 @@ if (isset($_POST['edit_profile'])) {
     if (empty($image)) {
         $imagePath = null;
     }
-    if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
-        $filePath = $_FILES["Img"]["tmp_name"];
-        $imagePath = uploadToCloudinary($filePath);
-    }
+    $filePath = $_FILES["Img"]["tmp_name"];
+    $imagePath = uploadToCloudinary($filePath);
     updateProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $imagePath, $id, $userType);
 }
 if (isset($_POST['edit_profile_writer'])) {
@@ -2508,10 +2512,8 @@ if (isset($_POST['edit_profile_writer'])) {
     $target = "../images/" . basename($image);
     $convertedPath;
     if (!empty($image)) {
-        if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
-            $filePath = $_FILES["Img"]["tmp_name"];
-            $convertedPath = uploadToCloudinary($filePath);
-        }
+        $filePath = $_FILES["Img"]["tmp_name"];
+        $convertedPath = uploadToCloudinary($filePath);
     }else {
         $convertedPath = null;
     }
@@ -2531,10 +2533,8 @@ if (isset($_POST['edit_profile_otheruser'])) {
     if (empty($image)) {
         $convertedPath = null;
     }
-    if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
-        $filePath = $_FILES["Img"]["tmp_name"];
-        $convertedPath = uploadToCloudinary($filePath);
-    }
+    $filePath = $_FILES["Img"]["tmp_name"];
+    $convertedPath = uploadToCloudinary($filePath);
     updateUserProfile($firstname, $lastname, $email, $role, $url, $bio, $convertedPath, $id, $userType);
 }
 if (isset($_POST['create_draft'])) {
@@ -2556,10 +2556,8 @@ if (isset($_POST['create_draft'])) {
     if (empty($image)) {
         $convertedPath = null;
     }
-    if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
-        $filePath = $_FILES["Post_Image"]["tmp_name"];
-        $convertedPath = uploadToCloudinary($filePath);
-    }
+    $filePath = $_FILES["Post_Image"]["tmp_name"];
+    $convertedPath = uploadToCloudinary($filePath);
     saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $id, $userType);
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_post'])) {
@@ -2579,10 +2577,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_post'])) {
     if (empty($image)) {
         $convertedPath = null;
     }
-    if (move_uploaded_file($_FILES['Post_Image']['tmp_name'], $target)) {
-        $filePath = $_FILES["Post_Image"]["tmp_name"];
-        $convertedPath = uploadToCloudinary($filePath);
-    }
+    $filePath = $_FILES["Post_Image"]["tmp_name"];
+    $convertedPath = uploadToCloudinary($filePath);
     updatePost($title, $subtitle, $convertedPath, $content, $niche, $link, $id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id, $userType);
 }
 if (isset($_POST['create_page'])) {
@@ -2600,10 +2596,8 @@ if (isset($_POST['create_page'])) {
     if (empty($image)) {
         $convertedPath = null;
     }
-    if (move_uploaded_file($_FILES['topicImg']['tmp_name'], $target)) {
-        $filePath = $_FILES["topicImg"]["tmp_name"];
-        $convertedPath = uploadToCloudinary($filePath);
-    }
+    $filePath = $_FILES["topicImg"]["tmp_name"];
+    $convertedPath = uploadToCloudinary($filePath);
     createCategory($category_name, $category_image, $userType);
 }
 if (isset($_POST['create_writer'])) {
@@ -2621,10 +2615,8 @@ if (isset($_POST['create_writer'])) {
         exit();
     }
     if (!empty($image)) {
-        if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
-            $filePath = $_FILES["Img"]["tmp_name"];
-            $convertedPath = uploadToCloudinary($filePath);
-        }
+        $filePath = $_FILES["Img"]["tmp_name"];
+        $convertedPath = uploadToCloudinary($filePath);
     } else {
         $convertedPath = null; // If no image is uploaded, set path to null
     }
@@ -2649,10 +2641,8 @@ if (isset($_POST['create_user'])) {
     if (empty($image)) {
         $convertedPath = null;
     }
-    if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
-        $filePath = $_FILES["Img"]["tmp_name"];
-        $convertedPath = uploadToCloudinary($filePath);
-    }
+    $filePath = $_FILES["Img"]["tmp_name"];
+    $convertedPath = uploadToCloudinary($filePath);
     addUser($firstname, $lastname, $email,  $role, $linkedin_url, $imagePath, $userType);
 }
 if (isset($_POST['add_resource'])) {
@@ -2678,10 +2668,8 @@ if (isset($_POST['add_resource'])) {
             if (empty($resource_image)) {
                 $convertedPath = null;
             }
-            if (move_uploaded_file($resource_tmp_name, $resource_folder)) {
-                $convertedPath = uploadToCloudinary($resource_tmp_name);
-                $resource_type = convertToUnreadable($resource_type);
-            }
+            $convertedPath = uploadToCloudinary($resource_tmp_name);
+            $resource_type = convertToUnreadable($resource_type);
             addResources($tableName, $convertedPath, $resource_type, $resource_niche, $resource_title, $resource_url, $userType);
         }
     } else {
@@ -2723,16 +2711,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         $profile_pic = $_FILES["profile_pic"]["name"];
         $profile_tmp_name = $_FILES["profile_pic"]["tmp_name"];
         $resource_folder1 = "../images/" . $profile_pic;
-        if (move_uploaded_file($profile_tmp_name, $resource_folder1)) {
-            $filePath1 = $_FILES["profile_pic"]["tmp_name"];
-            $convertedPath = uploadToCloudinary($filePath1);
-            updateProfilePic($convertedPath);
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error Moving Uploaded Files";
-            header('location: ' . $editor_base_url . 'editor_homepage.php');
-            exit();
-        }
+        $filePath1 = $_FILES["profile_pic"]["tmp_name"];
+        $convertedPath = uploadToCloudinary($filePath1);
+        updateProfilePic($convertedPath);
     }
 }
 if (isset($_POST['edit_profile_editor'])) {
@@ -2754,10 +2735,8 @@ if (isset($_POST['edit_profile_editor'])) {
     $target = "../images/" . basename($image);
     $$convertedPath;
     if (!empty($image)) {
-        if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
-            $filePath = $_FILES["Img"]["tmp_name"];
-            $convertedPath = uploadToCloudinary($filePath);
-        }
+        $filePath = $_FILES["Img"]["tmp_name"];
+        $convertedPath = uploadToCloudinary($filePath);
     }
     updateEditorProfile($firstname, $lastname, $email, $username, $bio, $address1, $address2, $city, $state, $country, $countrycode, $mobile, $convertedPath, $id);
 }
@@ -2779,10 +2758,8 @@ if (isset($_POST['create_editor'])) {
     }
     if ($password === $confirm_pasword) {
         if (!empty($image)) {
-            if (move_uploaded_file($_FILES['Img']['tmp_name'], $target)) {
-                $filePath = $_FILES["Img"]["tmp_name"];
-                $convertedPath = uploadToCloudinary($filePath);
-            }
+            $filePath = $_FILES["Img"]["tmp_name"];
+            $convertedPath = uploadToCloudinary($filePath);
         } else {
             $convertedPath = null;
         }
@@ -2929,45 +2906,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         $website_logo = $_FILES["website_logo"]["name"];
         $logo_tmp_name = $_FILES["website_logo"]["tmp_name"];
         $resource_folder1 = "../images/" . $website_logo;
-        if (move_uploaded_file($logo_tmp_name, $resource_folder1)) {
-            $convertedPath = uploadToCloudinary($logo_tmp_name);
-            updateLogo($convertedPath);
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error Moving Uploaded Files";
-            header('location: ' . $admin_base_url . 'edit/frontend_features.php');
-            exit();
-        }
+        $convertedPath = uploadToCloudinary($logo_tmp_name);
+        updateLogo($convertedPath);
     }
     if (isset($_FILES["website_favicon"])) {
         $website_favicon = $_FILES["website_favicon"]["name"];
         $favicon_tmp_name = $_FILES["website_favicon"]["tmp_name"];
         $resource_folder2 = "../images/" . $website_favicon;
 
-        if (move_uploaded_file($favicon_tmp_name, $resource_folder2)) {
-            $convertedPath = uploadToCloudinary($favicon_tmp_name);
-            updateFavicon($convertedPath);
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error Moving Uploaded Files";
-            header('location: ' . $admin_base_url . 'edit/frontend_features.php');
-            exit();
-        }
+        $convertedPath = uploadToCloudinary($favicon_tmp_name);
+        updateFavicon($convertedPath);
     }
     if (isset($_FILES["profile_pic"])) {
         $profile_pic = $_FILES["profile_pic"]["name"];
         $profile_tmp_name = $_FILES["profile_pic"]["tmp_name"];
         $resource_folder1 = "../images/" . $profile_pic;
 
-        if (move_uploaded_file($profile_tmp_name, $resource_folder1)) {
-            $convertedPath = uploadToCloudinary($profile_tmp_name);
-            updateProfilePic($convertedPath);
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error Moving Uploaded Files";
-            header('location: ' . $admin_base_url . 'admin_homepage.php');
-            exit();
-        }
+        $convertedPath = uploadToCloudinary($profile_tmp_name);
+        updateProfilePic($convertedPath);
     }
 }
 if (isset($_POST['send_message_subscriber'])) {
@@ -3018,10 +2974,8 @@ if (isset($_POST['create_new_resource_file'])) {
         exit();
     }
     if (!empty($resource_path)) {
-        if (move_uploaded_file($_FILES['File']['tmp_name'], $target)) {
-            $filePath = $_FILES["File"]["tmp_name"];
-            $convertedPath = convertPath2($filePath);
-        }
+        $filePath = $_FILES["File"]["tmp_name"];
+        $convertedPath = convertPath2($filePath);
     } else {
         $convertedPath = null;
     }
@@ -3039,10 +2993,8 @@ if (isset($_POST['edit_resource_file'])) {
     $target = "../files/" . basename($resource_path2);
     $convertedPath;
     if (!empty($resource_path2)) {
-        if (move_uploaded_file($_FILES['File']['tmp_name'], $target)) {
-            $filePath = $_FILES["File"]["tmp_name"];
-            $convertedPath = convertPath2($filePath);
-        }
+        $filePath = $_FILES["File"]["tmp_name"];
+        $convertedPath = convertPath2($filePath);
     } else {
         $convertedPath = $resource_path;
     }

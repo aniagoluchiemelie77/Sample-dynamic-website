@@ -117,7 +117,7 @@ if (isset($_POST['subscribe_btn2'])) {
     <?php endif; ?>
     <section class="section1">
         <?php
-        $selectpaidposts = "SELECT id, title, niche, image_path, post_image_url, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM paid_posts ORDER BY date DESC LIMIT 4";
+        $selectpaidposts = "SELECT id, title, niche, image_path, post_image_url, Date, schedule FROM paid_posts ORDER BY Date DESC LIMIT 4";
         $paidpostselection_result = $conn->query($selectpaidposts);
         if ($paidpostselection_result->num_rows > 0) {
             $counter = 0;
@@ -130,23 +130,30 @@ if (isset($_POST['subscribe_btn2'])) {
                 if (strlen($title) > $max_length) {
                     $title = substr($title, 0, $max_length) . '...';
                 }
-                $publishDate = !empty($row['formatted_date2']) ? $row['formatted_date2'] : $row['formatted_date'];
+                $scheduleDate = formatDateSafely($row['schedule']);
+                $postDate = formatDateSafely($row['Date']);
+                $now = date('Y-m-d H:i:s');
+                if ($scheduleDate && $row['schedule'] <= $now) {
+                    $publishDate = $scheduleDate;
+                } else {
+                    $publishDate = $postDate;
+                }
+
                 if ($counter == 1) {
                     echo "<div class='section1__div1 larger__div'>
-                                    <a href='pages/view_post.php?id1=" . $row['id'] . "'>
-                            ";
+                    <a href='pages/view_post.php?id1=" . $row['id'] . "'>";
                     if (!empty($image)) {
                         echo "<img src='$image' alt='article image'>";
                     } elseif (!empty($foreign_imagePath)) {
                         echo "<img src='$foreign_imagePath' alt='article image'>";
                     }
-                    echo    "<div class='larger__div__subdiv'>
-                                        <h1>" . $row['niche'] . "</h1>
-                                        <h2>$title</h2>
-                                        <p>" . $row["formatted_date"] . "</p>
-                                    </div>
-                                </a>
-                            </div>";
+                    echo "<div class='larger__div__subdiv'>
+                    <h1>" . $row['niche'] . "</h1>
+                    <h2>$title</h2>
+                    <p>$publishDate</p>
+                  </div>
+                </a>
+              </div>";
                 } else {
                     if ($counter == 2) {
                         echo "<div class='section1__div2 smallerdivs'>";
@@ -155,13 +162,12 @@ if (isset($_POST['subscribe_btn2'])) {
                     if (!empty($image)) {
                         echo "<img src='$image' alt='article image'>";
                     }
-                    echo   "<div class='smaller__div__subdiv'>
-                                        <h1>" . $row['niche'] . "</h1>
-                                        <h2>$title</h2>
-                                        <p>$publishDate</p>
-                                    </div>
-                                </a>
-                            ";
+                    echo "<div class='smaller__div__subdiv'>
+                    <h1>" . $row['niche'] . "</h1>
+                    <h2>$title</h2>
+                    <p>$publishDate</p>
+                  </div>
+                </a>";
                 }
             }
             if ($counter > 1) {
@@ -169,6 +175,7 @@ if (isset($_POST['subscribe_btn2'])) {
             }
         }
         ?>
+
     </section>
     <section class="section2">
         <div class="section2__div1">
@@ -178,7 +185,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 <h1>Latest Articles</h1>
             </div>
             <?php
-            $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, post_image_url, authors_lastname, about_author, title, niche, content, image_path, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, DATE_FORMAT(schedule, '%M %d, %Y') as formatted_date2 FROM posts ORDER BY id DESC LIMIT 30";
+            $selectposts_sql = "SELECT id, admin_id, editor_id, authors_firstname, post_image_url, authors_lastname, about_author, title, niche, content, image_path, Date, schedule FROM posts ORDER BY id DESC LIMIT 30";
             $selectposts_result = $conn->query($selectposts_sql);
             $author_firstname = "";
             $author_lastname = "";
@@ -195,10 +202,15 @@ if (isset($_POST['subscribe_btn2'])) {
                     $niche = $row["niche"];
                     $image = $row["image_path"];
                     $foreign_imagePath = $row["post_image_url"];
-                    $date = $row["formatted_date"];
-                    $date2 = $row["formatted_date2"];
                     $content = $row["content"];
-                    $publishDate = !empty($date2) ? $date2 : $date;
+                    $scheduleDate = formatDateSafely($row['schedule']);
+                    $postDate = formatDateSafely($row['Date']);
+                    $now = date('Y-m-d H:i:s');
+                    if (!empty($schedule) && $schedule <= $now) {
+                        $publishDate = formatDateSafely($schedule);
+                    } else {
+                        $publishDate = formatDateSafely($date);
+                    }
                     $readingTime = calculateReadingTime($row['content']);
                     if (!empty($row['admin_id'])) {
                         $admin_id = $row['admin_id'];

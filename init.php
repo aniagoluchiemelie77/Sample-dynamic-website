@@ -419,6 +419,14 @@ function updateTranslations($string)
     }
     return $results;
 }
+function formatDateSafely($dateString)
+{
+    if (!empty($dateString) && $dateString !== '0000-00-00' && strtotime($dateString)) {
+        return date('F d, Y', strtotime($dateString));
+    }
+    return null;
+}
+
 function uploadToCloudinary($filePath)
 {
     $upload = new UploadApi();

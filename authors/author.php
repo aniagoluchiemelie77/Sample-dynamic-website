@@ -90,10 +90,10 @@ if (isset($_POST['subscribe_btn2'])) {
             $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
             $results = [];
             foreach ($tables as $table) {
-                $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
+                $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date, schedule FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("s", $id);
-                $stmt->bind_result($id, $title, $niche, $content, $image, $image2, $date);
+                $stmt->bind_result($id, $title, $niche, $content, $image, $image2, $date, $schedule);
                 $stmt->execute();
                 while ($stmt->fetch()) {
                     $posttype = 0;
@@ -116,6 +116,7 @@ if (isset($_POST['subscribe_btn2'])) {
                         'image_path' => $image,
                         'foreign_image_path' => $image2,
                         'Date' => $date,
+                        'schedule' => $schedule,
                         'table' => $table,
                         'posttype' => $posttype
                     ];
@@ -125,16 +126,17 @@ if (isset($_POST['subscribe_btn2'])) {
                 $max_length = 40;
                 $id = $result['id'];
                 $title = $result["title"];
-                $date = $result["Date"];
                 if (strlen($title) > $max_length) {
                     $title = substr($title, 0, $max_length) . '...';
                 }
-                $dateTime = new DateTime($date);
-                $day = $dateTime->format('j');
-                $month = $dateTime->format('M');
-                $year = $dateTime->format('Y');
-                $ordinalSuffix = getOrdinalSuffix($day);
-                $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                $scheduleDate = !empty($result['schedule']) ? formatDateSafely($result['schedule']) : null;
+                $postDate = !empty($result['Date']) ? formatDateSafely($result['Date']) : null;
+                $now = date('Y-m-d H:i:s');
+                if ($scheduleDate && $result['schedule'] <= $now) {
+                    $publishDate = $scheduleDate;
+                } else {
+                    $publishDate = $postDate;
+                }
                 $readingTime = calculateReadingTime($result['content']);
                 echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
                 if (!empty($result['image_path'])) {
@@ -144,7 +146,7 @@ if (isset($_POST['subscribe_btn2'])) {
                 }
                 echo    "<div class='more_posts_subdiv_subdiv'>
                                 <h1>$title</h1>
-                                <span>$formattedDate</span>
+                                <span>$publishDate</span>
                                 <span>$readingTime</span>
                             </div>
                             <p class='posts_div_niche'>" . $result['niche'] . "</p>

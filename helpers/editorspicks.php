@@ -2,9 +2,9 @@
     $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
     $results = [];
     foreach ($tables as $table) {
-    $sql = "SELECT id, admin_id, editor_id, title, niche, content, image_path, Date, authors_firstname, authors_lastname FROM $table WHERE is_favourite = 'True' ORDER BY id DESC LIMIT 2";
+    $sql = "SELECT id, admin_id, editor_id, title, niche, content, image_path, Date, schedule, authors_firstname, authors_lastname FROM $table WHERE is_favourite = 'True' ORDER BY id DESC LIMIT 2";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_result($id, $admin_id, $editor_id, $title, $niche, $content, $image, $date, $authors_firstname, $authors_lastname);
+    $stmt->bind_result($id, $admin_id, $editor_id, $title, $niche, $content, $image, $date, $schedule, $authors_firstname, $authors_lastname);
         $stmt->execute();
         while ($stmt->fetch()) {
             $posttype = 0;
@@ -32,6 +32,7 @@
                 'content' => $content,
                 'image_path' => $image,
                 'Date' => $date,
+            'schedule' => $schedule,
                 'authors_firstname' => $authors_firstname,
                 'authors_lastname' => $authors_lastname,
                 'table' => $table,
@@ -93,18 +94,19 @@
     $max_length = 50;
         $id = $result['id'];
         $title = $result["title"];
-        $date = $result["Date"];
+    $scheduleDate = !empty($result['schedule']) ? formatDateSafely($result['schedule']) : null;
+    $postDate = !empty($result['Date']) ? formatDateSafely($result['Date']) : null;
+    $now = date('Y-m-d H:i:s');
+    if ($scheduleDate && $result['schedule'] <= $now) {
+        $publishDate = $scheduleDate;
+    } else {
+        $publishDate = $postDate;
+    }
         $content = $result["content"];
         if (strlen($title) > $max_length) {
             $title = substr($title, 0, $max_length) . '...';
-        }
-        $dateTime = new DateTime($date);
-        $day = $dateTime->format('j');
+    }
     $image = $result['image_path'];
-        $month = $dateTime->format('M');
-        $year = $dateTime->format('Y');
-        $ordinalSuffix = getOrdinalSuffix($day);
-        $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
         $readingTime = calculateReadingTime($content);
         echo    "<a class='posts_div' href='../pages/view_post.php?id".$result['posttype']."=$id'>";
     if (!empty($image)) {
@@ -114,7 +116,7 @@
                 <h1>$title</h1>
                 <p class='posts_div_otherp'>By, <span>$author_firstname $author_lastname, $role.</span></p>
                 <div class='posts_div_subdiv'>
-                    <p>$formattedDate</p>
+                    <p>$publishDate</p>
                     <p>$readingTime</p>
                 </div>
             </a>";

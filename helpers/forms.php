@@ -2679,11 +2679,10 @@ if (isset($_POST['add_resource'])) {
         header('location: ' . $base_path . 'edit/frontend_features.php');
     }
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"]) && $_SESSION['user'] === 'Editor') {
     $recordId = intval($_GET["id"]);
     $date = date('y-m-d');
     $time = date('H:i:s');
-    file_put_contents("log.txt", "POST request received\n", FILE_APPEND);
     function updateProfilePic($imagePath1)
     {
         global $conn;
@@ -2708,9 +2707,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         $stmt->close();
     }
     if (isset($_FILES["profile_pic"])) {
-        $profile_pic = $_FILES["profile_pic"]["name"];
-        $profile_tmp_name = $_FILES["profile_pic"]["tmp_name"];
-        $resource_folder1 = "../images/" . $profile_pic;
         $filePath1 = $_FILES["profile_pic"]["tmp_name"];
         $convertedPath = uploadToCloudinary($filePath1);
         updateProfilePic($convertedPath);
@@ -2824,7 +2820,7 @@ if (isset($_POST['add_page'])) {
     }
     addPage($page_name);
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"]) && $_SESSION['user'] === 'Admin') {
     $recordId = intval($_GET["id"]);
     $date = date('y-m-d');
     $time = date('H:i:s');

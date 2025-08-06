@@ -364,17 +364,21 @@ function startCountdown() {
   var interval = setInterval(function () {
     if (timeLeft <= 0) {
       clearInterval(interval);
-      var anchor = document.createElement('a');
-      anchor.name = 'resend_otp';
-      anchor.innerHTML = 'Resend OTP?';
+
+      var anchor = document.createElement("a");
+      anchor.textContent = "Resend OTP?";
+      anchor.href = "forgotpassword.php";
+      anchor.className = "resend-link"; // Optional: for styling
+
       timerElement.innerHTML = "";
       timerElement.appendChild(anchor);
+
       disableInputs();
     } else {
-      timerElement.innerHTML = 'Time remaining: ' + timeLeft + 's';
+      timerElement.innerHTML = "Time remaining: " + timeLeft + "s";
     }
     timeLeft -= 1;
-  }, 1000); // Update every second
+  }, 1000);
 }
 ;
 function checkInputs() {

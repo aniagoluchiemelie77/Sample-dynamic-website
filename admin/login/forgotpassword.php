@@ -15,19 +15,23 @@ if (isset($_POST['fgtpswd'])) {
         $row = mysqli_fetch_assoc($check_email);
         $firstname = $row['firstname'];
         $token = rand(10000, 99999);
-        $stmt = $conn->prepare("UPDATE admin_login_info SET token = ? WHERE email = ?");
+        $stmt = $conn->prepare("UPDATE admin_login_info SET token = ?, token_created_at = NOW() WHERE email = ?");
         $stmt->bind_param('ss', $token, $email);
+
         if ($stmt->execute()) {
             $sendOtp = sendOTP($email, $firstname, $token);
             $_SESSION['status_type'] = $sendOtp['status_type'];
             $_SESSION['status'] = $sendOtp['status'];
+            header('Location: verifyotp.php?email=' . urlencode($email));
+            exit();
         }
     } else {
         $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Sorry, could't find user with specified email.";
+        $_SESSION['status'] = "Sorry, couldn't find user with specified email.";
     }
 }
-?>
+
+        ?>
 <!DOCTYPE html>
 <html lang="en">
 

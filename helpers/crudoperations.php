@@ -166,29 +166,48 @@ if (!function_exists('formatTime')) {
 if (!function_exists('personalizeMessageEditor')) {
     function personalizeMessageEditor($content, $user)
     {
-        // Match and replace: "Editor Munachi" → "You"
         if (preg_match("/Editor\s+$user\b/i", $content)) {
             $content = preg_replace("/Editor\s+$user\b/i", "You", $content);
+            $replacements = [
+                "/\bhis\/her\b/i" => "your",
+                "/\bhis\s*\/\s*her\b/i" => "your",
+                "/\bhis\s+or\s+her\b/i" => "your",
+                "/\bhis\b/i" => "your",
+                "/\bher\b/i" => "your",
+                "/\btheir\b/i" => "your",
+                "/\btheirs\b/i" => "yours",
+            ];
 
-            // After replacement, swap pronouns
-            if (strpos($content, "You") !== false) {
-                $replacements = [
-                    "/\bhis\/her\b/i" => "your", // exact match
-                    "/\bhis\s*\/\s*her\b/i" => "your", // catches variants
-                    "/\bhis\b/i" => "your",
-                    "/\bher\b/i" => "your",
-                    "/\btheir\b/i" => "your",
-                    "/\btheirs\b/i" => "yours",
-                ];
-
-                foreach ($replacements as $pattern => $replacement) {
-                    $content = preg_replace($pattern, $replacement, $content);
-                }
+            foreach ($replacements as $pattern => $replacement) {
+                $content = preg_replace($pattern, $replacement, $content);
             }
         }
         return $content;
     }
 }
+if (!function_exists('personalizeMessageAdmin')) {
+    function personalizeMessageAdmin($content, $user)
+    {
+        if (preg_match("/Admin\s+$user\b/i", $content)) {
+            $content = preg_replace("/Admin\s+$user\b/i", "You", $content);
+            $replacements = [
+                "/\bhis\/her\b/i" => "your",
+                "/\bhis\s*\/\s*her\b/i" => "your",
+                "/\bhis\s+or\s+her\b/i" => "your",
+                "/\bhis\b/i" => "your",
+                "/\bher\b/i" => "your",
+                "/\btheir\b/i" => "your",
+                "/\btheirs\b/i" => "yours",
+            ];
+
+            foreach ($replacements as $pattern => $replacement) {
+                $content = preg_replace($pattern, $replacement, $content);
+            }
+        }
+        return $content;
+    }
+}
+
 if (!function_exists('getTimeBasedGreeting')) {
     function getTimeBasedGreeting($name)
     {

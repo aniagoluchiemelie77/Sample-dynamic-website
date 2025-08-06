@@ -8,6 +8,7 @@ var tabComponents = document.querySelectorAll('.tab_content');
 var logoutDiv = document.getElementById("logoutAlert");
 var logoutDiv2 = document.getElementById("logoutAlert2");
 var exitLogout = document.getElementById("dismiss-popup-btn");
+let countdownInterval;
 sideBtns.forEach(function (tab, index) {
   tab.addEventListener("click", function () {
     sideBtns.forEach(function (tab) {
@@ -59,7 +60,7 @@ function preventSubmitIfUnchanged(formSelector, inputSelector) {
           title: "No Changes",
           text: "No changes made to the form.",
           icon: "info",
-          confirmButtonText: "Ok"
+          confirmButtonText: "Ok",
         });
       }
     });
@@ -90,7 +91,7 @@ function preventSubmitIfEmpty(formSelector, inputSelector) {
           title: "Empty Form",
           text: "Cannot submit an empty form.",
           icon: "info",
-          confirmButtonText: "Ok"
+          confirmButtonText: "Ok",
         });
       }
     });
@@ -107,16 +108,19 @@ function submitForm() {
     fetch("../forms.php", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: "topicName=" + encodeURIComponent(topicName)
-    }).then(function (response) {
-      return response.text();
-    }).then(function (data) {
-      Swal.fire("Success", data, "success");
-    })["catch"](function (error) {
-      Swal.fire("Error", "Something went wrong!", "error");
-    });
+      body: "topicName=" + encodeURIComponent(topicName),
+    })
+      .then(function (response) {
+        return response.text();
+      })
+      .then(function (data) {
+        Swal.fire("Success", data, "success");
+      })
+      ["catch"](function (error) {
+        Swal.fire("Error", "Something went wrong!", "error");
+      });
   } else {
     Swal.fire("Error", "Please enter a topic name", "error");
   }
@@ -129,7 +133,7 @@ function confirmDeleteC(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "delete.php?id5=" + postId;
@@ -144,7 +148,7 @@ function confirmDeleteC2(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "../delete.php?id5=" + postId;
@@ -159,11 +163,16 @@ function confirmDeleteResource(Id, ResourceName) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       console.log("Deleting resource with ID:", Id, "and name:", ResourceName);
-      window.location.href = "../delete.php?id=" + Id + "&type=Resource&resourceName=" + ResourceName + "";
+      window.location.href =
+        "../delete.php?id=" +
+        Id +
+        "&type=Resource&resourceName=" +
+        ResourceName +
+        "";
     }
   });
 }
@@ -175,10 +184,15 @@ function confirmDeleteResource2(Id, ResourceName) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "../delete.php?id=" + Id + "&action=deleteResource&resourceName=" + ResourceName + "";
+      window.location.href =
+        "../delete.php?id=" +
+        Id +
+        "&action=deleteResource&resourceName=" +
+        ResourceName +
+        "";
     }
   });
 }
@@ -190,10 +204,11 @@ function confirmDeletePage(Id, pageName) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "../delete.php?id=" + Id + "&type=Page&pageName=" + pageName + "";
+      window.location.href =
+        "../delete.php?id=" + Id + "&type=Page&pageName=" + pageName + "";
     }
   });
 }
@@ -205,10 +220,11 @@ function confirmDeleteCategory(Id, topicName) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "../delete.php?id=" + Id + "&type=Category&topicName=" + topicName + "";
+      window.location.href =
+        "../delete.php?id=" + Id + "&type=Category&topicName=" + topicName + "";
     }
   });
 }
@@ -220,7 +236,7 @@ function confirmDeleteP(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "delete.php?id2=" + postId;
@@ -235,7 +251,7 @@ function confirmDeleteP2(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "../delete.php?id2=" + postId;
@@ -250,10 +266,11 @@ function confirmDeleteSubscriber(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "../delete.php?id=" + postId + "&usertype=Subscriber";
+      window.location.href =
+        "../delete.php?id=" + postId + "&usertype=Subscriber";
     }
   });
 }
@@ -265,10 +282,11 @@ function confirmDeleteNewslSubscriber(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "../delete.php?id=" + postId + "&usertype=NewsletterSubscriber";
+      window.location.href =
+        "../delete.php?id=" + postId + "&usertype=NewsletterSubscriber";
     }
   });
 }
@@ -280,7 +298,7 @@ function confirmDeleteEditor(Id) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete!"
+    confirmButtonText: "Yes, delete!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "delete.php?id=" + Id + "&usertype=Editor";
@@ -295,7 +313,7 @@ function confirmDeleteN(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "delete.php?id4=" + postId;
@@ -310,7 +328,7 @@ function confirmDeleteN2(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "../delete.php?id4=" + postId;
@@ -325,7 +343,7 @@ function confirmDeleteOtheruser(Id) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete!"
+    confirmButtonText: "Yes, delete!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "delete.php?id=" + Id + "&usertype=Otheruser";
@@ -340,7 +358,7 @@ function confirmDeletePP(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "delete.php?id1=" + postId;
@@ -355,7 +373,7 @@ function confirmDeletePP2(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "../delete.php?id1=" + postId;
@@ -370,7 +388,7 @@ function confirmDeletePR(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "delete.php?id6=" + postId;
@@ -385,7 +403,7 @@ function confirmDeletePR2(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "../delete.php?id6=" + postId;
@@ -400,7 +418,7 @@ function confirmDeleteD(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "delete.php?id3=" + postId;
@@ -415,7 +433,7 @@ function confirmDeleteD2(postId) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
+    confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "../delete.php?id3=" + postId;
@@ -430,37 +448,50 @@ function confirmDeleteWriter(Id) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete!"
+    confirmButtonText: "Yes, delete!",
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href = "delete.php?id=" + Id + "&usertype=Writer";
     }
   });
 }
-function disableInputs() {
+function disableInputs(clearValues = true) {
   inputs.forEach(function (input) {
     input.disabled = true;
-    input.value = " ";
+    if (clearValues) input.value = "";
   });
   verifyButton.disabled = true;
 }
-;
 function startCountdown() {
-  var timeLeft = 60;
-  var interval = setInterval(function () {
+  if (countdownInterval) clearInterval(countdownInterval); // Clear any previous timer
+
+  timerElement.innerHTML = "";
+  inputs.forEach((input) => (input.disabled = false));
+  verifyButton.disabled = false;
+
+  let timeLeft = 60;
+  countdownInterval = setInterval(function () {
     if (timeLeft <= 0) {
-      clearInterval(interval);
-      var anchor = document.createElement('a');
-      anchor.name = 'resend_otp';
-      anchor.innerHTML = 'Resend OTP?';
+      clearInterval(countdownInterval);
+
+      const email = document.querySelector(
+        'input[name="validate_otp_email"]'
+      ).value;
+      const anchor = document.createElement("a");
+      anchor.textContent = "Resend OTP?";
+      anchor.href =
+        "verifyotp.php?resend_otp=1&email=" + encodeURIComponent(email);
+      anchor.className = "resend-link";
+
       timerElement.innerHTML = "";
       timerElement.appendChild(anchor);
+
       disableInputs();
     } else {
-      timerElement.innerHTML = 'Time remaining: ' + timeLeft + 's';
+      timerElement.innerHTML = "Time remaining: " + timeLeft + "s";
     }
     timeLeft -= 1;
-  }, 1000); // Update every second
+  }, 1000);
 }
 ;
 function checkInputs() {

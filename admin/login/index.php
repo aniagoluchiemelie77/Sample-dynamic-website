@@ -1,45 +1,48 @@
 <?php
+session_start();
 require("../connect.php");
 require('../../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-if (isset($_REQUEST['Sign_In'])) {
-    $email = $_REQUEST['Email'];
-    $password = $_REQUEST['Password'];
-    if (isset($_REQUEST['remember'])) {
-        setcookie("emailid", $_REQUEST['Email'], time() + 60 * 60);
-        setcookie("passwordid", $_REQUEST['Password'], time() + 60 * 60);
+if (isset($_POST['Sign_In'])) {
+    $email = trim($_POST['Email']);
+    $password = trim($_POST['Password']);
+    if (isset($_POST['remember'])) {
+        setcookie("emailid", $email, time() + 3600, "/", "", true, true);
+        setcookie("passwordid", $_POST['Password'], time() + 60 * 60);
     }
     $query = "SELECT * FROM admin_login_info WHERE email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $admin = $result->fetch_assoc();
-    if (password_verify($password, $admin['password'])) {
-        session_start();
-        $_SESSION['email'] = $admin['email'];
-        $_SESSION['id'] = $admin['id'];
-        $_SESSION['firstname'] = $admin['firstname'];
-        $_SESSION['lastname'] = $admin['lastname'];
-        $_SESSION['username'] = $admin['username'];
-        $_SESSION['image'] = $admin['image'];
-        $_SESSION['bio'] = $admin['bio'];
-        $_SESSION['mobile'] = $admin['mobile'];
-        $_SESSION['country'] = $admin['country'];
-        $_SESSION['city'] = $admin['city'];
-        $_SESSION['state'] = $admin['state'];
-        $_SESSION['address'] = $admin['address1'];
-        $_SESSION['addresstwo'] = $admin['address2'];
-        $_SESSION['country_code'] = $admin['country_code'];
-        $_SESSION['date_joined'] = $admin['date_joined'];
-        $_SESSION['language'] = $admin['language'];
-        $_SESSION['user'] = 'Admin';
-        header("location: ../admin_homepage.php");
-        exit();
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $admin = $result->fetch_assoc();
+        if ($admin && password_verify($password, $admin['password'])) {
+            $_SESSION['email'] = $admin['email'];
+            $_SESSION['id'] = $admin['id'];
+            $_SESSION['firstname'] = $admin['firstname'];
+            $_SESSION['lastname'] = $admin['lastname'];
+            $_SESSION['username'] = $admin['username'];
+            $_SESSION['image'] = $admin['image'];
+            $_SESSION['bio'] = $admin['bio'];
+            $_SESSION['mobile'] = $admin['mobile'];
+            $_SESSION['country'] = $admin['country'];
+            $_SESSION['city'] = $admin['city'];
+            $_SESSION['state'] = $admin['state'];
+            $_SESSION['address'] = $admin['address1'];
+            $_SESSION['addresstwo'] = $admin['address2'];
+            $_SESSION['country_code'] = $admin['country_code'];
+            $_SESSION['date_joined'] = $admin['date_joined'];
+            $_SESSION['language'] = $admin['language'];
+            $_SESSION['user'] = 'Admin';
+            header("location: ../admin_homepage.php");
+            exit();
+        } else {
+            $msg = "Invalid Password";
+        }
     } else {
-        $msg = "Invalid Password";
+        $msg = "User not found";
     }
 }
 

@@ -2,28 +2,64 @@
 session_start();
 require("../connect.php");
 require('../../init.php');
+
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-$email = $_SESSION['email'];
-if (isset($_REQUEST['resend_otp'])) {
-    header("Location: forgotpassword.php");
-}
+
+$email = $_GET['email'] ?? '';
+
+$msg = '';
 if (isset($_POST['validate_otp'])) {
-    $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
-    $query = "SELECT * FROM editor WHERE email='$email' AND token='$otp'";
-    $result = mysqli_query($conn, $query);
-    if ($result === false) {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = 'Invalid OTP. Please try again.';
-        header("Location: forgotpassword.php");
-        exit();
-    } elseif (mysqli_num_rows($result) > 0) {
-        header("Location: changepassword.php");
-        exit();
+    $secretKey = "6Ld33JwrAAAAALMCOvNYJ8T9Y-m2-XhWp19wAx5V";
+    $captchaResponse = $_POST['g-recaptcha-response'];
+
+    // Send request to Google
+    $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captchaResponse");
+    $responseData = json_decode($verify);
+
+    // Check if CAPTCHA was successful
+    if (!$responseData->success) {
+        die("CAPTCHA verification failed. Please try again.");
+    }
+    $email = $_POST['validate_otp_email'] ?? '';
+    $otp = ($_POST['otp1'] ?? '') . ($_POST['otp2'] ?? '') . ($_POST['otp3'] ?? '') . ($_POST['otp4'] ?? '') . ($_POST['otp5'] ?? '');
+
+    if (strlen($otp) !== 5 || !ctype_digit($otp)) {
+        $msg = "Invalid OTP format.";
+    } else {
+        // Prepared statement with expiry check
+        $stmt = $conn->prepare("
+            SELECT * FROM editor 
+            WHERE email = ? 
+              AND token = ? 
+              AND token_created_at > NOW() - INTERVAL 1 MINUTE
+        ");
+        $stmt->bind_param("ss", $email, $otp);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result === false) {
+            $msg = "Error: " . $conn->error;
+        } elseif ($result->num_rows > 0) {
+            $_SESSION['otp_verified'] = true;
+            $_SESSION['verified_email'] = $email;
+            // Clear token and timestamp
+            $clearStmt = $conn->prepare("UPDATE editor SET token = NULL, token_created_at = NULL WHERE email = ?");
+            $clearStmt->bind_param("s", $email);
+            $clearStmt->execute();
+            $clearStmt->close();
+
+            header("Location: changepassword.php");
+            exit();
+        } else {
+            $msg = "OTP expired or invalid. Please request a new one.";
+        }
     }
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,32 +73,35 @@ if (isset($_POST['validate_otp'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../editor.css" />
-    <title>Forgot Password </title>
+    <title>Forgot Password</title>
 </head>
 
 <body>
     <section class="section1 flexcenter">
         <div class="container flexcenter" id="signIn">
             <form method="post" class="form otp_form" id="validate_otp" action="verifyotp.php">
-                <h1>Enter 5 Digit OTP Sent To Your Email</h1>
-                <!--<p class="error_div"><?php if (!empty($msg)) {
-                                                echo $msg;
-                                            } ?></p>-->
+                <div class="g-recaptcha" data-sitekey="6Ld33JwrAAAAAL5VxabGf2jrgr0zD2m0lJ9pO9n4"></div>
+                <h1>Enter OTP</h1>
+                <p class="error_div"><?php echo htmlspecialchars($msg); ?></p>
+
                 <div class="input-field">
-                    <input type="hidden" name="email" />
-                    <input type="number" class="otp-input" maxlength="1" name="otp1" />
-                    <input type="number" class="otp-input" maxlength="1" name="otp2" />
-                    <input type="number" class="otp-input" maxlength="1" name="otp3" />
-                    <input type="number" class="otp-input" maxlength="1" name="otp4" />
-                    <input type="number" class="otp-input" maxlength="1" name="otp5" />
+                    <input type="number" class="otp-input" maxlength="1" name="otp1" required />
+                    <input type="number" class="otp-input" maxlength="1" name="otp2" required />
+                    <input type="number" class="otp-input" maxlength="1" name="otp3" required />
+                    <input type="number" class="otp-input" maxlength="1" name="otp4" required />
+                    <input type="number" class="otp-input" maxlength="1" name="otp5" required />
                 </div>
+
+                <input type="hidden" value="<?php echo htmlspecialchars($email); ?>" name="validate_otp_email" />
                 <p id="countdown" class="timer"></p>
                 <button id="btn" class="verifyButton" name="validate_otp">Verify</button>
             </form>
+
         </div>
     </section>
     <?php require("../extras/footer.php"); ?>
     <script src="../editor.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         window.onload = function() {
             startCountdown();

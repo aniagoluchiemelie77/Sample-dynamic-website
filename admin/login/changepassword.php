@@ -10,11 +10,11 @@ $_SESSION['status'] = "";
 if (isset($_POST['change_password'])) {
     $password1 = $_POST['pwd'];
     $password2 = $_POST['cfpwd'];
-    $email = $_SESSION['email'];
+    $email = $_SESSION['verified_email'];
     if ($password1 === $password2) {
-        $final_password = MD5($password1);
+        $hashed = password_hash($password1, PASSWORD_DEFAULT);
         $stmt = $conn->prepare("UPDATE admin_login_info SET password = ? WHERE email = ?");
-        $stmt->bind_param('ss',  $final_password, $email);
+        $stmt->bind_param('ss',  $hashed, $email);
         if ($stmt->execute()) {
             $content = "Admin " . $_SESSION['firstname'] . " changed his/her password";
             $forUser = 0;

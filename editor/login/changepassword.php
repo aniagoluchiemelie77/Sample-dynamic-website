@@ -7,15 +7,14 @@ $logo = $details['logo'];
 $favicon = $details['favicon'];
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
-$msg = " ";
 if (isset($_POST['change_password'])) {
     $password1 = $_POST['pwd'];
     $password2 = $_POST['cfpwd'];
-    $email = $_SESSION['email'];
+    $email = $_SESSION['verified_email'];
     if ($password1 === $password2) {
-        $final_password = MD5($password1);
+        $hashed = password_hash($password1, PASSWORD_DEFAULT);
         $stmt = $conn->prepare("UPDATE editor SET password = ? WHERE email = ?");
-        $stmt->bind_param('ss',  $final_password, $email);
+        $stmt->bind_param('ss',  $hashed, $email);
         if ($stmt->execute()) {
             $content = "Editor " . $_SESSION['firstname'] . " changed his/her password";
             $forUser = 0;
@@ -28,7 +27,8 @@ if (isset($_POST['change_password'])) {
             $_SESSION['status'] = "Error, Please retry";
         }
     } else {
-        $msg = "Passwords do not match";
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Passwords do not match";
     }
 }
 ?>
@@ -54,13 +54,6 @@ if (isset($_POST['change_password'])) {
         <div class="container" id="signIn">
             <form method="post" class="form" id="validate_form" action="changepassword.php">
                 <h1>Change Password</h1>
-                <p class="error_div">
-                    <?php
-                    if (!empty($msg)) {
-                        echo $msg;
-                    }
-                    ?>
-                </p>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="pwd" id="form_input" placeholder="Enter your password.." data-parsley-type="password" data-parsley-trigger="keyup" required />

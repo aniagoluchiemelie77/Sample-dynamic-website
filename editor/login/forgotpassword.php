@@ -7,30 +7,30 @@ $_SESSION['status'] = "";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-if (isset($_REQUEST['fgtpswd'])) {
-    $email = $_REQUEST['email'];
-    $_SESSION['email'] = $email;
+if (isset($_POST['fgtpswd'])) {
+    $email = $_POST['email'];
     $check_email = mysqli_query($conn, "SELECT firstname, email FROM editor WHERE email = '$email'");
     $res = mysqli_num_rows($check_email);
     if ($res > 0) {
         $row = mysqli_fetch_assoc($check_email);
         $firstname = $row['firstname'];
-        $_SESSION['firstname'] = $firstname;
         $token = rand(10000, 99999);
-        $stmt = $conn->prepare("UPDATE editor SET token = ? WHERE email = ?");
+        $stmt = $conn->prepare("UPDATE editor SET token = ?, token_created_at = NOW() WHERE email = ?");
         $stmt->bind_param('ss', $token, $email);
+
         if ($stmt->execute()) {
             $sendOtp = sendOTP($email, $firstname, $token);
             $_SESSION['status_type'] = $sendOtp['status_type'];
             $_SESSION['status'] = $sendOtp['status'];
-            header("location: verifyotp.php");
+            header('Location: verifyotp.php?email=' . urlencode($email));
             exit();
         }
     } else {
         $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Sorry, could't find user with specified email.";
+        $_SESSION['status'] = "Sorry, couldn't find user with specified email.";
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +64,7 @@ if (isset($_REQUEST['fgtpswd'])) {
         </div>
     </section>
     <?php require("../extras/footer.php"); ?>
-    <script src="../editor.js"></script>
+    <script src="../index.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

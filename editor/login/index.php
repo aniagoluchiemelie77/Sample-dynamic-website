@@ -1,49 +1,52 @@
 <?php
+session_start();
 require("../connect.php");
 require('../../init.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-
-    if (isset($_REQUEST['Sign_In'])) {
-    $email = $_REQUEST['Email'];
-    $password = $_REQUEST['Password'];
-    if (isset($_REQUEST['remember'])) {
-        setcookie("emailid", $_REQUEST['Email'], time() + 60 * 60);
-        setcookie("passwordid", $_REQUEST['Password'], time() + 60 * 60);
+if (isset($_POST['Sign_In'])) {
+    $email = trim($_POST['Email']);
+    $password = trim($_POST['Password']);
+    if (isset($_POST['remember'])) {
+        setcookie("emailid", $email, time() + 3600, "/", "", true, true);
+        setcookie("passwordid", $_POST['Password'], time() + 60 * 60);
     }
     $query = "SELECT * FROM editor WHERE email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $editor = $result->fetch_assoc();
-    if (password_verify($password, $editor['password'])) {
-        session_start();
-        $_SESSION['email'] = $editor['email'];
-        $_SESSION['id'] = $editor['id'];
-        $_SESSION['firstname'] = $editor['firstname'];
-        $_SESSION['lastname'] = $editor['lastname'];
-        $_SESSION['username'] = $editor['username'];
-        $_SESSION['image'] = $editor['image'];
-        $_SESSION['bio'] = $editor['bio'];
-        $_SESSION['mobile'] = $editor['mobile'];
-        $_SESSION['country'] = $editor['country'];
-        $_SESSION['city'] = $editor['city'];
-        $_SESSION['state'] = $editor['state'];
-        $_SESSION['address'] = $editor['address1'];
-        $_SESSION['addresstwo'] = $editor['address2'];
-        $_SESSION['country_code'] = $editor['country_code'];
-        $_SESSION['date_joined'] = $editor['date_joined'];
-        $_SESSION['language'] = $editor['language'];
-        $_SESSION['user'] = 'Editor';
-        header("location: ../editor_homepage.php");
-        exit();
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $editor = $result->fetch_assoc();
+        if ($editor && password_verify($password, $editor['password'])) {
+            $_SESSION['email'] = $editor['email'];
+            $_SESSION['id'] = $editor['id'];
+            $_SESSION['firstname'] = $editor['firstname'];
+            $_SESSION['lastname'] = $editor['lastname'];
+            $_SESSION['username'] = $editor['username'];
+            $_SESSION['image'] = $editor['image'];
+            $_SESSION['bio'] = $editor['bio'];
+            $_SESSION['mobile'] = $editor['mobile'];
+            $_SESSION['country'] = $editor['country'];
+            $_SESSION['city'] = $editor['city'];
+            $_SESSION['state'] = $editor['state'];
+            $_SESSION['address'] = $editor['address1'];
+            $_SESSION['addresstwo'] = $editor['address2'];
+            $_SESSION['country_code'] = $editor['country_code'];
+            $_SESSION['date_joined'] = $editor['date_joined'];
+            $_SESSION['language'] = $editor['language'];
+            $_SESSION['user'] = 'Editor';
+            header("location: ../editor_homepage.php");
+            exit();
+        } else {
+            $msg = "Invalid Password";
+        }
     } else {
-        $msg = "Invalid Password";
+        $msg = "User not found";
     }
 }
-if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
+
+    if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
     $emailid = $_COOKIE['emailid'];
     $passwordid = $_COOKIE['passwordid'];
 } else {

@@ -2618,7 +2618,7 @@ if (isset($_POST['create_writer'])) {
         $filePath = $_FILES["Img"]["tmp_name"];
         $convertedPath = uploadToCloudinary($filePath);
     } else {
-        $convertedPath = null; // If no image is uploaded, set path to null
+        $convertedPath = 'https://res.cloudinary.com/dbdw3zftx/image/upload/v1754775818/uploads/Avatar.png'; // If no image is uploaded, set path to null
     }
     addWriter($firstname, $lastname, $email, $imagePath, $id, $userType);
 }
@@ -2639,7 +2639,7 @@ if (isset($_POST['create_user'])) {
         exit();
     }
     if (empty($image)) {
-        $convertedPath = null;
+        $convertedPath = 'https://res.cloudinary.com/dbdw3zftx/image/upload/v1754775818/uploads/Avatar.png';
     }
     $filePath = $_FILES["Img"]["tmp_name"];
     $convertedPath = uploadToCloudinary($filePath);
@@ -2757,7 +2757,7 @@ if (isset($_POST['create_editor'])) {
             $filePath = $_FILES["Img"]["tmp_name"];
             $convertedPath = uploadToCloudinary($filePath);
         } else {
-            $convertedPath = null;
+            $convertedPath = 'https://res.cloudinary.com/dbdw3zftx/image/upload/v1754775818/uploads/Avatar.png';
         }
         addEditor($firstname, $lastname, $email, $convertedPath, $password, $id);
     } else {

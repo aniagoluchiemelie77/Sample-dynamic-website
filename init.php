@@ -426,7 +426,6 @@ function formatDateSafely($dateString)
     }
     return null;
 }
-
 function uploadToCloudinary($filePath)
 {
     $upload = new UploadApi();

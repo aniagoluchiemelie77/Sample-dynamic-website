@@ -4,9 +4,7 @@ var timerElement = document.querySelector('.timer');
 var verifyButton = document.querySelector('.verifyButton');
 var inputs = document.querySelectorAll('.otp-input');
 var sideBtns = document.querySelectorAll('.sidebarbtn');
-var tabComponents = document.querySelectorAll('.tab_content');
-var logoutDiv = document.getElementById("logoutAlert");
-var logoutDiv2 = document.getElementById("logoutAlert2");
+var tabComponents = document.querySelectorAll(".tab_content");
 var exitLogout = document.getElementById("dismiss-popup-btn");
 let countdownInterval;
 sideBtns.forEach(function (tab, index) {
@@ -24,15 +22,19 @@ sideBtns.forEach(function (tab, index) {
   });
 });
 function displayExit() {
+  var logoutDiv = document.getElementById("logoutAlert");
   logoutDiv.style.display = "flex";
 }
 function displayExit2() {
+  var logoutDiv2 = document.getElementById("logoutAlert2");
   logoutDiv2.style.display = "flex";
 }
 function cancelExit() {
+  var logoutDiv = document.getElementById("logoutAlert");
   logoutDiv.style.display = "none";
 }
 function cancelExit2() {
+  var logoutDiv2 = document.getElementById("logoutAlert2");
   logoutDiv2.style.display = "none";
 }
 function preventSubmitIfUnchanged(formSelector, inputSelector) {

@@ -4,9 +4,7 @@ var timerElement = document.querySelector('.timer');
 var verifyButton = document.querySelector('.verifyButton');
 var inputs = document.querySelectorAll('.otp-input');
 var sideBtns = document.querySelectorAll('.sidebarbtn');
-var tabComponents = document.querySelectorAll('.tab_content');
-var logoutDiv = document.getElementById('logout_alert');
-var logoutDiv2 = document.getElementById('logout_alert2');
+var tabComponents = document.querySelectorAll(".tab_content");
 var exitLogout = document.getElementById('dismiss-popup-btn');
 sideBtns.forEach(function (tab, index) {
   tab.addEventListener('click', function () {
@@ -23,19 +21,21 @@ sideBtns.forEach(function (tab, index) {
   });
 });
 function displayExit() {
-  logoutDiv.style.display = 'flex';
+  var logoutDiv = document.getElementById("logoutAlert");
+  logoutDiv.style.display = "flex";
 }
-;
 function displayExit2() {
-  logoutDiv2.style.display = 'flex';
+  var logoutDiv2 = document.getElementById("logoutAlert2");
+  logoutDiv2.style.display = "flex";
 }
 ;
 function cancelExit() {
-  logoutDiv.style.display = 'none';
+  var logoutDiv = document.getElementById("logoutAlert");
+  logoutDiv.style.display = "none";
 }
-;
 function cancelExit2() {
-  logoutDiv2.style.display = 'none';
+  var logoutDiv2 = document.getElementById("logoutAlert2");
+  logoutDiv2.style.display = "none";
 }
 ;
 function preventSubmitIfUnchanged(formSelector, inputSelector) {

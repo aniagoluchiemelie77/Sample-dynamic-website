@@ -460,5 +460,23 @@ function getVisitorIP()
         return $_SERVER['REMOTE_ADDR'];
     }
 }
+function getIconForTable($tableName)
+{
+    $iconMap = [
+        'ebooks' => 'fa-book',
+        'videoscripts' => 'fa-film',
+        'googledrivedocs' => 'fa-file',
+        'whitepapers' => 'fa-file-alt',
+        'webfiles' => 'fa-file',
+        'landingpage' => 'fa-globe',
+        'pdffiles' => 'fa-file-text',
+    ];
+    foreach ($iconMap as $keyword => $iconClass) {
+        if (strpos($tableName, $keyword) !== false) {
+            return $iconClass;
+        }
+    }
+    return 'fa-database';
+}
 $base_url = "http://localhost/Sample-dynamic-website/admin/";
 $editor_base_url = "http://localhost/Sample-dynamic-website/editor/";

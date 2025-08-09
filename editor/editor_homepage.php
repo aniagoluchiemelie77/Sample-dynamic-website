@@ -364,6 +364,38 @@ if (file_exists($translationFile)) {
                         ?>
                     </div>
                 </div>
+                <div class="addtionalinfo">
+                    <div class="addtionalinfo_header">
+                        <h1><?php echo $translations['resources']; ?></h1>
+                    </div>
+                    <div class="addtionalinfo_body border-gradient-side-dark rowflexdisplay">
+                        <?php
+                        $result = mysqli_query($conn, "SELECT resource_name FROM resources");
+                        if ($result) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $originalName = $row['resource_name'];
+                                $tableName = strtolower(str_replace(' ', '', $originalName));
+                                $ucTablename = ucfirst($tableName);
+                                $countQuery = mysqli_query($conn, "SELECT COUNT(*) AS total FROM `$tableName`");
+                                if ($countQuery) {
+                                    $countResult = mysqli_fetch_assoc($countQuery);
+                                    $rowCount = $countResult['total'];
+                                    $iconClass = getIconForTable($tableName);
+                                    echo "  <a class='collections_links' href='view_all/resources.php?resource_name=$tableName'>
+                                                <i class='fa-solid $iconClass'></i>
+                                                <p>$ucTablename(<span> $rowCount</span>)</p>
+                                            </a>
+                                        ";
+                                }
+                            }
+                        }
+                        ?>
+                        <a class="collections_links" href="edit/frontend_features.php">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            <p><?php echo $translations['add_resource']; ?></p>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="profile tab_content" id="tab2">
                 <figure class="profile_imgbox" id="consent-data" data-id="<?php echo $_SESSION['id']; ?>">

@@ -363,50 +363,38 @@ if (file_exists($translationFile)) {
                         ?>
                     </div>
                 </div>
-                <!--<div class="addtionalinfo">
+                <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
-                        <h1><?php echo $translations['collections']; ?></h1>
+                        <h1><?php echo $translations['resources']; ?></h1>
                     </div>
                     <div class="addtionalinfo_body border-gradient-side-dark rowflexdisplay">
                         <?php
-                        $count_ebooks = "SELECT COUNT(*) as total FROM ebooks";
-                        $count_ebooks_result = $conn->query($count_ebooks);
-                        if ($count_ebooks_result->num_rows > 0) {
-                            $row1 = $count_ebooks_result->fetch_assoc();
+                        $result = mysqli_query($conn, "SELECT resource_name FROM resources");
+                        if ($result) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $originalName = $row['resource_name'];
+                                $tableName = strtolower(str_replace(' ', '', $originalName));
+                                $ucTablename = ucfirst($tableName);
+                                $countQuery = mysqli_query($conn, "SELECT COUNT(*) AS total FROM `$tableName`");
+                                if ($countQuery) {
+                                    $countResult = mysqli_fetch_assoc($countQuery);
+                                    $rowCount = $countResult['total'];
+                                    $iconClass = getIconForTable($tableName);
+                                    echo "  <a class='collections_links' href='view_all/resources.php?resource_name=$tableName'>
+                                                <i class='fa-solid $iconClass'></i>
+                                                <p>$ucTablename(<span> $rowCount</span>)</p>
+                                            </a>
+                                        ";
+                                }
+                            }
+                        }
                         ?>
-                            <a class="collections_links" href="collections\ebooks.php">
-                                <i class="fa-solid fa-book"></i>
-                                <p><?php echo $translations['ebooks']; ?> (<span><?php echo $row1["total"]; ?></span>)</p>
-                            </a>
-                        <?php
-                        };
-                        $count_whitepapers = "SELECT COUNT(*) as total FROM whitepapers";
-                        $count_whitepapers_result = $conn->query($count_whitepapers);
-                        if ($count_whitepapers_result->num_rows > 0) {
-                            $row1 = $count_whitepapers_result->fetch_assoc();
-                        ?>
-                            <a class="collections_links" href="collections\whitepapers.php">
-                                <i class="fa-sharp fa-regular fa-copy"></i>
-                                <p><?php echo $translations['white_papers']; ?> (<span><?php echo $row1["total"]; ?></span>)</p>
-                            </a>
-                        <?php
-                        };
-                        $count_videoscripts = "SELECT COUNT(*) as total FROM whitepapers";
-                        $count_videoscripts_result = $conn->query($count_videoscripts);
-                        if ($count_videoscripts_result->num_rows > 0) {
-                            $row1 = $count_videoscripts_result->fetch_assoc();
-                        ?>
-                            <a class="collections_links" href="collections\videoscripts.php">
-                                <i class="fa fa-file-video" aria-hidden="true"></i>
-                                <p><?php echo $translations['video_scripts']; ?> (<span><?php echo $row1["total"]; ?></span>)</p>
-                            </a>
-                        <?php }; ?>
-                        <a class="collections_links" href="create_new\collections.php">
+                        <a class="collections_links" href="edit/frontend_features.php">
                             <i class="fa fa-plus-square" aria-hidden="true"></i>
-                            <p><?php echo $translations['add_collection']; ?></p>
+                            <p><?php echo $translations['add_resource']; ?></p>
                         </a>
                     </div>
-                </div>-->
+                </div>
                 <div class="addtionalinfo">
                     <div class="addtionalinfo_header">
                         <h1><?php echo $translations['top_visits']; ?></h1>

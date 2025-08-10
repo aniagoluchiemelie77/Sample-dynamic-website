@@ -2,8 +2,6 @@
 session_start();
 include("../connect.php");
 require('../../init.php');
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 $resource_name = isset($_GET['resource_name']) ? $_GET['resource_name'] : null;
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
@@ -16,6 +14,49 @@ if (file_exists($translationFile)) {
     $translations = [];
 }
 $posttype = $resource_name;
+if (isset($_GET['query'])) {
+    $query = isset($_GET['query']) ? trim($_GET['query']) : '';
+    $searchTerm = "%" . $query . "%";
+    if ($query !== "") {
+        $table_name = lowercaseNoSpace($posttype);
+        $sql = "SELECT * FROM `$table_name` WHERE title LIKE ? OR niche LIKE ? OR name LIKE ? ORDER BY id DESC LIMIT 5";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            if ($result && $result->num_rows > 0) {
+                echo "<h1 class='posts_divcontainer_header'>You Searched For: $query</h1>";
+                while ($row = $result->fetch_assoc()) {
+                    $formatted_date = date("M d, Y", strtotime($row['date_added']));
+                    $time = $row['time_added'];
+                    $formatted_time = date("g:i A", strtotime($time));
+                    $formId = "favouriteForm_" . $row["id"];
+                    echo "  <div class='posts_divcontainer_subdiv post' data-post-id='" . $row["id"] . "'>
+                                <h3 class='posts_divcontainer_header'>" . $row["title"] . "</h3>
+                                <h2 class='posts_divcontainer_header2'>" . $row["niche"] . "</h2>
+                                <h2 class='posts_divcontainer_header2'>" . $row["resource_path"] . "</h2>
+                                <div class='posts_divcontainer_subdiv3'>
+                                    <p class='posts_divcontainer_subdiv_p'><span> $translations[published_date]: </span>$formatted_date</p> 
+                                    <p class='posts_divcontainer_subdiv_p'><span> $translations[published_time]: </span>$formatted_time</p> 
+                                </div>
+                                <div class='posts_delete_edit'>
+                                    <a class='users_edit' href='../edit/resource.php?id=" . $row["id"] . "&resource_name=$resource_name'>
+                                        <i class='fa fa-pencil' aria-hidden='true'></i>
+                                    </a>
+                                    <a class='users_delete' onclick='confirmDeleteResource2(" . $row['id'] . ", \"" . htmlspecialchars($table_name, ENT_QUOTES) . "\")'>
+                                        <i class='fa fa-trash' aria-hidden='true'></i>
+                                    </a>
+                                </div>
+                            </div>";
+                }
+            } else {
+                echo "<h1 class='posts_divcontainer_header'>You Searched For: $query</h1>";
+                echo "<h3 class='posts_divcontainer_header'>No results found for '$query'</h3>";
+            }
+        }
+    }
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,54 +90,6 @@ $posttype = $resource_name;
             <div class="posts_divcontainer border-gradient-side-dark">
                 <div id="search-results">
                     <input type="hidden" id="resourceName" value="<?php echo htmlspecialchars($posttype, ENT_QUOTES); ?>">
-                    <?php
-                    if (isset($_GET['query'])) {
-                        $resource_name = isset($_GET['resource_name']) ? $_GET['resource_name'] : null;
-                        $query = trim($_GET['query']);
-                        if ($query !== "") {
-                            $searchTerm = "%" . $query . "%";
-                            var_dump($posttype);
-                            $table_name = lowercaseNoSpace($resource_name);
-                            $stmt = $conn->prepare("SELECT * FROM $table_name WHERE title LIKE ? OR niche LIKE ? OR name LIKE ? ORDER BY id DESC LIMIT 5");
-                            if ($stmt === false) {
-                                die("Prepare failed: " . htmlspecialchars($conn->error));
-                            }
-                            $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
-                            if ($stmt->execute()) {
-                                $result = $stmt->get_result();
-                                if ($result->num_rows > 0) {
-                                    echo "<h3 class='posts_divcontainer_header'>You Searched For: $query <h3>";
-                                    while ($row = $result->fetch_assoc()) {
-                                        $formatted_date = date("M d, Y", strtotime($row['date_added']));
-                                        $time = $row['time_added'];
-                                        $formatted_time = date("g:i A", strtotime($time));
-                                        $formId = "favouriteForm_" . $row["id"];
-                                        echo "<div class='posts_divcontainer_subdiv post' data-post-id='" . $row["id"] . "'>
-                                    <h3 class='posts_divcontainer_header'>" . $row["title"] . "</h3>
-                                    <h2 class='posts_divcontainer_header2'>" . $row["niche"] . "</h2>
-                                    <h2 class='posts_divcontainer_header2'>" . $row["resource_path"] . "</h2>
-                                    <div class='posts_divcontainer_subdiv3'>
-                                        <p class='posts_divcontainer_subdiv_p'><span> $translations[published_date]: </span>$formatted_date</p> 
-                                        <p class='posts_divcontainer_subdiv_p'><span> $translations[published_time]: </span>$formatted_time</p> 
-                                    </div>
-                                    <div class='posts_delete_edit'>
-                                        <a class='users_edit' href='../edit/resource.php?id=" . $row["id"] . "&resource_name=$resource_name'>
-                                            <i class='fa fa-pencil' aria-hidden='true'></i>
-                                        </a>
-                                        <a class='users_delete' onclick='confirmDeleteResource2(" . $row['id'] . ", \"" . htmlspecialchars($table_name, ENT_QUOTES) . "\")'>
-                                            <i class='fa fa-trash' aria-hidden='true'></i>
-                                        </a>
-                                    </div>
-                                </div>";
-                                    }
-                                } else {
-                                    echo "<h1 class='posts_divcontainer_header'>No results found for ' $query '</h1>";
-                                }
-                            }
-                        }
-                        exit;
-                    }
-                    ?>
                 </div>
                 <?php
                 $table_name = lowercaseNoSpace($resource_name);
@@ -133,25 +126,33 @@ $posttype = $resource_name;
     </section>
     <script>
         window.onload = function() {
-            function submitSearch() {
-                console.log("submitSearch was called");
-                var query = document.getElementById("search-bar").value;
-                var resourceName = document.getElementById('resourceName').value;
-                console.log("Resource Name:", resourceName); // optional, for debugging
-                if (query.trim() !== "") {
-                    fetch("resources.php?query=" + encodeURIComponent(query) + "&resource_name=" + encodeURIComponent(resourceName))
-                        .then(response => response.text())
-                        .then(data => {
-                            document.getElementById("search-results").innerHTML = data;
-                            document.getElementById("search-results").style.display = "block";
-                            document.querySelector(".posts_divcontainer").style.display = "block";
-                        })
-                        .catch(error => console.error("Error fetching results:", error));
-                } else {
-                    document.getElementById("search-results").style.display = "none";
-                }
-            }
+            let debounceTimer;
+
+            document.getElementById("search-bar").addEventListener("input", function() {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    var query = this.value.trim();
+                    if (query === "") {
+                        document.getElementById("search-results").style.display = "none";
+                    } else {
+                        submitSearch(query);
+                    }
+                }, 3000);
+            });
         };
+
+        function submitSearch(query) {
+            var resourceName = document.getElementById('resourceName').value;
+            fetch("resources.php?query=" + encodeURIComponent(query) + "&resource_name=" + encodeURIComponent(resourceName))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("search-results").innerHTML = data;
+                    document.getElementById("search-results").style.display = "block";
+                    document.querySelector(".posts_divcontainer").style.display = "block";
+                    document.querySelector(".posts_divcontainer_subdiv").style.display = "none";
+                })
+                .catch(error => console.error("Error fetching results:", error));
+        }
     </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>

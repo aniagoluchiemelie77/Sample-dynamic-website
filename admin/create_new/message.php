@@ -36,6 +36,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
     }
     $stmt->close();
 }
+function renderMessageForm($userType, $userId, $userImage, $userNameOrEmail, $formAction, $submitName)
+{
+    global $translations, $base_url;
+    echo "<div class='newpost_body2'>
+            <div class='nav_quicklinks'>
+                <a href='" . $base_url . "admin_homepage.php'>" . $translations['home'] . "</a> > 
+                <p>" . $translations['send_message_i'] . " <span>" . htmlspecialchars($userNameOrEmail) . "</span></p>
+            </div>
+            <div class='message_div-container'>
+                <div class='message_div-container_subdiv'>
+                    <img src='" . htmlspecialchars($userImage) . "' alt='" . $userType . " Image'/>
+                    <div class='message_div-container_subdiv-imagebody'>
+                        <form id='updateForm' action='" . $formAction . "' method='POST'>
+                            <div class='input_group'>
+                                <input name='subject' placeholder='" . $translations['message_title'] . "..' class='input_group_input'/>
+                                <p><span>* </span>" . $translations['message_title_i'] . "</p>
+                            </div>
+                            <div class='input_group'>
+                                <label for='content'>" . $translations['compose'] . ":</label>
+                                <textarea name='message' id='myTextareaq'></textarea>
+                            </div>
+                            <input value='" . htmlspecialchars($userType) . "' style='display:none' name='user_type' type='text'/>
+                            <input value='" . htmlspecialchars($userId) . "' style='display:none' name='user_id' type='text'/>
+                            <input type='submit' name='" . $submitName . "' value='" . $translations['send_message'] . "' class='btn send_messagebtn'/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,35 +92,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
     require("../extras/header3.php");
     if ($id > 0) {
         if ($user_type == "Editor") {
-            $get_subscriber = "SELECT id, image, firstname FROM editor WHERE id = $id";
-            $get_subscriber_result = $conn->query($get_subscriber);
-            if ($get_subscriber_result->num_rows > 0) {
-                $row = $get_subscriber_result->fetch_assoc();
-                echo "<div class='newpost_body2'>
-                            <div class='nav_quicklinks'>
-                                <a href=" .$base_url . "admin_homepage.php'; ?>>$translations[home]</a> > <p>$translations[send_message_i] <span>" . $row['firstname'] . "</span> </p>
-                            </div>
-                            <div class='message_div-container'>
-                                <div class='message_div-container_subdiv'>
-                                    <img src='" . $row['image'] . "' alt='Editors Image'/>
-                                    <div class='message_div-container_subdiv-imagebody'>
-                                        <form id='updateForm' action='message.php' method='POST'>
-                                            <div class='input_group'>
-                                                <input name='subject' placeholder='$translations[message_title]..'/>
-                                                <p><span>* </span>$translations[message_title_i]</p>
-                                            </div>
-                                            <div class='input_group'>
-                                                <label for='content'>$translations[compose]:</label>
-                                                <textarea name='message' id='myTextareaq'></textarea>
-                                            </div>
-                                            <input value='editor' style='display:none' name='user_type' type='text'/>
-                                            <input value='" . $row['id'] . "' style='display:none' name='user_id' type='text'/>
-                                            <input type='submit' name='send_message' value='$translations[send_message]' class='btn send_messagebtn'/>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>";
+            $query = "SELECT id, image, firstname FROM editor WHERE id = $id";
+            $result = $conn->query($query);
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                renderMessageForm("Editor", $row['id'], $row['image'], $row['firstname'], "message.php", "send_message");
             }
         } else if ($user_type == "Subscriber") {
             $get_subscriber = "SELECT * FROM subscribers WHERE id = $id";
@@ -211,13 +218,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
             menubar: 'favs file edit view insert format tools table help',
             content_css: 'css/content.css'
         });
+        let resizeTimeout;
         window.addEventListener("resize", function() {
-            if (tinymce.activeEditor) {
-                let newWidth = window.innerWidth * 0.8;
-                let newHeight = window.innerHeight * 0.7;
-                tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
-                tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
-            }
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (tinymce.activeEditor) {
+                    let newWidth = window.innerWidth * 0.8;
+                    let newHeight = window.innerHeight * 0.7;
+                    tinymce.activeEditor.editorContainer.style.width = newWidth + "px";
+                    tinymce.activeEditor.editorContainer.style.height = newHeight + "px";
+                }
+            }, 200);
         });
     </script>
     <script src="sweetalert2.all.min.js"></script>
@@ -245,5 +256,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
 </body>
 
 </html>
-<?php
-?>

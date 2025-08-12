@@ -3,6 +3,7 @@ session_start();
 require("../connect.php");
 require("../init.php");
 require('../../init.php');
+require('../../helpers/components.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -35,90 +36,10 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <div class="logout_alert" id="logout_alert">
-        <form class="newpost_container" method="POST" action="../../helpers/forms.php" id="postForm" enctype="multipart/form-data">
-            <a class="logout_alert_cancel" onclick="cancelExit()">
-                <i class="fa fa-times popup_close1" aria-hidden="true"></i>
-            </a>
-            <div class="newpost_container_div1 newpost_subdiv">
-                <h1 class="sectioneer_form_header"><?php echo $translations['add_resource']; ?></h1>
-            </div>
-            <div class="newpost_container_div3 newpost_subdiv">
-                <label class="form__label" for="resource_type"><?php echo $translations['resource_type']; ?></label>
-                <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="resource_type" type="text" />
-                </div>
-            </div>
-            <div class="newpost_container_div6">
-                <div class="newpost_container_div6_subdiv">
-                    <label class="form__label" for="resource_image"><?php echo $translations['upload_resource']; ?></label>
-                    <div class="newpost_subdiv2">
-                        <input class="form__input" name="resource_image" type="file" />
-                        <p class="newpost_subdiv2-p leftp"><span>*</span><?php echo $translations['message_title_i']; ?></p>
-                    </div>
-                </div>
-                <div class="newpost_container_div6_subdiv">
-                    <label class="form__label" for="resource_url"><?php echo $translations['resource_url']; ?>:</label>
-                    <div class="newpost_container_div5_subdiv2">
-                        <input class="form__input" name="resource_url" type="text" placeholder="<?php echo $translations['require']; ?>" />
-                    </div>
-                </div>
-                <div class="newpost_container_div6_subdiv">
-                    <label class="form__label" for="resource_url"><?php echo $translations['resource_niche']; ?>:</label>
-                    <div class="newpost_container_div5_subdiv2">
-                        <input class="form__input" name="resource_niche" type="text" placeholder="<?php echo $translations['resource_niche_p']; ?>..." />
-                    </div>
-                </div>
-                <div class="newpost_container_div6_subdiv">
-                    <label class="form__label" for="resource_url"><?php echo $translations['resource_title']; ?>:</label>
-                    <div class="newpost_container_div5_subdiv2">
-                        <input class="form__input" name="resource_title" type="text" placeholder="<?php echo $translations['resource_title_p']; ?>..." />
-                    </div>
-                </div>
-            </div>
-            <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="<?php echo $translations['save']; ?>" name="add_resource" />
-            </div>
-        </form>
-    </div>
-    <?php require("../extras/header3.php"); ?>
-    <section class="sectioneer">
-        <div class="page_links">
-            <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['edit_frontend_title']; ?></p>
-        </div>
-        <div class="frontend_div sectioneer_div">
-            <h1 class="sectioneer_form_header"><?php echo $translations['resources']; ?></h1>
-            <?php
-            $getresource_sql = " SELECT id, resource_name FROM resources ORDER BY id";
-            $getresource_result = $conn->query($getresource_sql);
-            if ($getresource_result->num_rows > 0) {
-                echo "<div class='sectioneer_div_subdiv'>";
-                while ($row = $getresource_result->fetch_assoc()) {
-                    $resource_name = $row['resource_name'];
-                    $resource_id = $row['id'];
-                    $readableString = convertToReadable2($resource_name);
-                    $resource_name2 = removeUnderscore2($resource_name);
-                    echo "<div class='div'>
-                                        <p>$readableString</p>
-                                        <div class='sectioneer_div_subdiv_subdiv'>
-                                            <a class='' onclick='confirmDeleteResource($resource_id, \"" . htmlspecialchars($resource_name2, ENT_QUOTES) . "\")'>
-                                                <i class='fa fa-trash' aria-hidden='true'></i>
-                                            </a>
-                                            <a href='../view_all/resources.php?resource_name=$resource_name'>
-                                                <i class='fa fa-pencil' aria-hidden='true'></i>
-                                            </a>
-                                        </div>
-                                    </div>";
-                }
-                echo "  <a class='add_div' onclick='displayExit()'>
-                                    <i class='fa fa-plus' aria-hidden='true'></i>
-                                    <p>$translations[add_resource]</p>
-                                </a>
-                            </div>";
-            }
-            ?>
-        </div>
-    </section>
+    <?php
+    $usertype = $_SESSION['user'];
+    renderEditFrontendFeaturespage($translations, $base_url, $usertype, $logo);
+    ?>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

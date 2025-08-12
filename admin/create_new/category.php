@@ -32,31 +32,11 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header3.php"); ?>
-    <section class="about_section">
-        <div class="page_links">
-            <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <a href="../pages/categories.php"><?php echo $translations['categories']; ?></a> > <p><?php echo $translations['create_category']; ?></p>
-        </div>
-        <form class="formcontainer" id="topicForm" action="../../helpers/forms.php" method="POST" enctype="multipart/form-data">
-            <div class="head_paragraph">
-                <h3><?php echo $translations['create_category']; ?></h3>
-            </div>
-            <div class="formcontainer_subdiv">
-                <div class="input_group">
-                    <label for="name"><?php echo $translations['category_name']; ?>:</label>
-                    <input type="text" name="topicName" id="topicName" />
-                </div>
-                <div class="newpost_container_div6 newpost_subdiv">
-                    <label class="form__label" for="topicImg"><?php echo $translations['category_image']; ?>:</label>
-                    <div class="newpost_subdiv2">
-                        <input class="form__input" name="topicImg" type="file" />
-                        <p class="newpost_subdiv2-p leftp"><span>*</span><?php echo $translations['message_title_i']; ?></p>
-                    </div>
-                </div>
-            </div>
-            <input class="formcontainer_submit" name='create_page' value="<?php echo $translations['save']; ?>" type="submit" />
-        </form>
-    </section>
+    <?php
+    require("../extras/header3.php");
+    $usertype = $_SESSION['usertype'] ?? 'Admin';
+    renderCreateNewCategoryForm($base_url, $translations, $usertype);
+    ?>
     <script src="../admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>

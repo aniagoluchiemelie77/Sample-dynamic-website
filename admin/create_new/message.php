@@ -2,6 +2,7 @@
 session_start();
 require("../connect.php");
 require('../../init.php');
+require("../../helpers/components.php");
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -36,37 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
     }
     $stmt->close();
 }
-function renderMessageForm($userType, $userId, $userImage, $userNameOrEmail, $formAction, $submitName)
-{
-    global $translations, $base_url;
-    echo "<div class='newpost_body2'>
-            <div class='nav_quicklinks'>
-                <a href='" . $base_url . "admin_homepage.php'>" . $translations['home'] . "</a> > 
-                <p>" . $translations['send_message_i'] . " <span>" . htmlspecialchars($userNameOrEmail) . "</span></p>
-            </div>
-            <div class='message_div-container'>
-                <div class='message_div-container_subdiv'>
-                    <img src='" . htmlspecialchars($userImage) . "' alt='" . $userType . " Image'/>
-                    <div class='message_div-container_subdiv-imagebody'>
-                        <form id='updateForm' action='" . $formAction . "' method='POST'>
-                            <div class='input_group'>
-                                <input name='subject' placeholder='" . $translations['message_title'] . "..' class='input_group_input'/>
-                                <p><span>* </span>" . $translations['message_title_i'] . "</p>
-                            </div>
-                            <div class='input_group'>
-                                <label for='content'>" . $translations['compose'] . ":</label>
-                                <textarea name='message' id='myTextareaq'></textarea>
-                            </div>
-                            <input value='" . htmlspecialchars($userType) . "' style='display:none' name='user_type' type='text'/>
-                            <input value='" . htmlspecialchars($userId) . "' style='display:none' name='user_id' type='text'/>
-                            <input type='submit' name='" . $submitName . "' value='" . $translations['send_message'] . "' class='btn send_messagebtn'/>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>";
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,103 +60,52 @@ function renderMessageForm($userType, $userId, $userImage, $userNameOrEmail, $fo
 <body>
     <?php
     require("../extras/header3.php");
+        $submitName = 'send_message';
+        $action = 'message.php';
     if ($id > 0) {
         if ($user_type == "Editor") {
             $query = "SELECT id, image, firstname FROM editor WHERE id = $id";
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                renderMessageForm("Editor", $row['id'], $row['image'], $row['firstname'], "message.php", "send_message");
+                $userType = 'Editor';
+                $id = $row['id'];
+                $image = $row['image'];
+                $firstname = $row['firstname'];
+                renderMessageForm($userType, $id, $image, $firstname, $action, $submitName);
             }
         } else if ($user_type == "Subscriber") {
             $get_subscriber = "SELECT * FROM subscribers WHERE id = $id";
             $geteditor_result = $conn->query($get_subscriber);
             if ($geteditor_result->num_rows > 0) {
                 $row = $geteditor_result->fetch_assoc();
-                echo "<div class='newpost_body2'>
-                            <div class='nav_quicklinks'>
-                                <a href = '../admin_homepage.php'>$translations[home]</a> > <p>$translations[send_message_i] <span>" . $row['email'] . "</span> </p>
-                            </div>
-                            <div class='message_div-container'>
-                                <div class='message_div-container_subdiv'>
-                                    <img src='../../images/lookmoni.jpg' alt='Editors Image'/>
-                                    <div class='message_div-container_subdiv-imagebody'>
-                                        <form id='updateForm' action='../../helpers/forms.php' method='POST'>
-                                            <div class='input_group'>
-                                                <input name='subject' placeholder='$translations[message_title]..' class='input_group_input'/>
-                                                <p><span>* </span>$translations[message_title_i]</p>
-                                            </div>
-                                            <div class='input_group'>
-                                                <label for='content'>$translations[compose]:</label>
-                                                <textarea name='message' id='myTextareaq'></textarea>
-                                            </div>
-                                            <input value='" . $row['id'] . "' style='display:none' name='user_id' type='text'/>
-                                            <input type='submit' name='send_message_subscriber' value='$translations[send_message]' class='btn send_messagebtn'/>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>";
+                $userType = 'Subscriber';
+                $id = $row['id'];
+                $image = null;
+                $email = $row['email'];
+                renderMessageForm($userType, $id, $image, $email, $action, $submitName);
             }
         } else if ($user_type == "Website User") {
             $get_subscriber = "SELECT * FROM otherwebsite_users WHERE id = $id";
             $geteditor_result = $conn->query($get_subscriber);
             if ($geteditor_result->num_rows > 0) {
                 $row = $geteditor_result->fetch_assoc();
-                echo "<div class='newpost_body2'>
-                            <div class='nav_quicklinks'>
-                                <a href = '../admin_homepage.php'>$translations[home]</a> > <p>$translations[send_message_i] <span>" . $row['email'] . "</span> </p>
-                            </div>
-                            <div class='message_div-container'>
-                                <div class='message_div-container_subdiv'>
-                                     <img src='" . $row['image'] . "' alt='Users Image'/>
-                                    <div class='message_div-container_subdiv-imagebody'>
-                                        <form id='updateForm' action='../../helpers/forms.php' method='POST'>
-                                            <div class='input_group'>
-                                                <input name='subject' placeholder='$translations[message_title]..' class='input_group_input'/>
-                                                <p><span>* </span>$translations[message_title_i]</p>
-                                            </div>
-                                            <div class='input_group'>
-                                                <label for='content'>$translations[compose]:</label>
-                                                <textarea name='message' id='myTextareaq'></textarea>
-                                            </div>
-                                            <input value='" . $row['id'] . "' style='display:none' name='user_id' type='text'/>
-                                            <input type='submit' name='send_message_user' value='$translations[send_message]' class='btn send_messagebtn'/>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>";
+                $userType = 'Website User';
+                $id = $row['id'];
+                $image = $row['image'];
+                $email = $row['email'];
+                renderMessageForm($userType, $id, $image, $email, $action, $submitName);
             }
         } else if ($user_type == "Writer") {
             $get_subscriber = "SELECT * FROM writer WHERE id = $id";
             $geteditor_result = $conn->query($get_subscriber);
             if ($geteditor_result->num_rows > 0) {
                 $row = $geteditor_result->fetch_assoc();
-                echo "<div class='newpost_body2'>
-                            <div class='nav_quicklinks'>
-                                <a href = '../admin_homepage.php'>$translations[home]</a> > <p>$translations[send_message_i] <span>" . $row['email'] . "</span> </p>
-                            </div>
-                            <div class='message_div-container'>
-                                <div class='message_div-container_subdiv'>
-                                     <img src='" . $row['image'] . "' alt='Writers Image'/>
-                                    <div class='message_div-container_subdiv-imagebody'>
-                                        <form id='updateForm' action='../../helpers/forms.php' method='POST'>
-                                            <div class='input_group'>
-                                                <input name='subject' placeholder='$translations[message_title]..' class='input_group_input'/>
-                                                <p><span>* </span>$translations[message_title_i]</p>
-                                            </div>
-                                            <div class='input_group'>
-                                                <label for='content'>$translations[compose]:</label>
-                                                <textarea name='message' id='myTextareaq'></textarea>
-                                            </div>
-                                            <input value='" . $row['id'] . "' style='display:none' name='user_id' type='text'/>
-                                            <input type='submit' name='send_message_writer' value='$translations[send_message]' class='btn send_messagebtn'/>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>";
+                $userType = 'Writer';
+                $id = $row['id'];
+                $image = $row['image'];
+                $email = $row['email'];
+                renderMessageForm($userType, $id, $image, $email, $action, $submitName);
             }
         }
     }

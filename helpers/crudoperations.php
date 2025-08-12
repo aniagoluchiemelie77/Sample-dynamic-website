@@ -207,7 +207,6 @@ if (!function_exists('personalizeMessageAdmin')) {
         return $content;
     }
 }
-
 if (!function_exists('getTimeBasedGreeting')) {
     function getTimeBasedGreeting($name)
     {
@@ -223,5 +222,34 @@ if (!function_exists('getTimeBasedGreeting')) {
             $greeting = "Good night";
         }
         return $name ? "$greeting, $name" : "$greeting";
+    }
+}
+if (!function_exists('removeHyphenUc')) {
+    function removeHyphenUc($string)
+    {
+        $string = str_replace(['-', ' '], ' ', $string);
+        $string = ucwords($string);
+        return $string;
+    }
+}
+if (!function_exists('updateMetatitle')) {
+    function updateMetatitle($meta1, $meta2, $meta3, $meta4, $meta5, $content1, $content2, $content3, $content4, $content5, $page_name, $usertype)
+    {
+        global $conn;
+        $usertype === 'Admin' ? $user = 'Admin' : $user = 'Editor';
+        $stmt = $conn->prepare("UPDATE meta_titles SET meta_name1 = ?, meta_name2 = ?, meta_name3 = ?, meta_name4 = ?, meta_name5 = ?, meta_content1 = ?, meta_content2 = ?, meta_content3 = ?, meta_content4 = ?, meta_content5 = ? WHERE page_name = ?");
+        $stmt->bind_param("sssssssssss", $meta1, $meta2, $meta3, $meta4, $meta5, $content1, $content2, $content3, $content4, $content5, $page_name);
+        if ($stmt->execute()) {
+            $page_name = removeHyphenUc($page_name);
+            $content = "$user " . $_SESSION['firstname'] . " updated Meta titles and contents for $page_name";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Meta Titles and Content Updated Successfully";
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+        }
+        $stmt->close();
     }
 }

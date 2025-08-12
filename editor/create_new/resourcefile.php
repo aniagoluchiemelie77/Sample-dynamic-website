@@ -3,6 +3,7 @@ session_start();
 require("../connect.php");
 require("../init.php");
 require('../../init.php');
+require("../../helpers/components.php");
 $resource_type = isset($_GET['resource_type']) ? $_GET['resource_type'] : null;
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
@@ -33,40 +34,11 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header3.php"); ?>
-    <section class="about_section">
-        <div class="page_links">
-            <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <a href="../edit/frontend_features.php"> <?php echo $translations['front_end_features']; ?> </a> > <p> <?php echo $translations['create_new_resource_file']; ?></p>
-        </div>
-        <form class="formcontainer" id="topicForm" method="post" action="../../helpers/forms.php" enctype="multipart/form-data">
-            <div class="head_paragraph">
-                <h3><?php echo $translations['create_new_resource_file']; ?></h3>
-            </div>
-            <div class="formcontainer_subdiv">
-                <input type="hidden" name="resource_type" id="topicName" value='<?php echo $resource_type; ?>' />
-                <div class="newpost_container_div6 newpost_subdiv">
-                    <label class="form__label" for="File"><?php echo $translations['upload_resource']; ?>:</label>
-                    <div class="newpost_subdiv2">
-                        <input class="form__input" name="File" type="file" />
-                        <p class="newpost_subdiv2-p leftp"><span>*</span><?php echo $translations['message_title_i']; ?></p>
-                    </div>
-                </div>
-                <div class="input_group">
-                    <label for="resource_url"><?php echo $translations['resource_url']; ?>:</label>
-                    <input type="text" name="resource_url" id="topicName" />
-                </div>
-                <div class="input_group">
-                    <label for="resource_niche"><?php echo $translations['resource_niche']; ?>:</label>
-                    <input type="text" name="resource_niche" id="topicName" />
-                </div>
-                <div class="input_group">
-                    <label for="resource_title"><?php echo $translations['resource_title']; ?>:</label>
-                    <input type="text" name="resource_title" id="topicName" />
-                </div>
-            </div>
-            <input class="formcontainer_submit" value="<?php echo $translations['save']; ?>" type="submit" name="create_new_resource_file" />
-        </form>
-    </section>
+    <?php
+    require("../extras/header3.php");
+    $usertype = $_SESSION['user'];
+    renderCreateNewResourceFile($translations, $base_url, $usertype, $resource_type);
+    ?>
     <script src="sweetalert2.all.min.js"></script>
     <script src="../editor.js"></script>
     <script>

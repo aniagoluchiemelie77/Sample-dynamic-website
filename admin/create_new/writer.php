@@ -3,6 +3,7 @@ session_start();
 require("../connect.php");
 require("../init.php");
 require('../../init.php');
+require('../../helpers/components.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -32,38 +33,11 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header3.php"); ?>
-    <section class="about_section">
-        <div class="page_links">
-            <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['users']; ?></p> > <p> <?php echo $translations['create_writer']; ?></p>
-        </div>
-        <form class="formcontainer" id="topicForm" method="post" action="../../helpers/forms.php" enctype="multipart/form-data">
-            <div class="head_paragraph">
-                <h3><?php echo $translations['create_writer']; ?></h3>
-            </div>
-            <div class="formcontainer_subdiv">
-                <div class="input_group">
-                    <label for="writer_firstname"><?php echo $translations['writers_firstname']; ?>:</label>
-                    <input type="text" name="writer_firstname" id="topicName" />
-                </div>
-                <div class="input_group">
-                    <label for="writer_lastname"><?php echo $translations['writers_lastname']; ?>:</label>
-                    <input type="text" name="writer_lastname" id="topicName" />
-                </div>
-                <div class="input_group">
-                    <label for="writer_email"><?php echo $translations['writers_email']; ?>:</label>
-                    <input type="email" name="writer_email" id="topicName" />
-                </div>
-                <div class="newpost_container_div6 newpost_subdiv">
-                    <label class="form__label" for="Img"><?php echo $translations['writers_image']; ?>:</label>
-                    <div class="newpost_subdiv2">
-                        <input class="form__input" name="Img" type="file" />
-                    </div>
-                </div>
-            </div>
-            <input class="formcontainer_submit" value="<?php echo $translations['save']; ?>" type="submit" name="create_writer" />
-        </form>
-    </section>
+    <?php
+    require("../extras/header3.php");
+    $usertype = $_SESSION['user'] ?? 'Admin';
+    renderCreateNewWriter($base_url, $translations, $usertype);
+    ?>
     <script src="../admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>

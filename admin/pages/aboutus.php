@@ -3,6 +3,7 @@ session_start();
 require("../connect.php");
 require("../init.php");
 require('../../init.php');
+require_once('../../helpers/components.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -32,35 +33,14 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header3.php"); ?>
-    <section class="about_section">
-        <div class="page_links">
-            <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['about_us']; ?></p>
-        </div>
-        <div class="about_header">
-            <h1><?php echo $translations['about_us']; ?></h1>
-        </div>
-        <div class="about_contents">
-            <?php
-            $selectpage = "SELECT content FROM about_us ORDER BY id DESC LIMIT 1";
-            $selectpage_result = $conn->query($selectpage);
-            if ($selectpage_result->num_rows > 0) {
-                while ($row = $selectpage_result->fetch_assoc()) {
-                    echo " <span>" . $row['content'] . "</span>";
-            ?>
-        </div>
-        <button class="about_section_btn" id="Edit_about1"><?php echo $translations['edit']; ?>
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-        </button>
-        <form class="about_editdiv" action="../../helpers/forms.php" method="post" id="hidden_aboutdiv1">
-            <textarea class="about_editdiv-input" name="about_website" id="myTextarea6">
-                <?php echo $row['content'];
-                }
-            } ?>
-            </textarea>
-            <input type="submit" value="<?php echo $translations['save']; ?>" name="edit_aboutwebsite_btn" />
-        </form>
-    </section>
+    <?php
+    $table_name = 'about_us';
+    $textarea_name = 'about_website';
+    $textareaId = 'myTextarea';
+    $submitbtn_name = 'edit_aboutwebsite_btn';
+    $usertype = $_SESSION['user'] ?? 'Admin'; // Default to Admin if not set
+    renderPageViewAndEditForm($base_url, $usertype, $translations, $table_name, $textarea_name, $textareaId, $submitbtn_name, $logo);
+    ?>
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="../admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
@@ -92,7 +72,7 @@ if (file_exists($translationFile)) {
             editAction(editAboutBtn, editTextEditor);
         });
         tinymce.init({
-            selector: "#myTextarea6",
+            selector: "#myTextarea",
             resize: true,
             setup: function(editor) {
                 editor.on("init", function() {

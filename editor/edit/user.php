@@ -3,6 +3,7 @@ session_start();
 include("../connect.php");
 require('../../init.php');
 require("../init.php");
+require('../../helpers/components.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -34,112 +35,7 @@ if (file_exists($translationFile)) {
 
 <body>
     <?php
-    require("../extras/header3.php");
-    if ($usertype == "Writer") {
-        $getuser_sql = "SELECT * FROM writer WHERE id = $id";
-        $getuser_result = $conn->query($getuser_sql);
-        if ($getuser_result->num_rows > 0) {
-            $user = $getuser_result->fetch_assoc();
-            $firstname = $user['firstname'];
-            $lastname = $user['lastname'];
-            $image = $user['image'];
-            $bio = $user['bio'];
-            $email = $user['email'];
-            echo "<div class='editprofile_container'>
-                        <form class='create_editor_container' action='../../helpers/forms.php' method='post' enctype='multipart/form-data'>
-                            <div class='createeditor_inputgroup'>
-                                <h1 class='bigheader'>$translations[edit_user] (Writer) </h1>
-                            </div>
-                            <div class='newpost_container_div6 newpost_subdiv'>
-                                <div class='newpost_container_div6_subdiv1'>
-                                    <img src='$image' alt='Post Image'/>
-                                </div>
-                                <div class='newpost_container_div6_subdiv2'>
-                                    <label class='form__label' for='Img'>$translations[edit_user_image]: </label>
-                                    <div class='newpost_subdiv2'>
-                                        <input class='form__input' name='Img' type='file'/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin' for='profile_firstname'>$translations[firstname]:</label>
-                                <input class='createeditor_input' type='text' name='profile_firstname' value='$firstname'/>
-                            </div>
-                            <input class='createeditor_input' type='hidden' name='profile-id' value='$id'/>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin' for='profile_lastname'>$translations[lastname]:</label>
-                                <input class='createeditor_input' type='text' name='profile_lastname' value='$lastname'/>
-                            </div>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin' for='profile_email'>$translations[email]:</label>
-                                <input class='createeditor_input' type='email' name='profile_email' value='$email'/>
-                            </div>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin nooutline' for='profile_bio'>$translations[bio]:</label>
-                                <textarea name='profile_bio' class='textarea' id='myTextarea5'>$bio</textarea>
-                            </div>
-                            <input class='createeditor_input-submit' value='$translations[save]' name='edit_profile_writer' type='submit'/>
-                        </form>
-                    </div>";
-        }
-    } else if ($usertype == "Other_user") {
-        $getuser_sql = "SELECT * FROM otherwebsite_users WHERE id = $id";
-        $getuser_result = $conn->query($getuser_sql);
-        if ($getuser_result->num_rows > 0) {
-            $user = $getuser_result->fetch_assoc();
-            $firstname = $user['firstname'];
-            $lastname = $user['lastname'];
-            $image = $user['image'];
-            $bio = $user['bio'];
-            $role = $user['role'];
-            $email = $user['email'];
-            $linkedin_url = $user['linkedin_url'];
-            echo "<div class='editprofile_container'>
-                        <form class='create_editor_container' action='../../helpers/forms.php' method='post' enctype='multipart/form-data'>
-                            <div class='createeditor_inputgroup'>
-                                <h1 class='bigheader'>$translations[edit_user] </h1>
-                            </div>
-                            <div class='newpost_container_div6 newpost_subdiv'>
-                                <div class='newpost_container_div6_subdiv1'>
-                                    <img src='$image' alt='Post Image'/>
-                                </div>
-                                <div class='newpost_container_div6_subdiv2'>
-                                    <label class='form__label' for='Img'>$translations[edit_user_image]: </label>
-                                    <div class='newpost_subdiv2'>
-                                        <input class='form__input' name='Img' type='file'/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin' for='profile_firstname'>$translations[firstname]:</label>
-                                <input class='createeditor_input' type='text' name='profile_firstname' value='$firstname'/>
-                            </div>
-                            <input class='createeditor_input' type='hidden' name='profile-id' value='$id'/>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin' for='profile_lastname'>$translations[lastname]:</label>
-                                <input class='createeditor_input' type='text' name='profile_lastname' value='$lastname'/>
-                            </div>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin' for='profile_email'>$translations[email]:</label>
-                                <input class='createeditor_input' type='email' name='profile_email' value='$email'/>
-                            </div>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin nooutline' for='profile_bio'>$translations[bio]:</label>
-                                <textarea name='profile_bio' class='textarea' id='myTextarea5'>$bio</textarea>
-                            </div>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin' for='profile_role'>$translations[role]:</label>
-                                <input class='createeditor_input' type='text' name='profile_role' value='$role'/>
-                            </div>
-                            <div class='createeditor_inputgroup'>
-                                <label class='createeditor_label rightmargin' for='profile_url'>$translations[users_linkedin_url]:</label>
-                                <input class='createeditor_input' type='text' name='profile_url' value='$linkedin_url'/>
-                            </div>
-                            <input class='createeditor_input-submit' value='$translations[save]' name='edit_profile_otheruser' type='submit'/>
-                        </form>
-                    </div>";
-        }
-    }
+        renderEditUserProfileForm($usertype, $id, $translations, $logo);
     ?>
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="../editor.js"></script>

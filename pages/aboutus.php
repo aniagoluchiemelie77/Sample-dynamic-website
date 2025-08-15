@@ -2,6 +2,7 @@
 session_start();
 require("../connect.php");
 require('../init.php');
+require("../helpers/components.php");
 $page_name = "about-website";
 $details = getFaviconAndLogo();
 $details2 = cookieMessageAndVision();
@@ -39,38 +40,13 @@ $website_description = $details2['website_vision'];
 </head>
 
 <body>
-    <?php require("../includes/header2b.php"); ?>
-    <div class="body_container">
-        <div class="body_right">
-            <div class="sidebar_divs_container">
-                <div class="webinfo">
-                    <h1>Uniquecontentwriter</h1>
-                    <img src="<?php echo $logo; ?>" alt="Blog's Coverphoto" />
-                    <p><?php echo $website_description; ?></p>
-                </div>
-            </div>
-
-        </div>
-        <div class="body_left border-gradient-leftside--lightdark">
-            <div class="page_links">
-                <a href="../">Home</a> > <p>About Us</p>
-            </div>
-            <h3 class="bodyleft_main">About Us</h3>
-            <div class="sidebar_divs_container thickdiv">
-                <?php
-                $selectpage = "SELECT content FROM about_us ORDER BY id DESC LIMIT 1";
-                $selectpage_result = $conn->query($selectpage);
-                if ($selectpage_result->num_rows > 0) {
-                    while ($row = $selectpage_result->fetch_assoc()) {
-                        $content = $row['content'];
-                        echo " <p>$content</p>";
-                    }
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-    <?php include("../includes/footer2.php"); ?>
+    <?php
+    require("../includes/header2b.php");
+    $page_title = "About Us";
+    $table_name = "about_us";
+    renderPageFrontend($logo, $website_description, $page_title, $table_name);
+    include("../includes/footer2.php");
+    ?>
     <script>
         const sidebar = document.getElementById('sidebar');
         const menubtn = document.getElementById('searchicon');

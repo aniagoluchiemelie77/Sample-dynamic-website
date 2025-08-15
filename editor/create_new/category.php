@@ -2,6 +2,7 @@
 session_start();
 require("../connect.php");
 require('../../init.php');
+require('../../helpers/components.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];

@@ -3,6 +3,7 @@ session_start();
 include("../connect.php");
 require("../init.php");
 require('../../init.php');
+require_once('../../helpers/components.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -19,7 +20,7 @@ if (isset($_POST['change_pwd'])) {
     $password2 = $_POST['password2'];
     $password3 = $_POST['password3'];
     $email = $_SESSION['email'];
-    if (empty($password1) || empty($password2) || empty($password3)) {
+    if (empty($password1) && empty($password2) && empty($password3)) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "All fields are required.";
         exit();
@@ -82,38 +83,10 @@ if (isset($_POST['change_pwd'])) {
 </head>
 
 <body>
-    <?php require("../extras/header3.php"); ?>
-    <section class="newpost_body">
-        <form class="newpost_container" method="post" action="changepassword.php" enctype="multipart/form-data" id="postForm">
-            <div class="page_links">
-                <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['change_password']; ?></p>
-            </div>
-            <div class="newpost_container_div1 newpost_subdiv">
-                <h1><?php echo $translations['change_password']; ?></h1>
-            </div>
-            <div class="newpost_container_div3 newpost_subdiv">
-                <label class="form__label" for="password1"><i class="fas fa-lock"></i></label>
-                <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password1" type="password" placeholder="<?php echo $translations['change_password1']; ?>..." />
-                </div>
-            </div>
-            <div class="newpost_container_div3 newpost_subdiv">
-                <label class="form__label" for="password2"><i class="fas fa-lock"></i></label>
-                <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password2" type="password" placeholder="<?php echo $translations['change_password2']; ?>..." />
-                </div>
-            </div>
-            <div class="newpost_container_div3 newpost_subdiv">
-                <label class="form__label" for="password3"><i class="fas fa-lock"></i></label>
-                <div class="newpost_container_div3_subdiv2">
-                    <input class="form__input" name="password3" type="password" placeholder="<?php echo $translations['change_password3']; ?>..." />
-                </div>
-            </div>
-            <div class="newpost_container_div9 newpost_subdiv">
-                <input class="form__submit_input" type="submit" value="<?php echo $translations['save']; ?>" name="change_pwd" />
-            </div>
-        </form>
-    </section>
+    <?php
+    $usertype = $_SESSION['user'] ?? 'Admin';
+    renderChangePasswordForm($editor_base_url, $usertype);
+    ?>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="../editor.js"></script>
     <script src="sweetalert2.all.min.js"></script>

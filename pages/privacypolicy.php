@@ -2,6 +2,7 @@
 session_start();
 require("../connect.php");
 require('../init.php');
+require("../helpers/components.php");
 $page_name = "privacy-policy";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
@@ -40,37 +41,13 @@ $website_vision = $website_messages['website_vision'];
 </head>
 
 <body>
-    <?php require("../includes/header2b.php"); ?>
-    <div class="body_container">
-        <div class="body_right">
-            <div class="sidebar_divs_container">
-                <div class="webinfo">
-                    <h1>Uniquecontentwriter</h1>
-                    <img src="<?php echo $logo; ?>" alt="Blog Logo" />
-                    <p><?php echo $website_vision; ?></p>
-                </div>
-            </div>
-        </div>
-        <div class="body_left border-gradient-leftside--lightdark">
-            <div class="page_links">
-                <a href="../">Home</a> > <p>Privacy Policy</p>
-            </div>
-            <h3 class="bodyleft_main">Our Privacy Policy</h3>
-            <div class="sidebar_divs_container thickdiv">
-                <?php
-                $selectpage = "SELECT content FROM privacy_policy ORDER BY id DESC LIMIT 1";
-                $selectpage_result = $conn->query($selectpage);
-                if ($selectpage_result->num_rows > 0) {
-                    while ($row = $selectpage_result->fetch_assoc()) {
-                        $content = $row['content'];
-                        echo " <p>$content</p>";
-                    }
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-    <?php include("../includes/footer2.php"); ?>
+    <?php
+    require("../includes/header2b.php");
+    $page_title = "Privacy Policy";
+    $table_name = "privacy_policy";
+    renderPageFrontend($logo, $website_description, $page_title, $table_name);
+    include("../includes/footer2.php");
+    ?>
     <script>
         const sidebar = document.getElementById('sidebar');
         const menubtn = document.getElementById('searchicon');

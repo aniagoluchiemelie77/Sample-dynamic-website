@@ -73,6 +73,14 @@ if (!function_exists('convertToUnreadable2')) {
         return $string;
     }
 }
+if (!function_exists('convertToUnreadable3')) {
+    function convertToUnreadable3($slug)
+    {
+        $string = strtolower($slug);
+        $string = str_replace(' ', '-', $string);
+        return $string;
+    }
+}
 if (!function_exists('removeHyphen')) {
     function removeHyphen($string)
     {

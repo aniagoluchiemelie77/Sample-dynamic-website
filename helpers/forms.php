@@ -223,12 +223,13 @@ function addPage($page_name)
     $formattedPageName = strtolower(str_replace(' ', '-', $page_name));
     $formattedPageName2 = strtolower(str_replace(' ', '_', $page_name));
     $filename = lowercaseNoSpace($page_name) . '.php';
-    $uc_page_name = ucwords($page_name);
+    $uc_page_name = ucfirst($page_name);
     $fileContent = <<<PHP
         <?php
             session_start();
             require("../connect.php");
             require('../init.php');
+            require("../helpers/components.php");
             \$page_name = "$formattedPageName";
             \$details = getFaviconAndLogo();
             \$details2 = cookieMessageAndVision();
@@ -263,7 +264,6 @@ function addPage($page_name)
                     <title>$uc_page_name</title>
                 </head>
                 <body>
-                    <?php require("../includes/header2b.php"); ?>
                     <div class="body_container">
                         <div class="body_right">
                             <div class="sidebar_divs_container">
@@ -293,7 +293,13 @@ function addPage($page_name)
                             </div>
                         </div>
                     </div>
-                    <?php include("../includes/footer2.php"); ?>
+                    <?php
+                        require("../includes/header2b.php");
+                        \$page_title = $uc_page_name;
+                        \$table_name = $formattedPageName2;
+                        renderPageFrontend(\$logo, \$website_description, \$page_title, \$table_name);
+                        include("../includes/footer2.php");
+                    ?>
                     <script>
                         const sidebar = document.getElementById('sidebar');
                         const menubtn = document.getElementById('searchicon');
@@ -325,6 +331,7 @@ function addPage($page_name)
             require("../connect.php");
             require("../init.php");
             require("../../init.php");
+            require_once('../../helpers/components.php');
             \$details = getFaviconAndLogo();
             \$logo = \$details['logo'];
             \$favicon = \$details['favicon'];
@@ -384,34 +391,14 @@ function addPage($page_name)
                 <title>$uc_page_name</title>
             </head>
             <body>
-                <?php require("../extras/header2.php"); ?>
-                <section class="about_section">
-                    <div class="page_links">
-                        <a href="../admin_homepage.php"><?php echo \$translations['home']; ?></a> > <p><?php echo \$translations['pages']; ?></p> > <p>$uc_page_name</p>
-                    </div>
-                    <div class="about_header">
-                        <h1>$uc_page_name</h1>
-                    </div>
-                    <div class="about_contents">
-                        <?php
-                            \$selectpage = "SELECT content FROM $formattedPageName2 ORDER BY id DESC LIMIT 1";
-                            \$selectpage_result = \$conn->query(\$selectpage);
-                            if (\$selectpage_result->num_rows > 0) {
-                                while (\$row = \$selectpage_result->fetch_assoc()) {
-                                    \$content = \$row['content'];
-                                    echo "<span>\$content</span>";
-                        ?>
-                    </div>
-                    <button class="about_section_btn" id="Edit_about1"><?php echo \$translations['edit']; ?>
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </button>
-                    <form class="about_editdiv" action="" method="post" id="hidden_aboutdiv1">
-                        <textarea class="about_editdiv-input" name="$formattedPageName" id="myTextarea6">
-                            <?php echo \$content; }} ?>
-                        </textarea>
-                        <input type="submit" value="<?php echo \$translations['save']; ?>" name="edit_aboutwebsite_btn" />
-                    </form>
-                </section>
+                <?php
+                    \$table_name = $formattedPageName2;
+                    \$textarea_name = $formattedPageName;
+                    \$textareaId = 'myTextarea';
+                    \$submitbtn_name = 'edit_aboutwebsite_btn';
+                    \$usertype = \$_SESSION['user'] ?? 'Admin'; // Default to Admin if not set
+                    renderPageViewAndEditForm(\$base_url, \$usertype, \$translations, \$table_name, \$textarea_name, \$textareaId, \$submitbtn_name, \$logo);
+                ?>
                 <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
                 <script src="../admin.js"></script>
                 <script>
@@ -440,7 +427,7 @@ function addPage($page_name)
                     const editTextEditor = document.getElementById("hidden_aboutdiv1");
                     editAction(editAboutBtn, editTextEditor);
                     tinymce.init({
-                        selector: "#myTextarea6",
+                        selector: "#myTextarea",
                         resize: true,
                         setup: function(editor) {
                             editor.on("init", function() {
@@ -495,8 +482,54 @@ function addPage($page_name)
             </body>
         </html>
     PHP;
+    $fileContent3 = <<<PHP
+       <?php
+            session_start();
+            require("../connect.php");
+            require("../init.php");
+            require('../../init.php');
+            require_once('../../helpers/components.php');
+            \$details = getFaviconAndLogo();
+            \$logo = \$details['logo'];
+            \$favicon = \$details['favicon'];
+            \$translationFile = "../../translation_files/lang/{\$language}.php";
+            if (file_exists(\$translationFile)) {
+                include \$translationFile;
+            } else {
+                \$translations = [];
+            }
+        ?>
+        <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                    <link rel="stylesheet" href="../editor.css" />
+                    <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+                    <link rel="icon" href="../../<?php echo \$favicon; ?>" type="image/x-icon">
+                    <title>$uc_page_name</title>
+                </head>
+                <body>
+                    <?php
+                        \$table_name = $formattedPageName2;
+                        \$textarea_name = $formattedPageName;
+                        \$textareaId = null;
+                        \$submitbtn_name = null;
+                        \$usertype = \$_SESSION['user'] ?? 'Editor'; // Default to Admin if not set
+                        renderPageViewAndEditForm(\$editor_base_url, \$usertype, \$translations, \$table_name, \$textarea_name, \$textareaId, \$submitbtn_name, \$logo);
+                    ?>
+                    <script src="../editor.js"></script>
+                </body>
+            </html>
+    PHP;
     $filePath = '../pages/' . $filename;
-    $filePath2 = 'pages/' . $filename;
+    $filePath2 = '../admin/pages/' . $filename;
+    $filePath3 = '../editor/pages/' . $filename;
     $sql = "CREATE TABLE IF NOT EXISTS $formattedPageName2 (id INT AUTO_INCREMENT PRIMARY KEY, content TEXT NOT NULL, date DATE NOT NULL, time TIME NOT NULL)";
     if ($conn->query($sql) === TRUE) {
         $sqlPages = "INSERT INTO pages (page_name, Date, time) VALUES (?,?,?)";
@@ -509,25 +542,32 @@ function addPage($page_name)
                     if ($query->execute()) {
                         if (file_put_contents($filePath, $fileContent)) {
                             if (file_put_contents($filePath2, $fileContent2)) {
-                                $createTranslationInstance = updateTranslations($uc_page_name);
-                                if (!empty($createTranslationInstance)) {
-                                    $_SESSION['status_type'] = $createTranslationInstance[0]['status_type'];
-                                    $_SESSION['status'] = $createTranslationInstance[0]['status'];
+                                if (file_put_contents($filePath3, $fileContent3)) {
+                                    $createTranslationInstance = updateTranslations($uc_page_name);
+                                    if (!empty($createTranslationInstance)) {
+                                        $_SESSION['status_type'] = $createTranslationInstance[0]['status_type'];
+                                        $_SESSION['status'] = $createTranslationInstance[0]['status'];
+                                    }
+                                    $content = "Admin " . $_SESSION['firstname'] . " created a new page type";
+                                    $forUser = 0;
+                                    logUpdate($conn, $forUser, $content);
+                                    header('location: ' . $admin_base_url . 'admin_homepage.php');
+                                    exit();
+                                } else {
+                                    $_SESSION['status_type'] = "Error";
+                                    $_SESSION['status'] = "Error, Could not create page in editor folder";
+                                    header('location: ' . $admin_base_url . 'admin_homepage.php');
+                                    exit();
                                 }
-                                $content = "Admin " . $_SESSION['firstname'] . " created a new page type";
-                                $forUser = 0;
-                                logUpdate($conn, $forUser, $content);
-                                header('location: ' . $admin_base_url . 'admin_homepage.php');
-                                exit();
                             } else {
                                 $_SESSION['status_type'] = "Error";
-                                $_SESSION['status'] = "Error, Please retry";
+                                $_SESSION['status'] = "Error, Could not create page in admin folder";
                                 header('location: ' . $admin_base_url . 'admin_homepage.php');
                                 exit();
                             }
                         } else {
                             $_SESSION['status_type'] = "Error";
-                            $_SESSION['status'] = "Error, Could not create file";
+                            $_SESSION['status'] = "Error, Could not create file at root pages folder";
                             header('location: ' . $admin_base_url . 'admin_homepage.php');
                             exit();
                         }

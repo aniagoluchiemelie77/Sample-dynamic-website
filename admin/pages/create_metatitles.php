@@ -3,23 +3,7 @@ session_start();
 include("../connect.php");
 require("../init.php");
 require('../../init.php');
-function convertToReadable($slug)
-{
-    $string = str_replace('-', ' ', $slug);
-    $string = ucwords($string);
-    return $string;
-}
-function convertToUnreadable($slug)
-{
-    $string = strtolower($slug);
-    $string = str_replace(' ', '-', $string);
-    return $string;
-}
-function removeHyphen($string)
-{
-    $string = str_replace(['-', ' '], '', $string);
-    return $string;
-}
+require('../../helpers/components.php');
 $details = getFaviconAndLogo();
 $translationFile = "../../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
@@ -52,39 +36,10 @@ $userId = $_SESSION['id'];
 </head>
 
 <body>
-    <?php require("../extras/header3.php"); ?>
-
-    <section class="newpost_body">
-        <form method="POST" action=" " enctype="multipart/form-data" id="postForm" class="newpost_container">
-            <div class="page_links">
-                <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['settings']; ?></p> > <p><?php echo $translations['meta_titles_management']; ?></p>
-            </div>
-            <div class="newpost_container_divnew newpost_subdiv">
-                <h1 class="sectioneer_form_header"><?php echo $translations['meta_titles_management_title']; ?></h1>
-            </div>
-            <div class="frontend_div sectioneer_div">
-                <?php
-                $getpage_sql = " SELECT id, page_name FROM meta_titles ORDER BY id";
-                $getpage_result = $conn->query($getpage_sql);
-                if ($getpage_result->num_rows > 0) {
-                    echo "<div class='sectioneer_div_subdiv'>";
-                    while ($row = $getpage_result->fetch_assoc()) {
-                        $page_name = $row['page_name'];
-                        $page_id = $row['id'];
-                        $readableString = convertToReadable($page_name);
-                        echo "<div class='metadiv'>
-                                        <p>$readableString</p>
-                                        <a class='viewMeta' data-id='$page_id'>
-                                            <i class='fa fa-eye' aria-hidden='true'></i>
-                                        </a>
-                                    </div>";
-                    }
-                    echo "</div>";
-                }
-                ?>
-            </div>
-        </form>
-    </section>
+    <?php
+    $usertype = $_SESSION['user'] ?? 'Admin';
+    renderMetaTitlesManagementForm($base_url, $usertype);
+    ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>

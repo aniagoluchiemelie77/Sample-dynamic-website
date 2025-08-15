@@ -817,4 +817,567 @@ function renderEditFrontendFeaturespage($translations, $base_url, $usertype, $lo
     }
     echo '</section>';
 }
-?>
+function renderEditResourcefileForm($translations, $resource_name_uc, $resource_name, $id, $logo)
+{
+    global $conn;
+    require("../extras/header3.php");
+    $get_resource_file = "SELECT * FROM $resource_name WHERE id = $id";
+    $get_resource_result = $conn->query($get_resource_file);
+    if ($get_resource_result->num_rows > 0) {
+        $resource_file = $get_resource_result->fetch_assoc();
+        $name = $resource_file['name'];
+        $resource_path = $resource_file['resource_path'];
+        $date_added = $resource_file['date_added'];
+        $date_added = formatDate($date_added);
+        $time_added = $resource_file['time_added'];
+        $time_added = formatTime($time_added);
+        $niche = $resource_file['niche'];
+        $title  = $resource_file['title'];
+        echo    "<div class='editprofile_container'>
+                    <form class='create_editor_container' action='../../helpers/forms.php' method='post' enctype='multipart/form-data'>
+                        <div class='createeditor_inputgroup'>
+                            <h1 class='bigheader'>" . $translations['edit_resource_file'] . " (" . $resource_name_uc . ") </h1>
+                        </div>
+                        <div class='newpost_container_div6 newpost_subdiv'>
+                            <div class='newpost_container_div6_subdiv2'>
+                                <label class='form__label' for='File'>" . $translations['edit_resource_path'] . ": </label>
+                                <div class='newpost_subdiv2'>
+                                    <input class='form__input' name='File' type='file'/>
+                                </div>
+                            </div>
+                        </div>
+                        <input name='resource_type' type='hidden' value='" . $resource_name . "'/>
+                        <input name='resource_type_id' type='hidden' value='" . $id . "'/>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='resource_path'>" . $translations['resource_path'] . ":</label>
+                            <input class='createeditor_input' type='text' name='resource_path' value='" . $resource_path . "'/>
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='resource_title'>" . $translations['title'] . ":</label>
+                            <input class='createeditor_input' type='text' name='resource_title' value='" . $title . "'/>
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='resource_niche'>" . $translations['niche'] . ":</label>
+                            <input class='createeditor_input' type='text' name='resource_niche' value='" . $niche . "'/>
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='resource_name'>" . $translations['resource_name'] . ":</label>
+                            <input class='createeditor_input' type='text' name='resource_name' value='" . $name . "'/>
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <p>
+                                <span>" . $translations['date_added'] . ":</span>" . $date_added . "
+                            </p>
+                            <p>
+                                <span>" . $translations['time_added'] . ":</span>" . $time_added . "
+                            </p>
+                        </div>
+                        <input class='createeditor_input-submit' value='" . $translations['save'] . "' name='edit_resource_file' type='submit'/>
+                    </form>
+                </div>";
+    }
+}
+function renderEditUserProfileForm($usertype, $id, $translations, $logo)
+{
+    global $conn;
+    require("../extras/header3.php");
+    if ($usertype == "Editor") {
+        $getuser_sql = "SELECT * FROM editor WHERE id = $id";
+        $getuser_result = $conn->query($getuser_sql);
+        if ($getuser_result->num_rows > 0) {
+            $user = $getuser_result->fetch_assoc();
+            $firstname = $user['firstname'];
+            $username = $user['username'];
+            $lastname = $user['lastname'];
+            $image = $user['image'];
+            $bio = $user['bio'];
+            $email = $user['email'];
+            $country = $user['country'];
+            $mobile = $user['mobile'];
+            $state = $user['state'];
+            $city = $user['city'];
+            $address1 = $user['address1'];
+            $address2 = $user['address2'];
+            $country_code = $user['country_code'];
+            echo "<div class='editprofile_container'>
+                <form class='create_editor_container' action='../../helpers/forms.php' method='post' enctype='multipart/form-data'>
+                    <div class='createeditor_inputgroup'>
+                        <h1 class='bigheader'>" . $translations['edit_user'] . " (Editor) </h1>
+                    </div>
+                    <div class='newpost_container_div6 newpost_subdiv'>
+                        <div class='newpost_container_div6_subdiv1'>
+                            <img src='" . $image . "' alt='Post Image' />
+                        </div>
+                        <div class='newpost_container_div6_subdiv2'>
+                            <label class='form__label' for='Img'>" . $translations['edit_user_image'] . ": </label>
+                            <div class='newpost_subdiv2'>
+                                <input class='form__input' name='Img' type='file' />
+                            </div>
+                        </div>
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile_firstname'>" . $translations['firstname'] . ":</label>
+                        <input class='createeditor_input' type='text' name='profile_firstname' value='" . $firstname . "' />
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile_lastname'>" . $translations['lastname'] . ":</label>
+                        <input class='createeditor_input' type='text' name='profile_lastname' value='" . $lastname . "' />
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile_username'>" . $translations['username'] . ":</label>
+                        <input class='createeditor_input' type='text' name='profile_username' value='" . $username . "' />
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile_email'>" . $translations['email'] . ":</label>
+                        <input class='createeditor_input' type='email' name='profile_email' value='" . $email . "' />
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin nooutline' for='profile_bio'>" . $translations['bio'] . ":</label>
+                        <textarea name='profile_bio' class='textarea' id='myTextarea5'>" . $bio . "</textarea>
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile-address1'>" . $translations['address1'] . ":</label>
+                        <input class='createeditor_input' type='text' name='profile-address1' value='" . $address1 . "' />
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile-address2'>" . $translations['address2'] . ":</label>
+                        <input class='createeditor_input' type='text' name='profile-address2' value='" . $address2 . "' />
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile-city'>" . $translations['city'] . ":</label>
+                        <input class='createeditor_input' type='text' name='profile-city' value='" . $city . "' />
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile-state'>" . $translations['state'] . ":</label>
+                        <input class='createeditor_input' type='text' name='profile-state' value='" . $state . "' />
+                    </div>
+                    <input class='createeditor_input' type='hidden' name='profile-id' value='" . $id . "' />
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile-country'>" . $translations['country'] . ":</label>
+                        <input class='createeditor_input' type='text' name='profile-country' value='" . $country . "' />
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile-countrycode'>" . $translations['country_code'] . ":</label>
+                        <input class='createeditor_input' type='text' name='profile-countrycode' value='" . $country_code . "' />
+                    </div>
+                    <div class='createeditor_inputgroup'>
+                        <label class='createeditor_label rightmargin' for='profile-mobile'>" . $translations['mobile'] . ":</label>
+                        <input class='createeditor_input' type='number' name='profile-mobile' value='" . $mobile . "' />
+                    </div>
+                    <input class='createeditor_input-submit' value='" . $translations['save'] . "' name='edit_profile_editor' type='submit' />
+                </form>
+            </div>";
+        }
+    } else if ($usertype == "Writer") {
+        $getuser_sql = "SELECT * FROM writer WHERE id = $id";
+        $getuser_result = $conn->query($getuser_sql);
+        if ($getuser_result->num_rows > 0) {
+            $user = $getuser_result->fetch_assoc();
+            $firstname = $user['firstname'];
+            $lastname = $user['lastname'];
+            $image = $user['image'];
+            $bio = $user['bio'];
+            $email = $user['email'];
+            echo "<div class='editprofile_container'>
+                    <form class='create_editor_container' action='../../helpers/forms.php' method='post' enctype='multipart/form-data'>
+                        <div class='createeditor_inputgroup'>
+                            <h1 class='bigheader'>" . $translations['edit_user'] . " (Writer) </h1>
+                        </div>
+                        <div class='newpost_container_div6 newpost_subdiv'>
+                            <div class='newpost_container_div6_subdiv1'>
+                                <img src='" . $image . "' alt='Post Image' />
+                            </div>
+                            <div class='newpost_container_div6_subdiv2'>
+                                <label class='form__label' for='Img'>" . $translations['edit_user_image'] . ": </label>
+                                <div class='newpost_subdiv2'>
+                                    <input class='form__input' name='Img' type='file' />
+                                </div>
+                            </div>
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='profile_firstname'>" . $translations['firstname'] . ":</label>
+                            <input class='createeditor_input' type='text' name='profile_firstname' value='" . $firstname . "' />
+                        </div>
+                        <input class='createeditor_input' type='hidden' name='profile-id' value='" . $id . "' />
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='profile_lastname'>" . $translations['lastname'] . ":</label>
+                            <input class='createeditor_input' type='text' name='profile_lastname' value='" . $lastname . "' />
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='profile_email'>" . $translations['email'] . ":</label>
+                            <input class='createeditor_input' type='email' name='profile_email' value='" . $email . "' />
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin nooutline' for='profile_bio '>" . $translations['bio'] . ":</label>
+                            <textarea name='profile_bio' class='textarea' id='myTextarea5'>" . $bio . "</textarea>
+                        </div>
+                        <input class='createeditor_input-submit' value='" . $translations['save'] . "' name='edit_profile_writer' type='submit' />
+                    </form>
+                </div>";
+        }
+    } else if ($usertype == "Other_user") {
+        $getuser_sql = "SELECT * FROM otherwebsite_users WHERE id = $id";
+        $getuser_result = $conn->query($getuser_sql);
+        if ($getuser_result->num_rows > 0) {
+            $user = $getuser_result->fetch_assoc();
+            $firstname = $user['firstname'];
+            $lastname = $user['lastname'];
+            $image = $user['image'];
+            $bio = $user['bio'];
+            $role = $user['role'];
+            $email = $user['email'];
+            $linkedin_url = $user['linkedin_url'];
+            echo "<div class='editprofile_container'>
+                    <form class='create_editor_container' action='../../helpers/forms.php' method='post' enctype='multipart/form-data'>
+                        <div class='createeditor_inputgroup'>
+                            <h1 class='bigheader'>" . $translations['edit_user'] . " </h1>
+                        </div>
+                        <div class='newpost_container_div6 newpost_subdiv'>
+                            <div class='newpost_container_div6_subdiv1'>
+                                <img src='" . $image . "' alt='Post Image' />
+                            </div>
+                            <div class='newpost_container_div6_subdiv2'>
+                                <label class='form__label' for='Img'>" . $translations['edit_user_image'] . ": </label>
+                                <div class='newpost_subdiv2'>
+                                    <input class='form__input' name='Img' type='file' />
+                                </div>
+                            </div>
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='profile_firstname'>" . $translations['firstname'] . ":</label>
+                            <input class='createeditor_input' type='text' name='profile_firstname' value='" . $firstname . "' />
+                        </div>
+                        <input class='createeditor_input' type='hidden' name='profile-id' value='" . $id . "' />
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='profile_lastname'>" . $translations['lastname'] . ":</label>
+                            <input class='createeditor_input' type='text' name='profile_lastname' value='" . $lastname . "' />
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='profile_email'>" . $translations['email'] . ":</label>
+                            <input class='createeditor_input' type='email' name='profile_email' value='" . $email . "' />
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin nooutline' for='profile_bio'>" . $translations['bio'] . ":</label>
+                            <textarea name='profile_bio' class='textarea' id='myTextarea5'>" . $bio . "</textarea>
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='profile_role'>" . $translations['role'] . ":</label>
+                            <input class='createeditor_input' type='text' name='profile_role' value='" . $role . "' />
+                        </div>
+                        <div class='createeditor_inputgroup'>
+                            <label class='createeditor_label rightmargin' for='profile_url'>" . $translations['users_linkedin_url'] . ":</label>
+                            <input class='createeditor_input' type='text' name='profile_url' value='" . $linkedin_url . "' />
+                        </div>
+                        <input class='createeditor_input-submit' value='" . $translations['save'] . "' name='edit_profile_otheruser' type='submit' />
+                    </form>
+                </div>";
+        }
+    }
+}
+function renderPageViewAndEditForm($base_url, $usertype, $translations, $table_name, $textarea_name, $textareaId, $submitbtn_name, $logo)
+{
+    global $conn;
+    require("../extras/header3.php");
+    if ($usertype === 'Admin') {
+        echo    "<section class='about_section'>
+                    <div class='page_links'>
+                        <a href='" . $base_url . "admin_homepage.php'>" . $translations['home'] . "</a> > <p>" . $translations['pages'] . "</p> > <p>" . $translations[$table_name] . "</p>
+                    </div>
+                    <div class='about_header'>
+                        <h1>" . $translations[$table_name] . "</h1>
+                    </div>
+                    <div class='about_contents'>";
+        $selectpage = "SELECT content FROM $table_name ORDER BY id DESC LIMIT 1";
+        $selectpage_result = $conn->query($selectpage);
+        if ($selectpage_result->num_rows > 0) {
+            while ($row = $selectpage_result->fetch_assoc()) {
+                echo " <span>" . $row['content'] . "</span>
+                    </div>
+                    <button class='about_section_btn' id='Edit_about1'>" . $translations['edit'] . "
+                        <i class='fa fa-pencil' aria-hidden='true'></i>
+                    </button>
+                    <form class='about_editdiv' action='../../helpers/forms.php' method='post' id='hidden_aboutdiv1'>
+                        <textarea class='about_editdiv-input' name='" . $textarea_name . "' id='" . $textareaId . "'>" . $row['content'] . "</textarea>
+                        <input type='submit' value='" . $translations['save'] . "' name='" . $submitbtn_name . "' />
+                    </form>";
+            }
+        }
+        echo "</section>";
+    } else if ($usertype === 'Editor') {
+        echo    "<section class='about_section'>
+                    <div class='page_links'>
+                        <a href='" . $base_url . "editor_homepage.php'>" . $translations['home'] . "</a> > <p>" . $translations['pages'] . "</p> > <p>" . $translations[$table_name] . "</p>
+                    </div>
+                    <div class='about_header'>
+                        <h1>" . $translations[$table_name] . "</h1>
+                    </div>
+                    <div class='about_contents'>";
+        $selectpage = "SELECT content FROM about_us ORDER BY id DESC LIMIT 1";
+        $selectpage_result = $conn->query($selectpage);
+        if ($selectpage_result->num_rows > 0) {
+            while ($row = $selectpage_result->fetch_assoc()) {
+                echo " <span>" . $row['content'] . "</span>";
+            }
+        }
+        echo "      </div>
+                </section>";
+    }
+}
+function renderCatergoriesSearchAndDisplayQuery($query)
+{
+    global $conn, $translations;
+    $output = '';
+    $query = trim($query);
+    if ($query !== "") {
+        $stmt = $conn->prepare("SELECT * FROM topics WHERE name LIKE ? ORDER BY id DESC LIMIT 5");
+        $searchTerm = "%" . $query . "%";
+        $stmt->bind_param("s", $searchTerm);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $output .= "<h1>You Searched For: $query <h1>";
+                while ($row = $result->fetch_assoc()) {
+                    $time = $row['time'];
+                    $date = $row['Date'];
+                    $name = $row['name'];
+                    $name = htmlspecialchars($name, ENT_QUOTES);
+                    $id = $row['id'];
+                    $img = $row['image_path'];
+                    $dateTime = new DateTime($date);
+                    $day = $dateTime->format('j');
+                    $month = $dateTime->format('M');
+                    $year = $dateTime->format('Y');
+                    $ordinalSuffix = getOrdinalSuffix($day);
+                    $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                    $formatted_time = date("g:i A", strtotime($time));
+                    $cleanString = removeHyphen2($name);
+                    $readableString = convertToReadable($name);
+                    $total_posts = 0;
+                    $tables = ['paid_posts', 'posts', 'news', 'press_releases', 'commentaries'];
+                    foreach ($tables as $table) {
+                        $niche = $readableString;
+                        $sql = "SELECT COUNT(*) AS count FROM $table WHERE niche = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("s", $niche);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+                        $total_posts += $row['count'];
+                        $stmt->close();
+                    }
+                    $output .= "<div class='about_section_topicsdiv_subdiv'>";
+                    if (!empty($img)) {
+                        $output .= "<img src='$img' alt='article image'>";
+                    }
+                    $output .= "<div class='about_section_topicsdiv_subdiv_subdiv'>
+                                    <h1><span>" . $readableString . "</h1>
+                                    <p>" . $translations['categories_p'] . ": <span>" . $total_posts . "</span></p>
+                                    <p>" . $translations['date_created'] . ": <span>" . $formattedDate . "</span></p>
+                                    <p>" . $translations['time'] . ": <span>" . $formatted_time . "</span></p>
+                                    <a class='topics_actions' onclick='confirmDeleteCategory($id, \"" . htmlspecialchars(".$cleanString.", ENT_QUOTES) . "\")')>
+                                        <i class='fa fa-trash' aria-hidden='true'></i>
+                                    </a>
+                                </div>
+                            </div>
+            ";
+                }
+            } else {
+                $output .= "<h1 class='posts_divcontainer_header'>No results found for ' " . $query . " '</h1>";
+            }
+        }
+    }
+    return $output;
+}
+function renderCategoriesPage($base_url, $usertype)
+{
+    global $logo, $conn, $translations;
+    $posttype = 'Categories';
+    require("../extras/header2.php");
+    echo '<section class="about_section">
+            <div class="about_header">
+                <h1>' . $translations['categories'] . '</h1>
+            </div>
+            <div class="about_section_topicsdiv">';
+    if ($usertype === 'Admin') {
+        echo    '<div class="page_links">
+                    <a href="' . $base_url . 'admin_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['pages'] . '</p> > <p>' . $translations['categories'] . '</p>
+                </div>';
+    } else if ($usertype === 'Editor') {
+        echo    '<div class="page_links">
+                    <a href="' . $base_url . 'editor_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['pages'] . '</p> > <p>' . $translations['categories'] . '</p>
+                </div>';
+    }
+    echo        '<div id="search-results">';
+    if (isset($_GET['query'])) {
+        $query = $_GET['query'];
+        $query = htmlspecialchars($query, ENT_QUOTES);
+        renderCatergoriesSearchAndDisplayQuery($query);
+    }
+    echo        '</div>';
+    $getcategories_sql = " SELECT id, name, image_path, Date, time FROM topics ORDER BY id";
+    $getcategories_result = $conn->query($getcategories_sql);
+    if ($getcategories_result->num_rows > 0) {
+        while ($row = $getcategories_result->fetch_assoc()) {
+            $time = $row['time'];
+            $date = $row['Date'];
+            $name = $row['name'];
+            $name = htmlspecialchars($name, ENT_QUOTES);
+            $id = $row['id'];
+            $img = $row['image_path'];
+            $dateTime = new DateTime($date);
+            $day = $dateTime->format('j');
+            $month = $dateTime->format('M');
+            $year = $dateTime->format('Y');
+            $ordinalSuffix = getOrdinalSuffix($day);
+            $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+            $formatted_time = date("g:i A", strtotime($time));
+            $cleanString = removeHyphen2($name);
+            $readableString = convertToReadable($name);
+            $total_posts = 0;
+            $tables = ['paid_posts', 'posts', 'news', 'press_releases', 'commentaries'];
+            foreach ($tables as $table) {
+                $niche = $readableString;
+                $sql = "SELECT COUNT(*) AS count FROM $table WHERE niche = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("s", $niche);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                $total_posts += $row['count'];
+                $stmt->close();
+            }
+            echo "<div class='about_section_topicsdiv_subdiv'>";
+            if (!empty($img)) {
+                echo "<img src='" . $img . "' alt='article image'>";
+            }
+            echo "  <div class='about_section_topicsdiv_subdiv_subdiv'>
+                        <h1><span>" . $readableString . "</h1>
+                        <p>" . $translations['categories_p'] . ": <span>" . $total_posts . "</span></p>
+                        <p>" . $translations['date_created'] . ": <span>" . $formattedDate . "</span></p>
+                        <p>" . $translations['time'] . ": <span>" . $formatted_time . "</span></p>
+                        <a class='topics_actions' onclick='confirmDeleteCategory(" . $id . ", \"" . htmlspecialchars(".$cleanString.", ENT_QUOTES) . "\")')>
+                            <i class='fa fa-trash' aria-hidden='true'></i>
+                        </a>
+                    </div>
+                </div>";
+        }
+    }
+    echo    '<a class="about_section_topicsdiv_subdiv-action" id="add_category" href="../create_new/category.php">
+                <div class="actions_subdiv">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+                <p class="actions_p2">' . $translations['create_category'] . '</p>
+            </a>
+        </div>
+    </section>';
+}
+function renderChangePasswordForm($base_url, $usertype)
+{
+    global $translations, $logo;
+    require("../extras/header3.php");
+    echo '<section class="newpost_body">
+            <form class="newpost_container" method="post" action="changepassword.php" enctype="multipart/form-data" id="postForm">';
+    if ($usertype === 'Admin') {
+        echo    '<div class="page_links">
+                    <a href="' . $base_url . 'admin_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['pages'] . '</p> > <p>' . $translations['change_password'] . '</p>
+                </div>';
+    } else if ($usertype === 'Editor') {
+        echo    '<div class="page_links">
+                    <a href="' . $base_url . 'editor_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['pages'] . '</p> > <p>' . $translations['change_password'] . '</p>
+                </div>';
+    }
+    echo        '<div class="newpost_container_div1 newpost_subdiv">
+                    <h1>' . $translations['change_password'] . '</h1>
+                </div>
+                <div class="newpost_container_div3 newpost_subdiv">
+                    <label class="form__label" for="password1"><i class="fas fa-lock"></i></label>
+                    <div class="newpost_container_div3_subdiv2">
+                        <input class="form__input" name="password1" type="password" placeholder="' . $translations['change_password1'] . '..." />
+                    </div>
+                </div>
+                <div class="newpost_container_div3 newpost_subdiv">
+                    <label class="form__label" for="password2"><i class="fas fa-lock"></i></label>
+                    <div class="newpost_container_div3_subdiv2">
+                        <input class="form__input" name="password2" type="password" placeholder="' . $translations['change_password2'] . '..." />
+                    </div>
+                </div>
+                <div class="newpost_container_div3 newpost_subdiv">
+                    <label class="form__label" for="password3"><i class="fas fa-lock"></i></label>
+                    <div class="newpost_container_div3_subdiv2">
+                        <input class="form__input" name="password3" type="password" placeholder="' . $translations['change_password3'] . '..." />
+                    </div>
+                </div> 
+                <div class="newpost_container_div9 newpost_subdiv">
+                    <input class="form__submit_input" type="submit" value="' . $translations['save'] . '" name="change_pwd" />
+                </div>
+            </form>
+        </section>';
+}
+function renderMetaTitlesManagementForm($base_url, $usertype)
+{
+    global $conn, $translations, $logo;
+    require("../extras/header3.php");
+    echo '<section class="newpost_body">
+            <form method="POST" action=" " enctype="multipart/form-data" id="postForm" class="newpost_container">';
+    if ($usertype === 'Admin') {
+        echo '<div class="page_links">
+                    <a href="' . $base_url . 'admin_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['settings'] . '</p> > <p>' . $translations['meta_titles_management'] . '</p>
+                </div>';
+    } else if ($usertype === 'Editor') {
+        echo '<div class="page_links">
+                    <a href="' . $base_url . 'editor_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['settings'] . '</p> > <p>' . $translations['meta_titles_management'] . '</p>
+                </div>';
+    }
+    echo '<div class="newpost_container_divnew newpost_subdiv">
+                    <h1 class="sectioneer_form_header">' . $translations['meta_titles_management_title'] . '</h1>
+                </div>
+                <div class="frontend_div sectioneer_div">';
+    $getpage_sql = " SELECT id, page_name FROM meta_titles ORDER BY id";
+    $getpage_result = $conn->query($getpage_sql);
+    if ($getpage_result->num_rows > 0) {
+        echo "<div class='sectioneer_div_subdiv'>";
+        while ($row = $getpage_result->fetch_assoc()) {
+            $page_name = $row['page_name'];
+            $page_id = $row['id'];
+            $readableString = convertToReadable($page_name);
+            echo "<div class='metadiv'>
+                            <p>" . $readableString . "</p>
+                            <a class='viewMeta' data-id='" . $page_id . "'>
+                                <i class='fa fa-eye' aria-hidden='true'></i>
+                            </a>
+                        </div>";
+        }
+        echo "</div>";
+    }
+    echo '</div></form></section>';
+}
+function renderPageFrontend($logo, $website_description, $page_title, $table_name)
+{
+    global $conn;
+    echo '<div class="body_container">
+            <div class="body_right">
+                <div class="sidebar_divs_container">
+                    <div class="webinfo">
+                        <h1>Uniquecontentwriter</h1>
+                        <img src="' . $logo . '" alt="Blog Coverphoto" />
+                        <p>' . $website_description . '</p>
+                    </div>
+                </div>
+            </div>
+            <div class="body_left border-gradient-leftside--lightdark">
+                <div class="page_links">
+                    <a href="../">Home</a> > <p>' . $page_title . '</p>
+                </div>
+                <h3 class="bodyleft_main">' . $page_title . '</h3>
+                <div class="sidebar_divs_container thickdiv">';
+    $selectpage = "SELECT content FROM $table_name ORDER BY id DESC LIMIT 1";
+    $selectpage_result = $conn->query($selectpage);
+    if ($selectpage_result->num_rows > 0) {
+        while ($row = $selectpage_result->fetch_assoc()) {
+            $content = $row['content'];
+            echo " <p>$content</p>";
+        }
+    }
+    echo '</div></div></div>';
+}
+function renderCategoryFrontendPage($category_name,) {}

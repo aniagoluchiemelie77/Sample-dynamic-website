@@ -3,6 +3,7 @@ session_start();
 require("../connect.php");
 require("../init.php");
 require('../../init.php');
+require_once('../../helpers/components.php');
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -31,26 +32,14 @@ if (file_exists($translationFile)) {
 </head>
 
 <body>
-    <?php require("../extras/header3.php"); ?>
-    <section class="about_section">
-        <div class="page_links">
-            <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['pages']; ?></p> > <p><?php echo $translations['privacy_policy']; ?></p>
-        </div>
-        <div class="about_header">
-            <h1><?php echo $translations['privacy_policy']; ?></h1>
-        </div>
-        <div class="about_contents">
-            <?php
-            $selectpage = "SELECT content FROM privacy_policy ORDER BY id DESC LIMIT 1";
-            $selectpage_result = $conn->query($selectpage);
-            if ($selectpage_result->num_rows > 0) {
-                while ($row = $selectpage_result->fetch_assoc()) {
-                    echo " <span>" . $row['content'] . "</span>";
-                }
-            }
-            ?>
-        </div>
-    </section>
+    <?php
+    $table_name = 'privacy_policy';
+    $textarea_name = $table_name;
+    $textareaId = null;
+    $submitbtn_name = null;
+    $usertype = $_SESSION['user'] ?? 'Editor'; // Default to Admin if not set
+    renderPageViewAndEditForm($editor_base_url, $usertype, $translations, $table_name, $textarea_name, $textareaId, $submitbtn_name, $logo);
+    ?>
     <script src="../editor.js"></script>
 </body>
 

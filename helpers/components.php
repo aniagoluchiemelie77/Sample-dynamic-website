@@ -1148,6 +1148,7 @@ function renderCatergoriesSearchAndDisplayQuery($query)
                     $month = $dateTime->format('M');
                     $year = $dateTime->format('Y');
                     $ordinalSuffix = getOrdinalSuffix($day);
+                    $formattedDate = formatDateSafely($date);
                     $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
                     $formatted_time = date("g:i A", strtotime($time));
                     $cleanString = removeHyphen2($name);
@@ -1211,7 +1212,7 @@ function renderCategoriesPage($base_url, $usertype)
     if (isset($_GET['query'])) {
         $query = $_GET['query'];
         $query = htmlspecialchars($query, ENT_QUOTES);
-        renderCatergoriesSearchAndDisplayQuery($query);
+        echo renderCatergoriesSearchAndDisplayQuery($query);
     }
     echo        '</div>';
     $getcategories_sql = " SELECT id, name, image_path, Date, time FROM topics ORDER BY id";
@@ -1229,6 +1230,7 @@ function renderCategoriesPage($base_url, $usertype)
             $month = $dateTime->format('M');
             $year = $dateTime->format('Y');
             $ordinalSuffix = getOrdinalSuffix($day);
+            $formattedDate = formatDateSafely($date);
             $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
             $formatted_time = date("g:i A", strtotime($time));
             $cleanString = removeHyphen2($name);
@@ -1380,4 +1382,564 @@ function renderPageFrontend($logo, $website_description, $page_title, $table_nam
     }
     echo '</div></div></div>';
 }
-function renderCategoryFrontendPage($category_name,) {}
+function renderViewPost($tablename, $post_id, $url, $postIdVal)
+{
+    global $conn;
+    $getposts_sql = " SELECT id,admin_id, editor_id, title, niche, content, subtitle, post_image_url, image_path, time, Date, schedule, authors_firstname, authors_lastname, about_author, link FROM " . $tablename . " WHERE id = " . $post_id . "";
+    $getposts_result = $conn->query($getposts_sql);
+    if ($getposts_result->num_rows > 0) {
+        $id_admin = '';
+        $id_editor = "";
+        $id_writer = "";
+        $id_type = '';
+        $author_bio = '';
+        $author_firstname = '';
+        $author_lastname = '';
+        $author_image = '';
+        $role = '';
+        $row = $getposts_result->fetch_assoc();
+        $author1 = $row['authors_firstname'];
+        $author2 = $row['editor_id'];
+        $author3 = $row['admin_id'];
+        $time = $row['time'];
+        $title = $row['title'];
+        $niche = $row['niche'];
+        $content = $row['content'];
+        $read_count = '';
+        if (!empty($author3) && empty($author2) && empty($author1)) {
+            $admin_id = $row['admin_id'];
+            $sql_admin = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $admin_id";
+            $result_admin = $conn->query($sql_admin);
+            if ($result_admin->num_rows > 0) {
+                $admin = $result_admin->fetch_assoc();
+                $author_firstname = $admin['firstname'];
+                $author_lastname = $admin['lastname'];
+                $author_image = $admin['image'];
+                $id_type = "Admin";
+                $id_admin = $admin['id'];
+                $author_bio = $admin['bio'];
+                $role = "Editor-in-chief Uniquetechcontentwriter.com";
+            }
+        } elseif (!empty($author2) && empty($author3) && empty($author1)) {
+            $editor_id = $row['editor_id'];
+            $sql_editor = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $editor_id";
+            $result_editor = $conn->query($sql_editor);
+            if ($result_editor->num_rows > 0) {
+                $editor = $result_editor->fetch_assoc();
+                $author_firstname = $editor['firstname'];
+                $author_image = $editor['image'];
+                $author_lastname = $editor['lastname'];
+                $author_bio = $editor['bio'];
+                $id_editor = $editor['id'];
+                $id_type = "Editor";
+                $role = 'Editor At Uniquetechcontentwriter.com';
+            }
+        } elseif (!empty($author1) || !empty($author3) && empty($author2)) {
+            $author_firstname = $row['authors_firstname'];
+            $author_lastname = $row['authors_lastname'];
+            $sql_writer = "SELECT id, firstname, lastname, image, bio 
+               FROM writer 
+               WHERE lastname LIKE ? OR firstname LIKE ?";
+            $stmt = $conn->prepare($sql_writer);
+            $last = "%" . $author_lastname . "%";
+            $first = "%" . $author_firstname . "%";
+            $stmt->bind_param("ss", $last, $first);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $writer = $result->fetch_assoc(); // Use $result here
+                $author_firstname = $writer['firstname'];
+                $author_lastname = $writer['lastname'];
+                $author_image = $writer['image'];
+                $id_type = "Writer";
+                $id_writer = $writer['id'];
+                $author_bio = $writer['bio'];
+                $role = "Contributing Writer";
+            }
+        }
+        $max_length = 200;
+        if (strlen($author_bio) > $max_length) {
+            $author_bio = substr($author_bio, 0, $max_length) . '...';
+        }
+        $subtitle = $row['subtitle'];
+        $image = $row['image_path'];
+        $foreign_imagePath = $row["post_image_url"];
+        $scheduleDate = formatDateSafely($row['schedule']);
+        $read_count = calculateReadingTime($content);
+        $postDate = formatDateSafely($row['Date']);
+        $now = date('Y-m-d H:i:s');
+        if ($scheduleDate && $row['schedule'] <= $now) {
+            $publishDate = $scheduleDate;
+        } else {
+            $publishDate = $postDate;
+        }
+        $id = $row['id'];
+        $link = $row['link'];
+        $formatted_time = date("g:i A", strtotime($time));
+        echo   "<h1 class='Post_header'>" . $title . "</h1>
+                <h2>" . $subtitle . "</h2>
+                <div class='authors_div'>
+                    <div class='authors_div_imgbox'>
+                        <img src='" . $author_image . "' alt='Author's Image'/>
+                        <p><span class='span1'>" . $author_firstname . " " . $author_lastname . ", " . $role . ".</span>
+                           <span class='span3'>" . $publishDate . "</span>
+                           <span class='span3'>" . $formatted_time . "</span>
+                        </p>
+                    </div>
+                    <div class='authors_div_otherdiv'>
+                        <i class='fa fa-clock' aria-hidden='true'></i>
+                        <p>" . $read_count . "</p>
+                    </div>
+                </div>";
+        if (!empty($link)) {
+            echo "  <video width='70%' controls>
+                        <source src='" . $link . "' type='video/mp4'>
+                        Your browser does not support the video tag.
+                    </video>";
+        }
+        if (!empty($image)) {
+            echo   "<div class='post_image_div'>
+                        <img src='" . $image . "' alt='Post Image'/>
+                    </div>";
+        } elseif (!empty($foreign_imagePath)) {
+            echo   "<div class='post_image_div'>
+                        <img src='" . $foreign_imagePath . "' alt='Post Image'/>
+                    </div>";
+        }
+        echo "
+                <div class='socialmedia_links'>
+                    <a class='twitter-share-button' id='xShareBtn3'><i class='fa-brands fa-x-twitter'></i></a>
+                    <a href='https://www.facebook.com/sharer/sharer.php?u=" . $url . "' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                    <a href='https://www.linkedin.com/shareArticle?mini=true&url={" . $url . "}&title={" . $title . "}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                    <a href='https://www.reddit.com/submit?url=" . $url . "&title=" . $title . "' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                    <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                    <a href='mailto:?subject=" . $title . "&body=" . $subtitle . "' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                </div>
+                <p class='content'>" . $content . "</p>
+                <div class='socialmedia_links'>
+                    <a class='twitter-share-button' id='xShareBtn4'><i class='fa-brands fa-x-twitter'></i></a>
+                    <a href='https://www.facebook.com/sharer/sharer.php?u=" . $url . "' target='_blank'><i class='fab fa-facebook' aria-hidden='true'></i></a>
+                    <a href='https://www.linkedin.com/shareArticle?mini=true&url={" . $url . "}&title={" . $title . "}' target='_blank'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+                    <a href='https://www.reddit.com/submit?url=" . $url . "&title=" . $title . "' target='_blank'><i class='fab fa-reddit-alien' aria-hidden='true'></i></a>
+                    <a onclick='window.print()' href='#'><i class='fa fa-print' aria-hidden='true'></i></a>
+                    <a href='mailto:?subject=" . $title . "&body=" . $subtitle . "' target='_blank'><i class='fa fa-envelope' aria-hidden='true'></i></a>
+                </div>
+                <h3 class='bodyleft_header3'>About the Author</h3>
+                <center>
+                    <a href='../authors/author.php?id=" . $id_admin . "" . $id_editor . "" . $id_writer . "&idtype=" . $id_type . "' class='aboutauthor_div'>
+                        <div class='aboutauthor_div_subdiv1'>
+                            <img src='" . $author_image . "' alt ='Author's Image'/>
+                        </div>
+                        <div class='aboutauthor_div_subdiv2'>
+                            <p class='p--bold'>" . $author_firstname . " " . $author_lastname . "</p>
+                            <p class='p--bold2'>" . $role . "</p>
+                            <p>" . $author_bio . "</p>
+                        </div>
+                    </a>
+                </center>
+            ";
+        $otherposts_sql = "SELECT id, title, niche, content, image_path, post_image_url, time, Date, schedule FROM " . $tablename . " WHERE id != " . $post_id . " ORDER BY date DESC LIMIT 8";
+        $otherposts_result = $conn->query($otherposts_sql);
+        if ($otherposts_result->num_rows > 0) {
+            echo "<h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>You may also like</h1>
+                    <div class='more_posts'>
+            ";
+            while ($row = $otherposts_result->fetch_assoc()) {
+                $id = $row["id"];
+                $max_length2 = 40;
+                $title = $row["title"];
+                $niche = $row["niche"];
+                $image = $row["image_path"];
+                $foreign_imagePath = $row["post_image_url"];
+                $scheduleDate = formatDateSafely($row['schedule']);
+                $postDate = formatDateSafely($row['Date']);
+                $now = date('Y-m-d H:i:s');
+                if ($scheduleDate && $row['schedule'] <= $now) {
+                    $publishDate = $scheduleDate;
+                } else {
+                    $publishDate = $postDate;
+                }
+                $content = $row["content"];
+                if (strlen($title) > $max_length2) {
+                    $title = substr($title, 0, $max_length2) . '...';
+                }
+                $readingTime = calculateReadingTime($row['content']);
+                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?$postIdVal=$id'>";
+                if (!empty($image)) {
+                    echo "<img src='" . $image . "' alt='article image'>";
+                } elseif (!empty($foreign_imagePath)) {
+                    echo "<img src='" . $foreign_imagePath . "' alt='article image'>";
+                }
+                echo   "<div class='more_posts_subdiv_subdiv'>
+                            <h1>" . $title . "</h1>
+                            <span>" . $publishDate . "</span>
+                            <span>" . $readingTime . "</span>
+                        </div>
+                        <p class='posts_div_niche'>" . $niche . "</p>
+                    </a>";
+            }
+            echo "</div>";
+        }
+    } else {
+        echo "<h1 class='bodyleft_header3'>Post not found</h1>";
+    }
+}
+function renderFrontendPageSearchResults($searchNiche1, $query)
+{
+    global $conn;
+    $output = '';
+    $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+    $results = [];
+    if ($query !== "") {
+        foreach ($tables as $table) {
+            $searchNiche = $searchNiche1;
+            $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE niche = '$searchNiche' AND (title like ? OR subtitle like ? OR content like ?) ORDER BY id DESC LIMIT 3";
+            $stmt = $conn->prepare($sql);
+            $searchTerm = "%" . $query . "%";
+            $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+            $stmt->execute();
+            $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+            while ($stmt->fetch()) {
+                $posttype = 0;
+                if ($table == 'paid_posts') {
+                    $posttype = 1;
+                } elseif ($table == 'posts') {
+                    $posttype = 2;
+                } elseif ($table == 'commentaries') {
+                    $posttype = 4;
+                } elseif ($table == 'news') {
+                    $posttype = 3;
+                } elseif ($table == 'press_releases') {
+                    $posttype = 5;
+                }
+                $results[] = [
+                    'id' => $id,
+                    'title' => $title,
+                    'niche' => $niche,
+                    'content' => $content,
+                    'image_path' => $image,
+                    'Date' => $date,
+                    'table' => $table,
+                    'posttype' => $posttype
+                ];
+            }
+        }
+        if (empty($results)) {
+            $output .= "<h1>No results found for '<strong>" . htmlspecialchars($query) . "</strong>'.</h1>";
+        } else {
+            foreach ($results as $result) {
+                $max_length = 50;
+                $id = $result['id'];
+                $title = $result["title"];
+                $date = $result["Date"];
+                if (strlen($title) > $max_length) {
+                    $title = substr($title, 0, $max_length) . '...';
+                }
+                $dateTime = new DateTime($date);
+                $day = $dateTime->format('j');
+                $month = $dateTime->format('M');
+                $year = $dateTime->format('Y');
+                $ordinalSuffix = getOrdinalSuffix($day);
+                $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                $readingTime = calculateReadingTime($result['content']);
+                $output .= "<a class='more_posts_subdiv' href='view_post.php?id" . $result['posttype'] . "=$id'>
+                    <img src='" . $result['image_path'] . "' alt = 'Post's Image'/>
+                    <div class='more_posts_subdiv_subdiv'>
+                        <h1>" . $title . "</h1>
+                        <span>" . $formattedDate . "</span>
+                        <span>" . $readingTime . "</span>
+                    </div>
+                    <p class='posts_div_niche'>" . $result['niche'] . "</p>
+                </a>";
+            }
+        }
+    }
+    return $output;
+}
+function renderFrontendPage($ucPageTitle, $lcPageTitle)
+{
+    global $conn, $logo;
+    require("../includes/header2.php");
+    echo '<div class="body_container">
+            <div class="body_left">
+                <div class="page_links">
+                    <a href="../">Home</a> > <p>' . $ucPageTitle . '</p>
+                </div>
+                <h1 class="bodyleft_header3">Search ' . $ucPageTitle . ' Posts</h1>
+                <form class="header_searchbar2 search_input" id="search_form" action="' . $lcPageTitle . '.php" method="get">
+                    <input type="text" name="query" id="search-bar" placeholder="Search.." />
+                    <button class="fa fa-search" type="submit" onclick="submitSearch()"></button>
+                </form>
+                <div id="search-results">
+                    <div id="results-container" class="more_posts">';
+    if (isset($_GET['query'])) {
+        $query = trim($_GET['query']);
+        $searchNiche1 = $ucPageTitle;
+        echo renderFrontendPageSearchResults($searchNiche1, $query);
+    }
+    echo '          </div>
+                </div>
+                <h1 class="bodyleft_header3 border-gradient-bottom--lightdark">Latest On ' . $ucPageTitle . '</h1>
+                <div class="more_posts">';
+    $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+    $results = [];
+    foreach ($tables as $table) {
+        $sql = "SELECT id, title, niche, content, image_path, Date FROM $table WHERE niche LIKE ? ORDER BY id DESC LIMIT 2";
+        $stmt = $conn->prepare($sql);
+        $nicheq = $ucPageTitle;
+        $searchTerm = "%" . $nicheq . "%";
+        $stmt->bind_param("s", $searchTerm);
+        $stmt->execute();
+        $stmt->bind_result($id, $title, $niche, $content, $image, $date);
+        while ($stmt->fetch()) {
+            $posttype = 0;
+            if ($table == 'paid_posts') {
+                $posttype = 1;
+            } elseif ($table == 'posts') {
+                $posttype = 2;
+            } elseif ($table == 'commentaries') {
+                $posttype = 4;
+            } elseif ($table == 'news') {
+                $posttype = 3;
+            } elseif ($table == 'press_releases') {
+                $posttype = 5;
+            }
+            $results[] = [
+                'id' => $id,
+                'title' => $title,
+                'niche' => $niche,
+                'content' => $content,
+                'image_path' => $image,
+                'Date' => $date,
+                'table' => $table,
+                'posttype' => $posttype
+            ];
+        }
+    }
+    foreach ($results as $result) {
+        $max_length = 50;
+        $id = $result['id'];
+        $title = $result["title"];
+        $date = $result["Date"];
+        if (strlen($title) > $max_length) {
+            $title = substr($title, 0, $max_length) . '...';
+        }
+        $dateTime = new DateTime($date);
+        $day = $dateTime->format('j');
+        $month = $dateTime->format('M');
+        $year = $dateTime->format('Y');
+        $ordinalSuffix = getOrdinalSuffix($day);
+        $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+        $readingTime = calculateReadingTime($result['content']);
+        echo "<a class='more_posts_subdiv' href='view_post.php?id" . $result['posttype'] . "=$id'>
+                <img src='" . $result['image_path'] . "' alt = 'Post's Image'/>
+                <div class='more_posts_subdiv_subdiv'>
+                    <h1>" . $title . "</h1>
+                    <span>" . $formattedDate . "</span>
+                    <span>" . $readingTime . "</span>
+                </div>
+                <p class='posts_div_niche'>" . $result['niche'] . "</p>
+            </a>";
+    }
+    echo '</div></div>
+            <div class="body_right border-gradient-leftside--lightdark">
+                <div class="subscribe_container">
+                    <form class="sec2__susbribe-box other_width" method="POST" action="" id="susbribe-box">
+                        <div class="icon">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </div>
+                        <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
+                        <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on Cybersecurity, Artificial Intelligence and lots more.</p>
+                        <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required />
+                        <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" />
+                    </form>
+                </div>
+                <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor\'s Picks</h3>';
+    include("../helpers/editorspicks.php");
+    echo '</div></div>
+            <section class="section2" id="section1">
+                <div class="section2__div1">
+                    <div class="search_div" id="result"></div>
+                    <div class="section2__div1__header headers">
+                        <h1>For You</h1>
+                    </div>';
+    include('../includes/pagination.php');
+    echo '</div></section>';
+    include("../includes/footer2.php");
+}
+function renderAuthorPage($database_name, $id, $role, $authorTableHook)
+{
+    global $conn;
+    $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM " . $database_name . " WHERE id = " . $id . "";
+    $getauthor_result = $conn->query($getauthor_sql);
+    if ($getauthor_result->num_rows > 0) {
+        $author = $getauthor_result->fetch_assoc();
+        $author_firstname = $author['firstname'];
+        $author_lastname = $author['lastname'];
+        $author_bio = $author['bio'];
+        $author_image = $author['image'];
+        echo "<section class='authordiv_container'>";
+        if (!empty($author_image)) {
+            echo "<img src='" . $author_image . "' alt='article image'>";
+        }
+        echo    "<div class = 'authordiv_container_subdiv'>
+                        <h1><span>" . $author_firstname . " " . $author_lastname . ", </span><span>" . $role . "</span></h1>
+                        <p>" . $author_bio . "</p>
+                    </div>
+                </section>
+                <div class='body_container'>
+                    <div class='body_left'>    
+                        <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> " . $author_firstname . "  $author_lastname </span></h1>
+                        <div class='more_posts'>";
+    }
+    $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
+    $results = [];
+    foreach ($tables as $table) {
+        $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date, schedule FROM $table WHERE " . $authorTableHook . " = ? ORDER BY id DESC LIMIT 12";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $id);
+        $stmt->bind_result($id, $title, $niche, $content, $image, $image2, $date, $schedule);
+        $stmt->execute();
+        while ($stmt->fetch()) {
+            $posttype = 0;
+            if ($table == 'paid_posts') {
+                $posttype = 1;
+            } elseif ($table == 'posts') {
+                $posttype = 2;
+            } elseif ($table == 'commentaries') {
+                $posttype = 4;
+            } elseif ($table == 'news') {
+                $posttype = 3;
+            } elseif ($table == 'press_releases') {
+                $posttype = 5;
+            }
+            $results[] = [
+                'id' => $id,
+                'title' => $title,
+                'niche' => $niche,
+                'content' => $content,
+                'image_path' => $image,
+                'foreign_image_path' => $image2,
+                'Date' => $date,
+                'schedule' => $schedule,
+                'table' => $table,
+                'posttype' => $posttype
+            ];
+        }
+    }
+    foreach ($results as $result) {
+        $max_length = 40;
+        $id = $result['id'];
+        $title = $result["title"];
+        if (strlen($title) > $max_length) {
+            $title = substr($title, 0, $max_length) . '...';
+        }
+        $scheduleDate = !empty($result['schedule']) ? formatDateSafely($result['schedule']) : null;
+        $postDate = !empty($result['Date']) ? formatDateSafely($result['Date']) : null;
+        $now = date('Y-m-d H:i:s');
+        if ($scheduleDate && $result['schedule'] <= $now) {
+            $publishDate = $scheduleDate;
+        } else {
+            $publishDate = $postDate;
+        }
+        $readingTime = calculateReadingTime($result['content']);
+        echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
+        if (!empty($result['image_path'])) {
+            echo "<img src='" . $result['image_path'] . "' alt='article image'>";
+        } elseif (!empty($result['foreign_image_path'])) {
+            echo "<img src='" . $result['foreign_image_path'] . "' alt='article image'>";
+        }
+        echo    "<div class='more_posts_subdiv_subdiv'>
+                        <h1>" . $title . "</h1>
+                        <span>" . $publishDate . "</span>
+                        <span>" . $readingTime . "</span>
+                    </div>
+                    <p class='posts_div_niche'>" . $result['niche'] . "</p>
+                </a>
+            ";
+    }
+    echo "</div></div>";
+}
+function renderUserActivitiesSearchResult($query)
+{
+    global $conn, $translations, $usertype, $user;
+    $output = '';
+    if ($query !== "") {
+        $stmt = $conn->prepare("SELECT * FROM updates WHERE content LIKE ? ORDER BY id DESC LIMIT 5");
+        $searchTerm = "%" . $query . "%";
+        $stmt->bind_param("s", $searchTerm);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $output .= "<h3 class='posts_divcontainer_header'>You Searched For: " . $query . " <h3>";
+                while ($row = $result->fetch_assoc()) {
+                    $time = $row['time'];
+                    $date = $row['Date'];
+                    $row['formatted_date'] = date("F j, Y", strtotime($date));
+                    $formatted_time = date("g:i A", strtotime($time));
+                    if ($usertype === 'Admin') {
+                        $message = personalizeMessageAdmin($row['content'], $user);
+                    } else {
+                        $message = personalizeMessageEditor($row['content'], $user);
+                    }
+                    $output .= "<div class='posts_divcontainer_subdiv'>
+                            <h3 class='posts_divcontainer_header'>" . $message . "</h3>
+                            <div class='posts_divcontainer_subdiv3'>
+                                <p class='posts_divcontainer_subdiv_p'><span>" . $translations['date'] . ": </span>" . $row["formatted_date"] . "</p> 
+                                <p class='posts_divcontainer_subdiv_p'><span>" . $translations['time'] . ": </span>" . $formatted_time . "</p> 
+                            </div>
+                        </div>";
+                }
+            } else {
+                $output .= "<h1 class='posts_divcontainer_header'>No results found for " . $query . "</h1>";
+            }
+        }
+    }
+    return $output;
+}
+function renderUserActivitiesPage($usertype, $base_url, $translations, $user)
+{
+    global $conn, $logo, $posttype;
+    require("../extras/header2.php");
+    echo '<section class="sectioneer">
+            <div class="posts_div1 postsdiv sectioneer_divcontainer">
+                <div class="page_links">';
+    if ($usertype === 'Admin') {
+        echo '<a href="' . $base_url . 'admin_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['profile'] . '</p> > <p>' . $translations['user_activities'] . '</p>';
+    } else if ($usertype === 'Editor') {
+        echo '<a href="' . $base_url . 'editor_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['profile'] . '</p> > <p>' . $translations['user_activities'] . '</p>';
+    }
+    echo '      </div>
+                <div class="posts_header">
+                    <h1>' . $translations['user_activities'] . '</h1>
+                </div>
+                <div class="posts_divcontainer border-gradient-side-dark">
+                    <div id="search-results">';
+    if (isset($_GET['query'])) {
+        $query = trim($_GET['query']);
+        echo renderUserActivitiesSearchResult($query);
+    }
+    echo '</div>';
+    $select_commentaries = "SELECT id, content, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date FROM updates ORDER BY id DESC LIMIT 100";
+    $select_commentaries_result = $conn->query($select_commentaries);
+    if ($select_commentaries_result->num_rows > 0) {
+        while ($row = $select_commentaries_result->fetch_assoc()) {
+            $time = $row['time'];
+            $formatted_time = date("g:i A", strtotime($time));
+            if ($usertype === 'Admin') {
+                $message = personalizeMessageAdmin($row['content'], $user);
+            } else {
+                $message = personalizeMessageEditor($row['content'], $user);
+            }
+            echo "<div class='posts_divcontainer_subdiv'>
+                    <h3 class='posts_divcontainer_header'>" . $message . "</h3>
+                    <div class='posts_divcontainer_subdiv3'>
+                        <p class='posts_divcontainer_subdiv_p'><span>" . $translations['date'] . ": </span>" . $row["formatted_date"] . "</p> 
+                        <p class='posts_divcontainer_subdiv_p'><span>" . $translations['time'] . ": </span>" . $formatted_time . "</p> 
+                    </div>
+                </div>";
+        }
+    }
+    echo '</div></div></section>';
+}
+?>

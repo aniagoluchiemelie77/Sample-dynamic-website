@@ -2,6 +2,7 @@
 session_start();
 require('../connect.php');
 require('../init.php');
+require('../helpers/components.php');
 $page_name = "author";
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
@@ -64,275 +65,22 @@ if (isset($_POST['subscribe_btn2'])) {
         $role = "";
         $author_bio = "";
         if ($idtype == "Admin") {
-            $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM admin_login_info WHERE id = $id";
-            $getauthor_result = $conn->query($getauthor_sql);
-            if ($getauthor_result->num_rows > 0) {
-                $author = $getauthor_result->fetch_assoc();
-                $author_firstname = $author['firstname'];
-                $author_lastname = $author['lastname'];
-                $author_bio = $author['bio'];
-                $author_image = $author['image'];
-                $role = "Editor-in-chief";
-                echo "<section class='authordiv_container'>";
-                if (!empty($author_image)) {
-                    echo "<img src='$author_image' alt='article image'>";
-                }
-                echo    "<div class = 'authordiv_container_subdiv'>
-                                <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
-                                <p>$author_bio</p>
-                            </div>
-                        </section>
-                        <div class='body_container'>
-                            <div class='body_left'>    
-                                <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
-                                <div class='more_posts'>";
-            }
-            $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
-            $results = [];
-            foreach ($tables as $table) {
-                $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date, schedule FROM $table WHERE admin_id = ? ORDER BY id DESC LIMIT 12";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("s", $id);
-                $stmt->bind_result($id, $title, $niche, $content, $image, $image2, $date, $schedule);
-                $stmt->execute();
-                while ($stmt->fetch()) {
-                    $posttype = 0;
-                    if ($table == 'paid_posts') {
-                        $posttype = 1;
-                    } elseif ($table == 'posts') {
-                        $posttype = 2;
-                    } elseif ($table == 'commentaries') {
-                        $posttype = 4;
-                    } elseif ($table == 'news') {
-                        $posttype = 3;
-                    } elseif ($table == 'press_releases') {
-                        $posttype = 5;
-                    }
-                    $results[] = [
-                        'id' => $id,
-                        'title' => $title,
-                        'niche' => $niche,
-                        'content' => $content,
-                        'image_path' => $image,
-                        'foreign_image_path' => $image2,
-                        'Date' => $date,
-                        'schedule' => $schedule,
-                        'table' => $table,
-                        'posttype' => $posttype
-                    ];
-                }
-            }
-            foreach ($results as $result) {
-                $max_length = 40;
-                $id = $result['id'];
-                $title = $result["title"];
-                if (strlen($title) > $max_length) {
-                    $title = substr($title, 0, $max_length) . '...';
-                }
-                $scheduleDate = !empty($result['schedule']) ? formatDateSafely($result['schedule']) : null;
-                $postDate = !empty($result['Date']) ? formatDateSafely($result['Date']) : null;
-                $now = date('Y-m-d H:i:s');
-                if ($scheduleDate && $result['schedule'] <= $now) {
-                    $publishDate = $scheduleDate;
-                } else {
-                    $publishDate = $postDate;
-                }
-                $readingTime = calculateReadingTime($result['content']);
-                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
-                if (!empty($result['image_path'])) {
-                    echo "<img src='" . $result['image_path'] . "' alt='article image'>";
-                } elseif (!empty($result['foreign_image_path'])) {
-                    echo "<img src='" . $result['foreign_image_path'] . "' alt='article image'>";
-                }
-                echo    "<div class='more_posts_subdiv_subdiv'>
-                                <h1>$title</h1>
-                                <span>$publishDate</span>
-                                <span>$readingTime</span>
-                            </div>
-                            <p class='posts_div_niche'>" . $result['niche'] . "</p>
-                        </a>
-                    ";
-            }
-
-            echo "</div></div>";
+            $database_name = "admin_login_info";
+            $role = "Editor-in-chief";
+            $authorTableHook = "admin_id";
+            renderAuthorPage($database_name, $id, $role, $authorTableHook);
         }
         if ($idtype == "Editor") {
-            $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM editor WHERE id = $id";
-            $getauthor_result = $conn->query($getauthor_sql);
-            if ($getauthor_result->num_rows > 0) {
-                $author = $getauthor_result->fetch_assoc();
-                $author_firstname = $author['firstname'];
-                $author_lastname = $author['lastname'];
-                $author_bio = $author['bio'];
-                $author_image = $author['image'];
-                $role = "Editor at Uniquetechcontentwriter";
-                echo "<section class='authordiv_container'>";
-                if (!empty($author_image)) {
-                    echo "<img src='$author_image' alt='article image'>";
-                }
-                echo    "<div class = 'authordiv_container_subdiv'>
-                                <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
-                                <p>$author_bio</p>
-                            </div>
-                            </section>
-                           <div class='body_container'>
-                                <div class='body_left'>    
-                                    <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
-                                    <div class='more_posts'>";
-            }
-            $tables = ['posts', 'commentaries', 'news', 'press_releases'];
-            $results = [];
-            foreach ($tables as $table) {
-                $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date FROM $table WHERE editor_id = ? ORDER BY id DESC LIMIT 12";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("s", $id);
-                $stmt->bind_result($id, $title, $niche, $content, $image, $image2, $date);
-                $stmt->execute();
-                while ($stmt->fetch()) {
-                    $posttype = 0;
-                    if ($table == 'posts') {
-                        $posttype = 2;
-                    } elseif ($table == 'commentaries') {
-                        $posttype = 4;
-                    } elseif ($table == 'news') {
-                        $posttype = 3;
-                    } elseif ($table == 'press_releases') {
-                        $posttype = 5;
-                    }
-                    $results[] = [
-                        'id' => $id,
-                        'title' => $title,
-                        'niche' => $niche,
-                        'content' => $content,
-                        'image_path' => $image,
-                        'foreign_image_path' => $image2,
-                        'Date' => $date,
-                        'table' => $table,
-                        'posttype' => $posttype
-                    ];
-                }
-            }
-            foreach ($results as $result) {
-                $max_length = 60;
-                $id = $result['id'];
-                $title = $result["title"];
-                $date = $result["Date"];
-                if (strlen($title) > $max_length) {
-                    $title = substr($title, 0, $max_length) . '...';
-                }
-                $dateTime = new DateTime($date);
-                $day = $dateTime->format('j');
-                $month = $dateTime->format('M');
-                $year = $dateTime->format('Y');
-                $ordinalSuffix = getOrdinalSuffix($day);
-                $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
-                $readingTime = calculateReadingTime($result['content']);
-                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
-                if (!empty($result['image_path'])) {
-                    echo "<img src='" . $result['image_path'] . "' alt='article image'>";
-                } else if (!empty($result['foreign_image_path'])) {
-                    echo "<img src='" . $result['foreign_image_path'] . "' alt='article image'>";
-                }
-                echo    "<div class='more_posts_subdiv_subdiv'>
-                                <h1>$title</h1>
-                                <span>$formattedDate</span>
-                                <span>$readingTime</span>
-                            </div>
-                            <p class='posts_div_niche'>" . $result['niche'] . "</p>
-                        </a>
-                    ";
-            }
-
-            echo "</div></div>";
+            $database_name = "editor";
+            $role = "Editor at Uniquetechcontentwriter";
+            $authorTableHook = "editor_id";
+            renderAuthorPage($database_name, $id, $role, $authorTableHook);
         }
         if ($idtype == "Writer") {
-            $getauthor_sql = "SELECT id, firstname, lastname, image, bio FROM writer WHERE id = $id";
-            $getauthor_result = $conn->query($getauthor_sql);
-            if ($getauthor_result->num_rows > 0) {
-                $author = $getauthor_result->fetch_assoc();
-                $author_firstname = $author['firstname'];
-                $author_lastname = $author['lastname'];
-                $author_bio = $author['bio'];
-                $author_image = $author['image'];
-                $role = "Contributing Writer";
-                echo "<section class='authordiv_container'>";
-                if (!empty($author_image)) {
-                    echo "<img src='$author_image' alt='article image'>";
-                }
-                echo    "<div class = 'authordiv_container_subdiv'>
-                                <h1><span>$author_firstname $author_lastname, </span><span>$role</span></h1>
-                                <p>$author_bio</p>
-                            </div>
-                        </section>
-                        <div class='body_container'>
-                            <div class='body_left'>    
-                                <h1 class='bodyleft_header3 border-gradient-bottom--lightdark'>More Posts By <span> $author_firstname  $author_lastname </span></h1>
-                                <div class='more_posts'>";
-            }
-            $tables = ['posts', 'commentaries', 'news', 'press_releases'];
-            $results = [];
-            foreach ($tables as $table) {
-                $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date FROM $table WHERE authors_firstname like ? ORDER BY id DESC LIMIT 12";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("s", $author_firstname);
-                $stmt->bind_result($author_firstname, $title, $niche, $content, $image, $image2, $date);
-                $stmt->execute();
-                while ($stmt->fetch()) {
-                    $posttype = 0;
-                    if ($table == 'posts') {
-                        $posttype = 2;
-                    } elseif ($table == 'commentaries') {
-                        $posttype = 4;
-                    } elseif ($table == 'news') {
-                        $posttype = 3;
-                    } elseif ($table == 'press_releases') {
-                        $posttype = 5;
-                    }
-                    $results[] = [
-                        'id' => $id,
-                        'title' => $title,
-                        'niche' => $niche,
-                        'content' => $content,
-                        'image_path' => $image,
-                        'foreign_image_path' => $image2,
-                        'Date' => $date,
-                        'table' => $table,
-                        'posttype' => $posttype
-                    ];
-                }
-            }
-            foreach ($results as $result) {
-                $max_length = 60;
-                $id = $result['id'];
-                $title = $result["title"];
-                $date = $result["Date"];
-                if (strlen($title) > $max_length) {
-                    $title = substr($title, 0, $max_length) . '...';
-                }
-                $dateTime = new DateTime($date);
-                $day = $dateTime->format('j');
-                $month = $dateTime->format('M');
-                $year = $dateTime->format('Y');
-                $ordinalSuffix = getOrdinalSuffix($day);
-                $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
-                $readingTime = calculateReadingTime($result['content']);
-                echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
-                if (!empty($result['image_path'])) {
-                    echo "<img src='" . $result['image_path'] . "' alt='article image'>";
-                } else if (!empty($result['foreign_image_path'])) {
-                    echo "<img src='" . $result['foreign_image_path'] . "' alt='article image'>";
-                }
-                echo    "<div class='more_posts_subdiv_subdiv'>
-                                <h1>$title</h1>
-                                <span>$formattedDate</span>
-                                <span>$readingTime</span>
-                            </div>
-                            <p class='posts_div_niche'>" . $result['niche'] . "</p>
-                        </a>
-                    ";
-            }
-
-            echo "</div></div>";
+            $database_name = "writer";
+            $role = "Contributing Writer";
+            $authorTableHook = "authors_firstname";
+            renderAuthorPage($database_name, $id, $role, $authorTableHook);
         }
         ?>
         <div class="body_right border-gradient-leftside--lightdark">

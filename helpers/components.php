@@ -1942,4 +1942,182 @@ function renderUserActivitiesPage($usertype, $base_url, $translations, $user)
     }
     echo '</div></div></section>';
 }
+function renderPostTypeSearchQueries($query)
+{
+    global $conn, $translations, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType;
+    $output = '';
+    $query = trim($query);
+    if ($query !== "") {
+        $stmt = $conn->prepare("SELECT * FROM " . $post_type_dbname . " WHERE title LIKE ? OR subtitle LIKE ? OR content LIKE ? OR authors_firstname LIKE ? OR authors_lastname LIKE ? ORDER BY id DESC LIMIT 5");
+        $searchTerm = "%" . $query . "%";
+        $stmt->bind_param("sssss", $searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $output .= "<h3 class='posts_divcontainer_header'>You Searched For: " . $query . " <h3>";
+                while ($row = $result->fetch_assoc()) {
+                    $author_firstname = "";
+                    $author_lastname = "";
+                    $role = "";
+                    $formatted_date = date("M d, Y", strtotime($row['Date']));
+                    if (!empty($row['admin_id']) && empty($row['author_firstname'])) {
+                        $admin_id = $row['admin_id'];
+                        $sql_admin = "SELECT id, firstname, lastname FROM admin_login_info WHERE id = $admin_id";
+                        $result_admin = $conn->query($sql_admin);
+                        if ($result_admin->num_rows > 0) {
+                            $admin = $result_admin->fetch_assoc();
+                            $author_firstname = $admin['firstname'];
+                            $author_lastname = $admin['lastname'];
+                            $role = "Admin";
+                        }
+                    } elseif (!empty($row['editor_id'])) {
+                        $editor_id = $row['editor_id'];
+                        $sql_editor = "SELECT id, firstname, lastname FROM editor WHERE id = $editor_id";
+                        $result_editor = $conn->query($sql_editor);
+                        if ($result_editor->num_rows > 0) {
+                            $editor = $result_editor->fetch_assoc();
+                            $author_firstname = $editor['firstname'];
+                            $author_lastname = $editor['lastname'];
+                            $role = "Editor";
+                        }
+                    } else {
+                        $author_firstname = $row['author_firstname'];
+                        $author_lastname = $row['author_lastname'];
+                        $role = "Contributing Writer";
+                    }
+                    $time = $row['time'];
+                    $formatted_time = date("g:i A", strtotime($time));
+                    $formId = "favouriteForm_" . $row["id"];
+                    $output .= "<div class='posts_divcontainer_subdiv post' data-post-id='" . $row["id"] . "'>
+                                    <h3 class='posts_divcontainer_header'>" . $row["title"] . "</h3>
+                                    <div class='posts_divcontainer_subdiv2'>
+                                        <p class='posts_divcontainer_p'><span>" . $translations['published_posts_i'] . ": </span>" . $author_firstname . " " . $author_lastname . " ( " . $role . " )</p>
+                                    </div>
+                                    <div class='posts_divcontainer_subdiv3'>
+                                        <p class='posts_divcontainer_subdiv_p'><span>" . $translations['published_date'] . ": </span> " . $formatted_date . "</p> 
+                                        <p class='posts_divcontainer_subdiv_p'><span> $translations[published_time]: </span>" . $formatted_time . "</p> 
+                                    </div>
+                                    <div class='posts_delete_edit'>
+                                        <a class='users_edit' href='../edit/post.php?" . $postTypeVal . "=" . $row["id"] . "&title=" . $row["title"] . "'>
+                                            <i class='fa fa-pencil' aria-hidden='true'></i>
+                                        </a>
+                                        <a class='users_delete' onclick='" . $delete_querytype . "(" . $row['id'] . ")'>
+                                            <i class='fa fa-trash' aria-hidden='true'></i>
+                                        </a>
+                                        <form id='" . $formId . "' class='favouriteForm' action='../script.php' method='POST' data-id='" . $row['id'] . "'>
+                                            <input type='hidden' name='" . $postTypeVal2 . "' value='" . $row['id'] . "'>
+                                            <input type='hidden' name='" . $favType . "' value='" . ($row['is_favourite'] === 'True' ? 'True' : 'False') . "'>
+                                            <button type='submit' class='users_delete2 star'>
+                                                <i class='fa fa-star' aria-hidden='true'></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                            </div>";
+                }
+            } else {
+                $output .= "<h1 class='posts_divcontainer_header'>No results found for " . $query . "</h1>";
+            }
+        }
+    }
+    return $output;
+}
+function renderPostTypePage($base_url, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType)
+{
+    global $conn, $translations;
+    echo '<section class="sectioneer">
+            <div class="posts_div1 postsdiv sectioneer_divcontainer">';
+    if ($userType === 'Admin') {
+        echo '  <div class="page_links">
+                    <a href="' . $base_url . 'admin_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['posts'] . '</p> > <p>' . $translations['view_press_releases2'] . '</p>
+                </div>
+            ';
+    } else if ($userType === 'Editor') {
+        echo '  <div class="page_links">
+                    <a href="' . $base_url . 'editor_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['posts'] . '</p> > <p>' . $translations['view_press_releases2'] . '</p>
+                </div>
+            ';
+    }
+    echo '   <div class="posts_header">
+                <h1>' . $translations['press_releases'] . '</h1>
+            </div>
+            <div class="posts_divcontainer border-gradient-side-dark">
+                <div id="search-results">';
+    if (isset($_GET['query'])) {
+        $query = trim($_GET['query']);
+        echo '' . renderPostTypeSearchQueries($query) . '';
+    }
+    echo '</div>';
+    $select_pressreleases = "SELECT id, admin_id, editor_id, title, time, DATE_FORMAT(Date, '%M %d, %Y') as formatted_date, authors_firstname, authors_lastname, is_favourite FROM " . $post_type_dbname . " ORDER BY id DESC LIMIT 100";
+    $select_pressreleases_result = $conn->query($select_pressreleases);
+    if ($select_pressreleases_result) {
+        if ($select_pressreleases_result->num_rows > 0) {
+            $author_firstname = "";
+            $author_lastname = "";
+            $role = "";
+            while ($row = $select_pressreleases_result->fetch_assoc()) {
+                if (!empty($row['admin_id']) && empty($row['author_firstname'])) {
+                    $admin_id = $row['admin_id'];
+                    $sql_admin = "SELECT id, firstname, lastname FROM admin_login_info WHERE id = $admin_id";
+                    $result_admin = $conn->query($sql_admin);
+                    if ($result_admin->num_rows > 0) {
+                        $admin = $result_admin->fetch_assoc();
+                        $author_firstname = $admin['firstname'];
+                        $author_lastname = $admin['lastname'];
+                        $role = "Admin";
+                    }
+                } elseif (!empty($row['editor_id'])) {
+                    $editor_id = $row['editor_id'];
+                    $sql_editor = "SELECT id, firstname, lastname FROM editor WHERE id = $editor_id";
+                    $result_editor = $conn->query($sql_editor);
+                    if ($result_editor->num_rows > 0) {
+                        $editor = $result_editor->fetch_assoc();
+                        $author_firstname = $editor['firstname'];
+                        $author_lastname = $editor['lastname'];
+                        $role = "Editor";
+                    }
+                } else {
+                    $author_firstname = $row['author_firstname'];
+                    $author_lastname = $row['author_lastname'];
+                    $role = "Contributing Writer";
+                }
+                $time = $row['time'];
+                $formatted_time = date("g:i A", strtotime($time));
+                $formId = "favouriteForm_" . $row["id"];
+                echo "<div class='posts_divcontainer_subdiv'>
+                        <h3 class='posts_divcontainer_header'>" . $row["title"] . "</h3>
+                        <div class='posts_divcontainer_subdiv2'>
+                            <p class='posts_divcontainer_p'><span>" . $translations['published_posts_i'] . ": </span>" . $author_firstname . " " . $author_lastname . " (" . $role . " )</p>
+                        </div>
+                        <div class='posts_divcontainer_subdiv3'>
+                            <p class='posts_divcontainer_subdiv_p'><span>" . $translations['published_date'] . ": </span>" . $row["formatted_date"] . "</p> 
+                            <p class='posts_divcontainer_subdiv_p'><span>" . $translations['published_time'] . ": </span>" . $formatted_time . "</p> 
+                        </div>
+                        <div class='posts_delete_edit'>
+                            <a class='users_edit' href='../edit/post.php?" . $postTypeVal . "=" . $row["id"] . "&title=" . $row["title"] . "'>
+                                <i class='fa fa-pencil' aria-hidden='true'></i>
+                            </a>
+                            <a class='users_delete' onclick='" . $delete_querytype . "(" . $row['id'] . ")'>
+                                <i class='fa fa-trash' aria-hidden='true'></i>
+                            </a>";
+                if ($post_type_dbname !== 'unpublished_articles') {
+                    echo    "<form id='" . $formId . "' class='favouriteForm' action='../script.php' method='POST' data-id='" . $row['id'] . "'>
+                                <input type='hidden' name='" . $postTypeVal2 . "' value='" . $row['id'] . "'>
+                                <input type='hidden' name='" . $favType . "' value='" . ($row['is_favourite'] === 'True' ? 'True' : 'False') . "'>
+                                <button type='submit' class='users_delete2 star'>
+                                    <i class='fa fa-star' aria-hidden='true'></i>
+                                </button>
+                            </form>";
+                }
+                echo "
+                        </div>
+                    </div>";
+            };
+        } else {
+            echo "No records found.";
+        }
+    } else {
+        echo "Query failed: " . $conn->error;
+    }
+    echo '</div></div></section>';
+}
 ?>

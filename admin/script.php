@@ -24,7 +24,6 @@ if ($post_id1 && $isfavourite1 !== '') {
     $sql = "UPDATE paid_posts SET is_favourite = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("si", $isfavourite1, $post_id1);
-
     if ($stmt->execute()) {
         $content = "Admin " . $_SESSION['firstname'] . " $actionType";
         $forUser = 0;

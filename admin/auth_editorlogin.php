@@ -3,9 +3,13 @@ session_start();
 require("../connect.php");
 require('../init.php');
 require("init.php");
+        $device_type = getDeviceType();
+        $ip_address = getVisitorIP();
+        $logFilePath = '../helpers/activites.txt';
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 $id = $_SESSION['id'];
+$firstName = $_SESSION['firstname'];
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
@@ -34,8 +38,9 @@ if (isset($_POST['fgtpswd'])) {
             $stmt->execute();
             $editor_result = $stmt->get_result();
             if ($editor_result->num_rows > 0) {
+                $action = "successfully logged in to editor's page";
+                logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstName);
                 $editor_row = $editor_result->fetch_assoc();
-                session_start();
                 $_SESSION['email'] = $editor_row['email'];
                 $_SESSION['id'] = $editor_row['id'];
                 $_SESSION['firstname'] = $editor_row['firstname'];
@@ -59,6 +64,8 @@ if (isset($_POST['fgtpswd'])) {
                 $_SESSION['status'] = "No editor found with this ID!";
             }
         } else {
+            $action = "attempted an unsuccessful login to editor's page";
+            logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstName);
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Incorrect password. Please try again.";
             header('location: admin_homepage.php');

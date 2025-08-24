@@ -10,7 +10,7 @@ $favicon = $details['favicon'];
 $email = $_GET['email'] ?? '';
 
 $msg = '';
-if (isset($_POST['validate_otp'])) {
+if (isset($_GET['resend_otp']) && $_GET['resend_otp'] == 1 && isset($_GET['email'])) {
     $secretKey = "6Ld33JwrAAAAALMCOvNYJ8T9Y-m2-XhWp19wAx5V";
     $captchaResponse = $_POST['g-recaptcha-response'];
 
@@ -22,6 +22,50 @@ if (isset($_POST['validate_otp'])) {
     if (!$responseData->success) {
         die("CAPTCHA verification failed. Please try again.");
     }
+
+    $email = $_GET['email'];
+    $stmt = $conn->prepare("SELECT firstname FROM editor WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        $firstname = $user['firstname'];
+        $token = rand(10000, 99999);
+        $updateStmt = $conn->prepare("UPDATE editor SET token = ?, token_created_at = NOW() WHERE email = ?");
+        $updateStmt->bind_param("ss", $token, $email);
+
+        if ($updateStmt->execute()) {
+            $sendOtp = sendOTP($email, $firstname, $token);
+            $_SESSION['status_type'] = $sendOtp['status_type'];
+            $_SESSION['status'] = "A new OTP has been sent to your email.";
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Failed to resend OTP.";
+        }
+
+        $updateStmt->close();
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Email not found.";
+    }
+
+    $stmt->close();
+    header("Location: verifyotp.php?email=" . urlencode($email) . "&resent=1");
+    exit();
+}
+
+if (isset($_POST['validate_otp'])) {
+    $secretKey = "6Ld33JwrAAAAALMCOvNYJ8T9Y-m2-XhWp19wAx5V";
+    $captchaResponse = $_POST['g-recaptcha-response'];
+    $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captchaResponse");
+    $responseData = json_decode($verify);
+    if (!$responseData->success) {
+        die("CAPTCHA verification failed. Please try again.");
+    }
+
+
     $email = $_POST['validate_otp_email'] ?? '';
     $otp = ($_POST['otp1'] ?? '') . ($_POST['otp2'] ?? '') . ($_POST['otp3'] ?? '') . ($_POST['otp4'] ?? '') . ($_POST['otp5'] ?? '');
 
@@ -30,7 +74,7 @@ if (isset($_POST['validate_otp'])) {
     } else {
         // Prepared statement with expiry check
         $stmt = $conn->prepare("
-            SELECT * FROM editor 
+            SELECT firstname FROM editor 
             WHERE email = ? 
               AND token = ? 
               AND token_created_at > NOW() - INTERVAL 1 MINUTE
@@ -42,8 +86,10 @@ if (isset($_POST['validate_otp'])) {
         if ($result === false) {
             $msg = "Error: " . $conn->error;
         } elseif ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
             $_SESSION['otp_verified'] = true;
             $_SESSION['verified_email'] = $email;
+
             // Clear token and timestamp
             $clearStmt = $conn->prepare("UPDATE editor SET token = NULL, token_created_at = NULL WHERE email = ?");
             $clearStmt->bind_param("s", $email);
@@ -53,11 +99,38 @@ if (isset($_POST['validate_otp'])) {
             header("Location: changepassword.php");
             exit();
         } else {
-            $msg = "OTP expired or invalid. Please request a new one.";
+            // OTP expired or invalid → regenerate
+            $token = rand(10000, 99999);
+            $regenerateStmt = $conn->prepare("UPDATE editor SET token = ?, token_created_at = NOW() WHERE email = ?");
+            $regenerateStmt->bind_param('ss', $token, $email);
+
+            if ($regenerateStmt->execute()) {
+                // Fetch firstname for sending OTP
+                $nameStmt = $conn->prepare("SELECT firstname FROM editor WHERE email = ?");
+                $nameStmt->bind_param("s", $email);
+                $nameStmt->execute();
+                $nameResult = $nameStmt->get_result();
+
+                if ($nameResult && $nameResult->num_rows > 0) {
+                    $user = $nameResult->fetch_assoc();
+                    $firstname = $user['firstname'];
+                    $sendOtp = sendOTP($email, $firstname, $token);
+                    $msg = "OTP expired or invalid. A new OTP has been sent to your email.";
+                } else {
+                    $msg = "Unable to retrieve user info for OTP regeneration.";
+                }
+
+                $nameStmt->close();
+            } else {
+                $msg = "Failed to regenerate OTP. Please try again.";
+            }
+
+            $regenerateStmt->close();
         }
+
+        $stmt->close();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +155,16 @@ if (isset($_POST['validate_otp'])) {
             <form method="post" class="form otp_form" id="validate_otp" action="verifyotp.php">
                 <div class="g-recaptcha" data-sitekey="6Ld33JwrAAAAAL5VxabGf2jrgr0zD2m0lJ9pO9n4"></div>
                 <h1>Enter OTP</h1>
-                <p class="error_div"><?php echo htmlspecialchars($msg); ?></p>
+                <?php if (isset($_GET['resent'])): ?>
+                    <p class="error_div">A new OTP has been sent to your email.</p>
+                <?php endif; ?>
+                <p class="error_div">
+                    <?php if (!empty($_SESSION['status'])) {
+                        echo $_SESSION['status'];
+                        unset($_SESSION['status']);
+                        unset($_SESSION['status_type']);
+                    } ?>
+                </p>
 
                 <div class="input-field">
                     <input type="number" class="otp-input" maxlength="1" name="otp1" required />
@@ -104,8 +186,8 @@ if (isset($_POST['validate_otp'])) {
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         window.onload = function() {
-            startCountdown();
             setupInputs();
+            startCountdown(); // Always restart countdown on page load
         };
     </script>
 </body>

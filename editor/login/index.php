@@ -2,55 +2,67 @@
 session_start();
 require("../connect.php");
 require('../../init.php');
+$msg = "";
+$device_type = getDeviceType();
+$ip_address = getVisitorIP();
+$logFilePath = '../../helpers/activites.txt';
+$attemptLogFile = '../../helpers/login_attempts.log';
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-if (isset($_POST['Sign_In'])) {
-    $email = trim($_POST['Email']);
-    $password = trim($_POST['Password']);
-    if (isset($_POST['remember'])) {
-        setcookie("emailid", $email, time() + 3600, "/", "", true, true);
-        setcookie("passwordid", $_POST['Password'], time() + 60 * 60);
-    }
-    $query = "SELECT * FROM editor WHERE email = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $email);
-    if ($stmt->execute()) {
-        $result = $stmt->get_result();
-        $editor = $result->fetch_assoc();
-        if ($editor && password_verify($password, $editor['password'])) {
-            $_SESSION['email'] = $editor['email'];
-            $_SESSION['id'] = $editor['id'];
-            $_SESSION['firstname'] = $editor['firstname'];
-            $_SESSION['lastname'] = $editor['lastname'];
-            $_SESSION['username'] = $editor['username'];
-            $_SESSION['image'] = $editor['image'];
-            $_SESSION['bio'] = $editor['bio'];
-            $_SESSION['mobile'] = $editor['mobile'];
-            $_SESSION['country'] = $editor['country'];
-            $_SESSION['city'] = $editor['city'];
-            $_SESSION['state'] = $editor['state'];
-            $_SESSION['address'] = $editor['address1'];
-            $_SESSION['addresstwo'] = $editor['address2'];
-            $_SESSION['country_code'] = $editor['country_code'];
-            $_SESSION['date_joined'] = $editor['date_joined'];
-            $_SESSION['language'] = $editor['language'];
-            $_SESSION['user'] = 'Editor';
-            header("location: ../editor_homepage.php");
-            exit();
-        } else {
-            $msg = "Invalid Password";
-        }
-    } else {
-        $msg = "User not found";
-    }
-}
-
-    if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
-    $emailid = $_COOKIE['emailid'];
-    $passwordid = $_COOKIE['passwordid'];
+if (!isLoginAllowed($ip_address, $attemptLogFile)) {
+    $msg = "Too many login attempts. Please try again after a few minutes.";
 } else {
-    $emailid = $passwordid = " ";
+    if (isset($_POST['Sign_In'])) {
+        $email = trim($_POST['Email']);
+        $password = trim($_POST['Password']);
+        if (isset($_POST['remember'])) {
+            setcookie("emailid", $email, time() + 3600, "/", "", true, true);
+            setcookie("passwordid", $_POST['Password'], time() + 60 * 60);
+        }
+        $query = "SELECT * FROM editor WHERE email = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $email);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            $editor = $result->fetch_assoc();
+            if ($editor && password_verify($password, $editor['password'])) {
+                $action = 'successfully logged in to editor page';
+                logUserAction($ipAddress, $deviceType, $logFilePath, $action);
+                $_SESSION['email'] = $editor['email'];
+                $_SESSION['id'] = $editor['id'];
+                $_SESSION['firstname'] = $editor['firstname'];
+                $_SESSION['lastname'] = $editor['lastname'];
+                $_SESSION['username'] = $editor['username'];
+                $_SESSION['image'] = $editor['image'];
+                $_SESSION['bio'] = $editor['bio'];
+                $_SESSION['mobile'] = $editor['mobile'];
+                $_SESSION['country'] = $editor['country'];
+                $_SESSION['city'] = $editor['city'];
+                $_SESSION['state'] = $editor['state'];
+                $_SESSION['address'] = $editor['address1'];
+                $_SESSION['addresstwo'] = $editor['address2'];
+                $_SESSION['country_code'] = $editor['country_code'];
+                $_SESSION['date_joined'] = $editor['date_joined'];
+                $_SESSION['language'] = $editor['language'];
+                $_SESSION['user'] = 'Editor';
+                header("location: ../editor_homepage.php");
+                exit();
+            } else {
+                $action = 'attempted login unsucessfully to admin page';
+                logUserAction($ipAddress, $deviceType, $logFilePath, $action);
+                $msg = "Invalid Password";
+            }
+        } else {
+            $msg = "User not found";
+        }
+    }
+    if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
+        $emailid = $_COOKIE['emailid'];
+        $passwordid = $_COOKIE['passwordid'];
+    } else {
+        $emailid = $passwordid = " ";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -93,12 +105,23 @@ if (isset($_POST['Sign_In'])) {
                     <p>Remember Me</p>
                 </div>
                 <p class="recover"><a href="forgotpassword.php">Forgot Password?</a></p>
-                <input type="submit" value="Sign In" class="btn_main" name="Sign_In" />
+                <input type="submit" value="Sign In" class="btn_main" name="Sign_In" id="loginBtn" />
             </form>
         </div>
     </section>
     <?php require("../extras/footer.php"); ?>
     <script src="../editor.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const errorDiv = document.querySelector(".error_div");
+            const loginBtn = document.getElementById("loginBtn");
+            if (errorDiv && errorDiv.textContent.includes("Too many login attempts")) {
+                loginBtn.disabled = true;
+                loginBtn.style.opacity = "0.5";
+                loginBtn.style.cursor = "not-allowed";
+            }
+        });
+    </script>
 </body>
 
 </html>

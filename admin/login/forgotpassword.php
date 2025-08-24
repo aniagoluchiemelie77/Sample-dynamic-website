@@ -22,6 +22,7 @@ if (isset($_POST['fgtpswd'])) {
             $sendOtp = sendOTP($email, $firstname, $token);
             $_SESSION['status_type'] = $sendOtp['status_type'];
             $_SESSION['status'] = $sendOtp['status'];
+            $_SESSION['firstname'] = $firstname;
             header('Location: verifyotp.php?email=' . urlencode($email));
             exit();
         }

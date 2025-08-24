@@ -478,5 +478,44 @@ function getIconForTable($tableName)
     }
     return 'fa-database';
 }
+function logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstName = null)
+{
+    date_default_timezone_set('Africa/Lagos');
+    $formattedDate = date('D jS Y');
+    $formattedTime = date('h:i A');
+    $logMessage = "User $firstName with $ipAddress, $deviceType $action at $formattedDate $formattedTime" . PHP_EOL;
+    if (!file_exists($logFilePath)) {
+        file_put_contents($logFilePath, "=== User Action Log ===" . PHP_EOL, LOCK_EX);
+    }
+    file_put_contents($logFilePath, $logMessage, FILE_APPEND | LOCK_EX);
+}
+function isLoginAllowed($ipAddress, $logFilePath, $maxAttempts = 5, $timeWindow = 600)
+{
+    $now = time();
+    $attempts = [];
+
+    if (!file_exists($logFilePath)) {
+        file_put_contents($logFilePath, '');
+    }
+
+    $lines = file($logFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos($line, '|') !== false) {
+            list($ip, $timestamp) = explode('|', $line);
+            if ($ip === $ipAddress && ($now - (int)$timestamp) <= $timeWindow) {
+                $attempts[] = $timestamp;
+            }
+        }
+    }
+
+    if (count($attempts) >= $maxAttempts) {
+        return false;
+    }
+
+    file_put_contents($logFilePath, "$ipAddress|$now" . PHP_EOL, FILE_APPEND | LOCK_EX);
+    return true;
+}
+
+
 $base_url = "http://localhost/Sample-dynamic-website/admin/";
 $editor_base_url = "http://localhost/Sample-dynamic-website/editor/";

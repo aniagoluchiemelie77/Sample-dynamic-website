@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
+    <script src="../admin.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
@@ -60,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
 <body>
     <?php
     require("../extras/header3.php");
-        $submitName = 'send_message';
-        $action = 'message.php';
+    $submitName = 'send_message';
+    $action = 'message.php';
     if ($id > 0) {
         if ($user_type == "Editor") {
             $query = "SELECT id, image, firstname FROM editor WHERE id = $id";
@@ -110,8 +111,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
         }
     }
     ?>
-    <script src="../admin.js"></script>
     <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            preventSubmitIfEmpty('.formC', 'input, textarea');
+            restoreFromLocalStorage();
+            document.getElementById('formSubmitBtn').addEventListener('click', function() {
+                clearLocalStorage();
+            });
+        });
         tinymce.init({
             selector: '#myTextareaq',
             setup: function(editor) {

@@ -12,7 +12,7 @@ function renderMessageForm($userType, $userId, $userImage, $userNameOrEmail, $fo
                 <div class='message_div-container_subdiv'>
                     <img src='" . htmlspecialchars($userImage) . "' alt='" . $userType . " Image'/>
                     <div class='message_div-container_subdiv-imagebody'>
-                        <form id='updateForm' action='" . $formAction . "' method='POST'>
+                        <form class='formC' id='updateForm' action='" . $formAction . "' method='POST' oninput='saveToLocalStorage()'>
                             <div class='input_group'>
                                 <input name='subject' placeholder='" . $translations['message_title'] . "..' class='input_group_input'/>
                                 <p><span>* </span>" . $translations['message_title_i'] . "</p>
@@ -23,7 +23,7 @@ function renderMessageForm($userType, $userId, $userImage, $userNameOrEmail, $fo
                             </div>
                             <input value='" . htmlspecialchars($userType) . "' style='display:none' name='user_type' type='text'/>
                             <input value='" . htmlspecialchars($userId) . "' style='display:none' name='user_id' type='text'/>
-                            <input type='submit' name='" . $submitName . "' value='" . $translations['send_message'] . "' class='btn send_messagebtn'/>
+                            <input id='formSubmitBtn' type='submit' name='" . $submitName . "' value='" . $translations['send_message'] . "' class='btn send_messagebtn'/>
                         </form>
                     </div>
                 </div>
@@ -65,7 +65,7 @@ function renderCategories()
 function renderCreateNewPostForm($usertype, $translations, $base_url)
 {
     echo "<section class='newpost_body'>
-        <form class='newpost_container' method='post' action='../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>";
+        <form class='newpost_container' method='post' action='../../helpers/forms.php' enctype='multipart/form-data' id='postForm' oninput='saveToLocalStorage()'>";
     if ($usertype === 'Admin') {
         echo "<div class='page_links'>
                     <a href='" . $base_url . "admin_homepage.php'>" . $translations['home'] . "</a> > <p>" . $translations['create_new_post'] . "</p>
@@ -150,7 +150,7 @@ function renderCreateNewPostForm($usertype, $translations, $base_url)
                 <p class='newpost_subdiv2-p leftp'><span>*</span>" . $translations['about_author_p'] . "</p>
             </div>
             <div class='newpost_container_div9 newpost_subdiv'>
-                <input class='form__submit_input' type='submit' value='" . $translations['publish'] . "' name='create_post' />
+                <input class='form__submit_input' id='formSubmitBtn' type='submit' value='" . $translations['publish'] . "' name='create_post' />
             </div>
             <div class='newpost_container_div10 newpost_subdiv'>
                 <p class='form__submit_or centerp bold'>----------- " . $translations['or'] . " -----------</p>
@@ -175,7 +175,7 @@ function renderCreateNewResourceFile($translations, $base_url, $usertype, $resou
             </div>";
     }
     echo "
-           <form class='formcontainer' id='topicForm' method='post' action='../../helpers/forms.php' enctype='multipart/form-data'>
+           <form class='formcontainer' oninput='saveToLocalStorage()' id='topicForm' method='post' action='../../helpers/forms.php' enctype='multipart/form-data'>
                <div class='head_paragraph'>
                    <h3>" . $translations['create_new_resource_file'] . "</h3>
                </div>
@@ -201,7 +201,7 @@ function renderCreateNewResourceFile($translations, $base_url, $usertype, $resou
                        <input type='text' name='resource_title' id='topicName' />
                    </div>
                </div>
-               <input class='formcontainer_submit' value='" . $translations['save'] . "' type='submit' name='create_new_resource_file' />
+               <input id='formSubmitBtn' class='formcontainer_submit' value='" . $translations['save'] . "' type='submit' name='create_new_resource_file' />
            </form>
        </section>";
 }
@@ -218,7 +218,7 @@ function renderCreateNewCategoryForm($base_url, $translations, $usertype)
             </div>";
     }
     echo "
-            <form class='formcontainer' id='topicForm' action='../../helpers/forms.php' method='POST' enctype='multipart/form-data'>
+            <form class='formcontainer' id='topicForm' oninput='saveToLocalStorage()' action='../../helpers/forms.php' method='POST' enctype='multipart/form-data'>
                 <div class='head_paragraph'>
                     <h3>" . $translations['create_category'] . "</h3>
                 </div>
@@ -235,7 +235,7 @@ function renderCreateNewCategoryForm($base_url, $translations, $usertype)
                         </div>
                     </div>
                 </div>
-                <input class='formcontainer_submit' name='create_page' value='" . $translations['save'] . "' type='submit' />
+                <input class='formcontainer_submit' id='formSubmitBtn' name='create_page' value='" . $translations['save'] . "' type='submit' />
             </form>
         </section>";
 }
@@ -252,7 +252,7 @@ function renderCreateNewUserForm($base_url, $translations, $usertype)
             </div>";
     }
     echo "
-        <form class='formcontainer' id='topicForm' method='post' action='../../helpers/forms.php' enctype='multipart/form-data'>
+        <form class='formcontainer' oninput='saveToLocalStorage()' id='topicForm' method='post' action='../../helpers/forms.php' enctype='multipart/form-data'>
             <div class='head_paragraph'>
                 <h3>" . $translations['create_user'] . "</h3>
             </div>
@@ -287,14 +287,14 @@ function renderCreateNewUserForm($base_url, $translations, $usertype)
                     </div>
                 </div>
             </div>
-            <input class='formcontainer_submit' value='" . $translations['save'] . "' type='submit' name='create_user' />
+            <input id='formSubmitBtn' class='formcontainer_submit' value='" . $translations['save'] . "' type='submit' name='create_user' />
         </form>
     </section>";
 };
 function renderCreateNewWorkspace($base_url, $translations, $usertype)
 {
     echo "<section class='newpost_body'>
-            <form class='newpost_container' method='post' action=''../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>";
+            <form class='newpost_container' oninput='saveToLocalStorage()' method='post' action=''../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>";
     if ($usertype === 'Admin') {
         echo "<div class='page_links'>
                 <a href='" . $base_url . "admin_homepage.php'>" . $translations['home'] . "</a> > <p>" . $translations['add_draft'] . "</p>
@@ -344,7 +344,7 @@ function renderCreateNewWorkspace($base_url, $translations, $usertype)
                     <textarea class='newpost_container_div7_subdiv2' name='Post_content' id='myTextarea2'></textarea>
                 </div>
                 <div class='newpost_container_div9 newpost_subdiv'>
-                    <input class='form__submit_input' type='submit' value='" . $translations['save_draft'] . "' name='create_draft' />
+                    <input class='form__submit_input' id='formSubmitBtn' type='submit' value='" . $translations['save_draft'] . "' name='create_draft' />
                 </div> 
             </form>
         </section>";
@@ -362,7 +362,7 @@ function renderCreateNewWriter($base_url, $translations, $usertype)
             </div>";
     }
     echo "
-            <form class='formcontainer' id='topicForm' method='post' action='../../helpers/forms.php' enctype='multipart/form-data'>
+            <form class='formcontainer' oninput='saveToLocalStorage()' id='topicForm' method='post' action='../../helpers/forms.php' enctype='multipart/form-data'>
                 <div class='head_paragraph'>
                     <h3>" . $translations['create_writer'] . "</h3>
                 </div>
@@ -386,7 +386,7 @@ function renderCreateNewWriter($base_url, $translations, $usertype)
                         </div>
                     </div>
                 </div>
-                <input class='formcontainer_submit' value='" . $translations['save'] . "' type='submit' name='create_writer' />
+                <input class='formcontainer_submit' id='formSubmitBtn' value='" . $translations['save'] . "' type='submit' name='create_writer' />
             </form>
         </section>
     ";

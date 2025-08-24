@@ -27,6 +27,7 @@ if (file_exists($translationFile)) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../editor.css" />
+    <script src="../editor.js" defer></script>
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
@@ -40,43 +41,14 @@ if (file_exists($translationFile)) {
     renderCreateNewResourceFile($translations, $base_url, $usertype, $resource_type);
     ?>
     <script src="sweetalert2.all.min.js"></script>
-    <script src="../editor.js"></script>
     <script>
-        function preventSubmitIfEmpty(formSelector, inputSelector) {
-            document.addEventListener("DOMContentLoaded", () => {
-                const form = document.querySelector(formSelector);
-                if (!form) return;
-
-                const inputs = form.querySelectorAll(inputSelector);
-                const originalValues = Array.from(inputs).map((input) =>
-                    input.value.trim()
-                );
-
-                form.addEventListener("submit", (e) => {
-                    let hasChanged = false;
-                    inputs.forEach((input, index) => {
-                        if (input.type === "file") {
-                            if (input.files.length > 0) {
-                                hasChanged = true;
-                            }
-                        } else if (input.value.trim() !== originalValues[index]) {
-                            hasChanged = true;
-                        }
-                    });
-
-                    if (!hasChanged) {
-                        e.preventDefault();
-                        Swal.fire({
-                            title: "Empty Form",
-                            text: "Cannot submit an empty form.",
-                            icon: "info",
-                            confirmButtonText: "Ok",
-                        });
-                    }
-                });
+        document.addEventListener("DOMContentLoaded", function() {
+            preventSubmitIfEmpty('.formcontainer', 'input, textarea');
+            restoreFromLocalStorage();
+            document.getElementById('formSubmitBtn').addEventListener('click', function() {
+                clearLocalStorage();
             });
-        }
-        preventSubmitIfEmpty('.formcontainer', 'input, textarea');
+        });
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

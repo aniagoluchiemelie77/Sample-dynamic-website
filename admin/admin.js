@@ -531,3 +531,31 @@ function setupInputs() {
   });
 }
 ;
+function saveToLocalStorage() {
+  const inputs = document.querySelectorAll('input:not([type="file"]), textarea, select');
+  inputs.forEach(input => {
+    localStorage.setItem(input.name, input.value);
+    console.log(`Saved ${input.name}: ${input.value}`);
+  });
+}
+
+function restoreFromLocalStorage() {
+  console.log("Restoring values...");
+  const inputs = document.querySelectorAll('input:not([type="file"]), textarea, select');
+  inputs.forEach(input => {
+    const savedValue = localStorage.getItem(input.name);
+    if (savedValue !== null) {
+      input.value = savedValue;
+      console.log(`Restored ${input.name}: ${savedValue}`);
+    }
+  });
+}
+
+function clearLocalStorage() {
+  const inputs = document.querySelectorAll('input:not([type="file"]), textarea, select');
+  inputs.forEach(input => {
+    localStorage.removeItem(input.name);
+    console.log(`Cleared ${input.name}`);
+  });
+}
+;

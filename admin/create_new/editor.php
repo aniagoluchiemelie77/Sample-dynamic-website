@@ -25,6 +25,7 @@ if (file_exists($translationFile)) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../admin.css" />
+    <script src="../admin.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['create_editor']; ?></title>
@@ -36,7 +37,7 @@ if (file_exists($translationFile)) {
         <div class="page_links">
             <a href="<?php echo $base_url . 'admin_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <p><?php echo $translations['users']; ?></p> > <p> <?php echo $translations['change_language']; ?></p>
         </div>
-        <form class="formcontainer" id="topicForm" method="post" action="../../helpers/forms.php" enctype="multipart/form-data">
+        <form class="formcontainer" id="topicForm" oninput='saveToLocalStorage()' method="post" action="../../helpers/forms.php" enctype="multipart/form-data">
             <div class="head_paragraph">
                 <h3><?php echo $translations['create_editor']; ?></h3>
             </div>
@@ -68,12 +69,18 @@ if (file_exists($translationFile)) {
                     <input type="password" name="editor_password-confirm" id="topicName" />
                 </div>
             </div>
-            <input class="formcontainer_submit" value="<?php echo $translations['save']; ?>" type="submit" name="create_editor" />
+            <input class="formcontainer_submit" id='formSubmitBtn' value="<?php echo $translations['save']; ?>" type="submit" name="create_editor" />
         </form>
     </section>
-    <script src="../admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            preventSubmitIfEmpty('.formcontainer', 'input');
+            restoreFromLocalStorage();
+            document.getElementById('formSubmitBtn').addEventListener('click', function() {
+                clearLocalStorage();
+            });
+        });
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

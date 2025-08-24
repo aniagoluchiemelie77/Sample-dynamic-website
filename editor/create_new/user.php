@@ -26,6 +26,7 @@ if (file_exists($translationFile)) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../editor.css" />
+    <script src="../editor.js" defer></script>
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
@@ -38,9 +39,15 @@ if (file_exists($translationFile)) {
     $usertype = $_SESSION['user'] ?? 'Editor';
     renderCreateNewUserForm($base_url, $translations, $usertype);
     ?>
-    <script src="../editor.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            preventSubmitIfEmpty('.formcontainer', 'input');
+            restoreFromLocalStorage();
+            document.getElementById('formSubmitBtn').addEventListener('click', function() {
+                clearLocalStorage();
+            });
+        });
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
         var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
         if (messageType == 'Error' && messageText != " ") {

@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
 session_start();
 $id = $_SESSION['id'];
 $userType = $_SESSION['user'];
@@ -100,7 +103,7 @@ function addResourceFile($tableName, $convertedPath, $resource_niche, $resource_
             $stmt->bind_param("ssssss", $tableName, $resource_url, $date, $time, $resource_niche, $resource_title);
             if ($stmt->execute()) {
                 $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
-                $stmt->bind_param("sss", $resource_type, $date, $time);
+                $stmt->bind_param("sss", $tableName, $date, $time);
                 if ($stmt->execute()) {
                     $_SESSION['status_type'] = "Success";
                     $_SESSION['status'] = "Resource File added successfully";
@@ -2550,7 +2553,7 @@ if (isset($_POST['edit_profile'])) {
     $mobile = $_POST['profile-mobile'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
-    $imagePath;
+    $imagePath = '';
     if (empty($image)) {
         $imagePath = null;
     }
@@ -2654,7 +2657,7 @@ if (isset($_POST['create_page'])) {
     }
     $filePath = $_FILES["topicImg"]["tmp_name"];
     $convertedPath = uploadToCloudinary($filePath);
-    createCategory($category_name, $convertedPath, $userType);
+    createCategory($topic_name, $convertedPath, $userType);
 }
 if (isset($_POST['create_writer'])) {
     $firstname = $_POST['writer_firstname'];
@@ -2784,7 +2787,7 @@ if (isset($_POST['edit_profile_editor'])) {
     $mobile = $_POST['profile-mobile'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
-    $$convertedPath = '';
+    $convertedPath = '';
     if (!empty($image)) {
         $filePath = $_FILES["Img"]["tmp_name"];
         $convertedPath = uploadToCloudinary($filePath);

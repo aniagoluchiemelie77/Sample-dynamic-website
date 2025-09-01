@@ -38,7 +38,7 @@ if (file_exists($translationFile)) {
 <body>
     <?php
     $usertype = $_SESSION['user'];
-    renderEditFrontendFeaturespage($translations, $base_url, $usertype, $logo);
+        renderEditFrontendFeaturespage($translations, $editor_base_url, $usertype, $logo);
     ?>
     <script src="sweetalert2.all.min.js"></script>
     <script>

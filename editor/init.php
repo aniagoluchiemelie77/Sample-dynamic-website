@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
 require("connect.php");
 $userId = $_SESSION['id'];
 $stmt = $conn->prepare("SELECT language FROM editor WHERE id = ?");

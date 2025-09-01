@@ -17,7 +17,6 @@ if (!function_exists('logUpdate')) {
         } else {
             return false;
         }
-        $stmt->close();
     }
 }
 if (!function_exists('noHyphenUppercase')) {

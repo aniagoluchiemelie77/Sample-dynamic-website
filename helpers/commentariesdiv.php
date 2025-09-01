@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
 $selectcommentaries = "SELECT id, content, admin_id, editor_id, authors_firstname, authors_lastname, authors_image, about_author, title, niche, image_path, post_image_url, Date, schedule FROM commentaries ORDER BY id DESC LIMIT 8";
     $selectcommentaries_result = $conn->query($selectcommentaries);
 if ($selectcommentaries_result->num_rows > 0) {

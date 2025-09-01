@@ -1,9 +1,12 @@
 <?php
+
+        /** @var \mysqli $conn */
+        global $conn;
 session_start();
 include("../connect.php");
 require('../../init.php');
 require("../init.php");
-require('../../helper/components.php');
+require('../../helpers/components.php');
 $translationFile = "../../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
@@ -57,7 +60,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 $author_bio = $row['about_author'];
                 $usertype = $_SESSION['user'];
-                renderEditPostForm($base_url, $translations, $post_id2, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
+                renderEditPostForm($editor_base_url, $translations, $post_id2, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
             }
         } else if ($post_id3 > 0) {
             $getpost_sql = " SELECT * FROM unpublished_articles WHERE id = $post_id3";
@@ -75,7 +78,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = null;
                 $author_bio = null;
                 $usertype = $_SESSION['user'];
-                renderEditPostForm($base_url, $translations, $post_id3, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
+                renderEditPostForm($editor_base_url, $translations, $post_id3, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
             }
         } else if ($post_id4 > 0) {
             $getpost_sql = " SELECT * FROM news WHERE id = $post_id4";
@@ -93,7 +96,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 $author_bio = $row['about_author'];
                 $usertype = $_SESSION['user'];
-                renderEditPostForm($base_url, $translations, $post_id4, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
+                renderEditPostForm($editor_base_url, $translations, $post_id4, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
             }
         } else if ($post_id5 > 0) {
             $getpost_sql = " SELECT * FROM commentaries WHERE id = $post_id5";
@@ -111,7 +114,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 $author_bio = $row['about_author'];
                 $usertype = $_SESSION['user'];
-                renderEditPostForm($base_url, $translations, $post_id5, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
+                renderEditPostForm($editor_base_url, $translations, $post_id5, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
             }
         } else if ($post_id6 > 0) {
             $getpost_sql = " SELECT * FROM press_releases WHERE id = $post_id6";
@@ -129,7 +132,7 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
                 $author_lastname = $row['authors_lastname'];
                 $author_bio = $row['about_author'];
                 $usertype = $_SESSION['user'];
-                renderEditPostForm($base_url, $translations, $post_id6, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
+                renderEditPostForm($editor_base_url, $translations, $post_id6, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype);
             }
         }
         ?>

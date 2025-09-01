@@ -1,3 +1,6 @@
+<?php
+global $logo;
+?>
 <header class="header">
     <div class="header_img">
         <a class="notification" href="../editor_homepage.php">

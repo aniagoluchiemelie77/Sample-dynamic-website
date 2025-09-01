@@ -12,6 +12,8 @@
   "autoload": {
     "files": [
       "init.php",
+      "admin/init.php",
+      "editor/init.php",
       "helpers/crudoperations.php",
       "helpers/components.php"
     ]

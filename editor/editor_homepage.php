@@ -1,7 +1,7 @@
 <?php
 
-        /** @var \mysqli $conn */
-        global $conn;
+/** @var \mysqli $conn */
+global $conn;
 session_start();
 require("connect.php");
 include("init.php");
@@ -1029,8 +1029,8 @@ if (file_exists($translationFile)) {
     </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

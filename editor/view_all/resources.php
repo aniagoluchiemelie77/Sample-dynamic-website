@@ -18,45 +18,43 @@ if (file_exists($translationFile)) {
 }
 $posttype = $resource_name;
 if (isset($_GET['query'])) {
-    $query = isset($_GET['query']);
-    $query = $query;
+    $query = $_GET['query'];
     $searchTerm = "%" . $query . "%";
-    if ($query !== "") {
-        $table_name = lowercaseNoSpace($posttype);
-        $sql = "SELECT * FROM `$table_name` WHERE title LIKE ? OR niche LIKE ? OR name LIKE ? ORDER BY id DESC LIMIT 5";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
-        if ($stmt->execute()) {
-            $result = $stmt->get_result();
-            if ($result && $result->num_rows > 0) {
-                echo "<h1 class='posts_divcontainer_header'>You Searched For: $query</h1>";
-                while ($row = $result->fetch_assoc()) {
-                    $formatted_date = date("M d, Y", strtotime($row['date_added']));
-                    $time = $row['time_added'];
-                    $formatted_time = date("g:i A", strtotime($time));
-                    $formId = "favouriteForm_" . $row["id"];
-                    echo "  <div class='posts_divcontainer_subdiv post' data-post-id='" . $row["id"] . "'>
-                                <h3 class='posts_divcontainer_header'>" . $row["title"] . "</h3>
-                                <h2 class='posts_divcontainer_header2'>" . $row["niche"] . "</h2>
-                                <h2 class='posts_divcontainer_header2'>" . $row["resource_path"] . "</h2>
-                                <div class='posts_divcontainer_subdiv3'>
-                                    <p class='posts_divcontainer_subdiv_p'><span> $translations[published_date]: </span>$formatted_date</p> 
-                                    <p class='posts_divcontainer_subdiv_p'><span> $translations[published_time]: </span>$formatted_time</p> 
-                                </div>
-                                <div class='posts_delete_edit'>
-                                    <a class='users_edit' href='../edit/resource.php?id=" . $row["id"] . "&resource_name=$resource_name'>
-                                        <i class='fa fa-pencil' aria-hidden='true'></i>
-                                    </a>
-                                    <a class='users_delete' onclick='confirmDeleteResource2(" . $row['id'] . ", \"" . htmlspecialchars($table_name, ENT_QUOTES) . "\")'>
-                                        <i class='fa fa-trash' aria-hidden='true'></i>
-                                    </a>
-                                </div>
-                            </div>";
-                }
-            } else {
-                echo "<h1 class='posts_divcontainer_header'>You Searched For: $query</h1>";
-                echo "<h3 class='posts_divcontainer_header'>No results found for '$query'</h3>";
+
+    $table_name = lowercaseNoSpace($posttype);
+    $sql = "SELECT * FROM `$table_name` WHERE title LIKE ? OR niche LIKE ? OR name LIKE ? ORDER BY id DESC LIMIT 5";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        if ($result && $result->num_rows > 0) {
+            echo "<h1 class='posts_divcontainer_header'>You Searched For: $query</h1>";
+            while ($row = $result->fetch_assoc()) {
+                $formatted_date = date("M d, Y", strtotime($row['date_added']));
+                $time = $row['time_added'];
+                $formatted_time = date("g:i A", strtotime($time));
+                $formId = "favouriteForm_" . $row["id"];
+                echo "  <div class='posts_divcontainer_subdiv post' data-post-id='" . $row["id"] . "'>
+                            <h3 class='posts_divcontainer_header'>" . $row["title"] . "</h3>
+                            <h2 class='posts_divcontainer_header2'>" . $row["niche"] . "</h2>
+                            <h2 class='posts_divcontainer_header2'>" . $row["resource_path"] . "</h2>
+                            <div class='posts_divcontainer_subdiv3'>
+                                <p class='posts_divcontainer_subdiv_p'><span> $translations[published_date]: </span>$formatted_date</p> 
+                                <p class='posts_divcontainer_subdiv_p'><span> $translations[published_time]: </span>$formatted_time</p> 
+                            </div>
+                            <div class='posts_delete_edit'>
+                                <a class='users_edit' href='../edit/resource.php?id=" . $row["id"] . "&resource_name=$resource_name'>
+                                    <i class='fa fa-pencil' aria-hidden='true'></i>
+                                </a>
+                                <a class='users_delete' onclick='confirmDeleteResource2(" . $row['id'] . ", \"" . htmlspecialchars($table_name, ENT_QUOTES) . "\")'>
+                                    <i class='fa fa-trash' aria-hidden='true'></i>
+                                </a>
+                            </div>
+                        </div>";
             }
+        } else {
+            echo "<h1 class='posts_divcontainer_header'>You Searched For: $query</h1>";
+            echo "<h3 class='posts_divcontainer_header'>No results found for '$query'</h3>";
         }
     }
     exit();

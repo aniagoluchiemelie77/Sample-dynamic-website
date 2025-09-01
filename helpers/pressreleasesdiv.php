@@ -1,5 +1,7 @@
 
     <?php
+    /** @var \mysqli $conn */
+    global $conn;
     $selectpressreleases_sql = "SELECT id, title, niche, image_path, post_image_url, content, Date, schedule FROM press_releases ORDER BY id DESC LIMIT 5";
         $selectpressreleases_result = $conn->query($selectpressreleases_sql);
     if ($selectpressreleases_result->num_rows > 0) {

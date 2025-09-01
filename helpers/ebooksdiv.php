@@ -1,5 +1,7 @@
 
-<?php 
+<?php
+/** @var \mysqli $conn */
+global $conn;
     $selectebooks = "SELECT id, name FROM ebooks ORDER BY id LIMIT 6";
     $selectebooks_result = $conn->query($selectebooks);
     if ($selectebooks_result->num_rows > 0) {

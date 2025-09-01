@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
 session_start();
 include("../connect.php");
 require('../../init.php');
@@ -15,7 +18,8 @@ if (file_exists($translationFile)) {
 }
 $posttype = $resource_name;
 if (isset($_GET['query'])) {
-    $query = isset($_GET['query']) ? trim($_GET['query']) : '';
+    $query = isset($_GET['query']);
+    $query = $query;
     $searchTerm = "%" . $query . "%";
     if ($query !== "") {
         $table_name = lowercaseNoSpace($posttype);
@@ -81,7 +85,7 @@ if (isset($_GET['query'])) {
     <section class="sectioneer">
         <div class="posts_div1 postsdiv sectioneer_divcontainer">
             <div class="page_links">
-                <a href="<?php echo $base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <a href="../edit/frontend_features.php"> <?php echo $translations['front_end_features']; ?> </a> > <p> <?php echo $translations['view_all_resources']; ?></p>
+                <a href="<?php echo $editor_base_url . 'editor_homepage.php'; ?>"><?php echo $translations['home']; ?></a> > <a href="../edit/frontend_features.php"> <?php echo $translations['front_end_features']; ?> </a> > <p> <?php echo $translations['view_all_resources']; ?></p>
             </div>
             <div class="posts_header">
                 <h1> <?php echo ucwords($resource_name); ?></h1>

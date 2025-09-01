@@ -9,7 +9,7 @@ $logo = $details['logo'];
 $favicon = $details['favicon'];
 $website_messages = cookieMessageAndVision();
 $cookie_message = $website_messages['cookie_message'];
-$website_vision = $website_messages['website_vision'];
+$website_description = $website_messages['website_vision'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

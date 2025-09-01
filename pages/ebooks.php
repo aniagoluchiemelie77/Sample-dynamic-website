@@ -1,4 +1,7 @@
 <?php
+
+        /** @var \mysqli $conn */
+        global $conn;
 session_start();
 require('../connect.php');
 require('../init.php');
@@ -39,6 +42,7 @@ if (isset($_GET['query'])) {
                     $niche = htmlspecialchars($row['niche']);
                     $formattedDate = date("F j, Y", strtotime($row['date_added']));
                     $resourcePath = htmlspecialchars($row['resource_path']);
+                    $max_length = 50;
                     if (containsFilesPath($resourcePath)) {
                         $resourcePath = '../' . $resourcePath;
                     }

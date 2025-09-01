@@ -1,3 +1,8 @@
+<?php
+
+/** @var \mysqli $conn */
+global $conn, $logo;
+?>
 <section class="footer">
     <div class="footer__div1">
         <div class="footer__div1__logobox">

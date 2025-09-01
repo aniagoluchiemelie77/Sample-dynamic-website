@@ -1,3 +1,8 @@
+<?php
+
+/** @var \mysqli $conn */
+global $conn, $logo;
+?>
 <header class="header">
     <center>
         <div class="mainheader">

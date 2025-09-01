@@ -14,6 +14,20 @@ use Cloudinary\Api\Upload\UploadApi;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+if (!isset($conn)) {
+    $conn = new class {
+        public function query($sql)
+        {
+            return new class {
+                public $num_rows = 0;
+                public function fetch_assoc()
+                {
+                    return null;
+                }
+            };
+        }
+    };
+}
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
@@ -81,7 +95,6 @@ function metaTitles()
     }
     return $meta_data;
 }
-$meta_titles = metaTitles();
 function sendEmail($email)
 {
     global $conn;
@@ -566,7 +579,11 @@ function userLogIn($usertype, $userDbName,)
     return $msg;
 }
 
-$base_url = "http://localhost/Sample-dynamic-website/user/";
+$base_url = "http://localhost/Sample-dynamic-website/admin/";
 $editor_base_url = "http://localhost/Sample-dynamic-website/editor/";
-$device_type = getDeviceType();
-$ip_address = getVisitorIP();
+
+if (php_sapi_name() !== 'cli' || defined('PHPSTAN_RUNNING')) {
+    $device_type = getDeviceType();
+    $ip_address = getVisitorIP();
+    $meta_titles = metaTitles();
+}

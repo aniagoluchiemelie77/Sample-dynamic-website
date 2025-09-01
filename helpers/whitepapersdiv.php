@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+/** @var \mysqli $conn */
+global $conn;
     $selectwhitepapers = "SELECT id, name FROM whitepapers ORDER BY id LIMIT 6";
     $selectwhitepapers_result = $conn->query($selectwhitepapers);
     if ($selectwhitepapers_result->num_rows > 0) {

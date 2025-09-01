@@ -1,5 +1,9 @@
 <?php
-    session_start();
+
+/** @var \mysqli $conn */
+global $conn;
+
+session_start();
     require('connect.php');
     if (isset($_POST['query'])) {
         $search = $conn->real_escape_string($_POST['query']);

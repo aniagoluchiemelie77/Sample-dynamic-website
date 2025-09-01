@@ -48,7 +48,6 @@ function addWebsiteMessages($cookie_message, $description)
         header('location: ' . $admin_base_url . 'edit/frontend_features.php');
         exit();
     }
-    $stmt->close();
 }
 function addResourceFile($tableName, $convertedPath, $resource_niche, $resource_title, $resource_url, $userType)
 {
@@ -80,7 +79,7 @@ function addResourceFile($tableName, $convertedPath, $resource_niche, $resource_
             $stmt->bind_param("ssssss", $tableName, $resource_url, $date, $time, $resource_niche, $resource_title);
             if ($stmt->execute()) {
                 $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
-                $stmt->bind_param("sss", $resource_type, $date, $time);
+                $stmt->bind_param("sss", $tableName, $date, $time);
                 if ($stmt->execute()) {
                     $_SESSION['status_type'] = "Success";
                     $_SESSION['status'] = "Resource File added successfully";
@@ -141,7 +140,7 @@ function addResourceFile($tableName, $convertedPath, $resource_niche, $resource_
             $stmt->bind_param("ssssss", $tableName, $resource_url, $date, $time, $resource_niche, $resource_title);
             if ($stmt->execute()) {
                 $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
-                $stmt->bind_param("sss", $resource_type, $date, $time);
+                $stmt->bind_param("sss", $tableName, $date, $time);
                 if ($stmt->execute()) {
                     $_SESSION['status_type'] = "Success";
                     $_SESSION['status'] = "Resource File added successfully";
@@ -162,7 +161,7 @@ function addResourceFile($tableName, $convertedPath, $resource_niche, $resource_
             $stmt->bind_param("ssssss", $tableName, $resource_url, $date, $time, $resource_niche, $resource_title);
             if ($stmt->execute()) {
                 $stmt = $conn->prepare("INSERT INTO resources (resource_name, Date, Time) VALUES (?, ?, ?)");
-                $stmt->bind_param("sss", $resource_type, $date, $time);
+                $stmt->bind_param("sss", $tableName, $date, $time);
                 if ($stmt->execute()) {
                     $_SESSION['status_type'] = "Success";
                     $_SESSION['status'] = "Resource File added successfully";
@@ -665,7 +664,6 @@ function updateEditorProfile($firstname, $lastname, $email, $username, $bio, $ad
             header('location: ' . $admin_base_url . 'admin_homepage.php');
             exit();
         }
-        $stmt->close();
     } else {
         $stmt = $conn->prepare("UPDATE editor SET firstname = ?, lastname = ?, username = ?, email = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
         $stmt->bind_param("ssssssssssssi", $firstname, $lastname, $username, $email, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
@@ -683,7 +681,6 @@ function updateEditorProfile($firstname, $lastname, $email, $username, $bio, $ad
             header('location: ' . $admin_base_url . 'admin_homepage.php');
             exit();
         }
-        $stmt->close();
     }
 }
 function addEditor($firstname, $lastname, $email, $img, $password, $id)
@@ -710,7 +707,6 @@ function addEditor($firstname, $lastname, $email, $img, $password, $id)
         header('location: ' . $admin_base_url . 'create_new/editor.php');
         exit();
     }
-    $stmt->close();
 }
 function addResources($tableName, $convertedPath, $resource_type, $resource_niche, $resource_title, $resource_url, $userType)
 {
@@ -1891,7 +1887,6 @@ function saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $id, 
             }
         }
     }
-    $stmt->close();
 }
 function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $id, $author_firstname, $author_lastname, $author_bio, $tablename, $post_id, $userType)
 {
@@ -1918,7 +1913,6 @@ function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $id,
                 header('location: ' . $editor_base_url . 'editor_homepage.php');
                 exit();
             }
-            $stmt->close();
         }else{
             $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, image_path = ?, content = ?, niche = ?, link = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
             $stmt->bind_param("sssssssssssi", $title, $subtitle, $imagePath, $content, $niche, $link, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
@@ -1936,7 +1930,6 @@ function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $id,
                 header('location: ' . $admin_base_url . 'admin_homepage.php');
                 exit();
             }
-            $stmt->close();
         }
     } else {
         if($userType === 'Editor'){
@@ -1956,7 +1949,6 @@ function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $id,
                 header('location: ' . $editor_base_url . 'editor_homepage.php');
                 exit();
             }
-            $stmt->close();
         }else{
             $stmt = $conn->prepare("UPDATE $tablename SET title = ?, subtitle = ?, content = ?, niche = ?, link = ?, Date = ?, time = ?, authors_firstname = ?, about_author = ?, authors_lastname = ? WHERE id = ?");
             $stmt->bind_param("ssssssssssi", $title, $subtitle, $content, $niche, $link, $date, $time, $author_firstname, $author_bio, $author_lastname, $post_id);
@@ -1974,7 +1966,6 @@ function updatePost($title, $subtitle, $imagePath, $content, $niche, $link, $id,
                 header('location: ' . $admin_base_url . 'admin_homepage.php');
                 exit();
             }
-            $stmt->close();
         }
     }
 }
@@ -2001,7 +1992,6 @@ function updateProfile($firstname, $lastname, $email, $username, $bio, $address1
                 header('location: ' . $editor_base_url . 'editor_homepage.php');
                 exit();
             }
-            $stmt->close();
         }else{
             $stmt = $conn->prepare("UPDATE admin_login_info SET firstname = ?, lastname = ?, username = ?, email = ?, image = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
             $stmt->bind_param("sssssssssssssi", $firstname, $lastname, $username, $email, $imagePath, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
@@ -2019,7 +2009,6 @@ function updateProfile($firstname, $lastname, $email, $username, $bio, $address1
                 header('location: ' . $admin_base_url . 'admin_homepage.php');
                 exit();
             }
-            $stmt->close();
         }
     } else {
         if($userType === 'Editor'){
@@ -2039,7 +2028,6 @@ function updateProfile($firstname, $lastname, $email, $username, $bio, $address1
                 header('location: ' . $editor_base_url . 'editor_homepage.php');
                 exit();
             }
-            $stmt->close();
         }else{
             $stmt = $conn->prepare("UPDATE admin_login_info SET firstname = ?, lastname = ?, username = ?, email = ?, bio = ?, mobile = ?, country = ?, 	city = ?, state = ?, address1 = ?, address2 = ?, country_code = ? WHERE id = ?");
             $stmt->bind_param("ssssssssssssi", $firstname, $lastname, $username, $email, $bio, $mobile, $country, $city, $state, $address1, $address2, $countrycode, $id);
@@ -2057,7 +2045,6 @@ function updateProfile($firstname, $lastname, $email, $username, $bio, $address1
                 header('location: ' . $admin_base_url . 'admin_homepage.php');
                 exit();
             }
-            $stmt->close();
         }
     }
 }
@@ -2084,7 +2071,6 @@ function updateUserProfile($firstname, $lastname, $email, $role, $url, $bio, $im
                 header('location: ' . $editor_base_url . 'editor_homepage.php');
                 exit();
             }
-            $stmt->close();
         }else{
             $stmt = $conn->prepare("UPDATE otherwebsite_users SET firstname = ?, lastname = ?, email = ?, role = ?, image = ?, bio = ?, linkedin_url = ? WHERE id = ?");
             $stmt->bind_param("sssssssi", $firstname, $lastname, $email, $role, $imagePath, $bio, $url, $id);
@@ -2102,7 +2088,6 @@ function updateUserProfile($firstname, $lastname, $email, $role, $url, $bio, $im
                 header('location: ' . $admin_base_url . 'admin_homepage.php');
                 exit();
             }
-            $stmt->close();
         }
     } else {
         if($userType === 'Editor'){
@@ -2122,7 +2107,6 @@ function updateUserProfile($firstname, $lastname, $email, $role, $url, $bio, $im
                 header('location: ' . $editor_base_url . 'editor_homepage.php');
                 exit();
             }
-            $stmt->close();
         }else{
             $stmt = $conn->prepare("UPDATE otherwebsite_users SET firstname = ?, lastname = ?, email = ?, role = ?, bio = ?, linkedin_url = ? WHERE id = ?");
             $stmt->bind_param("ssssssi", $firstname, $lastname, $email, $role, $bio, $url, $id);
@@ -2140,7 +2124,6 @@ function updateUserProfile($firstname, $lastname, $email, $role, $url, $bio, $im
                 header('location: ' . $admin_base_url . 'admin_homepage.php');
                 exit();
             }
-            $stmt->close();
         }
     }
 }
@@ -2167,7 +2150,6 @@ function updateWriterProfile($firstname, $lastname, $email, $bio, $imagePath, $i
                 header('location: ' . $editor_base_url . 'editor_homepage.php');
                 exit();
             }
-            $stmt->close();
         }else{
             $stmt = $conn->prepare("UPDATE writer SET firstname = ?, lastname = ?, email = ?, image = ?, bio = ? WHERE id = ?");
             $stmt->bind_param("sssssi", $firstname, $lastname, $email, $imagePath, $bio, $id);
@@ -2185,7 +2167,6 @@ function updateWriterProfile($firstname, $lastname, $email, $bio, $imagePath, $i
                 header('location: ' . $admin_base_url . 'admin_homepage.php');
                 exit();
             }
-            $stmt->close();
         }
     } else {
         if($userType === 'Editor'){
@@ -2205,7 +2186,6 @@ function updateWriterProfile($firstname, $lastname, $email, $bio, $imagePath, $i
                 header('location: ' . $editor_base_url . 'editor_homepage.php');
                 exit();
             }
-            $stmt->close();
         }else{
             $stmt = $conn->prepare("UPDATE writer SET firstname = ?, lastname = ?, email = ?, bio = ? WHERE id = ?");
             $stmt->bind_param("ssssi", $firstname, $lastname, $email, $bio, $id);
@@ -2223,7 +2203,6 @@ function updateWriterProfile($firstname, $lastname, $email, $bio, $imagePath, $i
                 header('location: ' . $admin_base_url . 'admin_homepage.php');
                 exit();
             }
-            $stmt->close();
         }
     }
 }
@@ -2371,7 +2350,7 @@ function forgotPasswordAction($usertype, $email)
 }
 function validateOTP($usertype, $email, $otp)
 {
-    global $conn, $admin_base_url, $editor_base_url;
+    global $conn, $admin_base_url, $editor_base_url, $msg;
     if ($usertype === 'admin') {
         if (strlen($otp) !== 5 || !ctype_digit($otp)) {
             $msg = "Invalid OTP format.";
@@ -2587,14 +2566,14 @@ if (isset($_POST['edit_profile_writer'])) {
     $email = $_POST['profile_email'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
-    $convertedPath;
+    $convertedPath = '';
     if (!empty($image)) {
         $filePath = $_FILES["Img"]["tmp_name"];
         $convertedPath = uploadToCloudinary($filePath);
     }else {
         $convertedPath = null;
     }
-    updateWriterProfile($firstname, $lastname, $email, $bio, $imagePath, $id, $userType);
+    updateWriterProfile($firstname, $lastname, $email, $bio, $convertedPath, $id, $userType);
 }
 if (isset($_POST['edit_profile_otheruser'])) {
     $id = $_POST['profile-id'];
@@ -2606,7 +2585,7 @@ if (isset($_POST['edit_profile_otheruser'])) {
     $url = $_POST['profile_url'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
-    $convertedPath;
+    $convertedPath = '';
     if (empty($image)) {
         $convertedPath = null;
     }
@@ -2622,7 +2601,7 @@ if (isset($_POST['create_draft'])) {
     $link = $_POST['Post_featured'];
     $image = $_FILES['Post_Image']['name'];
     $target = "../images/" . basename($image);
-    $convertedPath;
+    $convertedPath = '';
     if (empty($title) && empty($subtitle) && empty($link) && empty($image) && empty($content) && empty($niche)) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
@@ -2635,7 +2614,7 @@ if (isset($_POST['create_draft'])) {
     }
     $filePath = $_FILES["Post_Image"]["tmp_name"];
     $convertedPath = uploadToCloudinary($filePath);
-    saveDraft($title, $subtitle, $imagePath, $content, $niche, $link, $id, $userType);
+    saveDraft($title, $subtitle, $convertedPath, $content, $niche, $link, $id, $userType);
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_post'])) {
     $title = $_POST['Post_Title'];
@@ -2650,7 +2629,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_post'])) {
     $author_bio = $_POST['about_author'];
     $image = $_FILES['Post_Image']['name'];
     $target = "../images/" . basename($image);
-    $convertedPath;
+    $convertedPath = '';
     if (empty($image)) {
         $convertedPath = null;
     }
@@ -2662,7 +2641,7 @@ if (isset($_POST['create_page'])) {
     $topic_name = $_POST['topicName'];
     $image = $_FILES['topicImg']['name'];
     $target = "../images/" . basename($image);
-    $convertedPath;
+    $convertedPath = '';
     if (empty($topic_name) && empty($image)) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
@@ -2675,7 +2654,7 @@ if (isset($_POST['create_page'])) {
     }
     $filePath = $_FILES["topicImg"]["tmp_name"];
     $convertedPath = uploadToCloudinary($filePath);
-    createCategory($category_name, $category_image, $userType);
+    createCategory($category_name, $convertedPath, $userType);
 }
 if (isset($_POST['create_writer'])) {
     $firstname = $_POST['writer_firstname'];
@@ -2683,7 +2662,7 @@ if (isset($_POST['create_writer'])) {
     $email = $_POST['writer_email'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
-    $convertedPath;
+    $convertedPath = '';
     if (empty($firstname) && empty($lastname) && empty($email) && empty($image)) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
@@ -2697,7 +2676,7 @@ if (isset($_POST['create_writer'])) {
     } else {
         $convertedPath = 'https://res.cloudinary.com/dbdw3zftx/image/upload/v1754775818/uploads/Avatar.png'; // If no image is uploaded, set path to null
     }
-    addWriter($firstname, $lastname, $email, $imagePath, $id, $userType);
+    addWriter($firstname, $lastname, $email, $convertedPath, $id, $userType);
 }
 if (isset($_POST['create_user'])) {
     $firstname = $_POST['user_firstname'];
@@ -2707,7 +2686,7 @@ if (isset($_POST['create_user'])) {
     $linkedin_url = $_POST['user_linkedin_url'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
-    $convertedPath;
+    $convertedPath = '';
     if (empty($firstname) && empty($lastname) && empty($email) && empty($role) && empty($linkedin_url) && empty($image)) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
@@ -2720,7 +2699,7 @@ if (isset($_POST['create_user'])) {
     }
     $filePath = $_FILES["Img"]["tmp_name"];
     $convertedPath = uploadToCloudinary($filePath);
-    addUser($firstname, $lastname, $email,  $role, $linkedin_url, $imagePath, $userType);
+    addUser($firstname, $lastname, $email,  $role, $linkedin_url, $convertedPath, $userType);
 }
 if (isset($_POST['add_resource'])) {
     $resource_type = $_POST['resource_type'];
@@ -2781,7 +2760,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"]) && $_SESSION['us
             header('location: ' . $editor_base_url . 'editor_homepage.php');
             exit();
         }
-        $stmt->close();
     }
     if (isset($_FILES["profile_pic"])) {
         $filePath1 = $_FILES["profile_pic"]["tmp_name"];
@@ -2806,7 +2784,7 @@ if (isset($_POST['edit_profile_editor'])) {
     $mobile = $_POST['profile-mobile'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
-    $$convertedPath;
+    $$convertedPath = '';
     if (!empty($image)) {
         $filePath = $_FILES["Img"]["tmp_name"];
         $convertedPath = uploadToCloudinary($filePath);
@@ -2821,7 +2799,7 @@ if (isset($_POST['create_editor'])) {
     $confirm_pasword = $_POST['editor_password-confirm'];
     $image = $_FILES['Img']['name'];
     $target = "../images/" . basename($image);
-    $convertedPath;
+    $convertedPath = '';
     if (empty($firstname) && empty($lastname) && empty($email) && empty($password) && empty($confirm_pasword) && empty($image)) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Cannot submit form, please fill in all the required fields.";
@@ -2925,7 +2903,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"]) && $_SESSION['us
             header('location: ' . $admin_base_url . 'edit/frontend_features.php');
             exit();
         }
-        $stmt->close();
     }
     function updateLogo($imagePath1)
     {
@@ -2950,7 +2927,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"]) && $_SESSION['us
             header('location: ' . $admin_base_url . 'edit/frontend_features.php');
             exit();
         }
-        $stmt->close();
     }
     function updateProfilePic($imagePath1)
     {
@@ -2973,7 +2949,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"]) && $_SESSION['us
             header('location: ' . $admin_base_url . 'admin_homepage.php');
             exit();
         }
-        $stmt->close();
     }
     if (isset($_FILES["website_logo"])) {
         $website_logo = $_FILES["website_logo"]["name"];
@@ -3037,7 +3012,7 @@ if (isset($_POST['create_new_resource_file'])) {
     $resource_type = lowercaseNoSpace($resource_type);
     $resource_path = $_FILES['File']['name'];
     $target = "../files/" . basename($resource_path);
-    $convertedPath;
+    $convertedPath = '';
     if (empty($resource_type) && empty($resource_url) && empty($resource_title) && empty($resource_niche) && empty($resource_path)) {
         $_SESSION['status_type'] = "Error";
         $isEmpty = True;
@@ -3064,7 +3039,7 @@ if (isset($_POST['edit_resource_file'])) {
     $resource_type = lowercaseNoSpace($resource_type);
     $resource_path2 = $_FILES['File']['name'];
     $target = "../files/" . basename($resource_path2);
-    $convertedPath;
+    $convertedPath = '';
     if (!empty($resource_path2)) {
         $filePath = $_FILES["File"]["tmp_name"];
         $convertedPath = convertPath2($filePath);

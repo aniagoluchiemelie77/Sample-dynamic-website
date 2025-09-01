@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
 session_start();
 include("connect.php");
 require("../helpers/crudoperations.php");
@@ -12,7 +15,7 @@ $post_id4 = $_POST['post_id4'] ?? '';
 $isfavourite4 = $_POST['isfavourite4'] ?? '';
 $post_id5 = $_POST['post_id5'] ?? '';
 $isfavourite5 = $_POST['isfavourite5'] ?? '';
-$actionType;
+$actionType = '';
 if ($post_id2 && $isfavourite2 !== '') {
     if ($isfavourite2 === 'True') {
         $actionType = 'bookmarked a post from Posts';

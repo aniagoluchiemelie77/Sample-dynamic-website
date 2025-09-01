@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
     $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
     $results = [];
     foreach ($tables as $table) {

@@ -1,4 +1,7 @@
 <?php
+
+        /** @var \mysqli $conn */
+        global $conn;
 session_start();
 require('connect.php');
 require('init.php');
@@ -25,10 +28,8 @@ $visitor_check = "SELECT * FROM web_visitors WHERE ip_address = '$ip_address'";
 $result_check = $conn->query($visitor_check);
 if ($result_check->num_rows > 0) {
     $visit_type = 'returning';
-    if ($visit_type == 'returning') {
-        $sql_update = "UPDATE web_visitors SET visit_type = '$visit_type', visit_time = '$time' WHERE ip_address = '$ip_address'";
-        $update_check = $conn->query($sql_update);
-    }
+    $sql_update = "UPDATE web_visitors SET visit_type = '$visit_type', visit_time = '$time' WHERE ip_address = '$ip_address'";
+    $update_check = $conn->query($sql_update);
 } else {
     $visit_type = 'new';
     $insertIP = "INSERT INTO web_visitors (ip_address, country, user_devicetype, visit_time, visit_type) VALUES ('$ip_address', '$country', '$device_type', '$time', '$visit_type')";

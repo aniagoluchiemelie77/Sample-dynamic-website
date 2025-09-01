@@ -1,0 +1,25 @@
+parameters:
+
+  bootstrapFiles:
+    - phpstan-bootstrap.php
+    
+  level: max
+  paths:
+    - admin
+    - authors
+    - editor
+    - helpers
+    - includes
+    - pages
+    - index.php
+    - search.php
+
+  excludePaths:
+    analyse:
+      - css
+      - files
+      - javascript
+      - node_modules
+      - swaks
+      - vendor
+

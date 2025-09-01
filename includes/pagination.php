@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
     $result = $conn->query("SELECT COUNT(*) AS total FROM posts");
     $row = $result->fetch_assoc();
     $total_posts = $row['total'];

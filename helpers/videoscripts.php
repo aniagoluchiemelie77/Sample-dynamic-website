@@ -1,5 +1,7 @@
 
-<?php 
+<?php
+/** @var \mysqli $conn */
+global $conn;
     $selectvideoscripts = "SELECT id, name FROM videoscripts ORDER BY id LIMIT 6";
     $selectvideoscripts_result = $conn->query($selectvideoscripts);
     if ($selectvideoscripts_result->num_rows > 0) {

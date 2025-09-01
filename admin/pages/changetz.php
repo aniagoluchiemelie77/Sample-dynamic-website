@@ -6,10 +6,10 @@ $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $_SESSION['status_type'] = "";
-        $_SESSION['status'] = "";
-        if (isset($_POST['change_tz'])) {
-            $timezone = $_POST['timezone'];
-            if (in_array($timezone, timezone_identifiers_list())) {
+$_SESSION['status'] = "";
+if (isset($_POST['change_tz'])) {
+    $timezone = $_POST['timezone'];
+    if (in_array($timezone, timezone_identifiers_list())) {
         date_default_timezone_set($timezone);
         $_SESSION['timezone'] = $timezone; // Save in session for consistency
     } else {
@@ -37,7 +37,7 @@ $_SESSION['status_type'] = "";
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="author" content="Aniagolu Diamaka" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../admin.css" />
+    <link rel="stylesheet" href="../../css/admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title>Change Timezone</title>

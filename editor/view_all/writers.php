@@ -28,7 +28,7 @@ $posttype = 'Writers';
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../editor.js" async></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <link rel="stylesheet" href="../editor.css" />
+    <link rel="stylesheet" href="../../css/editor.css" />
     <title><?php echo $translations['view_writers']; ?></title>
 </head>
 

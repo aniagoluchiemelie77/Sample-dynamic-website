@@ -268,7 +268,7 @@ function addPage($page_name)
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-                    <link rel="stylesheet" href="../index.css" />
+                    <link rel="stylesheet" href="../css/main.css" />
                     <link rel="icon" href="../<?php echo \$favicon; ?>" type="image/x-icon">
                     <script src="../index.js" defer></script>
                     <title>$uc_page_name</title>
@@ -394,7 +394,7 @@ function addPage($page_name)
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-                <link rel="stylesheet" href="../admin.css" />
+                <link rel="stylesheet" href="../../css/admin.css" />
                 <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <link rel="icon" href="../../<?php echo \$favicon; ?>" type="image/x-icon">
@@ -519,7 +519,7 @@ function addPage($page_name)
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-                    <link rel="stylesheet" href="../editor.css" />
+                    <link rel="stylesheet" href="../../css/editor.css" />
                     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                     <link rel="icon" href="../../<?php echo \$favicon; ?>" type="image/x-icon">
                     <title>$uc_page_name</title>
@@ -815,7 +815,7 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-                <link rel="stylesheet" href="../index.css" />
+                <link rel="stylesheet" href="../css/main.css" />
                 <script src="../index.js" defer></script>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <link rel="icon" href="../<?php echo \$favicon; ?>" type="image/x-icon">
@@ -1124,7 +1124,7 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-                <link rel="stylesheet" href="../index.css" />
+                <link rel="stylesheet" href="../css/main.css" />
                 <script src="../index.js" defer></script>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <link rel="icon" href="../<?php echo \$favicon; ?>" type="image/x-icon">
@@ -1480,7 +1480,7 @@ function createCategory($category_name, $category_image, $userType)
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="../index.css" />
+            <link rel="stylesheet" href="../css/main.css" />
             <meta charset="UTF-8">
             <title>$uc_category_name</title>
         </head>

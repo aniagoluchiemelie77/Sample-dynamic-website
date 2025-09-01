@@ -22,7 +22,7 @@ $usertype = 'editor';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <link rel="stylesheet" href="../editor.css" />
+    <link rel="stylesheet" href="../../css/editor.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Forgot Password</title>
 </head>

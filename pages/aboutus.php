@@ -33,7 +33,7 @@ $website_description = $details2['website_vision'];
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../css/main.css" />
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="../index.js" defer></script>
     <title>About Us</title>

@@ -1,4 +1,4 @@
-@import "../admin/admin.css";
+@import "admin.css";
 .pages_container_subdiv a p{color:var(--color30-shade)}
 .developer_contact_container_body .developer_contact_subdiv p{color:var(--color30-shade)}
 .profile_body p{color:var(--color30-shade)}

@@ -364,7 +364,7 @@ if ($usertype == "NewsletterSubscriber") {
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 

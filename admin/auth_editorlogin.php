@@ -3,9 +3,9 @@ session_start();
 require("../connect.php");
 require('../init.php');
 require("init.php");
-        $device_type = getDeviceType();
-        $ip_address = getVisitorIP();
-        $logFilePath = '../helpers/activites.txt';
+$device_type = getDeviceType();
+$ip_address = getVisitorIP();
+$logFilePath = '../helpers/activites.txt';
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 $id = $_SESSION['id'];
@@ -92,7 +92,7 @@ if (isset($_POST['fgtpswd'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
-    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title><?php echo $translations['editor_login_verify']; ?></title>
 </head>

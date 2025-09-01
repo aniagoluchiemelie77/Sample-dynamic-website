@@ -2,9 +2,10 @@
 session_start();
 require("../connect.php");
 require('../../init.php');
-$msg = "";
-$device_type = getDeviceType();
-$ip_address = getVisitorIP();
+require('../../helpers/components.php');
+$msg = '';
+$emailid = '';
+$passwordid = '';
 $logFilePath = '../../helpers/activites.txt';
 $attemptLogFile = '../../helpers/login_attempts.log';
 $details = getFaviconAndLogo();
@@ -16,46 +17,9 @@ if (!isLoginAllowed($ip_address, $attemptLogFile)) {
     if (isset($_POST['Sign_In'])) {
         $email = trim($_POST['Email']);
         $password = trim($_POST['Password']);
-        if (isset($_POST['remember'])) {
-            setcookie("emailid", $email, time() + 3600, "/", "", true, true);
-            setcookie("passwordid", $_POST['Password'], time() + 60 * 60);
-        }
-        $query = "SELECT * FROM editor WHERE email = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("s", $email);
-        if ($stmt->execute()) {
-            $result = $stmt->get_result();
-            $editor = $result->fetch_assoc();
-            if ($editor && password_verify($password, $editor['password'])) {
-                $action = 'successfully logged in to editor page';
-                logUserAction($ipAddress, $deviceType, $logFilePath, $action);
-                $_SESSION['email'] = $editor['email'];
-                $_SESSION['id'] = $editor['id'];
-                $_SESSION['firstname'] = $editor['firstname'];
-                $_SESSION['lastname'] = $editor['lastname'];
-                $_SESSION['username'] = $editor['username'];
-                $_SESSION['image'] = $editor['image'];
-                $_SESSION['bio'] = $editor['bio'];
-                $_SESSION['mobile'] = $editor['mobile'];
-                $_SESSION['country'] = $editor['country'];
-                $_SESSION['city'] = $editor['city'];
-                $_SESSION['state'] = $editor['state'];
-                $_SESSION['address'] = $editor['address1'];
-                $_SESSION['addresstwo'] = $editor['address2'];
-                $_SESSION['country_code'] = $editor['country_code'];
-                $_SESSION['date_joined'] = $editor['date_joined'];
-                $_SESSION['language'] = $editor['language'];
-                $_SESSION['user'] = 'Editor';
-                header("location: ../editor_homepage.php");
-                exit();
-            } else {
-                $action = 'attempted login unsucessfully to admin page';
-                logUserAction($ipAddress, $deviceType, $logFilePath, $action);
-                $msg = "Invalid Password";
-            }
-        } else {
-            $msg = "User not found";
-        }
+        $usertype = 'editor';
+        $userDbName = 'editor';
+        userLogIn($usertype, $userDbName);
     }
     if (isset($_COOKIE['emailid']) && isset($_COOKIE['passwordid'])) {
         $emailid = $_COOKIE['emailid'];
@@ -82,34 +46,9 @@ if (!isLoginAllowed($ip_address, $attemptLogFile)) {
 </head>
 
 <body>
-    <section class="section1 flexcenter">
-        <div class="container" id="signIn">
-            <h1 class="form__title">Sign In</h1>
-            <form method="post" class="form">
-                <p class="error_div"><?php if (!empty($msg)) {
-                                            echo $msg;
-                                        } ?>
-                </p>
-                <div class="input_group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" name="Email" id="form_input" placeholder="Email" value="<?php echo $emailid; ?>" required />
-                    <label for="Email">Email</label>
-                </div>
-                <div class="input_group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="Password" id="form_input" placeholder="Password" value="<?php echo $passwordid; ?>" required />
-                    <label for="Password">Password</label>
-                </div>
-                <div class="checkbox_group">
-                    <input type="checkbox" name="remember" id="remember_me" />
-                    <p>Remember Me</p>
-                </div>
-                <p class="recover"><a href="forgotpassword.php">Forgot Password?</a></p>
-                <input type="submit" value="Sign In" class="btn_main" name="Sign_In" id="loginBtn" />
-            </form>
-        </div>
-    </section>
-    <?php require("../extras/footer.php"); ?>
+    <?php
+    renderSignInPage($msg, $emailid, $passwordid);
+    ?>
     <script src="../editor.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

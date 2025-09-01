@@ -2,41 +2,16 @@
 session_start();
 require("../connect.php");
 require('../../init.php');
-$device_type = getDeviceType();
-$ip_address = getVisitorIP();
+require('../../helpers/components.php');
 $logFilePath = '../../helpers/activites.txt';
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
-if (isset($_POST['change_password'])) {
-    $password1 = $_POST['pwd'];
-    $password2 = $_POST['cfpwd'];
-    $email = $_SESSION['verified_email'];
-    $firstname = $_SESSION['firstname'];
-    if ($password1 === $password2) {
-        $hashed = password_hash($password1, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("UPDATE admin_login_info SET password = ? WHERE email = ?");
-        $stmt->bind_param('ss',  $hashed, $email);
-        if ($stmt->execute()) {
-            $action = 'successfully changed his/her password';
-            logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstname);
-            $content = "Admin " . $firstname . " changed his/her password";
-            $forUser = 0;
-            logUpdate($conn, $forUser, $content);
-            $_SESSION['status_type'] = "Success";
-            $_SESSION['status'] = "Password Updated Successfully";
-            header("Location: index.php");
-        } else {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error, Please retry";
-        }
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Passwords do not match";
-    }
-}
+$email = $_SESSION['verified_email'];
+$firstname = $_SESSION['firstname'];
+$usertype = 'admin';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,31 +26,15 @@ if (isset($_POST['change_password'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../admin.css" />
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
+    <script src="../admin.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Forgot Password</title>
 </head>
 
 <body>
-    <section class="section1 flexcenter">
-        <div class="container" id="signIn">
-            <form method="post" class="form" id="validate_form" action="changepassword.php">
-                <h1>Change Password</h1>
-                <div class="input_group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="pwd" id="form_input" placeholder="Enter your password.." data-parsley-type="password" data-parsley-trigger="keyup" required />
-                    <label for="pwd">Password</label>
-                </div>
-                <div class="input_group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="cfpwd" id="form_input" placeholder="Enter your password.." data-parsley-type="password" data-parsley-trigger="keyup" required />
-                    <label for="cfpwd">Confirm Password</label>
-                </div>
-                <input type="submit" value="Update" class="btn_main" name="change_password" />
-            </form>
-        </div>
-    </section>
-    <?php require("../extras/footer.php"); ?>
-    <script src="../admin.js"></script>
+    <?php
+    renderChangePasswordLoginPage($usertype, $email, $firstname);
+    ?>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

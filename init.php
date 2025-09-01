@@ -489,7 +489,7 @@ function logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstNam
     }
     file_put_contents($logFilePath, $logMessage, FILE_APPEND | LOCK_EX);
 }
-function isLoginAllowed($ipAddress, $logFilePath, $maxAttempts = 5, $timeWindow = 600)
+function isLoginAllowed($ipAddress, $logFilePath, $maxAttempts = 10, $timeWindow = 600)
 {
     $now = time();
     $attempts = [];
@@ -515,7 +515,58 @@ function isLoginAllowed($ipAddress, $logFilePath, $maxAttempts = 5, $timeWindow 
     file_put_contents($logFilePath, "$ipAddress|$now" . PHP_EOL, FILE_APPEND | LOCK_EX);
     return true;
 }
+function userLogIn($usertype, $userDbName,)
+{
+    global $conn, $email, $password, $ipAddress, $deviceType, $logFilePath, $action;
+    if (isset($_POST['remember'])) {
+        setcookie("emailid", $email, time() + 3600, "/", "", true, true);
+        setcookie("passwordid", $_POST['Password'], time() + 60 * 60);
+    }
+    $query = "SELECT * FROM $userDbName WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        if ($user && password_verify($password, $user['password'])) {
+            $action = 'successfully logged in to ' . $usertype . ' page';
+            logUserAction($ipAddress, $deviceType, $logFilePath, $action);
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['firstname'] = $user['firstname'];
+            $_SESSION['lastname'] = $user['lastname'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['image'] = $user['image'];
+            $_SESSION['bio'] = $user['bio'];
+            $_SESSION['mobile'] = $user['mobile'];
+            $_SESSION['country'] = $user['country'];
+            $_SESSION['city'] = $user['city'];
+            $_SESSION['state'] = $user['state'];
+            $_SESSION['address'] = $user['address1'];
+            $_SESSION['addresstwo'] = $user['address2'];
+            $_SESSION['country_code'] = $user['country_code'];
+            $_SESSION['date_joined'] = $user['date_joined'];
+            $_SESSION['language'] = $user['language'];
+            if ($usertype === 'admin') {
+                $_SESSION['user'] = 'Admin';
+                header("location: ../admin_homepage.php");
+            } else if ($usertype === 'editor') {
+                $_SESSION['user'] = 'Edmin';
+                header("location: ../editor_homepage.php");
+            }
+            exit();
+        } else {
+            $action = 'attempted login unsucessfully to ' . $usertype . ' page';
+            logUserAction($ipAddress, $deviceType, $logFilePath, $action);
+            $msg = "Invalid Password";
+        }
+    } else {
+        $msg = "User not found";
+    }
+    return $msg;
+}
 
-
-$base_url = "http://localhost/Sample-dynamic-website/admin/";
+$base_url = "http://localhost/Sample-dynamic-website/user/";
 $editor_base_url = "http://localhost/Sample-dynamic-website/editor/";
+$device_type = getDeviceType();
+$ip_address = getVisitorIP();

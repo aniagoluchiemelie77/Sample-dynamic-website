@@ -16,6 +16,16 @@ function errorPath(){
         return $admin_base_url;
     } else return $editor_base_url;
 }
+function errorPath2()
+{
+    global $admin_base_url;
+    global $editor_base_url;
+    if ($_SESSION['user'] === 'admin') {
+        return $admin_base_url;
+    } else if ($_SESSION['user'] === 'editor') {
+        return $editor_base_url;
+    }
+}
 function addWebsiteMessages($cookie_message, $description)
 {
     global $conn;
@@ -2304,6 +2314,206 @@ function addUser($firstname, $lastname, $email,  $role, $linkedin_url, $imagePat
         }
     }
 }
+function forgotPasswordAction($usertype, $email)
+{
+    global $conn, $admin_base_url, $editor_base_url;
+    if ($usertype === 'admin') {
+        $stmt = $conn->prepare("SELECT firstname, email FROM admin_login_info WHERE email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $check_email = $stmt->get_result();
+        if ($check_email->num_rows > 0) {
+            $row = $check_email->fetch_assoc();
+            $firstname = $row['firstname'];
+            $token = rand(10000, 99999);
+            $stmt = $conn->prepare("UPDATE admin_login_info SET token = ?, token_created_at = NOW() WHERE email = ?");
+            $stmt->bind_param('ss', $token, $email);
+            if ($stmt->execute()) {
+                $sendOtp = sendOTP($email, $firstname, $token);
+                $_SESSION['status_type'] = $sendOtp['status_type'];
+                $_SESSION['status'] = $sendOtp['status'];
+                $_SESSION['firstname'] = $firstname;
+                header('Location: ' . $admin_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+                exit();
+            }
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Sorry, couldn't find user with specified email.";
+            header('Location: ' . $admin_base_url . '/login/forgotpassword.php');
+        }
+    } else if ($usertype === 'editor') {
+        // Use a prepared statement for the SELECT query
+        $stmt = $conn->prepare("SELECT firstname, email FROM editor WHERE email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $check_email = $stmt->get_result();
+
+        if ($check_email->num_rows > 0) {
+            $row = $check_email->fetch_assoc();
+            $firstname = $row['firstname'];
+            $token = rand(10000, 99999);
+            $stmt = $conn->prepare("UPDATE editor SET token = ?, token_created_at = NOW() WHERE email = ?");
+            $stmt->bind_param('ss', $token, $email);
+            if ($stmt->execute()) {
+                $sendOtp = sendOTP($email, $firstname, $token);
+                $_SESSION['status_type'] = $sendOtp['status_type'];
+                $_SESSION['status'] = $sendOtp['status'];
+                $_SESSION['firstname'] = $firstname;
+                header('Location: ' . $editor_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+                exit();
+            }
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Sorry, couldn't find user with specified email.";
+            header('Location: ' . $editor_base_url . '/login/forgotpassword.php');
+        }
+    }
+}
+function validateOTP($usertype, $email, $otp)
+{
+    global $conn, $admin_base_url, $editor_base_url;
+    if ($usertype === 'admin') {
+        if (strlen($otp) !== 5 || !ctype_digit($otp)) {
+            $msg = "Invalid OTP format.";
+            header('Location: ' . $admin_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+        } else {
+            $stmt = $conn->prepare("SELECT firstname FROM admin_login_info WHERE email = ? AND token = ? AND token_created_at > NOW() - INTERVAL 1 MINUTE");
+            $stmt->bind_param("ss", $email, $otp);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result === false) {
+                $msg = "User not found";
+                header('Location: ' . $admin_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+            } elseif ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $_SESSION['otp_verified'] = true;
+                $_SESSION['verified_email'] = $email;
+                $clearStmt = $conn->prepare("UPDATE admin_login_info SET token = NULL, token_created_at = NULL WHERE email = ?");
+                $clearStmt->bind_param("s", $email);
+                $clearStmt->execute();
+                $clearStmt->close();
+                header("Location: " . $admin_base_url . "login/changepassword.php");
+                exit();
+            } else {
+                $token = rand(10000, 99999);
+                $regenerateStmt = $conn->prepare("UPDATE admin_login_info SET token = ?, token_created_at = NOW() WHERE email = ?");
+                $regenerateStmt->bind_param('ss', $token, $email);
+                if ($regenerateStmt->execute()) {
+                    $nameStmt = $conn->prepare("SELECT firstname FROM admin_login_info WHERE email = ?");
+                    $nameStmt->bind_param("s", $email);
+                    $nameStmt->execute();
+                    $nameResult = $nameStmt->get_result();
+                    if ($nameResult && $nameResult->num_rows > 0) {
+                        $user = $nameResult->fetch_assoc();
+                        $firstname = $user['firstname'];
+                        $sendOtp = sendOTP($email, $firstname, $token);
+                        $msg = "OTP expired or invalid. A new OTP has been sent to your email.";
+                        header('Location: ' . $admin_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+                    } else {
+                        $msg = "Unable to retrieve user info for OTP regeneration.";
+                    }
+                    $nameStmt->close();
+                } else {
+                    $msg = "Failed to regenerate OTP. Please try again.";
+                    header('Location: ' . $admin_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+                }
+                $regenerateStmt->close();
+            }
+            $stmt->close();
+        }
+    } else if ($usertype === 'editor') {
+        if (strlen($otp) !== 5 || !ctype_digit($otp)) {
+            $msg = "Invalid OTP format.";
+            header('Location: ' . $editor_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+        } else {
+            $stmt = $conn->prepare("SELECT firstname FROM editor WHERE email = ? AND token = ? AND token_created_at > NOW() - INTERVAL 1 MINUTE");
+            $stmt->bind_param("ss", $email, $otp);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result === false) {
+                $msg = "User not found";
+                header('Location: ' . $editor_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+            } elseif ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $_SESSION['otp_verified'] = true;
+                $_SESSION['verified_email'] = $email;
+                $clearStmt = $conn->prepare("UPDATE editor SET token = NULL, token_created_at = NULL WHERE email = ?");
+                $clearStmt->bind_param("s", $email);
+                $clearStmt->execute();
+                $clearStmt->close();
+                header("Location: " . $editor_base_url . "login/changepassword.php");
+                exit();
+            } else {
+                $token = rand(10000, 99999);
+                $regenerateStmt = $conn->prepare("UPDATE editor SET token = ?, token_created_at = NOW() WHERE email = ?");
+                $regenerateStmt->bind_param('ss', $token, $email);
+                if ($regenerateStmt->execute()) {
+                    $nameStmt = $conn->prepare("SELECT firstname FROM editor WHERE email = ?");
+                    $nameStmt->bind_param("s", $email);
+                    $nameStmt->execute();
+                    $nameResult = $nameStmt->get_result();
+                    if ($nameResult && $nameResult->num_rows > 0) {
+                        $user = $nameResult->fetch_assoc();
+                        $firstname = $user['firstname'];
+                        $sendOtp = sendOTP($email, $firstname, $token);
+                        $msg = "OTP expired or invalid. A new OTP has been sent to your email.";
+                        header('Location: ' . $editor_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+                    } else {
+                        $msg = "Unable to retrieve user info for OTP regeneration.";
+                        header('Location: ' . $editor_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+                    }
+                    $nameStmt->close();
+                } else {
+                    $msg = "Failed to regenerate OTP. Please try again.";
+                    header('Location: ' . $editor_base_url . '/login/verifyotp.php?email=' . urlencode($email));
+                }
+                $regenerateStmt->close();
+            }
+            $stmt->close();
+        }
+    }
+    return $msg;
+}
+function resetPasswordSignIn($usertype, $password1, $email)
+{
+    global $conn, $ipAddress, $deviceType, $logFilePath, $action, $firstname, $admin_base_url, $editor_base_url;;
+    $hashed = password_hash($password1, PASSWORD_DEFAULT);
+    if ($usertype === 'admin') {
+        $stmt = $conn->prepare("UPDATE admin_login_info SET password = ? WHERE email = ?");
+        $stmt->bind_param('ss',  $hashed, $email);
+        if ($stmt->execute()) {
+            $action = 'successfully changed his/her password';
+            logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstname);
+            $content = "Admin " . $firstname . " changed his/her password";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Password Updated Successfully";
+            header('Location: ' . $admin_base_url . '/login/index.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('Location: ' . $admin_base_url . '/login/changepassword.php');
+        }
+    } else if ($usertype === 'editor') {
+        $stmt = $conn->prepare("UPDATE editor SET password = ? WHERE email = ?");
+        $stmt->bind_param('ss',  $hashed, $email);
+        if ($stmt->execute()) {
+            $action = 'successfully changed his/her password';
+            logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstname);
+            $content = "Editor " . $firstname . " changed his/her password";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Password Updated Successfully";
+            header('Location: ' . $editor_base_url . '/login/index.php');
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('Location: ' . $editor_base_url . '/login/changepassword.php');
+        }
+    }
+}
 if (isset($_POST['create_post'])) {
     $title = $_POST['Post_Title'];
     $subtitle = $_POST['Post_Sub_Title'];
@@ -2862,4 +3072,33 @@ if (isset($_POST['edit_resource_file'])) {
         $convertedPath = $resource_path;
     }
     editResourceFile($resource_type, $convertedPath, $resource_niche, $resource_title, $resource_name, $resource_type_id, $userType);
+}
+if (isset($_POST['fgtpswd'])) {
+    $email = $_POST['email'];
+    $usertype = $_POST['usertype'];
+    forgotPasswordAction($usertype, $email);
+}
+if (isset($_POST['validate_otp'])) {
+    $email = $_POST['validate_otp_email'] ?? '';
+    $usertype = $_POST['usertype'] ?? '';
+    $otp = ($_POST['otp1'] ?? '') . ($_POST['otp2'] ?? '') . ($_POST['otp3'] ?? '') . ($_POST['otp4'] ?? '') . ($_POST['otp5'] ?? '');
+    validateOTP($usertype, $email, $otp);
+}
+if (isset($_POST['change_password'])) {
+    $password1 = $_POST['pwd'];
+    $password2 = $_POST['cfpwd'];
+    $email = $_POST['email'];
+    $firstname = $_POST['firstname'];
+    $usertype = $_POST['usertype'];
+    if ($password1 === $password2) {
+        resetPasswordSignIn($usertype, $password1, $email);
+    } else {
+        $_SESSION['status_type'] = "Error";
+        $_SESSION['status'] = "Passwords do not match";
+        if ($usertype === 'admin') {
+            header('location: ' . $admin_base_url . '/login/changepassword.php');
+        } else if ($usertype === 'editor') {
+            header('location: ' . $editor_base_url . '/login/changepassword.php');
+        }
+    }
 }

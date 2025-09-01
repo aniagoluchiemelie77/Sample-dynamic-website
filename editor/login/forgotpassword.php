@@ -2,36 +2,13 @@
 session_start();
 require("../connect.php");
 require('../../init.php');
+require('../../helpers/components.php');
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-if (isset($_POST['fgtpswd'])) {
-    $email = $_POST['email'];
-    $check_email = mysqli_query($conn, "SELECT firstname, email FROM editor WHERE email = '$email'");
-    $res = mysqli_num_rows($check_email);
-    if ($res > 0) {
-        $row = mysqli_fetch_assoc($check_email);
-        $firstname = $row['firstname'];
-        $token = rand(10000, 99999);
-        $stmt = $conn->prepare("UPDATE editor SET token = ?, token_created_at = NOW() WHERE email = ?");
-        $stmt->bind_param('ss', $token, $email);
-
-        if ($stmt->execute()) {
-            $sendOtp = sendOTP($email, $firstname, $token);
-            $_SESSION['status_type'] = $sendOtp['status_type'];
-            $_SESSION['status'] = $sendOtp['status'];
-            $_SESSION['firstname'] = $firstname;
-            header('Location: verifyotp.php?email=' . urlencode($email));
-            exit();
-        }
-    } else {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Sorry, couldn't find user with specified email.";
-    }
-}
-
+$usertype = 'editor';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,20 +28,9 @@ if (isset($_POST['fgtpswd'])) {
 </head>
 
 <body>
-    <section class="section1 flexcenter">
-        <div class="container" id="signIn">
-            <form method="post" class="form" id="validate_form" action="forgotpassword.php">
-                <h1>Enter Your Email</h1>
-                <div class="input_group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" name="email" id="form_input" placeholder="Enter your email.." data-parsley-type="email" data-parsley-trigger="keyup" required />
-                    <label for="email">Email</label>
-                </div>
-                <input type="submit" value="Send OTP" class="btn_main" name="fgtpswd" />
-            </form>
-        </div>
-    </section>
-    <?php require("../extras/footer.php"); ?>
+    <?php
+    renderForgotPasswordPage($usertype);
+    ?>
     <script src="../index.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>

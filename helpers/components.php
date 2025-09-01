@@ -2120,4 +2120,114 @@ function renderPostTypePage($base_url, $userType, $post_type_dbname, $postTypeVa
     }
     echo '</div></div></section>';
 }
+function renderSignInPage($msg, $emailid, $passwordid)
+{
+    echo ' <section class="section1 flexcenter">
+               <div class="container" id="signIn">
+                    <h1 class="form__title">Sign In</h1>
+                    <form method="post" class="form">
+                        <p class="error_div">';
+    if (!empty($msg)) {
+        echo $msg;
+    };
+    echo '</p>
+                        <div class="input_group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" name="Email" id="form_input" placeholder="Email" value="' . $emailid . '" required/>
+                            <label for="Email">Email</label>
+                        </div>
+                        <div class="input_group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" name="Password" id="form_input" placeholder="Password" value="' . $passwordid . '" required/>
+                            <label for="Password">Password</label>
+                        </div>
+                        <div class="checkbox_group">
+                            <input type="checkbox" name="remember" id="remember_me" />
+                            <p>Remember Me</p>
+                        </div>
+                        <p class="recover"><a href="forgotpassword.php">Forgot Password?</a></p>
+                        <input type="submit" value="Sign In" class="btn_main" name="Sign_In" id="loginBtn" />
+                    </form>
+                </div>
+            </section>';
+    require("../extras/footer.php");
+}
+function renderForgotPasswordPage($usertype)
+{
+    echo '<section class="section1 flexcenter">
+            <div class="container" id="signIn">
+                <form method="post" class="form" id="validate_form" action="../../helpers/forms.php">
+                    <h1>Enter Your Email</h1>
+                    <input type="hidden" value="' . $usertype . '" name="usertype" />
+                    <div class="input_group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" id="form_input" placeholder="Enter your email.." data-parsley-type="email" data-parsley-trigger="keyup" required />
+                        <label for="email">Email</label>
+                    </div>
+                    <input type="submit" value="Send OTP" class="btn_main" name="fgtpswd" />
+                </form>
+            </div>
+        </section>
+    ';
+    require("../extras/footer.php");
+}
+function renderOtpInputPage($email, $usertype)
+{
+    global $msg;
+    echo '<section class="section1 flexcenter">
+            <div class="container flexcenter" id="signIn">
+                <form method="post" class="form otp_form" id="validate_otp" action="../../helpers/forms.php">
+                    <h1>Enter OTP</h1>';
+    if (isset($_GET['resent'])) {
+        echo '<p class="error_div">A new OTP has been sent to your email.</p>';
+    }
+    echo '<p class="error_div">';
+    if (!empty($_SESSION['status'])) {
+        echo $_SESSION['status'];
+        unset($_SESSION['status']);
+        unset($_SESSION['status_type']);
+    }
+    echo '</p>
+                    <div class="input-field">
+                        <input type="number" class="otp-input" maxlength="1" name="otp1" required />
+                        <input type="number" class="otp-input" maxlength="1" name="otp2" required />
+                        <input type="number" class="otp-input" maxlength="1" name="otp3" required />
+                        <input type="number" class="otp-input" maxlength="1" name="otp4" required />
+                        <input type="number" class="otp-input" maxlength="1" name="otp5" required />
+                    </div>
+                    <input type="hidden" value="' . $email . '" name="validate_otp_email" />
+                    <input type="hidden" value="' . $usertype . '" name="usertype" />
+                    <p id="countdown" class="timer"></p>
+                    <button id="btn" class="verifyButton" name="validate_otp">Verify</button>
+                </form>
+            </div>
+        </section>';
+    require("../extras/footer.php");
+};
+function renderChangePasswordLoginPage($usertype, $email, $firstname)
+{
+    echo '<section class="section1 flexcenter">
+            <div class="container" id="signIn">
+                <form method="post" class="form" id="validate_form" action="../../helpers/forms.php">
+                    <h1>Change Password</h1>
+                    <div class="input_group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="pwd" id="form_input" placeholder="Enter your password.." data-parsley-type="password" data-parsley-trigger="keyup" required />
+                        <label for="pwd">Password</label>
+                    </div>
+                    <input type="hidden" name="usertype" value="' . $usertype . '"/>
+                    <input type="hidden" name="email" value="' . $email . '"/>
+                    <input type="hidden" name="firstname" value="' . $firstname . '"/>
+                    <div class="input_group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="cfpwd" id="form_input" placeholder="Enter your password.." data-parsley-type="password" data-parsley-trigger="keyup" required />
+                        <label for="cfpwd">Confirm Password</label>
+                    </div>
+                    <input type="submit" value="Update" class="btn_main" name="change_password" />
+                </form>
+            </div>
+        </section>
+    ';
+    require("../extras/footer.php");
+}
 ?>

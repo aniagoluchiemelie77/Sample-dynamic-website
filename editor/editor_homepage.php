@@ -46,7 +46,7 @@ if (file_exists($translationFile)) {
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
-    <script src="editor.js" defer></script>
+    <script src="../javascript/editor.js" defer></script>
     <title><?php echo $translations['editor_homepage']; ?></title>
 </head>
 

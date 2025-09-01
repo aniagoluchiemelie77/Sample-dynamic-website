@@ -27,6 +27,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/editor.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="../../javascript/editor.js" defer></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['work_with_us']; ?></title>
 </head>
@@ -40,7 +41,6 @@ if (file_exists($translationFile)) {
     $usertype = $_SESSION['user'] ?? 'Editor'; // Default to Admin if not set
     renderPageViewAndEditForm($editor_base_url, $usertype, $translations, $table_name, $textarea_name, $textareaId, $submitbtn_name, $logo);
     ?>
-    <script src="../editor.js"></script>
 </body>
 
 </html>

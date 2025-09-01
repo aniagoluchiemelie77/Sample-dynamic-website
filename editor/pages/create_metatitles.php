@@ -41,7 +41,7 @@ $userId = $_SESSION['id'];
     renderMetaTitlesManagementForm($editor_base_url, $usertype);
     ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../editor.js"></script>
+    <script src="../../javascript/editor.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

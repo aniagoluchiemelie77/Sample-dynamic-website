@@ -60,7 +60,7 @@ $usertype = 'editor';
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../../css/editor.css" />
-    <script src="../editor.js" defer></script>
+    <script src="../../javascript/editor.js" defer></script>
     <title>Forgot Password</title>
 </head>
 

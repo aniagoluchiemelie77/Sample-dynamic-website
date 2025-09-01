@@ -40,7 +40,7 @@ if (file_exists($translationFile)) {
     $usertype = $_SESSION['user'] ?? 'Editor'; // Default to Editor if not set
     renderPageViewAndEditForm($editor_base_url, $usertype, $translations, $table_name, $textarea_name, $textareaId, $submitbtn_name, $logo);
     ?>
-    <script src="../editor.js"></script>
+    <script src="../../javascript/editor.js"></script>
 </body>
 
 </html>

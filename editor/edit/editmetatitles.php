@@ -53,7 +53,7 @@ if (file_exists($translationFile)) {
     require("../extras/header2.php");
     renderEditMetatitlesForm($translations, $page_name);
     ?>
-    <script src="../editor.js"></script>
+    <script src="../../javascript/editor.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

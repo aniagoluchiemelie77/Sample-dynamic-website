@@ -38,7 +38,7 @@ if (file_exists($translationFile)) {
     renderEditUserProfileForm($usertype, $id, $translations, $logo);
     ?>
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="../admin.js"></script>
+    <script src="../../javascript/admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

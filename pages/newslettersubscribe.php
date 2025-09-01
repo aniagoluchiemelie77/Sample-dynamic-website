@@ -87,7 +87,7 @@ $favicon = $details['favicon'];
         </div>
     </div>
     <?php include("../includes/footer2.php"); ?>
-    <script src="../index.js"></script>
+    <script src="../javascript/main.js"></script>
 </body>
 
 </html>

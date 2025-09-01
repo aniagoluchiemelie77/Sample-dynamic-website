@@ -64,7 +64,7 @@ if (isset($_POST['change_tz'])) {
         </form>
     </section>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
-    <script src="../admin.js"></script>
+    <script src="../../javascript/admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

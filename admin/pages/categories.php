@@ -29,7 +29,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../admin.js" async></script>
+    <script src="../../javascript/admin.js" async></script>
     <title><?php echo $translations['categories']; ?></title>
 </head>
 

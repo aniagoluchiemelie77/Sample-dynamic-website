@@ -47,7 +47,7 @@ if (isset($_POST['subscribe_btn2'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
-    <script src="../index.js" defer></script>
+    <script src="../javascript/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Cloud Computing</title>
 </head>

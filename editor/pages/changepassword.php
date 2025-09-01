@@ -96,7 +96,7 @@ if (isset($_POST['change_pwd'])) {
     renderChangePasswordForm($editor_base_url, $usertype);
     ?>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
-    <script src="../editor.js"></script>
+    <script src="../../javascript/editor.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

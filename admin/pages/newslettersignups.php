@@ -31,7 +31,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="../../css/admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <script src="../admin.js" defer></script>
+    <script src="../../javascript/admin.js" defer></script>
     <title><?php echo $translations['newsletter_signups']; ?></title>
 </head>
 
@@ -84,7 +84,7 @@ if (file_exists($translationFile)) {
     </section>
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
-    <script src="../admin.js"></script>
+    <script src="../../javascript/admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

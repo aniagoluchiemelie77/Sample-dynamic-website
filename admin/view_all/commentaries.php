@@ -29,7 +29,7 @@ $posttype = 'Commentaries';
     <link rel="stylesheet" href="../../css/admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <script src="../admin.js" defer></script>
+    <script src="../../javascript/admin.js" defer></script>
     <title><?php echo $translations['view_commentaries']; ?></title>
 </head>
 

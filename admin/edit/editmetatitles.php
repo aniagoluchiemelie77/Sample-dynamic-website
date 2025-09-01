@@ -54,7 +54,7 @@ $posttype = "Metatitles";
     require("../extras/header2.php");
     renderEditMetatitlesForm($translations, $page_name);
     ?>
-    <script src="../admin.js"></script>
+    <script src="../../javascript/admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         function preventSubmitIfUnchanged(formSelector, inputSelector) {

@@ -38,7 +38,7 @@ if (file_exists($translationFile)) {
     <?php
     renderEditResourcefileForm($translations, $resource_name_uc, $resource_name, $id, $logo);
     ?>
-    <script src="../admin.js"></script>
+    <script src="../../javascript/admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";

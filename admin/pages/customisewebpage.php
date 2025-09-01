@@ -46,7 +46,7 @@ if (file_exists($translationFile)) {
             </div>
         </div>
     </section>
-    <script src="../admin.js"></script>
+    <script src="../../javascript/admin.js"></script>
 </body>
 
 </html>

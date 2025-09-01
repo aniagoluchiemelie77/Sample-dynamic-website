@@ -50,7 +50,7 @@ if (!isLoginAllowed($ip_address, $attemptLogFile)) {
     <?php
     renderSignInPage($msg, $emailid, $passwordid);
     ?>
-    <script src="../admin.js"></script>
+    <script src="../../javascript/admin.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const errorDiv = document.querySelector(".error_div");

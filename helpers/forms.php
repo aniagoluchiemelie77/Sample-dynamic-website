@@ -270,7 +270,7 @@ function addPage($page_name)
                     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
                     <link rel="stylesheet" href="../css/main.css" />
                     <link rel="icon" href="../<?php echo \$favicon; ?>" type="image/x-icon">
-                    <script src="../index.js" defer></script>
+                    <script src="../javascript/main.js" defer></script>
                     <title>$uc_page_name</title>
                 </head>
                 <body>
@@ -410,7 +410,7 @@ function addPage($page_name)
                     renderPageViewAndEditForm(\$base_url, \$usertype, \$translations, \$table_name, \$textarea_name, \$textareaId, \$submitbtn_name, \$logo);
                 ?>
                 <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
-                <script src="../admin.js"></script>
+                <script src="../javascript/admin.js"></script>
                 <script>
                     var messageType = "<?= \$_SESSION['status_type'] ?? ' ' ?>";
                     var messageText = "<?= \$_SESSION['status'] ?? ' ' ?>";
@@ -533,7 +533,7 @@ function addPage($page_name)
                         \$usertype = \$_SESSION['user'] ?? 'Editor'; // Default to Admin if not set
                         renderPageViewAndEditForm(\$editor_base_url, \$usertype, \$translations, \$table_name, \$textarea_name, \$textareaId, \$submitbtn_name, \$logo);
                     ?>
-                    <script src="../editor.js"></script>
+                    <script src="../../javascript/editor.js"></script>
                 </body>
             </html>
     PHP;
@@ -816,7 +816,7 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="../css/main.css" />
-                <script src="../index.js" defer></script>
+                <script src="../javascript/main.js" defer></script>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <link rel="icon" href="../<?php echo \$favicon; ?>" type="image/x-icon">
                 <title>$uc_page_name</title>
@@ -1125,7 +1125,7 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="../css/main.css" />
-                <script src="../index.js" defer></script>
+                <script src="../javascript/main.js" defer></script>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <link rel="icon" href="../<?php echo \$favicon; ?>" type="image/x-icon">
                 <title>$uc_page_name</title>

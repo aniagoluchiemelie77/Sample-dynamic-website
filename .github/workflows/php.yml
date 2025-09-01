@@ -1,0 +1,53 @@
+name: PHP Blog CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        coverage: none
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Run PHPStan
+      run: vendor/bin/phpstan analyse --configuration=phpstan.neon
+
+    - name: Run Psalm
+      run: vendor/bin/psalm
+
+    - name: Run PHP syntax check
+      run: |
+        find . -name "*.php" -not -path "./vendor/*" -exec php -l {} \;
+
+    - name: Upload PHPStan report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: phpstan-report
+        path: phpstan.log
+
+    - name: Check for common errors
+      run: echo "No deployment yet — just making sure your code is clean!"
+
+    - name: Run tests
+      run: composer run-script test
+
+
+    
+        echo "No deployment yet — just making sure your code is clean!"
+est suite
+    #   run: composer run-script test

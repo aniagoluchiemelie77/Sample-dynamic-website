@@ -45,9 +45,4 @@ jobs:
 
     - name: Run tests
       run: composer run-script test
-
-
-    
-        echo "No deployment yet — just making sure your code is clean!"
-est suite
-    #   run: composer run-script test
+          echo "No deployment yet — just making sure your code is clean!"

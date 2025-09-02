@@ -19,6 +19,7 @@ if (file_exists($translationFile)) {
     $translations = [];
 }
 $posttype = 'Editors';
+$userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,8 +34,8 @@ $posttype = 'Editors';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../javascript/admin.js" defer></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
-    <script src="../../javascript/admin.js" async></script>
     <title><?php echo $translations['view_editors']; ?></title>
 </head>
 
@@ -78,7 +79,7 @@ $posttype = 'Editors';
                                                     <a class='users_edit' href='../edit/user.php?id=" . $row["id"] . "&usertype=Editor'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
-                                                    <a class='users_delete' onclick='confirmDeleteEditor(" . $row["id"] . ")'>
+                                                    <a class='users_delete' onclick='confirmDeleteEditor(" . $row["id"] . ", \"" . addslashes($userFirstname) . "\")'>
                                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                                     </a>
                                                 </div>
@@ -115,7 +116,7 @@ $posttype = 'Editors';
                                             <a class='users_edit' href='../edit/user.php?id=" . $row["id"] . "&usertype=Editor'>
                                                 <i class='fa fa-pencil' aria-hidden='true'></i>
                                             </a>
-                                            <a class='users_delete' onclick='confirmDeleteEditor(" . $row["id"] . ")'>
+                                            <a class='users_delete' onclick='confirmDeleteEditor(" . $row["id"] . ", \"" . addslashes($userFirstname) . "\")'>
                                                 <i class='fa fa-trash' aria-hidden='true'></i>
                                             </a>
                                         </div>

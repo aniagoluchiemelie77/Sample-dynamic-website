@@ -241,5 +241,11 @@ $translations = [
     'time_added' => '添加时间',
     'niche' => '领域',
     'editor_homepage' => '编辑器主页',
+    'view_posts' => '查看所有帖子',
+    'view_paid_posts' => '查看所有付费帖子',
+    'view_press_releases' => '查看所有新闻稿',
+    'view_drafts' => '查看所有草稿',
+    'view_news' => '查看所有新闻帖子',
+    'view_commentaries' => '查看所有评论'
 ];
 ?>

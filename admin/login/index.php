@@ -44,6 +44,8 @@ if (!isLoginAllowed($ip_address, $attemptLogFile)) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../../css/admin.css" />
+    <script src="../../javascript/admin.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Admin Login</title>
 </head>
 
@@ -51,7 +53,6 @@ if (!isLoginAllowed($ip_address, $attemptLogFile)) {
     <?php
     renderSignInPage($msg, $emailid, $passwordid);
     ?>
-    <script src="../../javascript/admin.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const errorDiv = document.querySelector(".error_div");
@@ -62,6 +63,27 @@ if (!isLoginAllowed($ip_address, $attemptLogFile)) {
                 loginBtn.style.cursor = "not-allowed";
             }
         });
+    </script>
+    <script>
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        }
+        <?php unset($_SESSION['status_type']); ?>
+        <?php unset($_SESSION['status']); ?>
     </script>
 
 </body>

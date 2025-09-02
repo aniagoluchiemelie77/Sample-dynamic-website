@@ -1,5 +1,6 @@
 <?php
 require('crudoperations.php');
+if (!function_exists('renderMessageForm')) {
 function renderMessageForm($userType, $userId, $userImage, $userNameOrEmail, $formAction, $submitName)
 {
     global $translations, $base_url;
@@ -30,6 +31,8 @@ function renderMessageForm($userType, $userId, $userImage, $userNameOrEmail, $fo
             </div>
         </div>";
 }
+}
+if (!function_exists('renderPostTypeSelect')) {
 function renderPostTypeSelect($usertype, $translations)
 {
     $output = "<select class='newpost_subdiv2' name='Post_status'>";
@@ -44,6 +47,8 @@ function renderPostTypeSelect($usertype, $translations)
     $output .= "</select>";
     return $output;
 }
+}
+if (!function_exists('renderCategories')) {
 function renderCategories()
 {
     global $conn;
@@ -62,6 +67,8 @@ function renderCategories()
 
     return $output;
 }
+}
+if (!function_exists('renderCreateNewPostForm')) {
 function renderCreateNewPostForm($usertype, $translations, $base_url)
 {
     echo "<section class='newpost_body'>
@@ -162,6 +169,8 @@ function renderCreateNewPostForm($usertype, $translations, $base_url)
         </form>
     </section>";
 }
+}
+if (!function_exists('renderCreateNewResourceFile')) {
 function renderCreateNewResourceFile($translations, $base_url, $usertype, $resource_type)
 {
     echo "<section class='about_section'>";
@@ -205,6 +214,8 @@ function renderCreateNewResourceFile($translations, $base_url, $usertype, $resou
            </form>
        </section>";
 }
+}
+if (!function_exists('renderCreateNewCategoryForm')) {
 function renderCreateNewCategoryForm($base_url, $translations, $usertype)
 {
     echo "<section class='about_section'>";
@@ -239,6 +250,8 @@ function renderCreateNewCategoryForm($base_url, $translations, $usertype)
             </form>
         </section>";
 }
+}
+if (!function_exists('renderCreateNewUserForm')) {
 function renderCreateNewUserForm($base_url, $translations, $usertype)
 {
     echo "<section class='about_section'>";
@@ -291,6 +304,8 @@ function renderCreateNewUserForm($base_url, $translations, $usertype)
         </form>
     </section>";
 };
+}
+if (!function_exists('renderCreateNewWorkspace')) {
 function renderCreateNewWorkspace($base_url, $translations, $usertype)
 {
     echo "<section class='newpost_body'>
@@ -349,6 +364,8 @@ function renderCreateNewWorkspace($base_url, $translations, $usertype)
             </form>
         </section>";
 }
+}
+if (!function_exists('renderCreateNewWriter')) {
 function renderCreateNewWriter($base_url, $translations, $usertype)
 {
     echo "<section class='about_section'>";
@@ -391,6 +408,8 @@ function renderCreateNewWriter($base_url, $translations, $usertype)
         </section>
     ";
 }
+}
+if (!function_exists('renderEditMetatitlesForm')) {
 function renderEditMetatitlesForm($translations, $page_name)
 {
     echo "<div class='editprofile_container'>
@@ -420,6 +439,8 @@ function renderEditMetatitlesForm($translations, $page_name)
         </form>
     </div>";
 }
+}
+if (!function_exists('renderEditPostForm')) {
 function renderEditPostForm($base_url, $translations, $post_id, $title, $subtitle, $category, $link, $image, $foreign_imagePath, $content, $author_firstname, $author_lastname, $author_bio, $usertype)
 {
     echo "<form class='newpost_container' method='post' action='../../helpers/forms.php' enctype='multipart/form-data' id='postForm'>";
@@ -507,6 +528,8 @@ function renderEditPostForm($base_url, $translations, $post_id, $title, $subtitl
     echo " <input class='form__submit_input btn' type='submit' value='" . $translations['update'] . "' name='update_post' />
                         </form>";
 }
+}
+if (!function_exists('renderEditProfileForm')) {
 function renderEditProfileForm($translations, $image, $firstname, $lastname, $username, $email, $bio, $address, $addresstwo, $city, $state, $country, $country_code, $mobile)
 {
     echo "<div class='editprofile_container'>
@@ -579,6 +602,8 @@ function renderEditProfileForm($translations, $image, $firstname, $lastname, $us
             </form>
         </div>";
 }
+}
+if (!function_exists('renderWebsiteLogoFaviconForm')) {
 function renderWebsiteLogoFaviconForm()
 {
     global $conn;
@@ -619,6 +644,8 @@ function renderWebsiteLogoFaviconForm()
     }
     return $output;
 }
+}
+if (!function_exists('renderCookieConsentAndWebVisionForm')) {
 function renderCookieConsentAndWebVisionForm($translations)
 {
     global $conn;
@@ -648,6 +675,8 @@ function renderCookieConsentAndWebVisionForm($translations)
             </form>';
     return $output;
 }
+}
+if (!function_exists('renderCreateNewResourceTypeForm')) {
 function renderCreateNewResourceTypeForm($translations)
 {
     global $conn;
@@ -684,6 +713,8 @@ function renderCreateNewResourceTypeForm($translations)
     $output .= '</div>';
     return $output;
 }
+}
+if (!function_exists('renderCreateNewPageForm')) {
 function renderCreateNewPageForm($translations)
 {
     global $conn;
@@ -715,6 +746,8 @@ function renderCreateNewPageForm($translations)
     $output .= '</div>';
     return $output;
 }
+}
+if (!function_exists('renderNewPagePopupForm')) {
 function renderNewPagePopupForm($translations)
 {
     $output = '';
@@ -739,6 +772,8 @@ function renderNewPagePopupForm($translations)
                 </div>';
     return $output;
 }
+}
+if (!function_exists('renderNewResourceTypePopupForm')) {
 function renderNewResourceTypePopupForm($translations)
 {
     $output = '';
@@ -790,6 +825,8 @@ function renderNewResourceTypePopupForm($translations)
             </div>';
     return $output;
 }
+}
+if (!function_exists('renderEditFrontendFeaturespage')) {
 function renderEditFrontendFeaturespage($translations, $base_url, $usertype, $logo)
 {
     echo '' . renderNewResourceTypePopupForm($translations) . '';
@@ -818,6 +855,8 @@ function renderEditFrontendFeaturespage($translations, $base_url, $usertype, $lo
     }
     echo '</section>';
 }
+}
+if (!function_exists('renderEditResourcefileForm')) {
 function renderEditResourcefileForm($translations, $resource_name_uc, $resource_name, $id, $logo)
 {
     global $conn;
@@ -879,6 +918,8 @@ function renderEditResourcefileForm($translations, $resource_name_uc, $resource_
                 </div>";
     }
 }
+}
+if (!function_exists('renderEditUserProfileForm')) {
 function renderEditUserProfileForm($usertype, $id, $translations, $logo)
 {
     global $conn;
@@ -1077,6 +1118,8 @@ function renderEditUserProfileForm($usertype, $id, $translations, $logo)
         }
     }
 }
+}
+if (!function_exists('renderPageViewAndEditForm')) {
 function renderPageViewAndEditForm($base_url, $usertype, $translations, $table_name, $textarea_name, $textareaId, $submitbtn_name, $logo)
 {
     global $conn;
@@ -1127,6 +1170,8 @@ function renderPageViewAndEditForm($base_url, $usertype, $translations, $table_n
                 </section>";
     }
 }
+}
+if (!function_exists('renderCatergoriesSearchAndDisplayQuery')) {
 function renderCatergoriesSearchAndDisplayQuery($query)
 {
     global $conn, $translations;
@@ -1192,6 +1237,8 @@ function renderCatergoriesSearchAndDisplayQuery($query)
     }
     return $output;
 }
+}
+if (!function_exists('renderCategoriesPage')) {
 function renderCategoriesPage($base_url, $usertype)
 {
     global $logo, $conn, $translations;
@@ -1276,6 +1323,8 @@ function renderCategoriesPage($base_url, $usertype)
         </div>
     </section>';
 }
+}
+if (!function_exists('renderChangePasswordForm')) {
 function renderChangePasswordForm($base_url, $usertype)
 {
     global $translations, $logo;
@@ -1319,6 +1368,8 @@ function renderChangePasswordForm($base_url, $usertype)
             </form>
         </section>';
 }
+}
+if (!function_exists('renderMetaTitlesManagementForm')) {
 function renderMetaTitlesManagementForm($base_url, $usertype)
 {
     global $conn, $translations, $logo;
@@ -1358,6 +1409,8 @@ function renderMetaTitlesManagementForm($base_url, $usertype)
     }
     echo '</div></form></section>';
 }
+}
+if (!function_exists('renderPageFrontend')) {
 function renderPageFrontend($logo, $website_description, $page_title, $table_name)
 {
     global $conn;
@@ -1387,6 +1440,8 @@ function renderPageFrontend($logo, $website_description, $page_title, $table_nam
     }
     echo '</div></div></div>';
 }
+}
+if (!function_exists('renderViewPost')) {
 function renderViewPost($tablename, $post_id, $url, $postIdVal)
 {
     global $conn;
@@ -1589,6 +1644,8 @@ function renderViewPost($tablename, $post_id, $url, $postIdVal)
         echo "<h1 class='bodyleft_header3'>Post not found</h1>";
     }
 }
+}
+if (!function_exists('renderFrontendPageSearchResults')) {
 function renderFrontendPageSearchResults($searchNiche1, $query)
 {
     global $conn;
@@ -1685,6 +1742,8 @@ function renderFrontendPageSearchResults($searchNiche1, $query)
     }
     return $output;
 }
+}
+if (!function_exists('renderFrontendPage')) {
 function renderFrontendPage($ucPageTitle, $lcPageTitle)
 {
     global $conn, $logo;
@@ -1808,6 +1867,8 @@ function renderFrontendPage($ucPageTitle, $lcPageTitle)
     echo '</div></section>';
     include("../includes/footer2.php");
 }
+}
+if (!function_exists('renderAuthorPage')) {
 function renderAuthorPage($database_name, $id, $role, $authorTableHook)
 {
     global $conn;
@@ -1915,6 +1976,8 @@ function renderAuthorPage($database_name, $id, $role, $authorTableHook)
 
     echo "</div></div>";
 }
+}
+if (!function_exists('renderUserActivitiesSearchResult')) {
 function renderUserActivitiesSearchResult($query)
 {
     global $conn, $translations, $usertype, $user;
@@ -1952,6 +2015,8 @@ function renderUserActivitiesSearchResult($query)
     }
     return $output;
 }
+}
+if (!function_exists('renderUserActivitiesPage')) {
 function renderUserActivitiesPage($usertype, $base_url, $translations, $user)
 {
     global $conn, $logo, $posttype;
@@ -1998,9 +2063,11 @@ function renderUserActivitiesPage($usertype, $base_url, $translations, $user)
     }
     echo '</div></div></section>';
 }
+}
+if (!function_exists('renderPostTypeSearchQueries')) {
 function renderPostTypeSearchQueries($query)
 {
-    global $conn, $translations, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType;
+        global $conn, $userFirstname, $translations, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType, $userType;
     $output = '';
     $query = trim($query);
     if ($query !== "") {
@@ -2057,18 +2124,19 @@ function renderPostTypeSearchQueries($query)
                                         <a class='users_edit' href='../edit/post.php?" . $postTypeVal . "=" . $row["id"] . "&title=" . $row["title"] . "'>
                                             <i class='fa fa-pencil' aria-hidden='true'></i>
                                         </a>
-                                        <a class='users_delete' onclick='" . $delete_querytype . "(" . $row['id'] . ")'>
+                                        <a class='users_delete' onclick='" . $delete_querytype . "(" . $row['id'] . ", \"" . addslashes($userType) . "\", \"" . addslashes($userFirstname) . "\")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
-                                        </a>
-                                        <form id='" . $formId . "' class='favouriteForm' action='../script.php' method='POST' data-id='" . $row['id'] . "'>
+                                        </a>";
+                        if ($post_type_dbname !== 'unpublished_articles') {
+                            echo "<form id='" . $formId . "' class='favouriteForm' action='../script.php' method='POST' data-id='" . $row['id'] . "'>
                                             <input type='hidden' name='" . $postTypeVal2 . "' value='" . $row['id'] . "'>
                                             <input type='hidden' name='" . $favType . "' value='" . ($row['is_favourite'] === 'True' ? 'True' : 'False') . "'>
                                             <button type='submit' class='users_delete2 star'>
                                                 <i class='fa fa-star' aria-hidden='true'></i>
                                             </button>
-                                        </form>
-                                    </div>
-                            </div>";
+                                        </form>";
+                        }
+                        echo "</div></div>";
                 }
             } else {
                 $output .= "<h1 class='posts_divcontainer_header'>No results found for " . $query . "</h1>";
@@ -2077,24 +2145,26 @@ function renderPostTypeSearchQueries($query)
     }
     return $output;
 }
-function renderPostTypePage($base_url, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType)
+}
+if (!function_exists('renderPostTypePage')) {
+    function renderPostTypePage($base_url, $userFirstname, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType)
 {
     global $conn, $translations;
     echo '<section class="sectioneer">
             <div class="posts_div1 postsdiv sectioneer_divcontainer">';
     if ($userType === 'Admin') {
         echo '  <div class="page_links">
-                    <a href="' . $base_url . 'admin_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['posts'] . '</p> > <p>' . $translations['view_press_releases2'] . '</p>
+                    <a href="' . $base_url . 'admin_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['posts'] . '</p> > <p>' . $translations['view_' . $post_type_dbname] . '</p>
                 </div>
             ';
     } else if ($userType === 'Editor') {
         echo '  <div class="page_links">
-                    <a href="' . $base_url . 'editor_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['posts'] . '</p> > <p>' . $translations['view_press_releases2'] . '</p>
+                    <a href="' . $base_url . 'editor_homepage.php">' . $translations['home'] . '</a> > <p>' . $translations['posts'] . '</p> > <p>' . $translations['view_' . $post_type_dbname] . '</p>
                 </div>
             ';
     }
     echo '   <div class="posts_header">
-                <h1>' . $translations['press_releases'] . '</h1>
+                <h1>' . $translations['view_' . $post_type_dbname] . '</h1>
             </div>
             <div class="posts_divcontainer border-gradient-side-dark">
                 <div id="search-results">';
@@ -2152,7 +2222,7 @@ function renderPostTypePage($base_url, $userType, $post_type_dbname, $postTypeVa
                             <a class='users_edit' href='../edit/post.php?" . $postTypeVal . "=" . $row["id"] . "&title=" . $row["title"] . "'>
                                 <i class='fa fa-pencil' aria-hidden='true'></i>
                             </a>
-                            <a class='users_delete' onclick='" . $delete_querytype . "(" . $row['id'] . ")'>
+                            <a class='users_delete' onclick='" . $delete_querytype . "(" . $row['id'] . ", \"" . addslashes($userType) . "\", \"" . addslashes($userFirstname) . "\")'> 
                                 <i class='fa fa-trash' aria-hidden='true'></i>
                             </a>";
                 if ($post_type_dbname !== 'unpublished_articles') {
@@ -2176,6 +2246,8 @@ function renderPostTypePage($base_url, $userType, $post_type_dbname, $postTypeVa
     }
     echo '</div></div></section>';
 }
+}
+if (!function_exists('renderSignInPage')) {
 function renderSignInPage($msg, $emailid, $passwordid)
 {
     echo ' <section class="section1 flexcenter">
@@ -2209,6 +2281,8 @@ function renderSignInPage($msg, $emailid, $passwordid)
     // @phpstan-ignore-next-line
     require("../extras/footer.php");
 }
+}
+if (!function_exists('renderForgotPasswordPage')) {
 function renderForgotPasswordPage($usertype)
 {
     echo '<section class="section1 flexcenter">
@@ -2229,6 +2303,8 @@ function renderForgotPasswordPage($usertype)
     // @phpstan-ignore-next-line
     require("../extras/footer.php");
 }
+}
+if (!function_exists('renderOtpInputPage')) {
 function renderOtpInputPage($email, $usertype)
 {
     global $msg;
@@ -2263,6 +2339,8 @@ function renderOtpInputPage($email, $usertype)
     // @phpstan-ignore-next-line
     require("../extras/footer.php");
 };
+}
+if (!function_exists('renderChangePasswordLoginPage')) {
 function renderChangePasswordLoginPage($usertype, $email, $firstname)
 {
     echo '<section class="section1 flexcenter">
@@ -2289,5 +2367,6 @@ function renderChangePasswordLoginPage($usertype, $email, $firstname)
     ';
     // @phpstan-ignore-next-line
     require("../extras/footer.php");
+}
 }
 ?>

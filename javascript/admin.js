@@ -127,7 +127,7 @@ function submitForm() {
     Swal.fire("Error", "Please enter a topic name", "error");
   }
 }
-function confirmDeleteC(postId) {
+function confirmDeleteP(postId, usertype, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -138,11 +138,16 @@ function confirmDeleteC(postId) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "delete.php?id5=" + postId;
+      const url = `../helpers/deleteactions.php?id2=${encodeURIComponent(
+        postId
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(userFirstname)}`;
+      window.location.href = url;
     }
   });
 }
-function confirmDeleteC2(postId) {
+function confirmDeleteD(postId, usertype, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -153,7 +158,92 @@ function confirmDeleteC2(postId) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "../delete.php?id5=" + postId;
+      const url = `../helpers/deleteactions.php?id3=${encodeURIComponent(
+        postId
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(userFirstname)}`;
+      window.location.href = url;
+    }
+  });
+}
+function confirmDeleteN(postId, usertype, userFirstname) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then(function (result) {
+    if (result.isConfirmed) {
+      const url = `../helpers/deleteactions.php?id4=${encodeURIComponent(
+        postId
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(userFirstname)}`;
+      window.location.href = url;
+    }
+  });
+}
+function confirmDeletePR(postId, usertype, userFirstname) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then(function (result) {
+    if (result.isConfirmed) {
+      const url = `../helpers/deleteactions.php?id6=${encodeURIComponent(
+        postId
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(userFirstname)}`;
+      window.location.href = url;
+    }
+  });
+}
+function confirmDeletePP(postId, usertype, userFirstname) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then(function (result) {
+    if (result.isConfirmed) {
+      const url = `../helpers/deleteactions.php?id1=${encodeURIComponent(
+        postId
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(userFirstname)}`;
+      window.location.href = url;
+    }
+  });
+}
+function confirmDeleteC(postId, usertype, userFirstname) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then(function (result) {
+    if (result.isConfirmed) {
+      const url = `../helpers/deleteactions.php?id5=${encodeURIComponent(
+        postId
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(userFirstname)}`;
+      window.location.href = url;
     }
   });
 }
@@ -170,7 +260,7 @@ function confirmDeleteResource(Id, ResourceName) {
     if (result.isConfirmed) {
       console.log("Deleting resource with ID:", Id, "and name:", ResourceName);
       window.location.href =
-        "../delete.php?id=" +
+        "../helpers/deleteactions.php?id=" +
         Id +
         "&type=Resource&resourceName=" +
         ResourceName +
@@ -190,7 +280,7 @@ function confirmDeleteResource2(Id, ResourceName) {
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href =
-        "../delete.php?id=" +
+        "../helpers/deleteactions.php?id=" +
         Id +
         "&action=deleteResource&resourceName=" +
         ResourceName +
@@ -210,7 +300,11 @@ function confirmDeletePage(Id, pageName) {
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href =
-        "../delete.php?id=" + Id + "&type=Page&pageName=" + pageName + "";
+        "../helpers/deleteactions.php?id=" +
+        Id +
+        "&type=Page&pageName=" +
+        pageName +
+        "";
     }
   });
 }
@@ -226,11 +320,15 @@ function confirmDeleteCategory(Id, topicName) {
   }).then(function (result) {
     if (result.isConfirmed) {
       window.location.href =
-        "../delete.php?id=" + Id + "&type=Category&topicName=" + topicName + "";
+        "../helpers/deleteactions.php?id=" +
+        Id +
+        "&type=Category&topicName=" +
+        topicName +
+        "";
     }
   });
 }
-function confirmDeleteP(postId) {
+function confirmDeleteSubscriber(Id, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -241,11 +339,23 @@ function confirmDeleteP(postId) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "delete.php?id2=" + postId;
+      const usertype = "Subscriber";
+      const usertype2 = "Admin";
+      const action = "deleteUser";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&usertype2=${encodeURIComponent(usertype2)}&action=${encodeURIComponent(
+        action
+      )}`;
+      window.location.href = url;
     }
   });
 }
-function confirmDeleteP2(postId) {
+function confirmDeleteNewslSubscriber(Id, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -256,43 +366,23 @@ function confirmDeleteP2(postId) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "../delete.php?id2=" + postId;
+      const usertype = "NewsletterSubscriber";
+      const usertype2 = "Admin";
+      const action = "deleteUser";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&usertype2=${encodeURIComponent(usertype2)}&action=${encodeURIComponent(
+        action
+      )}`;
+      window.location.href = url;
     }
   });
 }
-function confirmDeleteSubscriber(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href =
-        "../delete.php?id=" + postId + "&usertype=Subscriber";
-    }
-  });
-}
-function confirmDeleteNewslSubscriber(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href =
-        "../delete.php?id=" + postId + "&usertype=NewsletterSubscriber";
-    }
-  });
-}
-function confirmDeleteEditor(Id) {
+function confirmDeleteEditor(Id, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -303,41 +393,23 @@ function confirmDeleteEditor(Id) {
     confirmButtonText: "Yes, delete!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "delete.php?id=" + Id + "&usertype=Editor";
+      const usertype = "Editor";
+      const usertype2 = "Admin";
+      const action = "deleteUser";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&usertype2=${encodeURIComponent(usertype2)}&action=${encodeURIComponent(
+        action
+      )}`;
+      window.location.href = url;
     }
   });
 }
-function confirmDeleteN(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href = "delete.php?id4=" + postId;
-    }
-  });
-}
-function confirmDeleteN2(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href = "../delete.php?id4=" + postId;
-    }
-  });
-}
-function confirmDeleteOtheruser(Id) {
+function confirmDeleteOtheruser(Id, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -348,101 +420,23 @@ function confirmDeleteOtheruser(Id) {
     confirmButtonText: "Yes, delete!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "delete.php?id=" + Id + "&usertype=Otheruser";
+      const usertype = "Otheruser";
+      const action = "deleteUser";
+      const usertype2 = "Admin";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&usertype2=${encodeURIComponent(usertype2)}&action=${encodeURIComponent(
+        action
+      )}`;
+      window.location.href = url;
     }
   });
 }
-function confirmDeletePP(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href = "delete.php?id1=" + postId;
-    }
-  });
-}
-function confirmDeletePP2(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href = "../delete.php?id1=" + postId;
-    }
-  });
-}
-function confirmDeletePR(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href = "delete.php?id6=" + postId;
-    }
-  });
-}
-function confirmDeletePR2(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href = "../delete.php?id6=" + postId;
-    }
-  });
-}
-function confirmDeleteD(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href = "delete.php?id3=" + postId;
-    }
-  });
-}
-function confirmDeleteD2(postId) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      window.location.href = "../delete.php?id3=" + postId;
-    }
-  });
-}
-function confirmDeleteWriter(Id) {
+function confirmDeleteWriter(Id, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -453,7 +447,19 @@ function confirmDeleteWriter(Id) {
     confirmButtonText: "Yes, delete!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href = "delete.php?id=" + Id + "&usertype=Writer";
+      const usertype = "Writer";
+      const action = "deleteUser";
+      const usertype2 = "Admin";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&usertype2=${encodeURIComponent(usertype2)}&action=${encodeURIComponent(
+        action
+      )}`;
+      window.location.href = url;
     }
   });
 }

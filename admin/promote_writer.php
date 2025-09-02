@@ -2,11 +2,11 @@
 
 /** @var \mysqli $conn */
 global $conn;
-    session_start();
-    include("connect.php");
+session_start();
+include("connect.php");
 $admin_id = $_SESSION['id'];
 $_SESSION['status_type'] = "";
-    $_SESSION['status'] = "";
+$_SESSION['status'] = "";
 include('../helpers/crudoperations.php');
     function promoteWriterToEditor($writer_id, $admin_id) {
         global $conn;

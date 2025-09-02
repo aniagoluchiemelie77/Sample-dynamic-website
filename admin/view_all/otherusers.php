@@ -19,6 +19,7 @@ if (file_exists($translationFile)) {
     $translations = [];
 }
 $posttype = 'Website Users';
+$userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +33,8 @@ $posttype = 'Website Users';
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/admin.css" />
-    <script src="../../javascript/admin.js" async></script>
+    <script src="../../javascript/admin.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['other_website_users']; ?></title>
 </head>
@@ -79,7 +81,7 @@ $posttype = 'Website Users';
                                                         <a class='users_edit' href='../edit/user.php?id=" . $row["id"] . "&usertype=Other_user'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
-                                                    <a class='users_delete' onclick='confirmDeleteOtheruser(" . $row['id'] . ")'>
+                                                    <a class='users_delete' onclick='confirmDeleteOtheruser(" . $row['id'] . ", \"" . addslashes($userFirstname) . "\")'>
                                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                                     </a>
                                                 </div>
@@ -116,7 +118,7 @@ $posttype = 'Website Users';
                                             <a class='users_edit' href='../edit/user.php?id=" . $row["id"] . "&usertype=Other_user'>
                                                 <i class='fa fa-pencil' aria-hidden='true'></i>
                                             </a>
-                                            <a class='users_delete' onclick='confirmDeleteOtheruser(" . $row['id'] . ")'>
+                                            <a class='users_delete' onclick='confirmDeleteOtheruser(" . $row['id'] . ", \"" . addslashes($userFirstname) . "\")'>
                                                 <i class='fa fa-trash' aria-hidden='true'></i>
                                             </a>
                                         </div>

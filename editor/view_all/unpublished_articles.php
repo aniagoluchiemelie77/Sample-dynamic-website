@@ -17,6 +17,7 @@ if (file_exists($translationFile)) {
     $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
 $posttype = 'Drafts';
+$userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,8 +31,8 @@ $posttype = 'Drafts';
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/editor.css" />
+    <script src="../../javascript/editor.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../javascript/editor.js" async></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['view_drafts']; ?></title>
 </head>
@@ -41,11 +42,12 @@ $posttype = 'Drafts';
     require("../extras/header2.php");
     $userType = $_SESSION['user'] ?? 'Editor';
     $post_type_dbname = "unpublished_articles";
+    $userFirstname = $_SESSION['firstname'];
     $postTypeVal = 'id3';
-    $delete_querytype = 'confirmDeleteD2';
+    $delete_querytype = 'confirmDeleteD';
     $postTypeVal2 = null;
     $favType = null;
-    renderPostTypePage($editor_base_url, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
+    renderPostTypePage($editor_base_url, $userFirstname, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
     ?>
     <script>
         function submitSearch() {

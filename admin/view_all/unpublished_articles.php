@@ -40,12 +40,13 @@ $posttype = 'Drafts';
     <?php
     require("../extras/header2.php");
     $userType = $_SESSION['user'] ?? 'Admin';
+        $userFirstname = $_SESSION['firstname'];
     $post_type_dbname = "unpublished_articles";
     $postTypeVal = 'id3';
-    $delete_querytype = 'confirmDeleteD2';
+        $delete_querytype = 'confirmDeleteD';
     $postTypeVal2 = null;
     $favType = null;
-    renderPostTypePage($base_url, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
+        renderPostTypePage($editor_base_url, $userFirstname, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
     ?>
     <script>
         function submitSearch() {

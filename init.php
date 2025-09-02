@@ -2,10 +2,6 @@
 require("connect.php");
 require 'vendor/autoload.php';
 require('helpers/crudoperations.php');
-require('vendor\phpmailer\phpmailer\src\SMTP.php');
-require('vendor\phpmailer\phpmailer\src\Exception.php');
-require('vendor\phpmailer\phpmailer\src\PHPMailer.php');
-require 'vendor/autoload.php';
 
 use Dotenv\Dotenv;
 use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -44,6 +40,7 @@ Configuration::instance([
         'secure' => true
     ]
 ]);
+if (!function_exists('getFaviconAndLogo')) {
 function getFaviconAndLogo()
 {
     global $conn;
@@ -55,8 +52,10 @@ function getFaviconAndLogo()
             $favicon_path = $row['favicon_imagepath'];
             return ["logo" => $logo_path, "favicon" => $favicon_path];
         }
+        }
     }
 }
+if (!function_exists('cookieMessageAndVision')) {
 function cookieMessageAndVision()
 {
     global $conn;
@@ -69,7 +68,9 @@ function cookieMessageAndVision()
             return ["cookie_message" => $cookie_message, "website_vision" => $vision_message];
         }
     }
+    }
 }
+if (!function_exists('metaTitles')) {
 function metaTitles()
 {
     global $conn;
@@ -95,6 +96,8 @@ function metaTitles()
     }
     return $meta_data;
 }
+}
+if (!function_exists('sendEmail')) {
 function sendEmail($email)
 {
     global $conn;
@@ -155,6 +158,8 @@ function sendEmail($email)
     $stmt->close();
     $conn->close();
 }
+}
+if (!function_exists('sendOTP')) {
 function sendOTP($email, $firstname, $token)
 {
     $mail = new PHPMailer(true);
@@ -183,12 +188,16 @@ function sendOTP($email, $firstname, $token)
         return ["status" => $status, "status_type" => $status_type];
     }
 }
+}
+if (!function_exists('calculateReadingTime')) {
 function calculateReadingTime($content)
 {
     $wordCount = str_word_count(strip_tags($content));
     $minutes = floor($wordCount / 200);
     return $minutes  . ' mins read ';
 }
+}
+if (!function_exists('getOrdinalSuffix')) {
 function getOrdinalSuffix($day)
 {
     if (!in_array(($day % 100), [11, 12, 13])) {
@@ -203,6 +212,8 @@ function getOrdinalSuffix($day)
     }
     return 'th';
 }
+}
+if (!function_exists('unsubscribe')) {
 function unsubscribe($email)
 {
     global $conn;
@@ -224,6 +235,8 @@ function unsubscribe($email)
         header('location: http://localhost/Sample-dynamic-website/');
     }
 }
+}
+if (!function_exists('sendNewPostNotification')) {
 function sendNewpostNotification($post_title, $post_link, $post_image, $post_subtitle)
 {
     global $conn;
@@ -263,6 +276,8 @@ function sendNewpostNotification($post_title, $post_link, $post_image, $post_sub
         echo "No subscribers found.";
     }
 }
+}
+if (!function_exists('sendMessageToSubscriber')) {
 function sendMessageToSubscriber($id, $message_title = null, $message_body = null)
 {
     global $conn;
@@ -309,6 +324,8 @@ function sendMessageToSubscriber($id, $message_title = null, $message_body = nul
         return ["status" => $status, "status_type" => $status_type];
     }
 }
+}
+if (!function_exists('sendMessageToUser')) {
 function sendMessageToUser($id, $message_title = null, $message_body = null)
 {
     global $conn;
@@ -354,6 +371,8 @@ function sendMessageToUser($id, $message_title = null, $message_body = null)
         return ["status" => $status, "status_type" => $status_type];
     }
 }
+}
+if (!function_exists('sendMessageToWriter')) {
 function sendMessageToWriter($id, $message_title = null, $message_body = null)
 {
     global $conn;
@@ -399,6 +418,8 @@ function sendMessageToWriter($id, $message_title = null, $message_body = null)
         return ["status" => $status, "status_type" => $status_type];
     }
 }
+}
+if (!function_exists('updateTranslations')) {
 function updateTranslations($string)
 {
     $languages = ['arb' => 'ar', 'en' => 'en', 'es' => 'es', 'fr' => 'fr', 'ger' => 'de', 'mdn' => 'zh', 'rsn' => 'ru'];
@@ -432,6 +453,8 @@ function updateTranslations($string)
     }
     return $results;
 }
+}
+if (!function_exists('formatDateSafely')) {
 function formatDateSafely($dateString)
 {
     if (!empty($dateString) && $dateString !== '0000-00-00' && strtotime($dateString)) {
@@ -439,6 +462,8 @@ function formatDateSafely($dateString)
     }
     return null;
 }
+}
+if (!function_exists('uploadToCloudinary')) {
 function uploadToCloudinary($filePath)
 {
     $upload = new UploadApi();
@@ -452,6 +477,8 @@ function uploadToCloudinary($filePath)
     ]);
     return $result['secure_url'] ?? null;
 }
+}
+if (!function_exists('getDeviceType')) {
 function getDeviceType()
 {
     $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
@@ -463,6 +490,8 @@ function getDeviceType()
         return 'Desktop';
     }
 }
+}
+if (!function_exists('getVisitorIP')) {
 function getVisitorIP()
 {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -473,6 +502,8 @@ function getVisitorIP()
         return $_SERVER['REMOTE_ADDR'];
     }
 }
+}
+if (!function_exists('getIconForTable')) {
 function getIconForTable($tableName)
 {
     $iconMap = [
@@ -491,6 +522,8 @@ function getIconForTable($tableName)
     }
     return 'fa-database';
 }
+}
+if (!function_exists('logUserAction')) {
 function logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstName = null)
 {
     date_default_timezone_set('Africa/Lagos');
@@ -502,6 +535,8 @@ function logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstNam
     }
     file_put_contents($logFilePath, $logMessage, FILE_APPEND | LOCK_EX);
 }
+}
+if (!function_exists('isLoginAllowed')) {
 function isLoginAllowed($ipAddress, $logFilePath, $maxAttempts = 10, $timeWindow = 600)
 {
     $now = time();
@@ -528,6 +563,8 @@ function isLoginAllowed($ipAddress, $logFilePath, $maxAttempts = 10, $timeWindow
     file_put_contents($logFilePath, "$ipAddress|$now" . PHP_EOL, FILE_APPEND | LOCK_EX);
     return true;
 }
+}
+if (!function_exists('userLogin')) {
 function userLogIn($usertype, $userDbName,)
 {
     global $conn, $email, $password, $ipAddress, $deviceType, $logFilePath, $action;
@@ -578,7 +615,68 @@ function userLogIn($usertype, $userDbName,)
     }
     return $msg;
 }
-
+}
+if (!function_exists('adminAccessToEditoPage')) {
+    function adminAccessToEditoPage($id, $password, $editor_id, $firstName)
+    {
+        global $conn, $ip_address, $device_type, $logFilePath;
+        $check_password_sql = "SELECT password FROM admin_login_info WHERE id = ?";
+        $stmt = $conn->prepare($check_password_sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $hashed_password = $row['password'];
+            if (password_verify($password, $hashed_password)) {
+                $editor_sql = "SELECT * FROM editor WHERE id = ?";
+                $stmt = $conn->prepare($editor_sql);
+                $stmt->bind_param("i", $editor_id);
+                $stmt->execute();
+                $editor_result = $stmt->get_result();
+                if ($editor_result->num_rows > 0) {
+                    $action = "successfully logged in to editor's page";
+                    logUserAction($ip_address, $device_type, $logFilePath, $action, $firstName);
+                    $editor_row = $editor_result->fetch_assoc();
+                    $_SESSION['email'] = $editor_row['email'];
+                    $_SESSION['id'] = $editor_row['id'];
+                    $_SESSION['firstname'] = $editor_row['firstname'];
+                    $_SESSION['lastname'] = $editor_row['lastname'];
+                    $_SESSION['username'] = $editor_row['username'];
+                    $_SESSION['image'] = $editor_row['image'];
+                    $_SESSION['bio'] = $editor_row['bio'];
+                    $_SESSION['mobile'] = $editor_row['mobile'];
+                    $_SESSION['country'] = $editor_row['country'];
+                    $_SESSION['city'] = $editor_row['city'];
+                    $_SESSION['state'] = $editor_row['state'];
+                    $_SESSION['address'] = $editor_row['address1'];
+                    $_SESSION['addresstwo'] = $editor_row['address2'];
+                    $_SESSION['country_code'] = $editor_row['country_code'];
+                    $_SESSION['date_joined'] = $editor_row['date_joined'];
+                    $_SESSION['language'] = $editor_row['language'];
+                    header("location: ../editor/editor_homepage.php");
+                    exit();
+                } else {
+                    $_SESSION['status_type'] = "Error";
+                    $_SESSION['status'] = "No editor found with this ID!";
+                    header('location: ../admin/admin_homepage.php');
+                }
+            } else {
+                $action = "attempted an unsuccessful login to editor's page";
+                logUserAction($ip_address, $device_type, $logFilePath, $action, $firstName);
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Incorrect password. Please try again.";
+                header('location: ../admin/admin_homepage.php');
+                exit();
+            }
+        } else {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Admin not found, repeat login process..";
+            header('location: ../admin/login/index.php');
+            exit();
+        }
+    }
+}
 $base_url = "http://localhost/Sample-dynamic-website/admin/";
 $editor_base_url = "http://localhost/Sample-dynamic-website/editor/";
 

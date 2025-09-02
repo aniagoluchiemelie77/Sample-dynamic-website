@@ -18,6 +18,7 @@ if (file_exists($translationFile)) {
 } else {
     $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
+$userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +73,7 @@ if (file_exists($translationFile)) {
                                                         <p><span>$translations[time]: </span> " . $formatted_time . "</p>
                                                     </div>
                                                 </div>
-                                                <a class='users_delete' onclick='confirmDeleteSubscriber(" . $row['id'] . ")'>
+                                                <a class='users_delete' onclick='confirmDeleteSubscriber(" . $row['id'] . ", \"" . addslashes($userFirstname) . "\")'>
                                                     <i class='fa fa-trash' aria-hidden='true'></i>
                                                 </a>
                                             </div>

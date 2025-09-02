@@ -1,4 +1,5 @@
 <?php
+
 /** @var \mysqli $conn */
 global $conn;
 session_start();
@@ -17,6 +18,7 @@ if (file_exists($translationFile)) {
 } else {
     $translations = [];
 }
+$userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +77,7 @@ if (file_exists($translationFile)) {
                                                         <p><span>$translations[time]: </span> " . $formatted_time . "</p>
                                                     </div>
                                                 </div>
-                                                <a class='users_delete' onclick='confirmDeleteNewslSubscriber(" . $row['id'] . ")'>
+                                                <a class='users_delete' onclick='confirmDeleteNewslSubscriber(" . $row['id'] . ", \"" . addslashes($userFirstname) . "\")'>
                                                     <i class='fa fa-trash' aria-hidden='true'></i>
                                                 </a>
                                             </div>
@@ -87,9 +89,7 @@ if (file_exists($translationFile)) {
             </div>
         </div>
     </section>
-    <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
-    <script src="../../javascript/admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?>";

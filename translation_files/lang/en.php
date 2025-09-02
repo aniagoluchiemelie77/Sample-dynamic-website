@@ -241,6 +241,12 @@ $translations = [
     'time_added' => 'Time Added',
     'niche' => 'Niche',
     'view_all_resources' => 'View All Resources',
-    'editor_homepage' => 'Editor Homepage'
+    'editor_homepage' => 'Editor Homepage',
+    'view_posts' => 'View All Posts',
+    'view_paid_posts' => 'View All Paid Posts',
+    'view_press_releases' => 'View All Press Releases',
+    'view_drafts' => 'View All Drafts',
+    'view_news' => 'View All News Posts',
+    'view_commentaries' => 'View All Commentaries'
 ];
 ?>

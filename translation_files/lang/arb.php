@@ -243,5 +243,11 @@ $translations = [
     'time_added' => 'وقت الإضافة',
     'niche' => 'المجال',
     'editor_homepage' => 'الصفحة الرئيسية للمحرر',
+    'view_posts' => 'عرض جميع المشاركات',
+    'view_paid_posts' => ' عرض جميع المشاركات المدفوعة',
+    'view_press_releases' => ' عرض جميع الإصدارات الصحفية',
+    'view_drafts' => ' عرض جميع المسودات',
+    'view_news' => ' عرض جميع الأخبار',
+    'view_commentaries' => ' عرض جميع التعليقات '
 ];
 ?>

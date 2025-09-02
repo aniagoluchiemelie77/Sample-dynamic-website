@@ -1,8 +1,8 @@
 <?php
 session_start();
-        $language = $language ?? 'en';
-        $translations = $translations ?? [];
-        $base_url = $base_url ?? '';
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$base_url = $base_url ?? '';
 include("../connect.php");
 require("../init.php");
 require('../../init.php');
@@ -40,12 +40,13 @@ $posttype = 'Commentaries';
     <?php
     require("../extras/header2.php");
     $userType = $_SESSION['user'] ?? 'Admin';
+    $userFirstname = $_SESSION['firstname'];
     $post_type_dbname = "commentaries";
     $postTypeVal = 'id5';
-    $delete_querytype = 'confirmDeleteC2';
+    $delete_querytype = 'confirmDeleteC';
     $postTypeVal2 = 'post_id5';
     $favType = 'isfavourite5';
-    renderPostTypePage($base_url, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
+    renderPostTypePage($editor_base_url, $userFirstname, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
     ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -99,35 +100,24 @@ $posttype = 'Commentaries';
             }
         }
     </script>
+    <script src="sweetalert2.all.min.js"></script>
     <script>
-        const ToastMessage = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            timer: 4000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-            iconColor: '#fff',
-            customClass: {
-                popup: 'rounded-xl shadow-xl text-white bg-zinc-800 border border-gray-600'
-            },
-            showClass: {
-                popup: 'animate__animated animate__fadeInRight'
-            },
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutRight'
-            }
-        });
-        if (typeof messageType !== "undefined" && messageText.trim() !== "") {
-            const iconColors = {
-                'Error': '#e74c3c',
-                'Success': '#2ecc71',
-                'Info': '#3498db'
-            };
-            ToastMessage.fire({
-                icon: messageType.toLowerCase(),
-                title: messageText,
-                iconColor: iconColors[messageType] || '#3498db'
-            });
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
         }
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>

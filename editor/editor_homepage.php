@@ -19,15 +19,6 @@ $_SESSION['status'] = "";
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-function formatDate($dateString)
-{
-    $timestamp = strtotime($dateString);
-    $day = date('j', $timestamp);
-    $month = date('F', $timestamp);
-    $year = date('Y', $timestamp);
-    $daySuffix = date('jS', $timestamp);
-    return "$month $daySuffix $year";
-}
 $date = formatDate($_SESSION['date_joined']);
 $translationFile = "../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
@@ -35,6 +26,8 @@ if (file_exists($translationFile)) {
 } else {
     $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
+        $userType = $_SESSION['user'] ?? 'Editor';
+        $userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -213,7 +206,7 @@ if (file_exists($translationFile)) {
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id2=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteP(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id2=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteP(" . $row['id'] . ", \"" . addslashes($userType) . "\", \"" . addslashes($userFirstname) . "\")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -250,7 +243,7 @@ if (file_exists($translationFile)) {
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id3=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteD(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id3=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteD(" . $row['id'] . ", \"" . addslashes($userType) . "\", \"" . addslashes($userFirstname) . "\")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -287,7 +280,7 @@ if (file_exists($translationFile)) {
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id6=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeletePR(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id6=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeletePR(" . $row['id'] . ", \"" . addslashes($userType) . "\", \"" . addslashes($userFirstname) . "\")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -324,7 +317,7 @@ if (file_exists($translationFile)) {
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id4=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteN(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id4=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteN(" . $row['id'] . ", \"" . addslashes($userType) . "\", \"" . addslashes($userFirstname) . "\")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -361,7 +354,7 @@ if (file_exists($translationFile)) {
                                             <td>" . $sn . "</td>
                                             <td>$title</td>
                                             <td>" . $row["formatted_date"] . "</td>
-                                            <td><a class='edit' href='edit/post.php?id5=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteC(" . $row['id'] . ")'>$translations[delete]</a></td>
+                                            <td><a class='edit' href='edit/post.php?id5=" . $row["id"] . "' target='_blank'>$translations[edit]</a> / <a class='delete' onclick='confirmDeleteC(" . $row['id'] . ", \"" . addslashes($userType) . "\", \"" . addslashes($userFirstname) . "\")'>$translations[delete]</a></td>
                                         </tr>";
                             };
                             echo "</table>";
@@ -669,7 +662,7 @@ if (file_exists($translationFile)) {
                                                 <center>
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit' href='edit/user.php?id=$id&usertype=Writer'><i class='fa fa-eye' aria-hidden='true'></i></a>
-                                                        <a class='users_delete' onclick='confirmDeleteWriter($id)'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                                                        <a class='users_delete' onclick='confirmDeleteWriter($id, \"" . addslashes($userFirstname) . "\")'><i class='fa fa-trash' aria-hidden='true'></i></a>
                                                     </div>
                                                 </center>
                                             </div>
@@ -708,7 +701,7 @@ if (file_exists($translationFile)) {
                                                 <center>
                                                     <div class='users_delete_edit'>
                                                         <a class='users_edit'href='edit/user.php?id=" . $row['id'] . "&usertype=Other_user'><i class='fa fa-eye' aria-hidden='true'></i></a>
-                                                        <a class='users_delete' onclick='confirmDeleteOtheruser(" . $row['id'] . ")'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                                                        <a class='users_delete' onclick='confirmDeleteOtheruser(" . $row['id'] . ", \"" . addslashes($userFirstname) . "\")'><i class='fa fa-trash' aria-hidden='true'></i></a>
                                                     </div>
                                                 </center>
                                             </div>
@@ -786,7 +779,7 @@ if (file_exists($translationFile)) {
                                                     <a class='users_edit' href='edit/post.php?id2=" . $row['id'] . "' target='_blank'>
                                                         <i class='fa fa-pencil' aria-hidden='true'></i>
                                                     </a>
-                                                    <a class='users_delete' onclick='confirmDeleteP(" . $row['id'] . ")'>
+                                                    <a class='users_delete' onclick='confirmDeleteP(" . $row['id'] . ", \"" . addslashes($userType) . "\", \"" . addslashes($userFirstname) . "\")'>
                                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                                     </a>
                                             </div>
@@ -835,7 +828,7 @@ if (file_exists($translationFile)) {
                                                 <a class='users_edit' href='edit/post.php?id3=" . $row['id'] . "' target='_blank'>
                                                     <i class='fa fa-pencil' aria-hidden='true'></i>
                                                 </a>
-                                                <a class='users_delete' onclick='confirmDeleteD(" . $row['id'] . ")'>
+                                                <a class='users_delete' onclick='confirmDeleteD(" . $row['id'] . ", \"" . addslashes($userType) . "\", \"" . addslashes($userFirstname) . "\")'>
                                                     <i class='fa fa-trash' aria-hidden='true'></i>
                                                 </a>
                                             </div>

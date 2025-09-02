@@ -17,6 +17,7 @@ if (file_exists($translationFile)) {
     $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
 $posttype = 'Press Releases';
+$userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@ $posttype = 'Press Releases';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/editor.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../javascript/editor.js" async></script>
+    <script src="../../javascript/editor.js" defer></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['view_press_releases']; ?></title>
 </head>
@@ -42,10 +43,11 @@ $posttype = 'Press Releases';
     $userType = $_SESSION['user'] ?? 'Editor';
     $post_type_dbname = "press_releases";
     $postTypeVal = 'id6';
-    $delete_querytype = 'confirmDeletePR2';
+        $delete_querytype = 'confirmDeletePR';
+        $userFirstname = $_SESSION['firstname'];
     $postTypeVal2 = 'post_id3';
     $favType = 'isfavourite3';
-    renderPostTypePage($editor_base_url, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
+        renderPostTypePage($editor_base_url, $userFirstname, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
     ?>
 
     <script>
@@ -100,35 +102,24 @@ $posttype = 'Press Releases';
             }
         }
     </script>
+    <script src="sweetalert2.all.min.js"></script>
     <script>
-        const ToastMessage = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            timer: 4000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-            iconColor: '#fff',
-            customClass: {
-                popup: 'rounded-xl shadow-xl text-white bg-zinc-800 border border-gray-600'
-            },
-            showClass: {
-                popup: 'animate__animated animate__fadeInRight'
-            },
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutRight'
-            }
-        });
-        if (typeof messageType !== "undefined" && messageText.trim() !== "") {
-            const iconColors = {
-                'Error': '#e74c3c',
-                'Success': '#2ecc71',
-                'Info': '#3498db'
-            };
-            ToastMessage.fire({
-                icon: messageType.toLowerCase(),
-                title: messageText,
-                iconColor: iconColors[messageType] || '#3498db'
-            });
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
         }
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>

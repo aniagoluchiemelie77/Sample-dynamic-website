@@ -261,3 +261,62 @@ if (!function_exists('updateMetatitle')) {
         }
     }
 }
+if (!function_exists('deleteFile')) {
+    function deleteFile($file_path, $pagetype)
+    {
+        if (file_exists($file_path)) {
+            if (unlink($file_path)) {
+                $status = "$pagetype Deleted Successfully";
+                $status_type = "Success";
+                return ["status" => $status, "status_type" => $status_type];
+            } else {
+                $status = "Error Deleting File ($pagetype)!";
+                $status_type = "Error";
+                return ["status" => $status, "status_type" => $status_type];
+            }
+        } else {
+            $status = "File does not exist: " . basename($file_path);
+            $status_type = "Error";
+            return ["status" => $status, "status_type" => $status_type];
+        }
+    }
+}
+if (!function_exists('deletePostAction')) {
+    function deletePostAction($table_name, $postId, $usertype, $userFirstname)
+    {
+        global $conn;
+        $sql = "DELETE FROM $table_name WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $postId);
+        $table_name = convertToReadable2($table_name);
+        if ($usertype === 'Admin') {
+            if (!$stmt->execute()) {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                $returnPath = returnPath();
+                header('location: ' . $returnPath . 'admin_homepage.php');
+            }
+            $content = "Admin " . $userFirstname . " deleted a post ( $table_name )";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post ( $table_name ) Deleted Successfully";
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . 'admin_homepage.php');
+        } else if ($usertype === 'Editor') {
+            if (!$stmt->execute()) {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                $returnPath = returnPath();
+                header('location: ' . $returnPath . 'editor_homepage.php');
+            }
+            $content = "Editor " . $userFirstname . " deleted a post ( $table_name )";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "Post ( $table_name ) Deleted Successfully";
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . 'editor_homepage.php');
+        }
+    }
+}

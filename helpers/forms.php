@@ -19,16 +19,6 @@ function errorPath(){
         return $admin_base_url;
     } else return $editor_base_url;
 }
-function errorPath2()
-{
-    global $admin_base_url;
-    global $editor_base_url;
-    if ($_SESSION['user'] === 'admin') {
-        return $admin_base_url;
-    } else if ($_SESSION['user'] === 'editor') {
-        return $editor_base_url;
-    }
-}
 function addWebsiteMessages($cookie_message, $description)
 {
     global $conn;

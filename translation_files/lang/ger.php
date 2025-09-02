@@ -234,5 +234,11 @@ $translations = [
     'time_added' => 'Hinzugefügte Zeit',
     'niche' => 'Nische',
     'editor_homepage' => 'Editor-Startseite',
+    'view_posts' => 'Alle Beiträge anzeigen',
+    'view_paid_posts' => 'Alle bezahlten Beiträge anzeigen',
+    'view_press_releases' => 'Alle Pressemitteilungen anzeigen',
+    'view_drafts' => 'Alle Entwürfe anzeigen',
+    'view_news' => 'Alle Nachrichtenbeiträge anzeigen',
+    'view_commentaries' => 'Alle Kommentare anzeigen'
 ];
 ?>

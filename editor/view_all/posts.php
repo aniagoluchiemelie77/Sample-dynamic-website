@@ -1,14 +1,14 @@
 <?php
 session_start();
-        $language = $language ?? 'en';
-        $translations = $translations ?? [];
-        $editor_base_url = $editor_base_url ?? '';
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$editor_base_url = $editor_base_url ?? '';
 include("../connect.php");
 require('../../init.php');
+require("../init.php");
 $details = getFaviconAndLogo();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
-require("../init.php");
 $translationFile = "../../translation_files/lang/{$language}.php";
 if (file_exists($translationFile)) {
     include $translationFile;
@@ -16,6 +16,7 @@ if (file_exists($translationFile)) {
     $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
 $posttype = 'Posts';
+$userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +31,7 @@ $posttype = 'Posts';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/editor.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src='../../javascript/editor.js' async></script>
+    <script src='../../javascript/editor.js' defer></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['view_posts']; ?></title>
 </head>
@@ -39,12 +40,13 @@ $posttype = 'Posts';
     <?php
     require("../extras/header2.php");
     $userType = $_SESSION['user'] ?? 'Editor';
+    $userFirstname = $_SESSION['firstname'];
     $post_type_dbname = "posts";
     $postTypeVal = 'id2';
-    $delete_querytype = 'confirmDeleteP2';
+    $delete_querytype = 'confirmDeleteP';
     $postTypeVal2 = 'post_id2';
     $favType = 'isfavourite2';
-    renderPostTypePage($editor_base_url, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
+    renderPostTypePage($editor_base_url, $userFirstname, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
     ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -102,35 +104,24 @@ $posttype = 'Posts';
             }
         }
     </script>
+    <script src="sweetalert2.all.min.js"></script>
     <script>
-        const ToastMessage = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            timer: 4000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-            iconColor: '#fff',
-            customClass: {
-                popup: 'rounded-xl shadow-xl text-white bg-zinc-800 border border-gray-600'
-            },
-            showClass: {
-                popup: 'animate__animated animate__fadeInRight'
-            },
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutRight'
-            }
-        });
-        if (typeof messageType !== "undefined" && messageText.trim() !== "") {
-            const iconColors = {
-                'Error': '#e74c3c',
-                'Success': '#2ecc71',
-                'Info': '#3498db'
-            };
-            ToastMessage.fire({
-                icon: messageType.toLowerCase(),
-                title: messageText,
-                iconColor: iconColors[messageType] || '#3498db'
-            });
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
         }
         <?php unset($_SESSION['status_type']); ?>
         <?php unset($_SESSION['status']); ?>

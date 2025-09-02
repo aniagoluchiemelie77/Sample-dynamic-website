@@ -12,6 +12,7 @@ require("init.php");
 $device_type = getDeviceType();
 $ip_address = getVisitorIP();
 $logFilePath = '../helpers/activites.txt';
+$attemptLogFile = '../helpers/login_attempts.log';
 $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 $id = $_SESSION['id'];
@@ -27,61 +28,18 @@ if (file_exists($translationFile)) {
 } else {
     $translations = [];
 }
-if (isset($_POST['fgtpswd'])) {
-    $password = $_POST['password'];
-    $check_password_sql = "SELECT password FROM admin_login_info WHERE id = ?";
-    $stmt = $conn->prepare($check_password_sql);
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $hashed_password = $row['password'];
-        if (password_verify($password, $hashed_password)) {
-            $editor_sql = "SELECT * FROM editor WHERE id = ?";
-            $stmt = $conn->prepare($editor_sql);
-            $stmt->bind_param("i", $editor_id);
-            $stmt->execute();
-            $editor_result = $stmt->get_result();
-            if ($editor_result->num_rows > 0) {
-                $action = "successfully logged in to editor's page";
-                logUserAction($ip_address, $device_type, $logFilePath, $action, $firstName);
-                $editor_row = $editor_result->fetch_assoc();
-                $_SESSION['email'] = $editor_row['email'];
-                $_SESSION['id'] = $editor_row['id'];
-                $_SESSION['firstname'] = $editor_row['firstname'];
-                $_SESSION['lastname'] = $editor_row['lastname'];
-                $_SESSION['username'] = $editor_row['username'];
-                $_SESSION['image'] = $editor_row['image'];
-                $_SESSION['bio'] = $editor_row['bio'];
-                $_SESSION['mobile'] = $editor_row['mobile'];
-                $_SESSION['country'] = $editor_row['country'];
-                $_SESSION['city'] = $editor_row['city'];
-                $_SESSION['state'] = $editor_row['state'];
-                $_SESSION['address'] = $editor_row['address1'];
-                $_SESSION['addresstwo'] = $editor_row['address2'];
-                $_SESSION['country_code'] = $editor_row['country_code'];
-                $_SESSION['date_joined'] = $editor_row['date_joined'];
-                $_SESSION['language'] = $editor_row['language'];
-                header("location: ../editor/editor_homepage.php");
-                exit();
-            } else {
-                $_SESSION['status_type'] = "Error";
-                $_SESSION['status'] = "No editor found with this ID!";
-            }
-        } else {
-            $action = "attempted an unsuccessful login to editor's page";
-            logUserAction($ip_address, $device_type, $logFilePath, $action, $firstName);
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Incorrect password. Please try again.";
-            header('location: admin_homepage.php');
-            exit();
-        }
-    } else {
+if (isset($_POST['admin_personalaccess_to_editorpage'])) {
+    $loginAllowed = isLoginAllowed($ip_address, $attemptLogFile);
+    if (!$loginAllowed) {
+        $action = "attempted too many unsuccessful logins to editor's page";
+        logUserAction($ip_address, $device_type, $logFilePath, $action, $firstName);
         $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Admin not found..";
-        header('location: login/index.php');
+        $_SESSION['status'] = "Too many login attempts. Please try again after a few minutes.";
+        header('location: admin_homepage.php');
         exit();
+    } else {
+        $password = $_POST['password'];
+        adminAccessToEditoPage($id, $password, $editor_id, $firstName);
     }
 }
 ?>
@@ -98,6 +56,7 @@ if (isset($_POST['fgtpswd'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="icon" href="../<?php echo $favicon; ?>" type="image/x-icon">
     <link rel="stylesheet" href="../css/admin.css" />
+    <script src="../javascript/admin.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title><?php echo $translations['editor_login_verify']; ?></title>
 </head>
@@ -105,20 +64,31 @@ if (isset($_POST['fgtpswd'])) {
 <body>
     <section class="section1 flexcenter">
         <div class="container" id="signIn">
-            <form method="post" class="form" id="validate_form" action=" ">
+            <form method="post" class="form" id="validate_form" action="../helpers/forms.php">
                 <h1><?php echo $translations['editor_login_verify_header']; ?></h1>
                 <div class="input_group">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="password" id="form_input" placeholder="Password" data-parsley-type="password" data-parsley-trigger="keyup" required />
                     <label for="password"><?php echo $translations['password']; ?></label>
                 </div>
-                <input type="submit" value="<?php echo $translations['editor_login_verify_btn']; ?>" class="btn_main" name="fgtpswd" />
+                <input type="submit" id='loginBtn' value="<?php echo $translations['editor_login_verify_btn']; ?>" class="btn_main" name="admin_personalaccess_to_editorpage" />
             </form>
         </div>
     </section>
     <?php require("extras/footer.php"); ?>
-    <script src="index.js"></script>
     <script src="sweetalert2.all.min.js"></script>
+    <script>
+        const loginAllowed = <?php echo json_encode($loginAllowed); ?>;
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginBtn = document.getElementById("loginBtn");
+            if (!loginAllowed) {
+                loginBtn.disabled = true;
+                loginBtn.style.opacity = "0.5";
+                loginBtn.style.cursor = "not-allowed";
+            }
+        });
+    </script>
+
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?>";
         var messageText = "<?= $_SESSION['status'] ?>";

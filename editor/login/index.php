@@ -9,6 +9,7 @@ $passwordid = '';
 $logFilePath = '../../helpers/activites.txt';
 $attemptLogFile = '../../helpers/login_attempts.log';
 $details = getFaviconAndLogo();
+$ip_address = getVisitorIP();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 if (!isLoginAllowed($ip_address, $attemptLogFile)) {

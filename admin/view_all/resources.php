@@ -21,7 +21,7 @@ if (file_exists($translationFile)) {
 }
 $posttype = $resource_name;
 if (isset($_GET['query'])) {
-    $query = isset($_GET['query']) ? trim($_GET['query']) : '';
+    $query = $_GET['query'];
     $searchTerm = "%" . $query . "%";
     if ($query !== "") {
         $table_name = lowercaseNoSpace($posttype);

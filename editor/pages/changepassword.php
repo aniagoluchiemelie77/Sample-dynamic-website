@@ -10,10 +10,10 @@ include("../connect.php");
 require("../init.php");
 require('../../init.php');
 require_once('../../helpers/components.php');
-$device_type = getDeviceType();
-$ip_address = getVisitorIP();
 $logFilePath = '../../helpers/activites.txt';
 $details = getFaviconAndLogo();
+        $device_type = getDeviceType();
+        $ip_address = getVisitorIP();
 $logo = $details['logo'];
 $favicon = $details['favicon'];
 $translationFile = "../../translation_files/lang/{$language}.php";
@@ -53,7 +53,7 @@ if (isset($_POST['change_pwd'])) {
             $firstname = $_SESSION['firstname'];
             if ($stmt->execute()) {
                 $action = 'successfully changed his/her password';
-                logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstname);
+                logUserAction($ip_address, $device_type, $logFilePath, $action, $firstname);
                 $content = "Editor " . $firstname . " changed password";
                 $forUser = 0;
                 logUpdate($conn, $forUser, $content);
@@ -61,7 +61,7 @@ if (isset($_POST['change_pwd'])) {
                 $_SESSION['status'] = "Password Updated Successfully";
             } else {
                 $action = 'attempted an unsuccessful password change';
-                logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstname);
+                logUserAction($ip_address, $device_type, $logFilePath, $action, $firstname);
                 $_SESSION['status_type'] = "Error";
                 $_SESSION['status'] = "Error updating password. Please try again.";
             }

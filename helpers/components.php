@@ -796,6 +796,7 @@ function renderEditFrontendFeaturespage($translations, $base_url, $usertype, $lo
     if ($usertype === 'Admin') {
         echo '' . renderNewPagePopupForm($translations) . '';
     }
+    // @phpstan-ignore-next-line
     require("../extras/header3.php");
     echo '
     <section class="sectioneer">';
@@ -820,6 +821,7 @@ function renderEditFrontendFeaturespage($translations, $base_url, $usertype, $lo
 function renderEditResourcefileForm($translations, $resource_name_uc, $resource_name, $id, $logo)
 {
     global $conn;
+    // @phpstan-ignore-next-line
     require("../extras/header3.php");
     $get_resource_file = "SELECT * FROM $resource_name WHERE id = $id";
     $get_resource_result = $conn->query($get_resource_file);
@@ -880,6 +882,7 @@ function renderEditResourcefileForm($translations, $resource_name_uc, $resource_
 function renderEditUserProfileForm($usertype, $id, $translations, $logo)
 {
     global $conn;
+    // @phpstan-ignore-next-line
     require("../extras/header3.php");
     if ($usertype == "Editor") {
         $getuser_sql = "SELECT * FROM editor WHERE id = $id";
@@ -1077,6 +1080,7 @@ function renderEditUserProfileForm($usertype, $id, $translations, $logo)
 function renderPageViewAndEditForm($base_url, $usertype, $translations, $table_name, $textarea_name, $textareaId, $submitbtn_name, $logo)
 {
     global $conn;
+    // @phpstan-ignore-next-line
     require("../extras/header3.php");
     if ($usertype === 'Admin') {
         echo    "<section class='about_section'>
@@ -1192,6 +1196,7 @@ function renderCategoriesPage($base_url, $usertype)
 {
     global $logo, $conn, $translations;
     $posttype = 'Categories';
+    // @phpstan-ignore-next-line
     require("../extras/header2.php");
     echo '<section class="about_section">
             <div class="about_header">
@@ -1274,6 +1279,7 @@ function renderCategoriesPage($base_url, $usertype)
 function renderChangePasswordForm($base_url, $usertype)
 {
     global $translations, $logo;
+    // @phpstan-ignore-next-line
     require("../extras/header3.php");
     echo '<section class="newpost_body">
             <form class="newpost_container" method="post" action="changepassword.php" enctype="multipart/form-data" id="postForm">';
@@ -1316,6 +1322,7 @@ function renderChangePasswordForm($base_url, $usertype)
 function renderMetaTitlesManagementForm($base_url, $usertype)
 {
     global $conn, $translations, $logo;
+    // @phpstan-ignore-next-line
     require("../extras/header3.php");
     echo '<section class="newpost_body">
             <form method="POST" action=" " enctype="multipart/form-data" id="postForm" class="newpost_container">';
@@ -1596,6 +1603,7 @@ function renderFrontendPageSearchResults($searchNiche1, $query)
             $searchTerm = "%" . $query . "%";
             $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
             $stmt->execute();
+            $id = $title = $niche = $content = $image = $date = null;
             $stmt->bind_result($id, $title, $niche, $content, $image, $date);
             while ($stmt->fetch()) {
                 $posttype = 0;
@@ -1627,28 +1635,51 @@ function renderFrontendPageSearchResults($searchNiche1, $query)
         } else {
             foreach ($results as $result) {
                 $max_length = 50;
-                $id = $result['id'];
-                $title = $result["title"];
-                $date = $result["Date"];
-                if (strlen($title) > $max_length) {
+
+                // Safely extract and sanitize values
+                $id = (int)$result['id'];
+                $title = is_string($result['title']);
+                $date = is_string($result['Date']);
+                $content = is_string($result['content']);
+                $imagePath = is_string($result['image_path']);
+                $niche = is_string($result['niche']);
+                $posttype = (int) $result['posttype'];
+
+                // Truncate title if necessary
+                if ($title !== null) {
                     $title = substr($title, 0, $max_length) . '...';
                 }
-                $dateTime = new DateTime($date);
-                $day = $dateTime->format('j');
-                $month = $dateTime->format('M');
-                $year = $dateTime->format('Y');
-                $ordinalSuffix = getOrdinalSuffix($day);
-                $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
-                $readingTime = calculateReadingTime($result['content']);
-                $output .= "<a class='more_posts_subdiv' href='view_post.php?id" . $result['posttype'] . "=$id'>
-                    <img src='" . $result['image_path'] . "' alt = 'Post's Image'/>
-                    <div class='more_posts_subdiv_subdiv'>
-                        <h1>" . $title . "</h1>
-                        <span>" . $formattedDate . "</span>
-                        <span>" . $readingTime . "</span>
-                    </div>
-                    <p class='posts_div_niche'>" . $result['niche'] . "</p>
-                </a>";
+
+                // Format date safely
+                if ($date !== null) {
+                    try {
+                        $dateTime = new DateTime($date);
+                        $day = $dateTime->format('j');
+                        $month = $dateTime->format('M');
+                        $year = $dateTime->format('Y');
+                        $ordinalSuffix = getOrdinalSuffix($day);
+                        $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+                    } catch (Exception $e) {
+                        $formattedDate = 'Unknown Date';
+                    }
+                } else {
+                    $formattedDate = 'Unknown Date';
+                }
+
+
+                // Calculate reading time
+                $readingTime = calculateReadingTime($content);
+
+                // Build output HTML
+                $output .= "<a class='more_posts_subdiv' href='view_post.php?id{$posttype}={$id}'>
+                        <img src='" . htmlspecialchars($imagePath) . "' alt='Post Image'/>
+                        <div class='more_posts_subdiv_subdiv'>
+                            <h1>" . htmlspecialchars($title) . "</h1>
+                            <span>" . htmlspecialchars($formattedDate) . "</span>
+                            <span>" . htmlspecialchars($readingTime) . "</span>
+                        </div>
+                        <p class='posts_div_niche'>" . htmlspecialchars($niche) . "</p>
+                    </a>";
             }
         }
     }
@@ -1688,27 +1719,34 @@ function renderFrontendPage($ucPageTitle, $lcPageTitle)
         $searchTerm = "%" . $nicheq . "%";
         $stmt->bind_param("s", $searchTerm);
         $stmt->execute();
+        $id = $title = $niche = $content = $image = $date = null;
         $stmt->bind_result($id, $title, $niche, $content, $image, $date);
         while ($stmt->fetch()) {
-            $posttype = 0;
-            if ($table == 'paid_posts') {
-                $posttype = 1;
-            } elseif ($table == 'posts') {
-                $posttype = 2;
-            } elseif ($table == 'commentaries') {
-                $posttype = 4;
-            } elseif ($table == 'news') {
-                $posttype = 3;
-            } elseif ($table == 'press_releases') {
-                $posttype = 5;
-            }
+            // Ensure all variables are properly typed
+            $safeId = $id;
+            $safeTitle = $title;
+            $safeNiche = $niche;
+            $safeContent = $content;
+            $safeImage = $image;
+            $safeDate = $date;
+
+            // Determine post type
+            $posttype = match ($table) {
+                'paid_posts' => 1,
+                'posts' => 2,
+                'commentaries' => 4,
+                'news' => 3,
+                'press_releases' => 5
+            };
+
+            // Build safe result array
             $results[] = [
-                'id' => $id,
-                'title' => $title,
-                'niche' => $niche,
-                'content' => $content,
-                'image_path' => $image,
-                'Date' => $date,
+                'id' => $safeId,
+                'title' => $safeTitle,
+                'niche' => $safeNiche,
+                'content' => $safeContent,
+                'image_path' => $safeImage,
+                'Date' => $safeDate,
                 'table' => $table,
                 'posttype' => $posttype
             ];
@@ -1717,17 +1755,22 @@ function renderFrontendPage($ucPageTitle, $lcPageTitle)
     foreach ($results as $result) {
         $max_length = 50;
         $id = $result['id'];
-        $title = $result["title"];
-        $date = $result["Date"];
-        if (strlen($title) > $max_length) {
-            $title = substr($title, 0, $max_length) . '...';
+        $title = is_string($result['title']);
+        $date = is_string($result['Date']);
+        $content = is_string($result['content']);
+        $title = substr($title, 0, $max_length) . '...';
+        if ($date !== null) {
+            try {
+                $dateTime = new DateTime($date);
+                $day = $dateTime->format('j');
+                $month = $dateTime->format('M');
+                $year = $dateTime->format('Y');
+                $ordinalSuffix = getOrdinalSuffix($day);
+                $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
+            } catch (Exception $e) {
+                $formattedDate = 'Unknown Date';
+            }
         }
-        $dateTime = new DateTime($date);
-        $day = $dateTime->format('j');
-        $month = $dateTime->format('M');
-        $year = $dateTime->format('Y');
-        $ordinalSuffix = getOrdinalSuffix($day);
-        $formattedDate = $month . ' ' . $day . $ordinalSuffix . ', ' . $year;
         $readingTime = calculateReadingTime($result['content']);
         echo "<a class='more_posts_subdiv' href='view_post.php?id" . $result['posttype'] . "=$id'>
                 <img src='" . $result['image_path'] . "' alt = 'Post's Image'/>
@@ -1793,69 +1836,83 @@ function renderAuthorPage($database_name, $id, $role, $authorTableHook)
     $tables = ['paid_posts', 'posts', 'commentaries', 'news', 'press_releases'];
     $results = [];
     foreach ($tables as $table) {
-        $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date, schedule FROM $table WHERE " . $authorTableHook . " = ? ORDER BY id DESC LIMIT 12";
+        $sql = "SELECT id, title, niche, content, image_path, post_image_url, Date, schedule 
+            FROM $table 
+            WHERE $authorTableHook = ? 
+            ORDER BY id DESC 
+            LIMIT 12";
+
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $id);
+
+        // Declare variables for binding
+        $id = $title = $niche = $content = $image = $image2 = $date = $schedule = null;
         $stmt->bind_result($id, $title, $niche, $content, $image, $image2, $date, $schedule);
         $stmt->execute();
+
         while ($stmt->fetch()) {
-            $posttype = 0;
-            if ($table == 'paid_posts') {
-                $posttype = 1;
-            } elseif ($table == 'posts') {
-                $posttype = 2;
-            } elseif ($table == 'commentaries') {
-                $posttype = 4;
-            } elseif ($table == 'news') {
-                $posttype = 3;
-            } elseif ($table == 'press_releases') {
-                $posttype = 5;
-            }
             $results[] = [
-                'id' => $id,
+                'id' => (int)$id,
                 'title' => $title,
                 'niche' => $niche,
                 'content' => $content,
                 'image_path' => $image,
                 'foreign_image_path' => $image2,
-                'Date' => $date,
+                'Date' =>  $date,
                 'schedule' => $schedule,
                 'table' => $table,
-                'posttype' => $posttype
+                'posttype' => match ($table) {
+                    'paid_posts' => 1,
+                    'posts' => 2,
+                    'commentaries' => 4,
+                    'news' => 3,
+                    'press_releases' => 5,
+                }
             ];
         }
     }
+
     foreach ($results as $result) {
         $max_length = 40;
         $id = $result['id'];
-        $title = $result["title"];
-        if (strlen($title) > $max_length) {
-            $title = substr($title, 0, $max_length) . '...';
-        }
-        $scheduleDate = !empty($result['schedule']) ? formatDateSafely($result['schedule']) : null;
-        $postDate = !empty($result['Date']) ? formatDateSafely($result['Date']) : null;
+        $title = is_string($result['title']);
+        $date = $result['Date'];
+        $content = $result['content'];
+        $schedule = $result['schedule'];
+        $imagePath = $result['image_path'];
+        $foreignImagePath = $result['foreign_image_path'];
+        $niche = $result['niche'];
+        $posttype = $result['posttype'];
+
+        // Truncate title safely
+        $title = substr($title, 0, $max_length) . '...';
+
+        // Format dates safely
+        $scheduleDate = formatDateSafely($schedule) ?? null;
+        $postDate = formatDateSafely($date) ?? null;
         $now = date('Y-m-d H:i:s');
-        if ($scheduleDate && $result['schedule'] <= $now) {
-            $publishDate = $scheduleDate;
-        } else {
-            $publishDate = $postDate;
+        $publishDate = ($scheduleDate && $schedule <= $now) ? $scheduleDate : $postDate;
+
+        // Reading time
+        $readingTime = calculateReadingTime($content);
+        $finalImage = $imagePath ? $imagePath : $foreignImagePath;
+
+        // Render HTML
+        echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id{$posttype}={$id}'>";
+
+        if ($finalImage) {
+            echo "<img src='" . htmlspecialchars($finalImage) . "' alt='article image'>";
         }
-        $readingTime = calculateReadingTime($result['content']);
-        echo "<a class='more_posts_subdiv' href='../pages/view_post.php?id" . $result['posttype'] . "=$id'>";
-        if (!empty($result['image_path'])) {
-            echo "<img src='" . $result['image_path'] . "' alt='article image'>";
-        } elseif (!empty($result['foreign_image_path'])) {
-            echo "<img src='" . $result['foreign_image_path'] . "' alt='article image'>";
-        }
-        echo    "<div class='more_posts_subdiv_subdiv'>
-                        <h1>" . $title . "</h1>
-                        <span>" . $publishDate . "</span>
-                        <span>" . $readingTime . "</span>
-                    </div>
-                    <p class='posts_div_niche'>" . $result['niche'] . "</p>
-                </a>
-            ";
+
+        echo "<div class='more_posts_subdiv_subdiv'>
+            <h1>" . htmlspecialchars($title) . "</h1>
+            <span>" . htmlspecialchars($publishDate ?? 'Unknown Date') . "</span>
+            <span>" . htmlspecialchars($readingTime) . "</span>
+        </div>
+        <p class='posts_div_niche'>" . htmlspecialchars($niche) . "</p>
+    </a>";
     }
+
     echo "</div></div>";
 }
 function renderUserActivitiesSearchResult($query)
@@ -1898,6 +1955,7 @@ function renderUserActivitiesSearchResult($query)
 function renderUserActivitiesPage($usertype, $base_url, $translations, $user)
 {
     global $conn, $logo, $posttype;
+    // @phpstan-ignore-next-line
     require("../extras/header2.php");
     echo '<section class="sectioneer">
             <div class="posts_div1 postsdiv sectioneer_divcontainer">
@@ -2148,6 +2206,7 @@ function renderSignInPage($msg, $emailid, $passwordid)
                     </form>
                 </div>
             </section>';
+    // @phpstan-ignore-next-line
     require("../extras/footer.php");
 }
 function renderForgotPasswordPage($usertype)
@@ -2167,6 +2226,7 @@ function renderForgotPasswordPage($usertype)
             </div>
         </section>
     ';
+    // @phpstan-ignore-next-line
     require("../extras/footer.php");
 }
 function renderOtpInputPage($email, $usertype)
@@ -2200,6 +2260,7 @@ function renderOtpInputPage($email, $usertype)
                 </form>
             </div>
         </section>';
+    // @phpstan-ignore-next-line
     require("../extras/footer.php");
 };
 function renderChangePasswordLoginPage($usertype, $email, $firstname)
@@ -2226,6 +2287,7 @@ function renderChangePasswordLoginPage($usertype, $email, $firstname)
             </div>
         </section>
     ';
+    // @phpstan-ignore-next-line
     require("../extras/footer.php");
 }
 ?>

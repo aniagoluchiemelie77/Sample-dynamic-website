@@ -17,7 +17,7 @@ $post_id4 = $_POST['post_id4'] ?? '';
 $isfavourite4 = $_POST['isfavourite4'] ?? '';
 $post_id5 = $_POST['post_id5'] ?? '';
 $isfavourite5 = $_POST['isfavourite5'] ?? '';
-$actionType;
+$actionType = '';
 if ($post_id1 && $isfavourite1 !== '') {
     if ($isfavourite1 === 'True') {
         $actionType = 'bookmarked a post from Paid Posts';

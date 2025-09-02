@@ -45,7 +45,7 @@ if (isset($_POST['fgtpswd'])) {
             $editor_result = $stmt->get_result();
             if ($editor_result->num_rows > 0) {
                 $action = "successfully logged in to editor's page";
-                logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstName);
+                logUserAction($ip_address, $device_type, $logFilePath, $action, $firstName);
                 $editor_row = $editor_result->fetch_assoc();
                 $_SESSION['email'] = $editor_row['email'];
                 $_SESSION['id'] = $editor_row['id'];
@@ -71,7 +71,7 @@ if (isset($_POST['fgtpswd'])) {
             }
         } else {
             $action = "attempted an unsuccessful login to editor's page";
-            logUserAction($ipAddress, $deviceType, $logFilePath, $action, $firstName);
+            logUserAction($ip_address, $device_type, $logFilePath, $action, $firstName);
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Incorrect password. Please try again.";
             header('location: admin_homepage.php');

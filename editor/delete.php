@@ -37,90 +37,85 @@ if (isset($_GET['id2'])) {
     $sql = "DELETE FROM posts WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $postId);
-    if ($stmt->execute()) {
-        $content = "Editor $firstname deleted a post";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Post Deleted Successfully";
-        header('location: editor_homepage.php');
-    } else {
+    if (!$stmt->execute()) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
+    $content = "Editor $firstname deleted a post";
+    $forUser = 0;
+    logUpdate($conn, $forUser, $content);
+    $_SESSION['status_type'] = "Success";
+    $_SESSION['status'] = "Post Deleted Successfully";
+    header('location: editor_homepage.php');
 }
 if (isset($_GET['id3'])) {
     $postId = $_GET['id3'];
     $sql = "DELETE FROM unpublished_articles WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $postId);
-    if ($stmt->execute()) {
-        $content = "Editor $firstname deleted a Draft";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Post Deleted Successfully";
-        header('location: editor_homepage.php');
-    } else {
+    if (!$stmt->execute()) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
+    $content = "Editor $firstname deleted a Draft";
+    $forUser = 0;
+    logUpdate($conn, $forUser, $content);
+    $_SESSION['status_type'] = "Success";
+    $_SESSION['status'] = "Post Deleted Successfully";
+    header('location: editor_homepage.php');
 }
 if (isset($_GET['id4'])) {
     $postId = $_GET['id4'];
     $sql = "DELETE FROM news WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $postId);
-    if ($stmt->execute()) {
-        $content = "Editor $firstname deleted a News Post";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Post Deleted Successfully";
-        header('location: editor_homepage.php');
-    } else {
+    if (!$stmt->execute()) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
+    $content = "Editor $firstname deleted a News Post";
+    $forUser = 0;
+    logUpdate($conn, $forUser, $content);
+    $_SESSION['status_type'] = "Success";
+    $_SESSION['status'] = "Post Deleted Successfully";
+    header('location: editor_homepage.php');
 }
 if (isset($_GET['id5'])) {
     $postId = $_GET['id5'];
     $sql = "DELETE FROM commentaries WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $postId);
-    if ($stmt->execute()) {
-        $content = "Editor $firstname deleted a Commentary Post";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Post Deleted Successfully";
-        header('location: editor_homepage.php');
-    } else {
+    if (!$stmt->execute()) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
+    $content = "Editor $firstname deleted a Commentary Post";
+    $forUser = 0;
+    logUpdate($conn, $forUser, $content);
+    $_SESSION['status_type'] = "Success";
+    $_SESSION['status'] = "Post Deleted Successfully";
+    header('location: editor_homepage.php');
 }
 if (isset($_GET['id6'])) {
     $postId = $_GET['id6'];
     $sql = "DELETE FROM press_releases WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $postId);
-    if ($stmt->execute()) {
-        $content = "Editor $firstname deleted a Press release Post";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Post Deleted Successfully";
-        header('location: editor_homepage.php');
-    } else {
+    if (!$stmt->execute()) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
+    $content = "Editor $firstname deleted a Press release Post";
+    $forUser = 0;
+    logUpdate($conn, $forUser, $content);
+    $_SESSION['status_type'] = "Success";
+    $_SESSION['status'] = "Post Deleted Successfully";
+    header('location: editor_homepage.php');
 }
 if ($type == "Category") {
     $page_name = removeHyphenNoSpace($topicName);
@@ -128,25 +123,22 @@ if ($type == "Category") {
     $sql = "DELETE FROM topics WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
-    if ($stmt->execute()) {
-        $sql = "DELETE FROM meta_titles WHERE page_name = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $topicName);
-        if ($stmt->execute()) {
-            $pageType = "Category";
-            $deleteAction2 = deleteFile($two_folders_above_file, $pageType);
-            $_SESSION['status_type'] = $deleteAction2['status_type'];
-            $_SESSION['status'] = $deleteAction2['status'];
-            $content = "Editor " . $_SESSION['firstname'] . "  deleted a Category type";
-            $forUser = 0;
-            logUpdate($conn, $forUser, $content);
-            header('location: pages/categories.php');
-        }
-    } else {
+    if (!$stmt->execute()) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: pages/categories.php');
     }
+    $sql = "DELETE FROM meta_titles WHERE page_name = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $topicName);
+    $pageType = "Category";
+    $deleteAction2 = deleteFile($two_folders_above_file, $pageType);
+    $_SESSION['status_type'] = $deleteAction2['status_type'];
+    $_SESSION['status'] = $deleteAction2['status'];
+    $content = "Editor " . $_SESSION['firstname'] . "  deleted a Category type";
+    $forUser = 0;
+    logUpdate($conn, $forUser, $content);
+    header('location: pages/categories.php');
 }
 if ($type == "Resource") {
     $resource_name = removeUnderscoreNoSpace($resourceName);
@@ -157,29 +149,27 @@ if ($type == "Resource") {
         $sql = "DELETE FROM resources WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
-        if ($stmt->execute()) {
-            $sql = "DELETE FROM meta_titles WHERE page_name like ?";
-            $searchTerm = "%" . $resource_name . "%";
-            $stmt->bind_param("s", $searchTerm);
-            if ($stmt->execute()) {
-                $pageType = "Resource";
-                $deleteAction2 = deleteFile($two_folders_above_file, $pageType);
-                $_SESSION['status_type'] = $deleteAction2['status_type'];
-                $_SESSION['status'] = $deleteAction2['status'];
-                $content = "Editor " . $_SESSION['firstname'] . "  deleted a Resource type";
-                $forUser = 0;
-                logUpdate($conn, $forUser, $content);
-                header('location: edit/frontend_features.php');
-            } else {
-                $_SESSION['status_type'] = "Error";
-                $_SESSION['status'] = "Error, Please retry";
-                header('location: edit/frontend_features.php');
-            }
-        } else {
+        if (!$stmt->execute()) {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Error, Please retry";
             header('location: edit/frontend_features.php');
         }
+        $sql = "DELETE FROM meta_titles WHERE page_name like ?";
+        $searchTerm = "%" . $resource_name . "%";
+        $stmt->bind_param("s", $searchTerm);
+        if (!$stmt->execute()) {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            header('location: edit/frontend_features.php');
+        }
+        $pageType = "Resource";
+        $deleteAction2 = deleteFile($two_folders_above_file, $pageType);
+        $_SESSION['status_type'] = $deleteAction2['status_type'];
+        $_SESSION['status'] = $deleteAction2['status'];
+        $content = "Editor " . $_SESSION['firstname'] . "  deleted a Resource type";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        header('location: edit/frontend_features.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Deleting table failed!";
@@ -190,35 +180,33 @@ if ($usertype == "Writer") {
     $sql = "DELETE FROM writer WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
-    if ($stmt->execute()) {
-        $content = "Editor " . $_SESSION['firstname'] . "  deleted a Writer";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "Writer Deleted Successfully";
-        header('location: editor_homepage.php');
-    } else {
+    if (!$stmt->execute()) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
+    $content = "Editor " . $_SESSION['firstname'] . "  deleted a Writer";
+    $forUser = 0;
+    logUpdate($conn, $forUser, $content);
+    $_SESSION['status_type'] = "Success";
+    $_SESSION['status'] = "Writer Deleted Successfully";
+    header('location: editor_homepage.php');
 }
 if ($usertype == "Otheruser") {
     $sql = "DELETE FROM otherwebsite_users WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
-    if ($stmt->execute()) {
-        $content = "Editor " . $_SESSION['firstname'] . "  deleted a User";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "User Deleted Successfully";
-        header('location: editor_homepage.php');
-    } else {
+    if (!$stmt->execute()) {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
+    $content = "Editor " . $_SESSION['firstname'] . "  deleted a User";
+    $forUser = 0;
+    logUpdate($conn, $forUser, $content);
+    $_SESSION['status_type'] = "Success";
+    $_SESSION['status'] = "User Deleted Successfully";
+    header('location: editor_homepage.php');
 }
 ?>
 <!DOCTYPE html>

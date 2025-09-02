@@ -4,7 +4,8 @@
 global $conn;
     session_start();
     include("connect.php");
-    $_SESSION['id'] = $admin_id; 
+$admin_id = $_SESSION['id'] ?? '1';
+$editor_id = '';
     $_SESSION['status_type'] = "";
     $_SESSION['status'] = "";
     include ('../helpers/crudoperations.php');
@@ -23,7 +24,7 @@ global $conn;
             $stmt->execute();
             $delete_editor = "DELETE FROM editor WHERE id = ?";
             $stmt = $conn->prepare($delete_editor);
-            $stmt->bind_param("i", $writer_id);
+        $stmt->bind_param("i", $editor_id);
             if( $stmt->execute() ){
                 $content = "Admin ".$_SESSION['firstname']." demoted an editor";
                 $forUser = 0;

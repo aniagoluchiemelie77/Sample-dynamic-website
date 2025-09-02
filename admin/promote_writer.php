@@ -4,8 +4,8 @@
 global $conn;
     session_start();
     include("connect.php");
-    $_SESSION['id'] = $admin_id; 
-    $_SESSION['status_type'] = "";
+$admin_id = $_SESSION['id'];
+$_SESSION['status_type'] = "";
     $_SESSION['status'] = "";
 include('../helpers/crudoperations.php');
     function promoteWriterToEditor($writer_id, $admin_id) {

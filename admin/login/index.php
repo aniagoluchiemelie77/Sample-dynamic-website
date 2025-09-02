@@ -6,6 +6,7 @@ require('../../helpers/components.php');
 $msg = '';
 $emailid = '';
 $passwordid = '';
+$ip_address = getVisitorIP();
 $details = getFaviconAndLogo();
 $logFilePath = '../../helpers/activites.txt';
 $attemptLogFile = '../../helpers/login_attempts.log';

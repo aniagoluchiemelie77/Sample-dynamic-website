@@ -3,6 +3,9 @@
 /** @var \mysqli $conn */
 global $conn;
 session_start();
+        $language = $language ?? 'en';
+        $translations = $translations ?? [];
+        $editor_base_url = $editor_base_url ?? '';
 include("../connect.php");
 require("../init.php");
 require('../../init.php');
@@ -72,7 +75,6 @@ if (isset($_POST['change_pwd'])) {
         $_SESSION['status'] = "Incorrect password, Please try again.";
         exit();
     }
-    $stmt->close();
 }
 ?>
 <!DOCTYPE html>

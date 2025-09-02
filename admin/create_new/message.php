@@ -1,4 +1,9 @@
 <?php
+/** @var \mysqli $conn */
+global $conn;
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$base_url = $base_url ?? '';
 session_start();
 require("../connect.php");
 require('../../init.php');
@@ -35,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
         $_SESSION['status_type'] = "Success";
         $_SESSION['status'] = "Message delivered Successfully!";
     }
-    $stmt->close();
 }
 ?>
 <!DOCTYPE html>
@@ -159,8 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send_message'])) {
     </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

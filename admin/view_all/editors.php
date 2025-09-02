@@ -1,5 +1,11 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
 session_start();
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$base_url = $base_url ?? '';
 include("../connect.php");
 require("../init.php");
 require('../../init.php');
@@ -140,8 +146,8 @@ $posttype = 'Editors';
     </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

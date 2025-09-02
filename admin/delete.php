@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
 session_start();
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
@@ -46,7 +49,6 @@ if (isset($_GET['id1'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
     }
-    $stmt->close();
 }
 if (isset($_GET['id2'])) {
     $postId = $_GET['id2'];
@@ -65,7 +67,6 @@ if (isset($_GET['id2'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
     }
-    $stmt->close();
 }
 if (isset($_GET['id3'])) {
     $postId = $_GET['id3'];
@@ -84,7 +85,6 @@ if (isset($_GET['id3'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
     }
-    $stmt->close();
 }
 if (isset($_GET['id4'])) {
     $postId = $_GET['id4'];
@@ -103,7 +103,6 @@ if (isset($_GET['id4'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
     }
-    $stmt->close();
 }
 if (isset($_GET['id5'])) {
     $postId = $_GET['id5'];
@@ -122,7 +121,6 @@ if (isset($_GET['id5'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
     }
-    $stmt->close();
 }
 if (isset($_GET['id6'])) {
     $postId = $_GET['id6'];
@@ -141,7 +139,6 @@ if (isset($_GET['id6'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
     }
-    $stmt->close();
 }
 if ($usertype == "Editor") {
     $sql = "DELETE FROM editor WHERE id = ?";
@@ -159,7 +156,6 @@ if ($usertype == "Editor") {
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
     }
-    $stmt->close();
 }
 if ($type == "Category") {
     $page_name = removeHyphenNoSpace($topicName);
@@ -186,7 +182,6 @@ if ($type == "Category") {
         $_SESSION['status'] = "Error, Please retry";
         header('location: pages/categories.php');
     }
-    $stmt->close();
 }
 if ($type == "Resource") {
     $resource_name = removeUnderscoreNoSpace($resourceName);
@@ -220,7 +215,6 @@ if ($type == "Resource") {
             $_SESSION['status'] = "Error, Please retry";
             header('location: edit/frontend_features.php');
         }
-        $stmt->close();
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Deleting table failed!";
@@ -280,7 +274,6 @@ if ($type == "Page") {
             $_SESSION['status'] = "Error, Please retry";
             header('location: edit/frontend_features.php');
         }
-        $stmt->close();
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Deleting table failed!";
@@ -303,7 +296,6 @@ if ($usertype == "Writer") {
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
     }
-    $stmt->close();
 }
 if ($usertype == "Otheruser") {
     $sql = "DELETE FROM otherwebsite_users WHERE id = ?";
@@ -321,7 +313,6 @@ if ($usertype == "Otheruser") {
         $_SESSION['status'] = "Error, Please retry";
         header('location: admin_homepage.php');
     }
-    $stmt->close();
 }
 if ($usertype == "Subscriber") {
     $sql = "DELETE FROM subscribers WHERE id = ?";
@@ -339,7 +330,6 @@ if ($usertype == "Subscriber") {
         $_SESSION['status'] = "Error, Please retry";
         header('location: pages/subscribers.php');
     }
-    $stmt->close();
 }
 if ($usertype == "NewsletterSubscriber") {
     $sql = "DELETE FROM newsletter_subscribers WHERE id = ?";
@@ -357,7 +347,6 @@ if ($usertype == "NewsletterSubscriber") {
         $_SESSION['status'] = "Error, Please retry";
         header('location: pages/newslettersignups.php');
     }
-    $stmt->close();
 }
 ?>
 <!DOCTYPE html>

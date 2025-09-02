@@ -1,5 +1,8 @@
 <?php
 session_start();
+        $language = $language ?? 'en';
+        $translations = $translations ?? [];
+        $base_url = $base_url ?? '';
 include("../connect.php");
 require("../init.php");
 require('../../init.php');

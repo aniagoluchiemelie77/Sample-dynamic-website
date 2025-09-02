@@ -3,6 +3,8 @@
 /** @var \mysqli $conn */
 global $conn;
 session_start();
+        $language = $language ?? 'en';
+        $translations = $translations ?? [];
 require("connect.php");
 include("init.php");
 require('../init.php');
@@ -473,7 +475,6 @@ if (file_exists($translationFile)) {
                                 $result = $stmt->get_result();
                                 $row = $result->fetch_assoc();
                                 $total_posts += $row['count'];
-                                $stmt->close();
                             }
                             ?>
                             <p><?php echo $translations['posts_published']; ?>: <span><?php echo $total_posts; ?></span></p>
@@ -569,7 +570,6 @@ if (file_exists($translationFile)) {
                                     $result = $stmt->get_result();
                                     $row = $result->fetch_assoc();
                                     $total_posts += $row['count'];
-                                    $stmt->close();
                                 }
                                 $sn++;
                                 echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url($image)'>
@@ -614,7 +614,6 @@ if (file_exists($translationFile)) {
                                     $result = $stmt->get_result();
                                     $row = $result->fetch_assoc();
                                     $total_posts += $row['count'];
-                                    $stmt->close();
                                 }
                                 $sn++;
                                 echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url($image)'>
@@ -658,7 +657,6 @@ if (file_exists($translationFile)) {
                                     $result = $stmt->get_result();
                                     $row = $result->fetch_assoc();
                                     $total_posts += $row['count'];
-                                    $stmt->close();
                                 }
                                 $sn++;
                                 echo "<div class='users_div_subdiv_subdiv divimages' style='background-image:url($image)'>

@@ -1,4 +1,7 @@
 <?php
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$base_url = $base_url ?? '';
 session_start();
 require("../connect.php");
 require("../init.php");
@@ -59,8 +62,8 @@ if (file_exists($translationFile)) {
     </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

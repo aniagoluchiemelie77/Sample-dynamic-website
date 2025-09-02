@@ -31,6 +31,5 @@ if (isset($_POST['page_id'])) {
     } else {
         echo json_encode(["success" => false]);
     }
-    $stmt->close();
 }
 ?>

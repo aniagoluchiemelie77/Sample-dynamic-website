@@ -1,3 +1,6 @@
+<?php
+global $logo, $posttype;
+?>
 <header class="header">
     <div class="header_img">
         <a class="notification" href="../admin_homepage.php">

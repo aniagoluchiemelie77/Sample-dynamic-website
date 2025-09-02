@@ -1,4 +1,10 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$base_url = $base_url ?? '';
 session_start();
 include("../connect.php");
 require("../init.php");
@@ -69,7 +75,6 @@ if (isset($_POST['change_pwd'])) {
         $_SESSION['status'] = "Incorrect password, Please try again.";
         exit();
     }
-    $stmt->close();
 }
 ?>
 <!DOCTYPE html>
@@ -99,8 +104,8 @@ if (isset($_POST['change_pwd'])) {
     <script src="../../javascript/admin.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

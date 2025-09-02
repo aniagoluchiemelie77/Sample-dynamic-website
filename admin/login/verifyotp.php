@@ -1,4 +1,7 @@
 <?php
+
+    /** @var \mysqli $conn */
+    global $conn;
 session_start();
 require("../connect.php");
 require('../../init.php');
@@ -30,14 +33,10 @@ if (isset($_GET['resend_otp']) && $_GET['resend_otp'] == 1 && isset($_GET['email
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Failed to resend OTP.";
         }
-
-        $updateStmt->close();
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Email not found.";
     }
-
-    $stmt->close();
     header("Location: verifyotp.php?email=" . urlencode($email) . "&resent=1");
     exit();
 }

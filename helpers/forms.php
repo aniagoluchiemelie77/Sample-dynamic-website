@@ -2373,7 +2373,6 @@ function validateOTP($usertype, $email, $otp)
                 $clearStmt = $conn->prepare("UPDATE admin_login_info SET token = NULL, token_created_at = NULL WHERE email = ?");
                 $clearStmt->bind_param("s", $email);
                 $clearStmt->execute();
-                $clearStmt->close();
                 header("Location: " . $admin_base_url . "login/changepassword.php");
                 exit();
             } else {
@@ -2394,14 +2393,11 @@ function validateOTP($usertype, $email, $otp)
                     } else {
                         $msg = "Unable to retrieve user info for OTP regeneration.";
                     }
-                    $nameStmt->close();
                 } else {
                     $msg = "Failed to regenerate OTP. Please try again.";
                     header('Location: ' . $admin_base_url . '/login/verifyotp.php?email=' . urlencode($email));
                 }
-                $regenerateStmt->close();
             }
-            $stmt->close();
         }
     } else if ($usertype === 'editor') {
         if (strlen($otp) !== 5 || !ctype_digit($otp)) {
@@ -2422,7 +2418,6 @@ function validateOTP($usertype, $email, $otp)
                 $clearStmt = $conn->prepare("UPDATE editor SET token = NULL, token_created_at = NULL WHERE email = ?");
                 $clearStmt->bind_param("s", $email);
                 $clearStmt->execute();
-                $clearStmt->close();
                 header("Location: " . $editor_base_url . "login/changepassword.php");
                 exit();
             } else {
@@ -2444,14 +2439,11 @@ function validateOTP($usertype, $email, $otp)
                         $msg = "Unable to retrieve user info for OTP regeneration.";
                         header('Location: ' . $editor_base_url . '/login/verifyotp.php?email=' . urlencode($email));
                     }
-                    $nameStmt->close();
                 } else {
                     $msg = "Failed to regenerate OTP. Please try again.";
                     header('Location: ' . $editor_base_url . '/login/verifyotp.php?email=' . urlencode($email));
                 }
-                $regenerateStmt->close();
             }
-            $stmt->close();
         }
     }
     return $msg;

@@ -259,6 +259,5 @@ if (!function_exists('updateMetatitle')) {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Error, Please retry";
         }
-        $stmt->close();
     }
 }

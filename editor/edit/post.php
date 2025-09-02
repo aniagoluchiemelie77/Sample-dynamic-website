@@ -1,8 +1,11 @@
 <?php
 
-        /** @var \mysqli $conn */
-        global $conn;
+/** @var \mysqli $conn */
+global $conn;
 session_start();
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$editor_base_url = $editor_base_url ?? '';
 include("../connect.php");
 require('../../init.php');
 require("../init.php");
@@ -143,8 +146,8 @@ $post_id6 = isset($_GET['id6']) ? intval($_GET['id6']) : 0;
     <script src="sweetalert2.all.min.js"></script>
     <script>
         preventSubmitIfUnchanged('.newpost_container', 'input[type="text"], input[type="file"], textarea');
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

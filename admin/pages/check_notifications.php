@@ -1,4 +1,5 @@
-<?php 
+<?php
+global $conn;
 session_start();
 require('../connect.php');
 $sql = "SELECT COUNT(*) AS new_notifications FROM updates WHERE status = 'unread'";

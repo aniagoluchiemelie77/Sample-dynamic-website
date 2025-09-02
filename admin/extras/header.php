@@ -1,3 +1,6 @@
+<?php
+global $logo;
+?>
 <header class="header">
     <div class="header_logobox">
         <img src="<?php echo $logo; ?>" alt="Website Logo">

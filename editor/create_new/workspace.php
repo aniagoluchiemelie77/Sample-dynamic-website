@@ -1,5 +1,8 @@
 <?php
 session_start();
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$editor_base_url = $editor_base_url ?? '';
 include("../connect.php");
 require("../init.php");
 require('../../init.php');
@@ -37,7 +40,7 @@ if (file_exists($translationFile)) {
     <?php
     require("../extras/header3.php");
     $usertype = $_SESSION['user'] ?? 'Editor';
-    renderCreateNewWorkspace($base_url, $translations, $usertype);
+    renderCreateNewWorkspace($editor_base_url, $translations, $usertype);
     ?>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/4x49ifq5jl99k0b9aot23a5ynnqfcr8jdlee7v6905rgmzql/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
@@ -50,8 +53,8 @@ if (file_exists($translationFile)) {
                 clearLocalStorage();
             });
         });
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

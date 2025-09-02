@@ -1,5 +1,8 @@
 <?php
 session_start();
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$editor_base_url = $editor_base_url ?? '';
 require("../connect.php");
 require("../init.php");
 require('../../helpers/components.php');
@@ -37,7 +40,7 @@ if (file_exists($translationFile)) {
     <?php
     require("../extras/header3.php");
     $usertype = $_SESSION['user'] ?? 'Editor';
-    renderCreateNewWriter($base_url, $translations, $usertype);
+    renderCreateNewWriter($editor_base_url, $translations, $usertype);
     ?>
     <script src="sweetalert2.all.min.js"></script>
     <script>
@@ -48,8 +51,8 @@ if (file_exists($translationFile)) {
                 clearLocalStorage();
             });
         });
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

@@ -1164,7 +1164,6 @@ function renderCatergoriesSearchAndDisplayQuery($query)
                         $result = $stmt->get_result();
                         $row = $result->fetch_assoc();
                         $total_posts += $row['count'];
-                        $stmt->close();
                     }
                     $output .= "<div class='about_section_topicsdiv_subdiv'>";
                     if (!empty($img)) {
@@ -1246,7 +1245,6 @@ function renderCategoriesPage($base_url, $usertype)
                 $result = $stmt->get_result();
                 $row = $result->fetch_assoc();
                 $total_posts += $row['count'];
-                $stmt->close();
             }
             echo "<div class='about_section_topicsdiv_subdiv'>";
             if (!empty($img)) {

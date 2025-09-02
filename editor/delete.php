@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
 session_start();
 include('connect.php');
 include('../helpers/crudoperations.php');
@@ -46,7 +49,6 @@ if (isset($_GET['id2'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
-    $stmt->close();
 }
 if (isset($_GET['id3'])) {
     $postId = $_GET['id3'];
@@ -65,7 +67,6 @@ if (isset($_GET['id3'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
-    $stmt->close();
 }
 if (isset($_GET['id4'])) {
     $postId = $_GET['id4'];
@@ -84,7 +85,6 @@ if (isset($_GET['id4'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
-    $stmt->close();
 }
 if (isset($_GET['id5'])) {
     $postId = $_GET['id5'];
@@ -103,7 +103,6 @@ if (isset($_GET['id5'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
-    $stmt->close();
 }
 if (isset($_GET['id6'])) {
     $postId = $_GET['id6'];
@@ -122,7 +121,6 @@ if (isset($_GET['id6'])) {
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
-    $stmt->close();
 }
 if ($type == "Category") {
     $page_name = removeHyphenNoSpace($topicName);
@@ -149,7 +147,6 @@ if ($type == "Category") {
         $_SESSION['status'] = "Error, Please retry";
         header('location: pages/categories.php');
     }
-    $stmt->close();
 }
 if ($type == "Resource") {
     $resource_name = removeUnderscoreNoSpace($resourceName);
@@ -183,7 +180,6 @@ if ($type == "Resource") {
             $_SESSION['status'] = "Error, Please retry";
             header('location: edit/frontend_features.php');
         }
-        $stmt->close();
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Deleting table failed!";
@@ -206,7 +202,6 @@ if ($usertype == "Writer") {
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
-    $stmt->close();
 }
 if ($usertype == "Otheruser") {
     $sql = "DELETE FROM otherwebsite_users WHERE id = ?";
@@ -224,7 +219,6 @@ if ($usertype == "Otheruser") {
         $_SESSION['status'] = "Error, Please retry";
         header('location: editor_homepage.php');
     }
-    $stmt->close();
 }
 ?>
 <!DOCTYPE html>

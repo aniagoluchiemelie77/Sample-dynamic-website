@@ -1,4 +1,7 @@
 <?php
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$base_url = $base_url ?? '';
 session_start();
 $page_name = isset($_GET['page_name']) ? $_GET['page_name'] : "Unknown Page";
 include("../connect.php");
@@ -92,8 +95,8 @@ $posttype = "Metatitles";
             });
         }
         preventSubmitIfUnchanged('.newpost_container', 'input');
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

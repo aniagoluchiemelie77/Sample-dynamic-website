@@ -1,4 +1,7 @@
 <?php
+
+/** @var \mysqli $conn */
+global $conn;
 session_start();
 include("connect.php");
 require("../helpers/crudoperations.php");

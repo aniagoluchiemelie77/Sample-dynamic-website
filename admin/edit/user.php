@@ -1,4 +1,7 @@
 <?php
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$base_url = $base_url ?? '';
 session_start();
 include("../connect.php");
 require('../../init.php');
@@ -44,8 +47,8 @@ if (file_exists($translationFile)) {
         document.addEventListener('DOMContentLoaded', function() {
             preventSubmitIfUnchanged('.create_editor_container', 'input[type="text"], input[type="file"], input[type="email"], input[type="number"], textarea');
         });
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {
             Swal.fire({
                 title: 'Error!',

@@ -601,7 +601,7 @@ function userLogIn($usertype, $userDbName,)
                 $_SESSION['user'] = 'Admin';
                 header("location: ../admin_homepage.php");
             } else if ($usertype === 'editor') {
-                $_SESSION['user'] = 'Edmin';
+                    $_SESSION['user'] = 'Editor';
                 header("location: ../editor_homepage.php");
             }
             exit();

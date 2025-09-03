@@ -679,7 +679,7 @@ function renderCookieConsentAndWebVisionForm($translations)
 if (!function_exists('renderCreateNewResourceTypeForm')) {
 function renderCreateNewResourceTypeForm($translations)
 {
-    global $conn;
+        global $conn, $userFirstname;
     $output = '';
     $output .= '<div class="frontend_div sectioneer_div">
                 <h1 class="sectioneer_form_header">' . $translations['resources'] . '</h1>';
@@ -695,7 +695,7 @@ function renderCreateNewResourceTypeForm($translations)
             $output .=  "<div class='div'>
                             <p>" . $readableString . "</p>
                             <div class='sectioneer_div_subdiv_subdiv'>
-                                <a class='' onclick='confirmDeleteResource(" . $resource_id . ", \"" . htmlspecialchars(".$resource_name2.", ENT_QUOTES) . "\")'>
+                                <a class='' onclick='confirmDeleteResource(" . $resource_id . ", \"" . addslashes($resource_name2) . "\", \"" . addslashes($userFirstname) . "\")'>
                                     <i class='fa fa-trash' aria-hidden='true'></i>
                                 </a>
                                 <a href='../view_all/resources.php?resource_name=" . $resource_name . "'>

@@ -1,23 +1,25 @@
-'use strict';
-
-var timerElement = document.querySelector('.timer');
-var verifyButton = document.querySelector('.verifyButton');
-var inputs = document.querySelectorAll('.otp-input');
-var sideBtns = document.querySelectorAll('.sidebarbtn');
+"use strict";
+var timerElement = document.querySelector(".timer");
+var verifyButton = document.querySelector(".verifyButton");
+var inputs = document.querySelectorAll(".otp-input");
+var sideBtns = document.querySelectorAll(".sidebarbtn");
 var tabComponents = document.querySelectorAll(".tab_content");
-var exitLogout = document.getElementById('dismiss-popup-btn');
+var exitLogout = document.getElementById("dismiss-popup-btn");
+const deleteFileBaseUrl =
+  "http://localhost/Sample-dynamic-website/helpers/deleteactions.php";
+let countdownInterval;
 sideBtns.forEach(function (tab, index) {
-  tab.addEventListener('click', function () {
+  tab.addEventListener("click", function () {
     sideBtns.forEach(function (tab) {
-      return tab.classList.remove('active');
+      return tab.classList.remove("active");
     });
-    tab.classList.add('active');
+    tab.classList.add("active");
     tabComponents.forEach(function (tabContent) {
-      tabContent.classList.remove('active2');
-      tabContent.style.display = 'none';
+      tabContent.classList.remove("active2");
+      tabContent.style.display = "none";
     });
-    tabComponents[index].classList.add('active2');
-    tabComponents[index].style.display = 'flex';
+    tabComponents[index].classList.add("active2");
+    tabComponents[index].style.display = "flex";
   });
 });
 function displayExit() {
@@ -28,7 +30,6 @@ function displayExit2() {
   var logoutDiv2 = document.getElementById("logoutAlert2");
   logoutDiv2.style.display = "flex";
 }
-;
 function cancelExit() {
   var logoutDiv = document.getElementById("logoutAlert");
   logoutDiv.style.display = "none";
@@ -37,7 +38,6 @@ function cancelExit2() {
   var logoutDiv2 = document.getElementById("logoutAlert2");
   logoutDiv2.style.display = "none";
 }
-;
 function preventSubmitIfUnchanged(formSelector, inputSelector) {
   document.addEventListener("DOMContentLoaded", function () {
     var form = document.querySelector(formSelector);
@@ -63,7 +63,7 @@ function preventSubmitIfUnchanged(formSelector, inputSelector) {
           title: "No Changes",
           text: "No changes made to the form.",
           icon: "info",
-          confirmButtonText: "Ok"
+          confirmButtonText: "Ok",
         });
       }
     });
@@ -94,7 +94,7 @@ function preventSubmitIfEmpty(formSelector, inputSelector) {
           title: "Empty Form",
           text: "Cannot submit an empty form.",
           icon: "info",
-          confirmButtonText: "Ok"
+          confirmButtonText: "Ok",
         });
       }
     });
@@ -105,29 +105,8 @@ var editAction = function editAction(btn, txtEditor) {
     txtEditor.style.display = "block";
   });
 };
-function submitForm() {
-  var topicName = document.getElementById('topicName').value;
-  if (topicName) {
-    fetch('../forms.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: 'topicName=' + encodeURIComponent(topicName)
-    }).then(function (response) {
-      return response.text();
-    }).then(function (data) {
-      Swal.fire('Success', data, 'success');
-    })["catch"](function (error) {
-      Swal.fire('Error', 'Something went wrong!', 'error');
-    });
-  } else {
-    Swal.fire('Error', 'Please enter a topic name', 'error');
-  }
-}
-;
 
-function confirmDeleteResource(Id, ResourceName) {
+function confirmDeleteResource(Id, ResourceName, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -138,13 +117,18 @@ function confirmDeleteResource(Id, ResourceName) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      console.log("Deleting resource with ID:", Id, "and name:", ResourceName);
-      window.location.href =
-        "../helpers/deleteactions.php?id=" +
-        Id +
-        "&type=Resource&resourceName=" +
-        ResourceName +
-        "";
+      const usertype = "Editor";
+      const type = "Resource";
+      const url = `${deleteFileBaseUrl}?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&type=${encodeURIComponent(type)}&ResourceName=${encodeURIComponent(
+        ResourceName
+      )}`;
+      window.location.href = url;
     }
   });
 }
@@ -161,7 +145,7 @@ function confirmDeleteCategory(Id, topicName, userFirstname) {
     if (result.isConfirmed) {
       const usertype = "Editor";
       const type = "Category";
-      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+      const url = `${deleteFileBaseUrl}?id=${encodeURIComponent(
         Id
       )}&usertype=${encodeURIComponent(
         usertype
@@ -185,7 +169,7 @@ function confirmDeleteP(postId, usertype, userFirstname) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      const url = `../helpers/deleteactions.php?id2=${encodeURIComponent(
+      const url = `${deleteFileBaseUrl}?id2=${encodeURIComponent(
         postId
       )}&usertype=${encodeURIComponent(
         usertype
@@ -205,7 +189,7 @@ function confirmDeleteD(postId, usertype, userFirstname) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      const url = `../helpers/deleteactions.php?id3=${encodeURIComponent(
+      const url = `${deleteFileBaseUrl}?id3=${encodeURIComponent(
         postId
       )}&usertype=${encodeURIComponent(
         usertype
@@ -225,7 +209,7 @@ function confirmDeleteN(postId, usertype, userFirstname) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      const url = `../helpers/deleteactions.php?id4=${encodeURIComponent(
+      const url = `${deleteFileBaseUrl}?id4=${encodeURIComponent(
         postId
       )}&usertype=${encodeURIComponent(
         usertype
@@ -245,7 +229,7 @@ function confirmDeletePR(postId, usertype, userFirstname) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      const url = `../helpers/deleteactions.php?id6=${encodeURIComponent(
+      const url = `${deleteFileBaseUrl}?id6=${encodeURIComponent(
         postId
       )}&usertype=${encodeURIComponent(
         usertype
@@ -265,7 +249,7 @@ function confirmDeleteC(postId, usertype, userFirstname) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      const url = `../helpers/deleteactions.php?id5=${encodeURIComponent(
+      const url = `${deleteFileBaseUrl}?id5=${encodeURIComponent(
         postId
       )}&usertype=${encodeURIComponent(
         usertype
@@ -288,7 +272,7 @@ function confirmDeleteOtheruser(Id, userFirstname) {
       const usertype = "Otheruser";
       const action = "deleteUser";
       const usertype2 = "Editor";
-      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+      const url = `${deleteFileBaseUrl}?id=${encodeURIComponent(
         Id
       )}&usertype=${encodeURIComponent(
         usertype
@@ -315,7 +299,7 @@ function confirmDeleteWriter(Id, userFirstname) {
       const usertype = "Writer";
       const action = "deleteUser";
       const usertype2 = "Editor";
-      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+      const url = `${deleteFileBaseUrl}?id=${encodeURIComponent(
         Id
       )}&usertype=${encodeURIComponent(
         usertype
@@ -341,7 +325,7 @@ function confirmDeleteResourceFile(Id, userFirstname, ResourceFileType) {
     if (result.isConfirmed) {
       const usertype = "Editor";
       const action = "deleteResource";
-      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+      const url = `${deleteFileBaseUrl}?id=${encodeURIComponent(
         Id
       )}&usertype=${encodeURIComponent(
         usertype
@@ -361,7 +345,6 @@ function disableInputs() {
   });
   verifyButton.disabled = true;
 }
-;
 function startCountdown() {
   var timeLeft = 60;
   var interval = setInterval(function () {
@@ -383,7 +366,6 @@ function startCountdown() {
     timeLeft -= 1;
   }, 1000);
 }
-;
 function checkInputs() {
   var allFilled = true;
   inputs.forEach(function (input) {
@@ -395,33 +377,33 @@ function checkInputs() {
       return;
     }
   });
-  verifyButton.style.display = allFilled ? 'block' : 'none';
+  verifyButton.style.display = allFilled ? "block" : "none";
 }
-;
 function setupInputs() {
   inputs.forEach(function (input, index) {
-    input.addEventListener('input', function () {
+    input.addEventListener("input", function () {
       if (input.value.length === 1 && index < inputs.length - 1) {
         inputs[index + 1].focus();
       }
       checkInputs();
     });
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Backspace') {
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Backspace") {
         if (input.value.length === 0 && index > 0) {
           inputs[index - 1].focus();
-          inputs[index - 1].value = '';
+          inputs[index - 1].value = "";
         } else if (input.value.length === 1) {
-          input.value = '';
+          input.value = "";
         }
       }
     });
   });
 }
-;
 function saveToLocalStorage() {
-  const inputs = document.querySelectorAll('input:not([type="file"]), textarea, select');
-  inputs.forEach(input => {
+  const inputs = document.querySelectorAll(
+    'input:not([type="file"]), textarea, select'
+  );
+  inputs.forEach((input) => {
     localStorage.setItem(input.name, input.value);
     console.log(`Saved ${input.name}: ${input.value}`);
   });
@@ -429,8 +411,10 @@ function saveToLocalStorage() {
 
 function restoreFromLocalStorage() {
   console.log("Restoring values...");
-  const inputs = document.querySelectorAll('input:not([type="file"]), textarea, select');
-  inputs.forEach(input => {
+  const inputs = document.querySelectorAll(
+    'input:not([type="file"]), textarea, select'
+  );
+  inputs.forEach((input) => {
     const savedValue = localStorage.getItem(input.name);
     if (savedValue !== null) {
       input.value = savedValue;
@@ -440,10 +424,11 @@ function restoreFromLocalStorage() {
 }
 
 function clearLocalStorage() {
-  const inputs = document.querySelectorAll('input:not([type="file"]), textarea, select');
-  inputs.forEach(input => {
+  const inputs = document.querySelectorAll(
+    'input:not([type="file"]), textarea, select'
+  );
+  inputs.forEach((input) => {
     localStorage.removeItem(input.name);
     console.log(`Cleared ${input.name}`);
   });
 }
-;

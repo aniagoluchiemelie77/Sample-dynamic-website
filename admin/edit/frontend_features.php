@@ -105,8 +105,6 @@ $userFirstname = $_SESSION['firstname'];
             preventSubmitIfUnchanged('.div_special', 'textarea');
             preventSubmitIfUnchanged('.newpost_container', 'input');
         });
-
-
         var messageType = "<?= $_SESSION['status_type'] ?>";
         var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {

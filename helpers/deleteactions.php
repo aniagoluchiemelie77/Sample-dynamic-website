@@ -1,5 +1,4 @@
 <?php
-
 /** @var \mysqli $conn */
 global $conn;
 session_start();

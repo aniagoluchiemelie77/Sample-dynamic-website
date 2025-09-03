@@ -320,3 +320,41 @@ if (!function_exists('deletePostAction')) {
         }
     }
 }
+if (!function_exists('deleteUserAction')) {
+    function deleteUserAction($table_name, $id, $usertype, $userFirstname, $deletedUserType)
+    {
+        global $conn;
+        $sql = "DELETE FROM $table_name WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if ($usertype === 'Admin') {
+            if (!$stmt->execute()) {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                $returnPath = returnPath();
+                header('location: ' . $returnPath . ' admin_homepage.php');
+            }
+            $content = "Admin " . $userFirstname . "  deleted a User ( " . $deletedUserType . " )";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "User ( " . $deletedUserType . " ) Deleted Successfully";
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . ' admin_homepage.php');
+        } else if ($usertype === 'Editor') {
+            if (!$stmt->execute()) {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                $returnPath = returnPath();
+                header('location: ' . $returnPath . ' editor_homepage.php');
+            }
+            $content = "Editor " . $userFirstname . "  deleted a User ( " . $deletedUserType . " )";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $_SESSION['status_type'] = "Success";
+            $_SESSION['status'] = "User ( " . $deletedUserType . " ) Deleted Successfully";
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . ' editor_homepage.php');
+        }
+    }
+}

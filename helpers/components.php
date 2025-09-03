@@ -717,7 +717,7 @@ function renderCreateNewResourceTypeForm($translations)
 if (!function_exists('renderCreateNewPageForm')) {
 function renderCreateNewPageForm($translations)
 {
-    global $conn;
+        global $conn, $userFirstname;
     $output = '';
     $output .= '<div class="frontend_div sectioneer_div">
                 <h1 class="sectioneer_form_header">' . $translations['pages'] . '</h1>';
@@ -732,7 +732,7 @@ function renderCreateNewPageForm($translations)
             $readableString = convertToReadable($page_name);
             $output .=  "<div class='page_div'>
                             <p>" . $readableString . "</p>
-                            <a class='' onclick='confirmDeletePage(" . $page_id . ", \"" . htmlspecialchars(".$page_name2.", ENT_QUOTES) . "\")'>
+                            <a class='' onclick='confirmDeletePage(" . $page_id . ", \"" . addslashes($page_name2) . "\", \"" . addslashes($userFirstname) . "\")'>
                                 <i class='fa fa-trash' aria-hidden='true'></i>
                             </a>
                         </div>";
@@ -827,7 +827,7 @@ function renderNewResourceTypePopupForm($translations)
 }
 }
 if (!function_exists('renderEditFrontendFeaturespage')) {
-function renderEditFrontendFeaturespage($translations, $base_url, $usertype, $logo)
+    function renderEditFrontendFeaturespage($translations, $base_url, $usertype, $logo, $userFirstname)
 {
     echo '' . renderNewResourceTypePopupForm($translations) . '';
     if ($usertype === 'Admin') {
@@ -1174,7 +1174,7 @@ function renderPageViewAndEditForm($base_url, $usertype, $translations, $table_n
 if (!function_exists('renderCatergoriesSearchAndDisplayQuery')) {
 function renderCatergoriesSearchAndDisplayQuery($query)
 {
-    global $conn, $translations;
+        global $conn, $translations, $userFirstname;
     $output = '';
     $query = trim($query);
     if ($query !== "") {
@@ -1223,7 +1223,7 @@ function renderCatergoriesSearchAndDisplayQuery($query)
                                     <p>" . $translations['categories_p'] . ": <span>" . $total_posts . "</span></p>
                                     <p>" . $translations['date_created'] . ": <span>" . $formattedDate . "</span></p>
                                     <p>" . $translations['time'] . ": <span>" . $formatted_time . "</span></p>
-                                    <a class='topics_actions' onclick='confirmDeleteCategory($id, \"" . htmlspecialchars(".$cleanString.", ENT_QUOTES) . "\")')>
+                                    <a class='topics_actions' onclick='confirmDeleteCategory(" . $id . ", \"" . addslashes($cleanString) . "\", \"" . addslashes($userFirstname) . "\")')>
                                         <i class='fa fa-trash' aria-hidden='true'></i>
                                     </a>
                                 </div>
@@ -1239,7 +1239,7 @@ function renderCatergoriesSearchAndDisplayQuery($query)
 }
 }
 if (!function_exists('renderCategoriesPage')) {
-function renderCategoriesPage($base_url, $usertype)
+    function renderCategoriesPage($base_url, $usertype, $userFirstname)
 {
     global $logo, $conn, $translations;
     $posttype = 'Categories';
@@ -1307,7 +1307,7 @@ function renderCategoriesPage($base_url, $usertype)
                         <p>" . $translations['categories_p'] . ": <span>" . $total_posts . "</span></p>
                         <p>" . $translations['date_created'] . ": <span>" . $formattedDate . "</span></p>
                         <p>" . $translations['time'] . ": <span>" . $formatted_time . "</span></p>
-                        <a class='topics_actions' onclick='confirmDeleteCategory(" . $id . ", \"" . htmlspecialchars(".$cleanString.", ENT_QUOTES) . "\")')>
+                        <a class='topics_actions' onclick='confirmDeleteCategory(" . $id . ", \"" . addslashes($cleanString) . "\", \"" . addslashes($userFirstname) . "\")')>
                             <i class='fa fa-trash' aria-hidden='true'></i>
                         </a>
                     </div>

@@ -1,4 +1,5 @@
 <?php
+
 /** @var \mysqli $conn */
 global $conn;
 session_start();
@@ -6,6 +7,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : null;
 $usertype2 = isset($_GET['usertype2']) ? $_GET['usertype2'] : null;
 $topicName = isset($_GET['topicName']) ? $_GET['topicName'] : null;
+$resourceFileType = isset($_GET['ResourceFileType']) ? $_GET['ResourceFileType'] : null;
 $pageName = isset($_GET['pageName']) ? $_GET['pageName'] : null;
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 $resourceName = isset($_GET['resourceName']) ? $_GET['resourceName'] : null;
@@ -17,119 +19,117 @@ $_SESSION['status_type'] = "";
 $_SESSION['status'] = "";
 $admin_base_url = "../admin/";
 $editor_base_url = "../editor/";
-function returnPath(){
-    global $admin_base_url;
-    global $editor_base_url;
-    if ($_SESSION['user'] === 'Admin'){
+function returnPath()
+{
+    global $admin_base_url, $editor_base_url, $usertype, $usertype2;
+    if ($usertype === 'Admin' || $usertype2 === "Admin") {
         return $admin_base_url;
-    } else return $editor_base_url;
-}
-function deleteUserAction ($table_name, $id, $usertype, $userFirstname, $deletedUserType) {
-    global $conn;
-    $sql = "DELETE FROM $table_name WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-    if ($usertype === 'Admin'){
-        if (!$stmt->execute()) {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error, Please retry";
-            $returnPath = returnPath();
-            header('location: ' . $returnPath . ' admin_homepage.php');
-        }
-        $content = "Admin " . $userFirstname . "  deleted a User ( " . $deletedUserType . " )";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "User ( " . $deletedUserType . " ) Deleted Successfully";
-        $returnPath = returnPath();
-        header('location: ' . $returnPath . ' admin_homepage.php');
-    }else if ($usertype === 'Editor'){
-        if (!$stmt->execute()) {
-            $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error, Please retry";
-            $returnPath = returnPath();
-            header('location: ' . $returnPath . ' editor_homepage.php');
-        }
-        $content = "Editor " . $userFirstname . "  deleted a User ( " . $deletedUserType . " )";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        $_SESSION['status_type'] = "Success";
-        $_SESSION['status'] = "User ( " . $deletedUserType . " ) Deleted Successfully";
-        $returnPath = returnPath();
-        header('location: ' . $returnPath . ' editor_homepage.php');
+    } else if ($usertype === "Editor" || $usertype2 === "Editor") {
+        return $editor_base_url;
     }
 }
-if (isset($_GET['id1'])) {
-    $postId = $_GET['id1'];
-    $table_name = 'paid_posts';
-    deletePostAction($table_name, $postId, $usertype, $userFirstname);
-}
-if (isset($_GET['id2']) && isset($_GET['userFirstname']) && isset($_GET['usertype'])) {
-    $postId = $_GET['id2'];
-    $table_name = 'posts';
-    deletePostAction($table_name, $postId, $usertype, $userFirstname);
-}
-if (isset($_GET['id3']) && isset($_GET['userFirstname']) && isset($_GET['usertype'])) {
-    $postId = $_GET['id3'];
-    $table_name = 'unpublished_articles';
-    deletePostAction($table_name, $postId, $usertype, $userFirstname);
-}
-if (isset($_GET['id4']) && isset($_GET['userFirstname']) && isset($_GET['usertype'])) {
-    $postId = $_GET['id4'];
-    $table_name = 'news';
-    deletePostAction($table_name, $postId, $usertype, $userFirstname);
-}
-if (isset($_GET['id5']) && isset($_GET['userFirstname']) && isset($_GET['usertype'])) {
-    $postId = $_GET['id5'];
-    $table_name = 'commentaries';
-    deletePostAction($table_name, $postId, $usertype, $userFirstname);
-}
-if (isset($_GET['id6']) && isset($_GET['userFirstname']) && isset($_GET['usertype'])) {
-    $postId = $_GET['id6'];
-    $table_name = 'press_releases';
-    deletePostAction($table_name, $postId, $usertype, $userFirstname);
+function deleteAssetAction() {}
+if (isset($_GET['userFirstname']) && isset($_GET['usertype'])) {
+    if (isset($_GET['id1'])) {
+        $postId = $_GET['id1'];
+        $table_name = 'paid_posts';
+        deletePostAction($table_name, $postId, $usertype, $userFirstname);
+    }
+    if (isset($_GET['id2'])) {
+        $postId = $_GET['id2'];
+        $table_name = 'posts';
+        deletePostAction($table_name, $postId, $usertype, $userFirstname);
+    }
+    if (isset($_GET['id3'])) {
+        $postId = $_GET['id3'];
+        $table_name = 'unpublished_articles';
+        deletePostAction($table_name, $postId, $usertype, $userFirstname);
+    }
+    if (isset($_GET['id4'])) {
+        $postId = $_GET['id4'];
+        $table_name = 'news';
+        deletePostAction($table_name, $postId, $usertype, $userFirstname);
+    }
+    if (isset($_GET['id5'])) {
+        $postId = $_GET['id5'];
+        $table_name = 'commentaries';
+        deletePostAction($table_name, $postId, $usertype, $userFirstname);
+    }
+    if (isset($_GET['id6'])) {
+        $postId = $_GET['id6'];
+        $table_name = 'press_releases';
+        deletePostAction($table_name, $postId, $usertype, $userFirstname);
+    }
 }
 if (isset($_GET['id']) && $action === 'deleteUser' && isset($_GET['usertype2']) && isset($_GET['userFirstname'])) {
-    if ($usertype === "Editor"){
+    if ($usertype === "Editor") {
         $table_name = 'editor';
-        deleteUserAction ($table_name, $id, $usertype2, $userFirstname, $usertype);
-    } else if ($usertype === "Writer"){
+        deleteUserAction($table_name, $id, $usertype2, $userFirstname, $usertype);
+    } else if ($usertype === "Writer") {
         $table_name = 'writer';
-        deleteUserAction ($table_name, $id, $usertype2, $userFirstname, $usertype);
-    }else if ($usertype === "Otheruser"){
+        deleteUserAction($table_name, $id, $usertype2, $userFirstname, $usertype);
+    } else if ($usertype === "Otheruser") {
         $table_name = 'otherwebsite_users';
-        deleteUserAction ($table_name, $id, $usertype2, $userFirstname, $usertype);
-    }else if ($usertype === "Subscriber"){
+        deleteUserAction($table_name, $id, $usertype2, $userFirstname, $usertype);
+    } else if ($usertype === "Subscriber") {
         $table_name = 'otherwebsite_users';
-        deleteUserAction ($table_name, $id, $usertype2, $userFirstname, $usertype);
-    }else if ($usertype === "NewsletterSubscriber"){
+        deleteUserAction($table_name, $id, $usertype2, $userFirstname, $usertype);
+    } else if ($usertype === "NewsletterSubscriber") {
         $table_name = 'newsletter_subscribers';
-        deleteUserAction ($table_name, $id, $usertype2, $userFirstname, $usertype);
+        deleteUserAction($table_name, $id, $usertype2, $userFirstname, $usertype);
     }
 }
 if ($type == "Category") {
-    $page_name = removeHyphenNoSpace($topicName);
-    $two_folders_above_file = "../pages/$page_name.php";
-    $sql = "DELETE FROM topics WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-    if (!$stmt->execute()) {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: pages/categories.php');
-    }
-    $sql = "DELETE FROM meta_titles WHERE page_name = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $topicName);
-    if ($stmt->execute()) {
-        $pageType = "Category";
-        $deleteAction2 = deleteFile($two_folders_above_file, $pageType);
-        $_SESSION['status_type'] = $deleteAction2['status_type'];
-        $_SESSION['status'] = $deleteAction2['status'];
-        $content = "Admin " . $_SESSION['firstname'] . "  deleted a Category type";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        header('location: pages/categories.php');
+    if ($usertype === 'Admin') {
+        $page_name = removeHyphenNoSpace($topicName);
+        $two_folders_above_file = "../pages/$page_name.php";
+        $sql = "DELETE FROM topics WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . 'pages/categories.php');
+        }
+        $sql = "DELETE FROM meta_titles WHERE page_name = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $topicName);
+        if ($stmt->execute()) {
+            $deleteAction2 = deleteFile($two_folders_above_file, $type);
+            $_SESSION['status_type'] = $deleteAction2['status_type'];
+            $_SESSION['status'] = $deleteAction2['status'];
+            $content = "Admin " . $userFirstname . "  deleted a Category type";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . 'pages/categories.php');
+        }
+    } else if ($usertype === 'Editor') {
+        $page_name = removeHyphenNoSpace($topicName);
+        $two_folders_above_file = "../pages/$page_name.php";
+        $sql = "DELETE FROM topics WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . 'pages/categories.php');
+        }
+        $sql = "DELETE FROM meta_titles WHERE page_name = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $topicName);
+        if ($stmt->execute()) {
+            $deleteAction2 = deleteFile($two_folders_above_file, $type);
+            $_SESSION['status_type'] = $deleteAction2['status_type'];
+            $_SESSION['status'] = $deleteAction2['status'];
+            $content = "Editor " . $userFirstname . "  deleted a Category type";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . 'pages/categories.php');
+        }
     }
 }
 if ($type == "Resource") {
@@ -169,25 +169,47 @@ if ($type == "Resource") {
     }
 }
 if ($action == "deleteResource") {
-    $sql = "DELETE FROM $resourceName WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-    if (!$stmt->execute()) {
-        $_SESSION['status_type'] = "Error";
-        $_SESSION['status'] = "Error, Please retry";
-        header('location: edit/frontend_features.php');
+    if ($usertype === 'Admin') {
+        $sql = "DELETE FROM $resourceFileType WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . ' edit/frontend_features.php');
+        }
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Resource File from " . $resourceFileType . " Deleted Successfully";
+        $content = "Admin " . $userFirstname . "  deleted a Resource file";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $returnPath = returnPath();
+        header('location: ' . $returnPath . ' edit/frontend_features.php');
+    } else if ($usertype === 'Editor') {
+        $sql = "DELETE FROM $resourceFileType WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            $_SESSION['status_type'] = "Error";
+            $_SESSION['status'] = "Error, Please retry";
+            $returnPath = returnPath();
+            header('location: ' . $returnPath . ' edit/frontend_features.php');
+        }
+        $_SESSION['status_type'] = "Success";
+        $_SESSION['status'] = "Resource File from " . $resourceFileType . " Deleted Successfully";
+        $content = "Editor " . $userFirstname . "  deleted a Resource file";
+        $forUser = 0;
+        logUpdate($conn, $forUser, $content);
+        $returnPath = returnPath();
+        header('location: ' . $returnPath . ' edit/frontend_features.php');
     }
-    $_SESSION['status_type'] = "Success";
-    $_SESSION['status'] = "Resource File Deleted Successfully";
-    $content = "Admin " . $_SESSION['firstname'] . "  deleted a Resource file";
-    $forUser = 0;
-    logUpdate($conn, $forUser, $content);
-    header('location: edit/frontend_features.php');
 }
-if ($type == "Page") {
+if ($type == "Page" && $usertype === 'Admin') {
     $page_name = removeHyphenNoSpace($pageName);
     $table_name = addUnderscore($pageName);
-    $current_folder_file = "pages/$page_name.php";
+    $current_folder_file = "../admin/pages/$page_name.php";
+    $current_folder_file2 = "../editor/pages/$page_name.php";
     $two_folders_above_file = "../pages/$page_name.php";
     $sql = "DROP TABLE IF EXISTS `$table_name`";
     if ($conn->query($sql) === TRUE) {
@@ -197,40 +219,35 @@ if ($type == "Page") {
         if (!$stmt->execute()) {
             $_SESSION['status_type'] = "Error";
             $_SESSION['status'] = "Error, Please retry";
-            header('location: edit/frontend_features.php');
+            header('location: ../admin/edit/frontend_features.php');
         }
-        $pageType = "Page";
-        $deleteAction1 = deleteFile($current_folder_file, $pageType);
-        $_SESSION['status_type'] = $deleteAction1['status_type'];
-        $_SESSION['status'] = $deleteAction1['status'];
-        $sql = "DELETE FROM meta_titles WHERE page_name = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $pageName);
-        if (!$stmt->execute()) {
+        $deleteAction1 = deleteFile($current_folder_file, $type);
+        $deleteAction2 = deleteFile($two_folders_above_file, $type);
+        $deleteAction3 = deleteFile($current_folder_file2, $type);
+        $status_type1 = $deleteAction1['status_type'];
+        $status_type2 = $deleteAction2['status_type'];
+        $status_type3 = $deleteAction3['status_type'];
+        if ($status_type1 === 'Success' && $status_type2 === 'Success' && $status_type3 === 'Success') {
+            $sql = "DELETE FROM meta_titles WHERE page_name = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $pageName);
+            if (!$stmt->execute()) {
+                $_SESSION['status_type'] = "Error";
+                $_SESSION['status'] = "Error, Please retry";
+                header('location: ../admin/edit/frontend_features.php');
+            }
+            $content = "Admin " . $userFirstname . " deleted a Page ($pageName)";
+            $forUser = 0;
+            logUpdate($conn, $forUser, $content);
+            header('location: ../admin/edit/frontend_features.php');
+        } else {
             $_SESSION['status_type'] = "Error";
-            $_SESSION['status'] = "Error, Please retry";
-            header('location: edit/frontend_features.php');
+            $_SESSION['status'] = "Error, Could not delete Page";
+            header('location: ../admin/edit/frontend_features.php');
         }
-        $deleteAction2 = deleteFile($two_folders_above_file, $pageType);
-        $_SESSION['status_type'] = $deleteAction2['status_type'];
-        $_SESSION['status'] = $deleteAction2['status'];
-        $content = "Admin " . $_SESSION['firstname'] . "  deleted a Page type";
-        $forUser = 0;
-        logUpdate($conn, $forUser, $content);
-        header('location: edit/frontend_features.php');
     } else {
         $_SESSION['status_type'] = "Error";
         $_SESSION['status'] = "Error, Deleting table failed!";
         header('location: edit/frontend_features.php');
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <link rel="stylesheet" href="../css/admin.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-
-</html>

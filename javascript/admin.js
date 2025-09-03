@@ -268,7 +268,7 @@ function confirmDeleteResource(Id, ResourceName) {
     }
   });
 }
-function confirmDeleteResource2(Id, ResourceName) {
+function confirmDeleteResourceFile(Id, userFirstname, ResourceFileType) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -279,16 +279,22 @@ function confirmDeleteResource2(Id, ResourceName) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href =
-        "../helpers/deleteactions.php?id=" +
-        Id +
-        "&action=deleteResource&resourceName=" +
-        ResourceName +
-        "";
+      const usertype = "Admin";
+      const action = "deleteResource";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&action=${encodeURIComponent(
+        action
+      )}&ResourceFileType=${encodeURIComponent(ResourceFileType)}`;
+      window.location.href = url;
     }
   });
 }
-function confirmDeletePage(Id, pageName) {
+function confirmDeletePage(Id, pageName, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -299,16 +305,22 @@ function confirmDeletePage(Id, pageName) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href =
-        "../helpers/deleteactions.php?id=" +
-        Id +
-        "&type=Page&pageName=" +
-        pageName +
-        "";
+      const usertype = "Admin";
+      const type = "Page";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&type=${encodeURIComponent(type)}&pageName=${encodeURIComponent(
+        pageName
+      )}`;
+      window.location.href = url;
     }
   });
 }
-function confirmDeleteCategory(Id, topicName) {
+function confirmDeleteCategory(Id, topicName, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -319,12 +331,18 @@ function confirmDeleteCategory(Id, topicName) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href =
-        "../helpers/deleteactions.php?id=" +
-        Id +
-        "&type=Category&topicName=" +
-        topicName +
-        "";
+      const usertype = "Admin";
+      const type = "Category";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&type=${encodeURIComponent(type)}&topicName=${encodeURIComponent(
+        topicName
+      )}`;
+      window.location.href = url;
     }
   });
 }

@@ -16,6 +16,8 @@ if (file_exists($translationFile)) {
 } else {
     $translations = []; // Initialize as empty array to avoid undefined variable errors
 }
+$posttype = 'Categories';
+$userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,15 +33,15 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="../../css/admin.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
+    <script src="../../javascript/admin.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../javascript/admin.js" async></script>
     <title><?php echo $translations['categories']; ?></title>
 </head>
 
 <body>
     <?php
     $usertype = $_SESSION['user'] ?? 'Admin';
-    renderCategoriesPage($base_url, $usertype);
+    renderCategoriesPage($base_url, $usertype, $userFirstname);
     ?>
     <script>
         function submitSearch() {

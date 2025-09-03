@@ -20,6 +20,7 @@ if (file_exists($translationFile)) {
     $translations = [];
 }
 $posttype = $resource_name;
+$userFirstname = $_SESSION['firstname'];
 if (isset($_GET['query'])) {
     $query = $_GET['query'];
     $searchTerm = "%" . $query . "%";
@@ -49,7 +50,7 @@ if (isset($_GET['query'])) {
                                 <a class='users_edit' href='../edit/resource.php?id=" . $row["id"] . "&resource_name=$resource_name'>
                                     <i class='fa fa-pencil' aria-hidden='true'></i>
                                 </a>
-                                <a class='users_delete' onclick='confirmDeleteResource2(" . $row['id'] . ", \"" . htmlspecialchars($table_name, ENT_QUOTES) . "\")'>
+                                <a class='users_delete' onclick='confirmDeleteResourceFile(" . $row['id'] . ", \"" . addslashes($userFirstname) . "\", \"" . addslashes($table_name) . "\")'>
                                     <i class='fa fa-trash' aria-hidden='true'></i>
                                 </a>
                             </div>
@@ -75,8 +76,8 @@ if (isset($_GET['query'])) {
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/editor.css" />
+    <script src='../../javascript/editor.js' defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src='../../javascript/editor.js' async></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['view_all_resources']; ?></title>
 </head>
@@ -118,7 +119,7 @@ if (isset($_GET['query'])) {
                                         <a class='users_edit' href='../edit/resource.php?id=" . $row["id"] . "&resource_name=$table_name'>
                                             <i class='fa fa-pencil' aria-hidden='true'></i>
                                         </a>
-                                        <a class='users_delete' onclick='confirmDeleteResource2(" . $row['id'] . ", \"" . htmlspecialchars($table_name, ENT_QUOTES) . "\")'>
+                                        <a class='users_delete' onclick='confirmDeleteResourceFile(" . $row['id'] . ", \"" . addslashes($userFirstname) . "\", \"" . addslashes($table_name) . "\")'>
                                             <i class='fa fa-trash' aria-hidden='true'></i>
                                         </a>
                                     </div>

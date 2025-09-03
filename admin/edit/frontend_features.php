@@ -18,6 +18,7 @@ if (file_exists($translationFile)) {
 } else {
     $translations = [];
 }
+$userFirstname = $_SESSION['firstname'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +33,7 @@ if (file_exists($translationFile)) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link id="themeStylesheet" rel="stylesheet" href="../../css/admin.css" />
     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="../../javascript/admin.js" async></script>
+    <script src="../../javascript/admin.js" defer></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title><?php echo $translations['customise_frontend']; ?></title>
@@ -41,7 +42,7 @@ if (file_exists($translationFile)) {
 <body>
     <?php
     $usertype = $_SESSION['user'];
-    renderEditFrontendFeaturespage($translations, $base_url, $usertype, $logo);
+    renderEditFrontendFeaturespage($translations, $base_url, $usertype, $logo, $userFirstname);
     ?>
     <script>
         async function selectImage(inputType, recordId) {

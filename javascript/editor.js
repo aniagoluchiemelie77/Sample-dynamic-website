@@ -148,7 +148,7 @@ function confirmDeleteResource(Id, ResourceName) {
     }
   });
 }
-function confirmDeleteCategory(Id, topicName) {
+function confirmDeleteCategory(Id, topicName, userFirstname) {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -159,12 +159,18 @@ function confirmDeleteCategory(Id, topicName) {
     confirmButtonText: "Yes, delete it!",
   }).then(function (result) {
     if (result.isConfirmed) {
-      window.location.href =
-        "../helpers/deleteactions.php?id=" +
-        Id +
-        "&type=Category&topicName=" +
-        topicName +
-        "";
+      const usertype = "Editor";
+      const type = "Category";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&type=${encodeURIComponent(type)}&topicName=${encodeURIComponent(
+        topicName
+      )}`;
+      window.location.href = url;
     }
   });
 }
@@ -322,7 +328,32 @@ function confirmDeleteWriter(Id, userFirstname) {
     }
   });
 }
-;
+function confirmDeleteResourceFile(Id, userFirstname, ResourceFileType) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then(function (result) {
+    if (result.isConfirmed) {
+      const usertype = "Editor";
+      const action = "deleteResource";
+      const url = `../helpers/deleteactions.php?id=${encodeURIComponent(
+        Id
+      )}&usertype=${encodeURIComponent(
+        usertype
+      )}&userFirstname=${encodeURIComponent(
+        userFirstname
+      )}&action=${encodeURIComponent(
+        action
+      )}&ResourceFileType=${encodeURIComponent(ResourceFileType)}`;
+      window.location.href = url;
+    }
+  });
+}
 function disableInputs() {
   inputs.forEach(function (input) {
     input.disabled = true;

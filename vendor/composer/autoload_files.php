@@ -24,6 +24,8 @@ return array(
     'a8d3953fd9959404dd22d3dfcd0a79f0' => $vendorDir . '/google/apiclient/src/aliases.php',
     '9b38cf48e83f5d8f60375221cd213eee' => $vendorDir . '/phpstan/phpstan/bootstrap.php',
     '56a8cb46a09466dd675a29cd7db98e15' => $baseDir . '/init.php',
+    'fe433cd32b0250872bc7226ca6c26eda' => $baseDir . '/admin/init.php',
+    'ee16092440386e025d232b86ef9d58b2' => $baseDir . '/editor/init.php',
     '4935a60f4e24c93991017ba937218496' => $baseDir . '/helpers/crudoperations.php',
     '7877f26284a5a6bad7dcf6db344f327b' => $baseDir . '/helpers/components.php',
 );

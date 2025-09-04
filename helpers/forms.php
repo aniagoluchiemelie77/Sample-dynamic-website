@@ -266,35 +266,6 @@ function addPage($page_name)
                     <title>$uc_page_name</title>
                 </head>
                 <body>
-                    <div class="body_container">
-                        <div class="body_right">
-                            <div class="sidebar_divs_container">
-                                <div class="webinfo">
-                                    <h1>Uniquecontentwriter</h1>
-                                    <img src="<?php echo \$logo; ?>" alt="Blog's Coverphoto" />
-                                    <p><?php echo \$website_description; ?></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="body_left border-gradient-leftside--lightdark">
-                            <div class="page_links">
-                                <a href="../">Home</a> > <p>$uc_page_name</p>
-                            </div>
-                            <h3 class="bodyleft_main">$uc_page_name</h3>
-                            <div class="sidebar_divs_container thickdiv">
-                                <?php
-                                    \$selectpage = "SELECT content FROM $formattedPageName2 ORDER BY id DESC LIMIT 1";
-                                    \$selectpage_result = \$conn->query(\$selectpage);
-                                    if (\$selectpage_result->num_rows > 0) {
-                                        while (\$row = \$selectpage_result->fetch_assoc()) {
-                                            \$content = \$row['content'];
-                                            echo "<p>\$content</p>";
-                                        }
-                                    }
-                                ?>
-                            </div>
-                        </div>
-                    </div>
                     <?php
                         require("../includes/header2b.php");
                         \$page_title = $uc_page_name;
@@ -329,6 +300,9 @@ function addPage($page_name)
     PHP;
     $fileContent2 = <<<PHP
         <?php
+            \$language = \$language ?? 'en';
+            \$translations = \$translations ?? [];
+            \$base_url = \$base_url ?? '';
             session_start();
             require("../connect.php");
             require("../init.php");
@@ -343,38 +317,6 @@ function addPage($page_name)
             } else {
                 \$translations = [];
             }
-            function updatePages(\$content, \$tablename)
-            {
-                global \$conn;
-                \$date = date('y-m-d');
-                \$time = date('H:i:s');
-                \$string = str_replace('_', ' ', \$tablename);
-                \$stmt = "INSERT INTO \$tablename (content, date, time) VALUES (?, ?, ?)";
-                if (\$query = \$conn->prepare(\$stmt)) {
-                    \$query->bind_param("sss", \$content, \$date, \$time);
-                    if (\$query->execute()) {
-                        \$content = "Admin " . \$_SESSION['firstname'] . " updated this website's '" . \$string . "'";
-                        \$forUser = 0;
-                        logUpdate(\$conn, \$forUser, \$content);
-                        \$_SESSION['status_type'] = "Success";
-                        \$_SESSION['status'] = "" . \$string . " Updated Successfully";
-                        header('location: admin_homepage.php');
-                    } else {
-                        \$_SESSION['status_type'] = "Error";
-                        \$_SESSION['status'] = "Error, Please retry";
-                        header('location: admin_homepage.php');
-                    }
-                } else {
-                    \$error = \$conn->errno . ' ' . \$conn->error;
-                    echo \$error;
-                    header('location: admin_homepage.php');
-                }
-            }
-            if (isset(\$_POST['edit_aboutwebsite_btn'])) {
-                \$content = \$_POST['$formattedPageName'];
-                \$tablename = "$formattedPageName2";
-                updatePages(\$content, \$tablename);
-            }
         ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -388,6 +330,7 @@ function addPage($page_name)
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <link rel="stylesheet" href="../../css/admin.css" />
                 <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+                <script src="../javascript/admin.js" defer></script>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <link rel="icon" href="../../<?php echo \$favicon; ?>" type="image/x-icon">
                 <title>$uc_page_name</title>
@@ -402,7 +345,6 @@ function addPage($page_name)
                     renderPageViewAndEditForm(\$base_url, \$usertype, \$translations, \$table_name, \$textarea_name, \$textareaId, \$submitbtn_name, \$logo);
                 ?>
                 <script type="text/javascript" src="https://cdn.tiny.cloud/1/mshrla4r3p3tt6dmx5hu0qocnq1fowwxrzdjjuzh49djvu2p/tinymce/6/tinymce.min.js"></script>
-                <script src="../javascript/admin.js"></script>
                 <script>
                     var messageType = "<?= \$_SESSION['status_type'] ?? ' ' ?>";
                     var messageText = "<?= \$_SESSION['status'] ?? ' ' ?>";
@@ -485,7 +427,10 @@ function addPage($page_name)
         </html>
     PHP;
     $fileContent3 = <<<PHP
-       <?php
+        <?php
+            \$language = \$language ?? 'en';
+            \$translations = \$translations ?? [];
+            \$editor_base_url = \$editor_base_url ?? '';
             session_start();
             require("../connect.php");
             require("../init.php");
@@ -512,6 +457,7 @@ function addPage($page_name)
                     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <link rel="stylesheet" href="../../css/editor.css" />
+                    <script src="../javascript/editor.js" defer></script>
                     <link rel="stylesheet" href="//code. jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                     <link rel="icon" href="../../<?php echo \$favicon; ?>" type="image/x-icon">
                     <title>$uc_page_name</title>
@@ -525,7 +471,6 @@ function addPage($page_name)
                         \$usertype = \$_SESSION['user'] ?? 'Editor'; // Default to Admin if not set
                         renderPageViewAndEditForm(\$editor_base_url, \$usertype, \$translations, \$table_name, \$textarea_name, \$textareaId, \$submitbtn_name, \$logo);
                     ?>
-                    <script src="../../javascript/editor.js"></script>
                 </body>
             </html>
     PHP;
@@ -711,22 +656,18 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
     $uc_page_name = ucwords($tableName);
     $filename = lowercaseNoSpace($tableName) . '.php';
     $filePath = '../pages/' . $filename;
-    if($userType === 'Admin'){
-        $fileContent = <<<PHP
+    $fileContent = <<<PHP
             <?php
                 session_start();
                 require('../connect.php');
                 require('../init.php');
-                \$page_name = "$tableName";
+                require('../helpers/components.php');
+                \$page_name = $tableName;
                 \$_SESSION['status_type'] = "";
                 \$_SESSION['status'] = "";
                 \$details = getFaviconAndLogo();
                 \$logo = \$details['logo'];
                 \$favicon = \$details['favicon'];
-                function containsFilesPath(\$string)
-                {
-                    return strpos(\$string, 'files/') !== false;
-                }
                 if (isset(\$_POST['submit_btn'])) {
                     \$email = \$_POST["email"];
                     \$sendEmail = sendEmail(\$email);
@@ -811,88 +752,16 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                 <title>$uc_page_name</title>
             </head>
             <body id="container">
-                <?php require("../includes/header2.php"); ?>
-                <div class="body_container">
-                    <div class="body_left">
-                        <div class="page_links">
-                            <a href="../">Home</a> > <p>Resources ($uc_page_name)</p>
-                        </div>
-                        <h1 class='bodyleft_header3'>Search $uc_page_name</h1>
-                        <form class="header_searchbar2 search_input" id="search_form" action="$filename" method="get">
-                            <input type="text" name="query" id="search-bar" placeholder="Search.." />
-                            <button class="fa fa-search" type="submit" onclick="submitSearch()"></button>
-                        </form>
-                        <div id="search-results">
-                            <div id="results-container" class="more_posts"></div>
-                        </div>
-                        <div class='more_posts'>
-                            <?php
-                                \$sql = "SELECT name, resource_path, niche, title, date_added FROM $tableName ORDER BY id DESC";
-                                \$result = \$conn->query(\$sql);
-                                if (\$result->num_rows > 0) {
-                                    while (\$row = \$result->fetch_assoc()) {
-                                        \$title = \$row["title"];
-                                        \$max_length = 50;
-                                        \$niche = \$row["niche"];
-                                        \$date = \$row["date_added"];
-                                        \$path = \$row["resource_path"];
-                                        \$dateTime = new DateTime(\$date);
-                                        \$day = \$dateTime->format('j');
-                                        \$month = \$dateTime->format('M');
-                                        \$year = \$dateTime->format('Y');
-                                        \$ordinalSuffix = getOrdinalSuffix(\$day);
-                                        \$formattedDate = \$month . ' ' . \$day . \$ordinalSuffix . ', ' . \$year;
-                                        if (strlen(\$title) > \$max_length) {
-                                            \$title = substr(\$title, 0, \$max_length) . '...';
-                                        }
-                                        if (containsFilesPath(\$path)) {
-                                            \$path = '../' . \$path;
-                                        }
-                                        echo "  <a class='more_posts_subdiv'>
-                                                    <img src='../images/resurces_img.png' alt='Resource Image' />
-                                                    <div class='more_posts_subdiv_subdiv'>
-                                                        <h1>\$title</h1>
-                                                        <span>\$formattedDate</span>
-                                                    </div>
-                                                    <div class='view_whitepaper'>
-                                                        <div class='posts_btn' onclick=\"window.location.href='\$path'\" target='_blank'>
-                                                            <i class='fa fa-eye' aria-hidden='true'></i>
-                                                        </div>
-                                                    </div>
-                                                    <p class='posts_div_niche'>\$niche</p>
-                                        </a>";
-                                    }
-                                } else {
-                                    echo "<p>No $uc_page_name Uploaded Yet.</p>";
-                                }
-                            ?>
-                        </div>
-                    </div>
-                    <div class="body_right border-gradient-leftside--lightdark">
-                        <div class="subscribe_container">
-                            <form class="sec2__susbribe-box other_width" method="POST" action="" id="susbribe-box">
-                                <div class="icon">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                </div>
-                                <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
-                                <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on $uc_page_name, Artificial Intelligence and lots more.</p>
-                                <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required />
-                                <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" />
-                            </form>
-                            <div id="thank-you-message"></div>
-                        </div>
-                        <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
-                        <?php include("../helpers/editorspicks.php"); ?>
-                    </div>
-                </div>
-                <?php include("../includes/footer2.php"); ?>
+                <?php
+                    \$resourceNameUc = $uc_page_name;
+                    \$resourceType = $tableName;
+                    renderResourcesFrontendPage(\$resourceNameUc, \$resourceType);
+                ?>
                 <script src="sweetalert2.all.min.js"></script>
                 <script>
                     const closeMenuBtn = document.querySelector('.sidebarbtn');
                     const sidebar = document.getElementById('sidebar');
                     const menubtn = document.querySelector('.mainheader__header-nav-2');
-                    var messageType = "<?= \$_SESSION['status_type'] ?? ' ' ?>";
-                    var messageText = "<?= \$_SESSION['status'] ?? ' ' ?>";
                     function removeHiddenClass(e) {
                         e.stopPropagation();
                         sidebar.classList.remove('hidden');
@@ -910,35 +779,16 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                         e.stopPropagation();
                         sidebar.classList.toggle('hidden');
                     });
-                    function submitSearch() {
-                        var query = document.getElementById("search-bar").value;
-                        if (query.trim() !== "") {
-                            fetch("$filename?query=" + encodeURIComponent(query))
-                                .then(response => response.text())
-                                .then(data => {
-                                    document.getElementById("results-container").innerHTML = data;
-                                })
-                                .catch(error => console.error("Error fetching results:", error));
-                        } else {
-                            document.getElementById("search-results").style.display = "none";
-                        }
-                    }
                 </script>
                 <script>
+                    var messageType = "<?= \$_SESSION['status_type'] ?>";
+                    var messageText = "<?= \$_SESSION['status'] ?>";
                     if (messageType == 'Error' && messageText != " ") {
                         Swal.fire({
                             title: 'Error!',
                             text: messageText,
                             icon: 'error',
                             confirmButtonText: 'Ok'
-                        })
-                    } else if (messageType == 'Info' && messageText != " ") {
-                        Swal.fire({
-                            title: 'Info!',
-                            text: messageText,
-                            showConfirmButton: true,
-                            confirmButtonText: 'Ok',
-                            icon: 'info'
                         })
                     } else if (messageType == 'Success' && messageText != " ") {
                         Swal.fire({
@@ -953,7 +803,8 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                 </script>
             </body>
             </html>
-        PHP;
+    PHP;
+    if ($userType === 'Admin') {
         if (file_put_contents($filePath, $fileContent)) {
             if (!empty($convertedPath) && empty($resource_url)) {
                 $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
@@ -1020,249 +871,7 @@ function addResources($tableName, $convertedPath, $resource_type, $resource_nich
                 }
             }
         }
-    }else if ($userType === 'Editor'){
-        $fileContent = <<<PHP
-            <?php
-                session_start();
-                require('../connect.php');
-                require('../init.php');
-                \$page_name = "$tableName";
-                \$_SESSION['status_type'] = "";
-                \$_SESSION['status'] = "";
-                \$details = getFaviconAndLogo();
-                \$logo = \$details['logo'];
-                \$favicon = \$details['favicon'];
-                function containsFilesPath(\$string)
-                {
-                    return strpos(\$string, 'files/') !== false;
-                }
-                if (isset(\$_POST['submit_btn'])) {
-                    \$email = \$_POST["email"];
-                    \$sendEmail = sendEmail(\$email);
-                    \$_SESSION['status_type'] = \$sendEmail['status_type'];
-                    \$_SESSION['status'] = \$sendEmail['status'];
-                }
-                if (isset(\$_POST['subscribe_btn2'])) {
-                    \$email = \$_POST["email"];
-                    \$sendEmail = sendEmail(\$email);
-                    \$_SESSION['status_type'] = \$sendEmail['status_type'];
-                    \$_SESSION['status'] = \$sendEmail['status'];
-                }
-                if (isset(\$_GET['query'])) {
-                    \$query = trim(\$_GET['query']);
-                    if (\$query !== "") {
-                        \$stmt = \$conn->prepare("SELECT * FROM $tableName WHERE title LIKE ?");
-                        \$searchTerm = "%" . \$query . "%";
-                        \$stmt->bind_param("s", \$searchTerm);
-                        if (\$stmt->execute()) {
-                            \$result = \$stmt->get_result();
-                            if (\$result->num_rows > 0) {
-                                while (\$row = \$result->fetch_assoc()) {
-                                    \$title = htmlspecialchars(\$row['title']);
-                                    \$max_length = 50;
-                                    \$niche = htmlspecialchars(\$row['niche']);
-                                    \$formattedDate = date("F j, Y", strtotime(\$row['date_added']));
-                                    \$resourcePath = htmlspecialchars(\$row['resource_path']);
-                                    if (strlen(\$title) > \$max_length) {
-                                        \$title = substr(\$title, 0, \$max_length) . '...';
-                                    }
-                                    if (containsFilesPath(\$resourcePath)) {
-                                        \$resourcePath = '../' . \$resourcePath;
-                                    }
-                                    echo " <a class='more_posts_subdiv'>";
-                                    echo "<img src='../images/resurces_img.png' alt='Whitepaper Image'/>";
-                                    echo "  <div class='more_posts_subdiv_subdiv'>
-                                                <h1>\$title</h1>
-                                                <span>\$formattedDate</span>
-                                    </div>";
-                                    echo "  <div class='view_whitepaper'>
-                                            <div class='posts_btn' onclick=\"window.location.href='\$resourcePath'\" target='_blank'>
-                                                <i class='fa fa-eye' aria-hidden='true'></i>
-                                            </div>
-                                        </div>
-                                    ";
-                                    echo "<p class='posts_div_niche'>\$niche</p>";
-                                    echo "</a>";
-                                }
-                            } else {
-                                echo "<h1 class='bodyleft_header3'>No results found for ' \$query '</h1>";
-                            }
-                        }
-                    }
-                    exit;
-                }
-            ?>
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <?php
-                    if (isset(\$meta_titles[\$page_name])) {
-                        \$meta_data = \$meta_titles[\$page_name];
-                        for (\$i = 1; \$i <= 5; \$i++) {
-                            \$meta_name = \$meta_data["meta_name{\$i}"];
-                            \$meta_content = \$meta_data["meta_content{\$i}"];
-                            if (!empty(\$meta_name) && !empty(\$meta_content)) {
-                                echo "<meta name='\$meta_name' content='\$meta_content' />";
-                            }
-                        }
-                    }
-                ?>
-                <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-                <link rel="preconnect" href="https://fonts.googleapis.com">
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-                <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-                <link rel="stylesheet" href="../css/main.css" />
-                <script src="../javascript/main.js" defer></script>
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                <link rel="icon" href="../<?php echo \$favicon; ?>" type="image/x-icon">
-                <title>$uc_page_name</title>
-            </head>
-            <body id="container">
-                <?php require("../includes/header2.php"); ?>
-                <div class="body_container">
-                    <div class="body_left">
-                        <div class="page_links">
-                            <a href="../">Home</a> > <p>Resources ($uc_page_name)</p>
-                        </div>
-                        <h1 class='bodyleft_header3'>Search $uc_page_name</h1>
-                        <form class="header_searchbar2 search_input" id="search_form" action="$filename" method="get">
-                            <input type="text" name="query" id="search-bar" placeholder="Search.." />
-                            <button class="fa fa-search" type="submit" onclick="submitSearch()"></button>
-                        </form>
-                        <div id="search-results">
-                            <div id="results-container" class="more_posts"></div>
-                        </div>
-                        <div class='more_posts'>
-                            <?php
-                                \$sql = "SELECT name, resource_path, niche, title, date_added FROM $tableName ORDER BY id DESC";
-                                \$result = \$conn->query(\$sql);
-                                if (\$result->num_rows > 0) {
-                                    while (\$row = \$result->fetch_assoc()) {
-                                        \$title = \$row["title"];
-                                        \$max_length = 50;
-                                        \$niche = \$row["niche"];
-                                        \$date = \$row["date_added"];
-                                        \$path = \$row["resource_path"];
-                                        \$dateTime = new DateTime(\$date);
-                                        \$day = \$dateTime->format('j');
-                                        \$month = \$dateTime->format('M');
-                                        \$year = \$dateTime->format('Y');
-                                        \$ordinalSuffix = getOrdinalSuffix(\$day);
-                                        \$formattedDate = \$month . ' ' . \$day . \$ordinalSuffix . ', ' . \$year;
-                                        if (strlen(\$title) > \$max_length) {
-                                           \$title = substr(\$title, 0, \$max_length) . '...';
-                                        }
-                                        if (containsFilesPath(\$path)) {
-                                            \$path = '../' . \$path;
-                                        }
-                                        echo "  <a class='more_posts_subdiv'>
-                                                    <img src='../images/resurces_img.png' alt='Resource Image' />
-                                                    <div class='more_posts_subdiv_subdiv'>
-                                                        <h1>\$title</h1>
-                                                        <span>\$formattedDate</span>
-                                                    </div>
-                                                    <div class='view_whitepaper'>
-                                                        <div class='posts_btn' onclick=\"window.location.href='\$path'\" target='_blank'>
-                                                            <i class='fa fa-eye' aria-hidden='true'></i>
-                                                        </div>
-                                                    </div>
-                                                    <p class='posts_div_niche'>\$niche</p>
-                                        </a>";
-                                    }
-                                } else {
-                                    echo "<p>No $uc_page_name Uploaded Yet.</p>";
-                                }
-                            ?>
-                        </div>
-                    </div>
-                    <div class="body_right border-gradient-leftside--lightdark">
-                        <div class="subscribe_container">
-                            <form class="sec2__susbribe-box other_width" method="POST" action="" id="susbribe-box">
-                                <div class="icon">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                </div>
-                                <h1 class="sec2__susbribe-box-header">Subscribe to Updates</h1>
-                                <p class="sec2__susbribe-box-p1">Get the latest Updates and Info from Uniquetechcontentwriter on $uc_page_name, Artificial Intelligence and lots more.</p>
-                                <input class="sec2__susbribe-box_input" type="text" placeholder="Your Email Address..." name="email" required />
-                                <input class="sec2__susbribe-box_btn" type="submit" value="Submit" name="submit_btn" />
-                            </form>
-                            <div id="thank-you-message"></div>
-                        </div>
-                        <h3 class="bodyleft_header3 border-gradient-bottom--lightdark">Editor's Picks</h3>
-                        <?php include("../helpers/editorspicks.php"); ?>
-                    </div>
-                </div>
-                <?php include("../includes/footer2.php"); ?>
-                <script src="sweetalert2.all.min.js"></script>
-                <script>
-                    const closeMenuBtn = document.querySelector('.sidebarbtn');
-                    const sidebar = document.getElementById('sidebar');
-                    const menubtn = document.querySelector('.mainheader__header-nav-2');
-                    var messageType = "<?= \$_SESSION['status_type'] ?? ' ' ?>";
-                    var messageText = "<?= \$_SESSION['status'] ?? ' ' ?>";
-                    function removeHiddenClass(e) {
-                        e.stopPropagation();
-                        sidebar.classList.remove('hidden');
-                    };
-                    function onClickOutside(element) {
-                        document.addEventListener('click', e => {
-                            if (!element.contains(e.target)) {
-                                element.classList.add('hidden');
-                            } else return;
-                        });
-                    };
-                    onClickOutside(sidebar);
-                    menubtn.addEventListener('click', removeHiddenClass);
-                    closeMenuBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        sidebar.classList.toggle('hidden');
-                    });
-                    function submitSearch() {
-                        var query = document.getElementById("search-bar").value;
-                        if (query.trim() !== "") {
-                            fetch("$filename?query=" + encodeURIComponent(query))
-                                .then(response => response.text())
-                                .then(data => {
-                                    document.getElementById("results-container").innerHTML = data;
-                                })
-                                .catch(error => console.error("Error fetching results:", error));
-                        } else {
-                            document.getElementById("search-results").style.display = "none";
-                        }
-                    }
-                </script>
-                <script>
-                    if (messageType == 'Error' && messageText != " ") {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: messageText,
-                            icon: 'error',
-                            confirmButtonText: 'Ok'
-                        })
-                    } else if (messageType == 'Info' && messageText != " ") {
-                        Swal.fire({
-                            title: 'Info!',
-                            text: messageText,
-                            showConfirmButton: true,
-                            confirmButtonText: 'Ok',
-                            icon: 'info'
-                        })
-                    } else if (messageType == 'Success' && messageText != " ") {
-                        Swal.fire({
-                            title: 'Success',
-                            text: messageText,
-                            icon: 'success',
-                            confirmButtonText: 'Ok'
-                        })
-                    }
-                    <?php unset(\$_SESSION['status_type']); ?>
-                    <?php unset(\$_SESSION['status']); ?>
-                </script>
-            </body>
-            </html>
-        PHP;
+    } else if ($userType === 'Editor') {
         if (file_put_contents($filePath, $fileContent)) {
             if (!empty($convertedPath) && empty($resource_url)) {
                 $stmt = $conn->prepare("INSERT INTO $tableName (name, resource_path, date_added, time_added, niche, title) VALUES (?, ?, ?, ?, ?, ?)");
@@ -1439,7 +1048,7 @@ function createCategory($category_name, $category_image, $userType)
            \$details = getFaviconAndLogo();
            \$logo = \$details['logo'];
            \$favicon = \$details['favicon'];
-           if (isset(\$_POST['submit_btn'])) {
+            if (isset(\$_POST['submit_btn'])) {
                 \$email = \$_POST["email"];
                 \$sendEmail = sendEmail(\$email);
                 \$_SESSION['status_type'] = \$sendEmail['status_type'];
@@ -1471,6 +1080,11 @@ function createCategory($category_name, $category_image, $userType)
             <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
             <link rel="stylesheet" href="../css/main.css" />
             <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+            <script src="../javascript/main.js" defer></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <link rel="icon" href="../<?php echo \$favicon; ?>" type="image/x-icon">
             <title>$uc_category_name</title>
         </head>
         <body id="container">
@@ -1484,8 +1098,6 @@ function createCategory($category_name, $category_image, $userType)
                 const closeMenuBtn = document.querySelector('.sidebarbtn');
                 const sidebar = document.getElementById('sidebar');
                 const menubtn = document.querySelector('.mainheader__header-nav-2');
-                var messageType = "<?= \$_SESSION['status_type'] ?? '' ?>";
-                var messageText = "<?= \$_SESSION['status'] ?? '' ?>";
                 function removeHiddenClass(e) {
                     e.stopPropagation();
                     sidebar.classList.remove('hidden');
@@ -1503,35 +1115,16 @@ function createCategory($category_name, $category_image, $userType)
                     e.stopPropagation();
                     sidebar.classList.toggle('hidden');
                 });
-                function submitSearch() {
-                    var query = document.getElementById("search-bar").value;
-                    if (query.trim() !== "") {
-                        fetch("$filename?query=" + encodeURIComponent(query))
-                            .then(response => response.text())
-                            .then(data => {
-                            document.getElementById("results-container").innerHTML = data;
-                        })
-                        .catch(error => console.error("Error fetching results:", error));
-                    } else {
-                        document.getElementById("search-results").style.display = "none";
-                    }
-                }
             </script>
             <script>
+                var messageType = "<?= \$_SESSION['status_type'] ?>";
+                var messageText = "<?= \$_SESSION['status'] ?>";
                 if (messageType == 'Error' && messageText != " ") {
                     Swal.fire({
                         title: 'Error!',
                         text: messageText,
                         icon: 'error',
                         confirmButtonText: 'Ok'
-                    })
-                } else if (messageType == 'Info' && messageText != " ") {
-                    Swal.fire({
-                        title: 'Info!',
-                        text: messageText,
-                        showConfirmButton: true,
-                        confirmButtonText: 'Ok',
-                        icon: 'info'
                     })
                 } else if (messageType == 'Success' && messageText != " ") {
                     Swal.fire({

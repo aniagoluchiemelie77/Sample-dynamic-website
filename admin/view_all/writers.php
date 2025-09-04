@@ -138,23 +138,6 @@ $userFirstname = $_SESSION['firstname'];
     </section>
     <script src="sweetalert2.all.min.js"></script>
     <script>
-        function submitSearch() {
-            var query = document.getElementById("search-bar").value;
-            if (query.trim() !== "") {
-                fetch("writers.php?query=" + encodeURIComponent(query))
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("search-results").innerHTML = data;
-                        document.getElementById("search-results").style.display = "block";
-                    })
-                    .catch(error => console.error("Error fetching results:", error));
-            } else {
-                document.getElementById("search-results").style.display = "none";
-            }
-        }
-    </script>
-    <script src="sweetalert2.all.min.js"></script>
-    <script>
         var messageType = "<?= $_SESSION['status_type'] ?>";
         var messageText = "<?= $_SESSION['status'] ?>";
         if (messageType == 'Error' && messageText != " ") {

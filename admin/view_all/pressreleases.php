@@ -31,7 +31,7 @@ $posttype = 'Press Releases';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../javascript/admin.js" async></script>
+    <script src="../../javascript/admin.js" defer></script>
     <link rel="icon" href="../../<?php echo $favicon; ?>" type="image/x-icon">
     <title><?php echo $translations['view_press_releases']; ?></title>
 </head>
@@ -84,21 +84,6 @@ $posttype = 'Press Releases';
                 });
             });
         });
-
-        function submitSearch() {
-            var query = document.getElementById("search-bar").value;
-            if (query.trim() !== "") {
-                fetch("pressreleases.php?query=" + encodeURIComponent(query))
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("search-results").innerHTML = data;
-                        document.getElementById("search-results").style.display = "block";
-                    })
-                    .catch(error => console.error("Error fetching results:", error));
-            } else {
-                document.getElementById("search-results").style.display = "none";
-            }
-        }
     </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>

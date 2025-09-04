@@ -225,8 +225,8 @@ a,p,li{font-size:var(--pfontsize);font-weight:400;line-height:1.5;text-decoratio
 .subscribe_div{background-color:var(--color30);width:80%;margin:1rem 0;padding:var(--divpadding-highest);color:var(--color60-shade);min-height:fit-content;display:flex;flex-direction:column;align-items:center}
 .subscribe_div p{padding-bottom:1.5rem;max-width:90%}
 .more_posts{padding:var(--divpadding-highest);display:flex;width:100%;flex-wrap:wrap}
-.more_posts .more_posts_subdiv{position:relative;height:50vh;width:20vw;color:var(--color30-shade);border:1px solid #2222224a;margin:1rem;cursor:pointer}
-.more_posts .more_posts_subdiv img{height:70%;object-fit:cover;width:100%}
+.more_posts .more_posts_subdiv{position:relative;height:55vh;width:20vw;color:var(--color30-shade);border:1px solid #2222224a;margin:1rem;cursor:pointer}
+.more_posts .more_posts_subdiv img{height:60%;object-fit:cover;width:100%}
 .more_posts .more_posts_subdiv div{padding:0 1rem}
 .more_posts .more_posts_subdiv div h1{font-size:var(--header-h8);width:100%;font-weight:600}
 .more_posts .more_posts_subdiv div span{font-size:1rem;color:#222222a0}

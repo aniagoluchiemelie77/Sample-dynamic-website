@@ -62,8 +62,6 @@ if (isset($_POST['subscribe_btn2'])) {
         const closeMenuBtn = document.querySelector('.sidebarbtn');
         const sidebar = document.getElementById('sidebar');
         const menubtn = document.querySelector('.mainheader__header-nav-2');
-        var messageType = "<?= $_SESSION['status_type'] ?? ' ' ?>";
-        var messageText = "<?= $_SESSION['status'] ?? ' ' ?>";
 
         function removeHiddenClass(e) {
             e.stopPropagation();
@@ -83,51 +81,24 @@ if (isset($_POST['subscribe_btn2'])) {
             e.stopPropagation();
             sidebar.classList.toggle('hidden');
         });
-
-        function submitSearch() {
-            var query = document.getElementById("search-bar").value;
-            if (query.trim() !== "") {
-                fetch("cybersecurity.php?query=" + encodeURIComponent(query))
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("results-container").innerHTML = data;
-                    })
-                    .catch(error => console.error("Error fetching results:", error));
-            } else {
-                document.getElementById("search-results").style.display = "none";
-            }
-        }
     </script>
     <script>
-        const Toast = Swal.mixin({
-            customClass: {
-                popup: 'rounded-xl shadow-lg',
-                title: 'text-lg font-semibold',
-                confirmButton: 'bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700'
-            },
-            buttonsStyling: false,
-            backdrop: `rgba(0,0,0,0.4)`,
-            showClass: {
-                popup: 'animate__animated animate__fadeInDown'
-            },
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutUp'
-            }
-        });
-
-        if (messageType && messageText.trim() !== "") {
-            let iconColors = {
-                'Error': '#e74c3c',
-                'Success': '#2ecc71',
-                'Info': '#3498db'
-            };
-
-            Toast.fire({
-                icon: messageType.toLowerCase(),
-                title: messageText,
-                iconColor: iconColors[messageType] || '#3498db',
-                confirmButtonText: 'Got it'
-            });
+        var messageType = "<?= $_SESSION['status_type'] ?>";
+        var messageText = "<?= $_SESSION['status'] ?>";
+        if (messageType == 'Error' && messageText != " ") {
+            Swal.fire({
+                title: 'Error!',
+                text: messageText,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else if (messageType == 'Success' && messageText != " ") {
+            Swal.fire({
+                title: 'Success',
+                text: messageText,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
         }
 
         <?php unset($_SESSION['status_type']); ?>

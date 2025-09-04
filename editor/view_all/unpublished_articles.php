@@ -49,22 +49,6 @@ $userFirstname = $_SESSION['firstname'];
     $favType = null;
     renderPostTypePage($editor_base_url, $userFirstname, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
     ?>
-    <script>
-        function submitSearch() {
-            var query = document.getElementById("search-bar").value;
-            if (query.trim() !== "") {
-                fetch("unpublished_articles.php?query=" + encodeURIComponent(query))
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("search-results").innerHTML = data;
-                        document.getElementById("search-results").style.display = "block";
-                    })
-                    .catch(error => console.error("Error fetching results:", error));
-            } else {
-                document.getElementById("search-results").style.display = "none";
-            }
-        }
-    </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?>";

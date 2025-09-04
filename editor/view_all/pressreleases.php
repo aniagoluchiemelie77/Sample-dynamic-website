@@ -1,8 +1,8 @@
 <?php
 session_start();
-        $language = $language ?? 'en';
-        $translations = $translations ?? [];
-        $editor_base_url = $editor_base_url ?? '';
+$language = $language ?? 'en';
+$translations = $translations ?? [];
+$editor_base_url = $editor_base_url ?? '';
 include("../connect.php");
 require("../init.php");
 require('../../init.php');
@@ -43,11 +43,11 @@ $userFirstname = $_SESSION['firstname'];
     $userType = $_SESSION['user'] ?? 'Editor';
     $post_type_dbname = "press_releases";
     $postTypeVal = 'id6';
-        $delete_querytype = 'confirmDeletePR';
-        $userFirstname = $_SESSION['firstname'];
+    $delete_querytype = 'confirmDeletePR';
+    $userFirstname = $_SESSION['firstname'];
     $postTypeVal2 = 'post_id3';
     $favType = 'isfavourite3';
-        renderPostTypePage($editor_base_url, $userFirstname, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
+    renderPostTypePage($editor_base_url, $userFirstname, $userType, $post_type_dbname, $postTypeVal, $delete_querytype, $postTypeVal2, $favType);
     ?>
 
     <script>
@@ -86,21 +86,6 @@ $userFirstname = $_SESSION['firstname'];
                 });
             });
         });
-
-        function submitSearch() {
-            var query = document.getElementById("search-bar").value;
-            if (query.trim() !== "") {
-                fetch("pressreleases.php?query=" + encodeURIComponent(query))
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("search-results").innerHTML = data;
-                        document.getElementById("search-results").style.display = "block";
-                    })
-                    .catch(error => console.error("Error fetching results:", error));
-            } else {
-                document.getElementById("search-results").style.display = "none";
-            }
-        }
     </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>

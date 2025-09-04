@@ -85,25 +85,6 @@ $userFirstname = $_SESSION['firstname'];
             });
         });
     </script>
-    <script>
-        function submitSearch() {
-            var query = document.getElementById("search-bar").value;
-            if (query.trim() !== "") {
-                fetch("posts.php?query=" + encodeURIComponent(query))
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("search-results").innerHTML = data;
-                        document.getElementById("search-results").style.display = "block";
-
-                        // Ensure other sections remain visible
-                        document.querySelector(".posts_divcontainer").style.display = "block";
-                    })
-                    .catch(error => console.error("Error fetching results:", error));
-            } else {
-                document.getElementById("search-results").style.display = "none";
-            }
-        }
-    </script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
         var messageType = "<?= $_SESSION['status_type'] ?>";

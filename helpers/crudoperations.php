@@ -358,3 +358,9 @@ if (!function_exists('deleteUserAction')) {
         }
     }
 }
+if (!function_exists('containsFilesPath')) {
+    function containsFilesPath($string)
+    {
+        return strpos($string, 'files/') !== false;
+    }
+}

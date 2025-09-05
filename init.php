@@ -30,6 +30,7 @@ $dotenv->safeLoad();
 $cloud_name = $_ENV['CLOUDINARY_CLOUD_NAME'];
 $api_key = $_ENV['CLOUDINARY_API_KEY'];
 $api_secret = $_ENV['CLOUDINARY_API_SECRET'];
+$email_password = $_ENV['EMAIL_PASSWORD'];
 Configuration::instance([
     'cloud' => [
         'cloud_name' => $cloud_name,
@@ -100,7 +101,7 @@ function metaTitles()
 if (!function_exists('sendEmail')) {
 function sendEmail($email)
 {
-    global $conn;
+        global $conn, $email_password;
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $date = date("Y-m-d");
@@ -126,7 +127,7 @@ function sendEmail($email)
                     $mail->Host       = 'smtp.gmail.com';
                     $mail->SMTPAuth   = true;
                     $mail->Username   = 'aniagoluchiemelie77@gmail.com';
-                    $mail->Password   = 'ozmsoscaivmkrbuu';
+                        $mail->Password   = $email_password;
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                     $mail->Port       = 587;
                     $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
@@ -162,6 +163,7 @@ function sendEmail($email)
 if (!function_exists('sendOTP')) {
 function sendOTP($email, $firstname, $token)
 {
+        global $email_password;
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -169,7 +171,7 @@ function sendOTP($email, $firstname, $token)
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'aniagoluchiemelie77@gmail.com';
-        $mail->Password   = 'ozmsoscaivmkrbuu';
+            $mail->Password   = $email_password;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
         $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
@@ -239,7 +241,7 @@ function unsubscribe($email)
 if (!function_exists('sendNewPostNotification')) {
 function sendNewpostNotification($post_title, $post_link, $post_image, $post_subtitle)
 {
-    global $conn;
+        global $conn, $email_password;
     $sql = "SELECT email FROM subscribers";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -252,7 +254,7 @@ function sendNewpostNotification($post_title, $post_link, $post_image, $post_sub
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'aniagoluchiemelie77@gmail.com';
-                $mail->Password = 'ozmsoscaivmkrbuu';
+                    $mail->Password = $email_password;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
                 $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
@@ -263,7 +265,7 @@ function sendNewpostNotification($post_title, $post_link, $post_image, $post_sub
                                     <img src='$post_image' alt='Post Image' style='width:600px;height:400px;'/>
                                     <h1 style='padding:1rem;display:block;'>$post_title</h1>
                                     <h2 style='padding:1rem;display:block'>$post_subtitle</h2>
-                                    <a href='$post_link' style='text-decoration:none;padding:10px 16px;border-radius:16pz;color: white;background-color:#222;cursor:pointer;margin-right:16px;'>Read Post</a>
+                                    <a href='$post_link' style='text-decoration:none;padding:10px 16px;border-radius:16px;color: white;background-color:#222;cursor:pointer;margin-right:16px;'>Read Post</a>
                                     <a href='http://localhost/Sample-dynamic-website/forms.php?email=$email' style='text-decoration:none;padding:10px 16px;border-radius:16px;color: white;background-color:#222;cursor:pointer;'>Unsubscribe</a>
                                     
                                 </div>";
@@ -280,7 +282,7 @@ function sendNewpostNotification($post_title, $post_link, $post_image, $post_sub
 if (!function_exists('sendMessageToSubscriber')) {
 function sendMessageToSubscriber($id, $message_title = null, $message_body = null)
 {
-    global $conn;
+        global $conn, $email_password;
     $getSubscriber = "SELECT email FROM subscribers WHERE id = $id";
     $getSubscriber_result = $conn->query($getSubscriber);
     if ($getSubscriber_result->num_rows > 0) {
@@ -293,7 +295,7 @@ function sendMessageToSubscriber($id, $message_title = null, $message_body = nul
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'aniagoluchiemelie77@gmail.com';
-                $mail->Password = 'ozmsoscaivmkrbuu';
+                    $mail->Password = $email_password;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
                 $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
@@ -328,7 +330,7 @@ function sendMessageToSubscriber($id, $message_title = null, $message_body = nul
 if (!function_exists('sendMessageToUser')) {
 function sendMessageToUser($id, $message_title = null, $message_body = null)
 {
-    global $conn;
+        global $conn, $email_password;
     $getSubscriber = "SELECT email FROM otherwebsite_users WHERE id = $id";
     $getSubscriber_result = $conn->query($getSubscriber);
     if ($getSubscriber_result->num_rows > 0) {
@@ -341,7 +343,7 @@ function sendMessageToUser($id, $message_title = null, $message_body = null)
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'aniagoluchiemelie77@gmail.com';
-                $mail->Password = 'ozmsoscaivmkrbuu';
+                    $mail->Password = $email_password;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
                 $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');
@@ -375,7 +377,7 @@ function sendMessageToUser($id, $message_title = null, $message_body = null)
 if (!function_exists('sendMessageToWriter')) {
 function sendMessageToWriter($id, $message_title = null, $message_body = null)
 {
-    global $conn;
+        global $conn, $email_password;
     $getSubscriber = "SELECT email FROM writer WHERE id = $id";
     $getSubscriber_result = $conn->query($getSubscriber);
     if ($getSubscriber_result->num_rows > 0) {
@@ -388,7 +390,7 @@ function sendMessageToWriter($id, $message_title = null, $message_body = null)
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'aniagoluchiemelie77@gmail.com';
-                $mail->Password = 'ozmsoscaivmkrbuu';
+                    $mail->Password = $email_password;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
                 $mail->setFrom('aniagoluchiemelie77@gmail.com', 'Aniagolu Chiemelie');

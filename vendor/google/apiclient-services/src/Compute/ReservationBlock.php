@@ -48,6 +48,14 @@ class ReservationBlock extends \Google\Model
   protected $reservationMaintenanceType = GroupMaintenanceInfo::class;
   protected $reservationMaintenanceDataType = '';
   /**
+   * @var int
+   */
+  public $reservationSubBlockCount;
+  /**
+   * @var int
+   */
+  public $reservationSubBlockInUseCount;
+  /**
    * @var string
    */
   public $selfLink;
@@ -175,6 +183,34 @@ class ReservationBlock extends \Google\Model
   public function getReservationMaintenance()
   {
     return $this->reservationMaintenance;
+  }
+  /**
+   * @param int
+   */
+  public function setReservationSubBlockCount($reservationSubBlockCount)
+  {
+    $this->reservationSubBlockCount = $reservationSubBlockCount;
+  }
+  /**
+   * @return int
+   */
+  public function getReservationSubBlockCount()
+  {
+    return $this->reservationSubBlockCount;
+  }
+  /**
+   * @param int
+   */
+  public function setReservationSubBlockInUseCount($reservationSubBlockInUseCount)
+  {
+    $this->reservationSubBlockInUseCount = $reservationSubBlockInUseCount;
+  }
+  /**
+   * @return int
+   */
+  public function getReservationSubBlockInUseCount()
+  {
+    return $this->reservationSubBlockInUseCount;
   }
   /**
    * @param string
